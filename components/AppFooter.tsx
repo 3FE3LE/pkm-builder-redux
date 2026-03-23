@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function AppFooter() {
   return (
-    <footer className="mt-8 border-t border-line">
+    <footer className="mt-8 border-t border-line bg-transparent">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 text-sm text-muted sm:px-6 lg:px-10">
         <span>Redux Team Builder</span>
         <Link

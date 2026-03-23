@@ -18,20 +18,11 @@ const STARTER_DEX: Record<StarterKey, number> = {
   oshawott: 501,
 };
 
-function OnboardingFeatureCard({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <article className="rounded-[0.75rem] border border-line p-4">
-      <p className="display-face text-sm">{title}</p>
-      <p className="mt-2 text-sm text-muted">{description}</p>
-    </article>
-  );
-}
+const STARTER_BASE_TYPES: Record<StarterKey, string[]> = {
+  snivy: ["Grass"],
+  tepig: ["Fire"],
+  oshawott: ["Water"],
+};
 
 function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
   const { docs } = useTeamCatalogs();
@@ -51,14 +42,12 @@ function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
       : starterKey === "tepig"
         ? "starter-glow-tepig"
         : "starter-glow-oshawott";
-  const currentTypes =
+  const resolvedCurrentTypes =
     resolvePokemonProfile(docs, starterData.species)?.resolvedTypes ?? [];
-  const finalSpecies = starterData.stageSpecies.at(-1);
-  const finalTypes = finalSpecies
-    ? (resolvePokemonProfile(docs, finalSpecies)?.resolvedTypes ?? [])
-    : [];
-  const finalDistinct = finalTypes.join("|") !== currentTypes.join("|");
-
+  const currentTypes =
+    resolvedCurrentTypes.length > 0
+      ? resolvedCurrentTypes
+      : STARTER_BASE_TYPES[starterKey];
   return (
     <motion.button
       type="button"
@@ -72,7 +61,7 @@ function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
       }}
       transition={{ duration: 0.28, ease: "easeOut" }}
       className={clsx(
-        "group panel relative overflow-hidden rounded-[0.9rem] border border-line p-5 text-left transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill",
+        "group panel relative overflow-hidden rounded-[0.9rem] border border-line p-3 text-left transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill sm:p-4 lg:p-5",
         isSelecting &&
           "primary-selection border-primary-line-active",
       )}
@@ -96,10 +85,7 @@ function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
         transition={isSelecting ? { duration: 0.45, times: [0, 0.45, 1] } : undefined}
       />
       <div className="relative">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <p className="display-face mt-2 text-3xl">{starterData.species}</p>
-          </div>
+        <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:text-left">
           <motion.div
             animate={
               isSelecting
@@ -121,28 +107,26 @@ function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
               spriteUrl={starterSprites.spriteUrl}
               animatedSpriteUrl={starterSprites.animatedSpriteUrl}
               isEvolving={isSelecting}
-              size="large"
+              size="default"
               chrome="plain"
             />
           </motion.div>
+          <div className="w-full sm:min-w-0 sm:w-auto">
+            <div className="sm:hidden">
+              <p className="starter-name-face">{starterData.species}</p>
+            </div>
+            <div className="hidden sm:block">
+              <p className="starter-name-face sm:mt-2">{starterData.species}</p>
+            </div>
+          </div>
         </div>
-        <p className="mt-3 text-sm text-muted">{starterData.headline}</p>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-2 flex flex-col items-center gap-1 sm:mt-3 sm:flex-row sm:flex-wrap sm:justify-start sm:gap-2">
           {currentTypes.map((type) => (
             <TypeBadge key={`${starterKey}-${type}`} type={type} />
           ))}
         </div>
-        {finalDistinct && finalTypes.length ? (
-          <div className="mt-3">
-            <p className="display-face text-xs text-muted">Tipo final</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {finalTypes.map((type) => (
-                <TypeBadge key={`${starterKey}-final-${type}`} type={type} />
-              ))}
-            </div>
-          </div>
-        ) : null}
-        <div className="mt-6 flex items-center justify-between gap-3">
+        <p className="mt-2 hidden text-sm text-muted sm:block">{starterData.headline}</p>
+        <div className="mt-4 hidden items-center justify-between gap-3 sm:flex">
           <span className="text-sm text-muted">
             {starterData.rolePlan.slice(0, 2).join(" · ")}
           </span>
@@ -158,17 +142,14 @@ export function OnboardingScreen() {
   const onboarding = useTeamOnboarding();
 
   return (
-    <main className="relative overflow-hidden px-4 py-6 sm:px-6 lg:px-10">
+    <main className="relative overflow-hidden px-3 py-4 sm:px-5 sm:py-5 lg:px-8 lg:py-6">
       <motion.section
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="mx-auto max-w-7xl"
       >
-        <div className="panel-strong relative overflow-hidden rounded-[1rem] p-6 sm:p-8">
-          <div className="spotlight-primary-soft absolute -right-16 top-[-3rem] h-48 w-48 rounded-full blur-3xl" />
-          <div className="spotlight-accent-soft absolute left-[-3rem] top-24 h-32 w-32 rounded-full blur-3xl" />
-          <p className="display-face text-sm text-accent">Onboarding</p>
+        <div>
           <h1 className="display-face mt-3 max-w-4xl text-4xl leading-none sm:text-6xl">
             Elige tu inicial y arranca el run.
           </h1>
@@ -176,26 +157,12 @@ export function OnboardingScreen() {
             La elección define el primer slot del equipo y el enfoque de sugerencias del checkpoint. Después entras directo al builder para completar el resto del roster.
           </p>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-3 gap-2 sm:mt-8 sm:gap-4">
             {(Object.keys(starters) as StarterKey[]).map((starterKey) => (
               <OnboardingStarterCard key={starterKey} starterKey={starterKey} />
             ))}
           </div>
 
-          <div className="mt-8 grid gap-3 lg:grid-cols-3">
-            <OnboardingFeatureCard
-              title="Roster superior"
-              description="Sprites, tipos, moves y lectura rápida del equipo como bloque principal."
-            />
-            <OnboardingFeatureCard
-              title="Stats promedio"
-              description="HP, Atk, Def, SpA, SpD, Spe y BST promedio visibles al principio del builder."
-            />
-            <OnboardingFeatureCard
-              title="Cobertura y amenazas"
-              description="Multiplicadores exactos `x4`, `x2`, `x1`, `x0.5`, `x0.25` y `x0`."
-            />
-          </div>
         </div>
 
         {onboarding.modalStarter ? (

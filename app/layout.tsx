@@ -74,9 +74,9 @@ export default function RootLayout({
       lang="es"
       className={cn("font-sans", GeistSans.variable, GeistPixelCircle.variable)}
     >
-      <body>
+      <body className="flex min-h-screen flex-col">
         <AppNav />
-        {children}
+        <div className="flex-1">{children}</div>
         <AppFooter />
       </body>
     </html>
