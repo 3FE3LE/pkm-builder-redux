@@ -1,0 +1,350 @@
+"use client";
+
+import { AnimatePresence, motion } from 'motion/react';
+import { CSSProperties, useState } from 'react';
+
+import {
+  EditorHeader,
+  EditorMovesSection,
+  EditorProfileSection,
+  EditorStatsSection,
+} from '@/components/team/EditorSections';
+import { MovePickerModal } from '@/components/team/MovePickerModal';
+import { Button } from '@/components/ui/Button';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/Sheet';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { editableMemberSchema } from '@/lib/builderForm';
+import { createEditable, EditableMember } from '@/lib/builderStore';
+import { ResolvedTeamMember } from '@/lib/teamAnalysis';
+
+import type {
+  AbilityCatalogEntry,
+  ItemCatalogEntry,
+  SpeciesCatalogEntry,
+} from "@/components/team/editorTypes";
+import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
+import type { EvolutionEligibility } from "@/lib/domain/evolutionEligibility";
+import type { BattleWeather } from "@/lib/domain/battle";
+
+type PokemonEditorSheetProps = {
+  member?: EditableMember;
+  resolved?: ResolvedTeamMember;
+  weather: BattleWeather;
+  roleRecommendation?: MemberRoleRecommendation;
+  speciesCatalog: SpeciesCatalogEntry[];
+  abilityCatalog: AbilityCatalogEntry[];
+  itemCatalog: ItemCatalogEntry[];
+  onOpenChange: (open: boolean) => void;
+  onChange: (next: EditableMember) => void;
+  onOpenMoveModal: (slotIndex: number | null) => void;
+  onRemoveMoveAt: (index: number) => void;
+  onReorderMove: (fromIndex: number, toIndex: number) => void;
+  onRequestEvolution: () => void;
+  editorEvolutionEligibility: EvolutionEligibility[];
+  selectedMoveIndex: number | null;
+  onSelectMoveIndex: (index: number | null) => void;
+  movePickerMemberId: string | null;
+  movePickerSlotIndex: number | null;
+  movePickerTab: "levelUp" | "machines";
+  movePickerActiveMember?: ResolvedTeamMember;
+  currentMoves: string[];
+  onMovePickerTabChange: (tab: "levelUp" | "machines") => void;
+  onCloseMovePicker: () => void;
+  onPickMove: (moveName: string) => void;
+  getMoveSurfaceStyle: (type?: string | null) => CSSProperties | undefined;
+};
+
+export function PokemonEditorSheet({
+  member,
+  resolved,
+  weather,
+  roleRecommendation,
+  speciesCatalog,
+  abilityCatalog,
+  itemCatalog,
+  onOpenChange,
+  onChange,
+  onOpenMoveModal,
+  onRemoveMoveAt,
+  onReorderMove,
+  onRequestEvolution,
+  editorEvolutionEligibility,
+  selectedMoveIndex,
+  onSelectMoveIndex,
+  movePickerMemberId,
+  movePickerSlotIndex,
+  movePickerTab,
+  movePickerActiveMember,
+  currentMoves,
+  onMovePickerTabChange,
+  onCloseMovePicker,
+  onPickMove,
+  getMoveSurfaceStyle,
+}: PokemonEditorSheetProps) {
+  const [editorTab, setEditorTab] = useState<"stats" | "moves">("stats");
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetFields, setResetFields] = useState({
+    nickname: true,
+    level: true,
+    gender: true,
+    nature: true,
+    ability: true,
+    item: true,
+    moves: true,
+    ivs: true,
+    evs: true,
+  });
+  const open = Boolean(member);
+  if (!member) {
+    return <Sheet open={false} onOpenChange={onOpenChange} />;
+  }
+
+  const values = member;
+  const currentMember = member;
+  const parsedValues = editableMemberSchema.safeParse(values);
+  const currentLevel = Number(values.level ?? 1);
+  const currentSpecies = String(values.species ?? "");
+  const nicknameValue = String(values.nickname ?? "").trim();
+  const issues = parsedValues.success ? [] : parsedValues.error.issues;
+  const getIssue = (path: string) =>
+    issues.find((issue) => issue.path.join(".") === path)?.message;
+  const canRequestEvolution = editorEvolutionEligibility.some(
+    (entry) => entry.eligible,
+  );
+  const evolutionBlockReason =
+    !canRequestEvolution && editorEvolutionEligibility.length
+      ? editorEvolutionEligibility
+          .flatMap((entry) => entry.reasons.slice(0, 2))
+          .filter(Boolean)
+          .slice(0, 2)
+          .join(" · ")
+      : undefined;
+  const currentNature = String(values.nature ?? "Serious");
+  const currentAbility = String(values.ability ?? "");
+  const currentItem = String(values.item ?? "");
+
+  function updateEditorMember(
+    updater: (current: EditableMember) => EditableMember,
+  ) {
+    const next = updater(currentMember);
+    const parsed = editableMemberSchema.safeParse(next);
+    onChange(parsed.success ? parsed.data : next);
+  }
+
+  function resetSelectedFields() {
+    const defaults = createEditable(currentSpecies);
+    defaults.locked = currentMember.locked;
+    defaults.nickname = currentSpecies;
+
+    updateEditorMember((current) => ({
+      ...current,
+      nickname: resetFields.nickname ? defaults.nickname : current.nickname,
+      level: resetFields.level ? defaults.level : current.level,
+      gender: resetFields.gender ? defaults.gender : current.gender,
+      nature: resetFields.nature ? defaults.nature : current.nature,
+      ability: resetFields.ability ? defaults.ability : current.ability,
+      item: resetFields.item ? defaults.item : current.item,
+      moves: resetFields.moves ? defaults.moves : current.moves,
+      ivs: resetFields.ivs ? defaults.ivs : current.ivs,
+      evs: resetFields.evs ? defaults.evs : current.evs,
+    }));
+    setResetOpen(false);
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent
+        side="right"
+        className="w-screen max-w-none overflow-y-auto border-l border-line bg-[linear-gradient(180deg,rgba(5,15,19,0.98),rgba(4,10,13,0.98))] p-0 text-text data-[side=right]:w-full sm:w-full sm:max-w-[35rem]"
+      >
+        <SheetHeader className="pt-10 px-0 pb-0">
+          <EditorHeader
+            member={member}
+            resolved={resolved}
+            currentSpecies={currentSpecies}
+            currentLevel={currentLevel}
+            currentGender={member.gender}
+            getIssue={getIssue}
+            hasEvolution={canRequestEvolution}
+            evolutionBlockReason={evolutionBlockReason}
+            updateEditorMember={updateEditorMember}
+            onRequestEvolution={onRequestEvolution}
+            onOpenReset={() => setResetOpen(true)}
+          />
+          <SheetTitle className="sr-only">
+            {nicknameValue ||
+              resolved?.species ||
+              currentSpecies ||
+              "Pokemon pendiente"}
+          </SheetTitle>
+        </SheetHeader>
+
+        <div className="space-y-4 px-4 sm:space-y-5 sm:px-5 sm:py-4">
+          <EditorProfileSection
+            member={member}
+            resolved={resolved}
+            speciesCatalog={speciesCatalog}
+            abilityCatalog={abilityCatalog}
+            itemCatalog={itemCatalog}
+            nicknameValue={nicknameValue}
+            currentSpecies={currentSpecies}
+            currentNature={currentNature}
+            currentAbility={currentAbility}
+            currentItem={currentItem}
+            updateEditorMember={updateEditorMember}
+            getIssue={getIssue}
+          />
+          <Tabs
+            value={editorTab}
+            onValueChange={(value) => setEditorTab(value as "stats" | "moves")}
+            className="gap-0"
+          >
+            <TabsList className="scrollbar-thin relative z-10 -mb-px flex h-auto w-full flex-nowrap items-end gap-1 overflow-x-auto bg-transparent p-0 pb-1 sm:overflow-visible sm:pb-0">
+              <TabsTrigger
+                value="stats"
+                className="flex-none rounded-t-[0.9rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-xs text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:px-4 sm:py-2.5 sm:text-sm"
+              >
+                Stats
+              </TabsTrigger>
+              <TabsTrigger
+                value="moves"
+                className="flex-none rounded-t-[0.9rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-xs text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:px-4 sm:py-2.5 sm:text-sm"
+              >
+                Moves
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent
+              value="stats"
+              className="rounded-[0_1rem_1rem_1rem] p-0"
+            >
+              <EditorStatsSection
+                member={member}
+                resolved={resolved}
+                roleRecommendation={roleRecommendation}
+                currentLevel={currentLevel}
+                currentNature={currentNature}
+                currentAbility={currentAbility}
+                currentItem={currentItem}
+                weather={weather}
+                abilityCatalog={abilityCatalog}
+                itemCatalog={itemCatalog}
+                hasEvolution={Boolean(resolved?.nextEvolutions?.length)}
+                getIssue={getIssue}
+                updateEditorMember={updateEditorMember}
+              />
+            </TabsContent>
+
+            <TabsContent
+              value="moves"
+              className="rounded-[0_1rem_1rem_1rem] p-0"
+            >
+              <EditorMovesSection
+                currentMoves={member.moves}
+                resolved={resolved}
+                selectedMoveIndex={selectedMoveIndex}
+                onSelectMoveIndex={onSelectMoveIndex}
+                onOpenMoveModal={onOpenMoveModal}
+                onRemoveMoveAt={onRemoveMoveAt}
+                onReorderMove={onReorderMove}
+              />
+            </TabsContent>
+          </Tabs>
+          {movePickerMemberId === member.id && movePickerActiveMember ? (
+            <MovePickerModal
+              member={movePickerActiveMember}
+              currentMoves={currentMoves}
+              slotIndex={movePickerSlotIndex}
+              tab={movePickerTab}
+              weather={weather}
+              onTabChange={onMovePickerTabChange}
+              onClose={onCloseMovePicker}
+              onPickMove={onPickMove}
+              getMoveSurfaceStyle={getMoveSurfaceStyle}
+            />
+          ) : null}
+        </div>
+        <AnimatePresence>
+          {resetOpen ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.76)] px-4 backdrop-blur-md"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                className="panel-strong w-full max-w-lg rounded-[1rem] p-5"
+              >
+                <p className="display-face text-sm text-accent">
+                  Reset del slot
+                </p>
+                <p className="mt-2 text-sm text-muted">
+                  Elige exactamente qué quieres restablecer. Todas las opciones
+                  vienen marcadas por defecto.
+                </p>
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {Object.entries(resetFields).map(([key, checked]) => (
+                    <label
+                      key={key}
+                      className="flex items-center gap-3 rounded-[0.75rem] border border-line bg-surface-3 px-3 py-2 text-sm"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={(event) =>
+                          setResetFields((current) => ({
+                            ...current,
+                            [key]: event.target.checked,
+                          }))
+                        }
+                      />
+                      <span>
+                        {RESET_LABELS[key as keyof typeof resetFields]}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+                <div className="mt-5 flex justify-end gap-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setResetOpen(false)}
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={resetSelectedFields}
+                  >
+                    Aplicar reset
+                  </Button>
+                </div>
+              </motion.div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+const RESET_LABELS = {
+  nickname: "Nickname",
+  level: "Nivel",
+  gender: "Genero",
+  nature: "Naturaleza",
+  ability: "Habilidad",
+  item: "Objeto",
+  moves: "Moveset",
+  ivs: "IVs",
+  evs: "EVs",
+};

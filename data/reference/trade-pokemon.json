@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Togepi Trade",
+    "location": "Route 4.",
+    "requested": "a Meowth",
+    "received": "Togepi",
+    "traits": [
+      "---",
+      "Talk to the Lass (BB2 Redux) or Youngster (VW2 Redux) on Route 4 to initiate the trade.",
+      "They are each looking for a Meowth in exchange for Togepi, which can be found on Route 20. (See Wild Area Changes Document).",
+      "The Togepi has the following traits:",
+      "30 IV's in all stats except Attack, which has an IV stat of 0.",
+      "A Timid nature.",
+      "The ability Serene Grace.",
+      "Togepi is holding a Metronome."
+    ]
+  },
+  {
+    "name": "Ditto Trade",
+    "location": "Route 7.",
+    "requested": "a Feebas",
+    "received": "Ditto",
+    "traits": [
+      "---",
+      "Talk to the Hiker living in a house on Route 7 to initiate the trade.",
+      "He is looking for a Feebas in exchange for Ditto, which can be found in various areas around Unova. (See Wild Area Changes Document).",
+      "The Ditto has the following traits:",
+      "31 IV's in all stats.",
+      "A Hardy nature.",
+      "The ability Imposter.",
+      "Ditto is holding a Metal Powder.",
+      "This Ditto should be super handy for anyone who wants to lean into the Pokémon Breeding side of things! (Although the egg moves might be a little scuffed, with all the move replacements. ;))"
+    ]
+  },
+  {
+    "name": "Phione Trade",
+    "location": "Route 7.",
+    "requested": "a Lumineon",
+    "received": "Phione",
+    "traits": [
+      "---",
+      "Talk to the Rough-Neck living in Humilau City to initiate the trade.",
+      "He is looking for a Lumineon in exchange for Phione, which can also be found in various areas around Unova, or evolved from Finneon. (See Wild Area Changes Document).",
+      "The Phione has the following traits:",
+      "31 IV's in all stats.",
+      "A Bashful nature.",
+      "The ability Hydration.",
+      "Phione is holding a Lucky Egg."
+    ]
+  }
+]

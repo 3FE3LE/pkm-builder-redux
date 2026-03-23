@@ -1,0 +1,122 @@
+{
+  "red-scarf": {
+    "name": "Red Scarf",
+    "replacedBy": "Ice Stone"
+  },
+  "oval-stone": {
+    "name": "Oval Stone",
+    "replacedBy": "Link Cable"
+  },
+  "god/grey-stone": {
+    "name": "God/Grey Stone'",
+    "replacedBy": "Old Sea Map"
+  },
+  "poke-ball": {
+    "name": "Poké Ball",
+    "cost": {
+      "from": 200,
+      "to": 50
+    }
+  },
+  "great-ball": {
+    "name": "Great Ball",
+    "cost": {
+      "from": 600,
+      "to": 150
+    }
+  },
+  "ultra-ball": {
+    "name": "Ultra Ball",
+    "cost": {
+      "from": 1200,
+      "to": 300
+    }
+  },
+  "heart-scale": {
+    "name": "Heart Scale",
+    "cost": {
+      "from": 100,
+      "to": 1000
+    }
+  },
+  "red-shard": {
+    "name": "Red Shard",
+    "cost": {
+      "from": 200,
+      "to": 600
+    }
+  },
+  "blue-shard": {
+    "name": "Blue Shard",
+    "cost": {
+      "from": 200,
+      "to": 600
+    }
+  },
+  "yellow-shard": {
+    "name": "Yellow Shard",
+    "cost": {
+      "from": 200,
+      "to": 600
+    }
+  },
+  "green-shard": {
+    "name": "Green Shard",
+    "cost": {
+      "from": 200,
+      "to": 600
+    }
+  },
+  "deep-sea-scale": {
+    "name": "Deep Sea Scale",
+    "hasUseOption": true
+  },
+  "deep-sea-tooth": {
+    "name": "Deep Sea Tooth",
+    "hasUseOption": true
+  },
+  "dragon-scale": {
+    "name": "Dragon Scale",
+    "hasUseOption": true
+  },
+  "dubious-disc": {
+    "name": "Dubious Disc",
+    "hasUseOption": true
+  },
+  "electirizer": {
+    "name": "Electirizer",
+    "hasUseOption": true
+  },
+  "kings-rock": {
+    "name": "King's Rock",
+    "hasUseOption": true
+  },
+  "magmarizer": {
+    "name": "Magmarizer",
+    "hasUseOption": true
+  },
+  "metal-coat": {
+    "name": "Metal Coat",
+    "hasUseOption": true
+  },
+  "protector": {
+    "name": "Protector",
+    "hasUseOption": true
+  },
+  "reaper-cloth": {
+    "name": "Reaper Cloth",
+    "hasUseOption": true
+  },
+  "up-grade": {
+    "name": "Up-Grade",
+    "hasUseOption": true
+  },
+  "ice-stone": {
+    "name": "Ice Stone",
+    "hasUseOption": true
+  },
+  "link-cable": {
+    "name": "Link Cable",
+    "hasUseOption": true
+  }
+}

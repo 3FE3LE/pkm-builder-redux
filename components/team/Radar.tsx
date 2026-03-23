@@ -1,0 +1,378 @@
+"use client";
+
+import clsx from "clsx";
+
+import { applyStatModifiers, calculateEffectiveStats } from "@/lib/domain/battle";
+import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
+import type { EditableMember } from "@/lib/builderStore";
+
+const ZERO_SPREAD = {
+  hp: 0,
+  atk: 0,
+  def: 0,
+  spa: 0,
+  spd: 0,
+  spe: 0,
+} satisfies Record<keyof EditableMember["ivs"], number>;
+
+export function buildSummaryStats(
+  baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>,
+  natureEffect: NonNullable<ResolvedTeamMember["natureEffect"]>,
+  statModifiers?: ResolvedTeamMember["statModifiers"],
+) {
+  const natureAdjusted = {
+    hp: baseStats.hp,
+    atk: Math.round(
+      baseStats.atk *
+        (natureEffect.up === "atk"
+          ? 1.1
+          : natureEffect.down === "atk"
+            ? 0.9
+            : 1),
+    ),
+    def: Math.round(
+      baseStats.def *
+        (natureEffect.up === "def"
+          ? 1.1
+          : natureEffect.down === "def"
+            ? 0.9
+            : 1),
+    ),
+    spa: Math.round(
+      baseStats.spa *
+        (natureEffect.up === "spa"
+          ? 1.1
+          : natureEffect.down === "spa"
+            ? 0.9
+            : 1),
+    ),
+    spd: Math.round(
+      baseStats.spd *
+        (natureEffect.up === "spd"
+          ? 1.1
+          : natureEffect.down === "spd"
+            ? 0.9
+            : 1),
+    ),
+    spe: Math.round(
+      baseStats.spe *
+        (natureEffect.up === "spe"
+          ? 1.1
+          : natureEffect.down === "spe"
+            ? 0.9
+            : 1),
+    ),
+    bst: baseStats.bst,
+  };
+  const adjusted = statModifiers?.length
+    ? applyStatModifiers(natureAdjusted, statModifiers)
+    : natureAdjusted;
+  return {
+    ...adjusted,
+    bst: baseStats.bst,
+  };
+}
+
+export function EffectiveStatsRadar({
+  effectiveStats,
+  baseStats,
+  level,
+  nature,
+  ivs,
+  evs,
+  statModifiers,
+  natureEffect,
+}: {
+  effectiveStats: NonNullable<ResolvedTeamMember["effectiveStats"]>;
+  baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>;
+  level: number;
+  nature: string;
+  ivs: Partial<EditableMember["ivs"]>;
+  evs: Partial<EditableMember["evs"]>;
+  statModifiers?: ResolvedTeamMember["statModifiers"];
+  natureEffect?: ResolvedTeamMember["natureEffect"];
+}) {
+  const maxStats = buildMaxPotentialStats(baseStats, level, statModifiers);
+  const axes = [
+    { label: "HP", key: "hp" as const },
+    { label: "Atk", key: "atk" as const },
+    { label: "Def", key: "def" as const },
+    { label: "Spe", key: "spe" as const },
+    { label: "SpD", key: "spd" as const },
+    { label: "SpA", key: "spa" as const },
+  ];
+  const center = 120;
+  const radius = 82;
+  const levels = [0.25, 0.5, 0.75, 1];
+  const baseLayerStats = applyStatModifiers(
+    calculateEffectiveStats(baseStats, level, nature, ZERO_SPREAD, ZERO_SPREAD),
+    statModifiers ?? [],
+  );
+  const ivLayerStats = applyStatModifiers(
+    calculateEffectiveStats(baseStats, level, nature, ivs, {}),
+    statModifiers ?? [],
+  );
+  const evLayerStats = effectiveStats;
+  const points = axes.map((axis, index) =>
+    buildRadarPoint(
+      axis,
+      index,
+      evLayerStats[axis.key],
+      maxStats[axis.key],
+      center,
+      radius,
+      axes.length,
+    ),
+  );
+  const basePoints = axes.map((axis, index) =>
+    buildRadarPoint(
+      axis,
+      index,
+      baseLayerStats[axis.key],
+      maxStats[axis.key],
+      center,
+      radius,
+      axes.length,
+    ),
+  );
+  const ivPoints = axes.map((axis, index) =>
+    buildRadarPoint(
+      axis,
+      index,
+      ivLayerStats[axis.key],
+      maxStats[axis.key],
+      center,
+      radius,
+      axes.length,
+    ),
+  );
+  const polygon = points.map((point) => `${point.x},${point.y}`).join(" ");
+  const basePolygon = basePoints.map((point) => `${point.x},${point.y}`).join(" ");
+  const ivPolygon = ivPoints.map((point) => `${point.x},${point.y}`).join(" ");
+  const ivLayerPath = buildLayerPath(ivPoints, basePoints);
+  const evLayerPath = buildLayerPath(points, ivPoints);
+
+  return (
+    <div className="w-full">
+      <svg viewBox="0 0 240 240" className="h-auto w-full overflow-visible">
+        {levels.map((levelValue) => {
+          const ring = axes
+            .map((_, index) => {
+              const angle = -Math.PI / 2 + (index * Math.PI * 2) / axes.length;
+              const x = center + Math.cos(angle) * radius * levelValue;
+              const y = center + Math.sin(angle) * radius * levelValue;
+              return `${x},${y}`;
+            })
+            .join(" ");
+          return (
+            <polygon
+              key={`radar-level-${levelValue}`}
+              points={ring}
+              fill="none"
+              stroke="rgba(255,255,255,0.08)"
+              strokeWidth="1"
+            />
+          );
+        })}
+        {points.map((point) => (
+          <line
+            key={`radar-axis-${point.key}`}
+            x1={center}
+            y1={center}
+            x2={point.axisX}
+            y2={point.axisY}
+            stroke="rgba(255,255,255,0.08)"
+            strokeWidth="1"
+          />
+        ))}
+        <polygon
+          points={basePolygon}
+          fill="rgba(255,255,255,0.045)"
+          stroke="rgba(255,255,255,0.28)"
+          strokeWidth="1.25"
+        />
+        <path
+          d={ivLayerPath}
+          fill="rgba(99,144,240,0.18)"
+          fillRule="evenodd"
+        />
+        <path
+          d={evLayerPath}
+          fill="rgba(185,255,102,0.16)"
+          fillRule="evenodd"
+        />
+        <polygon
+          points={ivPolygon}
+          fill="none"
+          stroke="rgba(99,144,240,0.82)"
+          strokeWidth="1.5"
+        />
+        <polygon
+          points={polygon}
+          fill="none"
+          stroke="rgba(185,255,102,0.92)"
+          strokeWidth="2"
+        />
+        {basePoints.map((point) => (
+          <circle
+            key={`radar-base-point-${point.key}`}
+            cx={point.x}
+            cy={point.y}
+            r="2.2"
+            fill="rgba(255,255,255,0.55)"
+          />
+        ))}
+        {ivPoints.map((point) => (
+          <circle
+            key={`radar-iv-point-${point.key}`}
+            cx={point.x}
+            cy={point.y}
+            r="2.7"
+            fill="rgba(99,144,240,0.95)"
+          />
+        ))}
+        {points.map((point) => (
+          <circle
+            key={`radar-point-${point.key}`}
+            cx={point.x}
+            cy={point.y}
+            r="3.5"
+            fill="rgba(185,255,102,1)"
+          />
+        ))}
+        {points.map((point) => (
+          <text
+            key={`radar-label-${point.key}`}
+            x={point.labelX}
+            y={point.labelY}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className={clsx(
+              "text-[10px] font-medium",
+              point.key === "hp" || point.key === "spe"
+                ? "[line-height:1.1]"
+                : "[line-height:1.45]",
+              getNatureTone(point.key, natureEffect),
+            )}
+          >
+            {point.label}
+            {natureEffect?.up === point.key
+              ? "↑"
+              : natureEffect?.down === point.key
+                ? "↓"
+                : ""}
+          </text>
+        ))}
+        {points.map((point) => (
+          <text
+            key={`radar-value-${point.key}`}
+            x={point.labelX}
+            y={point.valueY}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className={clsx(
+              "text-[10px] font-medium",
+              point.key === "hp" || point.key === "spe"
+                ? "[line-height:1.05]"
+                : "[line-height:1.35]",
+              getNatureTone(point.key, natureEffect, "fill-text"),
+            )}
+          >
+            {point.value}
+          </text>
+        ))}
+      </svg>
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-[11px] text-muted">
+        <span className="inline-flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-[rgba(255,255,255,0.65)]" />
+          base
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-[rgba(99,144,240,0.9)]" />
+          + IV
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-[rgba(185,255,102,0.9)]" />
+          + EV
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function buildMaxPotentialStats(
+  baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>,
+  level: number,
+  statModifiers?: ResolvedTeamMember["statModifiers"],
+) {
+  const maxed = {
+    hp: calculateEffectiveStats(baseStats, level, "Hardy", { hp: 31 }, { hp: 252 }).hp,
+    atk: calculateEffectiveStats(baseStats, level, "Adamant", { atk: 31 }, { atk: 252 }).atk,
+    def: calculateEffectiveStats(baseStats, level, "Bold", { def: 31 }, { def: 252 }).def,
+    spa: calculateEffectiveStats(baseStats, level, "Modest", { spa: 31 }, { spa: 252 }).spa,
+    spd: calculateEffectiveStats(baseStats, level, "Calm", { spd: 31 }, { spd: 252 }).spd,
+    spe: calculateEffectiveStats(baseStats, level, "Timid", { spe: 31 }, { spe: 252 }).spe,
+    bst: 0,
+  };
+  const withBst = {
+    ...maxed,
+    bst: maxed.hp + maxed.atk + maxed.def + maxed.spa + maxed.spd + maxed.spe,
+  };
+  return statModifiers?.length ? applyStatModifiers(withBst, statModifiers) : withBst;
+}
+
+function buildRadarPoint(
+  axis: { label: string; key: "hp" | "atk" | "def" | "spe" | "spd" | "spa" },
+  index: number,
+  value: number,
+  maxValue: number,
+  center: number,
+  radius: number,
+  totalAxes: number,
+) {
+  const ratio = Math.max(0, Math.min(1, value / Math.max(1, maxValue)));
+  const angle = -Math.PI / 2 + (index * Math.PI * 2) / totalAxes;
+
+  return {
+    ...axis,
+    ratio,
+    x: center + Math.cos(angle) * radius * ratio,
+    y: center + Math.sin(angle) * radius * ratio,
+    labelX: center + Math.cos(angle) * (radius + 26),
+    labelY: center + Math.sin(angle) * (radius + 26),
+    valueY:
+      center +
+      Math.sin(angle) *
+        (radius + (axis.key === "hp" || axis.key === "spe" ? 40 : 47)),
+    axisX: center + Math.cos(angle) * radius,
+    axisY: center + Math.sin(angle) * radius,
+    value,
+    max: maxValue,
+  };
+}
+
+function buildLayerPath(
+  outerPoints: Array<{ x: number; y: number }>,
+  innerPoints: Array<{ x: number; y: number }>,
+) {
+  const outer = outerPoints.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ");
+  const inner = [...innerPoints]
+    .reverse()
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`)
+    .join(" ");
+  return `${outer} Z ${inner} Z`;
+}
+
+function getNatureTone(
+  stat: "hp" | "atk" | "def" | "spe" | "spd" | "spa",
+  natureEffect?: ResolvedTeamMember["natureEffect"],
+  fallback = "fill-muted",
+) {
+  if (natureEffect?.up === stat) {
+    return "fill-danger";
+  }
+  if (natureEffect?.down === stat) {
+    return "fill-info";
+  }
+  return fallback;
+}

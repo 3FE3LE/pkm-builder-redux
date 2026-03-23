@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnpm-store/
+package-lock.json
+npm-shrinkwrap.json
+
+# next.js
+.next/
+.next/**
+out/
+
+# builds
+dist/
+build/
+coverage/
+.codex-tests/
+
+# typescript / tooling caches
+*.tsbuildinfo
+.turbo/
+.cache/
+.eslintcache
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# environment
+.env
+.env.*
+!.env.example
+
+# deployment
+.vercel/
+
+# editors / os
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

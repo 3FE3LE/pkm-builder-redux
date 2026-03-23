@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "dex": 1,
+    "slug": "bulbasaur",
+    "name": "Bulbasaur",
+    "canonicalSource": "PokeAPI",
+    "reduxSource": "Documentation/Pokemon Changes.txt",
+    "notes": [
+      "Este archivo sirve como plantilla de estructura: primero dato canonico, luego overrides de Redux.",
+      "Genesect es el #649, asi que el rango correcto para Gen 5 completo es 1..649."
+    ]
+  },
+  "canonical": {
+    "id": 1,
+    "name": "Bulbasaur",
+    "types": ["Grass", "Poison"],
+    "abilities": ["Overgrow", "Chlorophyll"],
+    "stats": {
+      "hp": 45,
+      "atk": 49,
+      "def": 49,
+      "spa": 65,
+      "spd": 65,
+      "spe": 45,
+      "bst": 318
+    },
+    "nextEvolutions": ["Ivysaur"],
+    "sprites": {
+      "frontDefault": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      "officialArtwork": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+    }
+  },
+  "redux": {
+    "complete": {
+      "abilities": ["Solar Power", "Overgrow", "Chlorophyll"]
+    },
+    "classic": {
+      "abilities": ["Chlorophyll", "Overgrow", "Chlorophyll"]
+    },
+    "learnsets": {
+      "machines": [
+        {
+          "source": "TM56",
+          "move": "Weather Ball"
+        }
+      ],
+      "levelUp": [
+        { "level": 1, "move": "Ancient Power" },
+        { "level": 1, "move": "Block" },
+        { "level": 1, "move": "Tackle" },
+        { "level": 1, "move": "Growl" },
+        { "level": 4, "move": "Vine Whip" },
+        { "level": 7, "move": "Worry Seed" },
+        { "level": 10, "move": "Razor Leaf" },
+        { "level": 13, "move": "Poison Powder" },
+        { "level": 13, "move": "Stun Spore" },
+        { "level": 16, "move": "Charm" },
+        { "level": 19, "move": "Magical Leaf" },
+        { "level": 22, "move": "Sludge" },
+        { "level": 25, "move": "Nature Power" },
+        { "level": 28, "move": "Seed Bomb" },
+        { "level": 31, "move": "Take Down" },
+        { "level": 34, "move": "Leech Seed" },
+        { "level": 37, "move": "Natural Gift" },
+        { "level": 40, "move": "Amnesia" },
+        { "level": 43, "move": "Double-Edge" },
+        { "level": 46, "move": "Synthesis" }
+      ]
+    }
+  }
+}

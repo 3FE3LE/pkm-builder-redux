@@ -1,0 +1,198 @@
+[
+  {
+    "name": "Snivy, Tepig or Oshawott",
+    "location": "Aspertia City, Lookout Spot.",
+    "level": "5",
+    "notes": [
+      "---",
+      "This is the starter you recieve at the beginning of Redux, by talking to Bianca.",
+      "The Pokémon always holds an Oran berry.",
+      "This starter always has their first ability.",
+      "On the Complete version, this means Snivy will always have Contrary, Tepig Sheer Force and Oshawott Shell Armor."
+    ]
+  },
+  {
+    "name": "'Elemental Monkey' Gift",
+    "location": "Floccesy Town, Outside.",
+    "level": "5",
+    "notes": [
+      "---",
+      "Talk to the Mart Assistant to receive an Elemental Monkey.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive the Monkey.",
+      "The Monkey is the type weak to your starter, thus:",
+      "If you choose Tepig you will receive a Pansage.",
+      "If you choose Snivy you will receive a Panpour.",
+      "If you choose Oshawott you will receive a Pansear."
+    ]
+  },
+  {
+    "name": "Ranch Egg Gift",
+    "location": "Floccesy Ranch, just past the location of the Rival Battle.",
+    "level": "1",
+    "notes": [
+      "---",
+      "Talk to the Daycare Woman roaming Floccesy Ranch to receive an Egg.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive the Egg.",
+      "The Egg will hatch into one of the following Pokémon at random:",
+      "You can save before collecting the Egg and soft reset if you don't like the result."
+    ]
+  },
+  {
+    "name": "Bulbasaur, Charmander or Squirtle",
+    "location": "Virbank City, House by the Gym.",
+    "level": "5",
+    "notes": [
+      "---",
+      "Speak to the Juggler to receive either Bulbasaur, Charmander or Squirtle.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive a Pokémon.",
+      "Hidden Grottos can be used to obtain the other two Pokémon, see the Wild Pokémon document for more details.",
+      "Bulbasaur, Charmander and Squirtle each know a special event move! See the Pokémon Changes document for more details."
+    ]
+  },
+  {
+    "name": "Meditite Egg",
+    "location": "Virbank City, gifted to the player by Brawly.",
+    "level": "1",
+    "notes": [
+      "---",
+      "Defeat Brawly in battle to receive a Meditite Egg!",
+      "You will need a free slot in your party to collect the Egg, but you can come back after the fight to collect it.",
+      "E.g. you can fight him with a team of six, then deposit a Pokémon, then collect the Egg, then fight him again.",
+      "He will only give the player a single Egg. After the Egg has been collected, Brawly will not give you another, even if you defeat him again!"
+    ]
+  },
+  {
+    "name": "Eevee",
+    "location": "Castelia City, Fennel's office.",
+    "level": "10",
+    "notes": [
+      "---",
+      "On Easy and Normal mode, speak to Amanita with a free slot in your party to receive an Eevee.",
+      "On Challenge Mode, this gift becomes available in the postgame, like in vanilla.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive the Eevee.",
+      "A stone to evolve Eevee into a chosen evolution can be obtained in Castelia Gardens, see the 'Item Changes' document for more information."
+    ]
+  },
+  {
+    "name": "Chikorita, Cyndaquil or Totodile",
+    "location": "Castelia City, Battle Company, Top Floor.",
+    "level": "5",
+    "notes": [
+      "---",
+      "Speak to the Juggler to receive either Chikorita, Cyndaquil or Totodile.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive a Pokémon.",
+      "Hidden Grottos can be used to obtain the other two Pokémon, see the Wild Pokémon document for more details."
+    ]
+  },
+  {
+    "name": "Bonsly, Mime Jr., Glameow or Stunky Egg",
+    "location": "Castelia City, Battle Company, Top Floor.",
+    "level": "1",
+    "notes": [
+      "---",
+      "Defeat all trainers on both levels of the Battle Company and the Janitor will give the player a random Egg.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive an Egg.",
+      "The Egg will hatch into one of the following Pokémon at random:",
+      "You can save before collecting the Egg and soft reset if you don't like the result."
+    ]
+  },
+  {
+    "name": "Omanyte, Kabuto, Lileep, Anorith, Cranidos, Shieldon, Tirtouga or Archen",
+    "location": "Relic Castle, Desert Resort Entrance.",
+    "level": "25",
+    "notes": [
+      "---",
+      "New to Redux is the ability to revive Fossils before the postgame.",
+      "Speak to the female scientist within the upper floor of Relic Castle to revive a fossil you've obtained.",
+      "Standing next to the woman is Roark. When you speak to him, he will offer you a random fossil.",
+      "Whilst which fossil he offers is random, you can save before speaking to him and soft reset if you don't like the result.",
+      "Aerodactyl can be found as a fossil elsewhere, see 'Item Changes' for more information.",
+      "Indeed, all the other fossils can be found elsewhere too, so you can obtain all 9 nine fossil Pokémon in one game!",
+      "Don't forget to make space in your party to receive the Pokémon!"
+    ]
+  },
+  {
+    "name": "Treeko, Torchic or Mudkip",
+    "location": "Anville Town, South-western most House.",
+    "level": "5",
+    "notes": [
+      "---",
+      "Speak to the Juggler to receive either Treeko, Torchic or Mudkip.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive a Pokémon.",
+      "Hidden Grottos can be used to obtain the other two Pokémon, see the Wild Pokémon document for more details."
+    ]
+  },
+  {
+    "name": "Turtwig, Chimchar or Piplup",
+    "location": "Driftveil City, South-western most House.",
+    "level": "5",
+    "notes": [
+      "---",
+      "Speak to the Juggler to receive either Turtwig, Chimchar or Piplup.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive a Pokémon.",
+      "Hidden Grottos can be used to obtain the other two Pokémon, see the Wild Pokémon document for more details."
+    ]
+  },
+  {
+    "name": "N's Zorua",
+    "location": "Team Plasma's Safehouse.",
+    "level": "30",
+    "notes": [
+      "---",
+      "Just as in Vanilla, progress through the storyline and reach the safehouse.",
+      "After battling Rood, listen to his story inside. He will then give you N's Zorua to raise.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive a Pokémon.",
+      "Since the Zorua is N's, it will grow much faster than your own Pokémon."
+    ]
+  },
+  {
+    "name": "Corsola",
+    "location": "Season Research Lab.",
+    "level": "30",
+    "notes": [
+      "---",
+      "Speak to the Scientist at the back of the Season Research Lab.",
+      "Ensure you have a space free in your party, otherwise you will not be able to receive a Pokémon.",
+      "The Corsola is equipped with its hidden ability Regenerator and is also shiny!",
+      "These encounters can only be experienced once.",
+      "Make sure to save the game before you interact with them, just in case!",
+      "Thus, you can soft reset for shinies."
+    ]
+  },
+  {
+    "name": "Stantler",
+    "location": "Route 5, Hidden Grotto.",
+    "level": "",
+    "notes": [
+      "---",
+      "Guaranteed encounter, found during the 'Hidden Grotto' mechanic demonstration."
+    ]
+  },
+  {
+    "name": "Volcarona",
+    "location": "Relic Passage, accessed from the PWT. Back chambers.",
+    "level": "40",
+    "notes": [
+      "---",
+      "Like in vanilla, Volcarona is found with the Relic Passage."
+    ]
+  },
+  {
+    "name": "Lapras",
+    "location": "Village Bridge, water behind the Bridge.",
+    "level": "50",
+    "notes": [
+      "---",
+      "Lapras is found swimming around in the waters behind the Village Bridge."
+    ]
+  },
+  {
+    "name": "Rotom",
+    "location": "Shopping Mall Nine, bottom right room.",
+    "level": "50",
+    "notes": [
+      "---",
+      "Rotom is found in the backroom of Shopping Mall Nine, amongst the boxes which can be used to change its form."
+    ]
+  }
+]
