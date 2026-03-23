@@ -143,7 +143,7 @@ export function IvCalculatorSection({
 
   return (
     <section className="space-y-3">
-      <div className="rounded-[1rem] p-4">
+      <div className="px-1 py-1">
         <div className="grid gap-3 lg:grid-cols-[minmax(0,1.2fr)_minmax(17rem,0.8fr)] xl:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)]">
           <div className="space-y-3">
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_10rem_12rem]">
@@ -179,19 +179,20 @@ export function IvCalculatorSection({
               </div>
             </div>
 
-            <div className="rounded-[0.85rem] border border-line bg-surface-2 p-3">
+            <div className="px-1 py-1">
               <p className="display-face text-xs text-accent">Observed stats</p>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+              <div className="mt-3 flex flex-nowrap items-start justify-between gap-1 lg:flex-col lg:gap-2">
                 {statKeys.map((stat) => (
                   <motion.div
                     key={`iv-calc-${stat}`}
                     layout
-                    className="rounded-[0.8rem] border border-line bg-surface-1 p-2.5"
+                    className="min-w-0"
                   >
                     <SpreadInput
                       label={stat.toUpperCase()}
                       value={Number(observedStats[stat] || 0)}
                       max={999}
+                      orientation="responsive"
                       onChange={(next) =>
                         setObservedStats((current) => ({
                           ...current,
@@ -207,7 +208,7 @@ export function IvCalculatorSection({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -4, scale: 0.98 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
-                          className="mt-2 rounded-[0.6rem] border border-line bg-surface-2 px-2.5 py-2"
+                          className="mt-2 rounded-[0.6rem] bg-surface-2/60 px-2.5 py-2"
                         >
                           {!inferenceByStat[stat] || !inferenceByStat[stat]?.candidates.length ? (
                             <p className="text-[11px] text-danger">No cuadra con EV 0</p>
@@ -233,7 +234,7 @@ export function IvCalculatorSection({
             </div>
           </div>
 
-          <div className="rounded-[0.9rem] p-4">
+          <div className="px-1 py-1">
             {resolvedPokemon && speciesMeta ? (
               <>
                 <div className="flex items-start justify-between gap-3">
@@ -262,7 +263,7 @@ export function IvCalculatorSection({
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.24, ease: "easeOut" }}
-                    className="mt-4 rounded-[0.85rem] p-3"
+                    className="mt-4 px-1 py-1"
                   >
                     <p className="display-face text-xs text-accent">Add to team</p>
                     <div className="mt-3 grid gap-3">
@@ -305,7 +306,7 @@ export function IvCalculatorSection({
                         <p className="display-face text-[10px] text-muted">Moves learned by level</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           {suggestedMoves.length ? suggestedMoves.map((move) => (
-                            <span key={`capture-move-${move}`} className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1 text-xs text-text">
+                            <span key={`capture-move-${move}`} className="rounded-[6px] bg-surface-3 px-2.5 py-1 text-xs text-text">
                               {move}
                             </span>
                           )) : (

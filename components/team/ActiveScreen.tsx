@@ -98,6 +98,10 @@ export function ActiveScreen() {
   const draggedResolved = draggedMemberId
     ? team.resolvedTeam.find((member) => member.key === draggedMemberId)
     : undefined;
+  const starterLine = starters[session.starter].stageSpecies;
+  const starterMember = team.resolvedTeam.find((member) =>
+    starterLine.includes(member.species),
+  );
 
   useEffect(() => {
     if (!compareDropPulse) {
@@ -138,6 +142,7 @@ export function ActiveScreen() {
             evolvingIds={team.evolvingIds}
             activeMemberKey={team.activeMember?.key}
             onSelectMember={team.actions.selectMember}
+            onEditMember={team.actions.editMember}
             onToggleMemberLock={(id) =>
               team.actions.updateMember(id, (current) => ({
                 ...current,
@@ -209,13 +214,15 @@ export function ActiveScreen() {
                   activeRoleRecommendation={analysis.checkpointRisk.roleSnapshot.members.find(
                     (entry) => entry.key === team.activeMember?.key,
                   )}
+                  teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
                   milestoneId={analysis.contextualMilestoneId}
-                  starterSpecies={starters[session.starter].species}
-                  preferredTypes={starters[session.starter].preferredTypes}
+                  starterMember={starterMember}
                   checkpointRisk={analysis.checkpointRisk}
                   copilotSupportsRecommendations={analysis.copilotSupportsRecommendations}
+                  supportsContextualSwaps={analysis.supportsContextualSwaps}
                   nextEncounter={analysis.nextEncounter}
                   swapOpportunities={analysis.swapOpportunities}
+                  captureRecommendations={analysis.captureRecommendations}
                   speedTiers={analysis.speedTiers}
                   recommendation={analysis.recommendation}
                   moveRecommendations={analysis.moveRecommendations}

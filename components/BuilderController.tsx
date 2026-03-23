@@ -105,6 +105,7 @@ export function useBuilderController({
         returnToOnboarding: actions.returnToOnboarding,
         handleDragEnd: actions.handleDragEnd,
         selectMember: actions.selectMember,
+        editMember: actions.editMember,
         removeMember: actions.removeMember,
         addMember: actions.addMember,
         addPreparedMember: actions.addPreparedMember,
@@ -121,6 +122,7 @@ export function useBuilderController({
       averageStats: derived.averageStats,
       checkpointRisk: derived.checkpointRisk,
       copilotSupportsRecommendations: derived.copilotSupportsRecommendations,
+      supportsContextualSwaps: derived.supportsContextualSwaps,
       contextualMilestoneId: derived.contextualMilestoneId,
       nextEncounter: derived.nextEncounter,
       speedTiers: derived.speedTiers,
@@ -132,6 +134,7 @@ export function useBuilderController({
       sourceCards: derived.sourceCards,
       moveRecommendations: derived.moveRecommendations,
       swapOpportunities: derived.swapOpportunities,
+      captureRecommendations: derived.captureRecommendations,
     },
     compare: {
       members: ui.compareMembers,

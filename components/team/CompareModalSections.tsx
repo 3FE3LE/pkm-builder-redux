@@ -149,40 +149,79 @@ export function CompareMemberPanel({
   } = state;
 
   return (
-    <div className="rounded-[0.9rem] p-4">
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
-          <SpeciesCombobox
-            value={member.species}
-            speciesCatalog={speciesCatalog}
-            onChange={(species) =>
-              onChangeMember(index, {
-                ...member,
-                species,
-                nickname:
-                  normalizeName(member.nickname) === normalizeName(member.species) ||
-                  !member.nickname
-                    ? species
-                    : member.nickname,
-              })
-            }
-          />
-          <div className="mt-3 flex flex-wrap gap-2">
+    <div className="rounded-[0.9rem] px-0.5 py-0.5 sm:px-1 sm:py-1">
+      <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0 flex-1 order-2 sm:order-1">
+          <div className="sm:hidden">
+            <p className="display-face truncate text-[11px] text-text">
+              {resolved?.species || member.species || `Slot ${index + 1}`}
+            </p>
+          </div>
+          <div className="hidden sm:block">
+            <SpeciesCombobox
+              value={member.species}
+              speciesCatalog={speciesCatalog}
+              onChange={(species) =>
+                onChangeMember(index, {
+                  ...member,
+                  species,
+                  nickname:
+                    normalizeName(member.nickname) === normalizeName(member.species) ||
+                    !member.nickname
+                      ? species
+                      : member.nickname,
+                })
+              }
+            />
+          </div>
+          <div
+            className={clsx(
+              "mt-1.5 grid gap-1",
+              (resolved?.resolvedTypes?.length ?? 0) > 1 ? "grid-cols-2" : "grid-cols-1",
+              "sm:flex sm:flex-wrap sm:gap-2",
+            )}
+          >
             {resolved?.resolvedTypes?.map((type) => (
-              <TypeBadge key={`compare-${index}-${type}`} type={type} />
+              <TypeBadge
+                key={`compare-${index}-${type}`}
+                type={type}
+                className="w-full min-w-0 !px-1 !py-0.5 !text-[9px] !tracking-[0.04em] sm:w-auto sm:!px-2 sm:!py-1 sm:!text-[11px]"
+              />
             ))}
           </div>
         </div>
-        <PokemonSprite
-          species={resolved?.species ?? member.species ?? "Pokemon"}
-          spriteUrl={resolved?.spriteUrl}
-          animatedSpriteUrl={resolved?.animatedSpriteUrl}
-          size="large"
-          chrome="plain"
-        />
+        <div className="order-1 flex justify-center sm:order-2 sm:justify-end">
+          <div className="sm:hidden">
+            <div className="scale-[0.82]">
+              <PokemonSprite
+                species={resolved?.species ?? member.species ?? "Pokemon"}
+                spriteUrl={resolved?.spriteUrl}
+                animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                size="default"
+                chrome="plain"
+              />
+            </div>
+          </div>
+          <div className="hidden sm:block">
+            <PokemonSprite
+              species={resolved?.species ?? member.species ?? "Pokemon"}
+              spriteUrl={resolved?.spriteUrl}
+              animatedSpriteUrl={resolved?.animatedSpriteUrl}
+              size="large"
+              chrome="plain"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-1.5 grid grid-cols-1 gap-1.5 sm:mt-3 sm:grid-cols-2 sm:gap-2">
+        <StatCard label="BST" value={String(resolved?.resolvedStats?.bst ?? "-")} />
+        <div className="hidden sm:block">
+          <StatCard label="Spe" value={String(state.summaryStats?.spe ?? "-")} />
+        </div>
+      </div>
+
+      <div className="mt-3 hidden gap-2 sm:grid sm:grid-cols-2 xl:grid-cols-4">
         <label className="text-sm">
           <span className="mb-1 block text-muted">Lv</span>
           <Input
@@ -254,13 +293,13 @@ export function CompareMemberPanel({
         </label>
       </div>
 
-      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+      <div className="mt-3 hidden gap-2 sm:grid sm:grid-cols-2">
         <StatCard label="BST base" value={String(resolved?.resolvedStats?.bst ?? "-")} />
         <StatCard label="Nivel" value={String(member.level)} />
       </div>
 
       {effectiveStats && resolved?.resolvedStats ? (
-        <div className="rounded-[0.75rem] p-2">
+        <div className="mt-3 hidden rounded-[0.75rem] px-1 py-1 sm:block">
           <EffectiveStatsRadar
             effectiveStats={effectiveStats}
             baseStats={resolved.resolvedStats}
@@ -273,7 +312,7 @@ export function CompareMemberPanel({
           />
         </div>
       ) : (
-        <div className="mt-4 rounded-[0.75rem] border border-line px-4 py-5 text-sm text-muted">
+        <div className="mt-3 px-1 py-1 text-sm text-muted">
           Selecciona una especie válida para comparar.
         </div>
       )}
@@ -299,25 +338,24 @@ export function ComparisonSummary({
   ];
 
   return (
-    <div className="rounded-[0.9rem] p-4">
+    <div className="rounded-[0.9rem] px-1 py-1">
       <div className="flex items-center justify-center gap-2">
         <ArrowLeftRight className="h-5 w-5 text-accent" />
         <p className="display-face text-sm text-accent">Vs</p>
       </div>
-      <div className="mt-4 space-y-3">
-        <article className="rounded-[0.75rem] p-2">
-          <p className="display-face text-xs text-danger">Debilidades</p>
-          <div className="mt-3 grid gap-3">
-            <ComparisonBucket title="Izq" entries={left.weaknesses} fallback="Sin debilidades" />
-            <ComparisonBucket title="Der" entries={right.weaknesses} fallback="Sin debilidades" />
+      <div className="mt-3 grid gap-2 sm:space-y-0">
+        <article className="rounded-[0.75rem] px-1 py-1">
+          <p className="display-face text-center text-xs text-danger">Debilidades</p>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <ComparisonBucket entries={left.weaknesses} fallback="Sin debilidades" />
+            <ComparisonBucket entries={right.weaknesses} fallback="Sin debilidades" />
           </div>
         </article>
 
-        <article className="rounded-[0.75rem] p-2">
-          <p className="display-face text-xs text-info">Resistencias</p>
-          <div className="mt-3 grid gap-3">
+        <article className="rounded-[0.75rem] px-1 py-1">
+          <p className="display-face text-center text-xs text-info">Resistencias</p>
+          <div className="mt-2 grid grid-cols-2 gap-2">
             <ComparisonBucket
-              title="Izq"
               entries={left.resistances}
               fallback="Sin resistencias"
               pickBucket={(entry) =>
@@ -325,7 +363,6 @@ export function ComparisonSummary({
               }
             />
             <ComparisonBucket
-              title="Der"
               entries={right.resistances}
               fallback="Sin resistencias"
               pickBucket={(entry) =>
@@ -335,7 +372,7 @@ export function ComparisonSummary({
           </div>
         </article>
       </div>
-      <div className="mt-4 grid gap-2">
+      <div className="mt-3 grid gap-1.5 sm:gap-2">
         {summaryDiffs.map((entry) => {
           const leftValue = entry.left ?? null;
           const rightValue = entry.right ?? null;
@@ -347,10 +384,10 @@ export function ComparisonSummary({
           return (
             <div
               key={`compare-diff-${entry.label}`}
-              className="rounded-[0.625rem] px-3 py-2"
+              className="rounded-[0.625rem] px-2 py-1.5"
             >
-              <div className="display-face text-[11px] text-muted">{entry.label}</div>
-              <div className="mt-1 flex items-center justify-between gap-2 text-sm">
+              <div className="display-face text-[10px] text-muted sm:text-[11px]">{entry.label}</div>
+              <div className="mt-1 flex items-center justify-between gap-1.5 text-xs sm:gap-2 sm:text-sm">
                 <span
                   className={clsx(
                     typeof leftValue === "number" &&
@@ -393,24 +430,21 @@ export function ComparisonSummary({
 }
 
 function ComparisonBucket({
-  title,
   entries,
   fallback,
   pickBucket = (entry) => (entry.buckets.x4 > 0 ? "x4" : "x2"),
 }: {
-  title: string;
   entries: CompareState["weaknesses"];
   fallback: string;
   pickBucket?: (entry: CompareState["weaknesses"][number]) => "x4" | "x2" | "x0" | "x0.25" | "x0.5";
 }) {
   return (
-    <div className="rounded-[0.625rem] px-2.5 py-2">
-      <p className="mb-2 text-[10px] uppercase tracking-[0.12em] text-muted">{title}</p>
-      <div className="flex flex-wrap gap-2">
+    <div className="rounded-[0.625rem] px-1 py-1.5">
+      <div className="flex flex-wrap gap-1.5 sm:gap-2">
         {entries.length ? (
           entries.map((entry) => (
             <CoverageBadge
-              key={`${title}-${entry.attackType}`}
+              key={entry.attackType}
               type={entry.attackType}
               label={entry.attackType}
               bucket={pickBucket(entry)}

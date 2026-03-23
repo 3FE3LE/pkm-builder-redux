@@ -20,7 +20,8 @@ export type RecommendationFilterKey =
   | "excludeLegendaries"
   | "excludePseudoLegendaries"
   | "excludeUniquePokemon"
-  | "excludeOtherStarters";
+  | "excludeOtherStarters"
+  | "excludeExactTypeDuplicates";
 export type RecommendationFilterState = Record<RecommendationFilterKey, boolean>;
 
 export type ClaimedSourceBuckets = {
@@ -75,6 +76,7 @@ export function createEmptyRunState(): RunState {
         excludePseudoLegendaries: false,
         excludeUniquePokemon: false,
         excludeOtherStarters: false,
+        excludeExactTypeDuplicates: false,
       },
       battleWeather: "clear",
     },
@@ -118,6 +120,7 @@ export function createStartedRunState(
         excludePseudoLegendaries: false,
         excludeUniquePokemon: false,
         excludeOtherStarters: false,
+        excludeExactTypeDuplicates: false,
       },
       battleWeather: "clear",
     },

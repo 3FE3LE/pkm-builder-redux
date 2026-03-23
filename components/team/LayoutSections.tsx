@@ -39,11 +39,12 @@ import type {
 import { useDroppable } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
-import type { Milestone, StarterKey, TeamMember } from "@/lib/builder";
+import type { Milestone, StarterKey } from "@/lib/builder";
 
 type Recommendation = ReturnType<typeof import("@/lib/builder").getRecommendation>;
 type CheckpointRisk = ReturnType<typeof import("@/lib/domain/checkpointScoring").buildCheckpointRiskSnapshot>;
 type SwapOpportunity = ReturnType<typeof import("@/lib/domain/swapOpportunities").buildSwapOpportunities>[number];
+type CaptureRecommendation = ReturnType<typeof import("@/lib/domain/contextualRecommendations").buildCaptureRecommendations>[number];
 type SpeedTiers = ReturnType<typeof import("@/lib/domain/speedTiers").buildSpeedTierSnapshot>;
 type TeamRoleSnapshot = ReturnType<typeof import("@/lib/domain/roleAnalysis").buildTeamRoleSnapshot>;
 type MoveRecommendation = ReturnType<typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations>[number];
@@ -94,6 +95,7 @@ export function TeamRosterSection({
   evolvingIds,
   activeMemberKey,
   onSelectMember,
+  onEditMember,
   onToggleMemberLock,
   onRemoveMember,
   onAddMember,
@@ -106,6 +108,7 @@ export function TeamRosterSection({
   evolvingIds: Record<string, boolean>;
   activeMemberKey?: string;
   onSelectMember: (id: string) => void;
+  onEditMember: (id: string) => void;
   onToggleMemberLock: (id: string) => void;
   onRemoveMember: (id: string) => void;
   onAddMember: () => void;
@@ -140,6 +143,7 @@ export function TeamRosterSection({
               isEvolving={Boolean(evolvingIds[member.id])}
               isSelected={activeMemberKey === member.id}
               onSelect={() => onSelectMember(member.id)}
+              onEdit={() => onEditMember(member.id)}
               onToggleLock={() => onToggleMemberLock(member.id)}
               onAssignToCompare={() => onAssignToCompare(member.id)}
               onRemove={() => onRemoveMember(member.id)}
@@ -197,26 +201,30 @@ export function TeamAnalysisSection({
 export function CheckpointCopilotSection({
   activeMember,
   activeRoleRecommendation,
+  teamSize,
   milestoneId,
-  starterSpecies,
-  preferredTypes,
+  starterMember,
   checkpointRisk,
   copilotSupportsRecommendations,
+  supportsContextualSwaps,
   nextEncounter,
   swapOpportunities,
+  captureRecommendations,
   speedTiers,
   recommendation,
   moveRecommendations,
 }: {
   activeMember?: ResolvedTeamMember;
   activeRoleRecommendation?: MemberRoleRecommendation;
+  teamSize: number;
   milestoneId: string;
-  starterSpecies: string;
-  preferredTypes: string[];
+  starterMember?: ResolvedTeamMember;
   checkpointRisk: CheckpointRisk;
   copilotSupportsRecommendations: boolean;
+  supportsContextualSwaps: boolean;
   nextEncounter: RunEncounterDefinition | null;
   swapOpportunities: SwapOpportunity[];
+  captureRecommendations: CaptureRecommendation[];
   speedTiers: SpeedTiers;
   recommendation: Recommendation;
   moveRecommendations: MoveRecommendation[];
@@ -226,11 +234,12 @@ export function CheckpointCopilotSection({
       <CheckpointIntelligencePanel
         activeMember={activeMember}
         activeRoleRecommendation={activeRoleRecommendation}
+        teamSize={teamSize}
         copilotSupportsRecommendations={copilotSupportsRecommendations}
+        supportsContextualSwaps={supportsContextualSwaps}
         milestoneId={milestoneId}
         nextEncounter={nextEncounter}
-        starterSpecies={starterSpecies}
-        preferredTypes={preferredTypes}
+        starterMember={starterMember}
         checkpointRisk={checkpointRisk}
         speedTiers={speedTiers}
         swapOpportunities={swapOpportunities}
@@ -238,8 +247,10 @@ export function CheckpointCopilotSection({
         moveRecommendations={moveRecommendations}
       />
       <RecommendedCapturesPanel
+        teamSize={teamSize}
         swapOpportunities={swapOpportunities}
-        copilotSupportsRecommendations={copilotSupportsRecommendations}
+        captureRecommendations={captureRecommendations}
+        supportsContextualSwaps={supportsContextualSwaps}
         nextEncounter={nextEncounter}
       />
     </section>
@@ -277,7 +288,44 @@ export function CompareWorkspaceSection({
 
   return (
     <section className="space-y-2">
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_18rem_minmax(0,1fr)] xl:items-start">
+      <div className="grid grid-cols-2 gap-2.5 xl:hidden">
+        <div className="col-span-1 min-w-0">
+          <CompareDropZone
+            slot={0}
+            pulseToken={dropPulse?.slot === 0 ? dropPulse.token : null}
+            onClear={onClearMember}
+            hasSpecies={Boolean(leftMember.species.trim())}
+          >
+            <CompareMemberPanel
+              index={0}
+              state={left}
+              speciesCatalog={speciesCatalog}
+              heldItemCatalog={heldItemCatalog}
+              onChangeMember={onChangeMember}
+            />
+          </CompareDropZone>
+        </div>
+        <div className="col-span-1 min-w-0">
+          <CompareDropZone
+            slot={1}
+            pulseToken={dropPulse?.slot === 1 ? dropPulse.token : null}
+            onClear={onClearMember}
+            hasSpecies={Boolean(rightMember.species.trim())}
+          >
+            <CompareMemberPanel
+              index={1}
+              state={right}
+              speciesCatalog={speciesCatalog}
+              heldItemCatalog={heldItemCatalog}
+              onChangeMember={onChangeMember}
+            />
+          </CompareDropZone>
+        </div>
+        <div className="col-span-2">
+          <ComparisonSummary left={left} right={right} />
+        </div>
+      </div>
+      <div className="hidden xl:grid xl:grid-cols-[minmax(0,1fr)_18rem_minmax(0,1fr)] xl:items-start xl:gap-3">
         <CompareDropZone
           slot={0}
           pulseToken={dropPulse?.slot === 0 ? dropPulse.token : null}
@@ -335,89 +383,79 @@ export function PreferencesSection({
     <section className="space-y-2">
       <div className="px-1 py-1">
         <p className="display-face text-sm text-accent">Preferences</p>
-        <p className="mt-1 text-sm text-muted">
-          Ajusta las reglas y filtros que quieres aplicar a esta run.
-        </p>
       </div>
-      <div className="rounded-[1rem] p-4">
-        <p className="display-face text-sm text-accent">Clima de combate</p>
-        <p className="mt-2 text-sm text-muted">
-          Aplica el ambiente actual al equipo para reflejar boosts reales como Swift Swim, Chlorophyll, Sand Rush o la SpD extra de tipos Rock en arena.
-        </p>
-        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {BATTLE_WEATHER_OPTIONS.map((option) => {
-            const Icon = option.icon;
-            const active = battleWeather === option.key;
-            return (
-              <button
+      <div className="space-y-5 px-1 py-1">
+        <div>
+          <p className="display-face text-sm text-accent">Clima de combate</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {BATTLE_WEATHER_OPTIONS.map((option) => {
+              const Icon = option.icon;
+              const active = battleWeather === option.key;
+              return (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => onSetBattleWeather(option.key)}
+                  className={clsx(
+                    "flex items-center gap-3 rounded-[0.8rem] px-3 py-3 text-left transition",
+                    active
+                      ? "bg-primary-fill text-text"
+                      : "text-muted hover:bg-surface-3",
+                  )}
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-[0.75rem] bg-surface-4">
+                    <Icon className={clsx("h-5 w-5", active ? "text-primary-soft" : "text-accent")} />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="display-face block text-xs text-inherit">{option.label}</span>
+                    <span className="mt-1 block text-xs text-muted">{option.description}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <p className="display-face text-sm text-accent">Filtros de recomendaciones</p>
+          <div className="mt-3 space-y-2">
+            {RECOMMENDATION_FILTER_OPTIONS.map((option) => (
+              <PreferenceSwitchRow
                 key={option.key}
-                type="button"
-                onClick={() => onSetBattleWeather(option.key)}
-                className={clsx(
-                  "flex items-center gap-3 rounded-[0.85rem] border px-3 py-3 text-left transition",
-                  active
-                    ? "border-primary-line-active bg-primary-fill text-text"
-                    : "border-line bg-surface-3 text-muted hover:border-primary-line-emphasis hover:bg-surface-5",
-                )}
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-[0.75rem] bg-surface-5">
-                  <Icon className={clsx("h-5 w-5", active ? "text-primary-soft" : "text-accent")} />
-                </span>
-                <span className="min-w-0">
-                  <span className="display-face block text-xs text-inherit">{option.label}</span>
-                  <span className="mt-1 block text-xs text-muted">{option.description}</span>
-                </span>
-              </button>
-            );
-          })}
+                label={option.label}
+                description={option.description}
+                checked={recommendationFilters[option.key]}
+                onCheckedChange={(checked) => onToggleRecommendationFilter(option.key, checked)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="rounded-[1rem] p-4">
-        <p className="display-face text-sm text-accent">Filtros de recomendaciones</p>
-        <p className="mt-2 text-sm text-muted">
-          Limita capturas sugeridas y referencias visibles según las reglas de tu run.
-        </p>
-        <div className="mt-4 space-y-3">
-          {RECOMMENDATION_FILTER_OPTIONS.map((option) => (
-            <PreferenceSwitchRow
-              key={option.key}
-              label={option.label}
-              description={option.description}
-              checked={recommendationFilters[option.key]}
-              onCheckedChange={(checked) => onToggleRecommendationFilter(option.key, checked)}
-            />
-          ))}
+
+        <div>
+          <p className="display-face text-sm text-accent">Reglas de evolucion</p>
+          <div className="mt-3 space-y-2">
+            {EVOLUTION_CONSTRAINT_OPTIONS.map((option) => (
+              <PreferenceSwitchRow
+                key={option.key}
+                label={option.label}
+                description={option.description}
+                checked={evolutionConstraints[option.key]}
+                onCheckedChange={(checked) => onToggleEvolutionConstraint(option.key, checked)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="rounded-[1rem] p-4">
-        <p className="display-face text-sm text-accent">Reglas de evolucion</p>
-        <p className="mt-2 text-sm text-muted">
-          Activa solo las restricciones que quieras tener en cuenta al evaluar evoluciones disponibles.
-        </p>
-        <div className="mt-4 space-y-3">
-          {EVOLUTION_CONSTRAINT_OPTIONS.map((option) => (
-            <PreferenceSwitchRow
-              key={option.key}
-              label={option.label}
-              description={option.description}
-              checked={evolutionConstraints[option.key]}
-              onCheckedChange={(checked) => onToggleEvolutionConstraint(option.key, checked)}
-            />
-          ))}
+
+        <div className="pt-1">
+          <p className="display-face text-sm text-accent">Datos persistidos</p>
+          <button
+            type="button"
+            onClick={onResetRun}
+            className="danger-outline mt-3 rounded-[0.75rem] border px-4 py-2 text-sm text-danger"
+          >
+            Limpiar datos persistidos
+          </button>
         </div>
-      </div>
-      <div className="rounded-[1rem] p-4">
-        <p className="display-face text-sm text-accent">Datos persistidos</p>
-        <p className="mt-2 text-sm text-muted">
-          Borra el progreso guardado localmente y reinicia la run desde cero en este navegador.
-        </p>
-        <button
-          type="button"
-          onClick={onResetRun}
-          className="danger-outline mt-4 rounded-[0.75rem] border px-4 py-2 text-sm text-danger"
-        >
-          Limpiar datos persistidos
-        </button>
       </div>
     </section>
   );
@@ -492,6 +530,11 @@ const RECOMMENDATION_FILTER_OPTIONS: {
     label: "Excluir otros starters",
     description: "No recomienda starters fuera de la familia que elegiste al inicio.",
   },
+  {
+    key: "excludeExactTypeDuplicates",
+    label: "Excluir typing exacto duplicado",
+    description: "Evita recomendar Pokemon con exactamente la misma combinacion de tipos que otro miembro del equipo.",
+  },
 ];
 
 const BATTLE_WEATHER_OPTIONS: {
@@ -519,7 +562,7 @@ function PreferenceSwitchRow({
   onCheckedChange: (checked: boolean) => void;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 rounded-[0.85rem] border border-line bg-surface-3 px-4 py-3">
+    <div className="flex items-start justify-between gap-4 rounded-[0.8rem] px-1 py-2">
       <div className="min-w-0">
         <p className="display-face text-xs tracking-[0.14em] text-text">{label}</p>
         <p className="mt-1 text-sm text-muted">{description}</p>
@@ -550,19 +593,24 @@ function CompareDropZone({
     <div
       ref={setNodeRef}
       className={clsx(
-        "space-y-2 rounded-[1rem] border border-dashed border-transparent p-2 transition-all",
+        "min-w-0 space-y-1.5 rounded-[1rem] border border-dashed border-transparent p-0.5 transition-all sm:p-2",
         isOver &&
           "border-primary-line-emphasis bg-primary-fill primary-outline-shadow",
       )}
     >
-      <div className="flex items-center justify-between gap-3 text-xs text-muted">
+      <div className="flex items-center justify-between gap-2 px-1 text-[11px] text-muted">
         <span className="display-face text-accent">slot {slot + 1}</span>
         {hasSpecies ? (
-          <button type="button" onClick={() => onClear(slot)} className="text-danger">
-            limpiar
-          </button>
+          <>
+            <button type="button" onClick={() => onClear(slot)} className="text-danger sm:hidden">
+              x
+            </button>
+            <button type="button" onClick={() => onClear(slot)} className="hidden text-danger sm:inline">
+              limpiar
+            </button>
+          </>
         ) : (
-          <span className={clsx(isOver && "text-primary-soft")}>
+          <span className={clsx("hidden sm:inline", isOver && "text-primary-soft")}>
             {isOver ? "Suelta para comparar" : "Arrastra un Pokemon del roster aqui"}
           </span>
         )}

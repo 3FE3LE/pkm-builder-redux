@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import clsx from 'clsx';
-import { Ellipsis, GitCompareArrows, Lock, LockOpen, Mars, Venus, X } from 'lucide-react';
+import { Ellipsis, GitCompareArrows, Lock, LockOpen, Mars, Pencil, Venus, X } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { ItemSprite, PokemonSprite, TypeBadge } from '@/components/BuilderShared';
@@ -280,6 +280,7 @@ export function SortableMemberCard({
   isEvolving,
   isSelected,
   onSelect,
+  onEdit,
   onToggleLock,
   onAssignToCompare,
   onRemove,
@@ -292,6 +293,7 @@ export function SortableMemberCard({
   isEvolving: boolean;
   isSelected: boolean;
   onSelect: () => void;
+  onEdit: () => void;
   onToggleLock: () => void;
   onAssignToCompare: () => void;
   onRemove: () => void;
@@ -425,6 +427,17 @@ export function SortableMemberCard({
                 onClick={(event) => event.stopPropagation()}
                 onPointerDown={(event) => event.stopPropagation()}
               >
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    onEdit();
+                  }}
+                  className="flex w-full items-center gap-2 rounded-[0.65rem] px-2.5 py-2 text-left text-xs text-text transition hover:bg-surface-4"
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                  <span>Edit</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => {

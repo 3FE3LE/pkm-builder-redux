@@ -1,18 +1,4 @@
-import type { ParsedDocs } from "@/lib/docsSchema";
-import { findArea, findGift, findTrade } from "@/lib/docsSchema";
-import {
-  isRecommendationSpeciesAllowed,
-  starters,
-  type RecommendationFilters,
-  type StarterKey,
-} from "@/lib/builder";
-import { buildCoverageSummary } from "@/lib/domain/battle";
-import { buildTeamRoleSnapshot } from "@/lib/domain/roleAnalysis";
-import { ROLE_LABELS } from "@/lib/domain/roleLabels";
-import { getTypeEffectiveness } from "@/lib/domain/typeChart";
-import type { RemoteMove, RemotePokemon, ResolvedTeamMember } from "@/lib/teamAnalysis";
-import { getContextualSourceAreas, type RunEncounterDefinition } from "@/lib/runEncounters";
-
+import { findArea, findGift, findTrade, type ParsedDocs } from "../docsSchema";
 import {
   buildDecisionDeltas,
   inferProjectedLevel,
@@ -20,6 +6,17 @@ import {
   type DecisionDelta,
   type DecisionDeltaTeamMember,
 } from "./decisionDelta";
+import { buildCoverageSummary } from "./battle";
+import { buildTeamRoleSnapshot } from "./roleAnalysis";
+import { ROLE_LABELS } from "./roleLabels";
+import { getContextualSourceAreas, type RunEncounterDefinition } from "../runEncounters";
+import {
+  isRecommendationSpeciesAllowed,
+  starters,
+  type RecommendationFilters,
+  type StarterKey,
+} from "../builder";
+import type { RemoteMove, RemotePokemon, ResolvedTeamMember } from "../teamAnalysis";
 
 type CandidateSource = {
   id: string;
@@ -48,31 +45,18 @@ const OFF_STARTER_SPECIES = new Set(
   ].map((species) => normalizeWords(species)),
 );
 
-export type SwapOpportunity = {
+export type CaptureRecommendation = {
   id: string;
-  candidateSpecies: string;
-  candidateRole: string;
+  species: string;
   source: string;
   area: string;
+  role: string;
   projectedMoves: string[];
-  replacedSpecies: string;
-  replacedRole?: string;
-  scoreDelta: number;
-  riskDelta: number;
-  projectedRisk: number;
-  offenseDelta: number;
-  defenseDelta: number;
-  speedDelta: number;
-  rolesDelta: number;
-  consistencyDelta: number;
-  attackUpsides: string[];
-  defenseUpsides: string[];
-  currentMember: ResolvedTeamMember;
+  delta: DecisionDelta;
   candidateMember: DecisionDeltaTeamMember;
-  duplicatePenalty: number;
 };
 
-export function buildSwapOpportunities({
+export function buildCaptureRecommendations({
   docs,
   team,
   nextEncounter,
@@ -88,13 +72,13 @@ export function buildSwapOpportunities({
   moveIndex: Record<string, RemoteMove | null | undefined>;
   starter: StarterKey;
   filters: RecommendationFilters;
-}): SwapOpportunity[] {
+}): CaptureRecommendation[] {
   const activeTeam = team.filter((member) => member.species.trim());
-  if (!nextEncounter || !activeTeam.length) {
+  if (!nextEncounter || activeTeam.length >= 6) {
     return [];
   }
-  const checkpointId = inferCheckpointIdFromOrder(nextEncounter.order);
 
+  const checkpointId = inferCheckpointIdFromOrder(nextEncounter.order);
   const candidatePool = collectCandidateSources({
     docs,
     areas: getContextualSourceAreas(nextEncounter.order),
@@ -118,7 +102,8 @@ export function buildSwapOpportunities({
     (member) => member.locked && starterFamily.has(normalizeWords(member.species)),
   );
   const lockedStarterFinalTypes = getStarterFinalTypes(starter, pokemonByName);
-  const candidateSuggestions = candidatePool
+
+  const candidates = candidatePool
     .map((source) => {
       const normalizedSpecies = normalizeWords(source.species);
       if (!isRecommendationSpeciesAllowed(source.species, starterFamily, filters, true)) {
@@ -149,6 +134,7 @@ export function buildSwapOpportunities({
         candidateSpecies: source.species,
         starterFamily,
       });
+
       if (filters.excludeExactTypeDuplicates && duplicatePenalty > 0) {
         return null;
       }
@@ -170,144 +156,64 @@ export function buildSwapOpportunities({
 
       projectedByCandidateId.set(source.id, projected);
       const roleEntry = buildTeamRoleSnapshot([projected]).members[0];
-      const roleLabel = ROLE_LABELS[roleEntry?.naturalRole ?? "wallbreaker"];
 
       return {
         id: source.id,
         species: source.species,
         source: source.source,
         reason: `${source.source} disponible en ${source.area}`,
-        role: roleLabel,
+        role: ROLE_LABELS[roleEntry?.naturalRole ?? "wallbreaker"],
         canonicalRole: roleEntry?.naturalRole ?? "wallbreaker",
-        roleLabel,
-        teamFitNote: `${source.area} abre un pivot inmediato para este checkpoint.`,
-        roleReason: roleEntry?.drivers[0] ?? "Su perfil base encaja mejor para este tramo.",
+        roleLabel: ROLE_LABELS[roleEntry?.naturalRole ?? "wallbreaker"],
+        teamFitNote: `${source.area} abre un slot nuevo util para este checkpoint.`,
+        roleReason: roleEntry?.drivers[0] ?? "Su perfil cubre mejor las carencias actuales del equipo.",
         area: source.area,
         duplicatePenalty,
       };
     })
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
 
-  if (!candidateSuggestions.length) {
-    return [];
-  }
-
   const deltas = buildDecisionDeltas({
     team: activeTeam,
     checkpointId,
-    candidates: candidateSuggestions,
+    candidates,
     pokemonByName,
     moveIndex,
   });
 
-  const groupedBySlot = new Map<string, SwapOpportunity>();
-  for (const delta of deltas) {
-    if (delta.action !== "replace" || !delta.replacedSlot || delta.riskDelta <= 0) {
-      continue;
-    }
-    const replacedSlot = delta.replacedSlot;
+  return deltas
+    .filter((delta) => delta.action === "add")
+    .map((delta) => {
+      const candidateMember = projectedByCandidateId.get(delta.id);
+      const duplicatePenalty =
+        candidates.find((candidate) => candidate.id === delta.id)?.duplicatePenalty ?? 0;
 
-    const currentMember = activeTeam.find(
-      (member) =>
-        normalizeWords(member.species) === normalizeWords(replacedSlot) &&
-        !member.locked,
-    );
-    const candidateMember = projectedByCandidateId.get(delta.id);
-    if (!currentMember || !candidateMember) {
-      continue;
-    }
+      if (!candidateMember) {
+        return null;
+      }
 
-    const replacedKey = currentMember.key ?? currentMember.species;
-    const currentBest = groupedBySlot.get(replacedKey);
-    const nextOpportunity = buildSwapOpportunity({
-      delta,
-      currentMember,
-      candidateMember,
-      nextEncounter,
-      pokemonByName,
-    });
-
-    if (
-      !currentBest ||
-      nextOpportunity.riskDelta > currentBest.riskDelta ||
-      (nextOpportunity.riskDelta === currentBest.riskDelta &&
-        nextOpportunity.scoreDelta > currentBest.scoreDelta)
-    ) {
-      groupedBySlot.set(replacedKey, nextOpportunity);
-    }
-  }
-
-  return [...groupedBySlot.values()]
+      return {
+        id: delta.id,
+        species: delta.species,
+        source: delta.source,
+        area: delta.area ?? "",
+        role: delta.roleLabel,
+        projectedMoves: delta.projectedMoves,
+        delta,
+        candidateMember,
+        sortRisk: delta.riskDelta - duplicatePenalty,
+        sortScore: delta.scoreDelta - duplicatePenalty * 1.4,
+      };
+    })
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
     .sort(
       (left, right) =>
-        (right.riskDelta - right.duplicatePenalty) - (left.riskDelta - left.duplicatePenalty) ||
-        (right.scoreDelta - right.duplicatePenalty * 1.4) - (left.scoreDelta - left.duplicatePenalty * 1.4) ||
-        left.replacedSpecies.localeCompare(right.replacedSpecies),
+        right.sortRisk - left.sortRisk ||
+        right.sortScore - left.sortScore ||
+        left.species.localeCompare(right.species),
     )
-    .slice(0, 2);
-}
-
-function inferCheckpointIdFromOrder(order: number) {
-  if (order <= 3) {
-    return "opening";
-  }
-  if (order <= 5) {
-    return "floccesy";
-  }
-  if (order <= 9) {
-    return "virbank";
-  }
-  return "castelia";
-}
-
-function buildSwapOpportunity({
-  delta,
-  currentMember,
-  candidateMember,
-  nextEncounter,
-  pokemonByName,
-}: {
-  delta: DecisionDelta;
-  currentMember: ResolvedTeamMember;
-  candidateMember: DecisionDeltaTeamMember;
-  nextEncounter: RunEncounterDefinition | null;
-  pokemonByName: Record<string, RemotePokemon | null | undefined>;
-}): SwapOpportunity {
-  const currentRole = buildTeamRoleSnapshot([currentMember]).members[0];
-  const candidateRole = buildTeamRoleSnapshot([candidateMember]).members[0];
-  const { attackUpsides, defenseUpsides } = buildEncounterEdges({
-    currentMember,
-    candidateMember,
-    nextEncounter,
-    pokemonByName,
-  });
-
-  return {
-    id: delta.id,
-    candidateSpecies: delta.species,
-    candidateRole: ROLE_LABELS[candidateRole?.naturalRole ?? delta.canonicalRole],
-    source: delta.source,
-    area: delta.area ?? "",
-    projectedMoves: delta.projectedMoves,
-    replacedSpecies: currentMember.species,
-    replacedRole: currentRole ? ROLE_LABELS[currentRole.naturalRole] : undefined,
-    scoreDelta: delta.scoreDelta,
-    riskDelta: delta.riskDelta,
-    projectedRisk: delta.projectedRisk,
-    offenseDelta: delta.offenseDelta,
-    defenseDelta: delta.defenseDelta,
-    speedDelta: delta.speedDelta,
-    rolesDelta: delta.rolesDelta,
-    consistencyDelta: delta.consistencyDelta,
-    attackUpsides,
-    defenseUpsides,
-    currentMember,
-    candidateMember,
-    duplicatePenalty:
-      "duplicatePenalty" in delta && typeof delta.duplicatePenalty === "number"
-        ? delta.duplicatePenalty
-        : 0,
-  };
+    .slice(0, 4)
+    .map(({ sortRisk: _sortRisk, sortScore: _sortScore, ...entry }) => entry);
 }
 
 function getExactTypeDuplicatePenalty({
@@ -393,6 +299,19 @@ function getLineTerminalTypes(
 function sharesAnyType(left: string[], right: string[]) {
   const rightSet = new Set(right.map((type) => normalizeWords(type)));
   return left.some((type) => rightSet.has(normalizeWords(type)));
+}
+
+function inferCheckpointIdFromOrder(order: number) {
+  if (order <= 3) {
+    return "opening";
+  }
+  if (order <= 5) {
+    return "floccesy";
+  }
+  if (order <= 9) {
+    return "virbank";
+  }
+  return "castelia";
 }
 
 function collectCandidateSources({
@@ -499,77 +418,6 @@ function sanitizeSpeciesName(species: string) {
     .replace(/^a\s+/i, "")
     .replace(/\.$/, "")
     .trim();
-}
-
-function buildEncounterEdges({
-  currentMember,
-  candidateMember,
-  nextEncounter,
-  pokemonByName,
-}: {
-  currentMember: ResolvedTeamMember;
-  candidateMember: DecisionDeltaTeamMember;
-  nextEncounter: RunEncounterDefinition | null;
-  pokemonByName: Record<string, RemotePokemon | null | undefined>;
-}) {
-  if (!nextEncounter) {
-    return {
-      attackUpsides: [] as string[],
-      defenseUpsides: [] as string[],
-    };
-  }
-
-  const encounterTypes = Array.from(
-    new Set(
-      getEncounterSpecies(nextEncounter)
-        .flatMap((species) => pokemonByName[normalizeKey(species)]?.types ?? []),
-    ),
-  );
-
-  const attackUpsides = encounterTypes
-    .filter((type) => {
-      const currentScore = bestAttackMultiplier(currentMember.moves, [type]);
-      const nextScore = bestAttackMultiplier(candidateMember.moves, [type]);
-      return nextScore > currentScore && nextScore > 1;
-    })
-    .slice(0, 3);
-
-  const defenseUpsides = encounterTypes
-    .filter((type) => {
-      const currentMultiplier = getTypeEffectiveness(type, currentMember.resolvedTypes);
-      const nextMultiplier = getTypeEffectiveness(type, candidateMember.resolvedTypes);
-      return nextMultiplier < currentMultiplier;
-    })
-    .slice(0, 3);
-
-  return { attackUpsides, defenseUpsides };
-}
-
-function getEncounterSpecies(encounter: RunEncounterDefinition) {
-  if (encounter.team?.length) {
-    return encounter.team;
-  }
-
-  return encounter.bosses?.flatMap((boss) => boss.team) ?? [];
-}
-
-function bestAttackMultiplier(
-  moves: {
-    type?: string;
-    power?: number | null;
-    adjustedPower?: number | null;
-    damageClass?: string;
-  }[],
-  targetTypes: string[],
-) {
-  return moves.reduce((best, move) => {
-    if (!move.type || move.damageClass === "status") {
-      return best;
-    }
-
-    const multiplier = getTypeEffectiveness(move.type, targetTypes);
-    return multiplier > best ? multiplier : best;
-  }, 0);
 }
 
 function sourcePriority(source: CandidateSource["source"]) {

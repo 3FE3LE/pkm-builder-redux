@@ -1,10 +1,12 @@
 "use client";
 
+import { type ReactNode } from "react";
 import clsx from "clsx";
 
 import { TypeBadge } from "@/components/BuilderShared";
 import { RoleAxesCard } from "@/components/team/RoleAxes";
 import { MovePowerBadge } from "@/components/team/UI";
+import { buildMemberLens } from "@/lib/domain/memberLens";
 import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
@@ -18,11 +20,12 @@ type MoveRecommendation = ReturnType<typeof import("@/lib/domain/moveRecommendat
 export function CheckpointIntelligencePanel({
   activeMember,
   activeRoleRecommendation,
+  teamSize,
   copilotSupportsRecommendations,
+  supportsContextualSwaps,
   milestoneId,
   nextEncounter,
-  starterSpecies,
-  preferredTypes,
+  starterMember,
   checkpointRisk,
   swapOpportunities,
   speedTiers,
@@ -31,11 +34,12 @@ export function CheckpointIntelligencePanel({
 }: {
   activeMember?: ResolvedTeamMember;
   activeRoleRecommendation?: import("@/lib/domain/roleAnalysis").MemberRoleRecommendation;
+  teamSize: number;
   copilotSupportsRecommendations: boolean;
+  supportsContextualSwaps: boolean;
   milestoneId: string;
   nextEncounter: RunEncounterDefinition | null;
-  starterSpecies: string;
-  preferredTypes: string[];
+  starterMember?: ResolvedTeamMember;
   checkpointRisk: CheckpointRisk;
   swapOpportunities: SwapOpportunity[];
   speedTiers: SpeedTiers;
@@ -50,13 +54,14 @@ export function CheckpointIntelligencePanel({
     moveRecommendations,
     activeMemberName: activeMember?.species,
   });
+  const starterLens = buildMemberLens(starterMember);
 
   return (
-    <div className="rounded-[1rem] p-6">
+    <div className="rounded-[1rem] px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="display-face text-sm text-accent">Checkpoint</p>
-          <p className="mt-2 text-sm text-muted">
+          <p className="mt-1.5 text-sm text-muted">
             Todo este bloque se lee contra el siguiente encuentro real del run.
           </p>
         </div>
@@ -64,7 +69,7 @@ export function CheckpointIntelligencePanel({
           <TypeBadge type={activeMember.resolvedTypes[0] ?? "Normal"} />
         ) : null}
       </div>
-      <div className="mt-4 px-1 py-1">
+      <div className="mt-3 px-1 py-1">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="display-face text-sm text-accent">
@@ -100,32 +105,49 @@ export function CheckpointIntelligencePanel({
           detail={nextAction.detail}
         />
       </div>
-      <div className="mt-3 px-1 py-1">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p className="display-face text-sm text-accent">{starterSpecies}</p>
-            <p className="mt-1 text-sm text-muted">{recommendation.starterSummary}</p>
-          </div>
-        </div>
+      <SectionBlock title="Starter Lens">
+        <p className="text-sm text-muted">{starterLens.summary}</p>
         <div className="mt-2 flex flex-wrap gap-2">
-          {preferredTypes.slice(0, 4).map((type) => (
-            <TypeBadge key={`pref-${type}`} type={type} />
+          {starterLens.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted"
+            >
+              {tag}
+            </span>
           ))}
         </div>
-      </div>
-      <div className="mt-3 px-1 py-1">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="display-face text-sm text-accent">1. Riesgo general</p>
-            <p className="mt-1 text-xs text-muted">
-              Menor es mejor. Los subscores van al reves: mas alto es mejor.
-            </p>
-          </div>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          <LensCard label="Rol actual" value={starterLens.role} />
+          <LensCard label="Plan del equipo" value={starterLens.teamPlan} />
+        </div>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          <LensMetric label="Pressure" value={starterLens.axes.pressure} />
+          <LensMetric label="Utility" value={starterLens.axes.utility} />
+          <LensMetric label="Setup" value={starterLens.axes.setup} />
+          <LensMetric label="Pivot" value={starterLens.axes.pivot} />
+          <LensMetric label="Sustain" value={starterLens.axes.sustain} />
+          <LensMetric label="Speed" value={starterLens.axes.speedControl} />
+        </div>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          {starterLens.supportNeeds.map((need) => (
+            <LensCard key={need} label="Necesita" value={need} />
+          ))}
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        title="Lectura del equipo"
+        aside={
           <div className="rounded-[0.7rem] border border-accent-line px-3 py-2 text-right">
             <p className="display-face text-lg text-accent-soft">{checkpointRisk.totalRisk.toFixed(1)} / 10</p>
             <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{riskState}</p>
           </div>
-        </div>
+        }
+      >
+        <p className="text-xs text-muted">
+          Menor es mejor. Los subscores van al revés: más alto es mejor.
+        </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           <RiskPill label="Ataque" value={checkpointRisk.offense.score} summary={checkpointRisk.offense.summary} />
           <RiskPill label="Aguante" value={checkpointRisk.defense.score} summary={checkpointRisk.defense.summary} />
@@ -140,67 +162,80 @@ export function CheckpointIntelligencePanel({
             </p>
           ))}
         </div>
-      </div>
-      <div className="mt-3 px-1 py-1">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="display-face text-sm text-accent">2. Velocidad para el siguiente boss</p>
-            <p className="mt-1 text-xs text-muted">
-              Si no igualas este benchmark, el rival mueve primero con mucha frecuencia.
-            </p>
+      </SectionBlock>
+
+      <div className="mt-3 grid gap-2.5 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+        <SectionBlock
+          title="Tempo"
+          aside={
+            <div className="rounded-[0.7rem] border border-info-line px-3 py-2 text-right">
+              <p className="display-face text-base text-info-soft">{speedTiers.benchmarkSpeed} Spe</p>
+              <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{speedState}</p>
+            </div>
+          }
+        >
+          <p className="text-xs text-muted">
+            Si no igualas este benchmark, el rival mueve primero con mucha frecuencia.
+          </p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-3">
+            <CompactMetric label="Mas rapidos" value={`${speedTiers.outspeedCount}`} detail="Superan el benchmark" />
+            <CompactMetric label="Con control" value={`${speedTiers.speedControlCount}`} detail="Prioridad o speed control" />
+            <CompactMetric label="Se quedan cortos" value={`${speedTiers.exposedCount}`} detail="Llegan por detras" />
           </div>
-          <div className="rounded-[0.7rem] border border-info-line px-3 py-2 text-right">
-            <p className="display-face text-base text-info-soft">{speedTiers.benchmarkSpeed} Spe</p>
-            <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{speedState}</p>
-          </div>
-        </div>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
-          <CompactMetric label="Mas rapidos" value={`${speedTiers.outspeedCount}`} detail="Superan el benchmark" />
-          <CompactMetric label="Con control" value={`${speedTiers.speedControlCount}`} detail="Prioridad o speed control" />
-          <CompactMetric label="Se quedan cortos" value={`${speedTiers.exposedCount}`} detail="Llegan por detras" />
-        </div>
-        <div className="mt-3 space-y-1.5">
-          {speedTiers.notes.slice(0, 2).map((note) => (
-            <p key={note} className="text-sm text-muted">
-              {note}
-            </p>
-          ))}
-        </div>
-        {speedTiers.memberMatchups.length ? (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {speedTiers.memberMatchups.map((entry) => (
-              <span
-                key={`${entry.species}-${entry.speed}`}
-                className={clsx(
-                  "rounded-[6px] border px-3 py-1 text-xs",
-                  entry.status === "outspeeds"
-                    ? "border-accent-line-strong bg-accent-fill-strong text-accent-soft"
-                    : entry.status === "ties"
-                      ? "border-info-line bg-info-fill text-info-soft"
-                      : "border-danger-line bg-danger-fill text-danger-soft",
-                )}
-              >
-                {entry.species} {entry.speed}
-              </span>
+          <div className="mt-3 space-y-1.5">
+            {speedTiers.notes.slice(0, 2).map((note) => (
+              <p key={note} className="text-sm text-muted">
+                {note}
+              </p>
             ))}
           </div>
-        ) : null}
-      </div>
-      <div className="mt-3 px-1 py-1">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="display-face text-sm text-accent">3. Slots a vigilar</p>
-            <p className="mt-1 text-xs text-muted">
-              El sistema toma slots no locked del roster y marca donde un pivot del tramo actual mejora el siguiente combate.
-            </p>
+          {speedTiers.memberMatchups.length ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {speedTiers.memberMatchups.map((entry) => (
+                <span
+                  key={`${entry.species}-${entry.speed}`}
+                  className={clsx(
+                    "rounded-[6px] border px-3 py-1 text-xs",
+                    entry.status === "outspeeds"
+                      ? "border-accent-line-strong bg-accent-fill-strong text-accent-soft"
+                      : entry.status === "ties"
+                        ? "border-info-line bg-info-fill text-info-soft"
+                        : "border-danger-line bg-danger-fill text-danger-soft",
+                  )}
+                >
+                  {entry.species} {entry.speed}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </SectionBlock>
+
+        <SectionBlock title="Notas">
+          <div className="space-y-2">
+            {(copilotSupportsRecommendations ? recommendation.notes.slice(0, 2) : recommendation.notes.slice(0, 1)).map((note) => (
+              <p
+                key={note}
+                className="rounded-[0.75rem] border border-line px-4 py-3 text-sm text-muted"
+              >
+                {note}
+              </p>
+            ))}
           </div>
-        </div>
+        </SectionBlock>
+      </div>
+
+      <SectionBlock title="Swaps del tramo">
+        <p className="text-xs text-muted">
+          {teamSize < 5
+            ? "Con menos de cinco slots el foco sigue siendo expandir el roster. Los swaps empiezan a importar cuando el equipo base ya esta casi cerrado."
+            : "Aqui ya no se trata de sumar miembros, sino de optimizar slots no locked con pivots del tramo actual para el siguiente combate."}
+        </p>
         <div className="mt-3 space-y-2">
-          {copilotSupportsRecommendations && swapOpportunities.length ? (
+          {teamSize >= 5 && supportsContextualSwaps && swapOpportunities.length ? (
             swapOpportunities.slice(0, 4).map((opportunity) => (
               <div
                 key={`${opportunity.replacedSpecies}-${opportunity.candidateSpecies}`}
-                className="rounded-[0.65rem] border border-line bg-surface-2 px-3 py-2.5"
+                className="rounded-[0.65rem] px-2 py-2"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
@@ -247,27 +282,25 @@ export function CheckpointIntelligencePanel({
             ))
           ) : (
             <p className="text-sm text-muted">
-              {copilotSupportsRecommendations
+              {teamSize < 5
+                ? "Completa primero el roster base antes de priorizar reemplazos."
+                : supportsContextualSwaps
                 ? "Completa el roster para detectar swaps claros en este checkpoint."
                 : "Todavia faltan fuentes suficientes para proyectar pivots reales en este punto del run."}
             </p>
           )}
         </div>
-      </div>
-      <div className="mt-3 px-1 py-1">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="display-face text-sm text-accent">Roles detectados</p>
-            <p className="mt-1 text-xs text-muted">
-              Cada slot recibe un rol sugerido segun stats, naturaleza, habilidad y moves.
-            </p>
-          </div>
-        </div>
+      </SectionBlock>
+
+      <SectionBlock title="Roles detectados">
+        <p className="text-xs text-muted">
+          Cada slot recibe un rol sugerido según stats, naturaleza, habilidad y moves.
+        </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {checkpointRisk.roleSnapshot.members.map((member) => (
             <div
               key={`role-${member.species}`}
-              className="rounded-[0.65rem] border border-line bg-surface-2 px-3 py-2"
+              className="rounded-[0.65rem] px-2 py-2"
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="display-face text-xs text-accent">{member.species}</span>
@@ -313,26 +346,12 @@ export function CheckpointIntelligencePanel({
             ))}
           </div>
         ) : null}
-      </div>
-      <div className="mt-3 space-y-2">
-        {(copilotSupportsRecommendations ? recommendation.notes.slice(0, 2) : recommendation.notes.slice(0, 1)).map((note) => (
-          <p
-            key={note}
-            className="rounded-[0.75rem] border border-line px-4 py-3 text-sm text-muted"
-          >
-            {note}
-          </p>
-        ))}
-      </div>
-      <div className="mt-3 rounded-[0.75rem] border border-line bg-surface-1 px-4 py-3">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="display-face text-sm text-accent">4. Mejoras del slot activo</p>
-            <p className="mt-1 text-xs text-muted">
-              Solo se sugieren moves del slot activo, cercanos al nivel actual o por maquina.
-            </p>
-          </div>
-        </div>
+      </SectionBlock>
+
+      <SectionBlock title="Mejoras del slot activo">
+        <p className="text-xs text-muted">
+          Solo se sugieren moves del slot activo, cercanos al nivel actual o por máquina.
+        </p>
         {activeMember?.species && activeRoleRecommendation ? (
           <div className="mt-3">
             <RoleAxesCard role={activeRoleRecommendation} compact />
@@ -343,7 +362,7 @@ export function CheckpointIntelligencePanel({
             moveRecommendations.map((entry) => (
               <div
                 key={`${entry.source}-${entry.move}`}
-                className="rounded-[0.65rem] border border-line bg-surface-2 px-3 py-2"
+                className="rounded-[0.65rem] px-2 py-2"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="display-face text-[10px] text-accent">
@@ -370,8 +389,28 @@ export function CheckpointIntelligencePanel({
             </p>
           )}
         </div>
-      </div>
+      </SectionBlock>
     </div>
+  );
+}
+
+function SectionBlock({
+  title,
+  children,
+  aside,
+}: {
+  title: string;
+  children: ReactNode;
+  aside?: ReactNode;
+}) {
+  return (
+    <section className="mt-3 px-1 py-1">
+      <div className="flex items-start justify-between gap-3">
+        <p className="display-face text-sm text-accent">{title}</p>
+        {aside ?? null}
+      </div>
+      <div className="mt-2">{children}</div>
+    </section>
   );
 }
 
@@ -385,7 +424,7 @@ function RiskPill({
   summary: string;
 }) {
   return (
-    <div className="rounded-[0.65rem] border border-line bg-surface-2 px-3 py-2">
+    <div className="rounded-[0.65rem] px-1.5 py-2">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face text-[11px] text-accent">{label}</span>
         <span className="pixel-face text-xs">{describeSubscore(value)}</span>
@@ -405,7 +444,7 @@ function CompactMetric({
   detail: string;
 }) {
   return (
-    <div className="rounded-[0.65rem] border border-line bg-surface-2 px-3 py-2">
+    <div className="rounded-[0.65rem] px-1.5 py-2">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face text-[11px] text-accent">{label}</span>
         <span className="pixel-face text-xs">{value}</span>
@@ -425,7 +464,7 @@ function SummaryCard({
   detail: string;
 }) {
   return (
-    <div className="rounded-[0.75rem] border border-line bg-surface-1 px-3 py-3">
+    <div className="rounded-[0.75rem] px-1.5 py-2.5">
       <p className="display-face text-[11px] text-accent">{label}</p>
       <p className="mt-1 pixel-face text-sm">{value}</p>
       <p className="mt-2 text-xs text-muted">{detail}</p>
@@ -435,7 +474,7 @@ function SummaryCard({
 
 function RoleBucket({ label, values }: { label: string; values: string[] }) {
   return (
-    <div className="rounded-[0.65rem] border border-line bg-surface-2 px-3 py-2">
+    <div className="rounded-[0.65rem] px-1.5 py-2">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face text-[11px] text-accent">{label}</span>
       </div>
@@ -453,7 +492,39 @@ function formatCheckpointLabel(milestoneId: string) {
       floccesy: "antes de Roxie",
       virbank: "antes de Burgh",
       castelia: "antes de Elesa",
+      driftveil: "tramo Driftveil y Clay",
+      mistralton: "tramo Mistralton y Skyla",
+      undella: "tramo Undella y Drayden",
+      humilau: "tramo Plasma final",
+      league: "liga y N's Castle",
+      postgame: "postgame",
     }[milestoneId] ?? milestoneId
+  );
+}
+
+function LensCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[0.65rem] px-1.5 py-2">
+      <p className="display-face text-[11px] text-accent">{label}</p>
+      <p className="mt-1 text-xs text-muted">{value}</p>
+    </div>
+  );
+}
+
+function LensMetric({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-[0.65rem] px-1.5 py-2">
+      <div className="flex items-center justify-between gap-2">
+        <p className="display-face text-[11px] text-accent">{label}</p>
+        <p className="display-face text-xs text-text">{value}</p>
+      </div>
+      <div className="mt-2 h-2 rounded-[6px] bg-surface-5">
+        <div
+          className="h-full rounded-[6px] bg-accent"
+          style={{ width: `${value}%` }}
+        />
+      </div>
+    </div>
   );
 }
 

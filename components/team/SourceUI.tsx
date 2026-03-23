@@ -4,8 +4,18 @@ import clsx from "clsx";
 import { motion } from "motion/react";
 
 import { normalizeName } from "@/lib/domain/names";
-import type { TeamMember } from "@/lib/builder";
 type DecisionDelta = ReturnType<typeof import("@/lib/domain/decisionDelta").buildDecisionDeltas>[number];
+
+type RecommendedMember = {
+  species: string;
+  source: string;
+  reason: string;
+  role: string;
+  roleLabel: string;
+  teamFitNote: string;
+  roleReason: string;
+  area?: string;
+};
 
 export type AreaSource = {
   area: string;
@@ -19,7 +29,7 @@ export function RecommendedCard({
   member,
   delta,
 }: {
-  member: TeamMember;
+  member: RecommendedMember;
   delta?: DecisionDelta;
 }) {
   return (

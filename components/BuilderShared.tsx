@@ -179,17 +179,17 @@ export function FilterCombobox({
         type="button"
         onClick={() => {
           setQuery(safeValue);
-          setOpen((current) => {
-            const next = !current;
-            if (next && coordinationGroup) {
+          const nextOpen = !open;
+          setOpen(nextOpen);
+          if (nextOpen && coordinationGroup) {
+            queueMicrotask(() => {
               window.dispatchEvent(
                 new CustomEvent("filter-combobox-open", {
                   detail: { group: coordinationGroup, id: comboboxId },
                 }),
               );
-            }
-            return next;
-          });
+            });
+          }
         }}
         className="flex h-10 w-full items-center justify-between rounded-[6px] border border-line bg-surface-4 px-3 text-left text-sm text-text transition-[border-color,background-color] hover:bg-surface-6"
       >

@@ -111,6 +111,42 @@ const CHECKPOINT_PROFILES: Record<
     speedPressure: "high",
     label: "Antes de Elesa",
   },
+  driftveil: {
+    preferredCoverage: ["Ground", "Rock", "Steel", "Water"],
+    preferredResists: ["Ground", "Rock", "Electric"],
+    speedPressure: "high",
+    label: "Tramo Driftveil y Clay",
+  },
+  mistralton: {
+    preferredCoverage: ["Flying", "Ice", "Electric", "Dragon"],
+    preferredResists: ["Flying", "Dragon", "Ice"],
+    speedPressure: "high",
+    label: "Tramo Mistralton y Skyla",
+  },
+  undella: {
+    preferredCoverage: ["Water", "Ice", "Grass", "Ground"],
+    preferredResists: ["Water", "Ice", "Grass"],
+    speedPressure: "high",
+    label: "Tramo Undella y Drayden",
+  },
+  humilau: {
+    preferredCoverage: ["Dragon", "Dark", "Fighting", "Ice"],
+    preferredResists: ["Dragon", "Dark", "Ghost"],
+    speedPressure: "high",
+    label: "Tramo Plasma final",
+  },
+  league: {
+    preferredCoverage: ["Dragon", "Dark", "Psychic", "Ice", "Fighting"],
+    preferredResists: ["Dragon", "Dark", "Ghost", "Psychic"],
+    speedPressure: "high",
+    label: "Liga y N's Castle",
+  },
+  postgame: {
+    preferredCoverage: ["Dragon", "Steel", "Ice", "Fighting", "Electric"],
+    preferredResists: ["Dragon", "Ice", "Steel", "Dark"],
+    speedPressure: "high",
+    label: "Postgame",
+  },
 };
 
 export function buildCheckpointRiskSnapshot({

@@ -23,6 +23,10 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
 
   function selectMember(memberId: string) {
     store.setActiveMemberId(memberId);
+  }
+
+  function editMember(memberId: string) {
+    store.setActiveMemberId(memberId);
     store.setEditorMemberId(memberId);
     ui.setEditorMoveSelection(null);
   }
@@ -163,6 +167,7 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
   return {
     handleDragEnd,
     selectMember,
+    editMember,
     removeMember,
     addMember,
     addPreparedMember,

@@ -425,11 +425,125 @@ export function mapEncounterOrderToMilestoneId(order: number) {
   if (order <= 5) {
     return "floccesy";
   }
-  if (order <= 8) {
+  if (order <= 9) {
     return "virbank";
   }
   if (order <= 13) {
     return "castelia";
   }
-  return null;
+  if (order <= 17) {
+    return "driftveil";
+  }
+  if (order <= 22) {
+    return "mistralton";
+  }
+  if (order <= 27) {
+    return "undella";
+  }
+  if (order <= 34) {
+    return "humilau";
+  }
+  if (order <= 40) {
+    return "league";
+  }
+  return "postgame";
+}
+
+export function getContextualSourceAreas(order: number) {
+  if (order <= 3) {
+    return ["Aspertia City", "Route 19"];
+  }
+  if (order <= 5) {
+    return ["Route 20 - Spring", "Floccesy Ranch", "Floccesy Town"];
+  }
+  if (order <= 9) {
+    return ["Virbank City", "Virbank Complex - Outside", "Virbank Complex - Inside"];
+  }
+  if (order <= 13) {
+    return ["Castelia City", "Castelia Sewers", "Relic Passage - Castelia", "Route 4"];
+  }
+  if (order <= 17) {
+    return [
+      "Desert Resort",
+      "Relic Castle - Upper Floors",
+      "Route 5",
+      "Route 16",
+      "Lostlorn Forest",
+      "Driftveil Drawbridge, Charizard Bridge",
+      "Route 6 - Spring, Summer, Autumn",
+      "Route 6 - Winter",
+      "Driftveil City",
+      "Clay Tunnel - All Areas",
+      "Relic Passage - Driftveil Side",
+      "Relic Passage - Center (Main) Room",
+      "Mistralton Cave",
+      "Chargestone Cave",
+    ];
+  }
+  if (order <= 22) {
+    return [
+      "Route 7 - Spring, Summer, Autumn",
+      "Route 7 - Winter",
+      "Celestial Tower",
+      "Reversal Mountain - Outside",
+      "Reversal Mountain - Inside",
+      "Strange House",
+      "Undella Town",
+      "Undella Bay",
+      "Route 14",
+      "Abundant Shrine",
+      "Seaside Cave - Upper Floor",
+      "Seaside Cave - Lower Floor",
+    ];
+  }
+  if (order <= 27) {
+    return [
+      "Route 13",
+      "Route 12",
+      "Village Bridge",
+      "Route 11",
+      "Route 9",
+      "Route 21",
+      "Humilau City",
+      "Route 22",
+      "Giants Chasm - Route 13",
+      "Giants Chasm - Entrance Cave",
+      "Giants Chasm - Plasma Airship Area",
+      "Giants Chasm - Kyurems Cave",
+    ];
+  }
+  if (order <= 34) {
+    return [
+      "Route 23",
+      "Victory Road - Ruined Area",
+      "Victory Road - Lower Mountainside",
+      "Victory Road - Forest",
+      "Victory Road - Connecting Caves I",
+      "Victory Road - Upper Mountainside",
+      "Victory Road - Connecting Caves II",
+      "Victory Road - N's Castle, Entrance",
+      "Route 8, Moor of Icirrus - All Seasons",
+      "Icirrus City - All Seasons",
+      "Dragonspiral Tower - Spring/Summer/Autumn",
+      "Dragonspiral Tower - Winter",
+      "Dragonspiral Tower - Indoors",
+      "Twist Mountain - All Seasons",
+      "Underground Ruins - All Areas",
+    ];
+  }
+  return [
+    "Marvellous Bridge",
+    "Route 15",
+    "Pinwheel Forest - Inside",
+    "Pinwheel Forest - Outside",
+    "Route 3",
+    "Wellspring Cave - Both Floors",
+    "Striation City",
+    "Dreamyard - All Areas",
+    "Route 2",
+    "Route 1",
+    "Route 17",
+    "Route 18",
+    "P2 Laboratory",
+  ];
 }

@@ -455,6 +455,12 @@ export function inferProjectedLevel(team: DecisionDeltaTeamMember[], checkpointI
       floccesy: 16,
       virbank: 24,
       castelia: 30,
+      driftveil: 42,
+      mistralton: 55,
+      undella: 64,
+      humilau: 70,
+      league: 78,
+      postgame: 90,
     }[checkpointId] ?? 20
   );
 }

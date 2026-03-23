@@ -9,11 +9,13 @@ import {
   buildThreatSummary,
 } from "@/lib/domain/battle";
 import { buildCheckpointRiskSnapshot } from "@/lib/domain/checkpointScoring";
+import { buildCaptureRecommendations } from "@/lib/domain/contextualRecommendations";
 import { getMoveRecommendations } from "@/lib/domain/moveRecommendations";
 import { buildSwapOpportunities } from "@/lib/domain/swapOpportunities";
 import { buildSpeedTierSnapshot } from "@/lib/domain/speedTiers";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import {
+  getContextualSourceAreas,
   getNextRelevantEncounter,
   getRunEncounterCatalog,
   mapEncounterOrderToMilestoneId,
@@ -22,7 +24,7 @@ import { milestones } from "@/lib/builder";
 import {
   type ResolvedTeamMember,
 } from "@/lib/teamAnalysis";
-import { getRecommendation } from "@/lib/builder";
+import { buildAreaSources, getRecommendation } from "@/lib/builder";
 import {
   buildNameIndex,
   resolveEditableMember as resolveTeamMember,
@@ -55,6 +57,7 @@ export function useBuilderDerivedData(
   const copilotSupportsRecommendations = milestones.some(
     (milestone) => milestone.id === contextualMilestoneId,
   );
+  const supportsContextualSwaps = Boolean(nextEncounter);
 
   const resolverContext = useMemo<BuilderResolverContext>(
     () => ({
@@ -106,14 +109,11 @@ export function useBuilderDerivedData(
             store.recommendationFilters,
           )
         : {
-            starterSummary: "Copilot de capturas y swaps soportado hasta el tramo de Elesa.",
-            recommendedTeam: [],
             notes: [
               nextEncounter
                 ? `Tu run ya va por ${nextEncounter.label}. Las sugerencias curadas tempranas se desactivan para no mentirte.`
                 : "No hay un checkpoint soportado para capturas curadas en este punto del run.",
             ],
-            currentBuildAdvice: [],
             availableSources: [],
           },
     [
@@ -200,13 +200,21 @@ export function useBuilderDerivedData(
     [editorResolved, resolvedTeam, store.evolutionConstraints, ui.localTime],
   );
 
-  const sourceCards = recommendation.availableSources.filter(
-    (source) =>
-      source.encounters.length ||
-      source.gifts.length ||
-      source.trades.length ||
-      source.items.length,
-  );
+  const sourceCards = useMemo(() => {
+    const contextualAreas = getContextualSourceAreas(nextEncounter?.order ?? 1);
+    return buildAreaSources(
+      docs,
+      contextualAreas,
+      store.starter,
+      store.recommendationFilters,
+    ).filter(
+      (source) =>
+        source.encounters.length ||
+        source.gifts.length ||
+        source.trades.length ||
+        source.items.length,
+    );
+  }, [docs, nextEncounter?.order, store.recommendationFilters, store.starter]);
 
   const activeMovePickerMemberId = ui.movePickerState?.memberId ?? null;
   const activeModalMember = activeMovePickerMemberId
@@ -235,12 +243,34 @@ export function useBuilderDerivedData(
       buildSwapOpportunities({
         docs,
         team: resolvedTeam,
-        checkpointId: contextualMilestoneId,
         nextEncounter,
         pokemonByName: pokemonIndex,
         moveIndex,
+        starter: store.starter,
+        filters: store.recommendationFilters,
       }),
-    [contextualMilestoneId, docs, moveIndex, nextEncounter, pokemonIndex, resolvedTeam],
+    [docs, moveIndex, nextEncounter, pokemonIndex, resolvedTeam, store.recommendationFilters, store.starter],
+  );
+  const captureRecommendations = useMemo(
+    () =>
+      buildCaptureRecommendations({
+        docs,
+        team: resolvedTeam,
+        nextEncounter,
+        pokemonByName: pokemonIndex,
+        moveIndex,
+        starter: store.starter,
+        filters: store.recommendationFilters,
+      }),
+    [
+      docs,
+      moveIndex,
+      nextEncounter,
+      pokemonIndex,
+      resolvedTeam,
+      store.recommendationFilters,
+      store.starter,
+    ],
   );
 
   return {
@@ -250,6 +280,7 @@ export function useBuilderDerivedData(
     recommendation,
     contextualMilestoneId,
     copilotSupportsRecommendations,
+    supportsContextualSwaps,
     nextEncounter,
     coveredCoverage,
     uncoveredCoverage,
@@ -267,5 +298,6 @@ export function useBuilderDerivedData(
     activeMember,
     moveRecommendations,
     swapOpportunities,
+    captureRecommendations,
   };
 }

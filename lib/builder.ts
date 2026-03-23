@@ -1,4 +1,4 @@
-import { type ParsedDocs } from "@/lib/docsSchema";
+import { type ParsedDocs } from "./docsSchema";
 import {
   findWorldArea,
   findWorldGifts,
@@ -6,28 +6,10 @@ import {
   findWorldTrades,
   type WorldArea,
   type WorldData,
-} from "@/lib/worldDataSchema";
-import { ROLE_LABELS } from "@/lib/domain/roleLabels";
-import type { RoleId } from "@/lib/domain/roleAnalysis";
-import { getTypeEffectiveness } from "@/lib/domain/typeChart";
+} from "./worldDataSchema";
 
 export type StarterKey = "snivy" | "tepig" | "oshawott";
 export type PokemonGender = "unknown" | "male" | "female";
-
-export type TeamMember = {
-  id: string;
-  species: string;
-  source: string;
-  reason: string;
-  role: string;
-  canonicalRole: RoleId;
-  roleLabel: string;
-  teamFitNote: string;
-  roleReason: string;
-  area?: string;
-};
-
-type CuratedRecommendation = Pick<TeamMember, "species" | "source" | "reason" | "role" | "area">;
 
 export type Milestone = {
   id: string;
@@ -50,10 +32,7 @@ export type SuggestionInput = {
 };
 
 export type RecommendationOutput = {
-  starterSummary: string;
-  recommendedTeam: TeamMember[];
   notes: string[];
-  currentBuildAdvice: string[];
   availableSources: {
     area: string;
     encounters: string[];
@@ -68,6 +47,7 @@ export type RecommendationFilters = {
   excludePseudoLegendaries: boolean;
   excludeUniquePokemon: boolean;
   excludeOtherStarters: boolean;
+  excludeExactTypeDuplicates: boolean;
 };
 
 const DEFAULT_RECOMMENDATION_FILTERS: RecommendationFilters = {
@@ -75,6 +55,7 @@ const DEFAULT_RECOMMENDATION_FILTERS: RecommendationFilters = {
   excludePseudoLegendaries: false,
   excludeUniquePokemon: false,
   excludeOtherStarters: false,
+  excludeExactTypeDuplicates: false,
 };
 
 export const starters: Record<
@@ -148,228 +129,6 @@ export const milestones: Milestone[] = [
     focus: ["terminar seis slots", "cubrir matchups de midgame"],
   },
 ];
-
-const curatedByStarter: Record<StarterKey, Record<string, CuratedRecommendation[]>> = {
-  snivy: {
-    opening: [
-      {
-        species: "Starly",
-        source: "Wild",
-        area: "Route 19",
-        role: "revenge killer",
-        reason: "Aporta presión inmediata contra Bugs y ayuda a estabilizar el early game.",
-      },
-      {
-        species: "Azurill",
-        source: "Wild",
-        area: "Floccesy Ranch",
-        role: "fairy utility",
-        reason: "Cubre Dragón y ofrece un pivot más seguro para Snivy.",
-      },
-    ],
-    floccesy: [
-      {
-        species: "Riolu",
-        source: "Wild",
-        area: "Floccesy Ranch",
-        role: "physical breaker",
-        reason: "Castiga Ice y Steel, dos respuestas comunes al core de Serperior.",
-      },
-      {
-        species: "Pansear",
-        source: "Gift",
-        area: "Floccesy Town",
-        role: "fire coverage",
-        reason: "El mono de regalo parchea temprano el matchup contra Bugs y Grass resistentes.",
-      },
-      {
-        species: "Ralts",
-        source: "Wild",
-        area: "Route 20 - Spring",
-        role: "special support",
-        reason: "Da utility y presión especial para no depender solo del starter.",
-      },
-    ],
-    virbank: [
-      {
-        species: "Charmander",
-        source: "Gift",
-        area: "Virbank City",
-        role: "special breaker",
-        reason: "Escala muy bien y castiga muros físicos que aguanten a Serperior.",
-      },
-      {
-        species: "Magnemite",
-        source: "Wild",
-        area: "Virbank Complex",
-        role: "steel pivot",
-        reason: "Aguanta varias amenazas y da resistencias clave al equipo.",
-      },
-    ],
-    castelia: [
-      {
-        species: "Eevee",
-        source: "Gift",
-        area: "Castelia City",
-        role: "flex slot",
-        reason: "Te deja pivotear a la eeveelution que mejor tape lo que falte.",
-      },
-      {
-        species: "Togepi",
-        source: "Trade",
-        area: "Route 4",
-        role: "support fairy",
-        reason: "El trade ya viene optimizado y encaja perfecto como glue defensivo.",
-      },
-    ],
-  },
-  tepig: {
-    opening: [
-      {
-        species: "Marill",
-        source: "Wild",
-        area: "Route 19",
-        role: "water pivot",
-        reason: "Reduce la presión rival sobre Tepig y ofrece utilidad defensiva.",
-      },
-      {
-        species: "Pansage",
-        source: "Gift",
-        area: "Floccesy Town",
-        role: "grass coverage",
-        reason: "El mono de regalo cubre Water y Ground desde muy temprano.",
-      },
-    ],
-    floccesy: [
-      {
-        species: "Mareep",
-        source: "Wild",
-        area: "Floccesy Ranch",
-        role: "electric support",
-        reason: "Controla Water/Flying y permite jugar más agresivo con Tepig.",
-      },
-      {
-        species: "Ralts",
-        source: "Wild",
-        area: "Route 20 - Spring",
-        role: "special cleaner",
-        reason: "Compensa la orientación física del starter y mejora el balance ofensivo.",
-      },
-      {
-        species: "Riolu",
-        source: "Wild",
-        area: "Floccesy Ranch",
-        role: "priority breaker",
-        reason: "Forma un early core ofensivo muy difícil de pivotear.",
-      },
-    ],
-    virbank: [
-      {
-        species: "Squirtle",
-        source: "Gift",
-        area: "Virbank City",
-        role: "bulky water",
-        reason: "Aporta un switch-in mucho más estable para Ground y Fire.",
-      },
-      {
-        species: "Magnemite",
-        source: "Wild",
-        area: "Virbank Complex",
-        role: "steel electric",
-        reason: "Sujeta la defensa del equipo y presiona amenazas voladoras.",
-      },
-    ],
-    castelia: [
-      {
-        species: "Eevee",
-        source: "Gift",
-        area: "Castelia City",
-        role: "adaptive slot",
-        reason: "Puede cerrarte huecos concretos según el punto del run.",
-      },
-      {
-        species: "Togepi",
-        source: "Trade",
-        area: "Route 4",
-        role: "speed control support",
-        reason: "Un Fairy de soporte le da a Emboar margen para entrar más veces.",
-      },
-    ],
-  },
-  oshawott: {
-    opening: [
-      {
-        species: "Pidove",
-        source: "Wild",
-        area: "Route 20 - Spring",
-        role: "fast flyer",
-        reason: "Te da velocidad y presión sobre Grass cuando Oshawott todavía es corto de cobertura.",
-      },
-      {
-        species: "Pansear",
-        source: "Gift",
-        area: "Floccesy Town",
-        role: "fire pressure",
-        reason: "El regalo arregla inmediatamente el matchup contra Grass y Bug.",
-      },
-    ],
-    floccesy: [
-      {
-        species: "Mareep",
-        source: "Wild",
-        area: "Floccesy Ranch",
-        role: "electric support",
-        reason: "Cubre Water/Flying y ayuda a acelerar midgame.",
-      },
-      {
-        species: "Ralts",
-        source: "Wild",
-        area: "Route 20 - Spring",
-        role: "special breaker",
-        reason: "Suma presión especial y utility a un núcleo balanceado.",
-      },
-      {
-        species: "Riolu",
-        source: "Wild",
-        area: "Floccesy Ranch",
-        role: "physical pressure",
-        reason: "Forma un doble Fighting muy fuerte al evolucionar Samurott.",
-      },
-    ],
-    virbank: [
-      {
-        species: "Bulbasaur",
-        source: "Gift",
-        area: "Virbank City",
-        role: "grass utility",
-        reason: "Tapa Electric y Water bulky sin romper la estructura del equipo.",
-      },
-      {
-        species: "Magnemite",
-        source: "Wild",
-        area: "Virbank Complex",
-        role: "steel pivot",
-        reason: "Agrega resistencias claves y presión especial estable.",
-      },
-    ],
-    castelia: [
-      {
-        species: "Eevee",
-        source: "Gift",
-        area: "Castelia City",
-        role: "glue slot",
-        reason: "Sirve para ajustar la sexta pieza según tus capturas previas.",
-      },
-      {
-        species: "Togepi",
-        source: "Trade",
-        area: "Route 4",
-        role: "fairy support",
-        reason: "Soporta al core Water/Fighting con utilidad y matchups de Dragon.",
-      },
-    ],
-  },
-};
 
 const LEGENDARY_SPECIES = new Set(
   [
@@ -502,18 +261,7 @@ const OFF_STARTER_SPECIES = new Set(
   ].map(normalizeRecommendationName),
 );
 
-const natureMap: Record<string, string[]> = {
-  adamant: ["physical attacker", "evita depender de daño especial."],
-  jolly: ["speed control", "prioriza limpieza y revenge kills."],
-  modest: ["special attacker", "busca cobertura especial consistente."],
-  timid: ["fast special attacker", "aprovecha turnos gratis y chip."],
-  bold: ["physical wall", "entra más veces y gana valor por desgaste."],
-  calm: ["special wall", "encaja mejor en núcleos balanceados."],
-  impish: ["bulky pivot", "mejor para utility que para barrer."],
-  careful: ["special sponge", "combina bien con soporte y recovery."],
-};
-
-function buildSources(
+export function buildAreaSources(
   docs: ParsedDocs,
   areas: string[],
   starter: StarterKey,
@@ -564,325 +312,11 @@ function summarizeEncounters(area?: WorldArea) {
     .slice(0, 8);
 }
 
-function normalizeRecommendationName(input: string) {
+export function normalizeRecommendationName(input: string) {
   return input.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
-function inferCanonicalRole(rawRole: string): RoleId {
-  const normalized = normalizeRecommendationName(rawRole);
-
-  if (
-    normalized.includes("pivot") ||
-    normalized.includes("bulky water")
-  ) {
-    return "bulkyPivot";
-  }
-  if (
-    normalized.includes("support") ||
-    normalized.includes("utility")
-  ) {
-    return "support";
-  }
-  if (
-    normalized.includes("glue")
-  ) {
-    return "defensiveGlue";
-  }
-  if (
-    normalized.includes("revenge") ||
-    normalized.includes("priority")
-  ) {
-    return "revengeKiller";
-  }
-  if (
-    normalized.includes("speed")
-  ) {
-    return "speedControl";
-  }
-  if (
-    normalized.includes("cleaner") ||
-    normalized.includes("fast flyer")
-  ) {
-    return "cleaner";
-  }
-  if (
-    normalized.includes("setup")
-  ) {
-    return "setupSweeper";
-  }
-
-  return "wallbreaker";
-}
-
-function resolveDocTypes(docs: ParsedDocs, species: string) {
-  const normalized = normalizeRecommendationName(species);
-  const profileTypes = docs.pokemonProfiles.find(
-    (entry) => normalizeRecommendationName(entry.species) === normalized
-  )?.types;
-  if (profileTypes?.length) {
-    return profileTypes;
-  }
-  const typeChange = docs.typeChanges.find(
-    (entry) => normalizeRecommendationName(entry.pokemon) === normalized
-  );
-  return typeChange?.newType.split("/").map((value) => value.trim()) ?? [];
-}
-
-function buildEvolutionFamilyMap(docs: ParsedDocs) {
-  const graph = new Map<string, Set<string>>();
-  const link = (left: string, right: string) => {
-    const normalizedLeft = normalizeRecommendationName(left);
-    const normalizedRight = normalizeRecommendationName(right);
-    if (!normalizedLeft || !normalizedRight) {
-      return;
-    }
-    graph.set(normalizedLeft, new Set([...(graph.get(normalizedLeft) ?? []), normalizedRight]));
-    graph.set(normalizedRight, new Set([...(graph.get(normalizedRight) ?? []), normalizedLeft]));
-  };
-
-  for (const change of docs.evolutionChanges) {
-    link(change.species, change.target);
-  }
-
-  for (const starter of Object.values(starters)) {
-    for (let index = 0; index < starter.stageSpecies.length - 1; index += 1) {
-      link(starter.stageSpecies[index], starter.stageSpecies[index + 1]);
-    }
-  }
-
-  return graph;
-}
-
-function buildEvolutionFamilySet(
-  species: string,
-  graph: Map<string, Set<string>>
-) {
-  const origin = normalizeRecommendationName(species);
-  const visited = new Set<string>();
-  const queue = [origin];
-
-  while (queue.length) {
-    const current = queue.shift();
-    if (!current || visited.has(current)) {
-      continue;
-    }
-    visited.add(current);
-    for (const next of graph.get(current) ?? []) {
-      if (!visited.has(next)) {
-        queue.push(next);
-      }
-    }
-  }
-
-  return visited;
-}
-
-function scoreCandidateFit({
-  docs,
-  starter,
-  candidate,
-  currentTypeSet,
-  currentRoleSet,
-}: {
-  docs: ParsedDocs;
-  starter: StarterKey;
-  candidate: CuratedRecommendation;
-  currentTypeSet: Set<string>;
-  currentRoleSet: Set<string>;
-}) {
-  const candidateTypes = resolveDocTypes(docs, candidate.species);
-  const normalizedCandidateTypes = candidateTypes.map((type) => normalizeRecommendationName(type));
-  const newTypeCount = normalizedCandidateTypes.filter((type) => !currentTypeSet.has(type)).length;
-  const duplicateTypeCount = normalizedCandidateTypes.length - newTypeCount;
-  const preferredMatches = candidateTypes.filter((type) =>
-    starters[starter].preferredTypes.some(
-      (preferred) => normalizeRecommendationName(preferred) === normalizeRecommendationName(type)
-    )
-  ).length;
-  const avoidResists = starters[starter].avoidTypes.filter((attackType) =>
-    candidateTypes.length > 0 && getTypeEffectiveness(attackType, candidateTypes) < 1
-  ).length;
-  const avoidWeaknesses = starters[starter].avoidTypes.filter((attackType) =>
-    candidateTypes.length > 0 && getTypeEffectiveness(attackType, candidateTypes) > 1
-  ).length;
-  const bst =
-    docs.pokemonProfiles.find(
-      (entry) => normalizeRecommendationName(entry.species) === normalizeRecommendationName(candidate.species)
-    )?.stats?.bst ?? 360;
-  const normalizedRole = normalizeRecommendationName(ROLE_LABELS[inferCanonicalRole(candidate.role)]);
-  const addsRoleVariety = normalizedRole && !currentRoleSet.has(normalizedRole);
-
-  return (
-    newTypeCount * 20 -
-    duplicateTypeCount * 6 +
-    preferredMatches * 10 +
-    avoidResists * 14 -
-    avoidWeaknesses * 12 +
-    Math.max(0, Math.min(18, Math.round((bst - 320) / 12))) +
-    (addsRoleVariety ? 10 : -4)
-  );
-}
-
-function buildRoleFitExplanation(rawRole: string, currentRoleSet: Set<string>) {
-  const canonicalRole = inferCanonicalRole(rawRole);
-  const canonicalLabel = ROLE_LABELS[canonicalRole];
-  const normalizedCanonical = normalizeRecommendationName(canonicalLabel);
-  const coversMissingRole = !currentRoleSet.has(normalizedCanonical);
-
-  return {
-    canonicalRole,
-    roleLabel: canonicalLabel,
-    teamFitNote: coversMissingRole
-      ? `Cubre el hueco de ${canonicalLabel} que tu comp todavia no enseña bien.`
-      : `No abre un rol nuevo; compite con otro ${canonicalLabel} que ya tienes.`,
-    roleReason: coversMissingRole
-      ? `${rawRole} suma variedad funcional a la comp actual.`
-      : `${rawRole} sirve mas como ajuste fino que como pieza estructural nueva.`,
-  };
-}
-
-function inferCurrentTeamRoles(currentTeam: SuggestionInput[]) {
-  const roles = new Set<string>();
-
-  for (const member of currentTeam) {
-    const normalizedNature = normalizeRecommendationName(member.nature);
-    const normalizedMoves = member.moves.map((move) => normalizeRecommendationName(move));
-    const normalizedAbility = normalizeRecommendationName(member.ability);
-
-    if (normalizedNature === "jolly" || normalizedNature === "timid") {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.cleaner));
-      roles.add(normalizeRecommendationName(ROLE_LABELS.speedControl));
-    }
-    if (normalizedNature === "adamant" || normalizedNature === "modest") {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.wallbreaker));
-    }
-    if (normalizedNature === "bold" || normalizedNature === "calm" || normalizedNature === "impish" || normalizedNature === "careful") {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.bulkyPivot));
-      roles.add(normalizeRecommendationName(ROLE_LABELS.defensiveGlue));
-    }
-
-    if (normalizedMoves.some((move) => ["thunder wave", "tailwind", "icy wind", "rock tomb"].includes(move))) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.speedControl));
-      roles.add(normalizeRecommendationName(ROLE_LABELS.support));
-    }
-    if (normalizedMoves.some((move) => ["u turn", "volt switch", "wish", "protect", "recover", "roost"].includes(move))) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.bulkyPivot));
-    }
-    if (normalizedMoves.some((move) => ["swords dance", "dragon dance", "calm mind", "nasty plot", "quiver dance", "bulk up"].includes(move))) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.setupSweeper));
-    }
-    if (normalizedMoves.some((move) => ["mach punch", "aqua jet", "ice shard", "bullet punch", "shadow sneak"].includes(move))) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.revengeKiller));
-    }
-    if (normalizedMoves.some((move) => ["stealth rock", "spikes", "reflect", "light screen", "toxic", "leech seed"].includes(move))) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.support));
-      roles.add(normalizeRecommendationName(ROLE_LABELS.defensiveGlue));
-    }
-
-    if (normalizedAbility.includes("intimidate")) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.bulkyPivot));
-      roles.add(normalizeRecommendationName(ROLE_LABELS.defensiveGlue));
-    }
-    if (normalizedAbility.includes("sheer force") || normalizedAbility.includes("moxie") || normalizedAbility.includes("adaptability")) {
-      roles.add(normalizeRecommendationName(ROLE_LABELS.wallbreaker));
-    }
-  }
-
-  return roles;
-}
-
-function gatherCurated(
-  docs: ParsedDocs,
-  starter: StarterKey,
-  milestoneId: string,
-  currentTeam: SuggestionInput[],
-  filters: RecommendationFilters,
-) {
-  const timeline = ["opening", "floccesy", "virbank", "castelia"];
-  const maxIndex = timeline.indexOf(milestoneId);
-  const evolutionGraph = buildEvolutionFamilyMap(docs);
-  const currentSpecies = currentTeam
-    .map((member) => member.species.trim())
-    .filter(Boolean);
-  const currentTypeSet = new Set(
-    currentSpecies.flatMap((species) =>
-      resolveDocTypes(docs, species).map((type) => normalizeRecommendationName(type))
-    )
-  );
-  const currentSpeciesSet = new Set(currentSpecies.map((species) => normalizeRecommendationName(species)));
-  const currentFamilySet = new Set(
-    currentSpecies.flatMap((species) => [...buildEvolutionFamilySet(species, evolutionGraph)])
-  );
-  const starterFamily = new Set(
-    starters[starter].stageSpecies.map((species) => normalizeRecommendationName(species)),
-  );
-  const currentRoleSet = inferCurrentTeamRoles(currentTeam);
-  const candidates: (CuratedRecommendation & { stageId: string; fitScore: number })[] = [];
-
-  if (maxIndex < 0) {
-    return [];
-  }
-
-  for (const stageId of timeline.slice(0, maxIndex + 1)) {
-    for (const member of curatedByStarter[starter][stageId] ?? []) {
-      const normalizedSpecies = normalizeRecommendationName(member.species);
-      const candidateFamily = buildEvolutionFamilySet(member.species, evolutionGraph);
-      if (
-        !isRecommendationSpeciesAllowed(
-          member.species,
-          starterFamily,
-          filters,
-          member.source === "Gift" || member.source === "Trade",
-        ) ||
-        candidates.some(
-          (existing) => normalizeRecommendationName(existing.species) === normalizedSpecies
-        ) ||
-        currentSpeciesSet.has(normalizedSpecies) ||
-        [...candidateFamily].some((species) => currentFamilySet.has(species))
-      ) {
-        continue;
-      }
-      const fitScore = scoreCandidateFit({
-        docs,
-        starter,
-        candidate: member,
-        currentTypeSet,
-        currentRoleSet,
-      });
-      candidates.push({
-        ...member,
-        stageId,
-        fitScore,
-      });
-    }
-  }
-
-  return candidates
-    .sort(
-      (left, right) =>
-        right.fitScore - left.fitScore ||
-        left.stageId.localeCompare(right.stageId) ||
-        left.species.localeCompare(right.species)
-    )
-    .slice(0, 6)
-    .map((member) => {
-      const roleFit = buildRoleFitExplanation(member.role, currentRoleSet);
-      return {
-        id: `${member.stageId}-${member.species.toLowerCase()}`,
-        species: member.species,
-        source: member.source,
-        role: member.role,
-        canonicalRole: roleFit.canonicalRole,
-        roleLabel: roleFit.roleLabel,
-        teamFitNote: roleFit.teamFitNote,
-        roleReason: roleFit.roleReason,
-        reason: member.reason,
-        area: member.area,
-      };
-    });
-}
-
-function isRecommendationSpeciesAllowed(
+export function isRecommendationSpeciesAllowed(
   species: string,
   starterFamily: Set<string>,
   filtersInput: RecommendationFilters | undefined,
@@ -909,49 +343,6 @@ function isRecommendationSpeciesAllowed(
 
   return true;
 }
-
-function inferAdvice(input: SuggestionInput) {
-  const advice: string[] = [];
-  const normalizedNature = input.nature.toLowerCase().trim();
-  const normalizedAbility = input.ability.toLowerCase().trim();
-  const normalizedMoves = input.moves.map((move) => move.toLowerCase().trim()).filter(Boolean);
-
-  if (natureMap[normalizedNature]) {
-    advice.push(
-      `${input.species}: naturaleza ${input.nature} apunta a ${natureMap[normalizedNature][0]}; ${natureMap[normalizedNature][1]}`
-    );
-  }
-
-  if (normalizedAbility.includes("contrary")) {
-    advice.push(`${input.species}: si usas Contrary, prioriza boosts invertidos y presión de snowball.`);
-  }
-  if (normalizedAbility.includes("sheer force")) {
-    advice.push(`${input.species}: Sheer Force pide cobertura ofensiva y objetos que no te obliguen a pivotear mucho.`);
-  }
-  if (normalizedAbility.includes("intimidate")) {
-    advice.push(`${input.species}: con Intimidate vale más entrar, forzar cambios y repartir utility.`);
-  }
-  if (normalizedAbility.includes("serene grace")) {
-    advice.push(`${input.species}: Serene Grace premia moves con efectos secundarios; úsalo como glue y no solo como daño plano.`);
-  }
-
-  const supportMoves = ["toxic", "thunder wave", "reflect", "light screen", "leech seed", "wish", "protect"];
-  const setupMoves = ["calm mind", "dragon dance", "bulk up", "swords dance", "nasty plot", "quiver dance"];
-  const priorityMoves = ["bullet punch", "accelerock", "mach punch", "aqua jet", "ice shard"];
-
-  if (normalizedMoves.some((move) => supportMoves.includes(move))) {
-    advice.push(`${input.species}: ya tiene herramientas de soporte; conviene que el resto del equipo cargue con el daño complementario.`);
-  }
-  if (normalizedMoves.some((move) => setupMoves.includes(move))) {
-    advice.push(`${input.species}: el set ya insinúa win condition; protégelo con pivots y control de velocidad.`);
-  }
-  if (normalizedMoves.some((move) => priorityMoves.includes(move))) {
-    advice.push(`${input.species}: la prioridad te permite jugar más agresivo al repartir roles ofensivos.`);
-  }
-
-  return advice;
-}
-
 export function getRecommendation(
   docs: ParsedDocs,
   starter: StarterKey,
@@ -968,8 +359,6 @@ export function getRecommendation(
       .map((member) => member.species.trim())
       .find((species) => starterFamily.has(normalizeRecommendationName(species))) ??
     starters[starter].species;
-  const recommendedTeam = gatherCurated(docs, starter, milestone.id, currentTeam, filters);
-  const currentBuildAdvice = currentTeam.flatMap(inferAdvice);
   const notes = [
     `${currentStarterStage} funciona mejor si el resto del equipo cubre ${starters[starter].avoidTypes.join(", ")}.`,
     `En ${milestone.checkpoint} la prioridad es ${milestone.focus.join(" y ")}.`,
@@ -977,10 +366,7 @@ export function getRecommendation(
   ];
 
   return {
-    starterSummary: starters[starter].headline,
-    recommendedTeam,
     notes,
-    currentBuildAdvice,
-    availableSources: buildSources(docs, milestone.areas, starter, filters),
+    availableSources: buildAreaSources(docs, milestone.areas, starter, filters),
   };
 }
