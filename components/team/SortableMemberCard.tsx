@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import clsx from 'clsx';
-import { Ellipsis, GitCompareArrows, Lock, LockOpen, Mars, Pencil, Venus, X } from 'lucide-react';
+import { Mars, Venus } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { ItemSprite, PokemonSprite, TypeBadge } from '@/components/BuilderShared';
 import { MiniPill } from '@/components/team/UI';
-import { Button } from '@/components/ui/Button';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
@@ -279,11 +277,8 @@ export function SortableMemberCard({
   weather,
   isEvolving,
   isSelected,
+  hasActiveSelection,
   onSelect,
-  onEdit,
-  onToggleLock,
-  onAssignToCompare,
-  onRemove,
 }: {
   member: EditableMember;
   index: number;
@@ -292,11 +287,8 @@ export function SortableMemberCard({
   weather: BattleWeather;
   isEvolving: boolean;
   isSelected: boolean;
+  hasActiveSelection: boolean;
   onSelect: () => void;
-  onEdit: () => void;
-  onToggleLock: () => void;
-  onAssignToCompare: () => void;
-  onRemove: () => void;
 }) {
   const {
     attributes,
@@ -308,8 +300,6 @@ export function SortableMemberCard({
   } = useSortable({
     id: member.id,
   });
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement | null>(null);
   const displayName =
     member.nickname ||
     resolved?.species ||
@@ -352,31 +342,6 @@ export function SortableMemberCard({
     },
   ];
 
-  useEffect(() => {
-    if (!menuOpen) {
-      return;
-    }
-
-    function handlePointerDown(event: PointerEvent) {
-      if (!menuRef.current?.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-      }
-    }
-
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [menuOpen]);
-
   return (
     <article
       ref={setNodeRef}
@@ -392,93 +357,22 @@ export function SortableMemberCard({
         isDragging &&
           "drag-surface scale-[0.94] border-accent opacity-45 saturate-[0.82] blur-[1px]",
         isSelected &&
-          "selection-tint selection-shadow border-primary-line-active",
+          "roster-card-selected selection-tint selection-shadow border-primary-line-active",
+        hasActiveSelection &&
+          !isSelected &&
+          "roster-card-unselected",
       )}
       onClick={onSelect}
     >
       <WeatherVisualLayer weather={weather} />
       <div className="min-w-0">
-        <div className="flex min-w-0 items-start justify-between gap-2">
-          <p className="roster-name-face mt-0.5 min-w-0 flex-1 truncate pr-2">
+        <div className="flex min-w-0 items-start gap-2">
+          <p className="roster-name-face mt-0.5 min-w-0 flex-1 truncate">
             <span className="inline-flex max-w-full items-center gap-1.5">
               <span className="truncate">{displayName}</span>
               {genderIcon}
             </span>
           </p>
-          <div ref={menuRef} className="relative shrink-0">
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              onClick={(event) => {
-                event.stopPropagation();
-                setMenuOpen((current) => !current);
-              }}
-              onPointerDown={(event) => event.stopPropagation()}
-              aria-label={`Abrir acciones para ${member.species || `slot ${index + 1}`}`}
-              aria-expanded={menuOpen}
-              className="size-6 border border-line bg-surface-4 text-muted hover:bg-surface-8 sm:size-7"
-            >
-              <Ellipsis className="h-4 w-4" />
-            </Button>
-            {menuOpen ? (
-              <div
-                className="absolute right-0 top-[calc(100%+0.35rem)] min-w-[9rem] rounded-[0.8rem] border border-line-strong bg-[rgba(6,15,19,0.96)] p-1.5 shadow-[0_18px_40px_rgba(0,0,0,0.34)] backdrop-blur-md"
-                onClick={(event) => event.stopPropagation()}
-                onPointerDown={(event) => event.stopPropagation()}
-              >
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    onEdit();
-                  }}
-                  className="flex w-full items-center gap-2 rounded-[0.65rem] px-2.5 py-2 text-left text-xs text-text transition hover:bg-surface-4"
-                >
-                  <Pencil className="h-3.5 w-3.5" />
-                  <span>Edit</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    onToggleLock();
-                  }}
-                  className={clsx(
-                    "flex w-full items-center gap-2 rounded-[0.65rem] px-2.5 py-2 text-left text-xs transition",
-                    member.locked
-                      ? "text-warning-strong hover:bg-warning-fill"
-                      : "text-text hover:bg-surface-4",
-                  )}
-                >
-                  {member.locked ? <Lock className="h-3.5 w-3.5" /> : <LockOpen className="h-3.5 w-3.5" />}
-                  <span>{member.locked ? "Unlock" : "Lock"}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    onAssignToCompare();
-                  }}
-                  className="flex w-full items-center gap-2 rounded-[0.65rem] px-2.5 py-2 text-left text-xs text-text transition hover:bg-surface-4"
-                >
-                  <GitCompareArrows className="h-3.5 w-3.5" />
-                  <span>Compare</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    onRemove();
-                  }}
-                  className="flex w-full items-center gap-2 rounded-[0.65rem] px-2.5 py-2 text-left text-xs text-danger transition hover:bg-danger-fill"
-                >
-                  <X className="h-3.5 w-3.5" />
-                  <span>Delete</span>
-                </button>
-              </div>
-            ) : null}
-          </div>
         </div>
 
         <div className="mt-2 lg:hidden">
@@ -582,6 +476,7 @@ export function SortableMemberCard({
             </div>
           </div>
         </div>
+
       </div>
     </article>
   );

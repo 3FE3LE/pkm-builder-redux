@@ -207,6 +207,10 @@ export function useBuilderDerivedData(
       contextualAreas,
       store.starter,
       store.recommendationFilters,
+      {
+        team: resolvedTeam,
+        pokemonByName: pokemonIndex,
+      },
     ).filter(
       (source) =>
         source.encounters.length ||
@@ -221,9 +225,9 @@ export function useBuilderDerivedData(
     ? resolvedTeam.find((member) => member.key === activeMovePickerMemberId)
     : undefined;
 
-  const activeMember =
-    resolvedTeam.find((member) => member.key === store.activeMemberId) ??
-    resolvedTeam.find((member) => member.species.trim());
+  const activeMember = store.activeMemberId
+    ? resolvedTeam.find((member) => member.key === store.activeMemberId)
+    : undefined;
 
   const moveRecommendations = useMemo(
     () =>

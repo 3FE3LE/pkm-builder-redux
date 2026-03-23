@@ -22,7 +22,11 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
   }
 
   function selectMember(memberId: string) {
-    store.setActiveMemberId(memberId);
+    store.setActiveMemberId(store.activeMemberId === memberId ? null : memberId);
+  }
+
+  function clearSelection() {
+    store.setActiveMemberId(null);
   }
 
   function editMember(memberId: string) {
@@ -40,7 +44,7 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     store.setCurrentTeam(nextItems);
 
     if (store.activeMemberId === memberId) {
-      store.setActiveMemberId(nextItems[0]?.id ?? null);
+      store.setActiveMemberId(null);
     }
 
     if (store.editorMemberId === memberId) {
@@ -167,6 +171,7 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
   return {
     handleDragEnd,
     selectMember,
+    clearSelection,
     editMember,
     removeMember,
     addMember,

@@ -138,11 +138,24 @@ export function buildCaptureRecommendations({
       if (filters.excludeExactTypeDuplicates && duplicatePenalty > 0) {
         return null;
       }
-      const candidateLineTypes = getLineTerminalTypes(source.species, pokemonByName);
+      const candidateLineTypes = getComparableTypes({
+        species: source.species,
+        fallbackTypes: projected.resolvedTypes,
+        pokemonByName,
+      });
       if (
         filters.excludeExactTypeDuplicates &&
         activeTeam.some(
-          (member) => member.locked && sharesAnyType(candidateLineTypes, member.resolvedTypes),
+          (member) =>
+            member.locked &&
+            sharesAnyType(
+              candidateLineTypes,
+              getComparableTypes({
+                species: member.species,
+                fallbackTypes: member.resolvedTypes,
+                pokemonByName,
+              }),
+            ),
         )
       ) {
         return null;
@@ -267,7 +280,20 @@ function getStarterFinalTypes(
   if (!finalSpecies) {
     return [];
   }
-  return getLineTerminalTypes(finalSpecies, pokemonByName);
+  return getComparableTypes({ species: finalSpecies, fallbackTypes: [], pokemonByName });
+}
+
+function getComparableTypes({
+  species,
+  fallbackTypes,
+  pokemonByName,
+}: {
+  species: string;
+  fallbackTypes: string[];
+  pokemonByName: Record<string, RemotePokemon | null | undefined>;
+}) {
+  const lineTypes = getLineTerminalTypes(species, pokemonByName);
+  return lineTypes.length ? lineTypes : fallbackTypes;
 }
 
 function getLineTerminalTypes(

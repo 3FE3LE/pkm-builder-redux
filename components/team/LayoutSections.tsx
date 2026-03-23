@@ -2,8 +2,8 @@
 
 import clsx from "clsx";
 import { type ReactNode } from "react";
-import { CloudRain, CloudSun, MoonStar, Plus, Snowflake, Sun, Sunrise, Sunset, Wind } from "lucide-react";
-import { motion } from "motion/react";
+import { CloudRain, CloudSun, GitCompareArrows, Lock, LockOpen, MoonStar, Pencil, Plus, Snowflake, Sun, Sunrise, Sunset, Wind, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 import {
   CoveragePanel,
@@ -23,9 +23,11 @@ import {
   buildCompareState,
 } from "@/components/team/CompareModalSections";
 import { Switch } from "@/components/ui/Switch";
+import { Button } from "@/components/ui/Button";
 import { SortableMemberCard } from "@/components/team/SortableMemberCard";
 import { type EditableMember } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
+import { TYPE_COLORS } from "@/lib/domain/typeChart";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
@@ -51,6 +53,25 @@ type MoveRecommendation = ReturnType<typeof import("@/lib/domain/moveRecommendat
 
 type DefensiveSections = ReturnType<typeof import("@/lib/teamAnalysis").buildDefensiveSections>;
 type CompareMembers = import("@/hooks/types").CompareMembers;
+
+function getDockTone(types: string[] = []) {
+  const primary = TYPE_COLORS[types[0] ?? ""] ?? "hsl(165 83% 65%)";
+  const secondary = TYPE_COLORS[types[1] ?? types[0] ?? ""] ?? primary;
+
+  return {
+    backgroundImage: `
+      radial-gradient(circle at 18% 18%, color-mix(in srgb, ${primary} 24%, transparent) 0%, transparent 34%),
+      radial-gradient(circle at 82% 76%, color-mix(in srgb, ${secondary} 20%, transparent) 0%, transparent 38%),
+      linear-gradient(180deg, hsl(196 57% 9% / 0.98), hsl(196 57% 7% / 0.98))
+    `,
+    borderColor: `color-mix(in srgb, ${primary} 42%, var(--line-strong))`,
+    boxShadow: `
+      0 22px 50px hsl(0 0% 0% / 0.34),
+      0 0 0 1px color-mix(in srgb, ${secondary} 16%, transparent),
+      0 0 28px color-mix(in srgb, ${primary} 16%, transparent)
+    `,
+  } as const;
+}
 
 export function BuilderHeader({
   milestoneId: _milestoneId,
@@ -115,6 +136,33 @@ export function TeamRosterSection({
   onAssignToCompare: (memberId: string) => void;
 }) {
   const filledTeam = currentTeam.filter((member) => member.species.trim());
+  const selectedMember = activeMemberKey
+    ? filledTeam.find((member) => member.id === activeMemberKey)
+    : undefined;
+  const selectedResolved = activeMemberKey
+    ? resolvedTeam.find((member) => member.key === activeMemberKey)
+    : undefined;
+  const hasActiveSelection = Boolean(selectedMember);
+  const desktopTopRow = filledTeam.slice(0, 3);
+  const desktopBottomRow = filledTeam.slice(3, 6);
+  const dockTone = getDockTone(selectedResolved?.resolvedTypes);
+
+  function renderRosterCard(member: EditableMember, index: number) {
+    return (
+      <SortableMemberCard
+        key={member.id}
+        member={member}
+        index={index}
+        resolved={resolvedTeam.find((resolved) => resolved.key === member.id)}
+        roleRecommendation={roleSnapshot.members.find((entry) => entry.key === member.id)}
+        weather={battleWeather}
+        isEvolving={Boolean(evolvingIds[member.id])}
+        isSelected={activeMemberKey === member.id}
+        hasActiveSelection={hasActiveSelection}
+        onSelect={() => onSelectMember(member.id)}
+      />
+    );
+  }
 
   return (
     <section className="space-y-2">
@@ -124,31 +172,15 @@ export function TeamRosterSection({
             <p className="display-face text-sm text-accent">Roster del equipo</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-3" />
+        <div className="hidden md:block" />
       </div>
 
-      <div className="grid grid-cols-2 gap-2.5 md:gap-3 2xl:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2.5 md:hidden">
         <SortableContext
           items={filledTeam.map((member) => member.id)}
           strategy={rectSortingStrategy}
         >
-          {filledTeam.map((member, index) => (
-            <SortableMemberCard
-              key={member.id}
-              member={member}
-              index={index}
-              resolved={resolvedTeam.find((resolved) => resolved.key === member.id)}
-              roleRecommendation={roleSnapshot.members.find((entry) => entry.key === member.id)}
-              weather={battleWeather}
-              isEvolving={Boolean(evolvingIds[member.id])}
-              isSelected={activeMemberKey === member.id}
-              onSelect={() => onSelectMember(member.id)}
-              onEdit={() => onEditMember(member.id)}
-              onToggleLock={() => onToggleMemberLock(member.id)}
-              onAssignToCompare={() => onAssignToCompare(member.id)}
-              onRemove={() => onRemoveMember(member.id)}
-            />
-          ))}
+          {filledTeam.map((member, index) => renderRosterCard(member, index))}
         </SortableContext>
 
         {filledTeam.length < 6 ? (
@@ -163,6 +195,161 @@ export function TeamRosterSection({
           </button>
         ) : null}
       </div>
+
+      <div className="hidden md:block">
+        <SortableContext
+          items={filledTeam.map((member) => member.id)}
+          strategy={rectSortingStrategy}
+        >
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-3">
+              {desktopTopRow.map((member, index) => renderRosterCard(member, index))}
+            </div>
+
+            <AnimatePresence initial={false}>
+              {selectedMember ? (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="overflow-hidden"
+                >
+                  <motion.div
+                    initial={{ y: -10, scale: 0.96 }}
+                    animate={{ y: 0, scale: 1 }}
+                    exit={{ y: -10, scale: 0.96 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="flex justify-center"
+                  >
+                    <div className="desktop-roster-action-rail" style={dockTone}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={() => onEditMember(selectedMember.id)}
+                        aria-label="Editar slot seleccionado"
+                        className="size-9 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={() => onToggleMemberLock(selectedMember.id)}
+                        aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
+                        className={clsx(
+                          "size-9 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8",
+                          selectedMember.locked
+                            ? "border-warning-line text-warning-strong"
+                            : "border-line text-muted",
+                        )}
+                      >
+                        {selectedMember.locked ? <Lock className="h-4 w-4" /> : <LockOpen className="h-4 w-4" />}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={() => onAssignToCompare(selectedMember.id)}
+                        aria-label="Comparar slot seleccionado"
+                        className="size-9 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+                      >
+                        <GitCompareArrows className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={() => onRemoveMember(selectedMember.id)}
+                        aria-label="Eliminar slot seleccionado"
+                        className="size-9 rounded-[0.9rem] border border-danger-line bg-surface-4 text-danger hover:bg-danger-fill"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+
+            <div className="grid grid-cols-3 gap-3">
+              {desktopBottomRow.map((member, index) => renderRosterCard(member, index + 3))}
+              {filledTeam.length < 6 ? (
+                <button
+                  type="button"
+                  onClick={onAddMember}
+                  className="panel-tint-faint group flex min-h-[12rem] flex-col items-center justify-center rounded-[1rem] border border-dashed border-line-emphasis p-5 text-center transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill"
+                >
+                  <div className="flex h-20 w-20 items-center justify-center rounded-[0.875rem] border border-line-soft bg-surface-3 transition group-hover:scale-[1.03] group-hover:border-primary-line-emphasis">
+                    <Plus className="h-9 w-9 text-accent" />
+                  </div>
+                </button>
+              ) : null}
+            </div>
+          </div>
+        </SortableContext>
+      </div>
+
+      <AnimatePresence initial={false}>
+        {selectedMember ? (
+          <motion.div
+            initial={{ x: "-50%", y: 28, opacity: 0 }}
+            animate={{ x: "-50%", y: 0, opacity: 1 }}
+            exit={{ x: "-50%", y: 28, opacity: 0 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="mobile-roster-action-dock flex md:hidden"
+            style={dockTone}
+          >
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-lg"
+              onClick={() => onEditMember(selectedMember.id)}
+              aria-label="Editar slot seleccionado"
+              className="size-11 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+            >
+              <Pencil className="h-5 w-5" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-lg"
+              onClick={() => onToggleMemberLock(selectedMember.id)}
+              aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
+              className={clsx(
+                "size-11 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8",
+                selectedMember.locked
+                  ? "border-warning-line text-warning-strong"
+                  : "border-line text-muted",
+              )}
+            >
+              {selectedMember.locked ? <Lock className="h-5 w-5" /> : <LockOpen className="h-5 w-5" />}
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-lg"
+              onClick={() => onAssignToCompare(selectedMember.id)}
+              aria-label="Comparar slot seleccionado"
+              className="size-11 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+            >
+              <GitCompareArrows className="h-5 w-5" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-lg"
+              onClick={() => onRemoveMember(selectedMember.id)}
+              aria-label="Eliminar slot seleccionado"
+              className="size-11 rounded-[0.9rem] border border-danger-line bg-surface-4 text-danger hover:bg-danger-fill"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </section>
   );
 }

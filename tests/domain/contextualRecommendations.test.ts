@@ -1,11 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
+import { buildAreaSources } from "../../lib/builder";
 import { buildCaptureRecommendations } from "../../lib/domain/contextualRecommendations";
 import type { ParsedDocs } from "../../lib/docsSchema";
 import type { RecommendationFilters } from "../../lib/builder";
-import type { RunEncounterDefinition } from "../../lib/runEncounters";
+import { getContextualSourceAreas, type RunEncounterDefinition } from "../../lib/runEncounters";
 import type { RemotePokemon, ResolvedTeamMember } from "../../lib/teamAnalysis";
+import type { WorldData } from "../../lib/worldDataSchema";
 
 const BASE_FILTERS: RecommendationFilters = {
   excludeLegendaries: false,
@@ -205,6 +207,18 @@ const POKEMON_INDEX: Record<string, RemotePokemon> = {
       machines: [],
     },
   },
+  castform: {
+    id: 351,
+    name: "Castform",
+    types: ["Normal", "Fairy"],
+    abilities: ["Forecast"],
+    nextEvolutions: [],
+    stats: { hp: 70, atk: 70, def: 70, spa: 70, spd: 70, spe: 70, bst: 420 },
+    learnsets: {
+      levelUp: [{ level: 1, move: "Tackle" }],
+      machines: [],
+    },
+  },
   beldum: {
     id: 374,
     name: "Beldum",
@@ -361,4 +375,57 @@ test("excludes candidates that share any type with a locked member when duplicat
 
   assert.ok(!recommendations.some((entry) => entry.species === "Audino"));
   assert.ok(recommendations.some((entry) => entry.species === "Mareep"));
+});
+
+test("uses Castelia sources when the next encounter is Burgh", () => {
+  assert.deepEqual(getContextualSourceAreas(8), [
+    "Castelia City",
+    "Castelia Sewers",
+    "Relic Passage - Castelia",
+    "Route 4",
+  ]);
+});
+
+test("filters checkpoint source cards by locked-type exclusions", () => {
+  const docsWithWorldData = {
+    ...BASE_DOCS,
+    worldData: {
+      gifts: [],
+      trades: [],
+      items: [],
+      wildAreas: [
+        {
+          area: "Castelia Sewers",
+          methods: [
+            {
+              method: "Grass",
+              encounters: [
+                { species: "Audino", level: "20" },
+                { species: "Castform", level: "20" },
+                { species: "Mareep", level: "20" },
+              ],
+            },
+          ],
+        },
+      ],
+    } satisfies WorldData,
+  } as ParsedDocs & { worldData: WorldData };
+
+  const sources = buildAreaSources(
+    docsWithWorldData,
+    ["Castelia Sewers"],
+    "snivy",
+    {
+      ...BASE_FILTERS,
+      excludeExactTypeDuplicates: true,
+    },
+    {
+      team: [
+        buildResolvedMember("Teddiursa", true, ["Normal", "Ground"]),
+      ],
+      pokemonByName: POKEMON_INDEX,
+    },
+  );
+
+  assert.deepEqual(sources[0]?.encounters, ["Mareep (Grass)"]);
 });

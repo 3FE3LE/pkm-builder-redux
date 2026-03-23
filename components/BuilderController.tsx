@@ -105,6 +105,7 @@ export function useBuilderController({
         returnToOnboarding: actions.returnToOnboarding,
         handleDragEnd: actions.handleDragEnd,
         selectMember: actions.selectMember,
+        clearSelection: actions.clearSelection,
         editMember: actions.editMember,
         removeMember: actions.removeMember,
         addMember: actions.addMember,

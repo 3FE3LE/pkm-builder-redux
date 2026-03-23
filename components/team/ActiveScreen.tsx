@@ -63,6 +63,7 @@ export function ActiveScreen() {
   function assignCompareFromRosterFirstEmpty(memberId: string) {
     const emptySlot = compare.members.findIndex((member) => !member.species.trim());
     assignCompareFromRoster((emptySlot === 1 ? 1 : 0) as 0 | 1, memberId);
+    team.actions.clearSelection();
     setWorkspaceTab("compare");
   }
 
@@ -142,14 +143,21 @@ export function ActiveScreen() {
             evolvingIds={team.evolvingIds}
             activeMemberKey={team.activeMember?.key}
             onSelectMember={team.actions.selectMember}
-            onEditMember={team.actions.editMember}
-            onToggleMemberLock={(id) =>
+            onEditMember={(id) => {
+              team.actions.editMember(id);
+              team.actions.clearSelection();
+            }}
+            onToggleMemberLock={(id) => {
               team.actions.updateMember(id, (current) => ({
                 ...current,
                 locked: !current.locked,
-              }))
-            }
-            onRemoveMember={team.actions.removeMember}
+              }));
+              team.actions.clearSelection();
+            }}
+            onRemoveMember={(id) => {
+              team.actions.removeMember(id);
+              team.actions.clearSelection();
+            }}
             onAddMember={team.actions.addMember}
             onAssignToCompare={assignCompareFromRosterFirstEmpty}
           />

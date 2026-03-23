@@ -456,8 +456,11 @@ export function getContextualSourceAreas(order: number) {
   if (order <= 5) {
     return ["Route 20 - Spring", "Floccesy Ranch", "Floccesy Town"];
   }
-  if (order <= 9) {
+  if (order <= 7) {
     return ["Virbank City", "Virbank Complex - Outside", "Virbank Complex - Inside"];
+  }
+  if (order === 8) {
+    return ["Castelia City", "Castelia Sewers", "Relic Passage - Castelia", "Route 4"];
   }
   if (order <= 13) {
     return ["Castelia City", "Castelia Sewers", "Relic Passage - Castelia", "Route 4"];

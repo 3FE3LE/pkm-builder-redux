@@ -7,6 +7,7 @@ import {
   type WorldArea,
   type WorldData,
 } from "./worldDataSchema";
+import type { RemotePokemon, ResolvedTeamMember } from "./teamAnalysis";
 
 export type StarterKey = "snivy" | "tepig" | "oshawott";
 export type PokemonGender = "unknown" | "male" | "female";
@@ -266,28 +267,58 @@ export function buildAreaSources(
   areas: string[],
   starter: StarterKey,
   filters: RecommendationFilters,
+  options?: {
+    team?: Array<ResolvedTeamMember & { locked?: boolean }>;
+    pokemonByName?: Record<string, RemotePokemon | null | undefined>;
+  },
 ) {
   const worldData = (docs as ParsedDocs & { worldData?: WorldData }).worldData;
   const starterFamily = new Set(
     starters[starter].stageSpecies.map((species) => normalizeRecommendationName(species)),
   );
+  const activeTeam = options?.team?.filter((member) => member.species.trim()) ?? [];
+  const pokemonByName = options?.pokemonByName;
   return areas.map((areaName) => {
     const area = worldData ? findWorldArea(worldData.wildAreas, areaName) : undefined;
     const gifts = worldData
       ? findWorldGifts(worldData.gifts, areaName).filter((gift) =>
-          isRecommendationSpeciesAllowed(gift.name, starterFamily, filters, true),
+          isRecommendationCandidateAllowed({
+            species: gift.name,
+            starterFamily,
+            filters,
+            isUniqueSource: true,
+            team: activeTeam,
+            pokemonByName,
+            starter,
+          }),
         )
       : [];
     const trades = worldData
       ? findWorldTrades(worldData.trades, areaName).filter((trade) =>
-          isRecommendationSpeciesAllowed(trade.received, starterFamily, filters, true),
+          isRecommendationCandidateAllowed({
+            species: trade.received,
+            starterFamily,
+            filters,
+            isUniqueSource: true,
+            team: activeTeam,
+            pokemonByName,
+            starter,
+          }),
         )
       : [];
     const items = worldData ? findWorldItems(worldData.items, areaName) : undefined;
     return {
       area: areaName,
       encounters: summarizeEncounters(area).filter((encounter) =>
-        isRecommendationSpeciesAllowed(encounter.species, starterFamily, filters, false),
+        isRecommendationCandidateAllowed({
+          species: encounter.species,
+          starterFamily,
+          filters,
+          isUniqueSource: false,
+          team: activeTeam,
+          pokemonByName,
+          starter,
+        }),
       ).map((encounter) => `${encounter.species} (${encounter.method})`),
       gifts: gifts.map((gift) => gift.name),
       trades: trades.map((trade) => `${trade.received} for ${trade.requested}`),
@@ -343,6 +374,91 @@ export function isRecommendationSpeciesAllowed(
 
   return true;
 }
+
+function isRecommendationCandidateAllowed({
+  species,
+  starterFamily,
+  filters,
+  isUniqueSource,
+  team,
+  pokemonByName,
+  starter,
+}: {
+  species: string;
+  starterFamily: Set<string>;
+  filters: RecommendationFilters;
+  isUniqueSource: boolean;
+  team: Array<ResolvedTeamMember & { locked?: boolean }>;
+  pokemonByName?: Record<string, RemotePokemon | null | undefined>;
+  starter: StarterKey;
+}) {
+  if (!isRecommendationSpeciesAllowed(species, starterFamily, filters, isUniqueSource)) {
+    return false;
+  }
+  if (!filters.excludeExactTypeDuplicates || !team.length || !pokemonByName) {
+    return true;
+  }
+
+  const candidateTypes = getSpeciesTerminalTypes(species, pokemonByName);
+  if (!candidateTypes.length) {
+    return true;
+  }
+
+  const lockedStarterLine = team.find(
+    (member) => member.locked && starterFamily.has(normalizeRecommendationName(member.species)),
+  );
+  if (lockedStarterLine) {
+    const starterFinalSpecies = starters[starter].stageSpecies.at(-1);
+    const starterTypes = starterFinalSpecies
+      ? getSpeciesTerminalTypes(starterFinalSpecies, pokemonByName)
+      : [];
+    if (sharesAnyRecommendationType(candidateTypes, starterTypes)) {
+      return false;
+    }
+  }
+
+  return !team.some((member) => {
+    if (!member.locked) {
+      return false;
+    }
+    const lockedTypes =
+      getSpeciesTerminalTypes(member.species, pokemonByName).length > 0
+        ? getSpeciesTerminalTypes(member.species, pokemonByName)
+        : member.resolvedTypes;
+    return sharesAnyRecommendationType(candidateTypes, lockedTypes);
+  });
+}
+
+function getSpeciesTerminalTypes(
+  species: string,
+  pokemonByName: Record<string, RemotePokemon | null | undefined>,
+  visited = new Set<string>(),
+): string[] {
+  const key = normalizeRecommendationName(species);
+  if (!key || visited.has(key)) {
+    return [];
+  }
+  visited.add(key);
+
+  const pokemon = pokemonByName[key];
+  if (!pokemon) {
+    return [];
+  }
+  if (!pokemon.nextEvolutions?.length) {
+    return pokemon.types ?? [];
+  }
+
+  const terminalTypes = pokemon.nextEvolutions.flatMap((nextSpecies) =>
+    getSpeciesTerminalTypes(nextSpecies, pokemonByName, new Set(visited)),
+  );
+  return terminalTypes.length ? Array.from(new Set(terminalTypes)) : (pokemon.types ?? []);
+}
+
+function sharesAnyRecommendationType(left: string[], right: string[]) {
+  const rightSet = new Set(right.map((type) => normalizeRecommendationName(type)));
+  return left.some((type) => rightSet.has(normalizeRecommendationName(type)));
+}
+
 export function getRecommendation(
   docs: ParsedDocs,
   starter: StarterKey,
