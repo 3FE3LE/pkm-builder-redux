@@ -6,11 +6,11 @@ export function MoveHighlightsPanel({
   moveHighlights: { move: string; changes: string[] }[];
 }) {
   return (
-    <div className="rounded-[1rem] p-6">
+    <div className="px-1 py-1">
       <p className="display-face text-sm text-accent">Cambios de moves relevantes</p>
-      <div className="scrollbar-thin mt-4 max-h-[24rem] space-y-3 overflow-auto pr-1">
+      <div className="scrollbar-thin mt-3 max-h-[24rem] space-y-2 overflow-auto">
         {moveHighlights.map((move) => (
-          <article key={move.move} className="rounded-[0.75rem] border border-line p-3">
+          <article key={move.move} className="px-1 py-1">
             <p className="display-face text-sm">{move.move}</p>
             <div className="mt-2 space-y-1 text-sm text-muted">
               {move.changes.map((change) => (

@@ -397,6 +397,27 @@ export function getNextRelevantEncounter(
   );
 }
 
+export function getPendingMandatoryBeforeEncounter(
+  encounters: RunEncounterDefinition[],
+  completedEncounterIds: string[],
+  encounterId: string,
+) {
+  const completed = new Set(completedEncounterIds ?? []);
+  const target = encounters.find((encounter) => encounter.id === encounterId);
+  if (!target) {
+    return null;
+  }
+
+  return (
+    encounters.find(
+      (encounter) =>
+        encounter.order < target.order &&
+        encounter.mandatory &&
+        !completed.has(encounter.id),
+    ) ?? null
+  );
+}
+
 export function mapEncounterOrderToMilestoneId(order: number) {
   if (order <= 3) {
     return "opening";

@@ -443,7 +443,7 @@ export function RunOpsSection({
   onToggleEncounter: (id: string) => void;
 }) {
   return (
-    <section className="space-y-3">
+    <section className="space-y-2">
       <RunPathPanel
         encounters={encounterCatalog}
         completedEncounterIds={completedEncounterIds}

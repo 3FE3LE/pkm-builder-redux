@@ -11,7 +11,7 @@ export function CheckpointMapPanel({
   sourceCards: AreaSource[];
 }) {
   return (
-    <div className="rounded-[1rem] p-6">
+    <div className="px-1 py-1">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="display-face text-sm text-accent">Mapa del checkpoint</p>
@@ -23,7 +23,7 @@ export function CheckpointMapPanel({
           {activeMember?.species ? `slot activo: ${activeMember.species}` : "sin slot activo"}
         </div>
       </div>
-      <div className="scrollbar-thin mt-5 max-h-[34rem] space-y-4 overflow-auto pr-1">
+      <div className="scrollbar-thin mt-4 max-h-[34rem] space-y-3 overflow-auto">
         {sourceCards.length ? (
           sourceCards.map((source) => (
             <AreaSourceCard
@@ -33,7 +33,7 @@ export function CheckpointMapPanel({
             />
           ))
         ) : (
-          <div className="rounded-[0.75rem] border border-line p-4 text-sm text-muted">
+          <div className="px-1 py-1 text-sm text-muted">
             No hay fuentes registradas para este checkpoint en el dataset actual.
           </div>
         )}

@@ -6,7 +6,11 @@ import { useMemo } from "react";
 
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import type { StarterKey } from "@/lib/builder";
-import type { RunEncounterBoss, RunEncounterDefinition } from "@/lib/runEncounters";
+import {
+  getPendingMandatoryBeforeEncounter,
+  type RunEncounterBoss,
+  type RunEncounterDefinition,
+} from "@/lib/runEncounters";
 
 export function RunPathPanel({
   encounters,
@@ -30,12 +34,28 @@ export function RunPathPanel({
       ) as Record<string, number>,
     [safeSpeciesCatalog],
   );
+  const immediateBlockedEncounterId = useMemo(
+    () =>
+      encounters.find((encounter) => {
+        if (safeCompletedEncounterIds.includes(encounter.id)) {
+          return false;
+        }
+        return Boolean(
+          getPendingMandatoryBeforeEncounter(
+            encounters,
+            safeCompletedEncounterIds,
+            encounter.id,
+          ),
+        );
+      })?.id ?? null,
+    [encounters, safeCompletedEncounterIds],
+  );
 
   return (
-    <div className="rounded-[1rem] p-6">
+    <div className="px-1 py-1">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="display-face text-sm text-accent">Run path</p>
+          <p className="display-face text-sm text-accent">Ruta</p>
           <p className="mt-2 text-sm text-muted">
             Ruta principal en Challenge Mode. Puedes marcar encounters ya resueltos para que el progreso de la run quede persistido.
           </p>
@@ -44,35 +64,57 @@ export function RunPathPanel({
           {safeCompletedEncounterIds.length}/{encounters.length}
         </div>
       </div>
-      <div className="scrollbar-thin mt-5 max-h-[32rem] space-y-2 overflow-auto pr-1">
+      <div className="scrollbar-thin mt-4 max-h-[32rem] space-y-2 overflow-auto">
         {encounters.map((encounter) => {
           const isCompleted = safeCompletedEncounterIds.includes(encounter.id);
           const visibleBosses = getVisibleEncounterBosses(encounter, starterKey);
+          const blockingEncounter = isCompleted
+            ? null
+            : getPendingMandatoryBeforeEncounter(
+                encounters,
+                safeCompletedEncounterIds,
+                encounter.id,
+              );
+          const isLocked = Boolean(blockingEncounter);
+          const showBlockingHint = isLocked && encounter.id === immediateBlockedEncounterId;
 
           return (
             <button
               key={encounter.id}
               type="button"
-              onClick={() => onToggleEncounter(encounter.id)}
+              onClick={() => {
+                if (isLocked) {
+                  return;
+                }
+                onToggleEncounter(encounter.id);
+              }}
+              disabled={isLocked}
+              title={
+                blockingEncounter
+                  ? `Primero debes marcar ${blockingEncounter.label}.`
+                  : undefined
+              }
               className={clsx(
-                "flex w-full items-start justify-between gap-3 rounded-[0.8rem] border px-4 py-3 text-left transition",
+                "flex w-full items-start justify-between gap-2 rounded-[0.8rem] border px-3 py-2.5 text-left transition",
+                isLocked && "cursor-not-allowed opacity-60 grayscale",
                 isCompleted
                   ? "border-primary-line-emphasis primary-complete-tint"
                   : "border-line bg-surface-1 hover:bg-surface-3",
               )}
+              style={isLocked ? { cursor: "not-allowed" } : undefined}
             >
-              <div className="flex items-start gap-3">
-                <TrainerAvatar
-                  label={encounter.label}
-                  trainerSpriteUrl={encounter.trainerSpriteUrl}
-                  completed={isCompleted}
-                />
-              </div>
               <div className="min-w-0 flex-1">
-                <EncounterHeader encounter={encounter} />
-                <p className="mt-2 text-sm text-muted">Lv cap {encounter.levelCap}</p>
+                <div className="flex items-center justify-between gap-2">
+                  <EncounterHeader encounter={encounter} />
+                  <span className="shrink-0 text-xs text-muted">Lv cap {encounter.levelCap}</span>
+                </div>
+                {showBlockingHint && blockingEncounter ? (
+                  <p className="mt-2 text-xs text-warning-soft">
+                    Primero marca {blockingEncounter.label}.
+                  </p>
+                ) : null}
                 {visibleBosses.length ? (
-                  <div className="mt-3 space-y-3">
+                  <div className={clsx("space-y-2", showBlockingHint ? "mt-2.5" : "mt-3")}>
                     {visibleBosses.map((boss) => (
                       <EncounterBossRow
                         key={`${encounter.id}-${boss.label}`}
@@ -83,7 +125,7 @@ export function RunPathPanel({
                     ))}
                   </div>
                 ) : encounter.team?.length ? (
-                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <div className={clsx("flex flex-nowrap items-center gap-1.5 overflow-hidden", showBlockingHint ? "mt-2.5" : "mt-3")}>
                     {encounter.team.map((species) => {
                       const dex = resolveEncounterDex(species, dexByName);
                       const sprites = buildSpriteUrls(species, dex);
@@ -97,7 +139,7 @@ export function RunPathPanel({
                     })}
                   </div>
                 ) : (
-                  <p className="mt-3 text-xs text-muted">team sprites pending</p>
+                  <p className={clsx("text-xs text-muted", showBlockingHint ? "mt-2.5" : "mt-3")}>team sprites pending</p>
                 )}
               </div>
               <span
@@ -120,37 +162,39 @@ export function RunPathPanel({
 
 function EncounterHeader({ encounter }: { encounter: RunEncounterDefinition }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="display-face text-sm">{encounter.label}</span>
+    <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+      <span className="display-face truncate text-sm">{encounter.label}</span>
       <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-line bg-surface-4 px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-muted">
         {encounter.category}
       </span>
-      <span
-        className={clsx(
-          "rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
-          encounter.affiliation === "team-plasma"
-            ? "border-danger-line-faint bg-danger-fill-strong text-danger-soft"
-            : encounter.affiliation === "hoenn-leaders"
-              ? "border-info-line bg-info-fill text-info-soft"
-              : encounter.affiliation === "unova-league"
-                ? "border-primary-line-soft bg-primary-fill-strong text-primary-soft"
-                : encounter.affiliation === "rival"
-                  ? "border-warning-line-faint bg-warning-fill text-warning-strong"
-                  : "border-line bg-surface-4 text-muted",
-        )}
-      >
-        {encounter.affiliation.replaceAll("-", " ")}
-      </span>
-      {!encounter.mandatory ? (
-        <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-info-line bg-info-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-info-soft">
-          optional
+      <div className="hidden flex-wrap items-center gap-2 sm:flex">
+        <span
+          className={clsx(
+            "rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
+            encounter.affiliation === "team-plasma"
+              ? "border-danger-line-faint bg-danger-fill-strong text-danger-soft"
+              : encounter.affiliation === "hoenn-leaders"
+                ? "border-info-line bg-info-fill text-info-soft"
+                : encounter.affiliation === "unova-league"
+                  ? "border-primary-line-soft bg-primary-fill-strong text-primary-soft"
+                  : encounter.affiliation === "rival"
+                    ? "border-warning-line-faint bg-warning-fill text-warning-strong"
+                    : "border-line bg-surface-4 text-muted",
+          )}
+        >
+          {encounter.affiliation.replaceAll("-", " ")}
         </span>
-      ) : null}
-      {encounter.documentation === "partial" ? (
-        <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-warning-line-faint bg-warning-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-warning-strong">
-          partial
-        </span>
-      ) : null}
+        {!encounter.mandatory ? (
+          <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-info-line bg-info-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-info-soft">
+            optional
+          </span>
+        ) : null}
+        {encounter.documentation === "partial" ? (
+          <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-warning-line-faint bg-warning-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-warning-strong">
+            partial
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -165,9 +209,8 @@ function EncounterBossRow({
   dexByName: Record<string, number>;
 }) {
   return (
-    <div className="rounded-[0.75rem] border border-surface-5 bg-surface-3 px-3 py-2">
-      <div className="mb-2 flex items-center gap-2">
-        <TrainerAvatar label={boss.label} trainerSpriteUrl={boss.trainerSpriteUrl} completed={false} />
+    <div className="px-1 py-1">
+      <div className="mb-1.5 flex items-center gap-2">
         <span className="display-face text-xs text-accent">{boss.label}</span>
       </div>
       <div className="flex flex-wrap items-center gap-2">
@@ -184,47 +227,6 @@ function EncounterBossRow({
         })}
       </div>
     </div>
-  );
-}
-
-function TrainerAvatar({
-  label,
-  trainerSpriteUrl,
-  completed,
-}: {
-  label: string;
-  trainerSpriteUrl?: string | null;
-  completed: boolean;
-}) {
-  const initials = label
-    .split(/[\s-]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((chunk) => chunk[0]?.toUpperCase() ?? "")
-    .join("");
-
-  if (trainerSpriteUrl) {
-    return (
-      <img
-        src={trainerSpriteUrl}
-        alt={label}
-        className={clsx(
-          "h-12 w-12 shrink-0 rounded-[0.8rem_0.45rem_0.8rem_0.45rem] border border-line object-cover",
-          completed && "primary-complete-shadow",
-        )}
-      />
-    );
-  }
-
-  return (
-    <span
-      className={clsx(
-        "display-face panel-tint-strong glass-shadow inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[0.8rem_0.45rem_0.8rem_0.45rem] border border-line text-sm text-accent",
-        completed && "border-primary-line-strong",
-      )}
-    >
-      {initials || "TR"}
-    </span>
   );
 }
 

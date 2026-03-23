@@ -160,19 +160,19 @@ export function ActiveScreen() {
                   value="builder"
                   className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
                 >
-                  Builder Intel
+                  Team
                 </TabsTrigger>
                 <TabsTrigger
                   value="copilot"
                   className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
                 >
-                  Checkpoint Copilot
+                  Checkpoint
                 </TabsTrigger>
                 <TabsTrigger
                   value="run"
                   className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
                 >
-                  Run Ops
+                  Ruta
                 </TabsTrigger>
                 <TabsTrigger
                   value="compare"

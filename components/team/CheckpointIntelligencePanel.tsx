@@ -55,7 +55,7 @@ export function CheckpointIntelligencePanel({
     <div className="rounded-[1rem] p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="display-face text-sm text-accent">Checkpoint Intelligence</p>
+          <p className="display-face text-sm text-accent">Checkpoint</p>
           <p className="mt-2 text-sm text-muted">
             Todo este bloque se lee contra el siguiente encuentro real del run.
           </p>
