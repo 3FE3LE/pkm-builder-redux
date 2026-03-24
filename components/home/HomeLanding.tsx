@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import type { ComponentType, ReactNode } from "react";
 import clsx from "clsx";
 import {
   ArrowRight,
   BookOpenText,
   Flag,
+  MapPinned,
   Route,
   ShieldCheck,
   Swords,
+  WandSparkles,
 } from "lucide-react";
 
 const highlights = [
@@ -65,33 +68,56 @@ export function HomeLanding() {
             </div>
 
             <div className="mt-7 max-w-4xl">
-              <p className="display-face text-sm text-accent">Planificador de equipo</p>
+              <p className="display-face text-sm text-accent">Team builder + run guide</p>
               <h1 className="mt-3 max-w-4xl text-[clamp(2.8rem,7vw,6.2rem)] leading-[0.9] tracking-[-0.04em] text-text">
-                planifica
-                <span className="display-face ml-3 inline-block text-[clamp(1.25rem,2.2vw,1.8rem)] align-top tracking-[0.24em] text-primary">
-                  la run
+                arma tu equipo
+                <span className="display-face ml-3 inline-block text-[clamp(1.1rem,2vw,1.65rem)] align-top tracking-[0.24em] text-primary">
+                  y decide el siguiente fight
                 </span>
                 <br />
-                antes de entrar
+                con el builder
                 <br />
-                al siguiente fight
+                de Blaze Black 2 Redux
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-7 text-text-soft sm:text-lg">
-                Esta app toma como base la documentacion local de Pokemon Blaze Black 2 and Volt White 2 Redux
+                Elige tu starter, arma el roster, revisa coverage, compara stats y sigue los checkpoints clave de
+                Pokemon Blaze Black 2 Redux y Volt White 2 Redux
                 <span className="display-face mx-2 text-accent">v1.4.1</span>
-                para ayudarte a preparar el equipo, seguir la ruta y tomar mejores decisiones en cada checkpoint.
+                desde una sola app. Esta pagina no es solo documentacion: es una herramienta para planear la run.
               </p>
+            </div>
+
+            <div className="mt-6 grid gap-2.5 sm:max-w-3xl sm:grid-cols-3">
+              <HeroSignal
+                icon={WandSparkles}
+                title="Arma el roster"
+                body="Starter, naturaleza, moves, IVs, EVs y evoluciones."
+              />
+              <HeroSignal
+                icon={ShieldCheck}
+                title="Lee el matchup"
+                body="Coverage, roles, amenazas y huecos del equipo actual."
+              />
+              <HeroSignal
+                icon={MapPinned}
+                title="Planea la ruta"
+                body="Checkpoints, encounters y siguiente combate importante."
+              />
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <ActionLink href="/onboarding" tone="primary">
-                Elegir starter
+                Empezar a planear la run
                 <ArrowRight className="h-4 w-4" />
               </ActionLink>
               <ActionLink href="/team" tone="secondary">
-                Ir al builder
+                Abrir team builder
               </ActionLink>
             </div>
+
+            <p className="mt-3 text-sm text-muted">
+              Si ya habías entrado antes, abre el builder y continúa donde lo dejaste.
+            </p>
 
             <div className="mt-8 grid gap-3 md:grid-cols-3">
               {highlights.map((item) => {
@@ -203,13 +229,37 @@ export function HomeLanding() {
   );
 }
 
+function HeroSignal({
+  icon: Icon,
+  title,
+  body,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="rounded-[1rem] border border-line bg-surface-3/80 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <div className="flex items-start gap-3">
+        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.85rem] border border-line bg-surface-5 text-accent">
+          <Icon className="h-4 w-4" />
+        </span>
+        <div>
+          <p className="display-face text-sm text-text">{title}</p>
+          <p className="mt-1 text-xs leading-5 text-muted">{body}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ActionLink({
   href,
   children,
   tone,
 }: {
   href: string;
-  children: React.ReactNode;
+  children: ReactNode;
   tone: "primary" | "secondary" | "ghost";
 }) {
   return (
