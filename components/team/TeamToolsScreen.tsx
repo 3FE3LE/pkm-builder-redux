@@ -42,7 +42,7 @@ export function TeamToolsScreen() {
       <section className="mx-auto max-w-7xl">
         <div className="mb-4">
           <p className="display-face text-sm text-accent">Tools</p>
-          <h1 className="mt-2 text-2xl text-text">Compare e IV Calc</h1>
+          <h1 className="pixel-face mt-2 text-2xl text-text">Compare e IV Calc</h1>
         </div>
 
         <Tabs

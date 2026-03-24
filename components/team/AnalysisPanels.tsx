@@ -22,7 +22,7 @@ export function TeamAverageStatsPanel({
         <p className="display-face text-sm text-accent">Promedio del equipo</p>
         {averageStats ? (
           <span className="display-face text-xs text-muted">
-            BST promedio <span className="ml-2 text-accent">{averageStats.bst}</span>
+            BST promedio <span className="mono-face ml-2 text-accent">{averageStats.bst}</span>
           </span>
         ) : null}
       </div>
@@ -151,7 +151,7 @@ function StatMicroCard({
     >
       <div className="flex items-center justify-between gap-3">
         <span className="display-face text-[10px] text-muted">{label}</span>
-        <span className="display-face text-base text-accent">{value}</span>
+        <span className="mono-face text-base text-accent">{value}</span>
       </div>
     </div>
   );
@@ -169,8 +169,8 @@ function CompactBadgeRow({
   return (
     <div>
       <p className="display-face mb-2 text-[11px] text-accent">{title}</p>
-      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-        {items.length ? items : <span className="col-span-2 text-sm text-muted">{emptyLabel}</span>}
+      <div className="grid grid-cols-4 gap-2 sm:flex sm:flex-wrap">
+        {items.length ? items : <span className="col-span-4 text-sm text-muted">{emptyLabel}</span>}
       </div>
     </div>
   );

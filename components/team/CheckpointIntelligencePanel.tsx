@@ -140,7 +140,7 @@ export function CheckpointIntelligencePanel({
         title="Lectura del equipo"
         aside={
           <div className="rounded-[0.7rem] border border-accent-line px-3 py-2 text-right">
-            <p className="display-face text-lg text-accent-soft">{checkpointRisk.totalRisk.toFixed(1)} / 10</p>
+            <p className="mono-face text-lg text-accent-soft">{checkpointRisk.totalRisk.toFixed(1)} / 10</p>
             <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{riskState}</p>
           </div>
         }
@@ -167,12 +167,12 @@ export function CheckpointIntelligencePanel({
       <div className="mt-3 grid gap-2.5 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
         <SectionBlock
           title="Tempo"
-          aside={
-            <div className="rounded-[0.7rem] border border-info-line px-3 py-2 text-right">
-              <p className="display-face text-base text-info-soft">{speedTiers.benchmarkSpeed} Spe</p>
-              <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{speedState}</p>
-            </div>
-          }
+        aside={
+          <div className="rounded-[0.7rem] border border-info-line px-3 py-2 text-right">
+            <p className="mono-face text-base text-info-soft">{speedTiers.benchmarkSpeed} Spe</p>
+            <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{speedState}</p>
+          </div>
+        }
         >
           <p className="text-xs text-muted">
             Si no igualas este benchmark, el rival mueve primero con mucha frecuencia.
@@ -447,7 +447,7 @@ function CompactMetric({
     <div className="rounded-[0.65rem] px-1.5 py-2">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face text-[11px] text-accent">{label}</span>
-        <span className="pixel-face text-xs">{value}</span>
+        <span className="mono-face text-xs">{value}</span>
       </div>
       <p className="mt-1 text-xs text-muted">{detail}</p>
     </div>
@@ -466,7 +466,7 @@ function SummaryCard({
   return (
     <div className="rounded-[0.75rem] px-1.5 py-2.5">
       <p className="display-face text-[11px] text-accent">{label}</p>
-      <p className="mt-1 pixel-face text-sm">{value}</p>
+      <p className="mono-face mt-1 text-sm">{value}</p>
       <p className="mt-2 text-xs text-muted">{detail}</p>
     </div>
   );
@@ -516,7 +516,7 @@ function LensMetric({ label, value }: { label: string; value: number }) {
     <div className="rounded-[0.65rem] px-1.5 py-2">
       <div className="flex items-center justify-between gap-2">
         <p className="display-face text-[11px] text-accent">{label}</p>
-        <p className="display-face text-xs text-text">{value}</p>
+        <p className="mono-face text-xs text-text">{value}</p>
       </div>
       <div className="mt-2 h-2 rounded-[6px] bg-surface-5">
         <div

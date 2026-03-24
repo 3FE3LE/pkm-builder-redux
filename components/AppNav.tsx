@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GeistPixelCircle } from "geist/font/pixel";
 import clsx from "clsx";
-import { Settings2, Wrench } from "lucide-react";
+import { Settings2, ShieldCheck, Wrench } from "lucide-react";
 
 export function AppNav() {
   const pathname = usePathname();
@@ -49,13 +50,16 @@ export function AppNav() {
           <Link
             href="/team"
             className={clsx(
-              "inline-flex h-11 min-w-0 items-center justify-center rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
+              "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
               teamActive
                 ? "border border-primary-line-strong bg-[linear-gradient(180deg,rgba(190,255,120,0.16),rgba(190,255,120,0.06))] text-text shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(190,255,120,0.08)]"
                 : "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text",
             )}
           >
-            <span className="display-face text-[0.72rem] uppercase tracking-[0.12em]">Team</span>
+            <ShieldCheck className="h-4 w-4" />
+            <span className={clsx(GeistPixelCircle.className, "text-[0.72rem] uppercase tracking-[0.12em]")}>
+              Team
+            </span>
           </Link>
           <Link
             href="/team/tools?tool=compare"
@@ -67,7 +71,14 @@ export function AppNav() {
             )}
           >
             <Wrench className="h-4 w-4" />
-            <span className="display-face truncate text-[0.72rem] uppercase tracking-[0.12em]">Tools</span>
+            <span
+              className={clsx(
+                GeistPixelCircle.className,
+                "truncate text-[0.72rem] uppercase tracking-[0.12em]",
+              )}
+            >
+              Tools
+            </span>
           </Link>
           <Link
             href="/team/settings"

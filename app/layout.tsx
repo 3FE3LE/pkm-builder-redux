@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { GeistPixelCircle } from "geist/font/pixel";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { AppNav } from "@/components/AppNav";
@@ -73,7 +74,12 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={cn("font-sans", GeistSans.variable, GeistPixelCircle.variable)}
+      className={cn(
+        "font-sans",
+        GeistSans.variable,
+        GeistMono.variable,
+        GeistPixelCircle.variable,
+      )}
     >
       <body className="flex min-h-screen flex-col">
         <NuqsAdapter>

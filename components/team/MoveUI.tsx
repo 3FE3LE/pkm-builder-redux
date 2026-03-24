@@ -125,7 +125,7 @@ export function MoveSlotSurface({
         ...(move.hasStab ? getMoveStabStyle(move.type) : undefined),
       }}
       className={clsx(
-        "inline-flex min-w-0 items-center gap-2 border px-2.5 py-1.5 text-xs",
+        "inline-flex min-w-0 items-center gap-2 border px-2.5 py-1.5 text-sm lg:text-base",
         getMoveSurfaceClass(move.type, move.hasStab),
         fit?.kind === "offense" &&
           "fit-offense-surface rounded-[0.625rem_0.375rem_0.625rem_0.375rem]",
@@ -144,7 +144,7 @@ export function MoveSlotSurface({
             : undefined)
       }
     >
-      <span className="pixel-face min-w-0 flex-1 truncate text-[13px] leading-none tracking-[0.12em] font-normal">
+      <span className="pixel-face min-w-0 flex-1 truncate text-[12px] leading-none tracking-[0.12em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
         {move.name}
       </span>
       <MovePowerBadge

@@ -135,6 +135,9 @@
     var(--font-geist-sans), "Trebuchet MS", "Gill Sans", "Segoe UI", sans-serif;
   --font-body:
     var(--font-geist-sans), "Trebuchet MS", "Gill Sans", "Segoe UI", sans-serif;
+  --font-mono:
+    var(--font-geist-mono), "Geist Mono", "SFMono-Regular", "Roboto Mono", monospace;
+  --font-pixel-circle: var(--font-geist-pixel-circle), "Geist Mono", monospace;
   --font-pixel: var(--font-geist-pixel-circle), "Geist Mono", monospace;
   --background: hsl(201 50% 5%);
   --foreground: hsl(150 38% 95%);
@@ -267,10 +270,23 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .pixel-face {
-  font-weight: 700;
-  font-family: var(--font-pixel);
+  font-weight: 500;
+  font-family: var(--font-pixel-circle);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.mono-face {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.tabular-nums,
+input[type="number"],
+[data-stat-value],
+[data-metric-value] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .roster-name-face {

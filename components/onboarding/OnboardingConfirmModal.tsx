@@ -64,7 +64,7 @@ export function OnboardingConfirmModal({
           <div className="relative flex items-start justify-between gap-5">
             <div className="min-w-0">
               <p className="display-face text-sm text-accent">Confirmar inicial</p>
-              <h2 className="display-face mt-2 text-4xl">{species}</h2>
+              <h2 className="pixel-face mt-2 text-4xl">{species}</h2>
               <div className="mt-4 flex flex-wrap gap-2">
                 {currentTypes.map((type) => (
                   <TypeBadge key={`confirm-current-${type}`} type={type} />

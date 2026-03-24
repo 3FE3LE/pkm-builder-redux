@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { GeistPixelCircle } from "geist/font/pixel";
 import type { ComponentType, ReactNode } from "react";
 import clsx from "clsx";
 import {
@@ -68,10 +69,22 @@ export function HomeLanding() {
             </div>
 
             <div className="mt-7 max-w-4xl">
-              <p className="display-face text-sm text-accent">Team builder + run guide</p>
-              <h1 className="mt-3 max-w-4xl text-[clamp(2.8rem,7vw,6.2rem)] leading-[0.9] tracking-[-0.04em] text-text">
+              <p className={clsx(GeistPixelCircle.className, "text-sm uppercase tracking-[0.12em] text-accent")}>
+                Team builder + run guide
+              </p>
+              <h1
+                className={clsx(
+                  GeistPixelCircle.className,
+                  "mt-3 max-w-4xl text-[clamp(2.8rem,7vw,6.2rem)] leading-[0.9] tracking-[-0.04em] text-text",
+                )}
+              >
                 arma tu equipo
-                <span className="display-face ml-3 inline-block text-[clamp(1.1rem,2vw,1.65rem)] align-top tracking-[0.24em] text-primary">
+                <span
+                  className={clsx(
+                    GeistPixelCircle.className,
+                    "ml-3 inline-block text-[clamp(1.1rem,2vw,1.65rem)] align-top tracking-[0.24em] text-primary",
+                  )}
+                >
                   y decide el siguiente fight
                 </span>
                 <br />
@@ -204,7 +217,12 @@ export function HomeLanding() {
 
             <article className="lg:pl-6">
               <p className="display-face text-sm text-accent">Siguiente paso</p>
-              <h2 className="mt-3 text-3xl leading-none tracking-[-0.03em] text-text">
+              <h2
+                className={clsx(
+                  GeistPixelCircle.className,
+                  "mt-3 text-3xl leading-none tracking-[-0.03em] text-text",
+                )}
+              >
                 elige tu inicial
                 <br />
                 y arranca la aventura

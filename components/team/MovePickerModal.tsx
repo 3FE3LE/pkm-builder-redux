@@ -183,7 +183,7 @@ export function MovePickerModal({
                       <span className="display-face shrink-0 text-[9px] text-current/80">
                         {item.label}
                       </span>
-                      <span className="pixel-face min-w-0 truncate text-[11px] leading-none tracking-[0.1em] font-normal">
+                      <span className="pixel-face min-w-0 truncate text-[12px] leading-none tracking-[0.1em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
                         {item.move}
                       </span>
                       <MoveCueIcons

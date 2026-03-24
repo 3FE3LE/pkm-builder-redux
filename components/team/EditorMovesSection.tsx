@@ -153,7 +153,7 @@ export function EditorMovesSection({
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="pixel-face min-w-0 text-[14px] leading-none tracking-[0.12em] font-normal">
+                <p className="pixel-face min-w-0 text-[12px] leading-none tracking-[0.12em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
                   {selectedMove.name}
                 </p>
                 {selectedMove.type ? <TypeBadge type={selectedMove.type} /> : null}

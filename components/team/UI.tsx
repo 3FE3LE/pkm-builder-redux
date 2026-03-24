@@ -48,7 +48,7 @@ export function StatBar({
     <div>
       <div className="mb-2 flex items-center justify-between text-sm">
         <span className="display-face text-xs text-muted">{label}</span>
-        <span className="display-face inline-flex items-center gap-1 text-sm text-accent">
+        <span className="mono-face inline-flex items-center gap-1 text-sm text-accent">
           <span>{value}</span>
           {isOverflow ? (
             <span title={`Excede la escala visual base de ${max}`} className="text-warning-strong">
@@ -126,7 +126,7 @@ export function MemberStatChip({
           <span className="text-[10px] text-muted">·</span>
         )}
       </div>
-      <p className="display-face mt-2 text-lg text-text">{value}</p>
+      <p className="mono-face mt-2 text-lg text-text">{value}</p>
     </div>
   );
 }
@@ -285,7 +285,7 @@ export function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <article className="rounded-[0.75rem] border border-line bg-surface-3 p-4">
       <p className="display-face text-xs text-muted">{label}</p>
-      <p className="display-face mt-3 text-3xl text-accent">{value}</p>
+      <p className="mono-face mt-3 text-3xl text-accent">{value}</p>
     </article>
   );
 }

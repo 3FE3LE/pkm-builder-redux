@@ -115,7 +115,7 @@ export function EvolutionModal({
         <div className="relative flex items-start justify-between gap-4">
           <div>
             <p className="display-face text-sm text-accent">Evolution</p>
-            <h2 className="display-face mt-2 text-2xl">
+            <h2 className="pixel-face mt-2 text-2xl">
               {phase === "confirm" ? "Confirmar evolución" : "Evolucionando..."}
             </h2>
             <p className="mt-2 text-sm text-muted">
@@ -280,7 +280,7 @@ function EvolutionPreviewCard({
           animatedSpriteUrl={animatedSpriteUrl}
           size="large"
         />
-        <p className="display-face mt-4 text-xl">{species}</p>
+        <p className="pixel-face mt-4 text-xl">{species}</p>
       </div>
     </div>
   );

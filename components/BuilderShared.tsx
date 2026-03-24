@@ -322,7 +322,7 @@ export function SpeciesCombobox({
             className="h-9"
             autoFocus
           />
-          <div className="mt-2 grid gap-2 sm:grid-cols-2">
+          <div className="mt-2 grid grid-cols-2 gap-2">
             <TypeFilterSelect
               value={typeFilters[0]}
               comboboxId="type-filter-1"
@@ -516,5 +516,5 @@ function TypeFilterSelect({
 }
 
 export function typeBadgeClass(type: string) {
-  return "type-badge-surface pixel-face inline-flex w-[4.5rem] items-center justify-center gap-1 rounded-[0.55rem_0.35rem_0.55rem_0.35rem] border border-white/12 px-1.5 py-1 text-center text-[10px] leading-none tracking-[0.06em] font-normal sm:w-[5.5rem] sm:px-2 sm:text-[11px] md:w-[6.5rem] md:px-2.5 md:text-[12px] lg:w-32 lg:gap-2 lg:px-3 lg:py-1.5 lg:text-[13px] lg:tracking-[0.12em]";
+  return "type-badge-surface pixel-face inline-flex w-[4.75rem] items-center justify-center gap-1 rounded-[0.55rem_0.35rem_0.55rem_0.35rem] border border-white/12 px-1.5 py-1 text-center text-[12px] leading-none tracking-[0.06em] font-normal sm:w-[5.75rem] sm:px-2 sm:text-[13px] md:w-[6.75rem] md:px-2.5 md:text-[14px] lg:w-[8.5rem] lg:gap-2 lg:px-3 lg:py-1.5 lg:text-[16px] lg:tracking-[0.12em]";
 }

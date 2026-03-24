@@ -150,7 +150,7 @@ export function OnboardingScreen() {
         className="mx-auto max-w-7xl"
       >
         <div>
-          <h1 className="display-face mt-3 max-w-4xl text-4xl leading-none sm:text-6xl">
+          <h1 className="pixel-face mt-3 max-w-4xl text-4xl leading-none sm:text-6xl">
             Elige tu inicial y arranca el run.
           </h1>
           <p className="mt-4 max-w-3xl text-base text-muted sm:text-lg">
