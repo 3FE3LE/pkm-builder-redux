@@ -59,7 +59,7 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
       store.setActiveMemberId(pending.id);
       store.setEditorMemberId(pending.id);
       ui.setEditorMoveSelection(null);
-      return;
+      return pending.id;
     }
 
     const created = createEditable();
@@ -67,6 +67,7 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     store.setActiveMemberId(created.id);
     store.setEditorMemberId(created.id);
     ui.setEditorMoveSelection(null);
+    return created.id;
   }
 
   function addPreparedMember(member: EditableMember) {
@@ -115,10 +116,17 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     if (!store.editorMemberId) {
       return;
     }
+    removeMoveAtForMember(store.editorMemberId, index);
+  }
+
+  function removeMoveAtForMember(memberId: string, index: number) {
+    if (index < 0) {
+      return;
+    }
 
     store.setCurrentTeam((items) =>
       items.map((item) => {
-        if (item.id !== store.editorMemberId) {
+        if (item.id !== memberId) {
           return item;
         }
 
@@ -137,10 +145,17 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     if (!store.editorMemberId || fromIndex === toIndex) {
       return;
     }
+    reorderMovesForMember(store.editorMemberId, fromIndex, toIndex);
+  }
+
+  function reorderMovesForMember(memberId: string, fromIndex: number, toIndex: number) {
+    if (fromIndex === toIndex) {
+      return;
+    }
 
     store.setCurrentTeam((items) =>
       items.map((item) => {
-        if (item.id !== store.editorMemberId) {
+        if (item.id !== memberId) {
           return item;
         }
 
@@ -180,7 +195,9 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     removeMoveFromMember,
     removeMoveFromEditor,
     removeMoveFromEditorAt,
+    removeMoveAtForMember,
     reorderMovesForEditor,
+    reorderMovesForMember,
     returnToOnboarding,
   };
 }

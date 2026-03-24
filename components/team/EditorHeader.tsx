@@ -5,7 +5,6 @@ import {
   CircleArrowUp,
   Mars,
   PencilLine,
-  RotateCcw,
   Venus,
 } from 'lucide-react';
 
@@ -33,7 +32,6 @@ export function EditorHeader({
   evolutionBlockReason,
   updateEditorMember,
   onRequestEvolution,
-  onOpenReset,
 }: {
   member: EditableMember;
   resolved?: ResolvedTeamMember;
@@ -45,7 +43,6 @@ export function EditorHeader({
   evolutionBlockReason?: string;
   updateEditorMember: EditorUpdate;
   onRequestEvolution: () => void;
-  onOpenReset: () => void;
 }) {
   const supportsGender =
     resolved?.supportsGender ?? supportsPokemonGender(currentSpecies);
@@ -133,17 +130,6 @@ export function EditorHeader({
                 <MiniPill>tipo pendiente</MiniPill>
               )}
             </div>
-            <Button
-              type="button"
-              variant="outline"
-              size="icon-sm"
-              onClick={onOpenReset}
-              aria-label="Reset slot"
-              title="Reset slot"
-              className="shrink-0 border-danger-line-soft text-danger hover:bg-danger-fill"
-            >
-              <RotateCcw className="h-4 w-4" />
-            </Button>
           </div>
           {resolved?.evolutionHints?.length ? (
             <div className="mt-3 space-y-1">

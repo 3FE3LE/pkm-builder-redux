@@ -113,10 +113,14 @@ export function useBuilderController({
         closeEditor: actions.closeEditor,
         setEditorMoveSelection: ui.setEditorMoveSelection,
         openMovePickerForEditor: actions.openMovePickerForEditor,
+        openMovePickerForMember: actions.openMovePickerForMember,
         removeMoveFromEditor: actions.removeMoveFromEditor,
         removeMoveFromEditorAt: actions.removeMoveFromEditorAt,
+        removeMoveAtForMember: actions.removeMoveAtForMember,
         reorderMovesForEditor: actions.reorderMovesForEditor,
+        reorderMovesForMember: actions.reorderMovesForMember,
         requestEvolution: actions.requestEvolution,
+        requestEvolutionForMember: actions.requestEvolutionForMember,
       },
     },
     analysis: {
@@ -152,6 +156,7 @@ export function useBuilderController({
       activeMember: derived.activeModalMember,
       getSurfaceStyle: getSingleTypeSurface,
       actions: {
+        open: actions.openMovePickerForMember,
         setTab: ui.setMoveModalTab,
         toggleExpanded: ui.setExpandedMoveKey,
         close: actions.closeMovePicker,

@@ -1,6 +1,7 @@
 "use client";
 
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
+import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import type { BuilderActionDeps } from "@/hooks/actionTypes";
 
 export function useBuilderModalActions({
@@ -28,6 +29,10 @@ export function useBuilderModalActions({
       return;
     }
     openMovePicker(store.editorMemberId, slotIndex);
+  }
+
+  function openMovePickerForMember(memberId: string, slotIndex: number | null = null) {
+    openMovePicker(memberId, slotIndex);
   }
 
   function closeMovePicker() {
@@ -74,9 +79,24 @@ export function useBuilderModalActions({
     if (!store.editorMemberId || !derived.editorResolved?.nextEvolutions?.length) {
       return;
     }
+    requestEvolutionForMember(store.editorMemberId);
+  }
 
-    const nextOptions = derived.editorResolved.nextEvolutions.map((species) => {
-      const eligibility = derived.editorEvolutionEligibility.find(
+  function requestEvolutionForMember(memberId: string) {
+    const memberResolved = derived.resolvedTeam.find((entry) => entry.key === memberId);
+    if (!memberResolved?.nextEvolutions?.length) {
+      return;
+    }
+
+    const memberEvolutionEligibility = buildEvolutionEligibility(
+      memberResolved,
+      derived.resolvedTeam,
+      ui.localTime,
+      store.evolutionConstraints,
+    );
+
+    const nextOptions = memberResolved.nextEvolutions.map((species) => {
+      const eligibility = memberEvolutionEligibility.find(
         (entry) => normalizeName(entry.species) === normalizeName(species),
       );
       const match = data.speciesCatalog.find(
@@ -98,10 +118,10 @@ export function useBuilderModalActions({
     }
 
     ui.setEvolutionState({
-      memberId: store.editorMemberId,
-      currentSpecies: derived.editorResolved.species,
-      currentSpriteUrl: derived.editorResolved.spriteUrl,
-      currentAnimatedSpriteUrl: derived.editorResolved.animatedSpriteUrl,
+      memberId,
+      currentSpecies: memberResolved.species,
+      currentSpriteUrl: memberResolved.spriteUrl,
+      currentAnimatedSpriteUrl: memberResolved.animatedSpriteUrl,
       nextOptions,
       selectedNext: eligibleOptions[0]?.species ?? null,
     });
@@ -137,9 +157,11 @@ export function useBuilderModalActions({
     updateCompareMember,
     openMovePicker,
     openMovePickerForEditor,
+    openMovePickerForMember,
     closeMovePicker,
     pickMove,
     requestEvolution,
+    requestEvolutionForMember,
     selectEvolution,
     cancelEvolution,
     confirmEvolution,

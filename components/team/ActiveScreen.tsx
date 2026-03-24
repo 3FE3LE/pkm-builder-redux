@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   closestCenter,
   DndContext,
@@ -10,14 +11,11 @@ import {
   type DragStartEvent,
 } from "@dnd-kit/core";
 import { AnimatePresence, motion } from "motion/react";
+import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
-import { PokemonEditorSheet } from "@/components/team/EditorSheet";
 import {
   CheckpointCopilotSection,
-  CompareWorkspaceSection,
-  IvCalculatorSection,
-  PreferencesSection,
   TeamAnalysisSection,
   BuilderHeader,
   RunOpsSection,
@@ -27,29 +25,42 @@ import {
   EvolutionModal,
 } from "@/components/team/Modals";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { createEditable } from "@/lib/builderStore";
 import {
   useTeamAnalysis,
   useTeamCatalogs,
   useTeamCompare,
   useTeamEvolution,
-  useTeamMovePicker,
   useTeamRoster,
   useTeamSession,
 } from "@/components/BuilderProvider";
 import { milestones, starters } from "@/lib/builder";
 
+const WORKSPACE_TABS = ["builder", "copilot", "run"] as const;
+type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
+
 export function ActiveScreen() {
-  const [workspaceTab, setWorkspaceTab] = useState<"builder" | "copilot" | "compare" | "run" | "ivcalc" | "settings">("builder");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [workspaceTab, setWorkspaceTab] = useQueryState(
+    "tab",
+    parseAsStringEnum<WorkspaceTab>([...WORKSPACE_TABS]).withDefault("builder"),
+  );
   const [draggedMemberId, setDraggedMemberId] = useState<string | null>(null);
-  const [compareDropPulse, setCompareDropPulse] = useState<{ slot: 0 | 1; token: number } | null>(null);
   const session = useTeamSession();
   const catalogs = useTeamCatalogs();
   const team = useTeamRoster();
   const analysis = useTeamAnalysis();
   const compare = useTeamCompare();
-  const movePicker = useTeamMovePicker();
   const evolution = useTeamEvolution();
+  const editorOpen = pathname.startsWith("/team/pokemon/");
+
+  function buildTeamHref(nextPath: string) {
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.set("editorNonce", String(Date.now()));
+    const query = nextParams.toString();
+    return query ? `${nextPath}?${query}` : nextPath;
+  }
 
   function assignCompareFromRoster(slot: 0 | 1, memberId: string) {
     const rosterMember = team.currentTeam.find((member) => member.id === memberId);
@@ -64,11 +75,7 @@ export function ActiveScreen() {
     const emptySlot = compare.members.findIndex((member) => !member.species.trim());
     assignCompareFromRoster((emptySlot === 1 ? 1 : 0) as 0 | 1, memberId);
     team.actions.clearSelection();
-    setWorkspaceTab("compare");
-  }
-
-  function clearCompareMember(slot: 0 | 1) {
-    compare.actions.updateMember(slot, createEditable());
+    router.push("/team/tools?tool=compare");
   }
 
   function handleWorkspaceDragStart(event: DragStartEvent) {
@@ -85,8 +92,6 @@ export function ActiveScreen() {
     if (overId === "compare-slot-0" || overId === "compare-slot-1") {
       const slot = (overId === "compare-slot-1" ? 1 : 0) as 0 | 1;
       assignCompareFromRoster(slot, String(event.active.id));
-      setCompareDropPulse({ slot, token: Date.now() });
-      setWorkspaceTab("compare");
       return;
     }
 
@@ -103,16 +108,6 @@ export function ActiveScreen() {
   const starterMember = team.resolvedTeam.find((member) =>
     starterLine.includes(member.species),
   );
-
-  useEffect(() => {
-    if (!compareDropPulse) {
-      return;
-    }
-    const timeoutId = window.setTimeout(() => {
-      setCompareDropPulse(null);
-    }, 520);
-    return () => window.clearTimeout(timeoutId);
-  }, [compareDropPulse]);
 
   return (
     <main className="relative overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
@@ -142,10 +137,11 @@ export function ActiveScreen() {
             battleWeather={session.battleWeather}
             evolvingIds={team.evolvingIds}
             activeMemberKey={team.activeMember?.key}
+            editorOpen={editorOpen}
             onSelectMember={team.actions.selectMember}
             onEditMember={(id) => {
               team.actions.editMember(id);
-              team.actions.clearSelection();
+              router.push(buildTeamHref(`/team/pokemon/${id}`));
             }}
             onToggleMemberLock={(id) => {
               team.actions.updateMember(id, (current) => ({
@@ -158,14 +154,22 @@ export function ActiveScreen() {
               team.actions.removeMember(id);
               team.actions.clearSelection();
             }}
-            onAddMember={team.actions.addMember}
+            onAddMember={() => {
+              const memberId = team.actions.addMember();
+              if (memberId) {
+                router.push(buildTeamHref(`/team/pokemon/${memberId}`));
+              }
+            }}
+            onResetMember={(id, next) => {
+              team.actions.updateMember(id, next);
+            }}
             onAssignToCompare={assignCompareFromRosterFirstEmpty}
           />
 
           <section className="mt-3">
             <Tabs
               value={workspaceTab}
-              onValueChange={(value) => setWorkspaceTab(value as "builder" | "copilot" | "compare" | "run" | "ivcalc" | "settings")}
+              onValueChange={(value) => setWorkspaceTab(value as WorkspaceTab)}
               className="gap-0"
             >
               <TabsList className="relative z-10 -mb-px grid w-full grid-cols-3 gap-1 bg-transparent p-0 sm:flex sm:h-auto sm:flex-wrap sm:items-end">
@@ -186,24 +190,6 @@ export function ActiveScreen() {
                   className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
                 >
                   Ruta
-                </TabsTrigger>
-                <TabsTrigger
-                  value="compare"
-                  className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
-                >
-                  Compare
-                </TabsTrigger>
-                <TabsTrigger
-                  value="ivcalc"
-                  className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
-                >
-                  IV Calc
-                </TabsTrigger>
-                <TabsTrigger
-                  value="settings"
-                  className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
-                >
-                  Settings
                 </TabsTrigger>
               </TabsList>
 
@@ -234,50 +220,18 @@ export function ActiveScreen() {
                   speedTiers={analysis.speedTiers}
                   recommendation={analysis.recommendation}
                   moveRecommendations={analysis.moveRecommendations}
+                  encounterCatalog={catalogs.encounterCatalog}
+                  completedEncounterIds={session.completedEncounterIds}
+                  speciesCatalog={catalogs.speciesCatalog}
+                  starterKey={session.starter}
+                  onToggleEncounter={session.actions.toggleEncounterCompleted}
                 />
               </TabsContent>
 
               <TabsContent value="run" className="rounded-[0_1rem_1rem_1rem] p-0">
                 <RunOpsSection
                   activeMember={team.activeMember}
-                  encounterCatalog={catalogs.encounterCatalog}
-                  completedEncounterIds={session.completedEncounterIds}
-                  speciesCatalog={catalogs.speciesCatalog}
-                  starterKey={session.starter}
                   sourceCards={analysis.sourceCards}
-                  moveHighlights={catalogs.moveHighlights}
-                  onToggleEncounter={session.actions.toggleEncounterCompleted}
-                />
-              </TabsContent>
-              <TabsContent value="compare" className="rounded-[0_1rem_1rem_1rem] p-0">
-                <CompareWorkspaceSection
-                  members={compare.members}
-                  resolvedMembers={compare.resolvedMembers}
-                  speciesCatalog={catalogs.speciesCatalog}
-                  abilityCatalog={catalogs.abilityCatalog}
-                  itemCatalog={catalogs.itemCatalog}
-                  battleWeather={session.battleWeather}
-                  dropPulse={compareDropPulse}
-                  onChangeMember={compare.actions.updateMember}
-                  onClearMember={clearCompareMember}
-                />
-              </TabsContent>
-              <TabsContent value="ivcalc" className="rounded-[0_1rem_1rem_1rem] p-0">
-                <IvCalculatorSection
-                  speciesCatalog={catalogs.speciesCatalog}
-                  pokemonIndex={catalogs.pokemonIndex}
-                  onAddPreparedMember={team.actions.addPreparedMember}
-                />
-              </TabsContent>
-              <TabsContent value="settings" className="rounded-[0_1rem_1rem_1rem] p-0">
-                <PreferencesSection
-                  evolutionConstraints={session.evolutionConstraints}
-                  recommendationFilters={session.recommendationFilters}
-                  battleWeather={session.battleWeather}
-                  onToggleEvolutionConstraint={session.actions.setEvolutionConstraint}
-                  onToggleRecommendationFilter={session.actions.setRecommendationFilter}
-                  onSetBattleWeather={session.actions.setBattleWeather}
-                  onResetRun={team.actions.resetRun}
                 />
               </TabsContent>
             </Tabs>
@@ -323,43 +277,6 @@ export function ActiveScreen() {
             />
           ) : null}
         </AnimatePresence>
-
-        <PokemonEditorSheet
-          member={team.editorMember}
-          resolved={team.editorResolved}
-          weather={session.battleWeather}
-          roleRecommendation={analysis.checkpointRisk.roleSnapshot.members.find(
-            (entry) => entry.key === team.editorMember?.id,
-          )}
-          speciesCatalog={catalogs.speciesCatalog}
-          abilityCatalog={catalogs.abilityCatalog}
-          itemCatalog={catalogs.itemCatalog}
-          onOpenChange={(open) => {
-            if (!open) {
-              movePicker.actions.close();
-              team.actions.closeEditor();
-            }
-          }}
-          onChange={(next) => team.actions.updateMember(next.id, next)}
-          onOpenMoveModal={team.actions.openMovePickerForEditor}
-          onRemoveMoveAt={team.actions.removeMoveFromEditorAt}
-          onReorderMove={team.actions.reorderMovesForEditor}
-          onRequestEvolution={team.actions.requestEvolution}
-          editorEvolutionEligibility={team.editorEvolutionEligibility}
-          selectedMoveIndex={team.editorMoveSelection}
-          onSelectMoveIndex={team.actions.setEditorMoveSelection}
-          movePickerMemberId={movePicker.memberId}
-          movePickerSlotIndex={movePicker.slotIndex}
-          movePickerTab={movePicker.tab}
-          movePickerActiveMember={movePicker.activeMember}
-          currentMoves={
-            team.currentTeam.find((member) => member.id === movePicker.memberId)?.moves ?? []
-          }
-          onMovePickerTabChange={movePicker.actions.setTab}
-          onCloseMovePicker={movePicker.actions.close}
-          onPickMove={movePicker.actions.pickMove}
-          getMoveSurfaceStyle={movePicker.getSurfaceStyle}
-        />
       </motion.section>
     </main>
   );

@@ -5,10 +5,9 @@ import {
 } from "@/components/team/ActiveScreen";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
 import { RouteHintScreen } from "@/components/team/RouteHintScreen";
-import { BuilderProvider, useTeamSession } from "@/components/BuilderProvider";
-import type { BuilderDataProps } from "@/hooks/types";
+import { useTeamSession } from "@/components/BuilderProvider";
 
-function BuilderAppGate() {
+export function TeamWorkspace() {
   const session = useTeamSession();
 
   if (!session.hydrated) {
@@ -28,13 +27,5 @@ function BuilderAppGate() {
 
   return (
     <ActiveScreen />
-  );
-}
-
-export function BuilderApp(props: BuilderDataProps) {
-  return (
-    <BuilderProvider {...props}>
-      <BuilderAppGate />
-    </BuilderProvider>
   );
 }

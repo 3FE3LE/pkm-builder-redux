@@ -1,8 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import { type ReactNode } from "react";
-import { CloudRain, CloudSun, GitCompareArrows, Lock, LockOpen, MoonStar, Pencil, Plus, Snowflake, Sun, Sunrise, Sunset, Wind, X } from "lucide-react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
+import { CloudRain, CloudSun, GitCompareArrows, Lock, LockOpen, MoonStar, Pencil, Plus, RotateCcw, Snowflake, Sun, Sunrise, Sunset, Wind, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import {
@@ -13,7 +13,6 @@ import {
 import {
   CheckpointIntelligencePanel,
   CheckpointMapPanel,
-  MoveHighlightsPanel,
   RecommendedCapturesPanel,
   RunPathPanel,
 } from "@/components/team/CheckpointPanels";
@@ -25,7 +24,7 @@ import {
 import { Switch } from "@/components/ui/Switch";
 import { Button } from "@/components/ui/Button";
 import { SortableMemberCard } from "@/components/team/SortableMemberCard";
-import { type EditableMember } from "@/lib/builderStore";
+import { createEditable, type EditableMember } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
 import { TYPE_COLORS } from "@/lib/domain/typeChart";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
@@ -115,11 +114,13 @@ export function TeamRosterSection({
   battleWeather,
   evolvingIds,
   activeMemberKey,
+  editorOpen,
   onSelectMember,
   onEditMember,
   onToggleMemberLock,
   onRemoveMember,
   onAddMember,
+  onResetMember,
   onAssignToCompare,
 }: {
   currentTeam: EditableMember[];
@@ -128,11 +129,13 @@ export function TeamRosterSection({
   battleWeather: BattleWeather;
   evolvingIds: Record<string, boolean>;
   activeMemberKey?: string;
+  editorOpen: boolean;
   onSelectMember: (id: string) => void;
   onEditMember: (id: string) => void;
   onToggleMemberLock: (id: string) => void;
   onRemoveMember: (id: string) => void;
   onAddMember: () => void;
+  onResetMember: (id: string, next: EditableMember) => void;
   onAssignToCompare: (memberId: string) => void;
 }) {
   const filledTeam = currentTeam.filter((member) => member.species.trim());
@@ -146,6 +149,115 @@ export function TeamRosterSection({
   const desktopTopRow = filledTeam.slice(0, 3);
   const desktopBottomRow = filledTeam.slice(3, 6);
   const dockTone = getDockTone(selectedResolved?.resolvedTypes);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetFields, setResetFields] = useState({
+    nickname: true,
+    level: true,
+    gender: true,
+    nature: true,
+    ability: true,
+    item: true,
+    moves: true,
+    ivs: true,
+    evs: true,
+  });
+
+  function resetSelectedMember() {
+    if (!selectedMember) {
+      return;
+    }
+
+    const defaults = createEditable(selectedMember.species);
+    defaults.id = selectedMember.id;
+    defaults.locked = selectedMember.locked;
+    defaults.nickname = selectedMember.species;
+
+    onResetMember(selectedMember.id, {
+      ...selectedMember,
+      nickname: resetFields.nickname ? defaults.nickname : selectedMember.nickname,
+      level: resetFields.level ? defaults.level : selectedMember.level,
+      gender: resetFields.gender ? defaults.gender : selectedMember.gender,
+      nature: resetFields.nature ? defaults.nature : selectedMember.nature,
+      ability: resetFields.ability ? defaults.ability : selectedMember.ability,
+      item: resetFields.item ? defaults.item : selectedMember.item,
+      moves: resetFields.moves ? defaults.moves : selectedMember.moves,
+      ivs: resetFields.ivs ? defaults.ivs : selectedMember.ivs,
+      evs: resetFields.evs ? defaults.evs : selectedMember.evs,
+    });
+    setResetOpen(false);
+  }
+
+  function renderActionButtons(buttonSize: "desktop" | "mobile") {
+    const isDesktop = buttonSize === "desktop";
+    const buttonClass = isDesktop
+      ? "size-9 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8"
+      : "size-11 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8";
+    const iconClass = isDesktop ? "h-4 w-4" : "h-5 w-5";
+
+    if (!selectedMember) {
+      return null;
+    }
+
+    return (
+      <>
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={() => setResetOpen(true)}
+          aria-label="Resetear slot seleccionado"
+          className={clsx(buttonClass, "border-danger-line-soft text-danger hover:bg-danger-fill")}
+        >
+          <RotateCcw className={iconClass} />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={() => onEditMember(selectedMember.id)}
+          aria-label="Editar slot seleccionado"
+          className={clsx(buttonClass, "border-line text-muted")}
+        >
+          <Pencil className={iconClass} />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={() => onToggleMemberLock(selectedMember.id)}
+          aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
+          className={clsx(
+            buttonClass,
+            selectedMember.locked
+              ? "border-warning-line text-warning-strong"
+              : "border-line text-muted",
+          )}
+        >
+          {selectedMember.locked ? <Lock className={iconClass} /> : <LockOpen className={iconClass} />}
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={() => onAssignToCompare(selectedMember.id)}
+          aria-label="Comparar slot seleccionado"
+          className={clsx(buttonClass, "border-line text-muted")}
+        >
+          <GitCompareArrows className={iconClass} />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={() => onRemoveMember(selectedMember.id)}
+          aria-label="Eliminar slot seleccionado"
+          className={clsx(buttonClass, "border-danger-line text-danger hover:bg-danger-fill")}
+        >
+          <X className={iconClass} />
+        </Button>
+      </>
+    );
+  }
 
   function renderRosterCard(member: EditableMember, index: number) {
     return (
@@ -207,7 +319,7 @@ export function TeamRosterSection({
             </div>
 
             <AnimatePresence initial={false}>
-              {selectedMember ? (
+              {selectedMember && !editorOpen ? (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -222,52 +334,8 @@ export function TeamRosterSection({
                     transition={{ duration: 0.18, ease: "easeOut" }}
                     className="flex justify-center"
                   >
-                    <div className="desktop-roster-action-rail" style={dockTone}>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => onEditMember(selectedMember.id)}
-                        aria-label="Editar slot seleccionado"
-                        className="size-9 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => onToggleMemberLock(selectedMember.id)}
-                        aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
-                        className={clsx(
-                          "size-9 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8",
-                          selectedMember.locked
-                            ? "border-warning-line text-warning-strong"
-                            : "border-line text-muted",
-                        )}
-                      >
-                        {selectedMember.locked ? <Lock className="h-4 w-4" /> : <LockOpen className="h-4 w-4" />}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => onAssignToCompare(selectedMember.id)}
-                        aria-label="Comparar slot seleccionado"
-                        className="size-9 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
-                      >
-                        <GitCompareArrows className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => onRemoveMember(selectedMember.id)}
-                        aria-label="Eliminar slot seleccionado"
-                        className="size-9 rounded-[0.9rem] border border-danger-line bg-surface-4 text-danger hover:bg-danger-fill"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
+                    <div className="mobile-roster-action-dock roster-action-dock-desktop" style={dockTone}>
+                      {renderActionButtons("desktop")}
                     </div>
                   </motion.div>
                 </motion.div>
@@ -302,57 +370,75 @@ export function TeamRosterSection({
             className="mobile-roster-action-dock flex md:hidden"
             style={dockTone}
           >
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-lg"
-              onClick={() => onEditMember(selectedMember.id)}
-              aria-label="Editar slot seleccionado"
-              className="size-11 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+            {renderActionButtons("mobile")}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {resetOpen && selectedMember ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.76)] px-4 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.98 }}
+              className="panel-strong w-full max-w-lg rounded-[1rem] p-5"
             >
-              <Pencil className="h-5 w-5" />
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-lg"
-              onClick={() => onToggleMemberLock(selectedMember.id)}
-              aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
-              className={clsx(
-                "size-11 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8",
-                selectedMember.locked
-                  ? "border-warning-line text-warning-strong"
-                  : "border-line text-muted",
-              )}
-            >
-              {selectedMember.locked ? <Lock className="h-5 w-5" /> : <LockOpen className="h-5 w-5" />}
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-lg"
-              onClick={() => onAssignToCompare(selectedMember.id)}
-              aria-label="Comparar slot seleccionado"
-              className="size-11 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
-            >
-              <GitCompareArrows className="h-5 w-5" />
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-lg"
-              onClick={() => onRemoveMember(selectedMember.id)}
-              aria-label="Eliminar slot seleccionado"
-              className="size-11 rounded-[0.9rem] border border-danger-line bg-surface-4 text-danger hover:bg-danger-fill"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+              <p className="display-face text-sm text-accent">Reset del slot</p>
+              <p className="mt-2 text-sm text-muted">
+                Elige exactamente qué quieres restablecer. Todas las opciones vienen marcadas por defecto.
+              </p>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                {Object.entries(resetFields).map(([key, checked]) => (
+                  <label
+                    key={key}
+                    className="flex items-center gap-3 rounded-[0.75rem] border border-line bg-surface-3 px-3 py-2 text-sm"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={(event) =>
+                        setResetFields((current) => ({
+                          ...current,
+                          [key]: event.target.checked,
+                        }))
+                      }
+                    />
+                    <span>{RESET_LABELS[key as keyof typeof resetFields]}</span>
+                  </label>
+                ))}
+              </div>
+              <div className="mt-5 flex justify-end gap-2">
+                <Button type="button" variant="ghost" onClick={() => setResetOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button type="button" variant="destructive" onClick={resetSelectedMember}>
+                  Aplicar reset
+                </Button>
+              </div>
+            </motion.div>
           </motion.div>
         ) : null}
       </AnimatePresence>
     </section>
   );
 }
+
+const RESET_LABELS = {
+  nickname: "Nickname",
+  level: "Nivel",
+  gender: "Genero",
+  nature: "Naturaleza",
+  ability: "Habilidad",
+  item: "Objeto",
+  moves: "Moveset",
+  ivs: "IVs",
+  evs: "EVs",
+};
 
 export function TeamAnalysisSection({
   averageStats,
@@ -400,6 +486,11 @@ export function CheckpointCopilotSection({
   speedTiers,
   recommendation,
   moveRecommendations,
+  encounterCatalog,
+  completedEncounterIds,
+  speciesCatalog,
+  starterKey,
+  onToggleEncounter,
 }: {
   activeMember?: ResolvedTeamMember;
   activeRoleRecommendation?: MemberRoleRecommendation;
@@ -415,31 +506,81 @@ export function CheckpointCopilotSection({
   speedTiers: SpeedTiers;
   recommendation: Recommendation;
   moveRecommendations: MoveRecommendation[];
+  encounterCatalog: RunEncounterDefinition[];
+  completedEncounterIds: string[];
+  speciesCatalog: { name: string; dex: number }[];
+  starterKey: StarterKey;
+  onToggleEncounter: (id: string) => void;
 }) {
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const [timelineHeight, setTimelineHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    const node = contentRef.current;
+    if (!node || typeof ResizeObserver === "undefined") {
+      return;
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) {
+        return;
+      }
+      setTimelineHeight(Math.round(entry.contentRect.height));
+    });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="space-y-2">
-      <CheckpointIntelligencePanel
-        activeMember={activeMember}
-        activeRoleRecommendation={activeRoleRecommendation}
-        teamSize={teamSize}
-        copilotSupportsRecommendations={copilotSupportsRecommendations}
-        supportsContextualSwaps={supportsContextualSwaps}
-        milestoneId={milestoneId}
-        nextEncounter={nextEncounter}
-        starterMember={starterMember}
-        checkpointRisk={checkpointRisk}
-        speedTiers={speedTiers}
-        swapOpportunities={swapOpportunities}
-        recommendation={recommendation}
-        moveRecommendations={moveRecommendations}
-      />
-      <RecommendedCapturesPanel
-        teamSize={teamSize}
-        swapOpportunities={swapOpportunities}
-        captureRecommendations={captureRecommendations}
-        supportsContextualSwaps={supportsContextualSwaps}
-        nextEncounter={nextEncounter}
-      />
+      <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-stretch">
+        <div ref={contentRef} className="space-y-2">
+          <CheckpointIntelligencePanel
+            activeMember={activeMember}
+            activeRoleRecommendation={activeRoleRecommendation}
+            teamSize={teamSize}
+            copilotSupportsRecommendations={copilotSupportsRecommendations}
+            supportsContextualSwaps={supportsContextualSwaps}
+            milestoneId={milestoneId}
+            nextEncounter={nextEncounter}
+            starterMember={starterMember}
+            checkpointRisk={checkpointRisk}
+            speedTiers={speedTiers}
+            swapOpportunities={swapOpportunities}
+            recommendation={recommendation}
+            moveRecommendations={moveRecommendations}
+          />
+          <div className="xl:hidden">
+            <RunPathPanel
+              encounters={encounterCatalog}
+              completedEncounterIds={completedEncounterIds}
+              speciesCatalog={speciesCatalog}
+              starterKey={starterKey}
+              onToggleEncounter={onToggleEncounter}
+            />
+          </div>
+          <RecommendedCapturesPanel
+            teamSize={teamSize}
+            swapOpportunities={swapOpportunities}
+            captureRecommendations={captureRecommendations}
+            supportsContextualSwaps={supportsContextualSwaps}
+            nextEncounter={nextEncounter}
+          />
+        </div>
+
+        <aside className="hidden xl:block">
+          <RunPathPanel
+            encounters={encounterCatalog}
+            completedEncounterIds={completedEncounterIds}
+            speciesCatalog={speciesCatalog}
+            starterKey={starterKey}
+            onToggleEncounter={onToggleEncounter}
+            maxHeight={timelineHeight ?? undefined}
+          />
+        </aside>
+      </div>
     </section>
   );
 }
@@ -650,34 +791,14 @@ export function PreferencesSection({
 
 export function RunOpsSection({
   activeMember,
-  encounterCatalog,
-  completedEncounterIds,
-  speciesCatalog,
-  starterKey,
   sourceCards,
-  moveHighlights,
-  onToggleEncounter,
 }: {
   activeMember?: ResolvedTeamMember;
-  encounterCatalog: RunEncounterDefinition[];
-  completedEncounterIds: string[];
-  speciesCatalog: { name: string; dex: number }[];
-  starterKey: StarterKey;
   sourceCards: Recommendation["availableSources"][number][];
-  moveHighlights: { move: string; changes: string[] }[];
-  onToggleEncounter: (id: string) => void;
 }) {
   return (
     <section className="space-y-2">
-      <RunPathPanel
-        encounters={encounterCatalog}
-        completedEncounterIds={completedEncounterIds}
-        speciesCatalog={speciesCatalog}
-        starterKey={starterKey}
-        onToggleEncounter={onToggleEncounter}
-      />
       <CheckpointMapPanel activeMember={activeMember} sourceCards={sourceCards} />
-      <MoveHighlightsPanel moveHighlights={moveHighlights} />
     </section>
   );
 }

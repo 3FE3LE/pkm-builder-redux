@@ -33,6 +33,7 @@ import type { BattleWeather } from "@/lib/domain/battle";
 
 type PokemonEditorSheetProps = {
   member?: EditableMember;
+  open?: boolean;
   resolved?: ResolvedTeamMember;
   weather: BattleWeather;
   roleRecommendation?: MemberRoleRecommendation;
@@ -40,6 +41,7 @@ type PokemonEditorSheetProps = {
   abilityCatalog: AbilityCatalogEntry[];
   itemCatalog: ItemCatalogEntry[];
   onOpenChange: (open: boolean) => void;
+  onOpenChangeComplete?: (open: boolean) => void;
   onChange: (next: EditableMember) => void;
   onOpenMoveModal: (slotIndex: number | null) => void;
   onRemoveMoveAt: (index: number) => void;
@@ -61,6 +63,7 @@ type PokemonEditorSheetProps = {
 
 export function PokemonEditorSheet({
   member,
+  open: openProp,
   resolved,
   weather,
   roleRecommendation,
@@ -68,6 +71,7 @@ export function PokemonEditorSheet({
   abilityCatalog,
   itemCatalog,
   onOpenChange,
+  onOpenChangeComplete,
   onChange,
   onOpenMoveModal,
   onRemoveMoveAt,
@@ -87,21 +91,15 @@ export function PokemonEditorSheet({
   getMoveSurfaceStyle,
 }: PokemonEditorSheetProps) {
   const [editorTab, setEditorTab] = useState<"stats" | "moves">("stats");
-  const [resetOpen, setResetOpen] = useState(false);
-  const [resetFields, setResetFields] = useState({
-    nickname: true,
-    level: true,
-    gender: true,
-    nature: true,
-    ability: true,
-    item: true,
-    moves: true,
-    ivs: true,
-    evs: true,
-  });
-  const open = Boolean(member);
+  const open = openProp ?? Boolean(member);
   if (!member) {
-    return <Sheet open={false} onOpenChange={onOpenChange} />;
+    return (
+      <Sheet
+        open={false}
+        onOpenChange={onOpenChange}
+        onOpenChangeComplete={onOpenChangeComplete}
+      />
+    );
   }
 
   const values = member;
@@ -135,31 +133,15 @@ export function PokemonEditorSheet({
     const parsed = editableMemberSchema.safeParse(next);
     onChange(parsed.success ? parsed.data : next);
   }
-
-  function resetSelectedFields() {
-    const defaults = createEditable(currentSpecies);
-    defaults.locked = currentMember.locked;
-    defaults.nickname = currentSpecies;
-
-    updateEditorMember((current) => ({
-      ...current,
-      nickname: resetFields.nickname ? defaults.nickname : current.nickname,
-      level: resetFields.level ? defaults.level : current.level,
-      gender: resetFields.gender ? defaults.gender : current.gender,
-      nature: resetFields.nature ? defaults.nature : current.nature,
-      ability: resetFields.ability ? defaults.ability : current.ability,
-      item: resetFields.item ? defaults.item : current.item,
-      moves: resetFields.moves ? defaults.moves : current.moves,
-      ivs: resetFields.ivs ? defaults.ivs : current.ivs,
-      evs: resetFields.evs ? defaults.evs : current.evs,
-    }));
-    setResetOpen(false);
-  }
-
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet
+      open={open}
+      onOpenChange={onOpenChange}
+      onOpenChangeComplete={onOpenChangeComplete}
+    >
       <SheetContent
         side="right"
+        onRequestClose={() => onOpenChange(false)}
         className="w-screen max-w-none overflow-y-auto border-l border-line bg-[linear-gradient(180deg,rgba(5,15,19,0.98),rgba(4,10,13,0.98))] p-0 text-text data-[side=right]:w-full sm:w-full sm:max-w-[35rem]"
       >
         <SheetHeader className="pt-10 px-0 pb-0">
@@ -174,7 +156,6 @@ export function PokemonEditorSheet({
             evolutionBlockReason={evolutionBlockReason}
             updateEditorMember={updateEditorMember}
             onRequestEvolution={onRequestEvolution}
-            onOpenReset={() => setResetOpen(true)}
           />
           <SheetTitle className="sr-only">
             {nicknameValue ||
@@ -269,82 +250,7 @@ export function PokemonEditorSheet({
             />
           ) : null}
         </div>
-        <AnimatePresence>
-          {resetOpen ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.76)] px-4 backdrop-blur-md"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 16, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                className="panel-strong w-full max-w-lg rounded-[1rem] p-5"
-              >
-                <p className="display-face text-sm text-accent">
-                  Reset del slot
-                </p>
-                <p className="mt-2 text-sm text-muted">
-                  Elige exactamente qué quieres restablecer. Todas las opciones
-                  vienen marcadas por defecto.
-                </p>
-                <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                  {Object.entries(resetFields).map(([key, checked]) => (
-                    <label
-                      key={key}
-                      className="flex items-center gap-3 rounded-[0.75rem] border border-line bg-surface-3 px-3 py-2 text-sm"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={(event) =>
-                          setResetFields((current) => ({
-                            ...current,
-                            [key]: event.target.checked,
-                          }))
-                        }
-                      />
-                      <span>
-                        {RESET_LABELS[key as keyof typeof resetFields]}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-                <div className="mt-5 flex justify-end gap-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setResetOpen(false)}
-                  >
-                    Cancelar
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    onClick={resetSelectedFields}
-                  >
-                    Aplicar reset
-                  </Button>
-                </div>
-              </motion.div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
       </SheetContent>
     </Sheet>
   );
 }
-
-const RESET_LABELS = {
-  nickname: "Nickname",
-  level: "Nivel",
-  gender: "Genero",
-  nature: "Naturaleza",
-  ability: "Habilidad",
-  item: "Objeto",
-  moves: "Moveset",
-  ivs: "IVs",
-  evs: "EVs",
-};

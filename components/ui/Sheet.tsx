@@ -41,14 +41,16 @@ function SheetContent({
   children,
   side = "right",
   showCloseButton = true,
+  onRequestClose,
   ...props
 }: SheetPrimitive.Popup.Props & {
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
+  onRequestClose?: () => void
 }) {
   return (
     <SheetPortal>
-      <SheetOverlay />
+      <SheetOverlay onClick={onRequestClose} />
       <SheetPrimitive.Popup
         data-slot="sheet-content"
         data-side={side}
@@ -62,20 +64,17 @@ function SheetContent({
         <div className="sheet-rail pointer-events-none absolute inset-y-0 left-0 w-px" />
         {children}
         {showCloseButton && (
-          <SheetPrimitive.Close
+          <Button
+            type="button"
             data-slot="sheet-close"
-            render={
-              <Button
-                variant="ghost"
-                className="absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8"
-                size="icon-sm"
-              />
-            }
+            variant="ghost"
+            className="absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8"
+            size="icon-sm"
+            onClick={onRequestClose}
           >
-            <XIcon
-            />
+            <XIcon />
             <span className="sr-only">Close</span>
-          </SheetPrimitive.Close>
+          </Button>
         )}
       </SheetPrimitive.Popup>
     </SheetPortal>

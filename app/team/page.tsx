@@ -1,8 +1,5 @@
-import { BuilderApp } from "@/components/team/TeamApp";
-import { getBuilderPageData } from "@/lib/builderPageData";
+import { TeamWorkspace } from "@/components/team/TeamApp";
 
 export default function TeamPage() {
-  const data = getBuilderPageData();
-
-  return <BuilderApp {...data} />;
+  return <TeamWorkspace />;
 }
