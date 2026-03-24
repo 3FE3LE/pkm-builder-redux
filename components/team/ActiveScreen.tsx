@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams, useSelectedLayoutSegment } from "next/navigation";
 import {
   closestCenter,
   DndContext,
@@ -41,6 +41,7 @@ type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
 export function ActiveScreen() {
   const router = useRouter();
   const pathname = usePathname();
+  const editorSegment = useSelectedLayoutSegment("editor");
   const searchParams = useSearchParams();
   const [workspaceTab, setWorkspaceTab] = useQueryState(
     "tab",
@@ -53,7 +54,7 @@ export function ActiveScreen() {
   const analysis = useTeamAnalysis();
   const compare = useTeamCompare();
   const evolution = useTeamEvolution();
-  const editorOpen = pathname.startsWith("/team/pokemon/");
+  const editorOpen = pathname.startsWith("/team/pokemon/") || editorSegment !== null;
 
   function buildTeamHref(nextPath: string) {
     const nextParams = new URLSearchParams(searchParams.toString());

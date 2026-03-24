@@ -78,7 +78,7 @@ function evaluateEvolutionPath(
     reasons.push(`Requiere Lv ${detail.minLevel}`);
   }
 
-  if (detail.relativePhysicalStats !== undefined && summaryStats) {
+  if (detail.relativePhysicalStats != null && summaryStats) {
     const relation =
       summaryStats.atk > summaryStats.def ? 1 : summaryStats.atk < summaryStats.def ? -1 : 0;
     if (relation !== detail.relativePhysicalStats) {

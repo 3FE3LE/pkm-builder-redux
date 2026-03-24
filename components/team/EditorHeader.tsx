@@ -246,6 +246,7 @@ export function EditorHeader({
             label="LV"
             value={currentLevel}
             max={100}
+            hideLabel
             onChange={(next) =>
               updateEditorMember((current) => ({
                 ...current,

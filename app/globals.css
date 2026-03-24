@@ -716,6 +716,10 @@ input[type="number"]::-webkit-inner-spin-button {
   width: fit-content;
 }
 
+.mobile-roster-action-dock-editor-open {
+  bottom: calc(max(0.15rem, env(safe-area-inset-bottom)) + 0.75rem);
+}
+
 .roster-action-dock-desktop {
   position: static;
   bottom: auto;

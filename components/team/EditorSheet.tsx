@@ -142,9 +142,10 @@ export function PokemonEditorSheet({
       <SheetContent
         side="right"
         onRequestClose={() => onOpenChange(false)}
+        hideCloseButtonOnMobile
         className="w-screen max-w-none overflow-y-auto border-l border-line bg-[linear-gradient(180deg,rgba(5,15,19,0.98),rgba(4,10,13,0.98))] p-0 text-text data-[side=right]:w-full sm:w-full sm:max-w-[35rem]"
       >
-        <SheetHeader className="pt-10 px-0 pb-0">
+        <SheetHeader className="px-0 pb-0 pt-4 sm:pt-10">
           <EditorHeader
             member={member}
             resolved={resolved}
@@ -165,7 +166,7 @@ export function PokemonEditorSheet({
           </SheetTitle>
         </SheetHeader>
 
-        <div className="space-y-4 px-4 sm:space-y-5 sm:px-5 sm:py-4">
+        <div className="space-y-4 px-4 pb-28 sm:space-y-5 sm:px-5 sm:py-4">
           <EditorProfileSection
             member={member}
             resolved={resolved}

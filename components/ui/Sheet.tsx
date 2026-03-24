@@ -41,11 +41,13 @@ function SheetContent({
   children,
   side = "right",
   showCloseButton = true,
+  hideCloseButtonOnMobile = false,
   onRequestClose,
   ...props
 }: SheetPrimitive.Popup.Props & {
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
+  hideCloseButtonOnMobile?: boolean
   onRequestClose?: () => void
 }) {
   return (
@@ -68,7 +70,10 @@ function SheetContent({
             type="button"
             data-slot="sheet-close"
             variant="ghost"
-            className="absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8"
+            className={cn(
+              "absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8",
+              hideCloseButtonOnMobile && "hidden sm:inline-flex",
+            )}
             size="icon-sm"
             onClick={onRequestClose}
           >

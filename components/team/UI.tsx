@@ -160,6 +160,7 @@ export function SpreadInput({
   onChange,
   error,
   orientation = "horizontal",
+  hideLabel = false,
 }: {
   label: string;
   value: number;
@@ -167,6 +168,7 @@ export function SpreadInput({
   onChange: (next: number) => void;
   error?: string;
   orientation?: "horizontal" | "vertical" | "responsive";
+  hideLabel?: boolean;
 }) {
   const isVertical = orientation === "vertical" || orientation === "responsive";
   const isResponsive = orientation === "responsive";
@@ -180,18 +182,21 @@ export function SpreadInput({
         isResponsive && "lg:inline-flex lg:w-auto lg:flex-col lg:items-center",
       )}
     >
-      <span
-        className={clsx(
-          "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted",
-          isResponsive && "lg:text-center lg:text-[9px]",
-        )}
-      >
-        {label}
-      </span>
+      {hideLabel ? null : (
+        <span
+          className={clsx(
+            "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted",
+            isResponsive && "lg:text-center lg:text-[9px]",
+          )}
+        >
+          {label}
+        </span>
+      )}
       {isVertical ? (
         <div
           className={clsx(
-            "mx-auto mt-1.5 flex w-[2.45rem] flex-col items-center",
+            "mx-auto flex w-[2.45rem] flex-col items-center",
+            !hideLabel && "mt-1.5",
             isResponsive && "lg:mx-0 lg:mt-0 lg:flex-1 lg:w-auto lg:flex-row lg:items-center",
           )}
         >
@@ -241,7 +246,7 @@ export function SpreadInput({
           </button>
         </div>
       ) : (
-        <div className="mt-1.5 flex items-center">
+        <div className={clsx("flex items-center", !hideLabel && "mt-1.5")}>
           <button
             type="button"
             onClick={() => onChange(Math.max(0, value - 1))}

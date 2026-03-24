@@ -367,7 +367,10 @@ export function TeamRosterSection({
             animate={{ x: "-50%", y: 0, opacity: 1 }}
             exit={{ x: "-50%", y: 28, opacity: 0 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="mobile-roster-action-dock flex md:hidden"
+            className={clsx(
+              "mobile-roster-action-dock flex md:hidden",
+              editorOpen && "mobile-roster-action-dock-editor-open",
+            )}
             style={dockTone}
           >
             {renderActionButtons("mobile")}
