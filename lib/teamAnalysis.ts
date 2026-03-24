@@ -347,6 +347,67 @@ function formatCanonicalEvolutionMethod(detail: RemoteEvolutionDetail) {
   return parts.join(" · ");
 }
 
+function buildDocumentedEvolutionDetail(change: { target: string; method: string }): RemoteEvolutionDetail {
+  const detail: RemoteEvolutionDetail = {
+    target: change.target,
+    trigger: null,
+    minLevel: null,
+    item: null,
+    heldItem: null,
+    knownMove: null,
+    knownMoveType: null,
+    minHappiness: null,
+    minBeauty: null,
+    minAffection: null,
+    partySpecies: null,
+    partyType: null,
+    tradeSpecies: null,
+    timeOfDay: null,
+    location: null,
+    gender: null,
+    relativePhysicalStats: null,
+    needsOverworldRain: false,
+    turnUpsideDown: false,
+  };
+
+  const method = change.method.trim();
+  const levelMatch = method.match(/^Lv\s+(\d+)$/i);
+  if (levelMatch) {
+    detail.trigger = "level-up";
+    detail.minLevel = Number(levelMatch[1]);
+    return detail;
+  }
+
+  if (method.toLowerCase() === "normal method") {
+    detail.trigger = "level-up";
+    return detail;
+  }
+
+  if (/friendship/i.test(method)) {
+    detail.trigger = "level-up";
+    detail.minHappiness = 220;
+    return detail;
+  }
+
+  const moveMatch = method.match(/^Move:\s+(.+)$/i);
+  if (moveMatch) {
+    detail.trigger = "level-up";
+    detail.knownMove = moveMatch[1].trim();
+    return detail;
+  }
+
+  const partyMatch = method.match(/^Party:\s+(.+)$/i);
+  if (partyMatch) {
+    detail.trigger = "level-up";
+    detail.partySpecies = partyMatch[1].trim();
+    return detail;
+  }
+
+  detail.trigger = "use-item";
+  detail.item = method;
+  return detail;
+}
+
 export function resolvePokemonProfile(
   docs: ParsedDocs,
   species: string,
@@ -380,9 +441,9 @@ export function resolvePokemonProfile(
       summary: entry.summary,
     }));
 
-  const nextEvolutions = remote?.nextEvolutions?.map(formatName) ?? [];
+  const canonicalEvolutionDetails = remote?.evolutionDetails ?? [];
   const canonicalEvolutionHints =
-    remote?.evolutionDetails?.map((detail) => {
+    canonicalEvolutionDetails.map((detail) => {
       const target = formatName(detail.target);
       const method = formatCanonicalEvolutionMethod(detail);
       return {
@@ -390,7 +451,14 @@ export function resolvePokemonProfile(
         method,
         summary: `${target} evolves via ${method}.`,
       };
-    }) ?? [];
+    });
+  const documentedEvolutionDetails = documentedEvolutionHints.map(buildDocumentedEvolutionDetail);
+  const nextEvolutions =
+    (documentedEvolutionHints.length
+      ? documentedEvolutionHints.map((entry) => formatName(entry.target))
+      : remote?.nextEvolutions?.map(formatName)) ?? [];
+  const effectiveEvolutionDetails =
+    documentedEvolutionDetails.length > 0 ? documentedEvolutionDetails : canonicalEvolutionDetails;
 
   const evolutionHints = [
     ...documentedEvolutionHints,
@@ -428,7 +496,7 @@ export function resolvePokemonProfile(
     resolvedStats: stats,
     abilities,
     nextEvolutions,
-    evolutionDetails: remote?.evolutionDetails,
+    evolutionDetails: effectiveEvolutionDetails,
     evolutionHints,
     learnsets: remote?.learnsets,
     moves: [],
