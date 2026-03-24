@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { TeamEditorRoute } from "@/components/team/TeamEditorRoute";
 
 export default async function TeamEditorModalPage({
@@ -7,5 +9,9 @@ export default async function TeamEditorModalPage({
 }) {
   const { memberId } = await params;
 
-  return <TeamEditorRoute key={`team-editor-modal-${memberId}`} memberId={memberId} closeMode="back" />;
+  return (
+    <Suspense fallback={null}>
+      <TeamEditorRoute key={`team-editor-modal-${memberId}`} memberId={memberId} closeMode="back" />
+    </Suspense>
+  );
 }
