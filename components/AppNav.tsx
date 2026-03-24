@@ -15,30 +15,37 @@ export function AppNav() {
     pathname.startsWith("/team/pokemon/");
 
   return (
-    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 px-3 pb-[max(env(safe-area-inset-bottom),0px)] lg:sticky lg:top-0 lg:bottom-auto lg:px-0 lg:pb-0">
-      <div className="mx-auto flex max-w-7xl items-center justify-center px-0 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-3 lg:border-b lg:border-line lg:bg-[rgba(4,10,13,0.88)] lg:px-10 lg:py-3 lg:backdrop-blur-md">
+    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 bg-transparent px-3 pb-[max(env(safe-area-inset-bottom),0px)] lg:sticky lg:top-0 lg:bottom-auto lg:px-0 lg:pb-0">
+      <div className="mx-auto flex max-w-7xl items-center justify-center bg-transparent px-0 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-3 lg:px-10 lg:py-3">
         <Link
           href="/"
-          className="group hidden min-w-0 items-center gap-2.5 rounded-[1rem] px-1.5 py-1 text-accent transition hover:bg-surface-3/70 lg:flex"
+          aria-label="Home"
+          className="group hidden h-11 w-11 items-center justify-center rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] text-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex"
         >
           <Image
             src="/brand/snivy.png"
             alt="Snivy"
             width={32}
             height={32}
-            className="h-8 w-8 object-contain pixelated transition duration-200 group-hover:scale-[1.04]"
+            className="h-8 w-8 object-contain pixelated transition duration-200 group-hover:scale-[1.06]"
             unoptimized={false}
           />
-          <span className="min-w-0">
-            <span className="display-face hidden text-sm tracking-[0.08em] text-accent sm:inline">
-              BB2 Redux Builder
-            </span>
-            <span className="display-face inline text-sm tracking-[0.08em] text-accent sm:hidden">
-              Redux Builder
-            </span>
-          </span>
         </Link>
-        <nav className="grid w-full max-w-md grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[linear-gradient(180deg,hsl(196_57%_9%_/_0.84),hsl(196_57%_7%_/_0.78))] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
+        <nav className="grid w-full max-w-md grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[linear-gradient(180deg,hsl(196_57%_9%_/_0.84),hsl(196_57%_7%_/_0.78))] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
+          <Link
+            href="/"
+            aria-label="Home"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-[0.95rem] border border-transparent text-accent transition-[background,border-color,transform] duration-200 hover:border-line hover:bg-surface-3/80 lg:hidden"
+          >
+            <Image
+              src="/brand/snivy.png"
+              alt="Snivy"
+              width={28}
+              height={28}
+              className="h-7 w-7 object-contain pixelated"
+              unoptimized={false}
+            />
+          </Link>
           <Link
             href="/team"
             className={clsx(
