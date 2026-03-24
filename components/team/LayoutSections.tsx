@@ -122,6 +122,8 @@ export function TeamRosterSection({
   onAddMember,
   onResetMember,
   onAssignToCompare,
+  onClearSelection,
+  onCloseEditor,
 }: {
   currentTeam: EditableMember[];
   resolvedTeam: ResolvedTeamMember[];
@@ -137,6 +139,8 @@ export function TeamRosterSection({
   onAddMember: () => void;
   onResetMember: (id: string, next: EditableMember) => void;
   onAssignToCompare: (memberId: string) => void;
+  onClearSelection: () => void;
+  onCloseEditor: () => void;
 }) {
   const filledTeam = currentTeam.filter((member) => member.species.trim());
   const selectedMember = activeMemberKey
@@ -150,6 +154,7 @@ export function TeamRosterSection({
   const desktopBottomRow = filledTeam.slice(3, 6);
   const dockTone = getDockTone(selectedResolved?.resolvedTypes);
   const [resetOpen, setResetOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [resetFields, setResetFields] = useState({
     nickname: true,
     level: true,
@@ -189,6 +194,7 @@ export function TeamRosterSection({
 
   function renderActionButtons(buttonSize: "desktop" | "mobile") {
     const isDesktop = buttonSize === "desktop";
+    const showCloseDockAction = !isDesktop && editorOpen;
     const buttonClass = isDesktop
       ? "size-9 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8"
       : "size-11 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8";
@@ -249,8 +255,15 @@ export function TeamRosterSection({
           type="button"
           variant="ghost"
           size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => onRemoveMember(selectedMember.id)}
-          aria-label="Eliminar slot seleccionado"
+          onClick={() => {
+            if (showCloseDockAction) {
+              onCloseEditor();
+              return;
+            }
+
+            setDeleteOpen(true);
+          }}
+          aria-label={showCloseDockAction ? "Cerrar menu flotante" : "Eliminar slot seleccionado"}
           className={clsx(buttonClass, "border-danger-line text-danger hover:bg-danger-fill")}
         >
           <X className={iconClass} />
@@ -421,6 +434,47 @@ export function TeamRosterSection({
                 </Button>
                 <Button type="button" variant="destructive" onClick={resetSelectedMember}>
                   Aplicar reset
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {deleteOpen && selectedMember ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.76)] px-4 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.98 }}
+              className="panel-strong w-full max-w-md rounded-[1rem] p-5"
+            >
+              <p className="display-face text-sm text-danger">Eliminar slot</p>
+              <p className="mt-2 text-sm text-muted">
+                Vas a eliminar a {selectedMember.nickname || selectedMember.species || "este Pokemon"} del roster.
+              </p>
+              <p className="mt-1 text-sm text-muted">
+                Esta accion es permanente para el slot actual.
+              </p>
+              <div className="mt-5 flex justify-end gap-2">
+                <Button type="button" variant="ghost" onClick={() => setDeleteOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() => {
+                    onRemoveMember(selectedMember.id);
+                    onClearSelection();
+                    setDeleteOpen(false);
+                  }}
+                >
+                  Eliminar
                 </Button>
               </div>
             </motion.div>

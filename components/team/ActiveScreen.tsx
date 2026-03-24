@@ -63,6 +63,11 @@ export function ActiveScreen() {
     return query ? `${nextPath}?${query}` : nextPath;
   }
 
+  function closeTeamEditor() {
+    team.actions.closeEditor();
+    team.actions.clearSelection();
+  }
+
   function assignCompareFromRoster(slot: 0 | 1, memberId: string) {
     const rosterMember = team.currentTeam.find((member) => member.id === memberId);
     if (!rosterMember) {
@@ -153,7 +158,6 @@ export function ActiveScreen() {
             }}
             onRemoveMember={(id) => {
               team.actions.removeMember(id);
-              team.actions.clearSelection();
             }}
             onAddMember={() => {
               const memberId = team.actions.addMember();
@@ -165,6 +169,8 @@ export function ActiveScreen() {
               team.actions.updateMember(id, next);
             }}
             onAssignToCompare={assignCompareFromRosterFirstEmpty}
+            onClearSelection={team.actions.clearSelection}
+            onCloseEditor={closeTeamEditor}
           />
 
           <section className="mt-3">

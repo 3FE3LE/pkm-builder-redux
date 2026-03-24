@@ -59,6 +59,10 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
     if (movePicker.memberId === memberId) {
       movePicker.actions.close();
     }
+    if (closeMode === "back") {
+      router.back();
+      return;
+    }
     router.replace(closeHref);
   }
 
@@ -74,7 +78,7 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
     <PokemonEditorSheet
       key={`editor-sheet-${memberId}-${editorNonce}`}
       member={member}
-      open={open}
+      open={closeMode === "back" ? open && team.editorMemberId === memberId : open}
       resolved={resolved}
       weather={session.battleWeather}
       roleRecommendation={analysis.checkpointRisk.roleSnapshot.members.find(
@@ -88,6 +92,7 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
           if (!member.species.trim()) {
             team.actions.removeMember(member.id);
           }
+          team.actions.closeEditor();
           requestClose();
         }
       }}
