@@ -23,13 +23,13 @@ export function CheckpointMapPanel({
   );
 
   return (
-    <div className="px-1 py-1">
+    <div className="min-w-0 overflow-x-hidden px-1 py-1">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="display-face text-sm text-accent">Locations</p>
         </div>
       </div>
-      <div className="scrollbar-thin mt-3 max-h-[34rem] space-y-2.5 overflow-auto">
+      <div className="scrollbar-thin mt-3 max-h-[34rem] space-y-2.5 overflow-y-auto overflow-x-hidden">
         {visibleSources.length ? (
           visibleSources.map((source) => (
             <AreaSourceCard

@@ -20,7 +20,7 @@ export function CheckpointIntelligencePanel({
   swapOpportunities: SwapOpportunity[];
 }) {
   return (
-    <div className="rounded-[1rem] px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
+    <div className="min-w-0 overflow-x-hidden rounded-[1rem] px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
       {teamSize >= 5 && supportsContextualSwaps && swapOpportunities.length ? (
         <SectionBlock title="Swaps del tramo">
           <div className="mt-2 space-y-2">

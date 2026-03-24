@@ -686,9 +686,9 @@ export function CheckpointCopilotSection({
   }, []);
 
   return (
-    <section className="space-y-2">
+    <section className="min-w-0 space-y-2 overflow-x-hidden">
       <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-start">
-        <div ref={contentRef} className="space-y-2">
+        <div ref={contentRef} className="min-w-0 space-y-2 overflow-x-hidden">
           <div className="xl:hidden">
             <RunPathPanel
               encounters={encounterCatalog}

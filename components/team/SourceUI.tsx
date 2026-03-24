@@ -237,7 +237,7 @@ export function AreaSourceCard({
   ].filter((group) => group.entries.length);
 
   return (
-    <article className="rounded-[0.85rem] border border-line px-3 py-3">
+    <article className="min-w-0 rounded-[0.85rem] border border-line px-3 py-3">
       <div className="flex flex-wrap items-start justify-between gap-2.5">
         <div>
           <p className="display-face text-sm text-accent">{source.area}</p>
@@ -249,7 +249,7 @@ export function AreaSourceCard({
           <SourceCount label="item" count={source.items.length} />
         </div>
       </div>
-      <div className="mt-3 space-y-2.5">
+      <div className="mt-3 min-w-0 space-y-2.5">
         {groups.map((group) => (
           <InlineSourceRow
             key={`${source.area}-${group.title}`}
@@ -281,12 +281,12 @@ function InlineSourceRow({
   const normalizedActive = normalizeName(activeSpecies ?? "");
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="mb-1.5 flex items-center justify-between gap-3">
         <p className="display-face text-[11px] text-accent">{title}</p>
         {title === "Item" ? null : <SourceCount label="count" count={entries.length} />}
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex min-w-0 flex-wrap gap-2">
         {entries.map((entry, index) =>
           title === "Item" ? (
             <ItemEntryChip
@@ -332,14 +332,14 @@ function PokemonEntryChip({
   return (
     <span
       className={clsx(
-        "inline-flex items-center gap-2 px-0 py-0 text-xs",
+        "inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs",
         highlighted
           ? "text-primary-soft"
           : "text-muted",
       )}
     >
       <SourceSprite species={species} spriteUrl={sprites.spriteUrl} />
-      <span>{entry}</span>
+      <span className="min-w-0 break-words">{entry}</span>
     </span>
   );
 }
@@ -359,9 +359,9 @@ function TradeEntryChip({
   const sprites = buildSpriteUrls(received, dex);
 
   return (
-    <span className="inline-flex items-center gap-2 px-0 py-0 text-xs text-muted">
+    <span className="inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
       <SourceSprite species={received} spriteUrl={sprites.spriteUrl} />
-      <span>{entry}</span>
+      <span className="min-w-0 break-words">{entry}</span>
       {reference ? (
         <ReferencedThingSprite
           label={reference}
@@ -387,9 +387,9 @@ function ItemEntryChip({
   const details = itemByName[normalizeName(itemName)];
 
   return (
-    <span className="group relative inline-flex items-center gap-2 px-0 py-0 text-xs text-muted">
+    <span className="group relative inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
       <ItemSprite name={itemName} sprite={details?.sprite} chrome="plain" />
-      <span>{entry}</span>
+      <span className="min-w-0 break-words">{entry}</span>
       {reference ? (
         <ReferencedThingSprite
           label={reference}

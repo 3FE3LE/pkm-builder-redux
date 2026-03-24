@@ -93,7 +93,7 @@ export function RunPathPanel({
 
   return (
     <div
-      className="flex h-full flex-col overflow-hidden px-1 py-1"
+      className="flex min-w-0 h-full flex-col overflow-hidden px-1 py-1"
       style={
         maxHeight
           ? { height: Math.round(maxHeight), maxHeight: Math.round(maxHeight) }
@@ -109,7 +109,7 @@ export function RunPathPanel({
         </div>
       </div>
       <div className="mt-4 min-h-0 flex-1">
-        <div className="scrollbar-thin h-full space-y-2 overflow-auto pr-1">
+        <div className="scrollbar-thin h-full space-y-2 overflow-y-auto overflow-x-hidden pr-1">
           {visibleEncounters.map((encounter, index) => {
             const isCompleted = safeCompletedEncounterIds.includes(
               encounter.id,
