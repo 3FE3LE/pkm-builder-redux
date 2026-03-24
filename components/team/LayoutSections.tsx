@@ -2,14 +2,16 @@
 
 import clsx from "clsx";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import { CloudRain, CloudSun, GitCompareArrows, Lock, LockOpen, MoonStar, Pencil, Plus, RotateCcw, Snowflake, Sun, Sunrise, Sunset, Wind, X } from "lucide-react";
+import { CloudRain, CloudSun, GitCompareArrows, Info, Lock, LockOpen, MoonStar, Pencil, Plus, RotateCcw, Snowflake, Sun, Sunrise, Sunset, Wind, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import {
   CoveragePanel,
   DefensiveThreatsPanel,
   TeamAverageStatsPanel,
+  TeamRosterReadingPanel,
 } from "@/components/team/AnalysisPanels";
+import { TypeBadge } from "@/components/BuilderShared";
 import {
   CheckpointIntelligencePanel,
   CheckpointMapPanel,
@@ -21,6 +23,8 @@ import {
   ComparisonSummary,
   buildCompareState,
 } from "@/components/team/CompareModalSections";
+import { buildMemberLens } from "@/lib/domain/memberLens";
+import { RoleAxesCard } from "@/components/team/RoleAxes";
 import { Switch } from "@/components/ui/Switch";
 import { Button } from "@/components/ui/Button";
 import { SortableMemberCard } from "@/components/team/SortableMemberCard";
@@ -114,6 +118,9 @@ export function TeamRosterSection({
   battleWeather,
   evolvingIds,
   activeMemberKey,
+  activeRoleRecommendation,
+  moveRecommendations,
+  starterSpeciesLine,
   editorOpen,
   onSelectMember,
   onEditMember,
@@ -131,6 +138,9 @@ export function TeamRosterSection({
   battleWeather: BattleWeather;
   evolvingIds: Record<string, boolean>;
   activeMemberKey?: string;
+  activeRoleRecommendation?: MemberRoleRecommendation;
+  moveRecommendations: MoveRecommendation[];
+  starterSpeciesLine: string[];
   editorOpen: boolean;
   onSelectMember: (id: string) => void;
   onEditMember: (id: string) => void;
@@ -149,12 +159,17 @@ export function TeamRosterSection({
   const selectedResolved = activeMemberKey
     ? resolvedTeam.find((member) => member.key === activeMemberKey)
     : undefined;
+  const selectedStarterLens =
+    selectedResolved && starterSpeciesLine.includes(selectedResolved.species)
+      ? buildMemberLens(selectedResolved)
+      : null;
   const hasActiveSelection = Boolean(selectedMember);
   const desktopTopRow = filledTeam.slice(0, 3);
   const desktopBottomRow = filledTeam.slice(3, 6);
   const dockTone = getDockTone(selectedResolved?.resolvedTypes);
   const [resetOpen, setResetOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [resetFields, setResetFields] = useState({
     nickname: true,
     level: true,
@@ -206,6 +221,21 @@ export function TeamRosterSection({
 
     return (
       <>
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={() => setDetailsOpen((current) => !current)}
+          aria-label={detailsOpen ? "Ocultar info del slot seleccionado" : "Mostrar info del slot seleccionado"}
+          className={clsx(
+            buttonClass,
+            detailsOpen
+              ? "border-info-line bg-info-fill text-info-soft"
+              : "border-line text-muted",
+          )}
+        >
+          <Info className={iconClass} />
+        </Button>
         <Button
           type="button"
           variant="ghost"
@@ -345,8 +375,27 @@ export function TeamRosterSection({
                     animate={{ y: 0, scale: 1 }}
                     exit={{ y: -10, scale: 0.96 }}
                     transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="flex justify-center"
+                    className="relative flex justify-center"
                   >
+                    <AnimatePresence initial={false}>
+                      {selectedResolved && detailsOpen ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                          transition={{ duration: 0.18, ease: "easeOut" }}
+                          className="absolute bottom-full left-1/2 z-20 mb-3 w-[28rem] -translate-x-1/2"
+                        >
+                          <SelectedMemberInsightCard
+                            member={selectedResolved}
+                            roleRecommendation={activeRoleRecommendation}
+                            moveRecommendations={moveRecommendations}
+                            starterLens={selectedStarterLens}
+                            onClose={() => setDetailsOpen(false)}
+                          />
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
                     <div className="mobile-roster-action-dock roster-action-dock-desktop" style={dockTone}>
                       {renderActionButtons("desktop")}
                     </div>
@@ -375,19 +424,45 @@ export function TeamRosterSection({
 
       <AnimatePresence initial={false}>
         {selectedMember ? (
-          <motion.div
-            initial={{ x: "-50%", y: 28, opacity: 0 }}
-            animate={{ x: "-50%", y: 0, opacity: 1 }}
-            exit={{ x: "-50%", y: 28, opacity: 0 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className={clsx(
-              "mobile-roster-action-dock flex md:hidden",
-              editorOpen && "mobile-roster-action-dock-editor-open",
-            )}
-            style={dockTone}
-          >
-            {renderActionButtons("mobile")}
-          </motion.div>
+          <>
+            <AnimatePresence initial={false}>
+              {selectedResolved && detailsOpen ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  className={clsx(
+                    "fixed inset-x-4 z-40 md:hidden",
+                    editorOpen
+                      ? "bottom-[calc(env(safe-area-inset-bottom)+6.1rem)]"
+                      : "bottom-[calc(var(--mobile-nav-height)+env(safe-area-inset-bottom)+5.8rem)]",
+                  )}
+                >
+                  <SelectedMemberInsightCard
+                    member={selectedResolved}
+                    roleRecommendation={activeRoleRecommendation}
+                    moveRecommendations={moveRecommendations}
+                    starterLens={selectedStarterLens}
+                    onClose={() => setDetailsOpen(false)}
+                  />
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+            <motion.div
+              initial={{ x: "-50%", y: 28, opacity: 0 }}
+              animate={{ x: "-50%", y: 0, opacity: 1 }}
+              exit={{ x: "-50%", y: 28, opacity: 0 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className={clsx(
+                "mobile-roster-action-dock flex md:hidden",
+                editorOpen && "mobile-roster-action-dock-editor-open",
+              )}
+              style={dockTone}
+            >
+              {renderActionButtons("mobile")}
+            </motion.div>
+          </>
         ) : null}
       </AnimatePresence>
       <AnimatePresence>
@@ -502,6 +577,11 @@ export function TeamAnalysisSection({
   coveredCoverage,
   uncoveredCoverage,
   defensiveSections,
+  checkpointRisk,
+  teamSize,
+  captureRecommendations,
+  nextEncounter,
+  speciesCatalog,
 }: {
   averageStats: ReturnType<typeof import("@/lib/teamAnalysis").buildAverageStats> | null;
   coveredCoverage: {
@@ -513,10 +593,25 @@ export function TeamAnalysisSection({
     bucket: "x0" | "x0.25" | "x0.5" | "x1" | "x2" | "x4";
   }[];
   defensiveSections: DefensiveSections;
+  checkpointRisk: CheckpointRisk;
+  teamSize: number;
+  captureRecommendations: CaptureRecommendation[];
+  nextEncounter: RunEncounterDefinition | null;
+  speciesCatalog: { name: string; dex: number }[];
 }) {
   return (
     <section className="space-y-2">
       <TeamAverageStatsPanel averageStats={averageStats} />
+      <TeamRosterReadingPanel checkpointRisk={checkpointRisk} />
+      <RecommendedCapturesPanel
+        teamSize={teamSize}
+        captureRecommendations={captureRecommendations}
+        swapOpportunities={[]}
+        supportsContextualSwaps={false}
+        nextEncounter={nextEncounter}
+        speciesCatalog={speciesCatalog}
+        showSwaps={false}
+      />
       <div className="grid gap-3 xl:grid-cols-2">
         <CoveragePanel
           coveredCoverage={coveredCoverage}
@@ -530,10 +625,8 @@ export function TeamAnalysisSection({
 
 export function CheckpointCopilotSection({
   activeMember,
-  activeRoleRecommendation,
   teamSize,
   milestoneId,
-  starterMember,
   checkpointRisk,
   copilotSupportsRecommendations,
   supportsContextualSwaps,
@@ -543,17 +636,17 @@ export function CheckpointCopilotSection({
   speedTiers,
   recommendation,
   moveRecommendations,
+  sourceCards,
   encounterCatalog,
   completedEncounterIds,
   speciesCatalog,
+  itemCatalog,
   starterKey,
   onToggleEncounter,
 }: {
   activeMember?: ResolvedTeamMember;
-  activeRoleRecommendation?: MemberRoleRecommendation;
   teamSize: number;
   milestoneId: string;
-  starterMember?: ResolvedTeamMember;
   checkpointRisk: CheckpointRisk;
   copilotSupportsRecommendations: boolean;
   supportsContextualSwaps: boolean;
@@ -563,9 +656,11 @@ export function CheckpointCopilotSection({
   speedTiers: SpeedTiers;
   recommendation: Recommendation;
   moveRecommendations: MoveRecommendation[];
+  sourceCards: Recommendation["availableSources"][number][];
   encounterCatalog: RunEncounterDefinition[];
   completedEncounterIds: string[];
   speciesCatalog: { name: string; dex: number }[];
+  itemCatalog: { name: string; effect?: string; sprite?: string | null }[];
   starterKey: StarterKey;
   onToggleEncounter: (id: string) => void;
 }) {
@@ -592,23 +687,8 @@ export function CheckpointCopilotSection({
 
   return (
     <section className="space-y-2">
-      <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-stretch">
+      <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-start">
         <div ref={contentRef} className="space-y-2">
-          <CheckpointIntelligencePanel
-            activeMember={activeMember}
-            activeRoleRecommendation={activeRoleRecommendation}
-            teamSize={teamSize}
-            copilotSupportsRecommendations={copilotSupportsRecommendations}
-            supportsContextualSwaps={supportsContextualSwaps}
-            milestoneId={milestoneId}
-            nextEncounter={nextEncounter}
-            starterMember={starterMember}
-            checkpointRisk={checkpointRisk}
-            speedTiers={speedTiers}
-            swapOpportunities={swapOpportunities}
-            recommendation={recommendation}
-            moveRecommendations={moveRecommendations}
-          />
           <div className="xl:hidden">
             <RunPathPanel
               encounters={encounterCatalog}
@@ -616,17 +696,31 @@ export function CheckpointCopilotSection({
               speciesCatalog={speciesCatalog}
               starterKey={starterKey}
               onToggleEncounter={onToggleEncounter}
+              variant="mobile-summary"
             />
           </div>
+          <CheckpointIntelligencePanel
+            teamSize={teamSize}
+            supportsContextualSwaps={supportsContextualSwaps}
+            checkpointRisk={checkpointRisk}
+            swapOpportunities={swapOpportunities}
+          />
+          <CheckpointMapPanel
+            activeMember={activeMember}
+            sourceCards={sourceCards}
+            speciesCatalog={speciesCatalog}
+            itemCatalog={itemCatalog}
+          />
           <RecommendedCapturesPanel
             teamSize={teamSize}
             swapOpportunities={swapOpportunities}
             captureRecommendations={captureRecommendations}
             supportsContextualSwaps={supportsContextualSwaps}
             nextEncounter={nextEncounter}
+            speciesCatalog={speciesCatalog}
+            showCaptures={false}
           />
         </div>
-
         <aside className="hidden xl:block">
           <RunPathPanel
             encounters={encounterCatalog}
@@ -849,14 +943,135 @@ export function PreferencesSection({
 export function RunOpsSection({
   activeMember,
   sourceCards,
+  speciesCatalog,
+  itemCatalog,
 }: {
   activeMember?: ResolvedTeamMember;
   sourceCards: Recommendation["availableSources"][number][];
+  speciesCatalog: { name: string; dex: number }[];
+  itemCatalog: { name: string; effect?: string; sprite?: string | null }[];
 }) {
   return (
     <section className="space-y-2">
-      <CheckpointMapPanel activeMember={activeMember} sourceCards={sourceCards} />
+      <CheckpointMapPanel
+        activeMember={activeMember}
+        sourceCards={sourceCards}
+        speciesCatalog={speciesCatalog}
+        itemCatalog={itemCatalog}
+      />
     </section>
+  );
+}
+
+function SelectedMemberInsightCard({
+  member,
+  roleRecommendation,
+  moveRecommendations,
+  starterLens,
+  onClose,
+}: {
+  member: ResolvedTeamMember;
+  roleRecommendation?: MemberRoleRecommendation;
+  moveRecommendations: MoveRecommendation[];
+  starterLens: ReturnType<typeof buildMemberLens> | null;
+  onClose: () => void;
+}) {
+  return (
+    <div className="rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="display-face text-sm text-accent">Info del slot</p>
+          <p className="mt-1 text-sm text-muted">
+            Lectura puntual de {member.species} y mejoras recomendadas para este miembro.
+          </p>
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          onClick={onClose}
+          aria-label="Cerrar info del slot"
+          className="h-8 w-8 rounded-[0.8rem] border border-line bg-surface-4 text-muted hover:bg-surface-6"
+        >
+          <X className="h-4 w-4" />
+        </Button>
+      </div>
+
+      {roleRecommendation ? (
+        <div className="mt-4">
+          <RoleAxesCard role={roleRecommendation} compact />
+        </div>
+      ) : null}
+
+      {starterLens ? (
+        <div className="mt-4">
+          <p className="display-face text-xs text-accent">Starter Lens</p>
+          <p className="mt-1 text-sm text-muted">{starterLens.summary}</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {starterLens.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <StarterLensCard label="Rol actual" value={starterLens.role} />
+            <StarterLensCard label="Plan del equipo" value={starterLens.teamPlan} />
+          </div>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {starterLens.supportNeeds.map((need) => (
+              <StarterLensCard key={need} label="Necesita" value={need} />
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      <div className="mt-4">
+        <p className="display-face text-xs text-accent">Mejoras del slot</p>
+        <p className="mt-1 text-xs text-muted">
+          Moves sugeridos cerca del nivel actual o accesibles por máquina.
+        </p>
+        <div className="mt-3 space-y-2">
+          {moveRecommendations.length ? (
+            moveRecommendations.slice(0, 4).map((entry) => (
+              <div
+                key={`${entry.source}-${entry.move}`}
+                className="rounded-[0.7rem] border border-line bg-surface-3/60 px-3 py-3"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="display-face text-[10px] text-accent">{entry.source}</span>
+                  <span className="pixel-face text-[12px] text-text">{entry.move}</span>
+                  {entry.type ? <TypeBadge key={`${entry.move}-${entry.type}`} type={entry.type} /> : null}
+                </div>
+                {entry.reasons.length ? (
+                  <p className="mt-2 text-xs text-muted">{entry.reasons.join(" · ")}</p>
+                ) : null}
+              </div>
+            ))
+          ) : (
+            <p className="text-sm text-muted">No hay una recomendación clara todavia para este slot.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StarterLensCard({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-[0.7rem] border border-line bg-surface-3 px-3 py-2">
+      <p className="display-face text-[10px] text-accent">{label}</p>
+      <p className="mt-1 text-sm text-muted">{value}</p>
+    </div>
   );
 }
 

@@ -16,7 +16,7 @@ export function AppNav() {
     pathname.startsWith("/team/pokemon/");
 
   return (
-    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 bg-transparent px-3 pb-[max(env(safe-area-inset-bottom),0px)] lg:sticky lg:top-0 lg:bottom-auto lg:px-0 lg:pb-0">
+    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 border-t border-[rgba(255,255,255,0.04)] bg-[linear-gradient(180deg,rgba(10,23,28,0.52),rgba(7,16,20,0.38))] px-3 pb-[max(env(safe-area-inset-bottom),0px)] backdrop-blur-[16px] lg:sticky lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b lg:border-[rgba(255,255,255,0.05)] lg:bg-[linear-gradient(180deg,rgba(10,23,28,0.58),rgba(7,16,20,0.34))] lg:px-0 lg:pb-0">
       <div className="mx-auto flex max-w-7xl items-center justify-center bg-transparent px-0 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-3 lg:px-10 lg:py-3">
         <Link
           href="/"

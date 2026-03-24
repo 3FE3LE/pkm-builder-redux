@@ -18,7 +18,6 @@ import {
   CheckpointCopilotSection,
   TeamAnalysisSection,
   BuilderHeader,
-  RunOpsSection,
   TeamRosterSection,
 } from "@/components/team/LayoutSections";
 import {
@@ -35,7 +34,7 @@ import {
 } from "@/components/BuilderProvider";
 import { milestones, starters } from "@/lib/builder";
 
-const WORKSPACE_TABS = ["builder", "copilot", "run"] as const;
+const WORKSPACE_TABS = ["builder", "copilot"] as const;
 type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
 
 export function ActiveScreen() {
@@ -143,6 +142,11 @@ export function ActiveScreen() {
             battleWeather={session.battleWeather}
             evolvingIds={team.evolvingIds}
             activeMemberKey={team.activeMember?.key}
+            activeRoleRecommendation={analysis.checkpointRisk.roleSnapshot.members.find(
+              (entry) => entry.key === team.activeMember?.key,
+            )}
+            moveRecommendations={analysis.moveRecommendations}
+            starterSpeciesLine={starterLine}
             editorOpen={editorOpen}
             onSelectMember={team.actions.selectMember}
             onEditMember={(id) => {
@@ -179,7 +183,7 @@ export function ActiveScreen() {
               onValueChange={(value) => setWorkspaceTab(value as WorkspaceTab)}
               className="gap-0"
             >
-              <TabsList className="relative z-10 -mb-px grid w-full grid-cols-3 gap-1 bg-transparent p-0 sm:flex sm:h-auto sm:flex-wrap sm:items-end">
+              <TabsList className="relative z-10 -mb-px grid w-full grid-cols-2 gap-1 bg-transparent p-0 sm:flex sm:h-auto sm:flex-wrap sm:items-end">
                 <TabsTrigger
                   value="builder"
                   className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
@@ -192,12 +196,6 @@ export function ActiveScreen() {
                 >
                   Checkpoint
                 </TabsTrigger>
-                <TabsTrigger
-                  value="run"
-                  className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
-                >
-                  Ruta
-                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="builder" className="rounded-[0_1rem_1rem_1rem] p-0">
@@ -206,18 +204,19 @@ export function ActiveScreen() {
                   coveredCoverage={analysis.coveredCoverage}
                   uncoveredCoverage={analysis.uncoveredCoverage}
                   defensiveSections={analysis.defensiveSections}
+                  checkpointRisk={analysis.checkpointRisk}
+                  teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
+                  captureRecommendations={analysis.captureRecommendations}
+                  nextEncounter={analysis.nextEncounter}
+                  speciesCatalog={catalogs.speciesCatalog}
                 />
               </TabsContent>
 
               <TabsContent value="copilot" className="rounded-[0_1rem_1rem_1rem] p-0">
                 <CheckpointCopilotSection
                   activeMember={team.activeMember}
-                  activeRoleRecommendation={analysis.checkpointRisk.roleSnapshot.members.find(
-                    (entry) => entry.key === team.activeMember?.key,
-                  )}
                   teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
                   milestoneId={analysis.contextualMilestoneId}
-                  starterMember={starterMember}
                   checkpointRisk={analysis.checkpointRisk}
                   copilotSupportsRecommendations={analysis.copilotSupportsRecommendations}
                   supportsContextualSwaps={analysis.supportsContextualSwaps}
@@ -227,18 +226,13 @@ export function ActiveScreen() {
                   speedTiers={analysis.speedTiers}
                   recommendation={analysis.recommendation}
                   moveRecommendations={analysis.moveRecommendations}
+                  sourceCards={analysis.sourceCards}
                   encounterCatalog={catalogs.encounterCatalog}
                   completedEncounterIds={session.completedEncounterIds}
                   speciesCatalog={catalogs.speciesCatalog}
+                  itemCatalog={catalogs.itemCatalog}
                   starterKey={session.starter}
                   onToggleEncounter={session.actions.toggleEncounterCompleted}
-                />
-              </TabsContent>
-
-              <TabsContent value="run" className="rounded-[0_1rem_1rem_1rem] p-0">
-                <RunOpsSection
-                  activeMember={team.activeMember}
-                  sourceCards={analysis.sourceCards}
                 />
               </TabsContent>
             </Tabs>

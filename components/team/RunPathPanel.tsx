@@ -19,6 +19,7 @@ export function RunPathPanel({
   starterKey,
   onToggleEncounter,
   maxHeight,
+  variant = "full",
 }: {
   encounters: RunEncounterDefinition[];
   completedEncounterIds: string[];
@@ -26,6 +27,7 @@ export function RunPathPanel({
   starterKey: StarterKey;
   onToggleEncounter: (id: string) => void;
   maxHeight?: number;
+  variant?: "full" | "mobile-summary";
 }) {
   const safeCompletedEncounterIds = completedEncounterIds ?? [];
   const safeSpeciesCatalog = speciesCatalog ?? [];
@@ -69,11 +71,34 @@ export function RunPathPanel({
       })?.id ?? null,
     [encounters, safeCompletedEncounterIds],
   );
+  const visibleEncounters = useMemo(() => {
+    if (variant !== "mobile-summary") {
+      return encounters;
+    }
+
+    const lastCompletedIndex = encounters.reduce((lastIndex, encounter, index) => {
+      return safeCompletedEncounterIds.includes(encounter.id) ? index : lastIndex;
+    }, -1);
+    const startIndex = Math.max(0, lastCompletedIndex);
+    const nextMandatoryIndex = encounters.findIndex(
+      (encounter, index) => index > startIndex && encounter.mandatory,
+    );
+    const endIndex =
+      nextMandatoryIndex >= 0
+        ? nextMandatoryIndex
+        : Math.min(encounters.length - 1, startIndex + 3);
+
+    return encounters.slice(startIndex, endIndex + 1);
+  }, [encounters, safeCompletedEncounterIds, variant]);
 
   return (
     <div
-      className="flex h-full flex-col px-1 py-1"
-      style={maxHeight ? { maxHeight: Math.round(maxHeight) } : undefined}
+      className="flex h-full flex-col overflow-hidden px-1 py-1"
+      style={
+        maxHeight
+          ? { height: Math.round(maxHeight), maxHeight: Math.round(maxHeight) }
+          : undefined
+      }
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -85,7 +110,7 @@ export function RunPathPanel({
       </div>
       <div className="mt-4 min-h-0 flex-1">
         <div className="scrollbar-thin h-full space-y-2 overflow-auto pr-1">
-          {encounters.map((encounter, index) => {
+          {visibleEncounters.map((encounter, index) => {
             const isCompleted = safeCompletedEncounterIds.includes(
               encounter.id,
             );
@@ -108,9 +133,9 @@ export function RunPathPanel({
               !isLocked &&
               encounter.id === nextAvailableEncounterId;
             const hasPrevious = index > 0;
-            const hasNext = index < encounters.length - 1;
+            const hasNext = index < visibleEncounters.length - 1;
             const topSegmentCompleted = hasPrevious
-              ? safeCompletedEncounterIds.includes(encounters[index - 1]?.id)
+              ? safeCompletedEncounterIds.includes(visibleEncounters[index - 1]?.id)
               : false;
             const bottomSegmentCompleted = isCompleted;
 
@@ -177,7 +202,7 @@ export function RunPathPanel({
                       : undefined
                   }
                   className={clsx(
-                    "flex w-full items-start justify-between gap-2 rounded-[0.8rem] border px-3 py-2.5 text-left transition",
+                    "w-full rounded-[0.8rem] border px-3 py-2.5 text-left transition",
                     isLocked && "cursor-not-allowed opacity-60 grayscale",
                     isNext &&
                       !isCompleted &&
@@ -189,12 +214,28 @@ export function RunPathPanel({
                   )}
                   style={isLocked ? { cursor: "not-allowed" } : undefined}
                 >
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <EncounterHeader encounter={encounter} />
-                      <span className="shrink-0 text-xs text-muted">
-                        Lv cap {encounter.levelCap}
-                      </span>
+                  <div className="min-w-0">
+                    <div className="flex items-start gap-2">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <EncounterHeader encounter={encounter} />
+                          <div className="ml-auto flex shrink-0 items-center gap-2">
+                            <span className="text-xs text-muted">
+                              Lv cap {encounter.levelCap}
+                            </span>
+                            <span
+                              className={clsx(
+                                "inline-flex h-6 w-6 items-center justify-center rounded-[0.45rem] border transition",
+                                isCompleted
+                                  ? "border-primary-line-emphasis bg-primary-fill-hover text-primary-soft"
+                                  : "border-line bg-surface-3 text-transparent",
+                              )}
+                            >
+                              <Check className="h-3.5 w-3.5" />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     {showBlockingHint && blockingEncounter ? (
                       <p className="mt-2 text-xs text-warning-soft">
@@ -220,7 +261,7 @@ export function RunPathPanel({
                     ) : encounter.team?.length ? (
                       <div
                         className={clsx(
-                          "flex flex-nowrap items-center gap-1.5 overflow-hidden",
+                          "flex w-full flex-nowrap items-center justify-between gap-1.5 overflow-hidden",
                           showBlockingHint ? "mt-2.5" : "mt-3",
                         )}
                       >
@@ -248,16 +289,6 @@ export function RunPathPanel({
                     )}
                     <EncounterMetaTags encounter={encounter} isNext={isNext} />
                   </div>
-                  <span
-                    className={clsx(
-                      "inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[0.45rem] border transition",
-                      isCompleted
-                        ? "border-primary-line-emphasis bg-primary-fill-hover text-primary-soft"
-                        : "border-line bg-surface-3 text-transparent",
-                    )}
-                  >
-                    <Check className="h-3.5 w-3.5" />
-                  </span>
                 </button>
               </div>
             );
@@ -340,7 +371,7 @@ function EncounterBossRow({
       <div className="mb-1.5 flex items-center gap-2">
         <span className="display-face text-xs text-accent">{boss.label}</span>
       </div>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex w-full flex-wrap items-center justify-between gap-2">
         {boss.team.map((species) => {
           const dex = resolveEncounterDex(species, dexByName);
           const sprites = buildSpriteUrls(species, dex);
@@ -365,12 +396,12 @@ function MiniEncounterPokemon({
   spriteUrl?: string;
 }) {
   return (
-    <span className="soft-inset-shadow inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-[0.65rem_0.4rem_0.65rem_0.4rem] border border-line bg-surface-4">
+    <span className="inline-flex h-14 w-14 items-center justify-center overflow-hidden">
       {spriteUrl ? (
         <img
           src={spriteUrl}
           alt={species}
-          className="h-9 w-9 object-contain pixelated"
+          className="h-full w-full scale-110 object-contain pixelated"
         />
       ) : (
         <span className="text-[9px] text-muted">{species.slice(0, 3)}</span>

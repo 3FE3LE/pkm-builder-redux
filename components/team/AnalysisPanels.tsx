@@ -10,6 +10,7 @@ type CoverageEntry = {
 };
 
 type DefensiveSections = ReturnType<typeof import("@/lib/teamAnalysis").buildDefensiveSections>;
+type CheckpointRisk = ReturnType<typeof import("@/lib/domain/checkpointScoring").buildCheckpointRiskSnapshot>;
 
 export function TeamAverageStatsPanel({
   averageStats,
@@ -133,6 +134,53 @@ export function DefensiveThreatsPanel({
   );
 }
 
+export function TeamRosterReadingPanel({
+  checkpointRisk,
+}: {
+  checkpointRisk: CheckpointRisk;
+}) {
+  const riskState =
+    checkpointRisk.totalRisk >= 7
+      ? "friccion alta"
+      : checkpointRisk.totalRisk >= 4.5
+        ? "friccion media"
+        : "friccion baja";
+
+  return (
+    <div className="rounded-[1rem] p-3 sm:p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="display-face text-sm text-accent">Lectura del roster</p>
+          <p className="mt-1 text-sm text-muted">
+            Resumen estructural del equipo actual, sin mezclarlo con decisiones concretas del siguiente checkpoint.
+          </p>
+        </div>
+        <div className="rounded-[0.7rem] border border-accent-line px-3 py-2 text-right">
+          <p className="mono-face text-lg text-accent-soft">{checkpointRisk.totalRisk.toFixed(1)} / 10</p>
+          <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{riskState}</p>
+        </div>
+      </div>
+      <p className="mt-3 text-xs text-muted">
+        Menor es mejor. Los subscores van al revés: más alto es mejor.
+      </p>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+        <ReadingPill label="Ataque" value={checkpointRisk.offense.score} summary={checkpointRisk.offense.summary} />
+        <ReadingPill label="Aguante" value={checkpointRisk.defense.score} summary={checkpointRisk.defense.summary} />
+        <ReadingPill label="Velocidad" value={checkpointRisk.speed.score} summary={checkpointRisk.speed.summary} />
+        <ReadingPill label="Roles" value={checkpointRisk.roles.score} summary={checkpointRisk.roles.summary} />
+        <ReadingPill label="Consistencia" value={checkpointRisk.consistency.score} summary={checkpointRisk.consistency.summary} />
+      </div>
+      <div className="mt-3 space-y-1.5">
+        {checkpointRisk.notes.slice(0, 3).map((note) => (
+          <p key={note} className="text-sm text-muted">
+            {note}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function StatMicroCard({
   label,
   value,
@@ -172,6 +220,29 @@ function CompactBadgeRow({
       <div className="grid grid-cols-4 gap-2 sm:flex sm:flex-wrap">
         {items.length ? items : <span className="col-span-4 text-sm text-muted">{emptyLabel}</span>}
       </div>
+    </div>
+  );
+}
+
+function ReadingPill({
+  label,
+  value,
+  summary,
+}: {
+  label: string;
+  value: number;
+  summary: string;
+}) {
+  const tone =
+    value >= 8 ? "text-accent-soft" : value >= 6 ? "text-info-soft" : value >= 4 ? "text-warning-soft" : "text-danger-soft";
+
+  return (
+    <div className="rounded-[0.75rem] border border-line bg-surface-2 px-3 py-2">
+      <div className="flex items-center justify-between gap-3">
+        <span className="display-face text-[11px] text-accent">{label}</span>
+        <span className={clsx("mono-face text-sm", tone)}>{value.toFixed(1)}</span>
+      </div>
+      <p className="mt-1 text-xs text-muted">{summary}</p>
     </div>
   );
 }

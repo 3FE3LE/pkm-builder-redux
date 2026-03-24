@@ -3,8 +3,10 @@
 import clsx from "clsx";
 import { ArrowRightLeft, Sparkles } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { useMemo } from "react";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import type { CaptureRecommendation } from "@/lib/domain/contextualRecommendations";
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
@@ -15,43 +17,47 @@ export function RecommendedCapturesPanel({
   swapOpportunities,
   supportsContextualSwaps,
   nextEncounter,
+  speciesCatalog,
+  showCaptures = true,
+  showSwaps = true,
 }: {
   teamSize: number;
   captureRecommendations: CaptureRecommendation[];
   swapOpportunities: SwapOpportunity[];
   supportsContextualSwaps: boolean;
   nextEncounter: RunEncounterDefinition | null;
+  speciesCatalog: { name: string; dex: number }[];
+  showCaptures?: boolean;
+  showSwaps?: boolean;
 }) {
-  const showCaptures = teamSize < 6;
-  const showSwaps = teamSize >= 5;
+  const shouldShowCaptures = showCaptures && teamSize < 6;
+  const shouldShowSwaps = showSwaps && teamSize >= 5;
+  const dexByName = useMemo(
+    () =>
+      Object.fromEntries(
+        speciesCatalog.map((entry) => [normalizeName(entry.name), entry.dex]),
+      ) as Record<string, number>,
+    [speciesCatalog],
+  );
 
   return (
     <div className="rounded-[1rem] px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
-      <p className="display-face text-sm text-accent">
-        {showCaptures && showSwaps
-          ? "Expandir y optimizar"
-          : showSwaps
-            ? "Optimizar el roster"
-            : "Expandir el roster"}
-      </p>
-      <p className="mt-1.5 text-sm text-muted">
-        {showCaptures && showSwaps
-          ? "Con cinco slots, primero se miran entradas nuevas que cierren huecos y luego pivots del tramo que mejoren lo ya armado."
-          : showSwaps
-            ? "Con el roster completo, esta seccion ya no busca sumar miembros: solo muestra reemplazos que optimicen el siguiente combate."
-            : "Mientras el equipo aun no esta lleno, esta seccion prioriza entradas nuevas que cubran carencias reales del roster."}
-      </p>
-
-      <div className="mt-4 space-y-4">
-        {showCaptures ? (
+      <div className="space-y-4">
+        {shouldShowCaptures ? (
           <section className="space-y-2">
             <p className="display-face px-1 text-xs text-accent">Capturas nuevas</p>
             {captureRecommendations.length ? (
-              <AnimatePresence mode="popLayout">
-                {captureRecommendations.map((recommendation) => (
-                  <CaptureCard key={recommendation.id} recommendation={recommendation} />
-                ))}
-              </AnimatePresence>
+              <motion.div layout className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+                <AnimatePresence mode="popLayout">
+                  {captureRecommendations.map((recommendation) => (
+                    <CaptureCard
+                      key={recommendation.id}
+                      recommendation={recommendation}
+                      dexNumber={dexByName[normalizeName(recommendation.species)]}
+                    />
+                  ))}
+                </AnimatePresence>
+              </motion.div>
             ) : (
               <p className="rounded-[0.75rem] px-2 py-2 text-sm text-muted">
                 {nextEncounter
@@ -62,7 +68,7 @@ export function RecommendedCapturesPanel({
           </section>
         ) : null}
 
-        {showSwaps ? (
+        {shouldShowSwaps ? (
           <section className="space-y-2">
             <p className="display-face px-1 text-xs text-accent">Swaps del tramo</p>
             {supportsContextualSwaps && swapOpportunities.length ? (
@@ -83,7 +89,15 @@ export function RecommendedCapturesPanel({
   );
 }
 
-function CaptureCard({ recommendation }: { recommendation: CaptureRecommendation }) {
+function CaptureCard({
+  recommendation,
+  dexNumber,
+}: {
+  recommendation: CaptureRecommendation;
+  dexNumber?: number;
+}) {
+  const sprites = buildSpriteUrls(recommendation.species, dexNumber);
+
   return (
     <motion.article
       layout
@@ -92,60 +106,57 @@ function CaptureCard({ recommendation }: { recommendation: CaptureRecommendation
       exit={{ opacity: 0, y: -12 }}
       className="rounded-[0.9rem] border border-accent-line-faint px-3 py-3"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-accent" />
-            <p className="display-face text-sm text-accent">{recommendation.species}</p>
+      <div className="flex flex-col gap-3">
+        <div className="flex items-start gap-2">
+          <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+          <div className="min-w-0 flex-1">
+            <p className="display-face truncate text-sm text-accent">{recommendation.species}</p>
+            <p className="mt-1 text-xs text-muted">
+              {recommendation.source} · {recommendation.area}
+            </p>
           </div>
-          <p className="mt-1 text-xs text-muted">
-            {recommendation.source} · {recommendation.area}
-          </p>
         </div>
-        <PokemonSprite
-          species={recommendation.species}
-          size="default"
-          chrome="plain"
-        />
-      </div>
 
-      <div className="mt-3 flex flex-wrap gap-2">
-        {recommendation.candidateMember.resolvedTypes.map((type) => (
-          <TypeBadge key={`${recommendation.id}-${type}`} type={type} />
-        ))}
-      </div>
+        <div className="flex justify-center">
+          <div className="scale-[0.86] lg:scale-[1.02]">
+            <PokemonSprite
+              species={recommendation.species}
+              spriteUrl={sprites.spriteUrl}
+              animatedSpriteUrl={sprites.animatedSpriteUrl}
+              size="default"
+              chrome="plain"
+            />
+          </div>
+        </div>
 
-      <div className="mt-3 flex flex-wrap gap-2">
-        <span className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted">
-          rol {recommendation.role}
-        </span>
-        <span
-          className={clsx(
-            "rounded-[6px] border px-3 py-1 text-xs",
-            recommendation.delta.riskDelta >= 1.5
-              ? "border-accent-line bg-accent-fill-strong text-accent-soft"
-              : "border-info-line bg-info-fill text-info-soft",
-          )}
-        >
-          risk -{recommendation.delta.riskDelta.toFixed(1)}
-        </span>
-        <span className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted">
-          score +{recommendation.delta.scoreDelta.toFixed(1)}
-        </span>
-      </div>
+        <div className="grid grid-cols-2 gap-2">
+          <span className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1.5 text-xs text-muted">
+            rol {recommendation.role}
+          </span>
+          <span
+            className={clsx(
+              "rounded-[6px] border px-2.5 py-1.5 text-xs",
+              recommendation.delta.riskDelta >= 1.5
+                ? "border-accent-line bg-accent-fill-strong text-accent-soft"
+                : "border-info-line bg-info-fill text-info-soft",
+            )}
+          >
+            risk -{recommendation.delta.riskDelta.toFixed(1)}
+          </span>
+          <span className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1.5 text-xs text-muted">
+            score +{recommendation.delta.scoreDelta.toFixed(1)}
+          </span>
+          <span className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1.5 text-xs text-muted">
+            bst {recommendation.candidateMember.resolvedStats?.bst ?? "?"}
+          </span>
+        </div>
 
-      {recommendation.projectedMoves.length ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {recommendation.projectedMoves.map((move) => (
-            <span
-              key={`${recommendation.id}-${move}`}
-              className="rounded-[6px] bg-surface-3 px-2.5 py-1 text-xs text-muted"
-            >
-              {move}
-            </span>
+        <div className="flex flex-wrap gap-2">
+          {recommendation.candidateMember.resolvedTypes.map((type) => (
+            <TypeBadge key={`${recommendation.id}-${type}`} type={type} />
           ))}
         </div>
-      ) : null}
+      </div>
     </motion.article>
   );
 }

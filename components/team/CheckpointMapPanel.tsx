@@ -6,30 +6,38 @@ import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 export function CheckpointMapPanel({
   activeMember,
   sourceCards,
+  speciesCatalog,
+  itemCatalog,
 }: {
   activeMember?: ResolvedTeamMember;
   sourceCards: AreaSource[];
+  speciesCatalog: { name: string; dex: number }[];
+  itemCatalog: { name: string; effect?: string; sprite?: string | null }[];
 }) {
+  const visibleSources = sourceCards.filter(
+    (source) =>
+      source.encounters.length ||
+      source.gifts.length ||
+      source.trades.length ||
+      source.items.length,
+  );
+
   return (
     <div className="px-1 py-1">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="display-face text-sm text-accent">Mapa del checkpoint</p>
-          <p className="mt-2 text-sm text-muted">
-            Fuentes locales sacadas de `wild`, `gift`, `trade` e `item locations` para este tramo.
-          </p>
-        </div>
-        <div className="rounded-[6px] border border-line px-4 py-2 text-xs text-muted">
-          {activeMember?.species ? `slot activo: ${activeMember.species}` : "sin slot activo"}
+          <p className="display-face text-sm text-accent">Locations</p>
         </div>
       </div>
-      <div className="scrollbar-thin mt-4 max-h-[34rem] space-y-3 overflow-auto">
-        {sourceCards.length ? (
-          sourceCards.map((source) => (
+      <div className="scrollbar-thin mt-3 max-h-[34rem] space-y-2.5 overflow-auto">
+        {visibleSources.length ? (
+          visibleSources.map((source) => (
             <AreaSourceCard
               key={source.area}
               source={source}
               activeSpecies={activeMember?.species}
+              speciesCatalog={speciesCatalog}
+              itemCatalog={itemCatalog}
             />
           ))
         ) : (
