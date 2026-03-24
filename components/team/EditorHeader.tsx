@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import clsx from 'clsx';
 import {
   CircleArrowUp,
@@ -21,6 +22,91 @@ import type {
   EditorIssueGetter,
   EditorUpdate,
 } from "@/components/team/editorTypes";
+
+function LevelControls({
+  currentLevel,
+  getIssue,
+  hasEvolution,
+  evolutionBlockReason,
+  updateEditorMember,
+  onRequestEvolution,
+}: {
+  currentLevel: number;
+  getIssue: EditorIssueGetter;
+  hasEvolution: boolean;
+  evolutionBlockReason?: string;
+  updateEditorMember: EditorUpdate;
+  onRequestEvolution: () => void;
+}) {
+  return (
+    <>
+      <div className="flex items-center justify-between gap-3 text-[11px] text-muted">
+        <span className="display-face text-xs text-muted">Nivel</span>
+        <span className="display-face text-sm text-accent">Lv {currentLevel}</span>
+      </div>
+      <div className="mt-2 flex items-center gap-2">
+        <div className="min-w-0 flex-1">
+          <input
+            type="range"
+            min={1}
+            max={100}
+            value={currentLevel}
+            onChange={(event) =>
+              updateEditorMember((current) => ({
+                ...current,
+                level: Number(event.target.value),
+              }))
+            }
+            className="h-2.5 w-full cursor-pointer accent-accent"
+          />
+          <div className="mt-1 flex items-center justify-between text-[10px] text-muted">
+            <span>1</span>
+            <span>50</span>
+            <span>100</span>
+          </div>
+        </div>
+        <SpreadInput
+          label="LV"
+          value={currentLevel}
+          max={100}
+          hideLabel
+          onChange={(next) =>
+            updateEditorMember((current) => ({
+              ...current,
+              level: Math.max(1, Math.min(100, next)),
+            }))
+          }
+          error={getIssue("level")}
+        />
+        <Button
+          type="button"
+          variant="outline"
+          size="icon-sm"
+          onClick={onRequestEvolution}
+          disabled={!hasEvolution}
+          aria-label={
+            hasEvolution
+              ? "Abrir evolución"
+              : evolutionBlockReason || "Sin evolución disponible"
+          }
+          title={!hasEvolution ? evolutionBlockReason : undefined}
+          className={clsx(
+            "h-8 w-8",
+            hasEvolution
+              ? "border-primary-line-strong bg-primary-fill-strong text-primary-soft hover:bg-primary-fill-hover"
+              : "opacity-45",
+          )}
+        >
+          <CircleArrowUp className="h-4 w-4" />
+        </Button>
+      </div>
+      {!hasEvolution && evolutionBlockReason ? (
+        <p className="mt-2 text-xs text-muted">{evolutionBlockReason}</p>
+      ) : null}
+    </>
+  );
+}
+
 export function EditorHeader({
   member,
   resolved,
@@ -44,8 +130,11 @@ export function EditorHeader({
   updateEditorMember: EditorUpdate;
   onRequestEvolution: () => void;
 }) {
+  const [nicknameEditable, setNicknameEditable] = useState(false);
   const supportsGender =
     resolved?.supportsGender ?? supportsPokemonGender(currentSpecies);
+  const nicknamePlaceholder = currentSpecies || "Pokemon pendiente";
+  const nicknameDisplayValue = member.nickname || nicknamePlaceholder;
 
   return (
     <div className="px-4 py-4 sm:px-5 sm:py-5">
@@ -104,18 +193,37 @@ export function EditorHeader({
         <div className="min-w-0 flex-1">
           <div className="relative max-w-md">
             <Input
-              value={member.nickname}
+              value={nicknameEditable ? member.nickname : nicknameDisplayValue}
+              readOnly={!nicknameEditable}
+              tabIndex={nicknameEditable ? 0 : -1}
               onChange={(event) =>
                 updateEditorMember((current) => ({
                   ...current,
                   nickname: event.target.value,
                 }))
               }
-              placeholder={currentSpecies || "Pokemon pendiente"}
+              placeholder={nicknamePlaceholder}
               maxLength={24}
-              className="display-face h-12 border-line bg-surface-4 pr-11 text-xl"
+              className={clsx(
+                "display-face h-12 pr-11 text-xl",
+                nicknameEditable
+                  ? "border-line bg-surface-4"
+                  : "cursor-default border-transparent bg-transparent px-0 text-text shadow-none focus-visible:border-transparent focus-visible:bg-transparent focus-visible:ring-0",
+              )}
             />
-            <PencilLine className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+            <button
+              type="button"
+              onClick={() => setNicknameEditable((current) => !current)}
+              aria-label={nicknameEditable ? "Bloquear nickname" : "Editar nickname"}
+              className={clsx(
+                "absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[0.55rem] border transition",
+                nicknameEditable
+                  ? "border-primary-line-strong bg-primary-fill text-primary-soft"
+                  : "border-line bg-surface-4 text-muted hover:bg-surface-6",
+              )}
+            >
+              <PencilLine className="h-4 w-4" />
+            </button>
           </div>
           <p className="mt-2 text-sm text-muted">
             {resolved?.species || currentSpecies || "Pokemon pendiente"}
@@ -147,139 +255,26 @@ export function EditorHeader({
             </div>
           ) : null}
           <div className="mt-4 hidden lg:block">
-            <div className="flex items-center justify-between gap-3 text-[11px] text-muted">
-              <span className="display-face text-xs text-muted">Nivel</span>
-              <span className="display-face text-sm text-accent">
-                Lv {currentLevel}
-              </span>
-            </div>
-            <div className="mt-2 flex items-center gap-2">
-              <div className="min-w-0 flex-1">
-                <input
-                  type="range"
-                  min={1}
-                  max={100}
-                  value={currentLevel}
-                  onChange={(event) =>
-                    updateEditorMember((current) => ({
-                      ...current,
-                      level: Number(event.target.value),
-                    }))
-                  }
-                  className="h-2.5 w-full cursor-pointer accent-accent"
-                />
-                <div className="mt-1 flex items-center justify-between text-[10px] text-muted">
-                  <span>1</span>
-                  <span>50</span>
-                  <span>100</span>
-                </div>
-              </div>
-              <SpreadInput
-                label="LV"
-                value={currentLevel}
-                max={100}
-                onChange={(next) =>
-                  updateEditorMember((current) => ({
-                    ...current,
-                    level: Math.max(1, Math.min(100, next)),
-                  }))
-                }
-                error={getIssue("level")}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon-sm"
-                onClick={onRequestEvolution}
-                disabled={!hasEvolution}
-                aria-label={
-                  hasEvolution
-                    ? "Abrir evolución"
-                    : evolutionBlockReason || "Sin evolución disponible"
-                }
-                title={!hasEvolution ? evolutionBlockReason : undefined}
-                className={clsx(
-                  "h-8 w-8",
-                  hasEvolution
-                    ? "border-primary-line-strong bg-primary-fill-strong text-primary-soft hover:bg-primary-fill-hover"
-                    : "opacity-45",
-                )}
-              >
-                <CircleArrowUp className="h-4 w-4" />
-              </Button>
-            </div>
-            {!hasEvolution && evolutionBlockReason ? (
-              <p className="mt-2 text-xs text-muted">{evolutionBlockReason}</p>
-            ) : null}
+            <LevelControls
+              currentLevel={currentLevel}
+              getIssue={getIssue}
+              hasEvolution={hasEvolution}
+              evolutionBlockReason={evolutionBlockReason}
+              updateEditorMember={updateEditorMember}
+              onRequestEvolution={onRequestEvolution}
+            />
           </div>
         </div>
       </div>
       <div className="mt-4 lg:hidden">
-        <div className="flex items-center justify-between gap-3 text-[11px] text-muted">
-          <span className="display-face text-xs text-muted">Nivel</span>
-          <span className="display-face text-sm text-accent">
-            Lv {currentLevel}
-          </span>
-        </div>
-        <div className="mt-2 flex items-center gap-2">
-          <div className="min-w-0 flex-1">
-            <input
-              type="range"
-              min={1}
-              max={100}
-              value={currentLevel}
-              onChange={(event) =>
-                updateEditorMember((current) => ({
-                  ...current,
-                  level: Number(event.target.value),
-                }))
-              }
-              className="h-2.5 w-full cursor-pointer accent-accent"
-            />
-            <div className="mt-1 flex items-center justify-between text-[10px] text-muted">
-              <span>1</span>
-              <span>50</span>
-              <span>100</span>
-            </div>
-          </div>
-          <SpreadInput
-            label="LV"
-            value={currentLevel}
-            max={100}
-            hideLabel
-            onChange={(next) =>
-              updateEditorMember((current) => ({
-                ...current,
-                level: Math.max(1, Math.min(100, next)),
-              }))
-            }
-            error={getIssue("level")}
-          />
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            onClick={onRequestEvolution}
-            disabled={!hasEvolution}
-            aria-label={
-              hasEvolution
-                ? "Abrir evolución"
-                : evolutionBlockReason || "Sin evolución disponible"
-            }
-            title={!hasEvolution ? evolutionBlockReason : undefined}
-            className={clsx(
-              "h-8 w-8",
-              hasEvolution
-                ? "border-primary-line-strong bg-primary-fill-strong text-primary-soft hover:bg-primary-fill-hover"
-                : "opacity-45",
-            )}
-          >
-            <CircleArrowUp className="h-4 w-4" />
-          </Button>
-        </div>
-        {!hasEvolution && evolutionBlockReason ? (
-          <p className="mt-2 text-xs text-muted">{evolutionBlockReason}</p>
-        ) : null}
+        <LevelControls
+          currentLevel={currentLevel}
+          getIssue={getIssue}
+          hasEvolution={hasEvolution}
+          evolutionBlockReason={evolutionBlockReason}
+          updateEditorMember={updateEditorMember}
+          onRequestEvolution={onRequestEvolution}
+        />
       </div>
     </div>
   );

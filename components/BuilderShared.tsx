@@ -252,12 +252,14 @@ export function SpeciesCombobox({
   speciesCatalog,
   panelClassName,
   panelStyle,
+  autoFocus = false,
   onChange,
 }: {
   value: string;
   speciesCatalog: { name: string; slug: string; dex: number; types: string[] }[];
   panelClassName?: string;
   panelStyle?: CSSProperties;
+  autoFocus?: boolean;
   onChange: (next: string) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -293,6 +295,7 @@ export function SpeciesCombobox({
     <div className="relative">
       <button
         type="button"
+        autoFocus={autoFocus}
         onClick={() => {
           setQuery(value);
           setScrollTop(0);

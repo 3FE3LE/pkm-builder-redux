@@ -49,6 +49,7 @@ export function EditorProfileSection({
   updateEditorMember: EditorUpdate;
   getIssue: EditorIssueGetter;
 }) {
+  const shouldAutoFocusSpecies = !currentSpecies.trim();
   const profileGridRef = useRef<HTMLDivElement | null>(null);
   const natureRef = useRef<HTMLLabelElement | null>(null);
   const abilityRef = useRef<HTMLLabelElement | null>(null);
@@ -154,6 +155,7 @@ export function EditorProfileSection({
           <SpeciesCombobox
             value={currentSpecies}
             speciesCatalog={speciesCatalog}
+            autoFocus={shouldAutoFocusSpecies}
             panelClassName="max-w-none left-0"
             panelStyle={
               profilePanelMetrics.width

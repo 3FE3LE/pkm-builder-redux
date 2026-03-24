@@ -161,6 +161,7 @@ export function SpreadInput({
   error,
   orientation = "horizontal",
   hideLabel = false,
+  autoFocus = false,
 }: {
   label: string;
   value: number;
@@ -169,6 +170,7 @@ export function SpreadInput({
   error?: string;
   orientation?: "horizontal" | "vertical" | "responsive";
   hideLabel?: boolean;
+  autoFocus?: boolean;
 }) {
   const isVertical = orientation === "vertical" || orientation === "responsive";
   const isResponsive = orientation === "responsive";
@@ -220,6 +222,7 @@ export function SpreadInput({
             type="number"
             min={0}
             max={max}
+            autoFocus={autoFocus}
             value={value}
             onChange={(event) => onChange(Number(event.target.value || 0))}
             className={clsx(
@@ -259,6 +262,7 @@ export function SpreadInput({
             type="number"
             min={0}
             max={max}
+            autoFocus={autoFocus}
             value={value}
             onChange={(event) => onChange(Number(event.target.value || 0))}
             className="h-8 min-w-[3rem] w-[3.25rem] flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
