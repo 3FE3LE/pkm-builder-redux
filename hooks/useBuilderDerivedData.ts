@@ -48,10 +48,12 @@ export function useBuilderDerivedData(
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const workspaceTab = searchParams.get("tab") ?? "builder";
+  const toolTab = searchParams.get("tool") ?? "compare";
   const isWorkspaceRoute = pathname === "/team" || pathname.startsWith("/team/pokemon/");
   const needsTeamCore = isWorkspaceRoute;
   const needsCopilotAnalysis = pathname === "/team" && workspaceTab === "copilot";
   const needsCaptureRecommendations = pathname === "/team";
+  const needsCompareResolution = pathname === "/team/tools" && toolTab === "compare";
   const encounterCatalog = useMemo(
     () => getRunEncounterCatalog(store.run.progress.mode),
     [store.run.progress.mode],
@@ -90,10 +92,12 @@ export function useBuilderDerivedData(
 
   const resolvedCompareMembers = useMemo(
     () =>
-      ui.compareMembers.map((member) =>
-        resolveTeamMember(member, resolverContext),
-      ) as [ResolvedTeamMember | undefined, ResolvedTeamMember | undefined],
-    [resolverContext, ui.compareMembers],
+      needsCompareResolution
+        ? (ui.compareMembers.map((member) =>
+            resolveTeamMember(member, resolverContext),
+          ) as [ResolvedTeamMember | undefined, ResolvedTeamMember | undefined])
+        : ([undefined, undefined] as [ResolvedTeamMember | undefined, ResolvedTeamMember | undefined]),
+    [needsCompareResolution, resolverContext, ui.compareMembers],
   );
 
   const emptyRecommendation = useMemo(
