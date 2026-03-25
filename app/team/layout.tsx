@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { BuilderProvider } from "@/components/BuilderProvider";
 import { getBuilderPageData } from "@/lib/builderPageData";
@@ -23,9 +24,11 @@ export default function TeamLayout({
   const data = getBuilderPageData();
 
   return (
-    <BuilderProvider {...data}>
-      {children}
-      {editor}
-    </BuilderProvider>
+    <Suspense fallback={null}>
+      <BuilderProvider {...data}>
+        {children}
+        {editor}
+      </BuilderProvider>
+    </Suspense>
   );
 }
