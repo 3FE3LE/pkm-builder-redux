@@ -199,41 +199,45 @@ export function ActiveScreen() {
               </TabsList>
 
               <TabsContent value="builder" className="rounded-[0_1rem_1rem_1rem] p-0">
-                <TeamAnalysisSection
-                  averageStats={analysis.averageStats}
-                  coveredCoverage={analysis.coveredCoverage}
-                  uncoveredCoverage={analysis.uncoveredCoverage}
-                  defensiveSections={analysis.defensiveSections}
-                  checkpointRisk={analysis.checkpointRisk}
-                  teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
-                  captureRecommendations={analysis.captureRecommendations}
-                  nextEncounter={analysis.nextEncounter}
-                  speciesCatalog={catalogs.speciesCatalog}
-                />
+                {workspaceTab === "builder" ? (
+                  <TeamAnalysisSection
+                    averageStats={analysis.averageStats}
+                    coveredCoverage={analysis.coveredCoverage}
+                    uncoveredCoverage={analysis.uncoveredCoverage}
+                    defensiveSections={analysis.defensiveSections}
+                    checkpointRisk={analysis.checkpointRisk}
+                    teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
+                    captureRecommendations={analysis.captureRecommendations}
+                    nextEncounter={analysis.nextEncounter}
+                    speciesCatalog={catalogs.speciesCatalog}
+                  />
+                ) : null}
               </TabsContent>
 
               <TabsContent value="copilot" className="rounded-[0_1rem_1rem_1rem] p-0">
-                <CheckpointCopilotSection
-                  activeMember={team.activeMember}
-                  teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
-                  milestoneId={analysis.contextualMilestoneId}
-                  checkpointRisk={analysis.checkpointRisk}
-                  copilotSupportsRecommendations={analysis.copilotSupportsRecommendations}
-                  supportsContextualSwaps={analysis.supportsContextualSwaps}
-                  nextEncounter={analysis.nextEncounter}
-                  swapOpportunities={analysis.swapOpportunities}
-                  captureRecommendations={analysis.captureRecommendations}
-                  speedTiers={analysis.speedTiers}
-                  recommendation={analysis.recommendation}
-                  moveRecommendations={analysis.moveRecommendations}
-                  sourceCards={analysis.sourceCards}
-                  encounterCatalog={catalogs.encounterCatalog}
-                  completedEncounterIds={session.completedEncounterIds}
-                  speciesCatalog={catalogs.speciesCatalog}
-                  itemCatalog={catalogs.itemCatalog}
-                  starterKey={session.starter}
-                  onToggleEncounter={session.actions.toggleEncounterCompleted}
-                />
+                {workspaceTab === "copilot" ? (
+                  <CheckpointCopilotSection
+                    activeMember={team.activeMember}
+                    teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
+                    milestoneId={analysis.contextualMilestoneId}
+                    checkpointRisk={analysis.checkpointRisk}
+                    copilotSupportsRecommendations={analysis.copilotSupportsRecommendations}
+                    supportsContextualSwaps={analysis.supportsContextualSwaps}
+                    nextEncounter={analysis.nextEncounter}
+                    swapOpportunities={analysis.swapOpportunities}
+                    captureRecommendations={analysis.captureRecommendations}
+                    speedTiers={analysis.speedTiers}
+                    recommendation={analysis.recommendation}
+                    moveRecommendations={analysis.moveRecommendations}
+                    sourceCards={analysis.sourceCards}
+                    encounterCatalog={catalogs.encounterCatalog}
+                    completedEncounterIds={session.completedEncounterIds}
+                    speciesCatalog={catalogs.speciesCatalog}
+                    itemCatalog={catalogs.itemCatalog}
+                    starterKey={session.starter}
+                    onToggleEncounter={session.actions.toggleEncounterCompleted}
+                  />
+                ) : null}
               </TabsContent>
             </Tabs>
           </section>

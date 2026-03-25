@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Mars, Plus, Venus } from "lucide-react";
+import { Check, Mars, Plus, Sparkles, Venus, X } from "lucide-react";
 
 import { PokemonSprite, SpeciesCombobox, TypeBadge, FilterCombobox } from "@/components/BuilderShared";
-import { SpreadInput, StatCard } from "@/components/team/UI";
+import { SpreadInput } from "@/components/team/UI";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { natureOptions, statKeys } from "@/lib/builderForm";
@@ -14,6 +14,7 @@ import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import type { RemotePokemon } from "@/lib/teamAnalysis";
 import { createEditable, type EditableMember } from "@/lib/builderStore";
 import { normalizeMoveLookupName } from "@/lib/domain/moves";
+import { calculateEffectiveStats } from "@/lib/domain/battle";
 
 type IvObservedState = Record<(typeof statKeys)[number], string>;
 
@@ -26,6 +27,15 @@ const EMPTY_OBSERVED: IvObservedState = {
   spe: "",
 };
 
+const ZERO_SPREAD = {
+  hp: 0,
+  atk: 0,
+  def: 0,
+  spa: 0,
+  spd: 0,
+  spe: 0,
+} as const;
+
 export function IvCalculatorSection({
   speciesCatalog,
   pokemonIndex,
@@ -33,21 +43,41 @@ export function IvCalculatorSection({
 }: {
   speciesCatalog: { name: string; slug: string; dex: number; types: string[] }[];
   pokemonIndex: Record<string, RemotePokemon>;
-  onAddPreparedMember: (member: EditableMember) => void;
+  onAddPreparedMember: (
+    member: EditableMember,
+  ) => { ok: true; reason: null } | { ok: false; reason: "full" | "duplicate" };
 }) {
   const [species, setSpecies] = useState("");
   const [level, setLevel] = useState("5");
   const [nature, setNature] = useState("Serious");
   const [nickname, setNickname] = useState("");
   const [gender, setGender] = useState<EditableMember["gender"]>("unknown");
+  const [shiny, setShiny] = useState(false);
   const [observedStats, setObservedStats] = useState<IvObservedState>(EMPTY_OBSERVED);
+  const [addFeedback, setAddFeedback] = useState<{
+    tone: "success" | "danger";
+    message: string;
+  } | null>(null);
 
   const resolvedPokemon = species ? pokemonIndex[normalizeName(species)] : undefined;
   const speciesMeta = speciesCatalog.find((entry) => normalizeName(entry.name) === normalizeName(species));
   const numericLevel = Math.max(1, Math.min(100, Number(level || 1)));
   const spriteUrl = resolvedPokemon && speciesMeta
-    ? buildSpriteUrls(resolvedPokemon.name, speciesMeta.dex).spriteUrl
+    ? buildSpriteUrls(resolvedPokemon.name, speciesMeta.dex, { shiny }).spriteUrl
     : undefined;
+  const zeroIvStats = useMemo(() => {
+    if (!resolvedPokemon?.stats) {
+      return null;
+    }
+
+    return calculateEffectiveStats(
+      resolvedPokemon.stats,
+      numericLevel,
+      nature,
+      ZERO_SPREAD,
+      ZERO_SPREAD,
+    );
+  }, [nature, numericLevel, resolvedPokemon?.stats]);
 
   const inferences = useMemo(() => {
     if (!resolvedPokemon?.stats) {
@@ -124,7 +154,27 @@ export function IvCalculatorSection({
       .slice(-4);
   }, [numericLevel, resolvedPokemon?.learnsets?.levelUp]);
 
-  const canAddToTeam = Boolean(speciesMeta && resolvedPokemon && Object.values(observedStats).some((value) => value.trim()));
+  const canAddToTeam = Boolean(speciesMeta && resolvedPokemon);
+
+  useEffect(() => {
+    if (!zeroIvStats) {
+      setObservedStats(EMPTY_OBSERVED);
+      return;
+    }
+
+    setObservedStats({
+      hp: String(zeroIvStats.hp),
+      atk: String(zeroIvStats.atk),
+      def: String(zeroIvStats.def),
+      spa: String(zeroIvStats.spa),
+      spd: String(zeroIvStats.spd),
+      spe: String(zeroIvStats.spe),
+    });
+  }, [zeroIvStats]);
+
+  useEffect(() => {
+    setAddFeedback(null);
+  }, [species, level, nature, nickname, gender, observedStats]);
 
   function handleAddToTeam() {
     if (!resolvedPokemon) {
@@ -134,11 +184,28 @@ export function IvCalculatorSection({
     const created = createEditable(resolvedPokemon.name);
     created.nickname = nickname.trim() || resolvedPokemon.name;
     created.gender = gender;
+    created.shiny = shiny;
     created.nature = nature;
     created.level = numericLevel;
     created.ivs = estimatedIvs;
     created.moves = suggestedMoves;
-    onAddPreparedMember(created);
+    const result = onAddPreparedMember(created);
+
+    if (!result.ok) {
+      setAddFeedback({
+        tone: "danger",
+        message:
+          result.reason === "full"
+            ? "El roster ya tiene 6 Pokemon."
+            : `${resolvedPokemon.name} ya esta en el roster.`,
+      });
+      return;
+    }
+
+    setAddFeedback({
+      tone: "success",
+      message: `${created.nickname || resolvedPokemon.name} se agrego al roster.`,
+    });
   }
 
   return (
@@ -220,7 +287,7 @@ export function IvCalculatorSection({
                                   ? String(inferenceByStat[stat]?.exactIv)
                                   : `${inferenceByStat[stat]?.minIv}-${inferenceByStat[stat]?.maxIv}`}
                               </p>
-                              <p className="mt-1 text-[10px] text-muted">
+                              <p className="mt-1 hidden text-[10px] text-muted sm:block">
                                 {`seed ${inferenceByStat[stat]?.iv0Value} -> 31 ${inferenceByStat[stat]?.iv31Value}`}
                               </p>
                             </>
@@ -254,9 +321,26 @@ export function IvCalculatorSection({
                     chrome="plain"
                   />
                 </div>
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  <StatCard label="BST" value={String(resolvedPokemon.stats.bst)} />
-                  <StatCard label="Inputs" value={String(inferences.length)} />
+                <div className="mt-4">
+                  <p className="display-face text-[10px] text-muted">Base stats</p>
+                  <div className="mt-2 grid grid-cols-3 gap-2">
+                    {[
+                      ["HP", resolvedPokemon.stats.hp],
+                      ["ATK", resolvedPokemon.stats.atk],
+                      ["DEF", resolvedPokemon.stats.def],
+                      ["SpA", resolvedPokemon.stats.spa],
+                      ["SpD", resolvedPokemon.stats.spd],
+                      ["SPE", resolvedPokemon.stats.spe],
+                    ].map(([label, value]) => (
+                      <div
+                        key={`base-stat-${label}`}
+                        className="rounded-[0.7rem] border border-line bg-surface-3 px-2 py-2 text-center"
+                      >
+                        <p className="display-face text-[9px] text-muted">{label}</p>
+                        <p className="mono-face mt-1 text-sm text-text">{value}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <AnimatePresence>
                   <motion.div
@@ -300,6 +384,18 @@ export function IvCalculatorSection({
                               </button>
                             );
                           })}
+                          <button
+                            type="button"
+                            onClick={() => setShiny((current) => !current)}
+                            className={`inline-flex h-10 items-center gap-2 rounded-[0.7rem] border px-3 transition ${
+                              shiny
+                                ? "border-warning-line bg-[rgba(255,215,102,0.14)] text-warning-strong"
+                                : "border-line bg-surface-3 text-muted hover:bg-surface-5"
+                            }`}
+                          >
+                            <Sparkles className="h-4 w-4" />
+                            <span className="text-xs">Shiny</span>
+                          </button>
                         </div>
                       </div>
                       <div className="px-1 py-1">
@@ -323,6 +419,29 @@ export function IvCalculatorSection({
                         <Plus className="h-4 w-4" />
                         Add Capture To Team
                       </Button>
+                      <AnimatePresence initial={false}>
+                        {addFeedback ? (
+                          <motion.div
+                            key={`${addFeedback.tone}-${addFeedback.message}`}
+                            initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                            transition={{ duration: 0.18, ease: "easeOut" }}
+                            className={`flex items-center gap-2 rounded-[0.8rem] border px-3 py-2 text-sm ${
+                              addFeedback.tone === "success"
+                                ? "border-primary-line-active bg-primary-fill text-primary-soft"
+                                : "border-danger-line bg-danger-fill text-danger-soft"
+                            }`}
+                          >
+                            {addFeedback.tone === "success" ? (
+                              <Check className="h-4 w-4 shrink-0" />
+                            ) : (
+                              <X className="h-4 w-4 shrink-0" />
+                            )}
+                            <span>{addFeedback.message}</span>
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
                     </div>
                   </motion.div>
                 </AnimatePresence>

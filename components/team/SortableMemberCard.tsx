@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Mars, Venus } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 import { ItemSprite, PokemonSprite, TypeBadge } from '@/components/BuilderShared';
 import { MiniPill } from '@/components/team/UI';
@@ -43,8 +44,47 @@ const HAIL_FLAKES = [
 ] as const;
 
 function WeatherVisualLayer({ weather }: { weather: BattleWeather }) {
+  const prefersReducedMotion = useReducedMotion();
+  const [disableAmbientFx, setDisableAmbientFx] = useState(false);
+
+  useEffect(() => {
+    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      setDisableAmbientFx(coarsePointerQuery.matches || reduceMotionQuery.matches);
+    };
+
+    update();
+    coarsePointerQuery.addEventListener("change", update);
+    reduceMotionQuery.addEventListener("change", update);
+    return () => {
+      coarsePointerQuery.removeEventListener("change", update);
+      reduceMotionQuery.removeEventListener("change", update);
+    };
+  }, []);
+
   if (weather === "clear") {
     return null;
+  }
+
+  if (prefersReducedMotion || disableAmbientFx) {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              weather === "rain"
+                ? "linear-gradient(180deg, color-mix(in srgb, hsl(202 90% 74%) 7%, transparent) 0%, transparent 55%, color-mix(in srgb, hsl(205 72% 68%) 6%, transparent) 100%)"
+                : weather === "sun"
+                  ? "radial-gradient(circle at 84% 14%, color-mix(in srgb, hsl(47 100% 74%) 16%, transparent) 0%, transparent 24%), linear-gradient(135deg, color-mix(in srgb, hsl(30 100% 74%) 6%, transparent) 0%, transparent 58%)"
+                  : weather === "sand"
+                    ? "linear-gradient(135deg, color-mix(in srgb, hsl(36 46% 62%) 7%, transparent) 0%, transparent 50%, color-mix(in srgb, hsl(31 30% 54%) 5%, transparent) 100%)"
+                    : "linear-gradient(180deg, color-mix(in srgb, hsl(197 100% 94%) 6%, transparent) 0%, transparent 62%, color-mix(in srgb, hsl(204 80% 88%) 5%, transparent) 100%)",
+          }}
+        />
+      </div>
+    );
   }
 
   return (

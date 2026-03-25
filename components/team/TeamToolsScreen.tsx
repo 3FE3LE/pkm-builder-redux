@@ -38,7 +38,7 @@ export function TeamToolsScreen() {
   }
 
   return (
-    <main className="relative overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
+    <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
       <section className="mx-auto max-w-7xl">
         <div className="mb-4">
           <p className="display-face text-sm text-accent">Tools</p>
@@ -66,25 +66,29 @@ export function TeamToolsScreen() {
           </TabsList>
 
           <TabsContent value="compare" className="rounded-[0_1rem_1rem_1rem] p-0">
-            <CompareWorkspaceSection
-              members={compare.members}
-              resolvedMembers={compare.resolvedMembers}
-              speciesCatalog={catalogs.speciesCatalog}
-              abilityCatalog={catalogs.abilityCatalog}
-              itemCatalog={catalogs.itemCatalog}
-              battleWeather={session.battleWeather}
-              dropPulse={null}
-              onChangeMember={compare.actions.updateMember}
-              onClearMember={clearCompareMember}
-            />
+            {toolTab === "compare" ? (
+              <CompareWorkspaceSection
+                members={compare.members}
+                resolvedMembers={compare.resolvedMembers}
+                speciesCatalog={catalogs.speciesCatalog}
+                abilityCatalog={catalogs.abilityCatalog}
+                itemCatalog={catalogs.itemCatalog}
+                battleWeather={session.battleWeather}
+                dropPulse={null}
+                onChangeMember={compare.actions.updateMember}
+                onClearMember={clearCompareMember}
+              />
+            ) : null}
           </TabsContent>
 
           <TabsContent value="ivcalc" className="rounded-[0_1rem_1rem_1rem] p-0">
-            <IvCalculatorSection
-              speciesCatalog={catalogs.speciesCatalog}
-              pokemonIndex={catalogs.pokemonIndex}
-              onAddPreparedMember={team.actions.addPreparedMember}
-            />
+            {toolTab === "ivcalc" ? (
+              <IvCalculatorSection
+                speciesCatalog={catalogs.speciesCatalog}
+                pokemonIndex={catalogs.pokemonIndex}
+                onAddPreparedMember={(member) => team.actions.addPreparedMember(member)}
+              />
+            ) : null}
           </TabsContent>
         </Tabs>
       </section>

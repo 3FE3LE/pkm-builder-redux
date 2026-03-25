@@ -51,6 +51,7 @@ export const editableMemberSchema = z
     species: z.string().trim(),
     nickname: z.string().trim().max(24),
     locked: z.boolean().default(false),
+    shiny: z.boolean().default(false),
     level: z.coerce.number().int().min(1).max(100),
     gender: z.enum(genderOptions),
     nature: z

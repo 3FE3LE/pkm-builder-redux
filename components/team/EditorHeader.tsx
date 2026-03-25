@@ -6,6 +6,7 @@ import {
   CircleArrowUp,
   Mars,
   PencilLine,
+  Sparkles,
   Venus,
 } from 'lucide-react';
 
@@ -113,6 +114,7 @@ export function EditorHeader({
   currentSpecies,
   currentLevel,
   currentGender,
+  currentShiny,
   getIssue,
   hasEvolution,
   evolutionBlockReason,
@@ -124,6 +126,7 @@ export function EditorHeader({
   currentSpecies: string;
   currentLevel: number;
   currentGender: EditableMember["gender"];
+  currentShiny: boolean;
   getIssue: EditorIssueGetter;
   hasEvolution: boolean;
   evolutionBlockReason?: string;
@@ -147,8 +150,28 @@ export function EditorHeader({
             size="large"
             chrome="plain"
           />
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() =>
+                updateEditorMember((current) => ({
+                  ...current,
+                  shiny: !current.shiny,
+                }))
+              }
+              aria-label="Toggle shiny"
+              title="Shiny"
+              className={clsx(
+                "inline-flex h-9 w-9 items-center justify-center rounded-full border transition",
+                currentShiny
+                  ? "border-warning-line bg-[rgba(255,215,102,0.14)] text-warning-strong"
+                  : "border-line bg-surface-4 text-muted hover:bg-surface-6",
+              )}
+            >
+              <Sparkles className="h-4.5 w-4.5" />
+            </button>
           {supportsGender ? (
-            <div className="flex items-center gap-2">
+            <>
               <button
                 type="button"
                 onClick={() =>
@@ -187,8 +210,9 @@ export function EditorHeader({
               >
                 <Venus className="h-4.5 w-4.5" />
               </button>
-            </div>
+            </>
           ) : null}
+          </div>
         </div>
         <div className="min-w-0 flex-1">
           <div className="relative max-w-md">

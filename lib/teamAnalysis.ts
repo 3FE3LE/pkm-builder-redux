@@ -119,6 +119,7 @@ export type StatSpread = DomainStatSpread;
 export type ResolvedTeamMember = {
   key: string;
   species: string;
+  shiny?: boolean;
   supportsGender: boolean;
   dexNumber?: number;
   spriteUrl?: string;
@@ -412,6 +413,7 @@ export function resolvePokemonProfile(
   docs: ParsedDocs,
   species: string,
   remote?: RemotePokemon,
+  shiny = false,
 ): ResolvedTeamMember | undefined {
   const name = species.trim();
   if (!name) {
@@ -431,7 +433,7 @@ export function resolvePokemonProfile(
   const abilities = Array.from(
     new Set([...(profile?.abilities ?? []), ...(remote?.abilities ?? [])]),
   );
-  const sprites = buildSpriteUrls(profile?.species ?? remote?.name ?? name, dexNumber);
+  const sprites = buildSpriteUrls(profile?.species ?? remote?.name ?? name, dexNumber, { shiny });
 
   const documentedEvolutionHints = docs.evolutionChanges
     .filter((entry) => normalizeName(entry.species) === normalized)
@@ -488,6 +490,7 @@ export function resolvePokemonProfile(
   return {
     key: normalized,
     species: profile?.species ?? remote?.name ?? formatName(name),
+    shiny,
     supportsGender: supportsPokemonGender(profile?.species ?? remote?.name ?? name),
     dexNumber,
     spriteUrl: sprites.spriteUrl,

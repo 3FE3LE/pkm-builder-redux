@@ -47,6 +47,7 @@ export function createEditable(species = "", locked = false): EditableMember {
     species,
     nickname: species,
     locked,
+    shiny: false,
     level: 5,
     gender: "unknown",
     nature: "Serious",
@@ -276,6 +277,7 @@ export const useBuilderStore = create<BuilderStore>()(
           const normalizedCurrentTeam = (legacyState.run.roster.currentTeam ?? []).map((member) => ({
             ...member,
             locked: member.locked ?? false,
+            shiny: member.shiny ?? false,
             gender: normalizeGender(member.gender),
           }));
 
@@ -327,6 +329,7 @@ export const useBuilderStore = create<BuilderStore>()(
         const normalizedCurrentTeam = (legacyState.currentTeam ?? []).map((member) => ({
           ...member,
           locked: member.locked ?? false,
+          shiny: member.shiny ?? false,
           gender: normalizeGender(member.gender),
         }));
 

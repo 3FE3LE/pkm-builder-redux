@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import {
   buildAverageStats,
@@ -44,6 +45,13 @@ export function useBuilderDerivedData(
   ui: UiState,
 ) {
   const { docs, pokemonIndex, abilityCatalog, itemCatalog, moveIndex } = data;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const workspaceTab = searchParams.get("tab") ?? "builder";
+  const isWorkspaceRoute = pathname === "/team" || pathname.startsWith("/team/pokemon/");
+  const needsTeamCore = isWorkspaceRoute;
+  const needsCopilotAnalysis = pathname === "/team" && workspaceTab === "copilot";
+  const needsCaptureRecommendations = pathname === "/team";
   const encounterCatalog = useMemo(
     () => getRunEncounterCatalog(store.run.progress.mode),
     [store.run.progress.mode],
@@ -88,9 +96,21 @@ export function useBuilderDerivedData(
     [resolverContext, ui.compareMembers],
   );
 
+  const emptyRecommendation = useMemo(
+    () => ({
+      notes: [
+        nextEncounter
+          ? `Tu run ya va por ${nextEncounter.label}. Las sugerencias curadas tempranas se desactivan para no mentirte.`
+          : "No hay un checkpoint soportado para capturas curadas en este punto del run.",
+      ],
+      availableSources: [],
+    }),
+    [nextEncounter],
+  );
+
   const recommendation = useMemo(
     () =>
-      copilotSupportsRecommendations
+      needsCopilotAnalysis && copilotSupportsRecommendations
         ? getRecommendation(
             docs,
             store.starter,
@@ -108,18 +128,13 @@ export function useBuilderDerivedData(
             })),
             store.recommendationFilters,
           )
-        : {
-            notes: [
-              nextEncounter
-                ? `Tu run ya va por ${nextEncounter.label}. Las sugerencias curadas tempranas se desactivan para no mentirte.`
-                : "No hay un checkpoint soportado para capturas curadas en este punto del run.",
-            ],
-            availableSources: [],
-          },
+        : emptyRecommendation,
     [
       contextualMilestoneId,
       copilotSupportsRecommendations,
       docs,
+      emptyRecommendation,
+      needsCopilotAnalysis,
       nextEncounter,
       store.currentTeam,
       store.recommendationFilters,
@@ -128,8 +143,11 @@ export function useBuilderDerivedData(
   );
 
   const coverage = useMemo(
-    () => buildCoverageSummary(resolvedTeam.filter((member) => member.species)),
-    [resolvedTeam],
+    () =>
+      needsTeamCore
+        ? buildCoverageSummary(resolvedTeam.filter((member) => member.species))
+        : [],
+    [needsTeamCore, resolvedTeam],
   );
 
   const coveredCoverage = useMemo(
@@ -143,30 +161,41 @@ export function useBuilderDerivedData(
   );
 
   const defensiveSections = useMemo(
-    () => buildDefensiveSections(resolvedTeam.filter((member) => member.species)),
-    [resolvedTeam],
+    () =>
+      needsTeamCore
+        ? buildDefensiveSections(resolvedTeam.filter((member) => member.species))
+        : buildDefensiveSections([]),
+    [needsTeamCore, resolvedTeam],
   );
 
   const threats = useMemo(
     () =>
-      buildThreatSummary(resolvedTeam.filter((member) => member.species))
-        .filter((entry) => entry.weak > 0)
-        .slice(0, 6),
-    [resolvedTeam],
+      needsTeamCore
+        ? buildThreatSummary(resolvedTeam.filter((member) => member.species))
+            .filter((entry) => entry.weak > 0)
+            .slice(0, 6)
+        : [],
+    [needsTeamCore, resolvedTeam],
   );
 
   const averageStats = useMemo(
-    () => buildAverageStats(resolvedTeam.filter((member) => member.species)),
-    [resolvedTeam],
+    () =>
+      needsTeamCore ? buildAverageStats(resolvedTeam.filter((member) => member.species)) : null,
+    [needsTeamCore, resolvedTeam],
   );
 
   const checkpointRisk = useMemo(
     () =>
-      buildCheckpointRiskSnapshot({
-        team: resolvedTeam,
-        checkpointId: contextualMilestoneId,
-      }),
-    [contextualMilestoneId, resolvedTeam],
+      needsTeamCore
+        ? buildCheckpointRiskSnapshot({
+            team: resolvedTeam,
+            checkpointId: contextualMilestoneId,
+          })
+        : buildCheckpointRiskSnapshot({
+            team: [],
+            checkpointId: contextualMilestoneId,
+          }),
+    [contextualMilestoneId, needsTeamCore, resolvedTeam],
   );
 
   const speedTiers = useMemo(
@@ -174,11 +203,18 @@ export function useBuilderDerivedData(
       buildSpeedTierSnapshot({
         checkpointId: contextualMilestoneId,
         targetEncounterId: nextEncounter?.id,
-        team: resolvedTeam,
+        team: needsCopilotAnalysis ? resolvedTeam : [],
         pokemonIndex,
         encounters: encounterCatalog,
       }),
-    [contextualMilestoneId, encounterCatalog, nextEncounter?.id, pokemonIndex, resolvedTeam],
+    [
+      contextualMilestoneId,
+      encounterCatalog,
+      needsCopilotAnalysis,
+      nextEncounter?.id,
+      pokemonIndex,
+      resolvedTeam,
+    ],
   );
 
   const editorMember = store.editorMemberId
@@ -201,6 +237,10 @@ export function useBuilderDerivedData(
   );
 
   const sourceCards = useMemo(() => {
+    if (!needsCopilotAnalysis) {
+      return [];
+    }
+
     const contextualAreas = getContextualSourceAreas(nextEncounter?.order ?? 1);
     return buildAreaSources(
       docs,
@@ -218,7 +258,7 @@ export function useBuilderDerivedData(
         source.trades.length ||
         source.items.length,
     );
-  }, [docs, nextEncounter?.order, store.recommendationFilters, store.starter]);
+  }, [docs, needsCopilotAnalysis, nextEncounter?.order, store.recommendationFilters, store.starter]);
 
   const activeMovePickerMemberId = ui.movePickerState?.memberId ?? null;
   const activeModalMember = activeMovePickerMemberId
@@ -244,31 +284,45 @@ export function useBuilderDerivedData(
 
   const swapOpportunities = useMemo(
     () =>
-      buildSwapOpportunities({
-        docs,
-        team: resolvedTeam,
-        nextEncounter,
-        pokemonByName: pokemonIndex,
-        moveIndex,
-        starter: store.starter,
-        filters: store.recommendationFilters,
-      }),
-    [docs, moveIndex, nextEncounter, pokemonIndex, resolvedTeam, store.recommendationFilters, store.starter],
-  );
-  const captureRecommendations = useMemo(
-    () =>
-      buildCaptureRecommendations({
-        docs,
-        team: resolvedTeam,
-        nextEncounter,
-        pokemonByName: pokemonIndex,
-        moveIndex,
-        starter: store.starter,
-        filters: store.recommendationFilters,
-      }),
+      needsCopilotAnalysis
+        ? buildSwapOpportunities({
+            docs,
+            team: resolvedTeam,
+            nextEncounter,
+            pokemonByName: pokemonIndex,
+            moveIndex,
+            starter: store.starter,
+            filters: store.recommendationFilters,
+          })
+        : [],
     [
       docs,
       moveIndex,
+      needsCopilotAnalysis,
+      nextEncounter,
+      pokemonIndex,
+      resolvedTeam,
+      store.recommendationFilters,
+      store.starter,
+    ],
+  );
+  const captureRecommendations = useMemo(
+    () =>
+      needsCaptureRecommendations
+        ? buildCaptureRecommendations({
+            docs,
+            team: resolvedTeam,
+            nextEncounter,
+            pokemonByName: pokemonIndex,
+            moveIndex,
+            starter: store.starter,
+            filters: store.recommendationFilters,
+          })
+        : [],
+    [
+      docs,
+      moveIndex,
+      needsCaptureRecommendations,
       nextEncounter,
       pokemonIndex,
       resolvedTeam,

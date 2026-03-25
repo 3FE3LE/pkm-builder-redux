@@ -24,6 +24,7 @@ export type SuggestionInput = {
   species: string;
   nickname: string;
   locked?: boolean;
+  shiny?: boolean;
   level: number;
   gender: PokemonGender;
   nature: string;

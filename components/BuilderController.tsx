@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { starters } from "@/lib/builder";
 import { TYPE_COLORS } from "@/lib/domain/typeChart";
 import { getRunEncounterCatalog } from "@/lib/runEncounters";
@@ -43,9 +45,8 @@ export function useBuilderController({
   const ui = useBuilderUiState();
   const derived = useBuilderDerivedData(data, store, ui);
   const actions = useBuilderActions(data, store, ui, derived);
-
-  return {
-    session: {
+  const session = useMemo(
+    () => ({
       run: store.run,
       hydrated: store.hydrated,
       builderStarted: store.builderStarted,
@@ -62,8 +63,25 @@ export function useBuilderController({
         setRecommendationFilter: store.setRecommendationFilter,
         setBattleWeather: store.setBattleWeather,
       },
-    },
-    catalogs: {
+    }),
+    [
+      store.run,
+      store.hydrated,
+      store.builderStarted,
+      store.starter,
+      store.evolutionConstraints,
+      store.recommendationFilters,
+      store.battleWeather,
+      store.milestoneId,
+      store.completedEncounterIds,
+      store.toggleEncounterCompleted,
+      store.setEvolutionConstraint,
+      store.setRecommendationFilter,
+      store.setBattleWeather,
+    ],
+  );
+  const catalogs = useMemo(
+    () => ({
       docs,
       moveHighlights,
       speciesOptions,
@@ -72,8 +90,20 @@ export function useBuilderController({
       abilityCatalog,
       itemCatalog,
       encounterCatalog: getRunEncounterCatalog(store.run.progress.mode),
-    },
-    onboarding: {
+    }),
+    [
+      docs,
+      moveHighlights,
+      speciesOptions,
+      speciesCatalog,
+      pokemonIndex,
+      abilityCatalog,
+      itemCatalog,
+      store.run.progress.mode,
+    ],
+  );
+  const onboarding = useMemo(
+    () => ({
       selection: ui.onboardingSelection,
       modalStarter: ui.onboardingModalStarter,
       nickname: ui.onboardingNickname,
@@ -84,8 +114,19 @@ export function useBuilderController({
         confirmStarterSelection: actions.confirmStarterSelection,
         setNickname: ui.setOnboardingNickname,
       },
-    },
-    team: {
+    }),
+    [
+      ui.onboardingSelection,
+      ui.onboardingModalStarter,
+      ui.onboardingNickname,
+      actions.openStarterConfirm,
+      actions.cancelStarterConfirm,
+      actions.confirmStarterSelection,
+      ui.setOnboardingNickname,
+    ],
+  );
+  const team = useMemo(
+    () => ({
       currentTeam: store.currentTeam,
       activeMemberId: store.activeMemberId,
       editorMemberId: store.editorMemberId,
@@ -122,8 +163,46 @@ export function useBuilderController({
         requestEvolution: actions.requestEvolution,
         requestEvolutionForMember: actions.requestEvolutionForMember,
       },
-    },
-    analysis: {
+    }),
+    [
+      store.currentTeam,
+      store.activeMemberId,
+      store.editorMemberId,
+      ui.editorMoveSelection,
+      derived.editorMember,
+      derived.editorResolved,
+      derived.editorEvolutionEligibility,
+      derived.localTime,
+      derived.activeMember,
+      derived.resolvedTeam,
+      ui.evolvingIds,
+      ui.sensors,
+      store.setMilestoneId,
+      store.updateMember,
+      store.resetRun,
+      actions.returnToOnboarding,
+      actions.handleDragEnd,
+      actions.selectMember,
+      actions.clearSelection,
+      actions.editMember,
+      actions.removeMember,
+      actions.addMember,
+      actions.addPreparedMember,
+      actions.closeEditor,
+      ui.setEditorMoveSelection,
+      actions.openMovePickerForEditor,
+      actions.openMovePickerForMember,
+      actions.removeMoveFromEditor,
+      actions.removeMoveFromEditorAt,
+      actions.removeMoveAtForMember,
+      actions.reorderMovesForEditor,
+      actions.reorderMovesForMember,
+      actions.requestEvolution,
+      actions.requestEvolutionForMember,
+    ],
+  );
+  const analysis = useMemo(
+    () => ({
       averageStats: derived.averageStats,
       checkpointRisk: derived.checkpointRisk,
       copilotSupportsRecommendations: derived.copilotSupportsRecommendations,
@@ -140,15 +219,21 @@ export function useBuilderController({
       moveRecommendations: derived.moveRecommendations,
       swapOpportunities: derived.swapOpportunities,
       captureRecommendations: derived.captureRecommendations,
-    },
-    compare: {
+    }),
+    [derived],
+  );
+  const compare = useMemo(
+    () => ({
       members: ui.compareMembers,
       resolvedMembers: derived.resolvedCompareMembers,
       actions: {
         updateMember: actions.updateCompareMember,
       },
-    },
-    movePicker: {
+    }),
+    [ui.compareMembers, derived.resolvedCompareMembers, actions.updateCompareMember],
+  );
+  const movePicker = useMemo(
+    () => ({
       memberId: ui.movePickerState?.memberId ?? null,
       slotIndex: ui.movePickerState?.slotIndex ?? null,
       tab: ui.moveModalTab,
@@ -162,15 +247,41 @@ export function useBuilderController({
         close: actions.closeMovePicker,
         pickMove: actions.pickMove,
       },
-    },
-    evolution: {
+    }),
+    [
+      ui.movePickerState?.memberId,
+      ui.movePickerState?.slotIndex,
+      ui.moveModalTab,
+      ui.expandedMoveKey,
+      derived.activeModalMember,
+      actions.openMovePickerForMember,
+      ui.setMoveModalTab,
+      ui.setExpandedMoveKey,
+      actions.closeMovePicker,
+      actions.pickMove,
+    ],
+  );
+  const evolution = useMemo(
+    () => ({
       state: ui.evolutionState,
       actions: {
         select: actions.selectEvolution,
         close: actions.cancelEvolution,
         confirm: actions.confirmEvolution,
       },
-    },
+    }),
+    [ui.evolutionState, actions.selectEvolution, actions.cancelEvolution, actions.confirmEvolution],
+  );
+
+  return {
+    session,
+    catalogs,
+    onboarding,
+    team,
+    analysis,
+    compare,
+    movePicker,
+    evolution,
   };
 }
 

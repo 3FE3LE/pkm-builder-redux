@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { ArrowLeftRight, Check } from "lucide-react";
 
@@ -147,20 +148,72 @@ export function CompareMemberPanel({
     natureEffect,
     abilityOptions,
   } = state;
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const speciesRef = useRef<HTMLDivElement | null>(null);
+  const [speciesPanelMetrics, setSpeciesPanelMetrics] = useState({
+    viewportWidth: 0,
+    viewportLeft: 0,
+    viewportTop: 0,
+  });
+
+  useEffect(() => {
+    function updateMetrics() {
+      const panel = panelRef.current;
+      const speciesNode = speciesRef.current;
+      if (!panel || !speciesNode) {
+        return;
+      }
+
+      const rect = speciesNode.getBoundingClientRect();
+      setSpeciesPanelMetrics({
+        viewportWidth: window.innerWidth,
+        viewportLeft: rect.left,
+        viewportTop: rect.bottom + 8,
+      });
+    }
+
+    updateMetrics();
+    const observer = new ResizeObserver(updateMetrics);
+    if (panelRef.current) {
+      observer.observe(panelRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="rounded-[0.9rem] px-0.5 py-0.5 sm:px-1 sm:py-1">
+    <div ref={panelRef} className="rounded-[0.9rem] px-0.5 py-0.5 sm:px-1 sm:py-1">
       <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 flex-1 order-2 sm:order-1">
+          <div ref={speciesRef}>
           <div className="sm:hidden">
-            <p className="display-face truncate text-[11px] text-text">
-              {resolved?.species || member.species || `Slot ${index + 1}`}
-            </p>
-          </div>
-          <div className="hidden sm:block">
             <SpeciesCombobox
               value={member.species}
               speciesCatalog={speciesCatalog}
+              coordinationGroup="compare-species"
+              portal
+              panelStyle={
+                speciesPanelMetrics.viewportWidth
+                  ? (() => {
+                      const width = Math.min(
+                        Math.max(speciesPanelMetrics.viewportWidth - 24, 0),
+                        672,
+                      );
+                      const idealLeft = speciesPanelMetrics.viewportLeft;
+                      const minLeft = 12;
+                      const maxLeft = Math.max(12, speciesPanelMetrics.viewportWidth - 12 - width);
+                      const left = Math.min(Math.max(idealLeft, minLeft), maxLeft);
+
+                      return {
+                        position: "fixed",
+                        top: `${speciesPanelMetrics.viewportTop}px`,
+                        width: `${width}px`,
+                        left: `${left}px`,
+                        background: "hsl(196 42% 8% / 0.985)",
+                        backdropFilter: "none",
+                      };
+                    })()
+                  : undefined
+              }
               onChange={(species) =>
                 onChangeMember(index, {
                   ...member,
@@ -173,6 +226,49 @@ export function CompareMemberPanel({
                 })
               }
             />
+          </div>
+          <div className="hidden sm:block">
+            <SpeciesCombobox
+              value={member.species}
+              speciesCatalog={speciesCatalog}
+              coordinationGroup="compare-species"
+              portal
+              panelStyle={
+                speciesPanelMetrics.viewportWidth
+                  ? (() => {
+                      const width = Math.min(
+                        Math.max(speciesPanelMetrics.viewportWidth - 24, 0),
+                        672,
+                      );
+                      const idealLeft = speciesPanelMetrics.viewportLeft;
+                      const minLeft = 12;
+                      const maxLeft = Math.max(12, speciesPanelMetrics.viewportWidth - 12 - width);
+                      const left = Math.min(Math.max(idealLeft, minLeft), maxLeft);
+
+                      return {
+                        position: "fixed",
+                        top: `${speciesPanelMetrics.viewportTop}px`,
+                        width: `${width}px`,
+                        left: `${left}px`,
+                        background: "hsl(196 42% 8% / 0.985)",
+                        backdropFilter: "none",
+                      };
+                    })()
+                  : undefined
+              }
+              onChange={(species) =>
+                onChangeMember(index, {
+                  ...member,
+                  species,
+                  nickname:
+                    normalizeName(member.nickname) === normalizeName(member.species) ||
+                    !member.nickname
+                      ? species
+                      : member.nickname,
+                })
+              }
+            />
+          </div>
           </div>
           <div
             className={clsx(

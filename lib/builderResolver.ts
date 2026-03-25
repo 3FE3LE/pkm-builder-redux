@@ -52,10 +52,11 @@ export function resolveEditableMember(
   const basePokemon = normalizedSpecies ? context.pokemonByName[normalizedSpecies] ?? undefined : undefined;
   const remotePokemon = basePokemon ? hydratePokemonLearnsets(basePokemon, context.movesByName) : undefined;
   const resolved =
-    resolvePokemonProfile(context.docs, member.species, remotePokemon) ??
+    resolvePokemonProfile(context.docs, member.species, remotePokemon, member.shiny) ??
     ({
       key: member.id,
       species: member.species,
+      shiny: member.shiny,
       supportsGender: supportsPokemonGender(member.species),
       resolvedTypes: [],
       abilities: [],
@@ -86,6 +87,7 @@ export function resolveEditableMember(
   return {
     ...resolved,
     key: member.id,
+    shiny: member.shiny,
     level: member.level,
     gender: member.gender,
     nature: member.nature,

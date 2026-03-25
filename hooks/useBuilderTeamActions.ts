@@ -4,10 +4,26 @@ import { arrayMove } from "@dnd-kit/sortable";
 import type { DragEndEvent } from "@dnd-kit/core";
 
 import { createEditable, type EditableMember } from "@/lib/builderStore";
+import { normalizeName } from "@/lib/domain/names";
 
 import type { BuilderActionDeps } from "@/hooks/actionTypes";
 
+const MAX_ROSTER_SIZE = 6;
+
 export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
+  function getFilledRosterCount(items = store.currentTeam) {
+    return items.filter((item) => item.species.trim()).length;
+  }
+
+  function hasDuplicateSpecies(species: string, items = store.currentTeam) {
+    const normalizedSpecies = normalizeName(species);
+    if (!normalizedSpecies) {
+      return false;
+    }
+
+    return items.some((item) => normalizeName(item.species) === normalizedSpecies);
+  }
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) {
@@ -62,6 +78,10 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
       return pending.id;
     }
 
+    if (getFilledRosterCount() >= MAX_ROSTER_SIZE) {
+      return null;
+    }
+
     const created = createEditable();
     store.setCurrentTeam((items) => [...items, created]);
     store.setActiveMemberId(created.id);
@@ -71,10 +91,19 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
   }
 
   function addPreparedMember(member: EditableMember) {
+    if (getFilledRosterCount() >= MAX_ROSTER_SIZE) {
+      return { ok: false as const, reason: "full" as const };
+    }
+
+    if (hasDuplicateSpecies(member.species)) {
+      return { ok: false as const, reason: "duplicate" as const };
+    }
+
     store.setCurrentTeam((items) => [...items, member]);
     store.setActiveMemberId(member.id);
     store.setEditorMemberId(member.id);
     ui.setEditorMoveSelection(null);
+    return { ok: true as const, reason: null };
   }
 
   function closeEditor() {

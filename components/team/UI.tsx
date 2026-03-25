@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import { TypeBadge } from "@/components/BuilderShared";
 import { Input } from "@/components/ui/Input";
@@ -174,6 +174,52 @@ export function SpreadInput({
 }) {
   const isVertical = orientation === "vertical" || orientation === "responsive";
   const isResponsive = orientation === "responsive";
+  const valueRef = useRef(value);
+  const holdTimeoutRef = useRef<number | null>(null);
+  const holdIntervalRef = useRef<number | null>(null);
+
+  valueRef.current = value;
+
+  function clearHold() {
+    if (holdTimeoutRef.current !== null) {
+      window.clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+    }
+    if (holdIntervalRef.current !== null) {
+      window.clearInterval(holdIntervalRef.current);
+      holdIntervalRef.current = null;
+    }
+  }
+
+  function step(nextValue: number) {
+    onChange(nextValue);
+  }
+
+  function startHold(getNextValue: () => number) {
+    clearHold();
+    step(getNextValue());
+    holdTimeoutRef.current = window.setTimeout(() => {
+      holdIntervalRef.current = window.setInterval(() => {
+        step(getNextValue());
+      }, 55);
+    }, 260);
+  }
+
+  useEffect(() => {
+    function stopHold() {
+      clearHold();
+    }
+
+    window.addEventListener("pointerup", stopHold);
+    window.addEventListener("pointercancel", stopHold);
+    window.addEventListener("blur", stopHold);
+    return () => {
+      window.removeEventListener("pointerup", stopHold);
+      window.removeEventListener("pointercancel", stopHold);
+      window.removeEventListener("blur", stopHold);
+      clearHold();
+    };
+  }, []);
 
   return (
     <label
@@ -204,11 +250,12 @@ export function SpreadInput({
         >
           <button
             type="button"
-            onClick={() =>
-              onChange(
-                isResponsive ? Math.max(0, value - 1) : Math.min(max, value + 1),
-              )
-            }
+            onPointerDown={(event) => {
+              event.preventDefault();
+              startHold(() =>
+                isResponsive ? Math.max(0, valueRef.current - 1) : Math.min(max, valueRef.current + 1),
+              );
+            }}
             className={clsx(
               "flex h-6 w-full items-center justify-center rounded-t-[6px] border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6",
               isResponsive &&
@@ -233,11 +280,12 @@ export function SpreadInput({
           />
           <button
             type="button"
-            onClick={() =>
-              onChange(
-                isResponsive ? Math.min(max, value + 1) : Math.max(0, value - 1),
-              )
-            }
+            onPointerDown={(event) => {
+              event.preventDefault();
+              startHold(() =>
+                isResponsive ? Math.min(max, valueRef.current + 1) : Math.max(0, valueRef.current - 1),
+              );
+            }}
             className={clsx(
               "flex h-6 w-full items-center justify-center rounded-b-[6px] border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6",
               isResponsive &&
@@ -252,7 +300,10 @@ export function SpreadInput({
         <div className={clsx("flex items-center", !hideLabel && "mt-1.5")}>
           <button
             type="button"
-            onClick={() => onChange(Math.max(0, value - 1))}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              startHold(() => Math.max(0, valueRef.current - 1));
+            }}
             className="flex h-8 w-7 shrink-0 items-center justify-center rounded-l-[6px] border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6"
             aria-label={`Bajar ${label}`}
           >
@@ -270,7 +321,10 @@ export function SpreadInput({
           />
           <button
             type="button"
-            onClick={() => onChange(Math.min(max, value + 1))}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              startHold(() => Math.min(max, valueRef.current + 1));
+            }}
             className="flex h-8 w-7 shrink-0 items-center justify-center rounded-r-[6px] border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6"
             aria-label={`Subir ${label}`}
           >

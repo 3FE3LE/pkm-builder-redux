@@ -20,13 +20,18 @@ export function toTitleCase(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }
 
-export function buildSpriteUrls(_name: string, dexNumber?: number) {
+export function buildSpriteUrls(
+  _name: string,
+  dexNumber?: number,
+  options?: { shiny?: boolean },
+) {
   const normalizedName = normalizeName(_name);
+  const shiny = options?.shiny ?? false;
   if (normalizedName === "darmanitan-zen") {
     const formId = 10017;
     return {
-      spriteUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${formId}.png`,
-      animatedSpriteUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${formId}.gif`,
+      spriteUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${shiny ? `shiny/${formId}` : formId}.png`,
+      animatedSpriteUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${shiny ? `shiny/${formId}` : formId}.gif`,
     };
   }
 
@@ -35,7 +40,7 @@ export function buildSpriteUrls(_name: string, dexNumber?: number) {
     : undefined;
 
   return {
-    spriteUrl: gen5Base ? `${gen5Base}/${dexNumber}.png` : undefined,
-    animatedSpriteUrl: gen5Base ? `${gen5Base}/animated/${dexNumber}.gif` : undefined,
+    spriteUrl: gen5Base ? `${gen5Base}/${shiny ? "shiny/" : ""}${dexNumber}.png` : undefined,
+    animatedSpriteUrl: gen5Base ? `${gen5Base}/animated/${shiny ? "shiny/" : ""}${dexNumber}.gif` : undefined,
   };
 }

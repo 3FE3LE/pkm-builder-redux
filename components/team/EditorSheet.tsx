@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { CSSProperties, useState } from 'react';
 
 import {
+  EditorDefenseSection,
   EditorHeader,
   EditorMovesSection,
   EditorProfileSection,
@@ -90,7 +91,7 @@ export function PokemonEditorSheet({
   onPickMove,
   getMoveSurfaceStyle,
 }: PokemonEditorSheetProps) {
-  const [editorTab, setEditorTab] = useState<"stats" | "moves">("stats");
+  const [editorTab, setEditorTab] = useState<"stats" | "moves" | "typing">("stats");
   const open = openProp ?? Boolean(member);
   if (!member) {
     return (
@@ -152,6 +153,7 @@ export function PokemonEditorSheet({
             currentSpecies={currentSpecies}
             currentLevel={currentLevel}
             currentGender={member.gender}
+            currentShiny={Boolean(member.shiny)}
             getIssue={getIssue}
             hasEvolution={canRequestEvolution}
             evolutionBlockReason={evolutionBlockReason}
@@ -183,7 +185,7 @@ export function PokemonEditorSheet({
           />
           <Tabs
             value={editorTab}
-            onValueChange={(value) => setEditorTab(value as "stats" | "moves")}
+            onValueChange={(value) => setEditorTab(value as "stats" | "moves" | "typing")}
             className="gap-0"
           >
             <TabsList className="scrollbar-thin relative z-10 -mb-px flex h-auto w-full flex-nowrap items-end gap-1 overflow-x-auto bg-transparent p-0 pb-1 sm:overflow-visible sm:pb-0">
@@ -199,42 +201,59 @@ export function PokemonEditorSheet({
               >
                 Moves
               </TabsTrigger>
+              <TabsTrigger
+                value="typing"
+                className="flex-none rounded-t-[0.9rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-xs text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:px-4 sm:py-2.5 sm:text-sm"
+              >
+                Typing
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent
               value="stats"
               className="rounded-[0_1rem_1rem_1rem] p-0"
             >
-              <EditorStatsSection
-                member={member}
-                resolved={resolved}
-                roleRecommendation={roleRecommendation}
-                currentLevel={currentLevel}
-                currentNature={currentNature}
-                currentAbility={currentAbility}
-                currentItem={currentItem}
-                weather={weather}
-                abilityCatalog={abilityCatalog}
-                itemCatalog={itemCatalog}
-                hasEvolution={Boolean(resolved?.nextEvolutions?.length)}
-                getIssue={getIssue}
-                updateEditorMember={updateEditorMember}
-              />
+              {editorTab === "stats" ? (
+                <EditorStatsSection
+                  member={member}
+                  resolved={resolved}
+                  roleRecommendation={roleRecommendation}
+                  currentLevel={currentLevel}
+                  currentNature={currentNature}
+                  currentAbility={currentAbility}
+                  currentItem={currentItem}
+                  weather={weather}
+                  abilityCatalog={abilityCatalog}
+                  itemCatalog={itemCatalog}
+                  hasEvolution={Boolean(resolved?.nextEvolutions?.length)}
+                  getIssue={getIssue}
+                  updateEditorMember={updateEditorMember}
+                />
+              ) : null}
             </TabsContent>
 
             <TabsContent
               value="moves"
               className="rounded-[0_1rem_1rem_1rem] p-0"
             >
-              <EditorMovesSection
-                currentMoves={member.moves}
-                resolved={resolved}
-                selectedMoveIndex={selectedMoveIndex}
-                onSelectMoveIndex={onSelectMoveIndex}
-                onOpenMoveModal={onOpenMoveModal}
-                onRemoveMoveAt={onRemoveMoveAt}
-                onReorderMove={onReorderMove}
-              />
+              {editorTab === "moves" ? (
+                <EditorMovesSection
+                  currentMoves={member.moves}
+                  resolved={resolved}
+                  selectedMoveIndex={selectedMoveIndex}
+                  onSelectMoveIndex={onSelectMoveIndex}
+                  onOpenMoveModal={onOpenMoveModal}
+                  onRemoveMoveAt={onRemoveMoveAt}
+                  onReorderMove={onReorderMove}
+                />
+              ) : null}
+            </TabsContent>
+
+            <TabsContent
+              value="typing"
+              className="rounded-[0_1rem_1rem_1rem] p-0"
+            >
+              {editorTab === "typing" ? <EditorDefenseSection resolved={resolved} /> : null}
             </TabsContent>
           </Tabs>
           {movePickerMemberId === member.id && movePickerActiveMember ? (
