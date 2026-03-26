@@ -15,6 +15,7 @@ import {
 import { CoverageBadge, StatCard } from "@/components/team/UI";
 import { buildSummaryStats, EffectiveStatsRadar } from "@/components/team/Radar";
 import { Input } from "@/components/ui/Input";
+import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import {
   applyStatModifiers,
   type BattleWeather,
@@ -179,6 +180,20 @@ export function CompareMemberPanel({
     }
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const resolvedAbilities = resolved?.abilities?.filter(Boolean) ?? [];
+    if (!member.species.trim() || !resolvedAbilities.length) {
+      return;
+    }
+
+    const nextAbility = reconcileAbilitySelection(member.ability, resolvedAbilities);
+    if (nextAbility === member.ability) {
+      return;
+    }
+
+    onChangeMember(index, { ...member, ability: nextAbility });
+  }, [index, member, onChangeMember, resolved?.abilities]);
 
   return (
     <div ref={panelRef} className="rounded-[0.9rem] px-0.5 py-0.5 sm:px-1 sm:py-1">

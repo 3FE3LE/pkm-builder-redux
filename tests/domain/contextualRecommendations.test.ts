@@ -1,5 +1,4 @@
-import test from "node:test";
-import assert from "node:assert/strict";
+import { test, assert } from "vitest";
 
 import { buildAreaSources } from "../../lib/builder";
 import { buildCaptureRecommendations } from "../../lib/domain/contextualRecommendations";

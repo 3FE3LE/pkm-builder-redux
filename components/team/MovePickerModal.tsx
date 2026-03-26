@@ -13,12 +13,6 @@ import {
   MovePowerBadge,
 } from "@/components/team/UI";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/Tooltip";
-import {
   applyMovePowerModifiers,
   getMovePowerModifiers,
   getWeatherAdjustedMove,
@@ -84,7 +78,7 @@ export function MovePickerModal({
             type="button"
             onClick={() => onTabChange("levelUp")}
             className={clsx(
-              "rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
+              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
               tab === "levelUp"
                 ? "border-[rgba(94,240,203,0.5)] bg-[rgba(94,240,203,0.12)] text-accent"
                 : "border-line text-muted",
@@ -96,7 +90,7 @@ export function MovePickerModal({
             type="button"
             onClick={() => onTabChange("machines")}
             className={clsx(
-              "rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
+              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
               tab === "machines"
                 ? "border-[rgba(94,240,203,0.5)] bg-[rgba(94,240,203,0.12)] text-accent"
                 : "border-line text-muted",
@@ -107,18 +101,16 @@ export function MovePickerModal({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-7 w-7 items-center justify-center rounded-[0.45rem] border border-line text-muted transition hover:bg-surface-4"
+            className="inline-flex h-7 w-7 touch-manipulation items-center justify-center rounded-[0.45rem] border border-line text-muted transition hover:bg-surface-4"
             aria-label="Close move picker"
           >
             <X className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
-
-      <TooltipProvider>
-        <div className="scrollbar-thin grid max-h-[18rem] gap-1 overflow-auto pr-1 sm:grid-cols-2">
-          {items.length ? (
-            items.map((item) => {
+      <div className="scrollbar-thin grid max-h-[18rem] gap-1 overflow-auto pr-1 sm:grid-cols-2">
+        {items.length ? (
+          items.map((item) => {
             const previewMove = {
               name: item.move,
               type: item.details?.type,
@@ -139,6 +131,7 @@ export function MovePickerModal({
             });
             const adjustedPower = applyMovePowerModifiers(weatherAdjustedMove.power, powerModifiers);
             const isCurrentMove = currentMoves.includes(item.move);
+            const isCurrentSlotMove = replaceMoveName === item.move;
             const existsElsewhere =
               slotIndex !== null &&
               currentMoves.some(
@@ -157,63 +150,60 @@ export function MovePickerModal({
             );
 
             return (
-              <Tooltip key={item.key}>
-                <TooltipTrigger
-                  type="button"
-                  onClick={() => {
-                    if (canClickAction) {
-                      onPickMove(item.move);
-                    }
-                  }}
-                  disabled={!canClickAction}
-                  style={{
-                    ...getTypedMoveSurfaceStyle(weatherAdjustedMove.type),
-                    ...(hasStab ? getMoveStabStyle(weatherAdjustedMove.type) : undefined),
-                  }}
-                  className={clsx(
-                    "flex w-full items-center gap-2 rounded-[0.5rem] border px-2 py-1.5 text-left transition",
-                    getMoveSurfaceClass(weatherAdjustedMove.type, hasStab),
-                    hasStab && "move-stab-surface",
-                    !canClickAction && "opacity-55",
-                    canClickAction && "hover:brightness-110",
-                  )}
-                >
-                  <span className="min-w-0 flex-1">
-                    <span className="flex min-w-0 items-center gap-1.5">
-                      <span className="display-face shrink-0 text-[9px] text-current/80">
-                        {item.label}
-                      </span>
-                      <span className="pixel-face min-w-0 truncate text-[12px] leading-none tracking-[0.1em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
-                        {item.move}
-                      </span>
-                      <MoveCueIcons
-                        hasStab={hasStab}
-                        fit={getMoveProfileFit(member, previewMove)}
-                      />
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => {
+                  if (canClickAction) {
+                    onPickMove(item.move);
+                  }
+                }}
+                disabled={!canClickAction}
+                style={{
+                  ...getTypedMoveSurfaceStyle(weatherAdjustedMove.type),
+                  ...(hasStab ? getMoveStabStyle(weatherAdjustedMove.type) : undefined),
+                }}
+                aria-pressed={isCurrentSlotMove}
+                title={item.details?.description ?? item.move}
+                className={clsx(
+                  "flex w-full touch-manipulation items-center gap-2 rounded-[0.5rem] border px-2 py-1.5 text-left transition",
+                  getMoveSurfaceClass(weatherAdjustedMove.type, hasStab),
+                  hasStab && "move-stab-surface",
+                  !canClickAction && "opacity-55",
+                  canClickAction && "hover:brightness-110",
+                )}
+              >
+                <span className="min-w-0 flex-1">
+                  <span className="flex min-w-0 items-center gap-1.5">
+                    <span className="display-face shrink-0 text-[9px] text-current/80">
+                      {item.label}
                     </span>
+                    <span className="pixel-face min-w-0 truncate text-[12px] leading-none tracking-[0.1em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
+                      {item.move}
+                    </span>
+                    <MoveCueIcons
+                      hasStab={hasStab}
+                      fit={getMoveProfileFit(member, previewMove)}
+                    />
                   </span>
-                  <MovePowerBadge
-                    damageClass={item.details?.damageClass}
-                    power={weatherAdjustedMove.power}
-                    adjustedPower={adjustedPower}
-                  />
-                  {isCurrentMove ? (
-                    <span className="display-face shrink-0 text-[9px] uppercase tracking-[0.1em] text-primary-soft">
-                      picked
-                    </span>
-                  ) : null}
-                </TooltipTrigger>
-                <TooltipContent>
-                  {item.details?.description ?? item.move}
-                </TooltipContent>
-              </Tooltip>
+                </span>
+                <MovePowerBadge
+                  damageClass={item.details?.damageClass}
+                  power={weatherAdjustedMove.power}
+                  adjustedPower={adjustedPower}
+                />
+                {isCurrentMove ? (
+                  <span className="display-face shrink-0 text-[9px] uppercase tracking-[0.1em] text-primary-soft">
+                    {isCurrentSlotMove ? "current" : "picked"}
+                  </span>
+                ) : null}
+              </button>
             );
           })
         ) : (
           <p className="text-sm text-muted sm:col-span-2">No hay movimientos en esta pestaña.</p>
         )}
       </div>
-    </TooltipProvider>
     </section>
   );
 }

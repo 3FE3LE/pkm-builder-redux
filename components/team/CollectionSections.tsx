@@ -54,14 +54,20 @@ export function CompositionsSection({
 
   return (
     <section className="space-y-2">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="display-face text-sm text-accent">Compositions</p>
           <p className="text-xs text-muted">Reutiliza tus Pokemon entre equipos.</p>
         </div>
-        <Button type="button" variant="ghost" size="sm" onClick={onCreateComposition}>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={onCreateComposition}
+          className="touch-manipulation"
+        >
           <Plus className="h-4 w-4" />
-          Team
+          Add team
         </Button>
       </div>
 
@@ -71,10 +77,17 @@ export function CompositionsSection({
           const isEditing = composition.id === editingCompositionId;
 
           return (
-            <button
+            <div
               key={composition.id}
-              type="button"
+              role="button"
+              tabIndex={0}
               onClick={() => onSelectComposition(composition.id)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onSelectComposition(composition.id);
+                }
+              }}
               className={clsx(
                 "rounded-[0.9rem] border px-3 py-3 text-left transition",
                 isActive
@@ -126,7 +139,7 @@ export function CompositionsSection({
                   <Pencil className="h-4 w-4" />
                 </Button>
               </div>
-            </button>
+            </div>
           );
         })}
       </div>

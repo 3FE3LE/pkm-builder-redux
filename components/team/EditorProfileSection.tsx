@@ -17,6 +17,7 @@ import type {
   SpeciesCatalogEntry,
 } from "@/components/team/editorTypes";
 import { natureOptions } from "@/lib/builderForm";
+import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { getNatureEffect } from "@/lib/domain/battle";
 import { normalizeName } from "@/lib/domain/names";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
@@ -89,19 +90,25 @@ export function EditorProfileSection({
   }, [currentItem, itemCatalog]);
 
   useEffect(() => {
-    const fallbackAbility = resolved?.abilities?.find(Boolean);
-    if (!currentSpecies.trim() || currentAbility.trim() || !fallbackAbility) {
+    const resolvedAbilities = resolved?.abilities?.filter(Boolean) ?? [];
+    if (!currentSpecies.trim() || !resolvedAbilities.length) {
+      return;
+    }
+
+    const nextAbility = reconcileAbilitySelection(currentAbility, resolvedAbilities);
+    if (nextAbility === currentAbility) {
       return;
     }
 
     updateEditorMember((current) => {
-      if (current.ability.trim()) {
+      const updatedAbility = reconcileAbilitySelection(current.ability, resolvedAbilities);
+      if (updatedAbility === current.ability) {
         return current;
       }
 
       return {
         ...current,
-        ability: fallbackAbility,
+        ability: updatedAbility,
       };
     });
   }, [currentAbility, currentSpecies, resolved?.abilities, updateEditorMember]);

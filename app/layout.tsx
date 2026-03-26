@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { GeistSans } from "geist/font/sans";
+
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelCircle } from "geist/font/pixel";
+import { GeistSans } from "geist/font/sans";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { AppNav } from "@/components/AppNav";
+
 import { AppFooter } from "@/components/AppFooter";
+import { AppNav } from "@/components/AppNav";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 

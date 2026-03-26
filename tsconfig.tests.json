@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": ".codex-tests",
+    "outDir": ".codex-tests-current",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "ES2022",

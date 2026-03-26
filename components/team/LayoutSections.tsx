@@ -46,13 +46,12 @@ import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
 import type { Milestone, StarterKey } from "@/lib/builder";
 
-type Recommendation = ReturnType<typeof import("@/lib/builder").getRecommendation>;
 type CheckpointRisk = ReturnType<typeof import("@/lib/domain/checkpointScoring").buildCheckpointRiskSnapshot>;
 type SwapOpportunity = ReturnType<typeof import("@/lib/domain/swapOpportunities").buildSwapOpportunities>[number];
 type CaptureRecommendation = ReturnType<typeof import("@/lib/domain/contextualRecommendations").buildCaptureRecommendations>[number];
-type SpeedTiers = ReturnType<typeof import("@/lib/domain/speedTiers").buildSpeedTierSnapshot>;
 type TeamRoleSnapshot = ReturnType<typeof import("@/lib/domain/roleAnalysis").buildTeamRoleSnapshot>;
 type MoveRecommendation = ReturnType<typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations>[number];
+type AreaSource = ReturnType<typeof import("@/lib/builder").buildAreaSources>[number];
 
 type DefensiveSections = ReturnType<typeof import("@/lib/teamAnalysis").buildDefensiveSections>;
 type CompareMembers = import("@/hooks/types").CompareMembers;
@@ -635,13 +634,10 @@ export function CheckpointCopilotSection({
   teamSize,
   milestoneId,
   checkpointRisk,
-  copilotSupportsRecommendations,
   supportsContextualSwaps,
   nextEncounter,
   swapOpportunities,
   captureRecommendations,
-  speedTiers,
-  recommendation,
   moveRecommendations,
   sourceCards,
   encounterCatalog,
@@ -656,15 +652,12 @@ export function CheckpointCopilotSection({
   teamSize: number;
   milestoneId: string;
   checkpointRisk: CheckpointRisk;
-  copilotSupportsRecommendations: boolean;
   supportsContextualSwaps: boolean;
   nextEncounter: RunEncounterDefinition | null;
   swapOpportunities: SwapOpportunity[];
   captureRecommendations: CaptureRecommendation[];
-  speedTiers: SpeedTiers;
-  recommendation: Recommendation;
   moveRecommendations: MoveRecommendation[];
-  sourceCards: Recommendation["availableSources"][number][];
+  sourceCards: ReturnType<typeof import("@/lib/builder").buildAreaSources>;
   encounterCatalog: RunEncounterDefinition[];
   completedEncounterIds: string[];
   speciesCatalog: { name: string; dex: number }[];
@@ -957,7 +950,7 @@ export function RunOpsSection({
   itemCatalog,
 }: {
   activeMember?: ResolvedTeamMember;
-  sourceCards: Recommendation["availableSources"][number][];
+  sourceCards: AreaSource[];
   speciesCatalog: { name: string; dex: number }[];
   itemCatalog: { name: string; effect?: string; sprite?: string | null }[];
 }) {

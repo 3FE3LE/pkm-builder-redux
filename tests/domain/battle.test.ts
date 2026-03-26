@@ -1,5 +1,4 @@
-import test from "node:test";
-import assert from "node:assert/strict";
+import { test, assert } from "vitest";
 
 import { buildCoverageSummary, buildDefensiveSections, getStatModifiers } from "../../lib/domain/battle";
 import { applyMovePowerModifiers, getMovePowerModifiers } from "../../lib/domain/moves";

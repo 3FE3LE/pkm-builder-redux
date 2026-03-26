@@ -1,7 +1,10 @@
 "use client";
 
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
+import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
+import { applyMoveSelection } from "@/lib/domain/moveSelection";
+import { resolvePokemonProfile } from "@/lib/teamAnalysis";
 import type { BuilderActionDeps } from "@/hooks/actionTypes";
 
 export function useBuilderModalActions({
@@ -45,28 +48,19 @@ export function useBuilderModalActions({
       return;
     }
     const { memberId, slotIndex } = ui.movePickerState;
+    let didApply = false;
     store.updateMember(memberId, (item) => {
-      if (slotIndex === null) {
-        if (item.moves.includes(moveName) || item.moves.length >= 4) {
-          return item;
-        }
-        return { ...item, moves: [...item.moves, moveName] };
-      }
-
-      const currentMove = item.moves[slotIndex];
-      const existsElsewhere = item.moves.some(
-        (existingMove, index) => existingMove === moveName && index !== slotIndex,
-      );
-
-      if (!currentMove || existsElsewhere || currentMove === moveName) {
+      const result = applyMoveSelection(item.moves, moveName, slotIndex);
+      if (!result.didApply) {
         return item;
       }
 
-      const nextMoves = [...item.moves];
-      nextMoves[slotIndex] = moveName;
-      return { ...item, moves: nextMoves };
+      didApply = true;
+      return { ...item, moves: result.nextMoves };
     });
-    closeMovePicker();
+    if (didApply) {
+      closeMovePicker();
+    }
   }
 
   function requestEvolution() {
@@ -78,7 +72,8 @@ export function useBuilderModalActions({
 
   function requestEvolutionForMember(memberId: string) {
     const memberResolved =
-      derived.resolvedLibrary.find((entry) => entry.key === memberId) ??
+      (derived.editorResolved?.key === memberId ? derived.editorResolved : undefined) ??
+      (derived.activeModalMember?.key === memberId ? derived.activeModalMember : undefined) ??
       derived.resolvedTeam.find((entry) => entry.key === memberId);
     if (!memberResolved?.nextEvolutions?.length) {
       return;
@@ -139,8 +134,32 @@ export function useBuilderModalActions({
     }
 
     const memberId = ui.evolutionState.memberId;
+    const currentResolved =
+      (derived.editorResolved?.key === memberId ? derived.editorResolved : undefined) ??
+      (derived.activeModalMember?.key === memberId ? derived.activeModalMember : undefined) ??
+      derived.resolvedTeam.find((entry) => entry.key === memberId);
+    const nextProfile = resolvePokemonProfile(
+      data.docs,
+      species,
+      data.pokemonIndex[normalizeName(species)] ?? undefined,
+    );
+    const currentAbilityIndex = currentResolved?.ability
+      ? currentResolved.abilities.findIndex(
+          (ability) => normalizeName(ability) === normalizeName(currentResolved.ability ?? ""),
+        )
+      : -1;
+
     ui.setEvolvingIds((current) => ({ ...current, [memberId]: true }));
-    store.updateMember(memberId, (item) => ({ ...item, species }));
+    store.updateMember(memberId, (item) => {
+      const nextAbilities = nextProfile?.abilities ?? [];
+      const indexedAbility =
+        currentAbilityIndex >= 0 && currentAbilityIndex < nextAbilities.length
+          ? nextAbilities[currentAbilityIndex] ?? ""
+          : item.ability;
+      const nextAbility = reconcileAbilitySelection(indexedAbility, nextAbilities) || item.ability;
+
+      return { ...item, species, ability: nextAbility };
+    });
     ui.setEvolutionState(null);
     window.setTimeout(() => {
       ui.setEvolvingIds((current) => ({ ...current, [memberId]: false }));

@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test:domain": "tsc -p tsconfig.tests.json && node --test .codex-tests/tests/**/*.test.js",
+    "test:domain": "tsc -p tsconfig.tests.json && node --test .codex-tests-current/tests/**/*.test.js",
     "build:local-dex": "node scripts/build-local-dex.mjs",
     "fetch:gen5": "node scripts/fetch-pokeapi-gen5.mjs",
     "extract:redux": "node scripts/extract-redux-overrides.mjs",
@@ -42,10 +42,15 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@vitest/coverage-v8": "^4.1.1",
+    "jsdom": "^29.0.1",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.1"
   }
 }

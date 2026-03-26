@@ -1,5 +1,4 @@
-import test from "node:test";
-import assert from "node:assert/strict";
+import { test, assert } from "vitest";
 
 import { calculateEffectiveStats } from "../../lib/domain/battle";
 import { inferIvForObservedStat } from "../../lib/domain/ivCalculator";

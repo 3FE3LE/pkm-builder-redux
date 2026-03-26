@@ -138,8 +138,7 @@ function ensureRosterState(run: RunState): RunState {
         id: composition.id || crypto.randomUUID(),
         name: composition.name?.trim() || `Team ${index + 1}`,
         memberIds: (composition.memberIds ?? []).filter((memberId) => safeMemberIds.has(memberId)),
-      }))
-      .filter((composition) => composition.memberIds.length > 0) ?? [];
+      })) ?? [];
   const fallbackComposition =
     normalizedCompositions[0] ??
     createFallbackComposition(normalizedTeam.map((member) => member.id));
@@ -260,19 +259,27 @@ export const useBuilderStore = create<BuilderStore>()(
         set((state) => ({
           run: updateRoster(state.run, (roster) => {
             const normalizedRoster = ensureRosterState(state.run).roster;
-            const nextLibrary = normalizedRoster.pokemonLibrary.map((member) => {
-              if (member.id !== id) {
-                return member;
-              }
+            const currentMember =
+              normalizedRoster.pokemonLibrary.find((member) => member.id === id) ??
+              normalizedRoster.currentTeam.find((member) => member.id === id);
+            if (!currentMember) {
+              return normalizedRoster;
+            }
 
-              const updatedMember =
-                typeof updater === "function" ? updater(member) : updater;
-              return normalizeEditableMember(updatedMember);
-            });
+            const updatedMember = normalizeEditableMember(
+              typeof updater === "function" ? updater(currentMember) : updater,
+            );
+            const nextLibrary = normalizedRoster.pokemonLibrary.map((member) =>
+              member.id === id ? updatedMember : member,
+            );
+            const nextCurrentTeam = normalizedRoster.currentTeam.map((member) =>
+              member.id === id ? updatedMember : member,
+            );
 
             return {
               ...normalizedRoster,
               pokemonLibrary: nextLibrary,
+              currentTeam: nextCurrentTeam,
             };
           }),
         })),

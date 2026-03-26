@@ -276,13 +276,10 @@ export function ActiveScreen() {
                     teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
                     milestoneId={analysis.contextualMilestoneId}
                     checkpointRisk={analysis.checkpointRisk}
-                    copilotSupportsRecommendations={analysis.copilotSupportsRecommendations}
                     supportsContextualSwaps={analysis.supportsContextualSwaps}
                     nextEncounter={analysis.nextEncounter}
                     swapOpportunities={analysis.swapOpportunities}
                     captureRecommendations={analysis.captureRecommendations}
-                    speedTiers={analysis.speedTiers}
-                    recommendation={analysis.recommendation}
                     moveRecommendations={analysis.moveRecommendations}
                     sourceCards={analysis.sourceCards}
                     encounterCatalog={catalogs.encounterCatalog}

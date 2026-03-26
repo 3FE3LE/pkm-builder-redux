@@ -430,8 +430,8 @@ export function resolvePokemonProfile(
     [];
   const stats = profile?.stats ?? remote?.stats;
   const dexNumber = profile?.dex ?? remote?.id;
-  const abilities = Array.from(
-    new Set([...(profile?.abilities ?? []), ...(remote?.abilities ?? [])]),
+  const abilities = (profile?.abilities?.length ? profile.abilities : remote?.abilities ?? []).map(
+    (ability) => ability.trim(),
   );
   const sprites = buildSpriteUrls(profile?.species ?? remote?.name ?? name, dexNumber, { shiny });
 

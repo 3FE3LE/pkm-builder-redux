@@ -7,13 +7,12 @@ import {
   buildAverageStats,
   buildCoverageSummary,
   buildDefensiveSections,
-  buildThreatSummary,
 } from "@/lib/domain/battle";
+import { getBuilderViewState } from "@/lib/domain/builderViewState";
 import { buildCheckpointRiskSnapshot } from "@/lib/domain/checkpointScoring";
 import { buildCaptureRecommendations } from "@/lib/domain/contextualRecommendations";
 import { getMoveRecommendations } from "@/lib/domain/moveRecommendations";
 import { buildSwapOpportunities } from "@/lib/domain/swapOpportunities";
-import { buildSpeedTierSnapshot } from "@/lib/domain/speedTiers";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import {
   getContextualSourceAreas,
@@ -21,11 +20,10 @@ import {
   getRunEncounterCatalog,
   mapEncounterOrderToMilestoneId,
 } from "@/lib/runEncounters";
-import { milestones } from "@/lib/builder";
 import {
   type ResolvedTeamMember,
 } from "@/lib/teamAnalysis";
-import { buildAreaSources, getRecommendation } from "@/lib/builder";
+import { buildAreaSources } from "@/lib/builder";
 import {
   buildNameIndex,
   resolveEditableMember as resolveTeamMember,
@@ -47,13 +45,14 @@ export function useBuilderDerivedData(
   const { docs, pokemonIndex, abilityCatalog, itemCatalog, moveIndex } = data;
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const workspaceTab = searchParams.get("tab") ?? "builder";
-  const toolTab = searchParams.get("tool") ?? "compare";
-  const isWorkspaceRoute = pathname === "/team" || pathname.startsWith("/team/pokemon/");
-  const needsTeamCore = isWorkspaceRoute;
-  const needsCopilotAnalysis = pathname === "/team" && workspaceTab === "copilot";
-  const needsCaptureRecommendations = pathname === "/team";
-  const needsCompareResolution = pathname === "/team/tools" && toolTab === "compare";
+  const workspaceTab = searchParams.get("tab");
+  const toolTab = searchParams.get("tool");
+  const {
+    needsTeamCore,
+    needsCopilotAnalysis,
+    needsCaptureRecommendations,
+    needsCompareResolution,
+  } = getBuilderViewState(pathname, workspaceTab, toolTab);
   const encounterCatalog = useMemo(
     () => getRunEncounterCatalog(store.run.progress.mode),
     [store.run.progress.mode],
@@ -64,9 +63,6 @@ export function useBuilderDerivedData(
   );
   const contextualMilestoneId =
     (nextEncounter ? mapEncounterOrderToMilestoneId(nextEncounter.order) : null) ?? store.milestoneId;
-  const copilotSupportsRecommendations = milestones.some(
-    (milestone) => milestone.id === contextualMilestoneId,
-  );
   const supportsContextualSwaps = Boolean(nextEncounter);
 
   const resolverContext = useMemo<BuilderResolverContext>(
@@ -90,15 +86,6 @@ export function useBuilderDerivedData(
     [resolverContext, store.currentTeam],
   );
 
-  const resolvedLibrary = useMemo(
-    () =>
-      store.pokemonLibrary.map((member) => ({
-        ...resolveTeamMember(member, resolverContext),
-        locked: member.locked,
-      })),
-    [resolverContext, store.pokemonLibrary],
-  );
-
   const resolvedCompareMembers = useMemo(
     () =>
       needsCompareResolution
@@ -107,52 +94,6 @@ export function useBuilderDerivedData(
           ) as [ResolvedTeamMember | undefined, ResolvedTeamMember | undefined])
         : ([undefined, undefined] as [ResolvedTeamMember | undefined, ResolvedTeamMember | undefined]),
     [needsCompareResolution, resolverContext, ui.compareMembers],
-  );
-
-  const emptyRecommendation = useMemo(
-    () => ({
-      notes: [
-        nextEncounter
-          ? `Tu run ya va por ${nextEncounter.label}. Las sugerencias curadas tempranas se desactivan para no mentirte.`
-          : "No hay un checkpoint soportado para capturas curadas en este punto del run.",
-      ],
-      availableSources: [],
-    }),
-    [nextEncounter],
-  );
-
-  const recommendation = useMemo(
-    () =>
-      needsCopilotAnalysis && copilotSupportsRecommendations
-        ? getRecommendation(
-            docs,
-            store.starter,
-            contextualMilestoneId,
-            store.currentTeam.map((member) => ({
-              species: member.species,
-              nickname: member.nickname,
-              locked: member.locked,
-              level: member.level,
-              gender: member.gender,
-              nature: member.nature,
-              ability: member.ability,
-              item: member.item,
-              moves: member.moves,
-            })),
-            store.recommendationFilters,
-          )
-        : emptyRecommendation,
-    [
-      contextualMilestoneId,
-      copilotSupportsRecommendations,
-      docs,
-      emptyRecommendation,
-      needsCopilotAnalysis,
-      nextEncounter,
-      store.currentTeam,
-      store.recommendationFilters,
-      store.starter,
-    ],
   );
 
   const coverage = useMemo(
@@ -181,16 +122,6 @@ export function useBuilderDerivedData(
     [needsTeamCore, resolvedTeam],
   );
 
-  const threats = useMemo(
-    () =>
-      needsTeamCore
-        ? buildThreatSummary(resolvedTeam.filter((member) => member.species))
-            .filter((entry) => entry.weak > 0)
-            .slice(0, 6)
-        : [],
-    [needsTeamCore, resolvedTeam],
-  );
-
   const averageStats = useMemo(
     () =>
       needsTeamCore ? buildAverageStats(resolvedTeam.filter((member) => member.species)) : null,
@@ -211,32 +142,20 @@ export function useBuilderDerivedData(
     [contextualMilestoneId, needsTeamCore, resolvedTeam],
   );
 
-  const speedTiers = useMemo(
-    () =>
-      buildSpeedTierSnapshot({
-        checkpointId: contextualMilestoneId,
-        targetEncounterId: nextEncounter?.id,
-        team: needsCopilotAnalysis ? resolvedTeam : [],
-        pokemonIndex,
-        encounters: encounterCatalog,
-      }),
-    [
-      contextualMilestoneId,
-      encounterCatalog,
-      needsCopilotAnalysis,
-      nextEncounter?.id,
-      pokemonIndex,
-      resolvedTeam,
-    ],
-  );
-
   const editorMember = store.editorMemberId
     ? store.pokemonLibrary.find((member) => member.id === store.editorMemberId)
     : undefined;
 
-  const editorResolved = store.editorMemberId
-    ? resolvedLibrary.find((member) => member.key === store.editorMemberId)
-    : undefined;
+  const editorResolved = useMemo(() => {
+    if (!editorMember) {
+      return undefined;
+    }
+
+    return {
+      ...resolveTeamMember(editorMember, resolverContext),
+      locked: editorMember.locked,
+    };
+  }, [editorMember, resolverContext]);
 
   const editorEvolutionEligibility = useMemo(
     () =>
@@ -274,9 +193,19 @@ export function useBuilderDerivedData(
   }, [docs, needsCopilotAnalysis, nextEncounter?.order, store.recommendationFilters, store.starter]);
 
   const activeMovePickerMemberId = ui.movePickerState?.memberId ?? null;
-  const activeModalMember = activeMovePickerMemberId
-    ? resolvedLibrary.find((member) => member.key === activeMovePickerMemberId)
+  const activeMovePickerMember = activeMovePickerMemberId
+    ? store.pokemonLibrary.find((member) => member.id === activeMovePickerMemberId)
     : undefined;
+  const activeModalMember = useMemo(() => {
+    if (!activeMovePickerMember) {
+      return undefined;
+    }
+
+    return {
+      ...resolveTeamMember(activeMovePickerMember, resolverContext),
+      locked: activeMovePickerMember.locked,
+    };
+  }, [activeMovePickerMember, resolverContext]);
 
   const activeMember = store.activeMemberId
     ? resolvedTeam.find((member) => member.key === store.activeMemberId)
@@ -284,15 +213,17 @@ export function useBuilderDerivedData(
 
   const moveRecommendations = useMemo(
     () =>
-      getMoveRecommendations({
-        member: activeMember,
-        weather: store.battleWeather,
-        maxLevelDelta: 5,
-        uncoveredTypes: coverage
-          .filter((entry) => entry.multiplier <= 1)
-          .map((entry) => entry.defenseType),
-      }),
-    [activeMember, coverage, store.battleWeather],
+      needsTeamCore
+        ? getMoveRecommendations({
+            member: activeMember,
+            weather: store.battleWeather,
+            maxLevelDelta: 5,
+            uncoveredTypes: coverage
+              .filter((entry) => entry.multiplier <= 1)
+              .map((entry) => entry.defenseType),
+          })
+        : [],
+    [activeMember, coverage, needsTeamCore, store.battleWeather],
   );
 
   const swapOpportunities = useMemo(
@@ -347,20 +278,15 @@ export function useBuilderDerivedData(
   return {
     resolverContext,
     resolvedTeam,
-    resolvedLibrary,
     resolvedCompareMembers,
-    recommendation,
     contextualMilestoneId,
-    copilotSupportsRecommendations,
     supportsContextualSwaps,
     nextEncounter,
     coveredCoverage,
     uncoveredCoverage,
     defensiveSections,
-    threats,
     averageStats,
     checkpointRisk,
-    speedTiers,
     editorMember,
     editorResolved,
     editorEvolutionEligibility,
