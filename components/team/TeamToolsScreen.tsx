@@ -1,11 +1,13 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import {
   CompareWorkspaceSection,
   IvCalculatorSection,
 } from "@/components/team/LayoutSections";
+import { CompositionsSection } from "@/components/team/CollectionSections";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
 import {
   useTeamCatalogs,
@@ -16,10 +18,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createEditable } from "@/lib/builderStore";
 
-const TOOL_TABS = ["compare", "ivcalc"] as const;
+const TOOL_TABS = ["compare", "ivcalc", "compositions"] as const;
 type ToolTab = (typeof TOOL_TABS)[number];
 
 export function TeamToolsScreen() {
+  const searchParams = useSearchParams();
   const [toolTab, setToolTab] = useQueryState(
     "tool",
     parseAsStringEnum<ToolTab>([...TOOL_TABS]).withDefault("compare"),
@@ -28,6 +31,7 @@ export function TeamToolsScreen() {
   const catalogs = useTeamCatalogs();
   const team = useTeamRoster();
   const compare = useTeamCompare();
+  const speciesPrefill = searchParams.get("species") ?? "";
 
   if (!session.hydrated) {
     return <LoadingScreen />;
@@ -50,7 +54,7 @@ export function TeamToolsScreen() {
           onValueChange={(value) => setToolTab(value as ToolTab)}
           className="gap-0"
         >
-          <TabsList className="relative z-10 -mb-px grid w-full grid-cols-2 gap-1 bg-transparent p-0 sm:w-fit">
+          <TabsList className="relative z-10 -mb-px grid w-full grid-cols-3 gap-1 bg-transparent p-0 sm:w-fit">
             <TabsTrigger
               value="compare"
               className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
@@ -62,6 +66,12 @@ export function TeamToolsScreen() {
               className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
             >
               IV Calc
+            </TabsTrigger>
+            <TabsTrigger
+              value="compositions"
+              className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
+            >
+              Teams
             </TabsTrigger>
           </TabsList>
 
@@ -86,7 +96,22 @@ export function TeamToolsScreen() {
               <IvCalculatorSection
                 speciesCatalog={catalogs.speciesCatalog}
                 pokemonIndex={catalogs.pokemonIndex}
+                prefillSpecies={speciesPrefill}
                 onAddPreparedMember={(member) => team.actions.addPreparedMember(member)}
+              />
+            ) : null}
+          </TabsContent>
+
+          <TabsContent value="compositions" className="rounded-[0_1rem_1rem_1rem] p-0">
+            {toolTab === "compositions" ? (
+              <CompositionsSection
+                compositions={team.compositions}
+                activeCompositionId={team.activeCompositionId}
+                onCreateComposition={() => {
+                  team.actions.createComposition();
+                }}
+                onSelectComposition={team.actions.setActiveCompositionId}
+                onRenameComposition={team.actions.renameComposition}
               />
             ) : null}
           </TabsContent>

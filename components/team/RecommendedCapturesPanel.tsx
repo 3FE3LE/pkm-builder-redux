@@ -20,6 +20,7 @@ export function RecommendedCapturesPanel({
   speciesCatalog,
   showCaptures = true,
   showSwaps = true,
+  onSendToIvCalc,
 }: {
   teamSize: number;
   captureRecommendations: CaptureRecommendation[];
@@ -29,6 +30,7 @@ export function RecommendedCapturesPanel({
   speciesCatalog: { name: string; dex: number }[];
   showCaptures?: boolean;
   showSwaps?: boolean;
+  onSendToIvCalc?: (species: string) => void;
 }) {
   const shouldShowCaptures = showCaptures && teamSize < 6;
   const shouldShowSwaps = showSwaps && teamSize >= 5;
@@ -54,6 +56,7 @@ export function RecommendedCapturesPanel({
                       key={recommendation.id}
                       recommendation={recommendation}
                       dexNumber={dexByName[normalizeName(recommendation.species)]}
+                      onSendToIvCalc={onSendToIvCalc}
                     />
                   ))}
                 </AnimatePresence>
@@ -92,9 +95,11 @@ export function RecommendedCapturesPanel({
 function CaptureCard({
   recommendation,
   dexNumber,
+  onSendToIvCalc,
 }: {
   recommendation: CaptureRecommendation;
   dexNumber?: number;
+  onSendToIvCalc?: (species: string) => void;
 }) {
   const sprites = buildSpriteUrls(recommendation.species, dexNumber);
 
@@ -156,6 +161,21 @@ function CaptureCard({
             <TypeBadge key={`${recommendation.id}-${type}`} type={type} />
           ))}
         </div>
+
+        {onSendToIvCalc ? (
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => onSendToIvCalc(recommendation.species)}
+              aria-label={`Mandar ${recommendation.species} al IV Calc`}
+              className="group inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface-3 transition hover:border-primary-line-emphasis hover:bg-surface-4"
+            >
+              <span className="relative block h-5 w-5 rounded-full border border-[rgba(255,255,255,0.14)] bg-[linear-gradient(180deg,#d44b52_0%,#d44b52_46%,#1d2328_46%,#1d2328_54%,#f5f7fa_54%,#f5f7fa_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]">
+                <span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(17,24,28,0.75)] bg-white" />
+              </span>
+            </button>
+          </div>
+        ) : null}
       </div>
     </motion.article>
   );

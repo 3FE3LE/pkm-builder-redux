@@ -45,33 +45,27 @@ export function useBuilderModalActions({
       return;
     }
     const { memberId, slotIndex } = ui.movePickerState;
-    store.setCurrentTeam((items) =>
-      items.map((item) => {
-        if (item.id !== memberId) {
+    store.updateMember(memberId, (item) => {
+      if (slotIndex === null) {
+        if (item.moves.includes(moveName) || item.moves.length >= 4) {
           return item;
         }
+        return { ...item, moves: [...item.moves, moveName] };
+      }
 
-        if (slotIndex === null) {
-          if (item.moves.includes(moveName) || item.moves.length >= 4) {
-            return item;
-          }
-          return { ...item, moves: [...item.moves, moveName] };
-        }
+      const currentMove = item.moves[slotIndex];
+      const existsElsewhere = item.moves.some(
+        (existingMove, index) => existingMove === moveName && index !== slotIndex,
+      );
 
-        const currentMove = item.moves[slotIndex];
-        const existsElsewhere = item.moves.some(
-          (existingMove, index) => existingMove === moveName && index !== slotIndex,
-        );
+      if (!currentMove || existsElsewhere || currentMove === moveName) {
+        return item;
+      }
 
-        if (!currentMove || existsElsewhere || currentMove === moveName) {
-          return item;
-        }
-
-        const nextMoves = [...item.moves];
-        nextMoves[slotIndex] = moveName;
-        return { ...item, moves: nextMoves };
-      }),
-    );
+      const nextMoves = [...item.moves];
+      nextMoves[slotIndex] = moveName;
+      return { ...item, moves: nextMoves };
+    });
     closeMovePicker();
   }
 
@@ -83,7 +77,9 @@ export function useBuilderModalActions({
   }
 
   function requestEvolutionForMember(memberId: string) {
-    const memberResolved = derived.resolvedTeam.find((entry) => entry.key === memberId);
+    const memberResolved =
+      derived.resolvedLibrary.find((entry) => entry.key === memberId) ??
+      derived.resolvedTeam.find((entry) => entry.key === memberId);
     if (!memberResolved?.nextEvolutions?.length) {
       return;
     }
@@ -144,9 +140,7 @@ export function useBuilderModalActions({
 
     const memberId = ui.evolutionState.memberId;
     ui.setEvolvingIds((current) => ({ ...current, [memberId]: true }));
-    store.setCurrentTeam((items) =>
-      items.map((item) => (item.id === memberId ? { ...item, species } : item)),
-    );
+    store.updateMember(memberId, (item) => ({ ...item, species }));
     ui.setEvolutionState(null);
     window.setTimeout(() => {
       ui.setEvolvingIds((current) => ({ ...current, [memberId]: false }));

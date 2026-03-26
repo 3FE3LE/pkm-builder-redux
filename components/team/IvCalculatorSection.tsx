@@ -36,16 +36,31 @@ const ZERO_SPREAD = {
   spe: 0,
 } as const;
 
+function createEmptyObservedState(): IvObservedState {
+  return {
+    hp: "",
+    atk: "",
+    def: "",
+    spa: "",
+    spd: "",
+    spe: "",
+  };
+}
+
 export function IvCalculatorSection({
   speciesCatalog,
   pokemonIndex,
+  prefillSpecies = "",
   onAddPreparedMember,
 }: {
   speciesCatalog: { name: string; slug: string; dex: number; types: string[] }[];
   pokemonIndex: Record<string, RemotePokemon>;
+  prefillSpecies?: string;
   onAddPreparedMember: (
     member: EditableMember,
-  ) => { ok: true; reason: null } | { ok: false; reason: "full" | "duplicate" };
+  ) =>
+    | { ok: true; reason: null | "pc" }
+    | { ok: false; reason: "full" | "duplicate" };
 }) {
   const [species, setSpecies] = useState("");
   const [level, setLevel] = useState("5");
@@ -176,6 +191,14 @@ export function IvCalculatorSection({
     setAddFeedback(null);
   }, [species, level, nature, nickname, gender, observedStats]);
 
+  useEffect(() => {
+    if (!prefillSpecies.trim()) {
+      return;
+    }
+
+    setSpecies(prefillSpecies);
+  }, [prefillSpecies]);
+
   function handleAddToTeam() {
     if (!resolvedPokemon) {
       return;
@@ -204,8 +227,18 @@ export function IvCalculatorSection({
 
     setAddFeedback({
       tone: "success",
-      message: `${created.nickname || resolvedPokemon.name} se agrego al roster.`,
+      message:
+        result.reason === "pc"
+          ? `${created.nickname || resolvedPokemon.name} se guardo en la Caja / PC.`
+          : `${created.nickname || resolvedPokemon.name} se agrego al roster.`,
     });
+    setSpecies("");
+    setLevel("5");
+    setNature("Serious");
+    setNickname("");
+    setGender("unknown");
+    setShiny(false);
+    setObservedStats(createEmptyObservedState());
   }
 
   return (

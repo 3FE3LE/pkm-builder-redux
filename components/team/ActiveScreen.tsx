@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams, useSelectedLayoutSegment } from "next/navigation";
 import {
   closestCenter,
@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { AddMemberSheet, PcBoxSection } from "@/components/team/CollectionSections";
 import {
   CheckpointCopilotSection,
   TeamAnalysisSection,
@@ -33,6 +34,7 @@ import {
   useTeamSession,
 } from "@/components/BuilderProvider";
 import { milestones, starters } from "@/lib/builder";
+import { createEditable } from "@/lib/builderStore";
 
 const WORKSPACE_TABS = ["builder", "copilot"] as const;
 type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
@@ -47,6 +49,8 @@ export function ActiveScreen() {
     parseAsStringEnum<WorkspaceTab>([...WORKSPACE_TABS]).withDefault("builder"),
   );
   const [draggedMemberId, setDraggedMemberId] = useState<string | null>(null);
+  const [addMemberOpen, setAddMemberOpen] = useState(false);
+  const [pcPulseMemberId, setPcPulseMemberId] = useState<string | null>(null);
   const session = useTeamSession();
   const catalogs = useTeamCatalogs();
   const team = useTeamRoster();
@@ -54,6 +58,8 @@ export function ActiveScreen() {
   const compare = useTeamCompare();
   const evolution = useTeamEvolution();
   const editorOpen = pathname.startsWith("/team/pokemon/") || editorSegment !== null;
+  const pcSectionRef = useRef<HTMLElement | null>(null);
+  const previousPcIdsRef = useRef<string[]>([]);
 
   function buildTeamHref(nextPath: string) {
     const nextParams = new URLSearchParams(searchParams.toString());
@@ -113,6 +119,49 @@ export function ActiveScreen() {
   const starterMember = team.resolvedTeam.find((member) =>
     starterLine.includes(member.species),
   );
+  const activeCompositionName =
+    team.compositions.find((composition) => composition.id === team.activeCompositionId)?.name ??
+    "Roster del equipo";
+  const pcMembers = team.pcBoxIds
+    .map((memberId) => team.pokemonLibrary.find((member) => member.id === memberId))
+    .filter((member): member is (typeof team.pokemonLibrary)[number] => Boolean(member));
+
+  useEffect(() => {
+    const previousPcIds = previousPcIdsRef.current;
+    const nextPcIds = team.pcBoxIds;
+    const addedMemberId = nextPcIds.find((memberId) => !previousPcIds.includes(memberId)) ?? null;
+
+    if (addedMemberId) {
+      setPcPulseMemberId(addedMemberId);
+      window.setTimeout(() => setPcPulseMemberId((current) => (current === addedMemberId ? null : current)), 500);
+    }
+
+    previousPcIdsRef.current = nextPcIds;
+  }, [team.pcBoxIds]);
+
+  function handleCreateFromDex(species: string) {
+    const created = createEditable(species);
+    const result = team.actions.addPreparedMember(created);
+    if (!result.ok) {
+      return;
+    }
+
+    setAddMemberOpen(false);
+    router.push(buildTeamHref(`/team/pokemon/${created.id}`));
+  }
+
+  function handleReuseLibraryMember(memberId: string) {
+    const added = team.actions.addLibraryMemberToComposition(memberId);
+    if (!added) {
+      return;
+    }
+
+    setAddMemberOpen(false);
+  }
+
+  function openIvCalcForSpecies(species: string) {
+    router.push(`/team/tools?tool=ivcalc&species=${encodeURIComponent(species)}`);
+  }
 
   return (
     <main className="relative overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
@@ -136,6 +185,7 @@ export function ActiveScreen() {
           onDragEnd={handleWorkspaceDragEnd}
         >
           <TeamRosterSection
+            compositionName={activeCompositionName}
             currentTeam={team.currentTeam}
             resolvedTeam={team.resolvedTeam}
             roleSnapshot={analysis.checkpointRisk.roleSnapshot}
@@ -161,13 +211,17 @@ export function ActiveScreen() {
               team.actions.clearSelection();
             }}
             onRemoveMember={(id) => {
-              team.actions.removeMember(id);
+              const moved = team.actions.removeMember(id);
+              if (!moved) {
+                return;
+              }
+
+              window.setTimeout(() => {
+                pcSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }, 120);
             }}
             onAddMember={() => {
-              const memberId = team.actions.addMember();
-              if (memberId) {
-                router.push(buildTeamHref(`/team/pokemon/${memberId}`));
-              }
+              setAddMemberOpen(true);
             }}
             onResetMember={(id, next) => {
               team.actions.updateMember(id, next);
@@ -210,6 +264,7 @@ export function ActiveScreen() {
                     captureRecommendations={analysis.captureRecommendations}
                     nextEncounter={analysis.nextEncounter}
                     speciesCatalog={catalogs.speciesCatalog}
+                    onSendCaptureToIvCalc={openIvCalcForSpecies}
                   />
                 ) : null}
               </TabsContent>
@@ -236,11 +291,21 @@ export function ActiveScreen() {
                     itemCatalog={catalogs.itemCatalog}
                     starterKey={session.starter}
                     onToggleEncounter={session.actions.toggleEncounterCompleted}
+                    onSendCaptureToIvCalc={openIvCalcForSpecies}
                   />
                 ) : null}
               </TabsContent>
             </Tabs>
           </section>
+          <AddMemberSheet
+            open={addMemberOpen}
+            libraryMembers={team.pokemonLibrary}
+            activeTeamIds={team.currentTeam.map((member) => member.id)}
+            speciesCatalog={catalogs.speciesCatalog}
+            onClose={() => setAddMemberOpen(false)}
+            onPickLibraryMember={handleReuseLibraryMember}
+            onCreateFromDex={handleCreateFromDex}
+          />
           <DragOverlay>
             {draggedMember ? (
               <motion.div
@@ -266,6 +331,23 @@ export function ActiveScreen() {
             ) : null}
           </DragOverlay>
         </DndContext>
+
+        <section ref={pcSectionRef} className="mt-4">
+          <PcBoxSection
+            members={pcMembers}
+            compositions={team.compositions}
+            activeCompositionId={team.activeCompositionId}
+            speciesCatalog={catalogs.speciesCatalog}
+            pulseMemberId={pcPulseMemberId}
+            onOpenEditor={(memberId) => {
+              team.actions.editMember(memberId);
+              router.push(buildTeamHref(`/team/pokemon/${memberId}`));
+            }}
+            onAssignToComposition={(memberId, compositionId) => {
+              team.actions.addLibraryMemberToComposition(memberId, compositionId);
+            }}
+          />
+        </section>
 
         <AnimatePresence>
           {evolution.state ? (

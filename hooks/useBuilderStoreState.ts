@@ -15,6 +15,12 @@ export function useBuilderStoreState() {
   );
   const battleWeather = useBuilderStore((state) => state.run.preferences.battleWeather);
   const milestoneId = useBuilderStore((state) => state.run.progress.milestoneId);
+  const pokemonLibrary = useBuilderStore((state) => state.run.roster.pokemonLibrary);
+  const compositions = useBuilderStore((state) => state.run.roster.compositions);
+  const activeCompositionId = useBuilderStore(
+    (state) => state.run.roster.activeCompositionId,
+  );
+  const pcBoxIds = useBuilderStore((state) => state.run.roster.pcBoxIds);
   const currentTeam = useBuilderStore((state) => state.run.roster.currentTeam);
   const activeMemberId = useBuilderStore((state) => state.run.roster.activeMemberId);
   const editorMemberId = useBuilderStore((state) => state.run.roster.editorMemberId);
@@ -27,6 +33,15 @@ export function useBuilderStoreState() {
   const setMilestoneId = useBuilderStore((state) => state.setMilestoneId);
   const setCurrentTeam = useBuilderStore((state) => state.setCurrentTeam);
   const updateMember = useBuilderStore((state) => state.updateMember);
+  const createComposition = useBuilderStore((state) => state.createComposition);
+  const renameComposition = useBuilderStore((state) => state.renameComposition);
+  const setActiveCompositionId = useBuilderStore((state) => state.setActiveCompositionId);
+  const addLibraryMemberToComposition = useBuilderStore(
+    (state) => state.addLibraryMemberToComposition,
+  );
+  const saveMemberToPc = useBuilderStore((state) => state.saveMemberToPc);
+  const moveMemberToPc = useBuilderStore((state) => state.moveMemberToPc);
+  const restoreMemberFromPc = useBuilderStore((state) => state.restoreMemberFromPc);
   const setActiveMemberId = useBuilderStore((state) => state.setActiveMemberId);
   const setEditorMemberId = useBuilderStore((state) => state.setEditorMemberId);
   const setEvolutionConstraint = useBuilderStore((state) => state.setEvolutionConstraint);
@@ -44,6 +59,10 @@ export function useBuilderStoreState() {
     recommendationFilters,
     battleWeather,
     milestoneId,
+    pokemonLibrary,
+    compositions,
+    activeCompositionId,
+    pcBoxIds,
     currentTeam,
     activeMemberId,
     editorMemberId,
@@ -54,6 +73,13 @@ export function useBuilderStoreState() {
     setMilestoneId,
     setCurrentTeam,
     updateMember,
+    createComposition,
+    renameComposition,
+    setActiveCompositionId,
+    addLibraryMemberToComposition,
+    saveMemberToPc,
+    moveMemberToPc,
+    restoreMemberFromPc,
     setActiveMemberId,
     setEditorMemberId,
     setEvolutionConstraint,

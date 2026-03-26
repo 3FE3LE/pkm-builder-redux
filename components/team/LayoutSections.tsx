@@ -112,6 +112,7 @@ export function BuilderHeader({
 }
 
 export function TeamRosterSection({
+  compositionName,
   currentTeam,
   resolvedTeam,
   roleSnapshot,
@@ -132,6 +133,7 @@ export function TeamRosterSection({
   onClearSelection,
   onCloseEditor,
 }: {
+  compositionName?: string;
   currentTeam: EditableMember[];
   resolvedTeam: ResolvedTeamMember[];
   roleSnapshot: TeamRoleSnapshot;
@@ -293,7 +295,7 @@ export function TeamRosterSection({
 
             setDeleteOpen(true);
           }}
-          aria-label={showCloseDockAction ? "Cerrar menu flotante" : "Eliminar slot seleccionado"}
+          aria-label={showCloseDockAction ? "Cerrar menu flotante" : "Mandar Pokemon seleccionado a caja"}
           className={clsx(buttonClass, "border-danger-line text-danger hover:bg-danger-fill")}
         >
           <X className={iconClass} />
@@ -322,9 +324,11 @@ export function TeamRosterSection({
   return (
     <section className="space-y-2">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="display-face text-sm text-accent">Roster del equipo</p>
+            <p className="display-face text-sm text-accent">
+              {compositionName?.trim() || "Roster del equipo"}
+            </p>
           </div>
         </div>
         <div className="hidden md:block" />
@@ -529,12 +533,12 @@ export function TeamRosterSection({
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
               className="panel-strong w-full max-w-md rounded-[1rem] p-5"
             >
-              <p className="display-face text-sm text-danger">Eliminar slot</p>
+              <p className="display-face text-sm text-danger">Mandar a caja</p>
               <p className="mt-2 text-sm text-muted">
-                Vas a eliminar a {selectedMember.nickname || selectedMember.species || "este Pokemon"} del roster.
+                Vas a sacar a {selectedMember.nickname || selectedMember.species || "este Pokemon"} del roster activo.
               </p>
               <p className="mt-1 text-sm text-muted">
-                Esta accion es permanente para el slot actual.
+                El Pokemon seguira guardado en tu PC para reusarlo despues.
               </p>
               <div className="mt-5 flex justify-end gap-2">
                 <Button type="button" variant="ghost" onClick={() => setDeleteOpen(false)}>
@@ -549,7 +553,7 @@ export function TeamRosterSection({
                     setDeleteOpen(false);
                   }}
                 >
-                  Eliminar
+                  Mandar a caja
                 </Button>
               </div>
             </motion.div>
@@ -582,6 +586,7 @@ export function TeamAnalysisSection({
   captureRecommendations,
   nextEncounter,
   speciesCatalog,
+  onSendCaptureToIvCalc,
 }: {
   averageStats: ReturnType<typeof import("@/lib/teamAnalysis").buildAverageStats> | null;
   coveredCoverage: {
@@ -598,6 +603,7 @@ export function TeamAnalysisSection({
   captureRecommendations: CaptureRecommendation[];
   nextEncounter: RunEncounterDefinition | null;
   speciesCatalog: { name: string; dex: number }[];
+  onSendCaptureToIvCalc?: (species: string) => void;
 }) {
   return (
     <section className="space-y-2">
@@ -611,6 +617,7 @@ export function TeamAnalysisSection({
         nextEncounter={nextEncounter}
         speciesCatalog={speciesCatalog}
         showSwaps={false}
+        onSendToIvCalc={onSendCaptureToIvCalc}
       />
       <div className="grid gap-3 xl:grid-cols-2">
         <CoveragePanel
@@ -643,6 +650,7 @@ export function CheckpointCopilotSection({
   itemCatalog,
   starterKey,
   onToggleEncounter,
+  onSendCaptureToIvCalc,
 }: {
   activeMember?: ResolvedTeamMember;
   teamSize: number;
@@ -663,6 +671,7 @@ export function CheckpointCopilotSection({
   itemCatalog: { name: string; effect?: string; sprite?: string | null }[];
   starterKey: StarterKey;
   onToggleEncounter: (id: string) => void;
+  onSendCaptureToIvCalc?: (species: string) => void;
 }) {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [timelineHeight, setTimelineHeight] = useState<number | null>(null);
@@ -719,6 +728,7 @@ export function CheckpointCopilotSection({
             nextEncounter={nextEncounter}
             speciesCatalog={speciesCatalog}
             showCaptures={false}
+            onSendToIvCalc={onSendCaptureToIvCalc}
           />
         </div>
         <aside className="hidden xl:block">

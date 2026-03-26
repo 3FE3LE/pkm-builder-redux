@@ -13,6 +13,12 @@ type RunEditableMember = SuggestionInput & {
   evs: StatSpread;
 };
 
+export type RunCompositionState = {
+  id: string;
+  name: string;
+  memberIds: string[];
+};
+
 export type RunFlagState = Record<string, boolean>;
 export type EvolutionConstraintKey = "level" | "gender" | "timeOfDay";
 export type EvolutionConstraintState = Record<EvolutionConstraintKey, boolean>;
@@ -42,6 +48,10 @@ export type RunProgressState = {
 };
 
 export type RunRosterState = {
+  pokemonLibrary: RunEditableMember[];
+  compositions: RunCompositionState[];
+  activeCompositionId: string | null;
+  pcBoxIds: string[];
   currentTeam: RunEditableMember[];
   activeMemberId: string | null;
   editorMemberId: string | null;
@@ -62,6 +72,8 @@ export type RunState = {
 export const DEFAULT_MILESTONE_ID = "floccesy";
 
 export function createEmptyRunState(): RunState {
+  const defaultComposition = createDefaultComposition();
+
   return {
     started: false,
     starter: "snivy",
@@ -81,6 +93,10 @@ export function createEmptyRunState(): RunState {
       battleWeather: "clear",
     },
     roster: {
+      pokemonLibrary: [],
+      compositions: [defaultComposition],
+      activeCompositionId: defaultComposition.id,
+      pcBoxIds: [],
       currentTeam: [],
       activeMemberId: null,
       editorMemberId: null,
@@ -106,6 +122,8 @@ export function createStartedRunState(
   starter: StarterKey,
   lead: RunEditableMember,
 ): RunState {
+  const defaultComposition = createDefaultComposition([lead.id]);
+
   return {
     started: true,
     starter,
@@ -125,6 +143,10 @@ export function createStartedRunState(
       battleWeather: "clear",
     },
     roster: {
+      pokemonLibrary: [lead],
+      compositions: [defaultComposition],
+      activeCompositionId: defaultComposition.id,
+      pcBoxIds: [],
       currentTeam: [lead],
       activeMemberId: lead.id,
       editorMemberId: lead.id,
@@ -143,5 +165,13 @@ export function createStartedRunState(
       achievements: [],
       flags: {},
     },
+  };
+}
+
+function createDefaultComposition(memberIds: string[] = []): RunCompositionState {
+  return {
+    id: crypto.randomUUID(),
+    name: "Main Team",
+    memberIds,
   };
 }

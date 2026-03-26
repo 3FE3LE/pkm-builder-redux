@@ -30,12 +30,16 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
   const editorNonce = searchParams.get("editorNonce") ?? "";
 
   const member = useMemo(
-    () => team.currentTeam.find((entry) => entry.id === memberId),
-    [memberId, team.currentTeam],
+    () =>
+      team.currentTeam.find((entry) => entry.id === memberId) ??
+      team.pokemonLibrary.find((entry) => entry.id === memberId),
+    [memberId, team.currentTeam, team.pokemonLibrary],
   );
   const resolved = useMemo(
-    () => team.resolvedTeam.find((entry) => entry.key === memberId),
-    [memberId, team.resolvedTeam],
+    () =>
+      team.resolvedTeam.find((entry) => entry.key === memberId) ??
+      (team.editorMemberId === memberId ? team.editorResolved : undefined),
+    [memberId, team.editorMemberId, team.editorResolved, team.resolvedTeam],
   );
   const editorEvolutionEligibility = useMemo(
     () =>
@@ -115,9 +119,7 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
       movePickerSlotIndex={movePicker.slotIndex}
       movePickerTab={movePicker.tab}
       movePickerActiveMember={movePicker.activeMember}
-      currentMoves={
-        team.currentTeam.find((entry) => entry.id === movePicker.memberId)?.moves ?? []
-      }
+      currentMoves={member.moves}
       onMovePickerTabChange={movePicker.actions.setTab}
       onCloseMovePicker={movePicker.actions.close}
       onPickMove={movePicker.actions.pickMove}

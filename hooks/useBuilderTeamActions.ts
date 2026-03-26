@@ -52,12 +52,10 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
   }
 
   function removeMember(memberId: string) {
-    const nextItems = store.currentTeam.filter((item) => item.id !== memberId);
-    if (nextItems.length === store.currentTeam.length || !nextItems.length) {
-      return;
+    const moved = store.moveMemberToPc(memberId);
+    if (!moved) {
+      return false;
     }
-
-    store.setCurrentTeam(nextItems);
 
     if (store.activeMemberId === memberId) {
       store.setActiveMemberId(null);
@@ -67,6 +65,8 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
       store.setEditorMemberId(null);
       ui.setEditorMoveSelection(null);
     }
+
+    return true;
   }
 
   function addMember() {
@@ -92,7 +92,10 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
 
   function addPreparedMember(member: EditableMember) {
     if (getFilledRosterCount() >= MAX_ROSTER_SIZE) {
-      return { ok: false as const, reason: "full" as const };
+      const savedToPc = store.saveMemberToPc(member);
+      return savedToPc
+        ? { ok: true as const, reason: "pc" as const }
+        : { ok: false as const, reason: "full" as const };
     }
 
     if (hasDuplicateSpecies(member.species)) {
@@ -125,13 +128,10 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
   }
 
   function removeMoveFromMember(memberId: string, moveName: string) {
-    store.setCurrentTeam((items) =>
-      items.map((item) =>
-        item.id === memberId
-          ? { ...item, moves: item.moves.filter((move) => move !== moveName) }
-          : item,
-      ),
-    );
+    store.updateMember(memberId, (item) => ({
+      ...item,
+      moves: item.moves.filter((move) => move !== moveName),
+    }));
   }
 
   function removeMoveFromEditor(moveName: string) {
@@ -153,18 +153,10 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
       return;
     }
 
-    store.setCurrentTeam((items) =>
-      items.map((item) => {
-        if (item.id !== memberId) {
-          return item;
-        }
-
-        return {
-          ...item,
-          moves: item.moves.filter((_, moveIndex) => moveIndex !== index),
-        };
-      }),
-    );
+    store.updateMember(memberId, (item) => ({
+      ...item,
+      moves: item.moves.filter((_, moveIndex) => moveIndex !== index),
+    }));
     if (ui.editorMoveSelection === index) {
       ui.setEditorMoveSelection(null);
     }
@@ -182,27 +174,21 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
       return;
     }
 
-    store.setCurrentTeam((items) =>
-      items.map((item) => {
-        if (item.id !== memberId) {
-          return item;
-        }
+    store.updateMember(memberId, (item) => {
+      if (
+        fromIndex < 0 ||
+        toIndex < 0 ||
+        fromIndex >= item.moves.length ||
+        toIndex >= item.moves.length
+      ) {
+        return item;
+      }
 
-        if (
-          fromIndex < 0 ||
-          toIndex < 0 ||
-          fromIndex >= item.moves.length ||
-          toIndex >= item.moves.length
-        ) {
-          return item;
-        }
-
-        return {
-          ...item,
-          moves: arrayMove(item.moves, fromIndex, toIndex),
-        };
-      }),
-    );
+      return {
+        ...item,
+        moves: arrayMove(item.moves, fromIndex, toIndex),
+      };
+    });
     if (ui.editorMoveSelection === fromIndex) {
       ui.setEditorMoveSelection(toIndex);
     }

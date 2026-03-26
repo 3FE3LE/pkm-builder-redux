@@ -480,22 +480,26 @@ export function PokemonSprite({
   spriteUrl?: string;
   animatedSpriteUrl?: string;
   isEvolving?: boolean;
-  size?: "default" | "large";
+  size?: "small" | "default" | "large";
   chrome?: "framed" | "plain";
 }) {
   const [useAnimated, setUseAnimated] = useState(true);
   const hasAnimated = Boolean(animatedSpriteUrl);
   const source = hasAnimated && useAnimated ? animatedSpriteUrl : spriteUrl;
-  const imageSize = size === "large" ? 140 : 112;
+  const imageSize = size === "large" ? 140 : size === "small" ? 64 : 112;
 
   return (
     <div
       className={clsx(
         "relative flex shrink-0 items-center justify-center overflow-hidden",
         chrome === "framed"
-          ? "sprite-frame h-24 w-24 rounded-[0.875rem]"
+          ? size === "small"
+            ? "sprite-frame h-14 w-14 rounded-[0.75rem]"
+            : "sprite-frame h-24 w-24 rounded-[0.875rem]"
           : size === "large"
             ? "h-36 w-36 rounded-[1rem] bg-transparent"
+            : size === "small"
+              ? "h-14 w-14 rounded-[0.75rem] bg-transparent"
             : "h-24 w-24 rounded-[0.875rem] bg-transparent",
         isEvolving && "animate-[pulse_1.4s_ease-in-out_infinite]"
       )}

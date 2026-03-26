@@ -90,6 +90,15 @@ export function useBuilderDerivedData(
     [resolverContext, store.currentTeam],
   );
 
+  const resolvedLibrary = useMemo(
+    () =>
+      store.pokemonLibrary.map((member) => ({
+        ...resolveTeamMember(member, resolverContext),
+        locked: member.locked,
+      })),
+    [resolverContext, store.pokemonLibrary],
+  );
+
   const resolvedCompareMembers = useMemo(
     () =>
       needsCompareResolution
@@ -222,11 +231,11 @@ export function useBuilderDerivedData(
   );
 
   const editorMember = store.editorMemberId
-    ? store.currentTeam.find((member) => member.id === store.editorMemberId)
+    ? store.pokemonLibrary.find((member) => member.id === store.editorMemberId)
     : undefined;
 
   const editorResolved = store.editorMemberId
-    ? resolvedTeam.find((member) => member.key === store.editorMemberId)
+    ? resolvedLibrary.find((member) => member.key === store.editorMemberId)
     : undefined;
 
   const editorEvolutionEligibility = useMemo(
@@ -266,7 +275,7 @@ export function useBuilderDerivedData(
 
   const activeMovePickerMemberId = ui.movePickerState?.memberId ?? null;
   const activeModalMember = activeMovePickerMemberId
-    ? resolvedTeam.find((member) => member.key === activeMovePickerMemberId)
+    ? resolvedLibrary.find((member) => member.key === activeMovePickerMemberId)
     : undefined;
 
   const activeMember = store.activeMemberId
@@ -338,6 +347,7 @@ export function useBuilderDerivedData(
   return {
     resolverContext,
     resolvedTeam,
+    resolvedLibrary,
     resolvedCompareMembers,
     recommendation,
     contextualMilestoneId,
