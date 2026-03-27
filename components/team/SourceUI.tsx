@@ -159,51 +159,6 @@ function SourceCount({
   );
 }
 
-function SourceList({
-  title,
-  entries,
-  activeSpecies,
-}: {
-  title: string;
-  entries: string[];
-  activeSpecies?: string;
-}) {
-  const normalizedActive = normalizeName(activeSpecies ?? "");
-  const filtered = entries.filter(Boolean);
-
-  return (
-    <div className="rounded-[0.75rem] border border-line bg-surface-1 p-3">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <p className="display-face text-xs text-accent">{title}</p>
-        <SourceCount label="count" count={filtered.length} />
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {filtered.length ? (
-          filtered.map((entry, index) => {
-            const isActiveMatch =
-              normalizedActive && normalizeName(entry).includes(normalizedActive);
-            return (
-              <span
-                key={`${title}-${index}-${entry}`}
-                className={clsx(
-                  "rounded-[6px] border px-3 py-1 text-xs",
-                  isActiveMatch
-                    ? "border-primary-line-strong bg-primary-fill-strong text-primary-soft"
-                    : "border-line bg-surface-3 text-muted",
-                )}
-              >
-                {entry}
-              </span>
-            );
-          })
-        ) : (
-          <span className="text-sm text-muted">Nada registrado.</span>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export function AreaSourceCard({
   source,
   activeSpecies,

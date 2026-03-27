@@ -4,22 +4,43 @@ import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/components/team/EditorSections", () => ({
-  EditorHeader: () => <div>editor-header</div>,
+  EditorHeader: ({
+    hasEvolution,
+    evolutionBlockReason,
+  }: {
+    hasEvolution: boolean;
+    evolutionBlockReason?: string;
+  }) => <div>{`editor-header-${hasEvolution ? "evo" : evolutionBlockReason ?? "none"}`}</div>,
   EditorProfileSection: ({ updateEditorMember }: { updateEditorMember: (updater: (current: any) => any) => void }) => (
-    <button
-      type="button"
-      onClick={() =>
-        updateEditorMember((current) => ({
-          ...current,
-          species: "Lucario",
-          nickname: "Lucario",
-        }))
-      }
-    >
-      update-profile
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={() =>
+          updateEditorMember((current) => ({
+            ...current,
+            species: "Lucario",
+            nickname: "Lucario",
+          }))
+        }
+      >
+        update-profile
+      </button>
+      <button
+        type="button"
+        onClick={() =>
+          updateEditorMember((current) => ({
+            ...current,
+            level: 999,
+          }))
+        }
+      >
+        update-invalid
+      </button>
+    </>
   ),
-  EditorStatsSection: () => <div>stats-section</div>,
+  EditorStatsSection: ({ hasEvolution }: { hasEvolution: boolean }) => (
+    <div>{`stats-section-${hasEvolution ? "evo" : "no-evo"}`}</div>
+  ),
   EditorMovesSection: () => <div>moves-section</div>,
   EditorDefenseSection: () => <div>typing-section</div>,
 }));
@@ -30,7 +51,20 @@ vi.mock("@/components/team/MovePickerModal", () => ({
 
 vi.mock("@/components/ui/Sheet", () => ({
   Sheet: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
-  SheetContent: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
+  SheetContent: ({
+    children,
+    onRequestClose,
+  }: {
+    children?: ReactNode;
+    onRequestClose?: () => void;
+  }) => (
+    <div>
+      <button type="button" onClick={onRequestClose}>
+        request-close
+      </button>
+      {children}
+    </div>
+  ),
   SheetHeader: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   SheetTitle: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
 }));
@@ -90,17 +124,18 @@ describe("PokemonEditorSheet", () => {
   it("switches tabs, wires updates, and renders the picker only for the active member", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
+    const onOpenChange = vi.fn();
 
     render(
       <PokemonEditorSheet
         member={createMember() as never}
         open
-        resolved={{ species: "Riolu" } as never}
+        resolved={{ species: "Riolu", nextEvolutions: ["Lucario"] } as never}
         weather="clear"
         speciesCatalog={[]}
         abilityCatalog={[]}
         itemCatalog={[]}
-        onOpenChange={vi.fn()}
+        onOpenChange={onOpenChange}
         onChange={onChange}
         onOpenMoveModal={vi.fn()}
         onRemoveMoveAt={vi.fn()}
@@ -121,8 +156,10 @@ describe("PokemonEditorSheet", () => {
       />,
     );
 
-    expect(screen.getByText("stats-section")).toBeTruthy();
+    expect(screen.getByText("editor-header-evo")).toBeTruthy();
+    expect(screen.getByText("stats-section-evo")).toBeTruthy();
     expect(screen.getByText("move-picker-modal")).toBeTruthy();
+    expect(screen.getByText("Riolu")).toBeTruthy();
 
     await user.click(screen.getByRole("tab", { name: /moves/i }));
     expect(screen.getByText("moves-section")).toBeTruthy();
@@ -132,5 +169,53 @@ describe("PokemonEditorSheet", () => {
 
     await user.click(screen.getByRole("button", { name: /update-profile/i }));
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ species: "Lucario" }));
+
+    await user.click(screen.getByRole("button", { name: /update-invalid/i }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ level: 999 }));
+
+    await user.click(screen.getByRole("button", { name: /request-close/i }));
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("exposes a blocked evolution reason and falls back the title when nickname/species are missing", () => {
+    render(
+      <PokemonEditorSheet
+        member={{
+          ...createMember(),
+          species: "",
+          nickname: "   ",
+        } as never}
+        open
+        weather="clear"
+        speciesCatalog={[]}
+        abilityCatalog={[]}
+        itemCatalog={[]}
+        onOpenChange={vi.fn()}
+        onChange={vi.fn()}
+        onOpenMoveModal={vi.fn()}
+        onRemoveMoveAt={vi.fn()}
+        onReorderMove={vi.fn()}
+        onRequestEvolution={vi.fn()}
+        editorEvolutionEligibility={[
+          { eligible: false, reasons: ["Need stone", "Night only", "Ignored extra"] } as never,
+        ]}
+        selectedMoveIndex={null}
+        onSelectMoveIndex={vi.fn()}
+        movePickerMemberId="other-member"
+        movePickerSlotIndex={null}
+        movePickerTab="levelUp"
+        movePickerActiveMember={{ moves: [] } as never}
+        currentMoves={[]}
+        onMovePickerTabChange={vi.fn()}
+        onCloseMovePicker={vi.fn()}
+        onPickMove={vi.fn()}
+        getMoveSurfaceStyle={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByText("editor-header-Need stone · Night only")).toBeTruthy();
+    expect(screen.getByText("stats-section-no-evo")).toBeTruthy();
+    expect(screen.getByText("Pokemon pendiente")).toBeTruthy();
+    expect(screen.queryByText("move-picker-modal")).toBeNull();
   });
 });

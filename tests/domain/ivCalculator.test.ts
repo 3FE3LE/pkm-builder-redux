@@ -1,7 +1,7 @@
 import { test, assert } from "vitest";
 
 import { calculateEffectiveStats } from "../../lib/domain/battle";
-import { inferIvForObservedStat } from "../../lib/domain/ivCalculator";
+import { getRepresentativeIv, inferIvForObservedStat } from "../../lib/domain/ivCalculator";
 
 const MANTINE = {
   hp: 85,
@@ -56,4 +56,43 @@ test("returns no candidates when the observed value is outside the legal range",
   assert.deepEqual(result.candidates, []);
   assert.equal(result.minIv, null);
   assert.equal(result.maxIv, null);
+});
+
+test("returns an exact IV directly as the representative value", () => {
+  const result = inferIvForObservedStat({
+    baseStats: MANTINE,
+    level: 75,
+    nature: "Timid",
+    stat: "spe",
+    observed: calculateEffectiveStats(MANTINE, 75, "Timid", { spe: 31 }, {}).spe,
+  });
+
+  assert.equal(getRepresentativeIv(result), 31);
+});
+
+test("returns the midpoint of an inferred range when the IV is ambiguous", () => {
+  const result = inferIvForObservedStat({
+    baseStats: MANTINE,
+    level: 5,
+    nature: "Serious",
+    stat: "atk",
+    observed: calculateEffectiveStats(MANTINE, 5, "Serious", { atk: 7 }, {}).atk,
+  });
+
+  assert.equal(
+    getRepresentativeIv(result),
+    Math.round(((result.minIv ?? 0) + (result.maxIv ?? 0)) / 2),
+  );
+});
+
+test("returns zero as the representative value when no IV candidate exists", () => {
+  const result = inferIvForObservedStat({
+    baseStats: MANTINE,
+    level: 5,
+    nature: "Serious",
+    stat: "spd",
+    observed: 999,
+  });
+
+  assert.equal(getRepresentativeIv(result), 0);
 });

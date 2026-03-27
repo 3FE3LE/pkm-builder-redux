@@ -55,6 +55,12 @@ type AreaSource = ReturnType<typeof import("@/lib/builder").buildAreaSources>[nu
 
 type DefensiveSections = ReturnType<typeof import("@/lib/teamAnalysis").buildDefensiveSections>;
 type CompareMembers = import("@/hooks/types").CompareMembers;
+type DexPokemonDetail = {
+  category?: string | null;
+  height?: number | null;
+  weight?: number | null;
+  flavorText?: string | null;
+};
 
 function getDockTone(types: string[] = []) {
   const primary = TYPE_COLORS[types[0] ?? ""] ?? "hsl(165 83% 65%)";
@@ -371,7 +377,7 @@ export function TeamRosterSection({
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="overflow-hidden"
+                  className={clsx("overflow-hidden", selectedResolved && detailsOpen && "overflow-visible")}
                 >
                   <motion.div
                     initial={{ y: -10, scale: 0.96 }}
@@ -387,7 +393,7 @@ export function TeamRosterSection({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.97 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
-                          className="absolute bottom-full left-1/2 z-20 mb-3 w-[28rem] -translate-x-1/2"
+                          className="absolute bottom-full left-1/2 z-20 mb-3 w-full max-w-[28rem] -translate-x-1/2 px-3"
                         >
                           <SelectedMemberInsightCard
                             member={selectedResolved}
@@ -943,29 +949,6 @@ export function PreferencesSection({
   );
 }
 
-export function RunOpsSection({
-  activeMember,
-  sourceCards,
-  speciesCatalog,
-  itemCatalog,
-}: {
-  activeMember?: ResolvedTeamMember;
-  sourceCards: AreaSource[];
-  speciesCatalog: { name: string; dex: number }[];
-  itemCatalog: { name: string; effect?: string; sprite?: string | null }[];
-}) {
-  return (
-    <section className="space-y-2">
-      <CheckpointMapPanel
-        activeMember={activeMember}
-        sourceCards={sourceCards}
-        speciesCatalog={speciesCatalog}
-        itemCatalog={itemCatalog}
-      />
-    </section>
-  );
-}
-
 function SelectedMemberInsightCard({
   member,
   roleRecommendation,
@@ -979,9 +962,48 @@ function SelectedMemberInsightCard({
   starterLens: ReturnType<typeof buildMemberLens> | null;
   onClose: () => void;
 }) {
+  const [dexDetails, setDexDetails] = useState<DexPokemonDetail | null>(null);
+
+  useEffect(() => {
+    const species = member.species.trim();
+    if (!species) {
+      setDexDetails(null);
+      return;
+    }
+
+    const controller = new AbortController();
+    async function loadDexDetails() {
+      try {
+        const response = await fetch(`/api/dex?pokemon=${encodeURIComponent(species)}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          setDexDetails(null);
+          return;
+        }
+        const payload = (await response.json()) as DexPokemonDetail;
+        setDexDetails({
+          category: payload.category ?? null,
+          height: payload.height ?? null,
+          weight: payload.weight ?? null,
+          flavorText: payload.flavorText ?? null,
+        });
+      } catch {
+        if (!controller.signal.aborted) {
+          setDexDetails(null);
+        }
+      }
+    }
+
+    setDexDetails(null);
+    void loadDexDetails();
+
+    return () => controller.abort();
+  }, [member.species]);
+
   return (
-    <div className="rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
-      <div className="flex items-start justify-between gap-3">
+    <div className="max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
+      <div className="sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md">
         <div>
           <p className="display-face text-sm text-accent">Info del slot</p>
           <p className="mt-1 text-sm text-muted">
@@ -1003,6 +1025,22 @@ function SelectedMemberInsightCard({
       {roleRecommendation ? (
         <div className="mt-4">
           <RoleAxesCard role={roleRecommendation} compact />
+        </div>
+      ) : null}
+
+      {dexDetails?.category || dexDetails?.height || dexDetails?.weight || dexDetails?.flavorText ? (
+        <div className="mt-4">
+          <p className="display-face text-xs text-accent">Dex Notes</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-3">
+            {dexDetails?.category ? <StarterLensCard label="Categoria" value={dexDetails.category} /> : null}
+            {dexDetails?.height ? <StarterLensCard label="Altura" value={`${dexDetails.height.toFixed(1)} m`} /> : null}
+            {dexDetails?.weight ? <StarterLensCard label="Peso" value={`${dexDetails.weight.toFixed(1)} kg`} /> : null}
+          </div>
+          {dexDetails?.flavorText ? (
+            <p className="mt-3 rounded-[0.7rem] border border-line bg-surface-3 px-3 py-3 text-sm text-muted">
+              {dexDetails.flavorText}
+            </p>
+          ) : null}
         </div>
       ) : null}
 

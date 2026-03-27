@@ -1,4 +1,4 @@
-import { test, assert } from "vitest";
+import { test, assert, vi } from "vitest";
 
 import { buildAreaSources } from "../../lib/builder";
 import { buildCaptureRecommendations } from "../../lib/domain/contextualRecommendations";
@@ -427,4 +427,414 @@ test("filters checkpoint source cards by locked-type exclusions", () => {
   );
 
   assert.deepEqual(sources[0]?.encounters, ["Mareep (Grass)"]);
+});
+
+test("returns no contextual captures when there is no next encounter or the team is already full", () => {
+  assert.deepEqual(
+    buildCaptureRecommendations({
+      docs: BASE_DOCS,
+      team: [],
+      nextEncounter: null,
+      pokemonByName: POKEMON_INDEX,
+      moveIndex: MOVE_INDEX,
+      starter: "snivy",
+      filters: BASE_FILTERS,
+    }),
+    [],
+  );
+
+  assert.deepEqual(
+    buildCaptureRecommendations({
+      docs: BASE_DOCS,
+      team: [
+        buildResolvedMember("Snivy", false, ["Grass"]),
+        buildResolvedMember("Mareep", false, ["Electric"]),
+        buildResolvedMember("Bellsprout", false, ["Grass"]),
+        buildResolvedMember("Teddiursa", false, ["Normal", "Ground"]),
+        buildResolvedMember("Audino", false, ["Normal", "Fairy"]),
+        buildResolvedMember("Castform", false, ["Normal", "Fairy"]),
+      ],
+      nextEncounter: NEXT_ENCOUNTER,
+      pokemonByName: POKEMON_INDEX,
+      moveIndex: MOVE_INDEX,
+      starter: "snivy",
+      filters: BASE_FILTERS,
+    }),
+    [],
+  );
+});
+
+test("returns no contextual captures when no candidate source resolves to a known pokemon", () => {
+  const docs: ParsedDocs = {
+    ...BASE_DOCS,
+    gifts: [
+      {
+        name: "Mystery Egg",
+        location: "Floccesy Ranch",
+        level: "10",
+        notes: ["Contains something unknown."],
+      },
+    ],
+  };
+
+  const recommendations = buildCaptureRecommendations({
+    docs,
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  assert.deepEqual(recommendations, []);
+});
+
+test("returns no contextual captures when a known candidate cannot be projected", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [
+        {
+          name: "Statlessmon",
+          location: "Floccesy Ranch",
+          level: "10",
+          notes: [],
+        },
+      ],
+    },
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: {
+      ...POKEMON_INDEX,
+      statlessmon: {
+        id: 1001,
+        name: "Statlessmon",
+        types: ["Normal"],
+        abilities: ["Run Away"],
+        nextEvolutions: [],
+      } as RemotePokemon,
+    },
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  assert.deepEqual(recommendations, []);
+});
+
+test("prefers gift over trade and wild sources for the same species and can extract species from gift notes", () => {
+  const docs: ParsedDocs = {
+    ...BASE_DOCS,
+    gifts: [
+      {
+        name: "Mystery Egg",
+        location: "Floccesy Ranch",
+        level: "10",
+        notes: ["This gift contains Mareep."],
+      },
+    ],
+    trades: [
+      {
+        name: "Mareep Trade",
+        location: "Floccesy Ranch",
+        requested: "a Snivy",
+        received: "Mareep",
+        traits: [],
+      },
+    ],
+    wildAreas: [
+      {
+        area: "Floccesy Ranch",
+        methods: [
+          {
+            method: "Grass",
+            encounters: [{ species: "Mareep", level: "10" }],
+          },
+        ],
+      },
+    ],
+  };
+
+  const recommendations = buildCaptureRecommendations({
+    docs,
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  const mareep = recommendations.find((entry) => entry.species === "Mareep");
+  assert.ok(mareep);
+  assert.equal(mareep?.source, "Gift");
+  assert.equal(mareep?.area, "Floccesy Ranch");
+});
+
+test("can still recommend very weak projected candidates when they are the only valid source", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [
+        {
+          name: "Missingmon",
+          location: "Route 19",
+          level: "5",
+          notes: [],
+        },
+      ],
+    },
+    team: [],
+    nextEncounter: {
+      ...NEXT_ENCOUNTER,
+      order: 2,
+      label: "Cheren",
+    },
+    pokemonByName: {
+      ...POKEMON_INDEX,
+      missingmon: {
+        id: 999,
+        name: "Missingmon",
+        types: [],
+        abilities: [],
+        nextEvolutions: [],
+        stats: { hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1, bst: 6 },
+      },
+    },
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  assert.equal(recommendations[0]?.species, "Missingmon");
+  assert.equal(recommendations[0]?.source, "Gift");
+});
+
+test("allows exact-type duplicates when the duplicate filter is disabled", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [
+        {
+          name: "Bellsprout",
+          location: "Route 19",
+          level: "5",
+          notes: [],
+        },
+      ],
+    },
+    team: [
+      buildResolvedMember("Snivy", false, ["Grass"]),
+    ],
+    nextEncounter: {
+      ...NEXT_ENCOUNTER,
+      order: 2,
+      label: "Cheren",
+    },
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: {
+      ...BASE_FILTERS,
+      excludeExactTypeDuplicates: false,
+    },
+  });
+
+  const bellsprout = recommendations.find((entry) => entry.species === "Bellsprout");
+  assert.ok(bellsprout);
+  assert.equal(bellsprout?.delta.action, "add");
+});
+
+test("maps opening, virbank, and castelia checkpoints for contextual captures", () => {
+  const opening = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [{ name: "Mareep", location: "Route 19", level: "5", notes: [] }],
+    },
+    team: [],
+    nextEncounter: { ...NEXT_ENCOUNTER, order: 2 },
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+  const virbank = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [{ name: "Mareep", location: "Virbank City", level: "15", notes: [] }],
+    },
+    team: [],
+    nextEncounter: { ...NEXT_ENCOUNTER, order: 7 },
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+  const castelia = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [{ name: "Mareep", location: "Route 4", level: "18", notes: [] }],
+    },
+    team: [],
+    nextEncounter: { ...NEXT_ENCOUNTER, order: 12 },
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  assert.ok(opening.some((entry) => entry.species === "Mareep"));
+  assert.ok(virbank.some((entry) => entry.species === "Mareep"));
+  assert.ok(castelia.some((entry) => entry.species === "Mareep"));
+});
+
+test("skips sanitized empty species and ignores species already present after sanitizing", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      trades: [
+        {
+          name: "Broken trade",
+          location: "Floccesy Ranch",
+          requested: "anything",
+          received: "a .",
+          traits: [],
+        },
+        {
+          name: "Repeat Mareep",
+          location: "Floccesy Ranch",
+          requested: "anything",
+          received: "a Mareep.",
+          traits: [],
+        },
+      ],
+      gifts: [],
+    },
+    team: [buildResolvedMember("Mareep", false, ["Electric"])],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  assert.ok(!recommendations.some((entry) => entry.species === "."));
+  assert.ok(!recommendations.some((entry) => entry.species === "Mareep"));
+});
+
+test("falls back to resolved types when comparable type lookup hits missing or cyclic data", () => {
+  const pokemonByName: Record<string, RemotePokemon> = {
+    ...POKEMON_INDEX,
+    cycmon: {
+      id: 1000,
+      name: "Cycmon",
+      types: ["Bug"],
+      abilities: ["Shed Skin"],
+      nextEvolutions: ["Cycmon"],
+      stats: { hp: 60, atk: 60, def: 60, spa: 60, spd: 60, spe: 60, bst: 360 },
+      learnsets: {
+        levelUp: [{ level: 1, move: "Tackle" }],
+        machines: [],
+      },
+    },
+  };
+
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [
+        {
+          name: "Cycmon",
+          location: "Floccesy Ranch",
+          level: "10",
+          notes: [],
+        },
+      ],
+    },
+    team: [
+      {
+        key: "unknown-key",
+        species: "Unknownmon",
+        supportsGender: true,
+        locked: true,
+        resolvedTypes: ["Ghost"],
+        resolvedStats: { hp: 50, atk: 50, def: 50, spa: 50, spd: 50, spe: 50, bst: 300 },
+        summaryStats: { hp: 50, atk: 50, def: 50, spa: 50, spd: 50, spe: 50, bst: 300 },
+        effectiveStats: { hp: 50, atk: 50, def: 50, spa: 50, spd: 50, spe: 50, bst: 300 },
+        abilities: ["Pressure"],
+        moves: [],
+      },
+    ],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: {
+      ...BASE_FILTERS,
+      excludeExactTypeDuplicates: true,
+    },
+  });
+
+  const cycmon = recommendations.find((entry) => entry.species === "Cycmon");
+  assert.ok(cycmon);
+  assert.equal(cycmon?.candidateMember.resolvedTypes[0], "Bug");
+});
+
+test("drops add deltas that do not map back to a projected candidate member", async () => {
+  vi.resetModules();
+  vi.doMock("../../lib/domain/decisionDelta", async () => {
+    const actual = await vi.importActual<typeof import("../../lib/domain/decisionDelta")>("../../lib/domain/decisionDelta");
+    return {
+      ...actual,
+      buildDecisionDeltas: () => [
+        {
+          id: "ghost-id",
+          species: "Mareep",
+          source: "Gift",
+          reason: "Gift disponible en Floccesy Ranch",
+          role: "support",
+          canonicalRole: "support",
+          roleLabel: "support",
+          teamFitNote: "fit",
+          roleReason: "reason",
+          area: "Floccesy Ranch",
+          action: "add",
+          scoreDelta: 5,
+          riskDelta: 3,
+          projectedRisk: 4,
+          offenseDelta: 1,
+          defenseDelta: 1,
+          speedDelta: 1,
+          rolesDelta: 1,
+          consistencyDelta: 1,
+          gains: [],
+          losses: [],
+          projectedMoves: ["Thunder Shock"],
+        },
+      ],
+    };
+  });
+
+  try {
+    const { buildCaptureRecommendations: buildCaptureRecommendationsWithMock } = await import("../../lib/domain/contextualRecommendations");
+
+    const recommendations = buildCaptureRecommendationsWithMock({
+      docs: {
+        ...BASE_DOCS,
+        gifts: [{ name: "Mareep", location: "Floccesy Ranch", level: "10", notes: [] }],
+      },
+      team: [],
+      nextEncounter: NEXT_ENCOUNTER,
+      pokemonByName: POKEMON_INDEX,
+      moveIndex: MOVE_INDEX,
+      starter: "snivy",
+      filters: BASE_FILTERS,
+    });
+
+    assert.deepEqual(recommendations, []);
+  } finally {
+    vi.doUnmock("../../lib/domain/decisionDelta");
+    vi.resetModules();
+  }
 });

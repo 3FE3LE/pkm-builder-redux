@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -116,5 +116,149 @@ describe("EditorMovesSection", () => {
 
     await user.click(screen.getAllByText("Counter")[0]!);
     expect(onSelectMoveIndex).toHaveBeenCalledWith(null);
+  });
+
+  it("reorders moves through drag and drop and can select a different slot", () => {
+    const onReorderMove = vi.fn();
+    const onSelectMoveIndex = vi.fn();
+
+    render(
+      <EditorMovesSection
+        currentMoves={["Quick Attack", "Counter"]}
+        resolved={createResolved() as never}
+        selectedMoveIndex={1}
+        onSelectMoveIndex={onSelectMoveIndex}
+        onOpenMoveModal={vi.fn()}
+        onRemoveMoveAt={vi.fn()}
+        onReorderMove={onReorderMove}
+      />,
+    );
+
+    const quickAttackSlot = screen.getAllByText("Quick Attack")[0]!.closest("[draggable='true']");
+    const counterSlot = screen.getAllByText("Counter")[0]!.closest("[draggable='true']");
+    const dataTransfer = { effectAllowed: "" } as DataTransfer;
+
+    fireEvent.dragStart(quickAttackSlot!, { dataTransfer });
+    fireEvent.dragOver(counterSlot!);
+    fireEvent.drop(counterSlot!);
+    expect(onReorderMove).toHaveBeenCalledWith(0, 1);
+
+    fireEvent.click(quickAttackSlot!);
+    expect(onSelectMoveIndex).toHaveBeenCalledWith(0);
+  });
+
+  it("deletes a dragged selected move from the trash target", () => {
+    const onRemoveMoveAt = vi.fn();
+    const onSelectMoveIndex = vi.fn();
+
+    render(
+      <EditorMovesSection
+        currentMoves={["Quick Attack", "Counter"]}
+        resolved={createResolved() as never}
+        selectedMoveIndex={0}
+        onSelectMoveIndex={onSelectMoveIndex}
+        onOpenMoveModal={vi.fn()}
+        onRemoveMoveAt={onRemoveMoveAt}
+        onReorderMove={vi.fn()}
+      />,
+    );
+
+    const quickAttackSlot = screen.getAllByText("Quick Attack")[0]!.closest("[draggable='true']");
+    const trashTarget = screen.getByText(/drop to delete/i).closest("div");
+    const dataTransfer = { effectAllowed: "" } as DataTransfer;
+
+    fireEvent.dragStart(quickAttackSlot!, { dataTransfer });
+    fireEvent.dragOver(trashTarget!);
+    fireEvent.drop(trashTarget!);
+
+    expect(onRemoveMoveAt).toHaveBeenCalledWith(0);
+    expect(onSelectMoveIndex).toHaveBeenCalledWith(null);
+  });
+
+  it("keeps four visible empty slots and ignores trash drag events when nothing is being dragged", () => {
+    render(
+      <EditorMovesSection
+        currentMoves={[]}
+        resolved={{ moves: [] } as never}
+        selectedMoveIndex={null}
+        onSelectMoveIndex={vi.fn()}
+        onOpenMoveModal={vi.fn()}
+        onRemoveMoveAt={vi.fn()}
+        onReorderMove={vi.fn()}
+      />,
+    );
+
+    expect(screen.getAllByRole("button", { name: /empty move slot/i })).toHaveLength(4);
+
+    const trashTarget = screen.getByText(/drop to delete/i).closest("div");
+    fireEvent.dragOver(trashTarget!);
+  });
+
+  it("resets drop state on drag leave and hides optional move metadata when absent", () => {
+    render(
+      <EditorMovesSection
+        currentMoves={["Mystery Move", "Counter", "Tail Whip", "Growl"]}
+        resolved={
+          {
+            moves: [
+              {
+                name: "Mystery Move",
+                damageClass: "status",
+                power: null,
+                adjustedPower: null,
+                hasStab: false,
+              },
+              {
+                name: "Counter",
+                type: "Fighting",
+                damageClass: "physical",
+                power: null,
+                adjustedPower: null,
+                accuracy: 100,
+                pp: 20,
+                hasStab: true,
+                description: "Returns damage.",
+              },
+            ],
+          } as never
+        }
+        selectedMoveIndex={0}
+        onSelectMoveIndex={vi.fn()}
+        onOpenMoveModal={vi.fn()}
+        onRemoveMoveAt={vi.fn()}
+        onReorderMove={vi.fn()}
+      />,
+    );
+
+    expect(screen.queryByText("Acc 100%")).toBeNull();
+    expect(screen.queryByText(/^PP /)).toBeNull();
+    expect(screen.queryByText(/stab/i)).toBeNull();
+    expect(screen.queryByText(/fast strike/i)).toBeNull();
+    expect(screen.queryByText("Normal")).toBeNull();
+
+    const mysterySlot = screen.getAllByText("Mystery Move")[0]!.closest("[draggable='true']");
+    const counterSlot = screen.getAllByText("Counter")[0]!.closest("[draggable='true']");
+
+    fireEvent.dragStart(mysterySlot!, { dataTransfer: { effectAllowed: "" } as DataTransfer });
+    fireEvent.dragOver(counterSlot!);
+    fireEvent.dragLeave(counterSlot!);
+    fireEvent.dragEnd(mysterySlot!);
+  });
+
+  it("renders no details when the selected move index has no resolved move", () => {
+    render(
+      <EditorMovesSection
+        currentMoves={["Quick Attack"]}
+        resolved={{ moves: [] } as never}
+        selectedMoveIndex={0}
+        onSelectMoveIndex={vi.fn()}
+        onOpenMoveModal={vi.fn()}
+        onRemoveMoveAt={vi.fn()}
+        onReorderMove={vi.fn()}
+      />,
+    );
+
+    expect(screen.queryByRole("button", { name: /replace/i })).toBeNull();
+    expect(screen.queryByRole("button", { name: /^delete$/i })).toBeNull();
   });
 });

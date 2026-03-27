@@ -49,6 +49,10 @@ export type RemotePokemon = {
   types: string[];
   stats: Stats;
   abilities: string[];
+  category?: string | null;
+  height?: number | null;
+  weight?: number | null;
+  flavorText?: string | null;
   nextEvolutions?: string[];
   evolutionDetails?: RemoteEvolutionDetail[];
   learnsets?: {
@@ -122,6 +126,10 @@ export type ResolvedTeamMember = {
   shiny?: boolean;
   supportsGender: boolean;
   dexNumber?: number;
+  category?: string | null;
+  height?: number | null;
+  weight?: number | null;
+  flavorText?: string | null;
   spriteUrl?: string;
   animatedSpriteUrl?: string;
   resolvedTypes: string[];
@@ -493,6 +501,10 @@ export function resolvePokemonProfile(
     shiny,
     supportsGender: supportsPokemonGender(profile?.species ?? remote?.name ?? name),
     dexNumber,
+    category: remote?.category,
+    height: remote?.height,
+    weight: remote?.weight,
+    flavorText: remote?.flavorText,
     spriteUrl: sprites.spriteUrl,
     animatedSpriteUrl: sprites.animatedSpriteUrl,
     resolvedTypes: types,

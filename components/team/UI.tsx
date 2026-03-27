@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { ArrowDown, ArrowUp } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 
 import { TypeBadge } from "@/components/BuilderShared";
@@ -92,41 +91,6 @@ export function StatBar({
           100 bueno
         </span>
       </div>
-    </div>
-  );
-}
-
-export function MemberStatChip({
-  label,
-  value,
-  tone = "neutral",
-}: {
-  label: string;
-  value: number;
-  tone?: "up" | "down" | "neutral";
-}) {
-  return (
-    <div
-      className={clsx(
-        "rounded-[0.5rem] border px-3 py-2",
-        tone === "up"
-          ? "border-[rgba(94,240,203,0.35)] bg-[rgba(94,240,203,0.1)]"
-          : tone === "down"
-            ? "border-[rgba(255,143,143,0.3)] bg-[rgba(255,143,143,0.08)]"
-            : "border-line bg-surface-3",
-      )}
-    >
-      <div className="flex items-center justify-between gap-2">
-        <span className="display-face text-[10px] tracking-[0.12em] text-muted">{label}</span>
-        {tone === "up" ? (
-          <ArrowUp className="h-3.5 w-3.5 text-accent-soft" />
-        ) : tone === "down" ? (
-          <ArrowDown className="h-3.5 w-3.5 text-danger-soft" />
-        ) : (
-          <span className="text-[10px] text-muted">·</span>
-        )}
-      </div>
-      <p className="mono-face mt-2 text-lg text-text">{value}</p>
     </div>
   );
 }
@@ -344,32 +308,6 @@ export function StatCard({ label, value }: { label: string; value: string }) {
     <article className="rounded-[0.75rem] border border-line bg-surface-3 p-4">
       <p className="display-face text-xs text-muted">{label}</p>
       <p className="mono-face mt-3 text-3xl text-accent">{value}</p>
-    </article>
-  );
-}
-
-export function DefensiveSectionCard({
-  title,
-  items,
-}: {
-  title: string;
-  items: { type: string; count: number }[];
-}) {
-  const filtered = items.filter((item) => item.count > 0);
-  return (
-    <article className="rounded-[0.75rem] border border-line p-4">
-      <div className="flex items-center justify-between gap-3">
-        <p className="display-face text-sm">{title}</p>
-      </div>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {filtered.length ? (
-          filtered.map((item) => (
-            <TypeBadge key={`${title}-${item.type}`} type={item.type} trailing={item.count} />
-          ))
-        ) : (
-          <span className="text-sm text-muted">Sin tipos en esta categoría.</span>
-        )}
-      </div>
     </article>
   );
 }

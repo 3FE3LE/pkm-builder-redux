@@ -6,10 +6,6 @@ import type { EditableMember } from "@/lib/builderStore";
 
 export type BuilderDataProps = {
   docs: ParsedDocs;
-  moveHighlights: {
-    move: string;
-    changes: string[];
-  }[];
   speciesOptions: string[];
   speciesCatalog: {
     name: string;

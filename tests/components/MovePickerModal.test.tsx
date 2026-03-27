@@ -198,4 +198,113 @@ describe("MovePickerModal", () => {
     await user.click(screen.getByRole("button", { name: /close move picker/i }));
     expect(onClose).toHaveBeenCalled();
   });
+
+  it("disables adding a new move when the set is already full and marks already picked moves", async () => {
+    const user = userEvent.setup();
+    const onPickMove = vi.fn();
+
+    render(
+      <MovePickerModal
+        member={
+          {
+            item: "",
+            ability: "",
+            itemDetails: null,
+            abilityDetails: null,
+            resolvedTypes: ["Grass"],
+            learnsets: {
+              levelUp: [
+                {
+                  level: 1,
+                  move: "Tackle",
+                  details: {
+                    name: "Tackle",
+                    type: "Normal",
+                    damageClass: "physical",
+                    power: 40,
+                    accuracy: 100,
+                    pp: 35,
+                    description: "A tackle.",
+                  },
+                },
+                {
+                  level: 5,
+                  move: "Leaf Tornado",
+                  details: {
+                    name: "Leaf Tornado",
+                    type: "Grass",
+                    damageClass: "special",
+                    power: 65,
+                    accuracy: 90,
+                    pp: 10,
+                    description: "A twisting leaf storm.",
+                  },
+                },
+              ],
+              machines: [],
+            },
+          } as never
+        }
+        currentMoves={["Tackle", "Growl", "Vine Whip", "Wrap"]}
+        slotIndex={null}
+        tab="levelUp"
+        weather="clear"
+        onTabChange={() => {}}
+        onClose={() => {}}
+        onPickMove={onPickMove}
+        getMoveSurfaceStyle={() => undefined}
+      />,
+    );
+
+    expect(screen.getByText("picked")).toBeTruthy();
+    expect(screen.getByRole("button", { name: /leaf tornado/i }).hasAttribute("disabled")).toBe(true);
+    await user.click(screen.getByRole("button", { name: /leaf tornado/i }));
+    expect(onPickMove).not.toHaveBeenCalled();
+  });
+
+  it("shows weather-adjusted power and current label for the replaced move", () => {
+    render(
+      <MovePickerModal
+        member={
+          {
+            item: "Charcoal",
+            ability: "Blaze",
+            itemDetails: { effect: "Boosts the power of Fire-type moves by 20%." },
+            abilityDetails: { effect: "Powers up Fire-type moves when in trouble." },
+            resolvedTypes: ["Fire"],
+            learnsets: {
+              levelUp: [
+                {
+                  level: 1,
+                  move: "Weather Ball",
+                  details: {
+                    name: "Weather Ball",
+                    type: "Normal",
+                    damageClass: "special",
+                    power: 50,
+                    accuracy: 100,
+                    pp: 10,
+                    description: "Changes with the weather.",
+                  },
+                },
+              ],
+              machines: [],
+            },
+          } as never
+        }
+        currentMoves={["Weather Ball", "Smokescreen"]}
+        slotIndex={0}
+        tab="levelUp"
+        weather="sun"
+        onTabChange={() => {}}
+        onClose={() => {}}
+        onPickMove={() => {}}
+        getMoveSurfaceStyle={() => undefined}
+      />,
+    );
+
+    expect(screen.getByText("current")).toBeTruthy();
+    expect(screen.getByText("100→180")).toBeTruthy();
+    expect(screen.getByRole("button", { name: /weather ball/i }).getAttribute("aria-pressed")).toBe("true");
+  });
 });

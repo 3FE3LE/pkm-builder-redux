@@ -12,7 +12,7 @@ import { useBuilderDerivedData } from "@/hooks/useBuilderDerivedData";
 import { useBuilderStoreState } from "@/hooks/useBuilderStoreState";
 import { useBuilderUiState } from "@/hooks/useBuilderUiState";
 
-export function getSingleTypeSurface(type?: string | null) {
+function getSingleTypeSurface(type?: string | null) {
   const color = TYPE_COLORS[type ?? "Normal"] ?? "hsl(169 37% 68%)";
 
   return {
@@ -22,7 +22,6 @@ export function getSingleTypeSurface(type?: string | null) {
 
 export function useBuilderController({
   docs,
-  moveHighlights,
   speciesOptions,
   speciesCatalog,
   moveIndex,
@@ -32,7 +31,6 @@ export function useBuilderController({
 }: BuilderDataProps) {
   const data = {
     docs,
-    moveHighlights,
     speciesOptions,
     speciesCatalog,
     moveIndex,
@@ -83,7 +81,6 @@ export function useBuilderController({
   const catalogs = useMemo(
     () => ({
       docs,
-      moveHighlights,
       speciesOptions,
       speciesCatalog,
       pokemonIndex,
@@ -93,7 +90,6 @@ export function useBuilderController({
     }),
     [
       docs,
-      moveHighlights,
       speciesOptions,
       speciesCatalog,
       pokemonIndex,

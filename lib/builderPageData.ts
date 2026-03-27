@@ -9,6 +9,11 @@ import {
 import type { RemoteMove, RemotePokemon } from "@/lib/teamAnalysis";
 import { getWorldData } from "@/lib/worldData";
 
+function stripPokemonDexNotes(entry: RemotePokemon): RemotePokemon {
+  const { category: _category, height: _height, weight: _weight, flavorText: _flavorText, ...rest } = entry;
+  return rest;
+}
+
 export function getBuilderPageData() {
   const docs = parseDocumentation() as ReturnType<typeof parseDocumentation> & {
     worldData: ReturnType<typeof getWorldData>;
@@ -17,7 +22,12 @@ export function getBuilderPageData() {
 
   const speciesCatalog = getLocalSpeciesList();
   const moveIndex = getLocalMoveIndex() as Record<string, RemoteMove>;
-  const pokemonIndex = getLocalPokemonIndex() as Record<string, RemotePokemon>;
+  const pokemonIndex = Object.fromEntries(
+    Object.entries(getLocalPokemonIndex() as Record<string, RemotePokemon>).map(([key, entry]) => [
+      key,
+      stripPokemonDexNotes(entry),
+    ]),
+  ) as Record<string, RemotePokemon>;
   const speciesOptions = speciesCatalog.map((entry) => entry.name);
   const abilityCatalog = Object.values(
     getLocalAbilityIndex() as Record<string, { name: string; effect?: string }>,
@@ -28,18 +38,9 @@ export function getBuilderPageData() {
       { name: string; effect?: string; sprite?: string | null }
     >,
   ).sort((left, right) => left.name.localeCompare(right.name));
-  const moveHighlights = docs.moveDetails.slice(0, 12).map((move) => ({
-    move: move.move,
-    changes: move.changes.slice(0, 2).map((change) =>
-      change.from
-        ? `${change.field}: ${change.from} -> ${change.to}${change.tag ? ` ${change.tag}` : ""}`
-        : change.to,
-    ),
-  }));
 
   return {
     docs,
-    moveHighlights,
     speciesOptions,
     speciesCatalog,
     moveIndex,

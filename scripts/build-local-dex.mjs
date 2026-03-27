@@ -29,6 +29,17 @@ function formatName(value) {
     .join(" ");
 }
 
+function pickEnglishGenus(speciesPayload) {
+  return speciesPayload.genera?.find((entry) => entry.language.name === "en")?.genus ?? null;
+}
+
+function pickEnglishFlavorText(speciesPayload) {
+  const rawText =
+    speciesPayload.flavor_text_entries?.find((entry) => entry.language.name === "en")?.flavor_text ?? "";
+  const cleaned = rawText.replace(/[\f\n\r]+/g, " ").replace(/\s+/g, " ").trim();
+  return cleaned || null;
+}
+
 function parsePokemonChanges(text) {
   const blocks = text
     .replace(/\r/g, "")
@@ -182,6 +193,10 @@ async function buildPokemonEntry(entry) {
       name: formatName(entry.species),
       slug: entry.slug,
       types: payload.types.map((item) => formatName(item.type.name)),
+      category: pickEnglishGenus(speciesPayload),
+      height: typeof payload.height === "number" ? payload.height / 10 : null,
+      weight: typeof payload.weight === "number" ? payload.weight / 10 : null,
+      flavorText: pickEnglishFlavorText(speciesPayload),
       stats: {
         hp: payload.stats[0].base_stat,
         atk: payload.stats[1].base_stat,

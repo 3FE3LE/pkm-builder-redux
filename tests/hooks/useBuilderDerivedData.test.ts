@@ -181,4 +181,104 @@ describe("useBuilderDerivedData route gating", () => {
     expect(mocked.buildSwapOpportunities).toHaveBeenCalled();
     expect(mocked.buildAreaSources).toHaveBeenCalled();
   });
+
+  it("resolves compare members on compare tab without running team-core coverage", () => {
+    mockPathname = "/team/tools";
+    mockParams = new URLSearchParams("tool=compare");
+    mocked.buildCoverageSummary.mockReturnValue([
+      { defenseType: "Fire", multiplier: 2, bucket: "x2" },
+      { defenseType: "Water", multiplier: 1, bucket: "x1" },
+    ]);
+
+    const ui = createUi();
+    ui.compareMembers = [
+      { id: "c1", species: "Snivy", moves: ["Tackle"], locked: false },
+      { id: "c2", species: "Riolu", moves: ["Force Palm"], locked: false },
+    ] as never;
+
+    const { result } = renderHook(() => useBuilderDerivedData(createData(), createStore(), ui));
+
+    expect(mocked.resolveEditableMember).toHaveBeenCalledWith(
+      expect.objectContaining({ id: "c1" }),
+      expect.any(Object),
+    );
+    expect(mocked.resolveEditableMember).toHaveBeenCalledWith(
+      expect.objectContaining({ id: "c2" }),
+      expect.any(Object),
+    );
+    expect(result.current.resolvedCompareMembers[0]).toEqual(expect.objectContaining({ key: "c1" }));
+    expect(result.current.resolvedCompareMembers[1]).toEqual(expect.objectContaining({ key: "c2" }));
+    expect(result.current.coveredCoverage).toEqual([]);
+    expect(result.current.uncoveredCoverage).toEqual([]);
+  });
+
+  it("builds editor and active modal members from the pokemon library when those ids are present", () => {
+    mockPathname = "/team";
+    mockParams = new URLSearchParams("tab=builder");
+
+    const store = createStore();
+    store.editorMemberId = "a";
+    store.pokemonLibrary = [
+      { id: "a", species: "Snivy", moves: ["Tackle"], locked: true },
+      { id: "b", species: "Riolu", moves: ["Force Palm"], locked: false },
+    ] as never;
+
+    const ui = createUi();
+    ui.movePickerState = { memberId: "b", slotIndex: 1 } as never;
+
+    const { result } = renderHook(() => useBuilderDerivedData(createData(), store, ui));
+
+    expect(result.current.editorMember).toEqual(expect.objectContaining({ id: "a" }));
+    expect(result.current.editorResolved).toEqual(expect.objectContaining({ key: "a", locked: true }));
+    expect(result.current.activeModalMember).toEqual(expect.objectContaining({ key: "b", locked: false }));
+    expect(mocked.buildEvolutionEligibility).toHaveBeenCalled();
+  });
+
+  it("filters empty copilot source cards and builds move recommendations from uncovered types", () => {
+    mockPathname = "/team";
+    mockParams = new URLSearchParams("tab=copilot");
+    mocked.buildCoverageSummary.mockReturnValue([
+      { defenseType: "Fire", multiplier: 2, bucket: "x2" },
+      { defenseType: "Electric", multiplier: 1, bucket: "x1" },
+      { defenseType: "Ice", multiplier: 0, bucket: "x0" },
+    ]);
+    mocked.buildAreaSources.mockReturnValue([
+      { encounters: [], gifts: [], trades: [], items: [] },
+      { encounters: [{ species: "Mareep" }], gifts: [], trades: [], items: [] },
+    ]);
+
+    const { result } = renderHook(() => useBuilderDerivedData(createData(), createStore(), createUi()));
+
+    expect(result.current.sourceCards).toHaveLength(1);
+    expect(result.current.sourceCards[0]).toEqual(
+      expect.objectContaining({
+        encounters: [{ species: "Mareep" }],
+      }),
+    );
+    expect(mocked.getMoveRecommendations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        uncoveredTypes: ["Electric", "Ice"],
+      }),
+    );
+  });
+
+  it("builds move recommendations on builder tab using uncovered defense types", () => {
+    mockPathname = "/team";
+    mockParams = new URLSearchParams("tab=builder");
+    mocked.buildCoverageSummary.mockReturnValue([
+      { defenseType: "Ground", multiplier: 0.5, bucket: "x0.5" },
+      { defenseType: "Flying", multiplier: 1, bucket: "x1" },
+      { defenseType: "Grass", multiplier: 2, bucket: "x2" },
+    ]);
+
+    const { result } = renderHook(() => useBuilderDerivedData(createData(), createStore(), createUi()));
+
+    expect(mocked.getMoveRecommendations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        member: expect.objectContaining({ key: "a" }),
+        uncoveredTypes: ["Ground", "Flying"],
+      }),
+    );
+    expect(result.current.activeMember).toEqual(expect.objectContaining({ key: "a" }));
+  });
 });
