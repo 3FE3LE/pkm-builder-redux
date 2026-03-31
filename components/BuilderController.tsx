@@ -56,6 +56,7 @@ export function useBuilderController({
       completedEncounterIds: store.completedEncounterIds,
       mode: store.run.progress.mode,
       actions: {
+        setBuilderStarted: store.setBuilderStarted,
         toggleEncounterCompleted: store.toggleEncounterCompleted,
         setEvolutionConstraint: store.setEvolutionConstraint,
         setRecommendationFilter: store.setRecommendationFilter,
@@ -76,6 +77,7 @@ export function useBuilderController({
       store.setEvolutionConstraint,
       store.setRecommendationFilter,
       store.setBattleWeather,
+      store.setBuilderStarted,
     ],
   );
   const catalogs = useMemo(

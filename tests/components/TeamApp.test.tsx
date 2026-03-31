@@ -1,15 +1,44 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocked = vi.hoisted(() => ({
   hydrated: true,
   builderStarted: true,
+  params: {} as { token?: string },
+  searchParams: new URLSearchParams(),
+  routerReplace: vi.fn(),
+  saveMemberToPc: vi.fn(),
+  setBuilderStarted: vi.fn(),
+  importPokemonFromHash: vi.fn(() => ({
+    ok: true as const,
+    member: { id: "imported-1", species: "Lucario" },
+  })),
+}));
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    replace: mocked.routerReplace,
+  }),
+  useParams: () => mocked.params,
+  useSearchParams: () => mocked.searchParams,
+}));
+
+vi.mock("@/lib/pokemonTransfer", () => ({
+  importPokemonFromHash: (value: string) => mocked.importPokemonFromHash(value),
 }));
 
 vi.mock("@/components/BuilderProvider", () => ({
   useTeamSession: () => ({
     hydrated: mocked.hydrated,
     builderStarted: mocked.builderStarted,
+    actions: {
+      setBuilderStarted: mocked.setBuilderStarted,
+    },
+  }),
+  useTeamRoster: () => ({
+    actions: {
+      saveMemberToPc: mocked.saveMemberToPc,
+    },
   }),
 }));
 
@@ -37,6 +66,16 @@ describe("TeamWorkspace", () => {
   beforeEach(() => {
     mocked.hydrated = true;
     mocked.builderStarted = true;
+    mocked.params = {};
+    mocked.searchParams = new URLSearchParams();
+    mocked.routerReplace.mockReset();
+    mocked.saveMemberToPc.mockReset();
+    mocked.setBuilderStarted.mockReset();
+    mocked.importPokemonFromHash.mockReset();
+    mocked.importPokemonFromHash.mockReturnValue({
+      ok: true,
+      member: { id: "imported-1", species: "Lucario" },
+    });
   });
 
   it("shows loading until the session hydrates", () => {
@@ -65,5 +104,31 @@ describe("TeamWorkspace", () => {
     render(<TeamWorkspace />);
 
     expect(screen.getByText("active-screen")).toBeTruthy();
+  });
+
+  it("auto-imports a shared token from the url and clears it", async () => {
+    mocked.searchParams = new URLSearchParams("m=compact-token&tab=team");
+    mocked.builderStarted = false;
+
+    render(<TeamWorkspace />);
+
+    await waitFor(() => {
+      expect(mocked.importPokemonFromHash).toHaveBeenCalledWith("compact-token");
+      expect(mocked.saveMemberToPc).toHaveBeenCalledWith(expect.objectContaining({ species: "Lucario" }));
+      expect(mocked.setBuilderStarted).toHaveBeenCalledWith(true);
+      expect(mocked.routerReplace).toHaveBeenCalledWith("/team?tab=team");
+    });
+  });
+
+  it("auto-imports a shared token from the clean share route", async () => {
+    mocked.params = { token: "route-token" };
+
+    render(<TeamWorkspace />);
+
+    await waitFor(() => {
+      expect(mocked.importPokemonFromHash).toHaveBeenCalledWith("route-token");
+      expect(mocked.saveMemberToPc).toHaveBeenCalledWith(expect.objectContaining({ species: "Lucario" }));
+      expect(mocked.routerReplace).toHaveBeenCalledWith("/team");
+    });
   });
 });

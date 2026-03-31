@@ -106,6 +106,7 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
         }
       }}
       onChange={(next) => team.actions.updateMember(next.id, next)}
+      onImportToPc={team.actions.saveMemberToPc}
       onOpenMoveModal={(slotIndex) => movePicker.actions.open(member.id, slotIndex)}
       onRemoveMoveAt={(index) => team.actions.removeMoveAtForMember(member.id, index)}
       onReorderMove={(fromIndex, toIndex) =>

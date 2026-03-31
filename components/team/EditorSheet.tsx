@@ -11,6 +11,7 @@ import {
   EditorStatsSection,
 } from '@/components/team/EditorSections';
 import { MovePickerModal } from '@/components/team/MovePickerModal';
+import { PokemonTransferPanel } from '@/components/team/PokemonTransferPanel';
 import { Button } from '@/components/ui/Button';
 import {
   Sheet,
@@ -44,6 +45,7 @@ type PokemonEditorSheetProps = {
   onOpenChange: (open: boolean) => void;
   onOpenChangeComplete?: (open: boolean) => void;
   onChange: (next: EditableMember) => void;
+  onImportToPc: (member: EditableMember) => boolean;
   onOpenMoveModal: (slotIndex: number | null) => void;
   onRemoveMoveAt: (index: number) => void;
   onReorderMove: (fromIndex: number, toIndex: number) => void;
@@ -74,6 +76,7 @@ export function PokemonEditorSheet({
   onOpenChange,
   onOpenChangeComplete,
   onChange,
+  onImportToPc,
   onOpenMoveModal,
   onRemoveMoveAt,
   onReorderMove,
@@ -182,6 +185,11 @@ export function PokemonEditorSheet({
             currentItem={currentItem}
             updateEditorMember={updateEditorMember}
             getIssue={getIssue}
+          />
+          <PokemonTransferPanel
+            member={member}
+            onImportToPc={onImportToPc}
+            showImport={!member.species.trim()}
           />
           <Tabs
             value={editorTab}

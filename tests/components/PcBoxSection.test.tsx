@@ -58,6 +58,23 @@ vi.mock("@/lib/domain/names", () => ({
   })),
 }));
 
+vi.mock("@/components/team/PokemonTransferPanel", () => ({
+  PokemonTransferPanel: ({
+    member,
+    onImportToPc,
+  }: {
+    member?: { id: string };
+    onImportToPc: (member: { species: string }) => boolean;
+  }) => (
+    <div>
+      <div>{`transfer-member-${member?.id ?? "none"}`}</div>
+      <button type="button" onClick={() => onImportToPc({ species: "Imported Mon" } as never)}>
+        import-to-pc
+      </button>
+    </div>
+  ),
+}));
+
 import { PcBoxSection } from "@/components/team/CollectionSections";
 
 function createMember(id: string, species: string) {
@@ -88,10 +105,12 @@ describe("PcBoxSection", () => {
         speciesCatalog={[]}
         onOpenEditor={vi.fn()}
         onAssignToComposition={vi.fn()}
+        onImportToPc={vi.fn()}
       />,
     );
 
     expect(screen.getByText(/aun no tienes pokemon mandados a la caja/i)).toBeTruthy();
+    expect(screen.getByText("transfer-member-none")).toBeTruthy();
   });
 
   it("assigns a selected pc member to the active composition", async () => {
@@ -112,6 +131,7 @@ describe("PcBoxSection", () => {
         ]}
         onOpenEditor={vi.fn()}
         onAssignToComposition={onAssignToComposition}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -136,6 +156,7 @@ describe("PcBoxSection", () => {
         speciesCatalog={[{ name: "Riolu", dex: 447 }]}
         onOpenEditor={onOpenEditor}
         onAssignToComposition={vi.fn()}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -143,5 +164,26 @@ describe("PcBoxSection", () => {
     await user.click(screen.getByRole("button", { name: /ver datos/i }));
 
     expect(onOpenEditor).toHaveBeenCalledWith("1");
+    expect(screen.getByText("transfer-member-1")).toBeTruthy();
+  });
+
+  it("forwards import requests to the pc handler", async () => {
+    const user = userEvent.setup();
+    const onImportToPc = vi.fn(() => true);
+
+    render(
+      <PcBoxSection
+        members={[createMember("1", "Riolu")] as never}
+        compositions={[{ id: "c1", name: "Alpha", memberIds: [] }]}
+        activeCompositionId="c1"
+        speciesCatalog={[{ name: "Riolu", dex: 447 }]}
+        onOpenEditor={vi.fn()}
+        onAssignToComposition={vi.fn()}
+        onImportToPc={onImportToPc}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: /import-to-pc/i }));
+    expect(onImportToPc).toHaveBeenCalledWith(expect.objectContaining({ species: "Imported Mon" }));
   });
 });

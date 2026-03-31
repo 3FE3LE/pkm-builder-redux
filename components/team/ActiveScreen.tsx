@@ -343,6 +343,7 @@ export function ActiveScreen() {
             onAssignToComposition={(memberId, compositionId) => {
               team.actions.addLibraryMemberToComposition(memberId, compositionId);
             }}
+            onImportToPc={team.actions.saveMemberToPc}
           />
         </section>
 

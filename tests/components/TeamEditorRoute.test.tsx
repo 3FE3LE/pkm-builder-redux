@@ -16,6 +16,7 @@ const mocked = vi.hoisted(() => ({
   setEditorMoveSelection: vi.fn(),
   setMovePickerTab: vi.fn(),
   pickMove: vi.fn(),
+  saveMemberToPc: vi.fn(),
 }));
 
 const providerState = vi.hoisted(() => ({
@@ -60,6 +61,7 @@ const providerState = vi.hoisted(() => ({
       reorderMovesForMember: mocked.reorderMovesForMember,
       requestEvolutionForMember: mocked.requestEvolutionForMember,
       setEditorMoveSelection: mocked.setEditorMoveSelection,
+      saveMemberToPc: mocked.saveMemberToPc,
     },
   },
   analysis: {
@@ -125,6 +127,9 @@ vi.mock("@/components/team/EditorSheet", () => ({
       >
         change-member
       </button>
+      <button type="button" onClick={() => props.onImportToPc({ species: "Imported Mon" })}>
+        import-to-pc
+      </button>
       <button type="button" onClick={() => props.onOpenMoveModal(3)}>
         open-move-modal
       </button>
@@ -182,6 +187,9 @@ describe("TeamEditorRoute", () => {
 
     await user.click(screen.getByRole("button", { name: "change-member" }));
     expect(mocked.updateMember).toHaveBeenCalledWith("member-1", expect.objectContaining({ level: 50 }));
+
+    await user.click(screen.getByRole("button", { name: "import-to-pc" }));
+    expect(mocked.saveMemberToPc).toHaveBeenCalledWith(expect.objectContaining({ species: "Imported Mon" }));
 
     await user.click(screen.getByRole("button", { name: "open-move-modal" }));
     expect(mocked.openMovePicker).toHaveBeenCalledWith("member-1", 3);

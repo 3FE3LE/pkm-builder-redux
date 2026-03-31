@@ -49,6 +49,23 @@ vi.mock("@/components/team/MovePickerModal", () => ({
   MovePickerModal: () => <div>move-picker-modal</div>,
 }));
 
+vi.mock("@/components/team/PokemonTransferPanel", () => ({
+  PokemonTransferPanel: ({
+    member,
+    onImportToPc,
+  }: {
+    member?: { id: string };
+    onImportToPc: (member: { species: string }) => boolean;
+  }) => (
+    <div>
+      <div>{`transfer-panel-${member?.id ?? "none"}`}</div>
+      <button type="button" onClick={() => onImportToPc({ species: "Imported Mon" } as never)}>
+        import-editor-pc
+      </button>
+    </div>
+  ),
+}));
+
 vi.mock("@/components/ui/Sheet", () => ({
   Sheet: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   SheetContent: ({
@@ -100,6 +117,7 @@ describe("PokemonEditorSheet", () => {
         itemCatalog={[]}
         onOpenChange={vi.fn()}
         onChange={vi.fn()}
+        onImportToPc={vi.fn()}
         onOpenMoveModal={vi.fn()}
         onRemoveMoveAt={vi.fn()}
         onReorderMove={vi.fn()}
@@ -125,6 +143,7 @@ describe("PokemonEditorSheet", () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     const onOpenChange = vi.fn();
+    const onImportToPc = vi.fn(() => true);
 
     render(
       <PokemonEditorSheet
@@ -137,6 +156,7 @@ describe("PokemonEditorSheet", () => {
         itemCatalog={[]}
         onOpenChange={onOpenChange}
         onChange={onChange}
+        onImportToPc={onImportToPc}
         onOpenMoveModal={vi.fn()}
         onRemoveMoveAt={vi.fn()}
         onReorderMove={vi.fn()}
@@ -160,6 +180,7 @@ describe("PokemonEditorSheet", () => {
     expect(screen.getByText("stats-section-evo")).toBeTruthy();
     expect(screen.getByText("move-picker-modal")).toBeTruthy();
     expect(screen.getByText("Riolu")).toBeTruthy();
+    expect(screen.getByText("transfer-panel-1")).toBeTruthy();
 
     await user.click(screen.getByRole("tab", { name: /moves/i }));
     expect(screen.getByText("moves-section")).toBeTruthy();
@@ -172,6 +193,9 @@ describe("PokemonEditorSheet", () => {
 
     await user.click(screen.getByRole("button", { name: /update-invalid/i }));
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ level: 999 }));
+
+    await user.click(screen.getByRole("button", { name: /import-editor-pc/i }));
+    expect(onImportToPc).toHaveBeenCalledWith(expect.objectContaining({ species: "Imported Mon" }));
 
     await user.click(screen.getByRole("button", { name: /request-close/i }));
     expect(onOpenChange).toHaveBeenCalledWith(false);
@@ -192,6 +216,7 @@ describe("PokemonEditorSheet", () => {
         itemCatalog={[]}
         onOpenChange={vi.fn()}
         onChange={vi.fn()}
+        onImportToPc={vi.fn()}
         onOpenMoveModal={vi.fn()}
         onRemoveMoveAt={vi.fn()}
         onReorderMove={vi.fn()}

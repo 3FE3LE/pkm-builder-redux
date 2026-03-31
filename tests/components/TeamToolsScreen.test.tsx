@@ -58,6 +58,12 @@ vi.mock("@/components/team/LayoutSections", () => ({
   ),
 }));
 
+vi.mock("@/components/team/TypeTierListSection", () => ({
+  TypeTierListSection: ({ resolvedTeam }: { resolvedTeam: Array<{ species: string }> }) => (
+    <div>{`types-${resolvedTeam.length}`}</div>
+  ),
+}));
+
 vi.mock("@/components/team/CollectionSections", () => ({
   CompositionsSection: (props: Record<string, any>) => (
     <div>
@@ -93,6 +99,7 @@ vi.mock("@/components/BuilderProvider", () => ({
   useTeamRoster: () => ({
     compositions: [{ id: "comp-1", name: "Default" }],
     activeCompositionId: "comp-1",
+    resolvedTeam: [{ key: "member-1", species: "Lucario", resolvedTypes: ["Fighting", "Steel"] }],
     actions: {
       addPreparedMember: mocked.addPreparedMember,
       createComposition: mocked.createComposition,
@@ -176,7 +183,7 @@ describe("TeamToolsScreen", () => {
 
     render(<TeamToolsScreen />);
 
-    expect(screen.getByText("Compare e IV Calc")).toBeTruthy();
+    expect(screen.getByText("Compare, IV Calc y Type Tiers")).toBeTruthy();
     expect(screen.getByText("compare-workspace")).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "clear-compare" }));
@@ -192,7 +199,7 @@ describe("TeamToolsScreen", () => {
     expect(mocked.setToolTab).toHaveBeenCalledWith("ivcalc");
   });
 
-  it("renders iv calc and compositions tabs with their actions", async () => {
+  it("renders iv calc, type tiers and compositions tabs with their actions", async () => {
     const user = userEvent.setup();
     mocked.toolTab = "ivcalc";
     mocked.searchParams = new URLSearchParams("species=Zorua");
@@ -204,6 +211,11 @@ describe("TeamToolsScreen", () => {
     expect(mocked.addPreparedMember).toHaveBeenCalledWith(
       expect.objectContaining({ species: "Snivy" }),
     );
+
+    mocked.toolTab = "types";
+    rerender(<TeamToolsScreen />);
+
+    expect(screen.getByText("types-1")).toBeTruthy();
 
     mocked.toolTab = "compositions";
     rerender(<TeamToolsScreen />);

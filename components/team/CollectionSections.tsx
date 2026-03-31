@@ -6,6 +6,7 @@ import { Archive, Check, Pencil, Plus, Search } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { FilterCombobox, PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { PokemonTransferPanel } from "@/components/team/PokemonTransferPanel";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { buildSpriteUrls } from "@/lib/domain/names";
@@ -155,6 +156,7 @@ export function PcBoxSection({
   pulseMemberId,
   onOpenEditor,
   onAssignToComposition,
+  onImportToPc,
 }: {
   members: EditableMember[];
   compositions: Composition[];
@@ -163,6 +165,7 @@ export function PcBoxSection({
   pulseMemberId?: string | null;
   onOpenEditor: (memberId: string) => void;
   onAssignToComposition: (memberId: string, compositionId: string) => void;
+  onImportToPc: (member: EditableMember) => boolean;
 }) {
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
   const [targetCompositionName, setTargetCompositionName] = useState("");
@@ -350,6 +353,8 @@ export function PcBoxSection({
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      <PokemonTransferPanel member={selectedMember ?? undefined} onImportToPc={onImportToPc} />
     </section>
   );
 }

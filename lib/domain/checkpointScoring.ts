@@ -322,7 +322,7 @@ function scoreSpeed(
   speedPressure: "low" | "medium" | "high",
 ): ScoreBreakdown {
   const threshold = speedPressure === "high" ? 105 : speedPressure === "medium" ? 88 : 75;
-  const fastCount = team.filter((member) => (member.effectiveStats?.spe ?? member.summaryStats?.spe ?? 0) >= threshold).length;
+  const fastCount = team.filter((member) => getCheckpointSpeedValue(member) >= threshold).length;
   const priorityCount = team.filter((member) =>
     member.moves.some((move) =>
       ["mach punch", "aqua jet", "ice shard", "bullet punch", "accelerock", "vacuum wave", "shadow sneak", "extremespeed"].includes(
@@ -337,17 +337,17 @@ function scoreSpeed(
       ),
     ),
   ).length;
-  const slowSlots = team.filter((member) => (member.effectiveStats?.spe ?? member.summaryStats?.spe ?? 0) < threshold - 15).length;
+  const slowSlots = team.filter((member) => getCheckpointSpeedValue(member) < threshold - 15).length;
 
   const score = clamp(
-    fastCount * 18 + priorityCount * 10 + controlCount * 12 - slowSlots * 8 + (speedPressure === "high" ? 8 : 14),
+    fastCount * 18 + priorityCount * 10 + controlCount * 12 - slowSlots * 7 + (speedPressure === "high" ? 10 : 15),
     0,
     100,
   );
 
   return {
     score: round(score, 1),
-    summary: `${fastCount} slots por encima del umbral ${threshold}; ${priorityCount + controlCount} formas de speed control.`,
+    summary: `${fastCount} slots por encima del speed tier ${threshold}; ${priorityCount + controlCount} formas de speed control.`,
     signals: [
       fastCount >= 2
         ? "Hay al menos dos slots que pueden jugar el tempo del checkpoint."
@@ -357,6 +357,10 @@ function scoreSpeed(
         : "La parte lenta del equipo todavia es manejable.",
     ],
   };
+}
+
+function getCheckpointSpeedValue(member: CheckpointMember) {
+  return member.summaryStats?.spe ?? member.resolvedStats?.spe ?? member.effectiveStats?.spe ?? 0;
 }
 
 function scoreRoles(roleSnapshot: ReturnType<typeof buildTeamRoleSnapshot>): ScoreBreakdown {

@@ -9,6 +9,7 @@ import {
 } from "@/components/team/LayoutSections";
 import { CompositionsSection } from "@/components/team/CollectionSections";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
+import { TypeTierListSection } from "@/components/team/TypeTierListSection";
 import {
   useTeamCatalogs,
   useTeamCompare,
@@ -18,7 +19,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createEditable } from "@/lib/builderStore";
 
-const TOOL_TABS = ["compare", "ivcalc", "compositions"] as const;
+const TOOL_TABS = ["compare", "ivcalc", "types", "compositions"] as const;
 type ToolTab = (typeof TOOL_TABS)[number];
 
 export function TeamToolsScreen() {
@@ -46,7 +47,7 @@ export function TeamToolsScreen() {
       <section className="mx-auto max-w-7xl">
         <div className="mb-4">
           <p className="display-face text-sm text-accent">Tools</p>
-          <h1 className="pixel-face mt-2 text-2xl text-text">Compare e IV Calc</h1>
+          <h1 className="pixel-face mt-2 text-2xl text-text">Compare, IV Calc y Type Tiers</h1>
         </div>
 
         <Tabs
@@ -54,7 +55,7 @@ export function TeamToolsScreen() {
           onValueChange={(value) => setToolTab(value as ToolTab)}
           className="gap-0"
         >
-          <TabsList className="relative z-10 -mb-px grid w-full grid-cols-3 gap-1 bg-transparent p-0 sm:w-fit">
+          <TabsList className="relative z-10 -mb-px grid w-full grid-cols-4 gap-1 bg-transparent p-0 sm:w-fit">
             <TabsTrigger
               value="compare"
               className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
@@ -66,6 +67,12 @@ export function TeamToolsScreen() {
               className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
             >
               IV Calc
+            </TabsTrigger>
+            <TabsTrigger
+              value="types"
+              className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
+            >
+              Type Tiers
             </TabsTrigger>
             <TabsTrigger
               value="compositions"
@@ -100,6 +107,10 @@ export function TeamToolsScreen() {
                 onAddPreparedMember={(member) => team.actions.addPreparedMember(member)}
               />
             ) : null}
+          </TabsContent>
+
+          <TabsContent value="types" className="rounded-[0_1rem_1rem_1rem] p-0">
+            {toolTab === "types" ? <TypeTierListSection resolvedTeam={team.resolvedTeam} /> : null}
           </TabsContent>
 
           <TabsContent value="compositions" className="rounded-[0_1rem_1rem_1rem] p-0">
