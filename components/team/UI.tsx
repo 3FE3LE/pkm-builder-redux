@@ -108,7 +108,7 @@ export function MiniPill({
     <span
       title={title}
       className={clsx(
-        "inline-flex items-center gap-1.5 whitespace-nowrap rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-line bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))] px-3 py-1 text-xs text-muted shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_1px_0_rgba(255,255,255,0.04)]",
+        "chip-surface inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-1 text-xs text-muted",
         className,
       )}
     >
@@ -314,7 +314,7 @@ export function StatCard({ label, value }: { label: string; value: string }) {
 
 export function MetaBadge({ label }: { label: string }) {
   return (
-    <span className="inline-flex min-w-[5.1rem] items-center justify-center rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-line bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] px-3 py-1 text-center text-xs text-muted shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_1px_0_rgba(255,255,255,0.04)]">
+    <span className="chip-surface inline-flex min-w-[5.1rem] items-center justify-center px-3 py-1 text-center text-xs text-muted">
       {label}
     </span>
   );

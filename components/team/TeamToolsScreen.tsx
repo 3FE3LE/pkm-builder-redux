@@ -55,34 +55,34 @@ export function TeamToolsScreen() {
           onValueChange={(value) => setToolTab(value as ToolTab)}
           className="gap-0"
         >
-          <TabsList className="relative z-10 -mb-px grid w-full grid-cols-4 gap-1 bg-transparent p-0 sm:w-fit">
+          <TabsList className="tab-strip scrollbar-thin">
             <TabsTrigger
               value="compare"
-              className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
+              className="tab-trigger-soft"
             >
               Compare
             </TabsTrigger>
             <TabsTrigger
               value="ivcalc"
-              className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
+              className="tab-trigger-soft"
             >
               IV Calc
             </TabsTrigger>
             <TabsTrigger
               value="types"
-              className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
+              className="tab-trigger-soft"
             >
               Type Tiers
             </TabsTrigger>
             <TabsTrigger
               value="compositions"
-              className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-sm text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)]"
+              className="tab-trigger-soft"
             >
               Teams
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="compare" className="rounded-[0_1rem_1rem_1rem] p-0">
+          <TabsContent value="compare" className="tab-panel">
             {toolTab === "compare" ? (
               <CompareWorkspaceSection
                 members={compare.members}
@@ -98,7 +98,7 @@ export function TeamToolsScreen() {
             ) : null}
           </TabsContent>
 
-          <TabsContent value="ivcalc" className="rounded-[0_1rem_1rem_1rem] p-0">
+          <TabsContent value="ivcalc" className="tab-panel">
             {toolTab === "ivcalc" ? (
               <IvCalculatorSection
                 speciesCatalog={catalogs.speciesCatalog}
@@ -109,11 +109,16 @@ export function TeamToolsScreen() {
             ) : null}
           </TabsContent>
 
-          <TabsContent value="types" className="rounded-[0_1rem_1rem_1rem] p-0">
-            {toolTab === "types" ? <TypeTierListSection resolvedTeam={team.resolvedTeam} /> : null}
+          <TabsContent value="types" className="tab-panel">
+            {toolTab === "types" ? (
+              <TypeTierListSection
+                resolvedTeam={team.resolvedTeam}
+                speciesCatalog={catalogs.speciesCatalog}
+              />
+            ) : null}
           </TabsContent>
 
-          <TabsContent value="compositions" className="rounded-[0_1rem_1rem_1rem] p-0">
+          <TabsContent value="compositions" className="tab-panel">
             {toolTab === "compositions" ? (
               <CompositionsSection
                 compositions={team.compositions}

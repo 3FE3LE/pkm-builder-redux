@@ -7,6 +7,7 @@ const mocked = vi.hoisted(() => ({
   setEvolutionConstraint: vi.fn(),
   setRecommendationFilter: vi.fn(),
   setBattleWeather: vi.fn(),
+  setTheme: vi.fn(),
   resetRun: vi.fn(),
 }));
 
@@ -16,10 +17,12 @@ vi.mock("@/components/BuilderProvider", () => ({
     evolutionConstraints: { trade: false },
     recommendationFilters: { excludeTrades: false },
     battleWeather: "rain",
+    theme: "dark",
     actions: {
       setEvolutionConstraint: mocked.setEvolutionConstraint,
       setRecommendationFilter: mocked.setRecommendationFilter,
       setBattleWeather: mocked.setBattleWeather,
+      setTheme: mocked.setTheme,
     },
   }),
   useTeamRoster: () => ({
@@ -37,6 +40,7 @@ vi.mock("@/components/team/LayoutSections", () => ({
   PreferencesSection: (props: Record<string, any>) => (
     <div>
       <div>{`prefs-${props.battleWeather}`}</div>
+      <div>{`theme-${props.theme}`}</div>
       <button type="button" onClick={() => props.onToggleEvolutionConstraint("trade", true)}>
         toggle-evolution
       </button>
@@ -45,6 +49,9 @@ vi.mock("@/components/team/LayoutSections", () => ({
       </button>
       <button type="button" onClick={() => props.onSetBattleWeather("sun")}>
         set-weather
+      </button>
+      <button type="button" onClick={() => props.onSetTheme("light")}>
+        set-theme
       </button>
       <button type="button" onClick={() => props.onResetRun()}>
         reset-run
@@ -76,6 +83,7 @@ describe("TeamSettingsScreen", () => {
 
     expect(screen.getByText("Preferencias del builder")).toBeTruthy();
     expect(screen.getByText("prefs-rain")).toBeTruthy();
+    expect(screen.getByText("theme-dark")).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "toggle-evolution" }));
     expect(mocked.setEvolutionConstraint).toHaveBeenCalledWith("trade", true);
@@ -85,6 +93,9 @@ describe("TeamSettingsScreen", () => {
 
     await user.click(screen.getByRole("button", { name: "set-weather" }));
     expect(mocked.setBattleWeather).toHaveBeenCalledWith("sun");
+
+    await user.click(screen.getByRole("button", { name: "set-theme" }));
+    expect(mocked.setTheme).toHaveBeenCalledWith("light");
 
     await user.click(screen.getByRole("button", { name: "reset-run" }));
     expect(mocked.resetRun).toHaveBeenCalled();

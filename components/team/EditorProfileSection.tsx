@@ -9,6 +9,7 @@ import {
   ItemSprite,
   SpeciesCombobox,
 } from "@/components/BuilderShared";
+import { PokemonTransferActions } from "@/components/team/PokemonTransferPanel";
 import type {
   AbilityCatalogEntry,
   EditorIssueGetter,
@@ -36,6 +37,7 @@ export function EditorProfileSection({
   currentItem,
   updateEditorMember,
   getIssue,
+  onImportToPc: _onImportToPc,
 }: {
   member: EditableMember;
   resolved?: ResolvedTeamMember;
@@ -49,6 +51,7 @@ export function EditorProfileSection({
   currentItem: string;
   updateEditorMember: EditorUpdate;
   getIssue: EditorIssueGetter;
+  onImportToPc: (member: EditableMember) => boolean;
 }) {
   const shouldAutoFocusSpecies = !currentSpecies.trim();
   const profileGridRef = useRef<HTMLDivElement | null>(null);
@@ -141,7 +144,8 @@ export function EditorProfileSection({
     <section className="px-0 py-0">
       <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
         <p className="display-face text-sm text-accent">Perfil base</p>
-        <div className="flex flex-col items-end gap-2">
+        <div className="flex items-center gap-2">
+          <PokemonTransferActions member={member.species.trim() ? member : undefined} />
           <button
             type="button"
             onClick={() =>

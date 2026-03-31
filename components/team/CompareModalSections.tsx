@@ -223,7 +223,7 @@ export function CompareMemberPanel({
                         top: `${speciesPanelMetrics.viewportTop}px`,
                         width: `${width}px`,
                         left: `${left}px`,
-                        background: "hsl(196 42% 8% / 0.985)",
+                        background: "var(--floating-panel-bg)",
                         backdropFilter: "none",
                       };
                     })()
@@ -265,7 +265,7 @@ export function CompareMemberPanel({
                         top: `${speciesPanelMetrics.viewportTop}px`,
                         width: `${width}px`,
                         left: `${left}px`,
-                        background: "hsl(196 42% 8% / 0.985)",
+                        background: "var(--floating-panel-bg)",
                         backdropFilter: "none",
                       };
                     })()

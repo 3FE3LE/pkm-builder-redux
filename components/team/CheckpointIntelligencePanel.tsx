@@ -38,7 +38,7 @@ export function CheckpointIntelligencePanel({
                   </div>
                   <span
                     className={clsx(
-                      "rounded-[6px] border px-3 py-1 text-[10px] uppercase tracking-[0.14em]",
+                      "micro-label-wide rounded-[6px] border px-3 py-1 uppercase",
                       opportunity.riskDelta >= 1.5
                         ? "border-danger-line bg-danger-fill text-danger-soft"
                         : opportunity.riskDelta >= 0.7
@@ -50,13 +50,13 @@ export function CheckpointIntelligencePanel({
                   </span>
                 </div>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  <span className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted">
+                  <span className="token-card px-3 py-1 text-xs text-muted">
                     role {opportunity.candidateRole}
                   </span>
-                  <span className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted">
+                  <span className="token-card px-3 py-1 text-xs text-muted">
                     risk -{opportunity.riskDelta.toFixed(1)}
                   </span>
-                  <span className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted">
+                  <span className="token-card px-3 py-1 text-xs text-muted">
                     score +{opportunity.scoreDelta.toFixed(1)}
                   </span>
                 </div>
@@ -89,10 +89,10 @@ export function CheckpointIntelligencePanel({
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="display-face text-xs text-accent">{member.species}</span>
                 <div className="flex flex-wrap gap-1.5">
-                  <span className="rounded-[6px] border border-line px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-muted">
+                  <span className="micro-label token-card px-2 py-1 uppercase text-muted">
                     natural {ROLE_LABELS[member.naturalRole]}
                   </span>
-                  <span className="rounded-[6px] border border-accent-line bg-accent-fill px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-accent-soft">
+                  <span className="micro-label token-card border-accent-line bg-accent-fill px-2 py-1 uppercase text-accent-soft">
                     team {ROLE_LABELS[member.recommendedRole]}
                   </span>
                 </div>
@@ -160,7 +160,7 @@ function RoleBucket({ label, values }: { label: string; values: string[] }) {
   return (
     <div className="rounded-[0.65rem] px-1.5 py-2">
       <div className="flex items-center justify-between gap-3">
-        <span className="display-face text-[11px] text-accent">{label}</span>
+        <span className="display-face micro-copy text-accent">{label}</span>
       </div>
       <p className="mt-1 text-xs text-muted">
         {values.length ? values.join(", ") : "ninguno"}

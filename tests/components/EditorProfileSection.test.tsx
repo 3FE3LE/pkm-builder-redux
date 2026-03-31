@@ -48,6 +48,12 @@ vi.mock("@/components/BuilderShared", () => ({
   ItemSprite: ({ name }: { name: string }) => <span>{name}-sprite</span>,
 }));
 
+vi.mock("@/components/team/PokemonTransferPanel", () => ({
+  PokemonTransferActions: ({ member }: { member?: { species?: string } }) => (
+    <div>{`transfer-actions-${member?.species ?? "none"}`}</div>
+  ),
+}));
+
 import { EditorProfileSection } from "@/components/team/EditorProfileSection";
 
 function createMember(overrides: Record<string, unknown> = {}) {
@@ -87,6 +93,7 @@ describe("EditorProfileSection", () => {
         currentItem=""
         updateEditorMember={updateEditorMember}
         getIssue={() => undefined}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -120,6 +127,7 @@ describe("EditorProfileSection", () => {
         currentItem=""
         updateEditorMember={updateEditorMember}
         getIssue={() => undefined}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -150,6 +158,7 @@ describe("EditorProfileSection", () => {
         currentItem=""
         updateEditorMember={updateCustomNickname}
         getIssue={() => undefined}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -202,6 +211,7 @@ describe("EditorProfileSection", () => {
         currentItem="Oran Berry"
         updateEditorMember={updateEditorMember}
         getIssue={(field) => (field === "species" ? "Choose a species" : undefined)}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -212,6 +222,7 @@ describe("EditorProfileSection", () => {
     expect(screen.queryByText("Potion")).toBeNull();
     expect(screen.getByText("Leftovers")).toBeTruthy();
     expect(screen.getByText("Oran Berry-sprite")).toBeTruthy();
+    expect(screen.getByText("transfer-actions-Riolu")).toBeTruthy();
 
     await user.click(screen.getAllByRole("button")[0]!);
     let updater = updateEditorMember.mock.calls.at(-1)?.[0];

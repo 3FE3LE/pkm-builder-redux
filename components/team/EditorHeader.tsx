@@ -41,7 +41,7 @@ function LevelControls({
 }) {
   return (
     <>
-      <div className="flex items-center justify-between gap-3 text-[11px] text-muted">
+      <div className="micro-copy flex items-center justify-between gap-3 text-muted">
         <span className="display-face text-xs text-muted">Nivel</span>
         <span className="display-face text-sm text-accent">Lv {currentLevel}</span>
       </div>
@@ -60,7 +60,7 @@ function LevelControls({
             }
             className="h-2.5 w-full cursor-pointer accent-accent"
           />
-          <div className="mt-1 flex items-center justify-between text-[10px] text-muted">
+          <div className="micro-label mt-1 flex items-center justify-between text-muted">
             <span>1</span>
             <span>50</span>
             <span>100</span>

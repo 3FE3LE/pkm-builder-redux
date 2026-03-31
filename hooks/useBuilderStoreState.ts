@@ -14,6 +14,7 @@ export function useBuilderStoreState() {
     (state) => state.run.preferences.recommendationFilters,
   );
   const battleWeather = useBuilderStore((state) => state.run.preferences.battleWeather);
+  const theme = useBuilderStore((state) => state.run.preferences.theme);
   const milestoneId = useBuilderStore((state) => state.run.progress.milestoneId);
   const pokemonLibrary = useBuilderStore((state) => state.run.roster.pokemonLibrary);
   const compositions = useBuilderStore((state) => state.run.roster.compositions);
@@ -47,6 +48,7 @@ export function useBuilderStoreState() {
   const setEvolutionConstraint = useBuilderStore((state) => state.setEvolutionConstraint);
   const setRecommendationFilter = useBuilderStore((state) => state.setRecommendationFilter);
   const setBattleWeather = useBuilderStore((state) => state.setBattleWeather);
+  const setTheme = useBuilderStore((state) => state.setTheme);
   const toggleEncounterCompleted = useBuilderStore((state) => state.toggleEncounterCompleted);
   const resetRun = useBuilderStore((state) => state.resetRun);
 
@@ -58,6 +60,7 @@ export function useBuilderStoreState() {
     evolutionConstraints,
     recommendationFilters,
     battleWeather,
+    theme,
     milestoneId,
     pokemonLibrary,
     compositions,
@@ -85,6 +88,7 @@ export function useBuilderStoreState() {
     setEvolutionConstraint,
     setRecommendationFilter,
     setBattleWeather,
+    setTheme,
     toggleEncounterCompleted,
     resetRun,
   };

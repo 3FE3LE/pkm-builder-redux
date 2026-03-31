@@ -33,11 +33,11 @@ describe("site", () => {
 
     const { absoluteUrl, siteConfig } = await loadSiteModule();
 
-    expect(siteConfig.siteUrl).toBe("https://pkm-builder-redux.vercel.app");
+    expect(siteConfig.siteUrl).toBe("https://pkmbuilder-redux.17suit.com");
     expect(siteConfig.shortName).toBe("Redux Team Builder");
     expect(siteConfig.keywords).toContain("pokemon blaze black 2 redux");
     expect(absoluteUrl("robots.txt")).toBe(
-      "https://pkm-builder-redux.vercel.app/robots.txt",
+      "https://pkmbuilder-redux.17suit.com/robots.txt",
     );
   });
 });

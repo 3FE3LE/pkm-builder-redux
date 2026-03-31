@@ -59,19 +59,23 @@ vi.mock("@/lib/domain/names", () => ({
 }));
 
 vi.mock("@/components/team/PokemonTransferPanel", () => ({
-  PokemonTransferPanel: ({
+  PokemonTransferActions: ({
     member,
-    onImportToPc,
   }: {
     member?: { id: string };
-    onImportToPc: (member: { species: string }) => boolean;
   }) => (
     <div>
       <div>{`transfer-member-${member?.id ?? "none"}`}</div>
-      <button type="button" onClick={() => onImportToPc({ species: "Imported Mon" } as never)}>
-        import-to-pc
-      </button>
     </div>
+  ),
+  PokemonImportPanel: ({
+    onImportToPc,
+  }: {
+    onImportToPc: (member: { species: string }) => boolean;
+  }) => (
+    <button type="button" onClick={() => onImportToPc({ species: "Imported Mon" } as never)}>
+      import-to-pc
+    </button>
   ),
 }));
 
@@ -110,7 +114,7 @@ describe("PcBoxSection", () => {
     );
 
     expect(screen.getByText(/aun no tienes pokemon mandados a la caja/i)).toBeTruthy();
-    expect(screen.getByText("transfer-member-none")).toBeTruthy();
+    expect(screen.getByRole("button", { name: /import-to-pc/i })).toBeTruthy();
   });
 
   it("assigns a selected pc member to the active composition", async () => {

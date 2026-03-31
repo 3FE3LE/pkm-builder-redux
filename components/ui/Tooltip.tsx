@@ -146,7 +146,7 @@ export function TooltipContent({
         role="tooltip"
         {...props}
         className={cn(
-          "tooltip-surface relative w-max max-w-[min(20rem,calc(100vw-24px))] rounded-[0.65rem] border border-line-strong px-3 py-2 text-xs leading-relaxed text-text backdrop-blur-md",
+          "tooltip-surface tooltip-card relative w-max max-w-[min(20rem,calc(100vw-24px))] border-line-strong backdrop-blur-md",
           className,
         )}
       >

@@ -320,16 +320,16 @@ function EncounterMetaTags({
   return (
     <div className="mt-3 flex flex-wrap items-center gap-2">
       {isNext ? (
-        <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] bg-primary-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-primary-soft">
+        <span className="tag-xs bg-primary-fill text-primary-soft">
           next
         </span>
       ) : null}
-      <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-line bg-surface-4 px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-muted">
+      <span className="tag-xs border border-line bg-surface-4 text-muted">
         {encounter.category}
       </span>
       <span
         className={clsx(
-          "rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
+          "tag-xs border",
           encounter.affiliation === "team-plasma"
             ? "border-danger-line-faint bg-danger-fill-strong text-danger-soft"
             : encounter.affiliation === "hoenn-leaders"
@@ -344,12 +344,12 @@ function EncounterMetaTags({
         {encounter.affiliation.replaceAll("-", " ")}
       </span>
       {!encounter.mandatory ? (
-        <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-info-line bg-info-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-info-soft">
+        <span className="tag-xs border border-info-line bg-info-fill text-info-soft">
           optional
         </span>
       ) : null}
       {encounter.documentation === "partial" ? (
-        <span className="rounded-[0.6rem_0.4rem_0.6rem_0.4rem] border border-warning-line-faint bg-warning-fill px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-warning-strong">
+        <span className="tag-xs border border-warning-line-faint bg-warning-fill text-warning-strong">
           partial
         </span>
       ) : null}

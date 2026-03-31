@@ -61,7 +61,7 @@ function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
       }}
       transition={{ duration: 0.28, ease: "easeOut" }}
       className={clsx(
-        "group panel relative overflow-hidden rounded-[0.9rem] border border-line p-3 text-left transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill sm:p-4 lg:p-5",
+        "group panel soft-card relative overflow-hidden p-3 text-left transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill sm:p-4 lg:p-5",
         isSelecting &&
           "primary-selection border-primary-line-active",
       )}

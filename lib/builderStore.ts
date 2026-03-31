@@ -8,6 +8,7 @@ import type { PokemonGender, StarterKey, SuggestionInput } from "@/lib/builder";
 import type { BattleWeather } from "@/lib/domain/battle";
 import {
   createEmptyRunState,
+  type BuilderTheme,
   createStartedRunState,
   type EvolutionConstraintKey,
   type RecommendationFilterKey,
@@ -82,6 +83,7 @@ type BuilderStore = {
   setEvolutionConstraint: (key: EvolutionConstraintKey, value: boolean) => void;
   setRecommendationFilter: (key: RecommendationFilterKey, value: boolean) => void;
   setBattleWeather: (weather: BattleWeather) => void;
+  setTheme: (theme: BuilderTheme) => void;
   toggleEncounterCompleted: (encounterId: string) => void;
   setHackEvent: (key: string, value: boolean) => void;
   resetHackEvents: () => void;
@@ -559,6 +561,17 @@ export const useBuilderStore = create<BuilderStore>()(
             },
           },
         })),
+      setTheme: (theme) =>
+        set((state) => ({
+          run: {
+            ...state.run,
+            preferences: {
+              ...createEmptyRunState().preferences,
+              ...state.run.preferences,
+              theme,
+            },
+          },
+        })),
       toggleEncounterCompleted: (encounterId) =>
         set((state) => {
           const completed = state.run.progress.completedEncounterIds ?? [];
@@ -603,7 +616,7 @@ export const useBuilderStore = create<BuilderStore>()(
     }),
     {
       name: "pkm-builder-redux-state",
-      version: 6,
+      version: 7,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         run: state.run,
@@ -651,6 +664,9 @@ export const useBuilderStore = create<BuilderStore>()(
                 battleWeather:
                   legacyState.run.preferences?.battleWeather ??
                   createEmptyRunState().preferences.battleWeather,
+                theme:
+                  legacyState.run.preferences?.theme ??
+                  createEmptyRunState().preferences.theme,
               },
               progress: {
                 ...createEmptyRunState().progress,

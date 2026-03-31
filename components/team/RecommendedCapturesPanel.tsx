@@ -109,7 +109,7 @@ function CaptureCard({
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
-      className="rounded-[0.9rem] border border-accent-line-faint px-3 py-3"
+      className="panel-card"
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-start gap-2">
@@ -135,12 +135,12 @@ function CaptureCard({
         </div>
 
         <div className="grid grid-cols-2 gap-2">
-          <span className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1.5 text-xs text-muted">
+          <span className="token-card px-2.5 py-1.5 text-xs text-muted">
             rol {recommendation.role}
           </span>
           <span
             className={clsx(
-              "rounded-[6px] border px-2.5 py-1.5 text-xs",
+              "token-card px-2.5 py-1.5 text-xs",
               recommendation.delta.riskDelta >= 1.5
                 ? "border-accent-line bg-accent-fill-strong text-accent-soft"
                 : "border-info-line bg-info-fill text-info-soft",
@@ -148,10 +148,10 @@ function CaptureCard({
           >
             risk -{recommendation.delta.riskDelta.toFixed(1)}
           </span>
-          <span className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1.5 text-xs text-muted">
+          <span className="token-card px-2.5 py-1.5 text-xs text-muted">
             score +{recommendation.delta.scoreDelta.toFixed(1)}
           </span>
-          <span className="rounded-[6px] border border-line bg-surface-3 px-2.5 py-1.5 text-xs text-muted">
+          <span className="token-card px-2.5 py-1.5 text-xs text-muted">
             bst {recommendation.candidateMember.resolvedStats?.bst ?? "?"}
           </span>
         </div>
@@ -168,7 +168,7 @@ function CaptureCard({
               type="button"
               onClick={() => onSendToIvCalc(recommendation.species)}
               aria-label={`Mandar ${recommendation.species} al IV Calc`}
-              className="group inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface-3 transition hover:border-primary-line-emphasis hover:bg-surface-4"
+              className="action-tile group inline-flex h-9 w-9 items-center justify-center rounded-full hover:border-primary-line-emphasis"
             >
               <span className="relative block h-5 w-5 rounded-full border border-[rgba(255,255,255,0.14)] bg-[linear-gradient(180deg,#d44b52_0%,#d44b52_46%,#1d2328_46%,#1d2328_54%,#f5f7fa_54%,#f5f7fa_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]">
                 <span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(17,24,28,0.75)] bg-white" />
@@ -191,7 +191,7 @@ function SuggestedSwapCard({ opportunity }: { opportunity: SwapOpportunity }) {
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
-      className="rounded-[0.9rem] border border-accent-line-faint px-3 py-3"
+      className="panel-card"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -202,7 +202,7 @@ function SuggestedSwapCard({ opportunity }: { opportunity: SwapOpportunity }) {
             {opportunity.source} {opportunity.area ? `· ${opportunity.area}` : ""}
           </p>
         </div>
-        <div className="rounded-[0.7rem] bg-surface-3 px-3 py-2 text-right">
+        <div className="token-card px-3 py-2 text-right">
           <p className="display-face text-sm text-accent-soft">-{opportunity.riskDelta.toFixed(1)} risk</p>
           <p className="text-[10px] uppercase tracking-[0.14em] text-muted">score +{opportunity.scoreDelta.toFixed(1)}</p>
         </div>
@@ -257,7 +257,7 @@ function SwapSide({
   return (
     <div
       className={clsx(
-        "rounded-[0.9rem] border px-3 py-3",
+        "panel-card",
         tone === "incoming"
           ? "incoming-panel"
           : "border-line bg-surface-2",
@@ -288,7 +288,7 @@ function SwapSide({
 
 function CompactStat({ label, value }: { label: string; value?: number }) {
   return (
-    <div className="rounded-[0.65rem] border border-line px-3 py-2">
+    <div className="token-card px-3 py-2">
       <p className="display-face text-[10px] tracking-[0.12em] text-muted">{label}</p>
       <p className="display-face mt-1 text-sm text-text">{value ?? "-"}</p>
     </div>

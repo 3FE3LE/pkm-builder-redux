@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import { CloudRain, CloudSun, GitCompareArrows, Info, Lock, LockOpen, MoonStar, Pencil, Plus, RotateCcw, Snowflake, Sun, Sunrise, Sunset, Wind, X } from "lucide-react";
+import { CloudRain, CloudSun, GitCompareArrows, Info, Lock, LockOpen, MoonStar, Pencil, Plus, RotateCcw, Shield, Snowflake, Sun, Sunrise, Sunset, Sword, Wind, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import {
@@ -36,6 +36,7 @@ import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 import type { BuilderLocalTime } from "@/hooks/useBuilderUiState";
 import type {
+  BuilderTheme,
   EvolutionConstraintKey,
   EvolutionConstraintState,
   RecommendationFilterKey,
@@ -70,7 +71,7 @@ function getDockTone(types: string[] = []) {
     backgroundImage: `
       radial-gradient(circle at 18% 18%, color-mix(in srgb, ${primary} 24%, transparent) 0%, transparent 34%),
       radial-gradient(circle at 82% 76%, color-mix(in srgb, ${secondary} 20%, transparent) 0%, transparent 38%),
-      linear-gradient(180deg, hsl(196 57% 9% / 0.98), hsl(196 57% 7% / 0.98))
+      var(--dock-surface-bg)
     `,
     borderColor: `color-mix(in srgb, ${primary} 42%, var(--line-strong))`,
     boxShadow: `
@@ -480,13 +481,13 @@ export function TeamRosterSection({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.76)] px-4 backdrop-blur-md"
+            className="modal-scrim z-[120]"
           >
             <motion.div
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="panel-strong w-full max-w-lg rounded-[1rem] p-5"
+              className="panel-strong panel-frame w-full max-w-lg p-5"
             >
               <p className="display-face text-sm text-accent">Reset del slot</p>
               <p className="mt-2 text-sm text-muted">
@@ -530,13 +531,13 @@ export function TeamRosterSection({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.76)] px-4 backdrop-blur-md"
+            className="modal-scrim z-[120]"
           >
             <motion.div
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="panel-strong w-full max-w-md rounded-[1rem] p-5"
+              className="panel-strong panel-frame w-full max-w-md p-5"
             >
               <p className="display-face text-sm text-danger">Mandar a caja</p>
               <p className="mt-2 text-sm text-muted">
@@ -854,17 +855,21 @@ export function PreferencesSection({
   evolutionConstraints,
   recommendationFilters,
   battleWeather,
+  theme,
   onToggleEvolutionConstraint,
   onToggleRecommendationFilter,
   onSetBattleWeather,
+  onSetTheme,
   onResetRun,
 }: {
   evolutionConstraints: EvolutionConstraintState;
   recommendationFilters: RecommendationFilterState;
   battleWeather: BattleWeather;
+  theme: BuilderTheme;
   onToggleEvolutionConstraint: (key: EvolutionConstraintKey, value: boolean) => void;
   onToggleRecommendationFilter: (key: RecommendationFilterKey, value: boolean) => void;
   onSetBattleWeather: (weather: BattleWeather) => void;
+  onSetTheme: (theme: BuilderTheme) => void;
   onResetRun: () => void;
 }) {
   return (
@@ -873,6 +878,38 @@ export function PreferencesSection({
         <p className="display-face text-sm text-accent">Preferences</p>
       </div>
       <div className="space-y-5 px-1 py-1">
+        <div>
+          <p className="display-face text-sm text-accent">Tema de la interfaz</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {THEME_OPTIONS.map((option) => {
+              const Icon = option.icon;
+              const active = theme === option.key;
+
+              return (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => onSetTheme(option.key)}
+                  className={clsx(
+                    "flex items-center gap-3 rounded-[0.8rem] border px-3 py-3 text-left transition",
+                    active
+                      ? "border-primary-line bg-primary-fill text-text"
+                      : "border-line bg-surface-2 text-muted hover:border-line-strong hover:bg-surface-4 hover:text-text",
+                  )}
+                >
+                  <span className="icon-tile-md border border-line-soft bg-surface-4">
+                    <Icon className={clsx("h-5 w-5", active ? "text-primary-soft" : "text-accent")} />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="display-face block text-xs text-inherit">{option.label}</span>
+                    <span className="mt-1 block text-xs text-muted">{option.description}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         <div>
           <p className="display-face text-sm text-accent">Clima de combate</p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -891,7 +928,7 @@ export function PreferencesSection({
                       : "text-muted hover:bg-surface-3",
                   )}
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-[0.75rem] bg-surface-4">
+                  <span className="icon-tile-md bg-surface-4">
                     <Icon className={clsx("h-5 w-5", active ? "text-primary-soft" : "text-accent")} />
                   </span>
                   <span className="min-w-0">
@@ -948,6 +985,26 @@ export function PreferencesSection({
     </section>
   );
 }
+
+const THEME_OPTIONS: {
+  key: BuilderTheme;
+  label: string;
+  description: string;
+  icon: typeof Shield;
+}[] = [
+  {
+    key: "dark",
+    label: "Dark",
+    description: "La cabina actual, con contraste alto y glow contenido.",
+    icon: Shield,
+  },
+  {
+    key: "light",
+    label: "Light",
+    description: "Una mesa clara con tinta profunda y acentos tacticos.",
+    icon: Sword,
+  },
+];
 
 function SelectedMemberInsightCard({
   member,

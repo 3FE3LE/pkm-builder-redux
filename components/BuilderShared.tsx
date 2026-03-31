@@ -38,7 +38,7 @@ export function TypeBadge({
       )}
     >
       <span>{type}</span>
-      {trailing ? <span className="text-[10px] opacity-90">{trailing}</span> : null}
+      {trailing ? <span className="micro-label opacity-90">{trailing}</span> : null}
     </span>
   );
 }
@@ -56,8 +56,8 @@ export function ItemSprite({
     return (
       <span
         className={clsx(
-          "flex h-8 w-8 shrink-0 items-center justify-center text-[10px] text-muted",
-          chrome === "framed" && "rounded-[6px] border border-line bg-surface-4",
+          "micro-label flex h-8 w-8 shrink-0 items-center justify-center text-muted",
+          chrome === "framed" && "control-surface",
         )}
       >
         item
@@ -69,7 +69,7 @@ export function ItemSprite({
     <span
       className={clsx(
         "flex h-8 w-8 shrink-0 items-center justify-center",
-        chrome === "framed" && "rounded-[6px] border border-line bg-surface-4",
+        chrome === "framed" && "control-surface",
       )}
     >
       <Image
@@ -94,7 +94,7 @@ export function InfoHint({ text }: { text?: string | null }) {
       <span className="inline-flex h-5 w-5 items-center justify-center rounded-[4px] border border-line bg-surface-4 text-muted">
         <Info className="h-3 w-3" />
       </span>
-      <span className="status-popover pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 rounded-[6px] border border-line px-3 py-2 text-xs leading-5 text-text group-hover:block">
+      <span className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 group-hover:block">
         {text}
       </span>
     </span>
@@ -192,7 +192,7 @@ export function FilterCombobox({
             });
           }
         }}
-        className="flex h-10 w-full items-center justify-between rounded-[6px] border border-line bg-surface-4 px-3 text-left text-sm text-text transition-[border-color,background-color] hover:bg-surface-6"
+        className="control-surface control-surface-hover flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
       >
         <span className={clsx("truncate", !safeValue && "text-text-faint")}>{safeValue || placeholder}</span>
         <ChevronsUpDown className="h-4 w-4 text-muted" />
@@ -226,7 +226,7 @@ export function FilterCombobox({
                     setQuery(option);
                     setOpen(false);
                   }}
-                  className="flex w-full items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm text-text transition hover:bg-surface-6"
+                  className="control-surface-hover flex w-full items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm text-text transition"
                 >
                   {renderOption ? (
                     renderOption(option, option === safeValue)
@@ -395,7 +395,7 @@ export function SpeciesCombobox({
                   setOpen(false);
                 }}
                 style={{ top: (startIndex + index) * SPECIES_ROW_HEIGHT }}
-                className="absolute left-0 right-0 flex h-[66px] items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm transition hover:bg-surface-6"
+                className="control-surface-hover absolute left-0 right-0 flex h-[66px] items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm transition"
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[8px] border border-line bg-surface-4">
@@ -409,7 +409,7 @@ export function SpeciesCombobox({
                         unoptimized={false}
                       />
                     ) : (
-                      <span className="text-[10px] text-muted">n/a</span>
+                      <span className="micro-label text-muted">n/a</span>
                     )}
                   </span>
                   <div className="min-w-0">
@@ -457,7 +457,7 @@ export function SpeciesCombobox({
             });
           }
         }}
-        className="flex h-10 w-full items-center justify-between rounded-[6px] border border-line bg-surface-4 px-3 text-left text-sm text-text transition-[border-color,background-color] hover:bg-surface-6"
+        className="control-surface control-surface-hover flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
       >
         <span className={clsx("truncate", !value && "text-text-faint")}>{value || "Pokemon"}</span>
         <ChevronsUpDown className="h-4 w-4 text-muted" />
@@ -522,7 +522,7 @@ export function PokemonSprite({
           }}
         />
       ) : (
-        <div className="display-face text-center text-[11px] text-muted">
+        <div className="display-face micro-copy text-center text-muted">
           {species}
         </div>
       )}
@@ -547,7 +547,7 @@ function TypeFilterSelect({
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
-        className="flex w-full items-center justify-between rounded-[6px] border border-line bg-surface-4 px-2.5 py-2 transition-[border-color,background-color] hover:bg-surface-6"
+        className="control-surface control-surface-hover flex w-full items-center justify-between px-2.5 py-2 transition-[border-color,background-color]"
       >
         {value ? <TypeBadge type={value} /> : <span className="pixel-face text-[12px] text-muted">Any</span>}
         <ChevronsUpDown className="h-4 w-4 text-muted" />
@@ -562,7 +562,7 @@ function TypeFilterSelect({
                 onChange(null);
                 setOpen(false);
               }}
-              className="mb-1 flex w-full items-center justify-between rounded-[6px] px-2 py-2 text-left transition hover:bg-surface-6"
+              className="control-surface-hover mb-1 flex w-full items-center justify-between rounded-[6px] px-2 py-2 text-left transition"
             >
               <span className="pixel-face text-[12px] text-muted">Any</span>
               {!value ? <Check className="h-4 w-4 text-accent" /> : null}

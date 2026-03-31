@@ -6,7 +6,7 @@ import { Archive, Check, Pencil, Plus, Search } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { FilterCombobox, PokemonSprite, TypeBadge } from "@/components/BuilderShared";
-import { PokemonTransferPanel } from "@/components/team/PokemonTransferPanel";
+import { PokemonImportPanel, PokemonTransferActions } from "@/components/team/PokemonTransferPanel";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { buildSpriteUrls } from "@/lib/domain/names";
@@ -202,11 +202,14 @@ export function PcBoxSection({
           <p className="display-face text-sm text-accent">Caja / PC</p>
           <p className="text-xs text-muted">{members.length} guardados</p>
         </div>
-        <Archive className="h-4 w-4 text-accent" />
+        <div className="flex items-center gap-2">
+          <PokemonImportPanel onImportToPc={onImportToPc} />
+          <Archive className="h-4 w-4 text-accent" />
+        </div>
       </div>
 
       {members.length ? (
-        <div className="rounded-[0.9rem] border border-line bg-surface-3 p-3">
+        <div className="soft-card p-3">
           <div className="grid grid-cols-5 gap-2 sm:grid-cols-7 lg:grid-cols-9 xl:grid-cols-12">
           {members.map((member) => (
             <button
@@ -250,7 +253,7 @@ export function PcBoxSection({
           </div>
         </div>
       ) : (
-        <div className="rounded-[0.9rem] border border-dashed border-line bg-surface-3 px-3 py-4 text-sm text-muted">
+        <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
           Aun no tienes Pokemon mandados a la caja.
         </div>
       )}
@@ -261,7 +264,7 @@ export function PcBoxSection({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(2,8,10,0.72)] px-4 backdrop-blur-md"
+            className="modal-scrim z-[120]"
             onClick={() => setSelectedMemberId(null)}
           >
             <motion.div
@@ -270,7 +273,7 @@ export function PcBoxSection({
               exit={{ opacity: 0, y: 10, scale: 0.97 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
               onClick={(event) => event.stopPropagation()}
-              className="w-full max-w-md rounded-[1.05rem] border border-line-strong bg-[linear-gradient(180deg,hsl(196_57%_9%_/_0.96),hsl(196_57%_7%_/_0.94))] p-4 shadow-[0_22px_54px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px]"
+              className="dialog-surface max-w-md p-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
@@ -340,7 +343,8 @@ export function PcBoxSection({
                 </Button>
               </div>
 
-              <div className="mt-3 flex justify-end">
+              <div className="mt-3 flex items-center justify-between gap-3">
+                <PokemonTransferActions member={selectedMember} />
                 <Button
                   type="button"
                   variant="ghost"
@@ -353,8 +357,6 @@ export function PcBoxSection({
           </motion.div>
         ) : null}
       </AnimatePresence>
-
-      <PokemonTransferPanel member={selectedMember ?? undefined} onImportToPc={onImportToPc} />
     </section>
   );
 }
@@ -425,8 +427,8 @@ export function AddMemberSheet({
   }
 
   return (
-    <div className="fixed inset-0 z-[125] flex items-end justify-center bg-[rgba(2,8,10,0.76)] px-3 py-4 backdrop-blur-md sm:items-center">
-      <div className="panel-strong w-full max-w-3xl rounded-[1rem] p-4">
+    <div className="modal-scrim z-[125] items-end px-3 py-4 sm:items-center">
+      <div className="panel-strong panel-frame w-full max-w-3xl p-4">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="display-face text-sm text-accent">Agregar Pokemon</p>
@@ -461,7 +463,7 @@ export function AddMemberSheet({
                     key={member.id}
                     type="button"
                     onClick={() => onPickLibraryMember(member.id)}
-                    className="flex w-full items-center gap-3 rounded-[0.9rem] border border-line bg-surface-3 px-3 py-2 text-left transition hover:bg-surface-4"
+                    className="soft-card flex w-full items-center gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
                   >
                     <PokemonSprite species={member.species} size="small" chrome="plain" />
                     <div className="min-w-0 flex-1">
@@ -477,7 +479,7 @@ export function AddMemberSheet({
                   </button>
                 ))
               ) : (
-                <div className="rounded-[0.9rem] border border-dashed border-line bg-surface-3 px-3 py-4 text-sm text-muted">
+                <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
                   No hay coincidencias en tu libreria.
                 </div>
               )}
@@ -495,7 +497,7 @@ export function AddMemberSheet({
                   key={entry.slug}
                   type="button"
                   onClick={() => onCreateFromDex(entry.name)}
-                  className="flex w-full items-center justify-between gap-3 rounded-[0.9rem] border border-line bg-surface-3 px-3 py-2 text-left transition hover:bg-surface-4"
+                  className="soft-card flex w-full items-center justify-between gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
                 >
                   <div className="min-w-0">
                     <p className="display-face truncate text-sm text-text">

@@ -51,6 +51,7 @@ describe("BuilderController", () => {
       evolutionConstraints: { ivy: false },
       recommendationFilters: { exactType: true },
       battleWeather: "rain",
+      theme: "light",
       milestoneId: "castelia",
       completedEncounterIds: ["route-1"],
       pokemonLibrary: [{ id: "lib-1" }],
@@ -64,6 +65,7 @@ describe("BuilderController", () => {
       setEvolutionConstraint: vi.fn(),
       setRecommendationFilter: vi.fn(),
       setBattleWeather: vi.fn(),
+      setTheme: vi.fn(),
       setMilestoneId: vi.fn(),
       updateMember: vi.fn(),
       createComposition: vi.fn(),
@@ -172,6 +174,7 @@ describe("BuilderController", () => {
       evolutionConstraints: store.evolutionConstraints,
       recommendationFilters: store.recommendationFilters,
       battleWeather: "rain",
+      theme: "light",
       milestoneId: "castelia",
       completedEncounterIds: ["route-1"],
       mode: "challenge",
@@ -180,6 +183,7 @@ describe("BuilderController", () => {
         setEvolutionConstraint: store.setEvolutionConstraint,
         setRecommendationFilter: store.setRecommendationFilter,
         setBattleWeather: store.setBattleWeather,
+        setTheme: store.setTheme,
       },
     });
 

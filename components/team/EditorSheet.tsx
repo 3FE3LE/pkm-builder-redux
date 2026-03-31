@@ -11,7 +11,6 @@ import {
   EditorStatsSection,
 } from '@/components/team/EditorSections';
 import { MovePickerModal } from '@/components/team/MovePickerModal';
-import { PokemonTransferPanel } from '@/components/team/PokemonTransferPanel';
 import { Button } from '@/components/ui/Button';
 import {
   Sheet,
@@ -147,7 +146,7 @@ export function PokemonEditorSheet({
         side="right"
         onRequestClose={() => onOpenChange(false)}
         hideCloseButtonOnMobile
-        className="w-screen max-w-none overflow-y-auto border-l border-line bg-[linear-gradient(180deg,rgba(5,15,19,0.98),rgba(4,10,13,0.98))] p-0 text-text data-[side=right]:w-full sm:w-full sm:max-w-[35rem]"
+        className="w-screen max-w-none overflow-y-auto border-l border-line bg-[var(--sheet-surface-bg)] p-0 text-text data-[side=right]:w-full sm:w-full sm:max-w-[35rem]"
       >
         <SheetHeader className="px-0 pb-0 pt-4 sm:pt-10">
           <EditorHeader
@@ -185,33 +184,29 @@ export function PokemonEditorSheet({
             currentItem={currentItem}
             updateEditorMember={updateEditorMember}
             getIssue={getIssue}
-          />
-          <PokemonTransferPanel
-            member={member}
             onImportToPc={onImportToPc}
-            showImport={!member.species.trim()}
           />
           <Tabs
             value={editorTab}
             onValueChange={(value) => setEditorTab(value as "stats" | "moves" | "typing")}
             className="gap-0"
           >
-            <TabsList className="scrollbar-thin relative z-10 -mb-px flex h-auto w-full flex-nowrap items-end gap-1 overflow-x-auto bg-transparent p-0 pb-1 sm:overflow-visible sm:pb-0">
+            <TabsList className="tab-strip scrollbar-thin">
               <TabsTrigger
                 value="stats"
-                className="flex-none rounded-t-[0.9rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-xs text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:px-4 sm:py-2.5 sm:text-sm"
+                className="tab-trigger-soft"
               >
                 Stats
               </TabsTrigger>
               <TabsTrigger
                 value="moves"
-                className="flex-none rounded-t-[0.9rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-xs text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:px-4 sm:py-2.5 sm:text-sm"
+                className="tab-trigger-soft"
               >
                 Moves
               </TabsTrigger>
               <TabsTrigger
                 value="typing"
-                className="flex-none rounded-t-[0.9rem] rounded-b-none border border-line border-b-line bg-surface-3 px-3 py-2 text-xs text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:px-4 sm:py-2.5 sm:text-sm"
+                className="tab-trigger-soft"
               >
                 Typing
               </TabsTrigger>
@@ -219,7 +214,7 @@ export function PokemonEditorSheet({
 
             <TabsContent
               value="stats"
-              className="rounded-[0_1rem_1rem_1rem] p-0"
+              className="tab-panel"
             >
               {editorTab === "stats" ? (
                 <EditorStatsSection
@@ -242,7 +237,7 @@ export function PokemonEditorSheet({
 
             <TabsContent
               value="moves"
-              className="rounded-[0_1rem_1rem_1rem] p-0"
+              className="tab-panel"
             >
               {editorTab === "moves" ? (
                 <EditorMovesSection
@@ -259,7 +254,7 @@ export function PokemonEditorSheet({
 
             <TabsContent
               value="typing"
-              className="rounded-[0_1rem_1rem_1rem] p-0"
+              className="tab-panel"
             >
               {editorTab === "typing" ? <EditorDefenseSection resolved={resolved} /> : null}
             </TabsContent>

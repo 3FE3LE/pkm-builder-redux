@@ -52,7 +52,7 @@ export function OnboardingConfirmModal({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 14, scale: 0.98 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="panel-strong relative w-full max-w-xl overflow-hidden rounded-[1rem] p-6"
+          className="panel-strong panel-frame relative w-full max-w-xl overflow-hidden p-6"
           onClick={(event) => event.stopPropagation()}
         >
           <div

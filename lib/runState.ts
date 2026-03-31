@@ -29,6 +29,7 @@ export type RecommendationFilterKey =
   | "excludeOtherStarters"
   | "excludeExactTypeDuplicates";
 export type RecommendationFilterState = Record<RecommendationFilterKey, boolean>;
+export type BuilderTheme = "dark" | "light";
 
 export type ClaimedSourceBuckets = {
   encounters: string[];
@@ -64,6 +65,7 @@ export type RunState = {
     evolutionConstraints: EvolutionConstraintState;
     recommendationFilters: RecommendationFilterState;
     battleWeather: BattleWeather;
+    theme: BuilderTheme;
   };
   roster: RunRosterState;
   progress: RunProgressState;
@@ -91,6 +93,7 @@ export function createEmptyRunState(): RunState {
         excludeExactTypeDuplicates: false,
       },
       battleWeather: "clear",
+      theme: "dark",
     },
     roster: {
       pokemonLibrary: [],
@@ -141,6 +144,7 @@ export function createStartedRunState(
         excludeExactTypeDuplicates: false,
       },
       battleWeather: "clear",
+      theme: "dark",
     },
     roster: {
       pokemonLibrary: [lead],

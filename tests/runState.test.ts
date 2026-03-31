@@ -29,6 +29,7 @@ describe("runState", () => {
           excludeExactTypeDuplicates: false,
         },
         battleWeather: "clear",
+        theme: "dark",
       },
       roster: {
         pokemonLibrary: [],

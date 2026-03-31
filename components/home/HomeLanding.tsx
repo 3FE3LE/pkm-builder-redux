@@ -57,13 +57,13 @@ export function HomeLanding() {
           <article className="relative overflow-hidden rounded-[1.4rem] px-5 py-6 sm:px-7 sm:py-8">
             <div className="top-accent-rule absolute inset-x-0 top-0 h-px" />
             <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-accent">
-              <span className="primary-badge rounded-[999px] px-3 py-1">
+              <span className="primary-badge pill-round px-3 py-1">
                 Redux v1.4.1
               </span>
-              <span className="rounded-[999px] border border-line px-3 py-1 text-muted">
+              <span className="pill-round border border-line px-3 py-1 text-muted">
                 Blaze Black 2 / Volt White 2
               </span>
-              <span className="rounded-[999px] border border-line px-3 py-1 text-muted">
+              <span className="pill-round border border-line px-3 py-1 text-muted">
                 Guide de run
               </span>
             </div>
@@ -140,7 +140,7 @@ export function HomeLanding() {
                     key={item.title}
                     className="px-1 py-1"
                   >
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-[0.85rem] border border-primary-line-soft bg-primary-fill text-primary-soft">
+                    <div className="icon-tile-md border border-primary-line-soft bg-primary-fill text-primary-soft">
                       <Icon className="h-4 w-4" />
                     </div>
                     <p className="display-face mt-4 text-sm text-text">{item.title}</p>
@@ -154,7 +154,7 @@ export function HomeLanding() {
           <aside className="rounded-[1.2rem] px-5 py-5 sm:px-6">
             <section>
               <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-[0.9rem] border border-accent-line-soft bg-accent-fill-soft text-accent-soft">
+                  <span className="icon-tile-md border border-accent-line-soft bg-accent-fill-soft text-accent-soft">
                     <Flag className="h-4 w-4" />
                   </span>
                 <div>
@@ -178,7 +178,7 @@ export function HomeLanding() {
 
             <section className="mt-5 pt-5">
               <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-[0.9rem] border border-info-line-soft bg-info-fill-soft text-info-soft">
+                  <span className="icon-tile-md border border-info-line-soft bg-info-fill-soft text-info-soft">
                     <BookOpenText className="h-4 w-4" />
                   </span>
                 <div>
@@ -190,7 +190,7 @@ export function HomeLanding() {
                 {documentationSources.map((entry) => (
                   <span
                     key={entry}
-                    className="rounded-[0.7rem_0.45rem_0.7rem_0.45rem] border border-line bg-surface-3 px-3 py-1.5 text-xs text-muted"
+                    className="chip-surface px-3 py-1.5 text-xs text-muted"
                   >
                     {entry}
                   </span>
@@ -257,9 +257,9 @@ function HeroSignal({
   body: string;
 }) {
   return (
-    <div className="rounded-[1rem] border border-line bg-surface-3/80 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+    <div className="panel-frame border border-line bg-surface-3/80 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
       <div className="flex items-start gap-3">
-        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.85rem] border border-line bg-surface-5 text-accent">
+        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.8rem] border border-line bg-surface-5 text-accent">
           <Icon className="h-4 w-4" />
         </span>
         <div>
@@ -284,7 +284,7 @@ function ActionLink({
     <Link
       href={href}
       className={clsx(
-        "inline-flex items-center gap-2 rounded-[0.9rem] border px-4 py-3 text-sm transition",
+        "cta-surface",
         tone === "primary" &&
           "border-primary-line-strong bg-primary-fill-strong text-primary-soft hover:bg-primary-fill-hover",
         tone === "secondary" &&

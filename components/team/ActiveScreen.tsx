@@ -237,22 +237,22 @@ export function ActiveScreen() {
               onValueChange={(value) => setWorkspaceTab(value as WorkspaceTab)}
               className="gap-0"
             >
-              <TabsList className="relative z-10 -mb-px grid w-full grid-cols-2 gap-1 bg-transparent p-0 sm:flex sm:h-auto sm:flex-wrap sm:items-end">
+              <TabsList className="tab-strip scrollbar-thin">
                 <TabsTrigger
                   value="builder"
-                  className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
+                  className="tab-trigger-soft"
                 >
                   Team
                 </TabsTrigger>
                 <TabsTrigger
                   value="copilot"
-                  className="min-w-0 rounded-t-[0.95rem] rounded-b-none border border-line border-b-line bg-surface-3 px-2 py-2 text-[11px] leading-tight text-muted transition-all hover:bg-surface-5 data-active:border-line data-active:border-b-tab-seam data-active:bg-tab-active data-active:text-primary-soft data-active:shadow-[0_-1px_0_rgba(255,255,255,0.03),0_10px_24px_rgba(0,0,0,0.14)] sm:flex-none sm:px-4 sm:py-2.5 sm:text-sm"
+                  className="tab-trigger-soft"
                 >
                   Checkpoint
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="builder" className="rounded-[0_1rem_1rem_1rem] p-0">
+              <TabsContent value="builder" className="tab-panel">
                 {workspaceTab === "builder" ? (
                   <TeamAnalysisSection
                     averageStats={analysis.averageStats}
@@ -269,7 +269,7 @@ export function ActiveScreen() {
                 ) : null}
               </TabsContent>
 
-              <TabsContent value="copilot" className="rounded-[0_1rem_1rem_1rem] p-0">
+              <TabsContent value="copilot" className="tab-panel">
                 {workspaceTab === "copilot" ? (
                   <CheckpointCopilotSection
                     activeMember={team.activeMember}
@@ -382,7 +382,7 @@ function RosterDragOverlay({
   const types = resolved?.resolvedTypes ?? [];
 
   return (
-    <div className="w-[17rem] rounded-[1rem] border border-[rgba(185,255,102,0.44)] bg-[linear-gradient(180deg,rgba(12,33,41,0.96),rgba(8,20,24,0.96))] p-3 shadow-[0_22px_65px_rgba(0,0,0,0.36)]">
+    <div className="w-[17rem] rounded-[1rem] border border-primary-line-emphasis bg-[var(--sheet-surface-bg)] p-3 shadow-[0_22px_65px_rgba(0,0,0,0.36)]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <p className="display-face truncate text-base text-text">

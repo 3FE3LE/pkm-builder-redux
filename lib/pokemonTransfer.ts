@@ -50,7 +50,13 @@ export function exportPokemonToHash(member: EditableMember) {
 
 export function buildPokemonShareUrl(member: EditableMember) {
   const token = getBareToken(exportPokemonToHash(member));
-  return absoluteUrl(`/team/share/${token}`);
+  const path = `/team/share/${token}`;
+  const browserOrigin =
+    typeof window !== "undefined" && window.location?.origin
+      ? window.location.origin.replace(/\/+$/, "")
+      : null;
+
+  return browserOrigin ? `${browserOrigin}${path}` : absoluteUrl(path);
 }
 
 export function importPokemonFromHash(input: string) {

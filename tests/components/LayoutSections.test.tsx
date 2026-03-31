@@ -339,14 +339,17 @@ describe("LayoutSections", () => {
           excludeExactTypeDuplicates: true,
         }}
         battleWeather="sun"
+        theme="dark"
         onToggleEvolutionConstraint={onToggleEvolutionConstraint}
         onToggleRecommendationFilter={onToggleRecommendationFilter}
         onSetBattleWeather={onSetBattleWeather}
+        onSetTheme={vi.fn()}
         onResetRun={onResetRun}
       />,
     );
 
     expect(screen.getByText("Preferences")).toBeTruthy();
+    expect(screen.getByText("Tema de la interfaz")).toBeTruthy();
     expect(screen.getByText("Clima de combate")).toBeTruthy();
     expect(screen.getByText("Filtros de recomendaciones")).toBeTruthy();
     expect(screen.getByText("Reglas de evolucion")).toBeTruthy();

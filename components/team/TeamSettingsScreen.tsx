@@ -23,9 +23,11 @@ export function TeamSettingsScreen() {
           evolutionConstraints={session.evolutionConstraints}
           recommendationFilters={session.recommendationFilters}
           battleWeather={session.battleWeather}
+          theme={session.theme}
           onToggleEvolutionConstraint={session.actions.setEvolutionConstraint}
           onToggleRecommendationFilter={session.actions.setRecommendationFilter}
           onSetBattleWeather={session.actions.setBattleWeather}
+          onSetTheme={session.actions.setTheme}
           onResetRun={team.actions.resetRun}
         />
       </section>

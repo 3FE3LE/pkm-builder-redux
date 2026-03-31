@@ -52,12 +52,12 @@ export function RecommendedCard({
         </span>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
-        <span className="rounded-[6px] border border-accent-line bg-accent-fill px-3 py-1 text-accent-soft">
+        <span className="token-card border-accent-line bg-accent-fill px-3 py-1 text-accent-soft">
           {member.roleLabel}
         </span>
-        <span className="rounded-[6px] border border-line px-3 py-1">{member.role}</span>
+        <span className="token-card px-3 py-1">{member.role}</span>
         {member.area ? (
-          <span className="rounded-[6px] border border-line px-3 py-1">
+          <span className="token-card px-3 py-1">
             {member.area}
           </span>
         ) : null}
@@ -67,7 +67,7 @@ export function RecommendedCard({
         <p className="text-xs text-muted">{member.roleReason}</p>
       </div>
       {delta ? (
-        <div className="mt-4 rounded-[0.85rem] border border-accent-line-soft bg-accent-fill-soft p-3">
+        <div className="panel-card border-accent-line-soft bg-accent-fill-soft p-3 mt-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="display-face text-xs text-accent">
@@ -87,7 +87,7 @@ export function RecommendedCard({
                   : `Sube el riesgo ${formatSigned(Math.abs(delta.riskDelta))} si entra ahora`}
               </p>
             </div>
-            <div className="rounded-[0.65rem] border border-line bg-surface-3 px-3 py-2 text-right">
+            <div className="token-card px-3 py-2 text-right">
               <p className={clsx("display-face text-sm", delta.scoreDelta >= 0 ? "text-accent-soft" : "text-danger-soft")}>
                 {delta.action === "skip" ? "locked" : `${formatSigned(delta.scoreDelta)} score`}
               </p>
@@ -127,7 +127,7 @@ function formatSigned(value: number) {
 
 function deltaChipClass(value: number) {
   return clsx(
-    "rounded-[6px] border px-2.5 py-1 text-[11px]",
+    "token-card px-2.5 py-1 text-[11px]",
     value >= 4
       ? "border-accent-line bg-accent-fill-strong text-accent-soft"
       : value <= -4
@@ -148,7 +148,7 @@ function SourceCount({
   return (
     <span
       className={clsx(
-        "display-face rounded-[6px] border px-3 py-1 text-[10px] tracking-[0.14em]",
+        "display-face token-card px-3 py-1 text-[10px] tracking-[0.14em]",
         tone === "accent"
           ? "border-accent-line-strong bg-accent-fill-strong text-accent-soft"
           : "border-line bg-surface-3 text-muted",
@@ -353,7 +353,7 @@ function ItemEntryChip({
         />
       ) : null}
       {details?.effect ? (
-        <span className="status-popover pointer-events-none absolute left-1/2 top-[calc(100%+0.45rem)] z-20 hidden w-64 -translate-x-1/2 rounded-[6px] border border-line px-3 py-2 text-xs leading-5 text-text group-hover:block">
+        <span className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.45rem)] z-20 hidden w-64 -translate-x-1/2 group-hover:block">
           {details.effect}
         </span>
       ) : null}

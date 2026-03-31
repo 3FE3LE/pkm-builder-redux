@@ -308,7 +308,7 @@ export function IvCalculatorSection({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -4, scale: 0.98 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
-                          className="mt-2 rounded-[0.6rem] bg-surface-2/60 px-2.5 py-2"
+                          className="token-card mt-2 bg-surface-2/60 px-2.5 py-2"
                         >
                           {!inferenceByStat[stat] || !inferenceByStat[stat]?.candidates.length ? (
                             <p className="text-[11px] text-danger">No cuadra con EV 0</p>
@@ -367,7 +367,7 @@ export function IvCalculatorSection({
                     ].map(([label, value]) => (
                       <div
                         key={`base-stat-${label}`}
-                        className="rounded-[0.7rem] border border-line bg-surface-3 px-2 py-2 text-center"
+                        className="token-card px-2 py-2 text-center"
                       >
                         <p className="display-face text-[9px] text-muted">{label}</p>
                         <p className="mono-face mt-1 text-sm text-text">{value}</p>
@@ -407,10 +407,10 @@ export function IvCalculatorSection({
                                 key={option.key}
                                 type="button"
                                 onClick={() => setGender((current) => current === option.key ? "unknown" : option.key)}
-                                className={`inline-flex h-10 w-10 items-center justify-center rounded-[0.7rem] border transition ${
+                                className={`action-tile icon-tile-md ${
                                   active
                                     ? "border-primary-line-active bg-primary-fill"
-                                    : "border-line bg-surface-3 hover:bg-surface-5"
+                                    : "text-text"
                                 }`}
                               >
                                 <Icon className={`h-4 w-4 ${option.className}`} />
@@ -420,10 +420,10 @@ export function IvCalculatorSection({
                           <button
                             type="button"
                             onClick={() => setShiny((current) => !current)}
-                            className={`inline-flex h-10 items-center gap-2 rounded-[0.7rem] border px-3 transition ${
+                            className={`action-tile inline-flex h-10 items-center gap-2 px-3 ${
                               shiny
                                 ? "border-warning-line bg-[rgba(255,215,102,0.14)] text-warning-strong"
-                                : "border-line bg-surface-3 text-muted hover:bg-surface-5"
+                                : "text-muted"
                             }`}
                           >
                             <Sparkles className="h-4 w-4" />
@@ -435,7 +435,7 @@ export function IvCalculatorSection({
                         <p className="display-face text-[10px] text-muted">Moves learned by level</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           {suggestedMoves.length ? suggestedMoves.map((move) => (
-                            <span key={`capture-move-${move}`} className="rounded-[6px] bg-surface-3 px-2.5 py-1 text-xs text-text">
+                            <span key={`capture-move-${move}`} className="token-card px-2.5 py-1 text-xs text-text">
                               {move}
                             </span>
                           )) : (

@@ -16,12 +16,12 @@ export function AppNav() {
     pathname.startsWith("/team/pokemon/");
 
   return (
-    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 border-t border-[rgba(255,255,255,0.04)] bg-[linear-gradient(180deg,rgba(10,23,28,0.52),rgba(7,16,20,0.38))] px-3 pb-[max(env(safe-area-inset-bottom),0px)] backdrop-blur-[16px] lg:sticky lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b lg:border-[rgba(255,255,255,0.05)] lg:bg-[linear-gradient(180deg,rgba(10,23,28,0.58),rgba(7,16,20,0.34))] lg:px-0 lg:pb-0">
+    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 border-t border-line-soft bg-[var(--dock-surface-bg)] px-3 pb-[max(env(safe-area-inset-bottom),0px)] backdrop-blur-[16px] lg:sticky lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b lg:border-line-soft lg:bg-[var(--dock-surface-bg)] lg:px-0 lg:pb-0">
       <div className="mx-auto flex max-w-7xl items-center justify-center bg-transparent px-0 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-3 lg:px-10 lg:py-3">
         <Link
           href="/"
           aria-label="Home"
-          className="group hidden h-11 w-11 items-center justify-center rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] text-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex"
+          className="nav-action group hidden border border-line-strong bg-[var(--panel-tint-soft)] text-accent shadow-[var(--glass-shadow),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex"
         >
           <Image
             src="/brand/snivy.png"
@@ -32,11 +32,11 @@ export function AppNav() {
             unoptimized={false}
           />
         </Link>
-        <nav className="grid w-full max-w-md grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[linear-gradient(180deg,hsl(196_57%_9%_/_0.84),hsl(196_57%_7%_/_0.78))] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
+        <nav className="grid w-full max-w-md grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[var(--dock-surface-bg)] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),var(--glass-shadow)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
           <Link
             href="/"
             aria-label="Home"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[0.95rem] border border-transparent text-accent transition-[background,border-color,transform] duration-200 hover:border-line hover:bg-surface-3/80 lg:hidden"
+            className="nav-action border border-transparent text-accent transition-[background,border-color,transform] duration-200 hover:border-line hover:bg-surface-3/80 lg:hidden"
           >
             <Image
               src="/brand/snivy.png"
@@ -51,6 +51,7 @@ export function AppNav() {
             href="/team"
             className={clsx(
               "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
+              "nav-action min-w-0 gap-2 px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:justify-start lg:px-3.5",
               teamActive
                 ? "border border-primary-line-strong bg-[linear-gradient(180deg,rgba(190,255,120,0.16),rgba(190,255,120,0.06))] text-text shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(190,255,120,0.08)]"
                 : "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text",
@@ -65,6 +66,7 @@ export function AppNav() {
             href="/team/tools?tool=compare"
             className={clsx(
               "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
+              "nav-action min-w-0 gap-2 px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:justify-start lg:px-3.5",
               toolsActive
                 ? "border border-accent-line-strong bg-[linear-gradient(180deg,rgba(81,255,204,0.16),rgba(81,255,204,0.05))] text-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(81,255,204,0.08)]"
                 : "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text",
@@ -84,7 +86,7 @@ export function AppNav() {
             href="/team/settings"
             aria-label="Settings"
             className={clsx(
-              "inline-flex h-11 w-11 items-center justify-center rounded-[0.95rem] border transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:w-10 lg:rounded-[0.8rem]",
+              "nav-action border transition-[background,border-color,color,box-shadow,transform] duration-200 lg:w-10",
               settingsActive
                 ? "border border-info-line bg-[linear-gradient(180deg,rgba(112,199,255,0.18),rgba(112,199,255,0.06))] text-[hsl(203_100%_87%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(112,199,255,0.08)]"
                 : "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text",

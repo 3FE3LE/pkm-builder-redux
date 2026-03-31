@@ -1,4 +1,4 @@
-const FALLBACK_SITE_URL = "https://pkm-builder-redux.vercel.app";
+const FALLBACK_SITE_URL = "https://pkmbuilder-redux.17suit.com";
 
 export const siteConfig = {
   name: "Pokemon Blaze Black 2 / Volt White 2 Redux Team Builder",

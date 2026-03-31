@@ -10,6 +10,7 @@ const mockedStore = vi.hoisted(() => {
         evolutionConstraints: { level: true, gender: false, timeOfDay: true },
         recommendationFilters: { excludeLegendaries: true },
         battleWeather: "rain",
+        theme: "light",
       },
       progress: {
         milestoneId: "virbank",
@@ -43,6 +44,7 @@ const mockedStore = vi.hoisted(() => {
     setEvolutionConstraint: vi.fn(),
     setRecommendationFilter: vi.fn(),
     setBattleWeather: vi.fn(),
+    setTheme: vi.fn(),
     toggleEncounterCompleted: vi.fn(),
     resetRun: vi.fn(),
   };
@@ -70,6 +72,7 @@ describe("useBuilderStoreState", () => {
       evolutionConstraints: { level: true, gender: false, timeOfDay: true },
       recommendationFilters: { excludeLegendaries: true },
       battleWeather: "rain",
+      theme: "light",
       milestoneId: "virbank",
       pokemonLibrary: [{ id: "lib-1" }],
       compositions: [{ id: "main", name: "Main Team", memberIds: ["lib-1"] }],
@@ -97,6 +100,7 @@ describe("useBuilderStoreState", () => {
       setEvolutionConstraint: mockedStore.state.setEvolutionConstraint,
       setRecommendationFilter: mockedStore.state.setRecommendationFilter,
       setBattleWeather: mockedStore.state.setBattleWeather,
+      setTheme: mockedStore.state.setTheme,
       toggleEncounterCompleted: mockedStore.state.toggleEncounterCompleted,
       resetRun: mockedStore.state.resetRun,
     });

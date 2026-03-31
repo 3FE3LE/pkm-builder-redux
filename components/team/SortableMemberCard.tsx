@@ -266,11 +266,11 @@ function getRosterCardStyle(types: string[]) {
   const secondary = TYPE_COLORS[types[1] ?? types[0] ?? ""] ?? primary;
 
   return {
-    backgroundColor: "rgba(6, 15, 19, 0.9)",
+    backgroundColor: "var(--roster-card-core)",
     backgroundImage: `
       radial-gradient(circle at 14% 14%, color-mix(in srgb, ${primary} 20%, transparent) 0%, transparent 34%),
       radial-gradient(circle at 86% 84%, color-mix(in srgb, ${secondary} 18%, transparent) 0%, transparent 38%),
-      linear-gradient(160deg, color-mix(in srgb, ${primary} 10%, rgba(6,15,19,0.92)) 0%, rgba(6,15,19,0.92) 42%, color-mix(in srgb, ${secondary} 9%, rgba(4,10,13,0.96)) 100%)
+      linear-gradient(160deg, color-mix(in srgb, ${primary} 10%, var(--roster-card-core)) 0%, var(--roster-card-core) 42%, color-mix(in srgb, ${secondary} 9%, var(--roster-card-core-strong)) 100%)
     `,
   } as const;
 }
@@ -442,7 +442,7 @@ export function SortableMemberCard({
               ))
             ) : (
               <div className="min-w-0">
-                <MiniPill className="flex w-full items-center justify-center px-2 py-1 text-[10px] sm:text-xs">
+                <MiniPill className="micro-label flex w-full items-center justify-center px-2 py-1 sm:text-xs">
                   tipo pendiente
                 </MiniPill>
               </div>
@@ -454,7 +454,7 @@ export function SortableMemberCard({
           <div className="mt-2 flex items-start gap-4">
             <div className="min-w-0 flex-1">
               {member.nickname && resolved?.species && member.nickname !== resolved.species ? (
-                <p className="pixel-face text-[11px] leading-none tracking-[0.08em] text-text-faint">
+                <p className="pixel-face micro-copy leading-none tracking-[0.08em] text-text-faint">
                   {resolved.species}
                 </p>
               ) : null}
@@ -465,7 +465,7 @@ export function SortableMemberCard({
                     <TypeBadge key={`${member.id}-${type}-desktop`} type={type} />
                   ))
                 ) : (
-                  <MiniPill className="px-2.5 py-1 text-[11px]">tipo pendiente</MiniPill>
+                  <MiniPill className="micro-copy px-2.5 py-1">tipo pendiente</MiniPill>
                 )}
               </div>
 
@@ -476,19 +476,19 @@ export function SortableMemberCard({
                     className="group relative min-w-0"
                   >
                     <MiniPill
-                      className="flex w-full min-w-0 items-center justify-between gap-2 px-2.5 py-1.5 text-[11px] text-text"
+                      className="micro-copy flex w-full min-w-0 items-center justify-between gap-2 px-2.5 py-1.5 text-text"
                     >
                       {entry.label ? (
                         <span className="display-face shrink-0 text-[9px] tracking-[0.12em] text-text-faint">
                           {entry.label}
                         </span>
                       ) : null}
-                      <span className="pixel-face min-w-0 flex-1 truncate text-[11px] leading-none tracking-[0.06em] text-text">
+                      <span className="pixel-face micro-copy min-w-0 flex-1 truncate leading-none tracking-[0.06em] text-text">
                         {entry.value}
                       </span>
                     </MiniPill>
                     {entry.hint ? (
-                      <span className="status-popover pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 rounded-[6px] border border-line px-3 py-2 text-xs leading-5 text-text group-hover:block">
+                      <span className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 group-hover:block">
                         {entry.hint}
                       </span>
                     ) : null}
