@@ -152,8 +152,8 @@ vi.mock("@/components/team/workspace/BuilderHeader", () => ({
   BuilderHeader: (props: Record<string, any>) => <div>{`builder-header-${props.milestoneId}-${props.localTime}`}</div>,
 }));
 
-vi.mock("@/components/team/workspace/TeamRosterSection", () => ({
-  TeamRosterSection: (props: Record<string, any>) => (
+vi.mock("@/components/team/workspace/RosterSection", () => ({
+  RosterSection: (props: Record<string, any>) => (
     <div>
       <div>{`roster-${props.compositionName}-${props.currentTeam.length}`}</div>
       <div>{`editor-open-${String(props.editorOpen)}`}</div>
@@ -189,8 +189,8 @@ vi.mock("@/components/team/workspace/TeamRosterSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/workspace/TeamAnalysisSection", () => ({
-  TeamAnalysisSection: (props: Record<string, any>) => (
+vi.mock("@/components/team/workspace/AnalysisSection", () => ({
+  AnalysisSection: (props: Record<string, any>) => (
     <div>
       <div>{`analysis-team-size-${props.teamSize}`}</div>
       <button type="button" onClick={() => props.onSendCaptureToIvCalc("Zorua")}>

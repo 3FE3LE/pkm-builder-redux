@@ -166,8 +166,8 @@ import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
 import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
 import { WorkspaceSection } from "@/components/team/tools/compare/WorkspaceSection";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
-import { TeamAnalysisSection } from "@/components/team/workspace/TeamAnalysisSection";
-import { TeamRosterSection } from "@/components/team/workspace/TeamRosterSection";
+import { AnalysisSection } from "@/components/team/workspace/AnalysisSection";
+import { RosterSection } from "@/components/team/workspace/RosterSection";
 
 describe("Team Sections", () => {
   beforeEach(() => {
@@ -230,7 +230,7 @@ describe("Team Sections", () => {
     const onSendCaptureToIvCalc = vi.fn();
 
     render(
-      <TeamAnalysisSection
+      <AnalysisSection
         averageStats={{ atk: 100 } as any}
         coveredCoverage={[{ defenseType: "Grass", bucket: "x0.5" }]}
         uncoveredCoverage={[{ defenseType: "Steel", bucket: "x2" }]}
@@ -421,7 +421,7 @@ describe("Team Sections", () => {
     const onCloseEditor = vi.fn();
 
     render(
-      <TeamRosterSection
+      <RosterSection
         compositionName="Main"
         currentTeam={[
           {
@@ -570,7 +570,7 @@ describe("Team Sections", () => {
     const onRemoveMember = vi.fn();
 
     render(
-      <TeamRosterSection
+      <RosterSection
         compositionName="Main"
         currentTeam={[
           {
@@ -627,7 +627,7 @@ describe("Team Sections", () => {
     const onResetMember = vi.fn();
 
     render(
-      <TeamRosterSection
+      <RosterSection
         compositionName="   "
         currentTeam={[
           {
@@ -710,7 +710,7 @@ describe("Team Sections", () => {
     const onClearSelection = vi.fn();
 
     render(
-      <TeamRosterSection
+      <RosterSection
         compositionName="Cancel"
         currentTeam={[
           {
@@ -782,7 +782,7 @@ describe("Team Sections", () => {
     }) as never;
 
     render(
-      <TeamRosterSection
+      <RosterSection
         compositionName="Fallbacks"
         currentTeam={[
           {
@@ -856,7 +856,7 @@ describe("Team Sections", () => {
     global.fetch = fetchMock as never;
 
     const { rerender } = render(
-      <TeamRosterSection
+      <RosterSection
         compositionName="Fetch"
         currentTeam={[
           {
@@ -910,7 +910,7 @@ describe("Team Sections", () => {
     expect(fetchMock).not.toHaveBeenCalled();
 
     rerender(
-      <TeamRosterSection
+      <RosterSection
         compositionName="Fetch"
         currentTeam={[
           {

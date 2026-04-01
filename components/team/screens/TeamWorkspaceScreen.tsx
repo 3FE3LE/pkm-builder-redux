@@ -21,8 +21,8 @@ import {
   EvolutionModal,
 } from "@/components/team/Modals";
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
-import { TeamAnalysisSection } from "@/components/team/workspace/TeamAnalysisSection";
-import { TeamRosterSection } from "@/components/team/workspace/TeamRosterSection";
+import { AnalysisSection } from "@/components/team/workspace/AnalysisSection";
+import { RosterSection } from "@/components/team/workspace/RosterSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useTeamAnalysis,
@@ -183,7 +183,7 @@ export function TeamWorkspaceScreen() {
           onDragCancel={handleWorkspaceDragCancel}
           onDragEnd={handleWorkspaceDragEnd}
         >
-          <TeamRosterSection
+          <RosterSection
             compositionName={activeCompositionName}
             currentTeam={team.currentTeam}
             resolvedTeam={team.resolvedTeam}
@@ -253,7 +253,7 @@ export function TeamWorkspaceScreen() {
 
               <TabsContent value="builder" className="tab-panel">
                 {workspaceTab === "builder" ? (
-                  <TeamAnalysisSection
+                  <AnalysisSection
                     averageStats={analysis.averageStats}
                     coveredCoverage={analysis.coveredCoverage}
                     uncoveredCoverage={analysis.uncoveredCoverage}

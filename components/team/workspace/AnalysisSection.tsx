@@ -17,7 +17,7 @@ type CaptureRecommendation = ReturnType<
 >[number];
 type DefensiveSections = ReturnType<typeof import("@/lib/teamAnalysis").buildDefensiveSections>;
 
-export function TeamAnalysisSection({
+export function AnalysisSection({
   averageStats,
   coveredCoverage,
   uncoveredCoverage,

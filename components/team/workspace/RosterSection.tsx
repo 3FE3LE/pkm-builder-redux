@@ -29,7 +29,7 @@ type DexPokemonDetail = {
   flavorText?: string | null;
 };
 
-export function TeamRosterSection({
+export function RosterSection({
   compositionName,
   currentTeam,
   resolvedTeam,
