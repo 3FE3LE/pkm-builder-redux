@@ -8,7 +8,7 @@ import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 type CheckpointRisk = ReturnType<typeof import("@/lib/domain/checkpointScoring").buildCheckpointRiskSnapshot>;
 type SwapOpportunity = ReturnType<typeof import("@/lib/domain/swapOpportunities").buildSwapOpportunities>[number];
 
-export function CheckpointIntelligencePanel({
+export function IntelligencePanel({
   teamSize,
   supportsContextualSwaps,
   checkpointRisk,

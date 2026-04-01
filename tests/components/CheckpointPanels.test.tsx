@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 
-import { CheckpointIntelligencePanel } from "@/components/team/CheckpointIntelligencePanel";
-import { CheckpointMapPanel } from "@/components/team/CheckpointMapPanel";
+import { IntelligencePanel as CheckpointIntelligencePanel } from "@/components/team/checkpoints/IntelligencePanel";
+import { MapPanel as CheckpointMapPanel } from "@/components/team/checkpoints/MapPanel";
 import {
   CheckpointIntelligencePanel as ExportedCheckpointIntelligencePanel,
   CheckpointMapPanel as ExportedCheckpointMapPanel,
   RecommendedCapturesPanel as ExportedRecommendedCapturesPanel,
   RunPathPanel as ExportedRunPathPanel,
 } from "@/components/team/CheckpointPanels";
-import { RecommendedCapturesPanel } from "@/components/team/RecommendedCapturesPanel";
-import { RunPathPanel } from "@/components/team/RunPathPanel";
+import { RecommendationsPanel as RecommendedCapturesPanel } from "@/components/team/checkpoints/RecommendationsPanel";
+import { PathPanel as RunPathPanel } from "@/components/team/checkpoints/PathPanel";
 
 describe("CheckpointPanels", () => {
   it("re-exports the checkpoint panel components", () => {

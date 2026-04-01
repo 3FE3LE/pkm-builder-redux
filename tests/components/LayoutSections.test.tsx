@@ -47,7 +47,7 @@ vi.mock("motion/react", () => ({
   },
 }));
 
-vi.mock("@/components/team/AnalysisPanels", () => ({
+vi.mock("@/components/team/workspace/AnalysisPanels", () => ({
   TeamAverageStatsPanel: ({ averageStats }: { averageStats: unknown }) => <div>{`avg-${averageStats ? "yes" : "no"}`}</div>,
   TeamRosterReadingPanel: ({ checkpointRisk }: { checkpointRisk: { summary?: string } }) => <div>{`reading-${checkpointRisk.summary ?? "none"}`}</div>,
   CoveragePanel: ({ coveredCoverage, uncoveredCoverage }: { coveredCoverage: unknown[]; uncoveredCoverage: unknown[] }) => (
@@ -56,10 +56,10 @@ vi.mock("@/components/team/AnalysisPanels", () => ({
   DefensiveThreatsPanel: ({ defensiveSections }: { defensiveSections: unknown[] }) => <div>{`defense-${defensiveSections.length}`}</div>,
 }));
 
-vi.mock("@/components/team/CheckpointPanels", () => ({
-  CheckpointIntelligencePanel: ({ teamSize }: { teamSize: number }) => <div>{`intel-${teamSize}`}</div>,
-  CheckpointMapPanel: ({ activeMember }: { activeMember?: { species?: string } }) => <div>{`map-${activeMember?.species ?? "none"}`}</div>,
-  RecommendedCapturesPanel: (props: Record<string, any>) => (
+vi.mock("@/components/team/checkpoints", () => ({
+  IntelligencePanel: ({ teamSize }: { teamSize: number }) => <div>{`intel-${teamSize}`}</div>,
+  MapPanel: ({ activeMember }: { activeMember?: { species?: string } }) => <div>{`map-${activeMember?.species ?? "none"}`}</div>,
+  RecommendationsPanel: (props: Record<string, any>) => (
     <div>
       <div>{`captures-${props.teamSize}-${String(props.showCaptures ?? true)}-${String(props.showSwaps ?? true)}`}</div>
       <button type="button" onClick={() => props.onSendToIvCalc?.("Mareep")}>
@@ -67,7 +67,7 @@ vi.mock("@/components/team/CheckpointPanels", () => ({
       </button>
     </div>
   ),
-  RunPathPanel: ({ variant, maxHeight }: { variant?: string; maxHeight?: number }) => (
+  PathPanel: ({ variant, maxHeight }: { variant?: string; maxHeight?: number }) => (
     <div>{`runpath-${variant ?? "default"}-${maxHeight ?? "none"}`}</div>
   ),
 }));

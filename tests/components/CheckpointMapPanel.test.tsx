@@ -11,7 +11,7 @@ vi.mock("@/components/team/UI", () => ({
   }) => <div>{`${source.area}-${activeSpecies ?? "none"}`}</div>,
 }));
 
-import { CheckpointMapPanel } from "@/components/team/CheckpointMapPanel";
+import { MapPanel as CheckpointMapPanel } from "@/components/team/checkpoints/MapPanel";
 
 describe("CheckpointMapPanel", () => {
   it("renders only visible source cards and forwards the active species", () => {

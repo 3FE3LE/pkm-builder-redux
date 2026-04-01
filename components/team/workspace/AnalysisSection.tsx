@@ -5,8 +5,8 @@ import {
   DefensiveThreatsPanel,
   TeamAverageStatsPanel,
   TeamRosterReadingPanel,
-} from "@/components/team/AnalysisPanels";
-import { RecommendedCapturesPanel } from "@/components/team/CheckpointPanels";
+} from "@/components/team/workspace/AnalysisPanels";
+import { RecommendationsPanel } from "@/components/team/checkpoints";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 
 type CheckpointRisk = ReturnType<
@@ -50,7 +50,7 @@ export function AnalysisSection({
     <section className="space-y-2">
       <TeamAverageStatsPanel averageStats={averageStats} />
       <TeamRosterReadingPanel checkpointRisk={checkpointRisk} />
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={teamSize}
         captureRecommendations={captureRecommendations}
         swapOpportunities={[]}

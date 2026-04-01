@@ -1,4 +1,4 @@
-export { CheckpointIntelligencePanel } from "@/components/team/CheckpointIntelligencePanel";
-export { CheckpointMapPanel } from "@/components/team/CheckpointMapPanel";
-export { RecommendedCapturesPanel } from "@/components/team/RecommendedCapturesPanel";
-export { RunPathPanel } from "@/components/team/RunPathPanel";
+export { IntelligencePanel as CheckpointIntelligencePanel } from "@/components/team/checkpoints/IntelligencePanel";
+export { MapPanel as CheckpointMapPanel } from "@/components/team/checkpoints/MapPanel";
+export { RecommendationsPanel as RecommendedCapturesPanel } from "@/components/team/checkpoints/RecommendationsPanel";
+export { PathPanel as RunPathPanel } from "@/components/team/checkpoints/PathPanel";

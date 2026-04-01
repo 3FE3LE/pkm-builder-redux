@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 import {
-  CheckpointIntelligencePanel,
-  CheckpointMapPanel,
-  RecommendedCapturesPanel,
-  RunPathPanel,
-} from "@/components/team/CheckpointPanels";
+  IntelligencePanel,
+  MapPanel,
+  PathPanel,
+  RecommendationsPanel,
+} from "@/components/team/checkpoints";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 import type { StarterKey } from "@/lib/builder";
@@ -88,7 +88,7 @@ export function CopilotSection({
       <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-start">
         <div ref={contentRef} className="min-w-0 space-y-2 overflow-x-hidden">
           <div className="xl:hidden">
-            <RunPathPanel
+            <PathPanel
               encounters={encounterCatalog}
               completedEncounterIds={completedEncounterIds}
               speciesCatalog={speciesCatalog}
@@ -97,19 +97,19 @@ export function CopilotSection({
               variant="mobile-summary"
             />
           </div>
-          <CheckpointIntelligencePanel
+          <IntelligencePanel
             teamSize={teamSize}
             supportsContextualSwaps={supportsContextualSwaps}
             checkpointRisk={checkpointRisk}
             swapOpportunities={swapOpportunities}
           />
-          <CheckpointMapPanel
+          <MapPanel
             activeMember={activeMember}
             sourceCards={sourceCards}
             speciesCatalog={speciesCatalog}
             itemCatalog={itemCatalog}
           />
-          <RecommendedCapturesPanel
+          <RecommendationsPanel
             teamSize={teamSize}
             swapOpportunities={swapOpportunities}
             captureRecommendations={captureRecommendations}
@@ -121,7 +121,7 @@ export function CopilotSection({
           />
         </div>
         <aside className="hidden xl:block">
-          <RunPathPanel
+          <PathPanel
             encounters={encounterCatalog}
             completedEncounterIds={completedEncounterIds}
             speciesCatalog={speciesCatalog}

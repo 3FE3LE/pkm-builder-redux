@@ -11,7 +11,7 @@ vi.mock("@/components/BuilderShared", () => ({
   }) => <span>{`${type}${emphasis ? `-${emphasis}` : ""}`}</span>,
 }));
 
-import { CheckpointIntelligencePanel } from "@/components/team/CheckpointIntelligencePanel";
+import { IntelligencePanel as CheckpointIntelligencePanel } from "@/components/team/checkpoints/IntelligencePanel";
 
 describe("CheckpointIntelligencePanel", () => {
   it("renders swap opportunities with status tones and upside badges", () => {

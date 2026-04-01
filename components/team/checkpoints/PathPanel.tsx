@@ -12,7 +12,7 @@ import {
 } from "@/lib/runEncounters";
 
 import type { StarterKey } from "@/lib/builder";
-export function RunPathPanel({
+export function PathPanel({
   encounters,
   completedEncounterIds,
   speciesCatalog,

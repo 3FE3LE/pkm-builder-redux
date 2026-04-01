@@ -11,7 +11,7 @@ import type { CaptureRecommendation } from "@/lib/domain/contextualRecommendatio
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 
-export function RecommendedCapturesPanel({
+export function RecommendationsPanel({
   teamSize,
   captureRecommendations,
   swapOpportunities,

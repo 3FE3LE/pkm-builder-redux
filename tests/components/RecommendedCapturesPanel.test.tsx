@@ -42,7 +42,7 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <span>{type}</span>,
 }));
 
-import { RecommendedCapturesPanel } from "@/components/team/RecommendedCapturesPanel";
+import { RecommendationsPanel as RecommendedCapturesPanel } from "@/components/team/checkpoints/RecommendationsPanel";
 
 describe("RecommendedCapturesPanel", () => {
   it("renders capture recommendations and sends a species to IV calc", async () => {

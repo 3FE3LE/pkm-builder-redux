@@ -3,7 +3,7 @@
 import { AreaSourceCard, type AreaSource } from "@/components/team/UI";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
-export function CheckpointMapPanel({
+export function MapPanel({
   activeMember,
   sourceCards,
   speciesCatalog,

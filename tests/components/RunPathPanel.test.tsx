@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { RunPathPanel } from "@/components/team/RunPathPanel";
+import { PathPanel as RunPathPanel } from "@/components/team/checkpoints/PathPanel";
 
 function createEncounter(overrides: Record<string, unknown>) {
   return {

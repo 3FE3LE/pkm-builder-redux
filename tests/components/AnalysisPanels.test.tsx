@@ -35,7 +35,7 @@ import {
   DefensiveThreatsPanel,
   TeamAverageStatsPanel,
   TeamRosterReadingPanel,
-} from "@/components/team/AnalysisPanels";
+} from "@/components/team/workspace/AnalysisPanels";
 
 describe("AnalysisPanels", () => {
   it("renders average stats and fallback when data is missing", () => {
