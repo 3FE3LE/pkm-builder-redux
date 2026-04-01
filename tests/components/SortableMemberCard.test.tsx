@@ -78,7 +78,7 @@ vi.mock("@/components/team/UI", () => ({
   }) => <span className={className}>{children}</span>,
 }));
 
-import { SortableMemberCard } from "@/components/team/SortableMemberCard";
+import { SortableMemberCard } from "@/components/team/workspace/roster/SortableMemberCard";
 
 beforeEach(() => {
   mocked.reducedMotion = false;

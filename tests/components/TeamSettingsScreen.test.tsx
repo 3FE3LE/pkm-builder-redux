@@ -60,9 +60,9 @@ vi.mock("@/components/team/settings/PreferencesSection", () => ({
   ),
 }));
 
-import { TeamSettingsScreen } from "@/components/team/TeamSettingsScreen";
+import { SettingsScreen } from "@/components/team/screens/SettingsScreen";
 
-describe("TeamSettingsScreen", () => {
+describe("SettingsScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocked.hydrated = true;
@@ -71,7 +71,7 @@ describe("TeamSettingsScreen", () => {
   it("shows loading while the session hydrates", () => {
     mocked.hydrated = false;
 
-    render(<TeamSettingsScreen />);
+    render(<SettingsScreen />);
 
     expect(screen.getByText("loading-screen")).toBeTruthy();
   });
@@ -79,7 +79,7 @@ describe("TeamSettingsScreen", () => {
   it("renders preferences and wires the settings actions", async () => {
     const user = userEvent.setup();
 
-    render(<TeamSettingsScreen />);
+    render(<SettingsScreen />);
 
     expect(screen.getByText("Preferencias del builder")).toBeTruthy();
     expect(screen.getByText("prefs-rain")).toBeTruthy();

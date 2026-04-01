@@ -47,7 +47,7 @@ vi.mock("@/components/team/tools/compare/WorkspaceSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/IvCalculatorSection", () => ({
+vi.mock("@/components/team/tools/IvCalculatorSection", () => ({
   IvCalculatorSection: (props: Record<string, any>) => (
     <div>
       <div>{`ivcalc-${props.prefillSpecies || "none"}`}</div>
@@ -61,7 +61,7 @@ vi.mock("@/components/team/IvCalculatorSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/TypeTierListSection", () => ({
+vi.mock("@/components/team/tools/TypeTierListSection", () => ({
   TypeTierListSection: ({ resolvedTeam }: { resolvedTeam: Array<{ species: string }> }) => (
     <div>{`types-${resolvedTeam.length}`}</div>
   ),

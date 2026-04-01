@@ -124,7 +124,7 @@ vi.mock("@/lib/builderStore", () => ({
   createEditable: (species: string) => mocked.createEditable(species),
 }));
 
-import { IvCalculatorSection } from "@/components/team/IvCalculatorSection";
+import { IvCalculatorSection } from "@/components/team/tools/IvCalculatorSection";
 
 const speciesCatalog = [
   { name: "Mareep", slug: "mareep", dex: 179, types: ["Electric"] },

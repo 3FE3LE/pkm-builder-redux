@@ -96,7 +96,7 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <span>{type}</span>,
 }));
 
-vi.mock("@/components/team/SortableMemberCard", () => ({
+vi.mock("@/components/team/workspace/roster/SortableMemberCard", () => ({
   SortableMemberCard: ({
     member,
     onSelect,

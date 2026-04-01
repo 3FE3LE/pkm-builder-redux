@@ -5,9 +5,9 @@ import { Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
-import { SortableMemberCard } from "@/components/team/SortableMemberCard";
 import { ActionDock } from "@/components/team/workspace/roster/ActionDock";
 import { SelectedMemberInsightCard } from "@/components/team/workspace/roster/SelectedMemberInsightCard";
+import { SortableMemberCard } from "@/components/team/workspace/roster/SortableMemberCard";
 import type { EditableMember } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";

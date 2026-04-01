@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { TeamSettingsScreen } from "@/components/team/TeamSettingsScreen";
+import { SettingsScreen } from "@/components/team/screens/SettingsScreen";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -19,5 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function TeamSettingsPage() {
-  return <TeamSettingsScreen />;
+  return <SettingsScreen />;
 }
