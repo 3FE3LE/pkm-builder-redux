@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prepare": "husky",
+    "prepare": "node -e \"const fs=require('fs'); if(process.env.CI || !fs.existsSync('.git')) process.exit(0); require('child_process').execSync('husky',{stdio:'inherit'})\"",
     "test": "vitest run",
     "test:related": "vitest related --run",
     "test:coverage": "vitest run --coverage",
@@ -43,6 +43,12 @@
     "tw-animate-css": "^1.4.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.12"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "msw"
+    ]
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
