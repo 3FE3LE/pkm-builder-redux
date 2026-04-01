@@ -17,9 +17,7 @@ import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
 import { CopilotSection } from "@/components/team/checkpoints/CopilotSection";
 import { AddMemberSheet } from "@/components/team/collection/AddMemberSheet";
 import { PcBoxSection } from "@/components/team/collection/PcBoxSection";
-import {
-  EvolutionModal,
-} from "@/components/team/Modals";
+import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
 import { AnalysisSection } from "@/components/team/workspace/AnalysisSection";
 import { RosterSection } from "@/components/team/workspace/RosterSection";

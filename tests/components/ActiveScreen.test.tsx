@@ -214,7 +214,7 @@ vi.mock("@/components/team/checkpoints/CopilotSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/Modals", () => ({
+vi.mock("@/components/team/workspace/EvolutionModal", () => ({
   EvolutionModal: (props: Record<string, any>) => (
     <div>
       <div>{`evolution-open-${String(props.open)}`}</div>

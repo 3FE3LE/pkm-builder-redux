@@ -34,7 +34,7 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <span>{type}</span>,
 }));
 
-vi.mock("@/components/team/Modals", () => ({
+vi.mock("@/components/onboarding/OnboardingConfirmModal", () => ({
   OnboardingConfirmModal: (props: Record<string, any>) => (
     <div>
       <div>{`modal-${props.starterKey}`}</div>

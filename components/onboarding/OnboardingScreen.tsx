@@ -3,9 +3,7 @@
 import clsx from "clsx";
 import { motion } from "motion/react";
 
-import {
-  OnboardingConfirmModal,
-} from "@/components/team/Modals";
+import { OnboardingConfirmModal } from "@/components/onboarding/OnboardingConfirmModal";
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
 import { useTeamCatalogs, useTeamOnboarding } from "@/components/BuilderProvider";
 import { buildSpriteUrls } from "@/lib/domain/names";
