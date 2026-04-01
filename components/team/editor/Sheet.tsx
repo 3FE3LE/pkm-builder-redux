@@ -10,7 +10,7 @@ import { ProfileSection } from "@/components/team/editor/ProfileSection";
 import { StatsSection } from "@/components/team/editor/StatsSection";
 import { MovePickerModal } from "@/components/team/editor/MovePickerModal";
 import {
-  Sheet,
+  Sheet as UiSheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -29,7 +29,7 @@ import type {
   SpeciesCatalogEntry,
 } from "@/components/team/editor/types";
 
-type PokemonEditorSheetProps = {
+type EditorSheetProps = {
   member?: EditableMember;
   open?: boolean;
   resolved?: ResolvedTeamMember;
@@ -60,7 +60,7 @@ type PokemonEditorSheetProps = {
   getMoveSurfaceStyle: (type?: string | null) => CSSProperties | undefined;
 };
 
-export function PokemonEditorSheet({
+export function EditorSheet({
   member,
   open: openProp,
   resolved,
@@ -89,13 +89,13 @@ export function PokemonEditorSheet({
   onCloseMovePicker,
   onPickMove,
   getMoveSurfaceStyle,
-}: PokemonEditorSheetProps) {
+}: EditorSheetProps) {
   const [editorTab, setEditorTab] = useState<"stats" | "moves" | "typing">("stats");
   const open = openProp ?? Boolean(member);
 
   if (!member) {
     return (
-      <Sheet
+      <UiSheet
         open={false}
         onOpenChange={onOpenChange}
         onOpenChangeComplete={onOpenChangeComplete}
@@ -136,7 +136,7 @@ export function PokemonEditorSheet({
   }
 
   return (
-    <Sheet
+    <UiSheet
       open={open}
       onOpenChange={onOpenChange}
       onOpenChangeComplete={onOpenChangeComplete}
@@ -255,6 +255,6 @@ export function PokemonEditorSheet({
           ) : null}
         </div>
       </SheetContent>
-    </Sheet>
+    </UiSheet>
   );
 }

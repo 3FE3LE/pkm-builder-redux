@@ -106,8 +106,8 @@ vi.mock("@/lib/domain/evolutionEligibility", () => ({
   buildEvolutionEligibility: vi.fn(() => [{ eligible: true, reasons: [] }]),
 }));
 
-vi.mock("@/components/team/editor/PokemonEditorSheet", () => ({
-  PokemonEditorSheet: (props: Record<string, any>) => (
+vi.mock("@/components/team/editor/Sheet", () => ({
+  EditorSheet: (props: Record<string, any>) => (
     <div>
       <div>{`open-${String(props.open)}`}</div>
       <div>{`weather-${props.weather}`}</div>
@@ -158,9 +158,9 @@ vi.mock("@/components/team/editor/PokemonEditorSheet", () => ({
   ),
 }));
 
-import { TeamEditorRoute } from "@/components/team/editor/TeamEditorRoute";
+import { EditorRoute } from "@/components/team/editor/Route";
 
-describe("TeamEditorRoute", () => {
+describe("EditorRoute", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     providerState.team.pokemonLibrary = [];
@@ -169,7 +169,7 @@ describe("TeamEditorRoute", () => {
   });
 
   it("returns null when the requested member does not exist", () => {
-    const { container } = render(<TeamEditorRoute memberId="missing" closeMode="replace" />);
+    const { container } = render(<EditorRoute memberId="missing" closeMode="replace" />);
 
     expect(container.firstChild).toBeNull();
   });
@@ -177,7 +177,7 @@ describe("TeamEditorRoute", () => {
   it("wires editor actions and replaces the route on close for replace mode", async () => {
     const user = userEvent.setup();
 
-    render(<TeamEditorRoute memberId="member-1" closeMode="replace" />);
+    render(<EditorRoute memberId="member-1" closeMode="replace" />);
 
     expect(screen.getByText("open-true")).toBeTruthy();
     expect(screen.getByText("weather-clear")).toBeTruthy();
@@ -237,7 +237,7 @@ describe("TeamEditorRoute", () => {
     ];
     providerState.movePicker.memberId = "other-member";
 
-    render(<TeamEditorRoute memberId="library-1" closeMode="back" />);
+    render(<EditorRoute memberId="library-1" closeMode="back" />);
 
     expect(screen.getByText("open-false")).toBeTruthy();
 

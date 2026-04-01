@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { PokemonEditorSheet } from "@/components/team/editor/PokemonEditorSheet";
+import { EditorSheet } from "@/components/team/editor/Sheet";
 import {
   useTeamAnalysis,
   useTeamCatalogs,
@@ -13,12 +13,12 @@ import {
 } from "@/components/BuilderProvider";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 
-type TeamEditorRouteProps = {
+type EditorRouteProps = {
   memberId: string;
   closeMode: "back" | "replace";
 };
 
-export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
+export function EditorRoute({ memberId, closeMode }: EditorRouteProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const session = useTeamSession();
@@ -79,7 +79,7 @@ export function TeamEditorRoute({ memberId, closeMode }: TeamEditorRouteProps) {
   }
 
   return (
-    <PokemonEditorSheet
+    <EditorSheet
       key={`editor-sheet-${memberId}-${editorNonce}`}
       member={member}
       open={closeMode === "back" ? open && team.editorMemberId === memberId : open}

@@ -81,7 +81,7 @@ vi.mock("@/components/ui/Sheet", () => ({
   SheetTitle: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
 }));
 
-import { PokemonEditorSheet } from "@/components/team/editor/PokemonEditorSheet";
+import { EditorSheet } from "@/components/team/editor/Sheet";
 
 function createMember() {
   return {
@@ -101,10 +101,10 @@ function createMember() {
   };
 }
 
-describe("PokemonEditorSheet", () => {
+describe("EditorSheet", () => {
   it("renders nothing interactive when there is no member", () => {
     render(
-      <PokemonEditorSheet
+      <EditorSheet
         open
         weather="clear"
         speciesCatalog={[]}
@@ -140,7 +140,7 @@ describe("PokemonEditorSheet", () => {
     const onOpenChange = vi.fn();
 
     render(
-      <PokemonEditorSheet
+      <EditorSheet
         member={createMember() as never}
         open
         resolved={{ species: "Riolu", nextEvolutions: ["Lucario"] } as never}
@@ -193,7 +193,7 @@ describe("PokemonEditorSheet", () => {
 
   it("exposes a blocked evolution reason and falls back the title when nickname/species are missing", () => {
     render(
-      <PokemonEditorSheet
+      <EditorSheet
         member={{
           ...createMember(),
           species: "",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamEditorRoute } from "@/components/team/editor/TeamEditorRoute";
+import { EditorRoute } from "@/components/team/editor/Route";
 
 export const metadata: Metadata = {
   robots: {
@@ -19,7 +19,7 @@ export default async function TeamEditorModalPage({
 
   return (
     <Suspense fallback={null}>
-      <TeamEditorRoute key={`team-editor-modal-${memberId}`} memberId={memberId} closeMode="back" />
+      <EditorRoute key={`team-editor-modal-${memberId}`} memberId={memberId} closeMode="back" />
     </Suspense>
   );
 }
