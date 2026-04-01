@@ -54,7 +54,7 @@ vi.mock("@/components/team/PokemonTransferPanel", () => ({
   ),
 }));
 
-import { EditorProfileSection } from "@/components/team/editor/ProfileSection";
+import { ProfileSection } from "@/components/team/editor/ProfileSection";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {
@@ -80,7 +80,7 @@ describe("EditorProfileSection", () => {
     const updateEditorMember = vi.fn();
 
     render(
-      <EditorProfileSection
+      <ProfileSection
         member={createMember({ species: "Lucario", nickname: "Lucario", level: 30 }) as never}
         resolved={{ abilities: ["Steadfast", "Inner Focus"] } as never}
         speciesCatalog={[]}
@@ -112,7 +112,7 @@ describe("EditorProfileSection", () => {
     const updateEditorMember = vi.fn();
 
     render(
-      <EditorProfileSection
+      <ProfileSection
         member={createMember() as never}
         resolved={{ abilities: ["Prankster", "Steadfast"] } as never}
         speciesCatalog={[
@@ -143,7 +143,7 @@ describe("EditorProfileSection", () => {
     const updateCustomNickname = vi.fn();
 
     render(
-      <EditorProfileSection
+      <ProfileSection
         member={createMember({ nickname: "Aura" }) as never}
         resolved={{ abilities: ["Prankster", "Steadfast"] } as never}
         speciesCatalog={[
@@ -183,7 +183,7 @@ describe("EditorProfileSection", () => {
     const updateEditorMember = vi.fn();
 
     render(
-      <EditorProfileSection
+      <ProfileSection
         member={createMember({ item: "Oran Berry" }) as never}
         resolved={
           {

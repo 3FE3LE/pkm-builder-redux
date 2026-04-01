@@ -32,7 +32,7 @@ import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
 
-export function EditorStatsSection({
+export function StatsSection({
   member,
   resolved,
   roleRecommendation,

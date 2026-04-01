@@ -4,11 +4,11 @@ import { AnimatePresence, motion } from "motion/react";
 import { type CSSProperties, useState } from "react";
 
 import {
-  EditorDefenseSection,
-  EditorHeader,
-  EditorMovesSection,
-  EditorProfileSection,
-  EditorStatsSection,
+  DefenseSection,
+  Header,
+  MovesSection,
+  ProfileSection,
+  StatsSection,
 } from "@/components/team/editor/Sections";
 import { MovePickerModal } from "@/components/team/MovePickerModal";
 import {
@@ -150,7 +150,7 @@ export function PokemonEditorSheet({
         className="w-screen max-w-none overflow-y-auto border-l border-line bg-[var(--sheet-surface-bg)] p-0 text-text data-[side=right]:w-full sm:w-full sm:max-w-[35rem]"
       >
         <SheetHeader className="px-0 pb-0 pt-4 sm:pt-10">
-          <EditorHeader
+          <Header
             member={member}
             resolved={resolved}
             currentSpecies={currentSpecies}
@@ -172,7 +172,7 @@ export function PokemonEditorSheet({
         </SheetHeader>
 
         <div className="space-y-4 px-4 pb-28 sm:space-y-5 sm:px-5 sm:py-4">
-          <EditorProfileSection
+          <ProfileSection
             member={member}
             resolved={resolved}
             speciesCatalog={speciesCatalog}
@@ -206,7 +206,7 @@ export function PokemonEditorSheet({
 
             <TabsContent value="stats" className="tab-panel">
               {editorTab === "stats" ? (
-                <EditorStatsSection
+                <StatsSection
                   member={member}
                   resolved={resolved}
                   roleRecommendation={roleRecommendation}
@@ -226,7 +226,7 @@ export function PokemonEditorSheet({
 
             <TabsContent value="moves" className="tab-panel">
               {editorTab === "moves" ? (
-                <EditorMovesSection
+                <MovesSection
                   currentMoves={member.moves}
                   resolved={resolved}
                   selectedMoveIndex={selectedMoveIndex}
@@ -239,7 +239,7 @@ export function PokemonEditorSheet({
             </TabsContent>
 
             <TabsContent value="typing" className="tab-panel">
-              {editorTab === "typing" ? <EditorDefenseSection resolved={resolved} /> : null}
+              {editorTab === "typing" ? <DefenseSection resolved={resolved} /> : null}
             </TabsContent>
           </Tabs>
           {movePickerMemberId === member.id && movePickerActiveMember ? (

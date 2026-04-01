@@ -24,7 +24,7 @@ import { normalizeName } from "@/lib/domain/names";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
 
-export function EditorProfileSection({
+export function ProfileSection({
   member,
   resolved,
   speciesCatalog,

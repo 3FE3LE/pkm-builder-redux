@@ -13,7 +13,7 @@ import {
 import { TypeBadge } from "@/components/BuilderShared";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
-export function EditorMovesSection({
+export function MovesSection({
   currentMoves,
   resolved,
   selectedMoveIndex,

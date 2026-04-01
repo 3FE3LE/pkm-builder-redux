@@ -47,7 +47,7 @@ vi.mock("@/components/team/UI", () => ({
   ),
 }));
 
-import { EditorStatsSection } from "@/components/team/editor/StatsSection";
+import { StatsSection } from "@/components/team/editor/StatsSection";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {
@@ -73,7 +73,7 @@ describe("EditorStatsSection", () => {
     mocked.buildSummaryStats.mockReset();
 
     render(
-      <EditorStatsSection
+      <StatsSection
         member={createMember() as never}
         currentLevel={20}
         currentNature="Serious"
@@ -109,7 +109,7 @@ describe("EditorStatsSection", () => {
     const updateEditorMember = vi.fn();
 
     render(
-      <EditorStatsSection
+      <StatsSection
         member={createMember() as never}
         resolved={
           {

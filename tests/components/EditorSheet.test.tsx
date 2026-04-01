@@ -4,14 +4,14 @@ import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/components/team/editor/Sections", () => ({
-  EditorHeader: ({
+  Header: ({
     hasEvolution,
     evolutionBlockReason,
   }: {
     hasEvolution: boolean;
     evolutionBlockReason?: string;
   }) => <div>{`editor-header-${hasEvolution ? "evo" : evolutionBlockReason ?? "none"}`}</div>,
-  EditorProfileSection: ({ updateEditorMember }: { updateEditorMember: (updater: (current: any) => any) => void }) => (
+  ProfileSection: ({ updateEditorMember }: { updateEditorMember: (updater: (current: any) => any) => void }) => (
     <>
       <button
         type="button"
@@ -38,11 +38,11 @@ vi.mock("@/components/team/editor/Sections", () => ({
       </button>
     </>
   ),
-  EditorStatsSection: ({ hasEvolution }: { hasEvolution: boolean }) => (
+  StatsSection: ({ hasEvolution }: { hasEvolution: boolean }) => (
     <div>{`stats-section-${hasEvolution ? "evo" : "no-evo"}`}</div>
   ),
-  EditorMovesSection: () => <div>moves-section</div>,
-  EditorDefenseSection: () => <div>typing-section</div>,
+  MovesSection: () => <div>moves-section</div>,
+  DefenseSection: () => <div>typing-section</div>,
 }));
 
 vi.mock("@/components/team/MovePickerModal", () => ({

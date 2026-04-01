@@ -39,7 +39,7 @@ vi.mock("@/components/ui/Input", () => ({
   Input: (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props} />,
 }));
 
-import { EditorHeader } from "@/components/team/editor/Header";
+import { Header } from "@/components/team/editor/Header";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {
@@ -67,7 +67,7 @@ describe("EditorHeader", () => {
     const onRequestEvolution = vi.fn();
 
     render(
-      <EditorHeader
+      <Header
         member={createMember() as never}
         resolved={
           {
@@ -134,7 +134,7 @@ describe("EditorHeader", () => {
     const onRequestEvolution = vi.fn();
 
     render(
-      <EditorHeader
+      <Header
         member={createMember({ nickname: "" }) as never}
         currentSpecies=""
         currentLevel={12}
@@ -167,7 +167,7 @@ describe("EditorHeader", () => {
     const updateEditorMember = vi.fn();
 
     const { rerender } = render(
-      <EditorHeader
+      <Header
         member={createMember({ nickname: "Riolu" }) as never}
         resolved={
           {
@@ -198,7 +198,7 @@ describe("EditorHeader", () => {
     expect(screen.getByRole("button", { name: /set male/i }).className).toContain("border-info-line");
 
     rerender(
-      <EditorHeader
+      <Header
         member={createMember({ nickname: "" }) as never}
         resolved={
           {

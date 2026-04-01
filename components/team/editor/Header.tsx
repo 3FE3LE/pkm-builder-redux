@@ -108,7 +108,7 @@ function LevelControls({
   );
 }
 
-export function EditorHeader({
+export function Header({
   member,
   resolved,
   currentSpecies,

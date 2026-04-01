@@ -11,11 +11,11 @@ vi.mock("@/components/team/UI", () => ({
   }) => <div>{`${label}-${bucket}`}</div>,
 }));
 
-import { EditorDefenseSection } from "@/components/team/editor/DefenseSection";
+import { DefenseSection } from "@/components/team/editor/DefenseSection";
 
 describe("EditorDefenseSection", () => {
   it("shows a fallback when there is no valid species selected", () => {
-    render(<EditorDefenseSection />);
+    render(<DefenseSection />);
 
     expect(
       screen.getByText(/selecciona una especie válida para revisar debilidades/i),
@@ -24,7 +24,7 @@ describe("EditorDefenseSection", () => {
 
   it("renders weaknesses, resistances, and stab coverage buckets for resolved types", () => {
     render(
-      <EditorDefenseSection
+      <DefenseSection
         resolved={
           {
             resolvedTypes: ["Water", "Flying"],

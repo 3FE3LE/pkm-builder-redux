@@ -5,7 +5,7 @@ import { buildDefensiveSummary } from "@/lib/domain/battle";
 import { TYPE_ORDER, getMultiplierBucket, getTypeEffectiveness } from "@/lib/domain/typeChart";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
-export function EditorDefenseSection({
+export function DefenseSection({
   resolved,
 }: {
   resolved?: ResolvedTeamMember;

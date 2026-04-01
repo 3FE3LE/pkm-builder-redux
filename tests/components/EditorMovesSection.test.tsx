@@ -13,7 +13,7 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <div>{type}</div>,
 }));
 
-import { EditorMovesSection } from "@/components/team/editor/MovesSection";
+import { MovesSection } from "@/components/team/editor/MovesSection";
 
 function createDataTransfer(): DataTransfer {
   return { effectAllowed: "" } as unknown as DataTransfer;
@@ -55,7 +55,7 @@ describe("EditorMovesSection", () => {
     const onOpenMoveModal = vi.fn();
 
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Quick Attack"]}
         resolved={createResolved() as never}
         selectedMoveIndex={null}
@@ -79,7 +79,7 @@ describe("EditorMovesSection", () => {
     const onRemoveMoveAt = vi.fn();
 
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Quick Attack", "Counter"]}
         resolved={createResolved() as never}
         selectedMoveIndex={1}
@@ -107,7 +107,7 @@ describe("EditorMovesSection", () => {
     const onSelectMoveIndex = vi.fn();
 
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Quick Attack", "Counter"]}
         resolved={createResolved() as never}
         selectedMoveIndex={1}
@@ -127,7 +127,7 @@ describe("EditorMovesSection", () => {
     const onSelectMoveIndex = vi.fn();
 
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Quick Attack", "Counter"]}
         resolved={createResolved() as never}
         selectedMoveIndex={1}
@@ -156,7 +156,7 @@ describe("EditorMovesSection", () => {
     const onSelectMoveIndex = vi.fn();
 
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Quick Attack", "Counter"]}
         resolved={createResolved() as never}
         selectedMoveIndex={0}
@@ -181,7 +181,7 @@ describe("EditorMovesSection", () => {
 
   it("keeps four visible empty slots and ignores trash drag events when nothing is being dragged", () => {
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={[]}
         resolved={{ moves: [] } as never}
         selectedMoveIndex={null}
@@ -200,7 +200,7 @@ describe("EditorMovesSection", () => {
 
   it("resets drop state on drag leave and hides optional move metadata when absent", () => {
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Mystery Move", "Counter", "Tail Whip", "Growl"]}
         resolved={
           {
@@ -251,7 +251,7 @@ describe("EditorMovesSection", () => {
 
   it("renders no details when the selected move index has no resolved move", () => {
     render(
-      <EditorMovesSection
+      <MovesSection
         currentMoves={["Quick Attack"]}
         resolved={{ moves: [] } as never}
         selectedMoveIndex={0}
