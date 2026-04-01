@@ -9,7 +9,7 @@ import {
   EditorMovesSection,
   EditorProfileSection,
   EditorStatsSection,
-} from "@/components/team/EditorSections";
+} from "@/components/team/editor/Sections";
 import { MovePickerModal } from "@/components/team/MovePickerModal";
 import {
   Sheet,
@@ -29,7 +29,7 @@ import type {
   AbilityCatalogEntry,
   ItemCatalogEntry,
   SpeciesCatalogEntry,
-} from "@/components/team/editorTypes";
+} from "@/components/team/editor/editorTypes";
 
 type PokemonEditorSheetProps = {
   member?: EditableMember;

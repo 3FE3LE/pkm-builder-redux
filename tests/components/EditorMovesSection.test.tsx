@@ -13,7 +13,7 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <div>{type}</div>,
 }));
 
-import { EditorMovesSection } from "@/components/team/EditorMovesSection";
+import { EditorMovesSection } from "@/components/team/editor/MovesSection";
 
 function createDataTransfer(): DataTransfer {
   return { effectAllowed: "" } as unknown as DataTransfer;

@@ -54,7 +54,7 @@ vi.mock("@/components/team/PokemonTransferPanel", () => ({
   ),
 }));
 
-import { EditorProfileSection } from "@/components/team/EditorProfileSection";
+import { EditorProfileSection } from "@/components/team/editor/ProfileSection";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {

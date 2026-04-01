@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("@/components/team/EditorSections", () => ({
+vi.mock("@/components/team/editor/Sections", () => ({
   EditorHeader: ({
     hasEvolution,
     evolutionBlockReason,

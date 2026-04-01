@@ -1,17 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import { EditorDefenseSection } from "@/components/team/EditorDefenseSection";
-import { EditorHeader } from "@/components/team/EditorHeader";
-import { EditorMovesSection } from "@/components/team/EditorMovesSection";
-import { EditorProfileSection } from "@/components/team/EditorProfileSection";
+import { EditorDefenseSection } from "@/components/team/editor/DefenseSection";
+import { EditorHeader } from "@/components/team/editor/Header";
+import { EditorMovesSection } from "@/components/team/editor/MovesSection";
+import { EditorProfileSection } from "@/components/team/editor/ProfileSection";
 import {
   EditorDefenseSection as ExportedEditorDefenseSection,
   EditorHeader as ExportedEditorHeader,
   EditorMovesSection as ExportedEditorMovesSection,
   EditorProfileSection as ExportedEditorProfileSection,
   EditorStatsSection as ExportedEditorStatsSection,
-} from "@/components/team/EditorSections";
-import { EditorStatsSection } from "@/components/team/EditorStatsSection";
+} from "@/components/team/editor/Sections";
+import { EditorStatsSection } from "@/components/team/editor/StatsSection";
 
 describe("EditorSections", () => {
   it("re-exports the editor sections", () => {

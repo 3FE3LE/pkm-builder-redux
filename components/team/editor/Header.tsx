@@ -22,7 +22,7 @@ import type { EditableMember } from "@/lib/builderStore";
 import type {
   EditorIssueGetter,
   EditorUpdate,
-} from "@/components/team/editorTypes";
+} from "@/components/team/editor/editorTypes";
 
 function LevelControls({
   currentLevel,

@@ -27,7 +27,7 @@ import type {
   EditorIssueGetter,
   EditorUpdate,
   ItemCatalogEntry,
-} from "@/components/team/editorTypes";
+} from "@/components/team/editor/editorTypes";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";

@@ -16,7 +16,7 @@ import type {
   EditorUpdate,
   ItemCatalogEntry,
   SpeciesCatalogEntry,
-} from "@/components/team/editorTypes";
+} from "@/components/team/editor/editorTypes";
 import { natureOptions } from "@/lib/builderForm";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { getNatureEffect } from "@/lib/domain/battle";

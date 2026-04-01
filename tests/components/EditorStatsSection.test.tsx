@@ -47,7 +47,7 @@ vi.mock("@/components/team/UI", () => ({
   ),
 }));
 
-import { EditorStatsSection } from "@/components/team/EditorStatsSection";
+import { EditorStatsSection } from "@/components/team/editor/StatsSection";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {

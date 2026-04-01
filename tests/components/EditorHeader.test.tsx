@@ -39,7 +39,7 @@ vi.mock("@/components/ui/Input", () => ({
   Input: (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props} />,
 }));
 
-import { EditorHeader } from "@/components/team/EditorHeader";
+import { EditorHeader } from "@/components/team/editor/Header";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {

@@ -11,7 +11,7 @@ vi.mock("@/components/team/UI", () => ({
   }) => <div>{`${label}-${bucket}`}</div>,
 }));
 
-import { EditorDefenseSection } from "@/components/team/EditorDefenseSection";
+import { EditorDefenseSection } from "@/components/team/editor/DefenseSection";
 
 describe("EditorDefenseSection", () => {
   it("shows a fallback when there is no valid species selected", () => {
