@@ -24,10 +24,10 @@ import {
 
 import type {
   AbilityCatalogEntry,
-  EditorIssueGetter,
-  EditorUpdate,
+  IssueGetter,
   ItemCatalogEntry,
-} from "@/components/team/editor/editorTypes";
+  Update,
+} from "@/components/team/editor/types";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
@@ -58,8 +58,8 @@ export function StatsSection({
   abilityCatalog: AbilityCatalogEntry[];
   itemCatalog: ItemCatalogEntry[];
   hasEvolution: boolean;
-  getIssue: EditorIssueGetter;
-  updateEditorMember: EditorUpdate;
+  getIssue: IssueGetter;
+  updateEditorMember: Update;
 }) {
   const totalEvs = statKeys.reduce(
     (sum, key) => sum + Number(member.evs?.[key] ?? 0),

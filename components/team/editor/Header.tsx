@@ -20,9 +20,9 @@ import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
 
 import type {
-  EditorIssueGetter,
-  EditorUpdate,
-} from "@/components/team/editor/editorTypes";
+  IssueGetter,
+  Update,
+} from "@/components/team/editor/types";
 
 function LevelControls({
   currentLevel,
@@ -33,10 +33,10 @@ function LevelControls({
   onRequestEvolution,
 }: {
   currentLevel: number;
-  getIssue: EditorIssueGetter;
+  getIssue: IssueGetter;
   hasEvolution: boolean;
   evolutionBlockReason?: string;
-  updateEditorMember: EditorUpdate;
+  updateEditorMember: Update;
   onRequestEvolution: () => void;
 }) {
   return (
@@ -127,10 +127,10 @@ export function Header({
   currentLevel: number;
   currentGender: EditableMember["gender"];
   currentShiny: boolean;
-  getIssue: EditorIssueGetter;
+  getIssue: IssueGetter;
   hasEvolution: boolean;
   evolutionBlockReason?: string;
-  updateEditorMember: EditorUpdate;
+  updateEditorMember: Update;
   onRequestEvolution: () => void;
 }) {
   const [nicknameEditable, setNicknameEditable] = useState(false);

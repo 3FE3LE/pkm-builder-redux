@@ -12,11 +12,11 @@ import {
 import { PokemonTransferActions } from "@/components/team/PokemonTransferPanel";
 import type {
   AbilityCatalogEntry,
-  EditorIssueGetter,
-  EditorUpdate,
+  IssueGetter,
   ItemCatalogEntry,
   SpeciesCatalogEntry,
-} from "@/components/team/editor/editorTypes";
+  Update,
+} from "@/components/team/editor/types";
 import { natureOptions } from "@/lib/builderForm";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { getNatureEffect } from "@/lib/domain/battle";
@@ -49,8 +49,8 @@ export function ProfileSection({
   currentNature: string;
   currentAbility: string;
   currentItem: string;
-  updateEditorMember: EditorUpdate;
-  getIssue: EditorIssueGetter;
+  updateEditorMember: Update;
+  getIssue: IssueGetter;
   onImportToPc: (member: EditableMember) => boolean;
 }) {
   const shouldAutoFocusSpecies = !currentSpecies.trim();

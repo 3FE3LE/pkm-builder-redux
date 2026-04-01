@@ -21,5 +21,5 @@ export type ItemCatalogEntry = {
   sprite?: string | null;
 };
 
-export type EditorUpdate = (updater: (current: EditableMember) => EditableMember) => void;
-export type EditorIssueGetter = (path: string) => string | undefined;
+export type Update = (updater: (current: EditableMember) => EditableMember) => void;
+export type IssueGetter = (path: string) => string | undefined;

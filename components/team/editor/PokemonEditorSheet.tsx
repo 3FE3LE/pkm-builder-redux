@@ -29,7 +29,7 @@ import type {
   AbilityCatalogEntry,
   ItemCatalogEntry,
   SpeciesCatalogEntry,
-} from "@/components/team/editor/editorTypes";
+} from "@/components/team/editor/types";
 
 type PokemonEditorSheetProps = {
   member?: EditableMember;
