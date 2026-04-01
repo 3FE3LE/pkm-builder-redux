@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("@/components/team/editor/Sections", () => ({
+vi.mock("@/components/team/editor/Header", () => ({
   Header: ({
     hasEvolution,
     evolutionBlockReason,
@@ -11,6 +11,9 @@ vi.mock("@/components/team/editor/Sections", () => ({
     hasEvolution: boolean;
     evolutionBlockReason?: string;
   }) => <div>{`editor-header-${hasEvolution ? "evo" : evolutionBlockReason ?? "none"}`}</div>,
+}));
+
+vi.mock("@/components/team/editor/ProfileSection", () => ({
   ProfileSection: ({ updateEditorMember }: { updateEditorMember: (updater: (current: any) => any) => void }) => (
     <>
       <button
@@ -38,10 +41,19 @@ vi.mock("@/components/team/editor/Sections", () => ({
       </button>
     </>
   ),
+}));
+
+vi.mock("@/components/team/editor/StatsSection", () => ({
   StatsSection: ({ hasEvolution }: { hasEvolution: boolean }) => (
     <div>{`stats-section-${hasEvolution ? "evo" : "no-evo"}`}</div>
   ),
+}));
+
+vi.mock("@/components/team/editor/MovesSection", () => ({
   MovesSection: () => <div>moves-section</div>,
+}));
+
+vi.mock("@/components/team/editor/DefenseSection", () => ({
   DefenseSection: () => <div>typing-section</div>,
 }));
 

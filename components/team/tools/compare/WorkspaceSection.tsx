@@ -9,7 +9,7 @@ import {
   MemberPanel,
   Summary,
   buildState,
-} from "@/components/team/tools/compare/Panels";
+} from "@/components/team/tools/compare/panels";
 import type { EditableMember } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";

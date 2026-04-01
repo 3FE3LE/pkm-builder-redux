@@ -3,13 +3,11 @@
 import { AnimatePresence, motion } from "motion/react";
 import { type CSSProperties, useState } from "react";
 
-import {
-  DefenseSection,
-  Header,
-  MovesSection,
-  ProfileSection,
-  StatsSection,
-} from "@/components/team/editor/Sections";
+import { DefenseSection } from "@/components/team/editor/DefenseSection";
+import { Header } from "@/components/team/editor/Header";
+import { MovesSection } from "@/components/team/editor/MovesSection";
+import { ProfileSection } from "@/components/team/editor/ProfileSection";
+import { StatsSection } from "@/components/team/editor/StatsSection";
 import { MovePickerModal } from "@/components/team/editor/MovePickerModal";
 import {
   Sheet,

@@ -79,7 +79,7 @@ import {
   buildState,
   MemberPanel,
   Summary,
-} from "@/components/team/tools/compare/Panels";
+} from "@/components/team/tools/compare/panels";
 
 class ResizeObserverMock {
   observe() {}

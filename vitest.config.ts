@@ -29,7 +29,7 @@ export default defineConfig({
         "hooks/actionTypes.ts",
         "hooks/types.ts",
         "components/team/checkpoints/index.ts",
-        "components/team/editor/Sections.tsx",
+        "components/team/tools/compare/panels/index.ts",
         "components/team/MoveHighlightsPanel.tsx",
       ],
       thresholds: {

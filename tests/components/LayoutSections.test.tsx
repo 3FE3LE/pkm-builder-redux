@@ -72,7 +72,7 @@ vi.mock("@/components/team/checkpoints", () => ({
   ),
 }));
 
-vi.mock("@/components/team/tools/compare/Panels", () => ({
+vi.mock("@/components/team/tools/compare/panels", () => ({
   buildState: (
     member: { species?: string },
     resolved: unknown,
