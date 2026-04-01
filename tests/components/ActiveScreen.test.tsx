@@ -200,8 +200,8 @@ vi.mock("@/components/team/workspace/AnalysisSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/checkpoints/CheckpointCopilotSection", () => ({
-  CheckpointCopilotSection: (props: Record<string, any>) => (
+vi.mock("@/components/team/checkpoints/CopilotSection", () => ({
+  CopilotSection: (props: Record<string, any>) => (
     <div>
       <div>{`copilot-team-size-${props.teamSize}`}</div>
       <button type="button" onClick={() => props.onToggleEncounter("route-1")}>

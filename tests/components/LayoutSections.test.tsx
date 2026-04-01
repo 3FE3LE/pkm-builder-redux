@@ -163,7 +163,7 @@ vi.mock("@dnd-kit/sortable", () => ({
 }));
 
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
-import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
+import { CopilotSection } from "@/components/team/checkpoints/CopilotSection";
 import { WorkspaceSection } from "@/components/team/tools/compare/WorkspaceSection";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { AnalysisSection } from "@/components/team/workspace/AnalysisSection";
@@ -376,7 +376,7 @@ describe("Team Sections", () => {
     const onSendCaptureToIvCalc = vi.fn();
 
     render(
-      <CheckpointCopilotSection
+      <CopilotSection
         activeMember={{ species: "Lucario" } as any}
         teamSize={4}
         milestoneId="castelia"

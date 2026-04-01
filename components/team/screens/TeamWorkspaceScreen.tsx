@@ -14,7 +14,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
-import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
+import { CopilotSection } from "@/components/team/checkpoints/CopilotSection";
 import { AddMemberSheet } from "@/components/team/collection/AddMemberSheet";
 import { PcBoxSection } from "@/components/team/collection/PcBoxSection";
 import {
@@ -270,7 +270,7 @@ export function TeamWorkspaceScreen() {
 
               <TabsContent value="copilot" className="tab-panel">
                 {workspaceTab === "copilot" ? (
-                  <CheckpointCopilotSection
+                  <CopilotSection
                     activeMember={team.activeMember}
                     teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
                     milestoneId={analysis.contextualMilestoneId}

@@ -25,7 +25,7 @@ type MoveRecommendation = ReturnType<
   typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations
 >[number];
 
-export function CheckpointCopilotSection({
+export function CopilotSection({
   activeMember,
   teamSize,
   milestoneId: _milestoneId,
