@@ -1382,11 +1382,8 @@ input[type="number"],
 }
 
 .nav-action {
-  display: inline-flex;
   height: 2.75rem;
   min-width: 2.75rem;
-  align-items: center;
-  justify-content: center;
   border-radius: 0.95rem;
 }
 
