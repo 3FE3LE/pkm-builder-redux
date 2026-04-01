@@ -163,9 +163,9 @@ vi.mock("@/lib/builderStore", () => ({
   createEditable: vi.fn(() => ({ id: "empty-member", species: "" })),
 }));
 
-import { TeamToolsScreen } from "@/components/team/TeamToolsScreen";
+import { ToolsScreen } from "@/components/team/screens/ToolsScreen";
 
-describe("TeamToolsScreen", () => {
+describe("ToolsScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocked.searchParams = new URLSearchParams();
@@ -176,7 +176,7 @@ describe("TeamToolsScreen", () => {
   it("shows loading while the session is not hydrated", () => {
     mocked.hydrated = false;
 
-    render(<TeamToolsScreen />);
+    render(<ToolsScreen />);
 
     expect(screen.getByText("loading-screen")).toBeTruthy();
   });
@@ -184,7 +184,7 @@ describe("TeamToolsScreen", () => {
   it("renders compare mode and wires the compare actions", async () => {
     const user = userEvent.setup();
 
-    render(<TeamToolsScreen />);
+    render(<ToolsScreen />);
 
     expect(screen.getByText("Compare, IV Calc y Type Tiers")).toBeTruthy();
     expect(screen.getByText("compare-workspace")).toBeTruthy();
@@ -207,7 +207,7 @@ describe("TeamToolsScreen", () => {
     mocked.toolTab = "ivcalc";
     mocked.searchParams = new URLSearchParams("species=Zorua");
 
-    const { rerender } = render(<TeamToolsScreen />);
+    const { rerender } = render(<ToolsScreen />);
 
     expect(screen.getByText("ivcalc-Zorua")).toBeTruthy();
     await user.click(screen.getByRole("button", { name: "add-prepared" }));
@@ -216,12 +216,12 @@ describe("TeamToolsScreen", () => {
     );
 
     mocked.toolTab = "types";
-    rerender(<TeamToolsScreen />);
+    rerender(<ToolsScreen />);
 
     expect(screen.getByText("types-1")).toBeTruthy();
 
     mocked.toolTab = "compositions";
-    rerender(<TeamToolsScreen />);
+    rerender(<ToolsScreen />);
 
     expect(screen.getByText("compositions-comp-1")).toBeTruthy();
     await user.click(screen.getByRole("button", { name: "create-composition" }));
@@ -237,7 +237,7 @@ describe("TeamToolsScreen", () => {
   it("forwards tab changes through the Tabs onValueChange handler", async () => {
     const user = userEvent.setup();
 
-    render(<TeamToolsScreen />);
+    render(<ToolsScreen />);
 
     await user.click(screen.getByRole("button", { name: "tabs-onchange" }));
     expect(mocked.setToolTab).toHaveBeenCalledWith("compositions");

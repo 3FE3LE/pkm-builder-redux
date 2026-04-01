@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamToolsScreen } from "@/components/team/TeamToolsScreen";
+import { ToolsScreen } from "@/components/team/screens/ToolsScreen";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function TeamToolsPage() {
   return (
     <Suspense fallback={null}>
-      <TeamToolsScreen />
+      <ToolsScreen />
     </Suspense>
   );
 }

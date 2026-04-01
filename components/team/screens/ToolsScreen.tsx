@@ -20,7 +20,7 @@ import { createEditable } from "@/lib/builderStore";
 const TOOL_TABS = ["compare", "ivcalc", "types", "compositions"] as const;
 type ToolTab = (typeof TOOL_TABS)[number];
 
-export function TeamToolsScreen() {
+export function ToolsScreen() {
   const searchParams = useSearchParams();
   const [toolTab, setToolTab] = useQueryState(
     "tool",
