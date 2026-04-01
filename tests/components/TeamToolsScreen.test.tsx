@@ -47,7 +47,7 @@ vi.mock("@/components/team/tools/compare/WorkspaceSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/tools/IvCalculatorSection", () => ({
+vi.mock("@/components/team/tools/iv-calculator/Section", () => ({
   IvCalculatorSection: (props: Record<string, any>) => (
     <div>
       <div>{`ivcalc-${props.prefillSpecies || "none"}`}</div>
