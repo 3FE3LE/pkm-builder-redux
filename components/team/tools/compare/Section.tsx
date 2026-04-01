@@ -8,6 +8,7 @@ import {
 import { CompareDropZone } from "@/components/team/tools/compare/DropZone";
 import type { EditableMember } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
+import { isHeldItem } from "@/lib/domain/items";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 type CompareMembers = import("@/hooks/types").CompareMembers;
@@ -33,9 +34,7 @@ export function WorkspaceSection({
   onChangeMember: (index: 0 | 1, next: EditableMember) => void;
   onClearMember: (slot: 0 | 1) => void;
 }) {
-  const heldItemCatalog = itemCatalog.filter((item) =>
-    item.category?.toLowerCase().includes("held"),
-  );
+  const heldItemCatalog = itemCatalog.filter((item) => isHeldItem(item));
   const [leftMember, rightMember] = members;
   const [leftResolved, rightResolved] = resolvedMembers;
   const left = buildState(leftMember, leftResolved, abilityCatalog, heldItemCatalog, battleWeather);

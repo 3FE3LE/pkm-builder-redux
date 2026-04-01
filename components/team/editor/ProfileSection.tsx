@@ -20,6 +20,7 @@ import type {
 import { natureOptions } from "@/lib/builderForm";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { getNatureEffect } from "@/lib/domain/battle";
+import { isHeldItem } from "@/lib/domain/items";
 import { normalizeName } from "@/lib/domain/names";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
@@ -75,7 +76,7 @@ export function ProfileSection({
 
   const heldItemOptions = useMemo(() => {
     const heldItems = itemCatalog
-      .filter((item) => item.category?.toLowerCase().includes("held"))
+      .filter((item) => isHeldItem(item))
       .map((item) => item.name);
     return Array.from(new Set(currentItem ? [...heldItems, currentItem] : heldItems));
   }, [currentItem, itemCatalog]);
