@@ -1,3 +1,22 @@
 #!/usr/bin/env sh
 
+if git rev-parse --verify "@{upstream}" >/dev/null 2>&1; then
+  range="@{upstream}...HEAD"
+elif git rev-parse --verify "HEAD~1" >/dev/null 2>&1; then
+  range="HEAD~1..HEAD"
+else
+  range="HEAD"
+fi
+
+changed_files="$(git diff --name-only --diff-filter=ACMR $range || true)"
+
+relevant_files="$(printf '%s\n' "$changed_files" | grep -E \
+  '^(app|components|hooks|lib|tests|scripts|data|public)/|^(package\.json|pnpm-lock\.yaml|tsconfig.*\.json|next\.config\..*|postcss\.config\..*|tailwind\.config\..*|\.github/workflows/ci\.yml)$' \
+  || true)"
+
+if [ -z "$relevant_files" ]; then
+  echo "pre-push: no relevant code changes, skipping typecheck/tests."
+  exit 0
+fi
+
 pnpm typecheck && pnpm test
