@@ -9,6 +9,8 @@
     "start": "next start",
     "prepare": "node -e \"const fs=require('fs'); if(process.env.CI || !fs.existsSync('.git')) process.exit(0); require('child_process').execSync('husky',{stdio:'inherit'})\"",
     "test": "vitest run",
+    "test:watch": "vitest",
+    "test:watch:components": "vitest tests/components",
     "test:related": "vitest related --run",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",

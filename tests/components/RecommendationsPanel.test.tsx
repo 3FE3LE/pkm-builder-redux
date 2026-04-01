@@ -42,15 +42,15 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <span>{type}</span>,
 }));
 
-import { RecommendationsPanel as RecommendedCapturesPanel } from "@/components/team/checkpoints/RecommendationsPanel";
+import { RecommendationsPanel } from "@/components/team/checkpoints/RecommendationsPanel";
 
-describe("RecommendedCapturesPanel", () => {
+describe("RecommendationsPanel", () => {
   it("renders capture recommendations and sends a species to IV calc", async () => {
     const user = userEvent.setup();
     const onSendToIvCalc = vi.fn();
 
     render(
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={4}
         captureRecommendations={[
           {
@@ -113,7 +113,7 @@ describe("RecommendedCapturesPanel", () => {
 
   it("renders the capture empty state and hides captures when the team is full", () => {
     const { rerender } = render(
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={3}
         captureRecommendations={[]}
         swapOpportunities={[]}
@@ -128,7 +128,7 @@ describe("RecommendedCapturesPanel", () => {
     ).toBeTruthy();
 
     rerender(
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={6}
         captureRecommendations={[]}
         swapOpportunities={[]}
@@ -143,7 +143,7 @@ describe("RecommendedCapturesPanel", () => {
 
   it("renders swap opportunities and their empty state rules", () => {
     const { rerender } = render(
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={6}
         captureRecommendations={[]}
         swapOpportunities={[
@@ -188,7 +188,7 @@ describe("RecommendedCapturesPanel", () => {
     expect(screen.getByText("55")).toBeTruthy();
 
     rerender(
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={5}
         captureRecommendations={[]}
         swapOpportunities={[]}
@@ -205,7 +205,7 @@ describe("RecommendedCapturesPanel", () => {
 
   it("respects the showCaptures and showSwaps toggles", () => {
     render(
-      <RecommendedCapturesPanel
+      <RecommendationsPanel
         teamSize={5}
         captureRecommendations={[
           {

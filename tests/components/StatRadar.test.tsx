@@ -16,7 +16,7 @@ const baseStats = {
   bst: 534,
 } as const;
 
-describe("Radar", () => {
+describe("StatRadar", () => {
   it("builds summary stats with nature and stat modifiers applied", () => {
     const summary = buildSummaryStats(
       baseStats,
