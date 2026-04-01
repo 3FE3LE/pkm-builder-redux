@@ -1,5 +1,6 @@
 import { createEmptyRunState } from "@/lib/runState";
 import type { BuilderStore } from "@/lib/builderStore/types";
+import { applyTheme } from "@/lib/theme/applyTheme";
 
 import type { BuilderSet } from "@/lib/builderStore/actions/shared";
 
@@ -57,7 +58,8 @@ export function createPreferencesActions(set: BuilderSet): PreferencesActions {
           },
         },
       })),
-    setTheme: (theme) =>
+    setTheme: (theme) => {
+      applyTheme(theme);
       set((state) => ({
         run: {
           ...state.run,
@@ -67,7 +69,8 @@ export function createPreferencesActions(set: BuilderSet): PreferencesActions {
             theme,
           },
         },
-      })),
+      }));
+    },
     toggleEncounterCompleted: (encounterId) =>
       set((state) => {
         const completed = state.run.progress.completedEncounterIds ?? [];
