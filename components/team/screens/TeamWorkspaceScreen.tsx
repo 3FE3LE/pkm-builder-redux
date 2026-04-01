@@ -15,7 +15,8 @@ import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
 import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
-import { AddMemberSheet, PcBoxSection } from "@/components/team/CollectionSections";
+import { AddMemberSheet } from "@/components/team/collection/AddMemberSheet";
+import { PcBoxSection } from "@/components/team/collection/PcBoxSection";
 import {
   EvolutionModal,
 } from "@/components/team/Modals";

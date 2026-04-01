@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from 'motion/react';
-import { CSSProperties, useState } from 'react';
+import { AnimatePresence, motion } from "motion/react";
+import { type CSSProperties, useState } from "react";
 
 import {
   EditorDefenseSection,
@@ -9,28 +9,27 @@ import {
   EditorMovesSection,
   EditorProfileSection,
   EditorStatsSection,
-} from '@/components/team/EditorSections';
-import { MovePickerModal } from '@/components/team/MovePickerModal';
-import { Button } from '@/components/ui/Button';
+} from "@/components/team/EditorSections";
+import { MovePickerModal } from "@/components/team/MovePickerModal";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/Sheet';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { editableMemberSchema } from '@/lib/builderForm';
-import { createEditable, EditableMember } from '@/lib/builderStore';
-import { ResolvedTeamMember } from '@/lib/teamAnalysis';
+} from "@/components/ui/Sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { editableMemberSchema } from "@/lib/builderForm";
+import type { EditableMember } from "@/lib/builderStore";
+import type { BattleWeather } from "@/lib/domain/battle";
+import type { EvolutionEligibility } from "@/lib/domain/evolutionEligibility";
+import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
+import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 import type {
   AbilityCatalogEntry,
   ItemCatalogEntry,
   SpeciesCatalogEntry,
 } from "@/components/team/editorTypes";
-import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
-import type { EvolutionEligibility } from "@/lib/domain/evolutionEligibility";
-import type { BattleWeather } from "@/lib/domain/battle";
 
 type PokemonEditorSheetProps = {
   member?: EditableMember;
@@ -95,6 +94,7 @@ export function PokemonEditorSheet({
 }: PokemonEditorSheetProps) {
   const [editorTab, setEditorTab] = useState<"stats" | "moves" | "typing">("stats");
   const open = openProp ?? Boolean(member);
+
   if (!member) {
     return (
       <Sheet
@@ -105,8 +105,8 @@ export function PokemonEditorSheet({
     );
   }
 
-  const values = member;
   const currentMember = member;
+  const values = member;
   const parsedValues = editableMemberSchema.safeParse(values);
   const currentLevel = Number(values.level ?? 1);
   const currentSpecies = String(values.species ?? "");
@@ -136,6 +136,7 @@ export function PokemonEditorSheet({
     const parsed = editableMemberSchema.safeParse(next);
     onChange(parsed.success ? parsed.data : next);
   }
+
   return (
     <Sheet
       open={open}
@@ -192,30 +193,18 @@ export function PokemonEditorSheet({
             className="gap-0"
           >
             <TabsList className="tab-strip scrollbar-thin">
-              <TabsTrigger
-                value="stats"
-                className="tab-trigger-soft"
-              >
+              <TabsTrigger value="stats" className="tab-trigger-soft">
                 Stats
               </TabsTrigger>
-              <TabsTrigger
-                value="moves"
-                className="tab-trigger-soft"
-              >
+              <TabsTrigger value="moves" className="tab-trigger-soft">
                 Moves
               </TabsTrigger>
-              <TabsTrigger
-                value="typing"
-                className="tab-trigger-soft"
-              >
+              <TabsTrigger value="typing" className="tab-trigger-soft">
                 Typing
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent
-              value="stats"
-              className="tab-panel"
-            >
+            <TabsContent value="stats" className="tab-panel">
               {editorTab === "stats" ? (
                 <EditorStatsSection
                   member={member}
@@ -235,10 +224,7 @@ export function PokemonEditorSheet({
               ) : null}
             </TabsContent>
 
-            <TabsContent
-              value="moves"
-              className="tab-panel"
-            >
+            <TabsContent value="moves" className="tab-panel">
               {editorTab === "moves" ? (
                 <EditorMovesSection
                   currentMoves={member.moves}
@@ -252,10 +238,7 @@ export function PokemonEditorSheet({
               ) : null}
             </TabsContent>
 
-            <TabsContent
-              value="typing"
-              className="tab-panel"
-            >
+            <TabsContent value="typing" className="tab-panel">
               {editorTab === "typing" ? <EditorDefenseSection resolved={resolved} /> : null}
             </TabsContent>
           </Tabs>

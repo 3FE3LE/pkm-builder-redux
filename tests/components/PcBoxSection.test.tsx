@@ -79,7 +79,7 @@ vi.mock("@/components/team/PokemonTransferPanel", () => ({
   ),
 }));
 
-import { PcBoxSection } from "@/components/team/CollectionSections";
+import { PcBoxSection } from "@/components/team/collection/PcBoxSection";
 
 function createMember(id: string, species: string) {
   return {

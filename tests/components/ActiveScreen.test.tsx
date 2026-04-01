@@ -116,7 +116,7 @@ vi.mock("@/components/BuilderShared", () => ({
   TypeBadge: ({ type }: { type: string }) => <span>{type}</span>,
 }));
 
-vi.mock("@/components/team/CollectionSections", () => ({
+vi.mock("@/components/team/collection/AddMemberSheet", () => ({
   AddMemberSheet: (props: Record<string, any>) => (
     <div>
       <div>{`add-member-open-${String(props.open)}`}</div>
@@ -131,6 +131,9 @@ vi.mock("@/components/team/CollectionSections", () => ({
       </button>
     </div>
   ),
+}));
+
+vi.mock("@/components/team/collection/PcBoxSection", () => ({
   PcBoxSection: (props: Record<string, any>) => (
     <div>
       <div>{`pc-members-${props.members.length}`}</div>

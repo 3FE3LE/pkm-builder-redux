@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { PokemonEditorSheet } from "@/components/team/EditorSheet";
+import { PokemonEditorSheet } from "@/components/team/editor/PokemonEditorSheet";
 import {
   useTeamAnalysis,
   useTeamCatalogs,

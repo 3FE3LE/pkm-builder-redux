@@ -69,7 +69,7 @@ vi.mock("@/components/ui/Sheet", () => ({
   SheetTitle: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
 }));
 
-import { PokemonEditorSheet } from "@/components/team/EditorSheet";
+import { PokemonEditorSheet } from "@/components/team/editor/PokemonEditorSheet";
 
 function createMember() {
   return {

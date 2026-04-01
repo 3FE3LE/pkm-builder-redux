@@ -67,7 +67,7 @@ vi.mock("@/components/team/TypeTierListSection", () => ({
   ),
 }));
 
-vi.mock("@/components/team/CollectionSections", () => ({
+vi.mock("@/components/team/collection/CompositionsSection", () => ({
   CompositionsSection: (props: Record<string, any>) => (
     <div>
       <div>{`compositions-${props.activeCompositionId ?? "none"}`}</div>

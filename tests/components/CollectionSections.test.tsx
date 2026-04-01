@@ -62,7 +62,7 @@ import {
   AddMemberSheet,
   CompositionsSection,
   PcBoxSection,
-} from "@/components/team/CollectionSections";
+} from "@/components/team/collection";
 
 function createMember(overrides: Record<string, unknown> = {}) {
   return {

@@ -106,7 +106,7 @@ vi.mock("@/lib/domain/evolutionEligibility", () => ({
   buildEvolutionEligibility: vi.fn(() => [{ eligible: true, reasons: [] }]),
 }));
 
-vi.mock("@/components/team/EditorSheet", () => ({
+vi.mock("@/components/team/editor/PokemonEditorSheet", () => ({
   PokemonEditorSheet: (props: Record<string, any>) => (
     <div>
       <div>{`open-${String(props.open)}`}</div>
