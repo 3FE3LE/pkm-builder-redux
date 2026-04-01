@@ -2,13 +2,14 @@
 
 import clsx from "clsx";
 import { useState } from "react";
-import { GitCompareArrows, Info, Lock, LockOpen, Pencil, Plus, RotateCcw, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
 import { SortableMemberCard } from "@/components/team/SortableMemberCard";
+import { ActionDock } from "@/components/team/workspace/roster/ActionDock";
 import { SelectedMemberInsightCard } from "@/components/team/workspace/roster/SelectedMemberInsightCard";
-import { Button } from "@/components/ui/Button";
+import { SlotModals, type ResetFields } from "@/components/team/workspace/roster/SlotModals";
 import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { EditableMember } from "@/lib/builderStore";
 import { createEditable } from "@/lib/builderStore";
@@ -83,7 +84,7 @@ export function RosterSection({
   const [resetOpen, setResetOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [resetFields, setResetFields] = useState({
+  const [resetFields, setResetFields] = useState<ResetFields>({
     nickname: true,
     level: true,
     gender: true,
@@ -118,101 +119,6 @@ export function RosterSection({
       evs: resetFields.evs ? defaults.evs : selectedMember.evs,
     });
     setResetOpen(false);
-  }
-
-  function renderActionButtons(buttonSize: "desktop" | "mobile") {
-    const isDesktop = buttonSize === "desktop";
-    const showCloseDockAction = !isDesktop && editorOpen;
-    const buttonClass = isDesktop
-      ? "size-9 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8"
-      : "size-11 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8";
-    const iconClass = isDesktop ? "h-4 w-4" : "h-5 w-5";
-
-    if (!selectedMember) {
-      return null;
-    }
-
-    return (
-      <>
-        <Button
-          type="button"
-          variant="ghost"
-          size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => setDetailsOpen((current) => !current)}
-          aria-label={detailsOpen ? "Ocultar info del slot seleccionado" : "Mostrar info del slot seleccionado"}
-          className={clsx(
-            buttonClass,
-            detailsOpen
-              ? "border-info-line bg-info-fill text-info-soft"
-              : "border-line text-muted",
-          )}
-        >
-          <Info className={iconClass} />
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => setResetOpen(true)}
-          aria-label="Resetear slot seleccionado"
-          className={clsx(buttonClass, "border-danger-line-soft text-danger hover:bg-danger-fill")}
-        >
-          <RotateCcw className={iconClass} />
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => onEditMember(selectedMember.id)}
-          aria-label="Editar slot seleccionado"
-          className={clsx(buttonClass, "border-line text-muted")}
-        >
-          <Pencil className={iconClass} />
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => onToggleMemberLock(selectedMember.id)}
-          aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
-          className={clsx(
-            buttonClass,
-            selectedMember.locked
-              ? "border-warning-line text-warning-strong"
-              : "border-line text-muted",
-          )}
-        >
-          {selectedMember.locked ? <Lock className={iconClass} /> : <LockOpen className={iconClass} />}
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => onAssignToCompare(selectedMember.id)}
-          aria-label="Comparar slot seleccionado"
-          className={clsx(buttonClass, "border-line text-muted")}
-        >
-          <GitCompareArrows className={iconClass} />
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size={isDesktop ? "icon-sm" : "icon-lg"}
-          onClick={() => {
-            if (showCloseDockAction) {
-              onCloseEditor();
-              return;
-            }
-
-            setDeleteOpen(true);
-          }}
-          aria-label={showCloseDockAction ? "Cerrar menu flotante" : "Mandar Pokemon seleccionado a caja"}
-          className={clsx(buttonClass, "border-danger-line text-danger hover:bg-danger-fill")}
-        >
-          <X className={iconClass} />
-        </Button>
-      </>
-    );
   }
 
   function renderRosterCard(member: EditableMember, index: number) {
@@ -312,7 +218,19 @@ export function RosterSection({
                       ) : null}
                     </AnimatePresence>
                     <div className="mobile-roster-action-dock roster-action-dock-desktop" style={dockTone}>
-                      {renderActionButtons("desktop")}
+                      <ActionDock
+                        buttonSize="desktop"
+                        selectedMember={selectedMember}
+                        detailsOpen={detailsOpen}
+                        editorOpen={editorOpen}
+                        onToggleDetails={() => setDetailsOpen((current) => !current)}
+                        onOpenReset={() => setResetOpen(true)}
+                        onEdit={() => onEditMember(selectedMember.id)}
+                        onToggleLock={() => onToggleMemberLock(selectedMember.id)}
+                        onAssignToCompare={() => onAssignToCompare(selectedMember.id)}
+                        onOpenDelete={() => setDeleteOpen(true)}
+                        onCloseEditor={onCloseEditor}
+                      />
                     </div>
                   </motion.div>
                 </motion.div>
@@ -375,117 +293,49 @@ export function RosterSection({
               )}
               style={dockTone}
             >
-              {renderActionButtons("mobile")}
+              <ActionDock
+                buttonSize="mobile"
+                selectedMember={selectedMember}
+                detailsOpen={detailsOpen}
+                editorOpen={editorOpen}
+                onToggleDetails={() => setDetailsOpen((current) => !current)}
+                onOpenReset={() => setResetOpen(true)}
+                onEdit={() => onEditMember(selectedMember.id)}
+                onToggleLock={() => onToggleMemberLock(selectedMember.id)}
+                onAssignToCompare={() => onAssignToCompare(selectedMember.id)}
+                onOpenDelete={() => setDeleteOpen(true)}
+                onCloseEditor={onCloseEditor}
+              />
             </motion.div>
           </>
         ) : null}
       </AnimatePresence>
-      <AnimatePresence>
-        {resetOpen && selectedMember ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="modal-scrim z-[120]"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="panel-strong panel-frame w-full max-w-lg p-5"
-            >
-              <p className="display-face text-sm text-accent">Reset del slot</p>
-              <p className="mt-2 text-sm text-muted">
-                Elige exactamente qué quieres restablecer. Todas las opciones vienen marcadas por defecto.
-              </p>
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                {Object.entries(resetFields).map(([key, checked]) => (
-                  <label
-                    key={key}
-                    className="flex items-center gap-3 rounded-[0.75rem] border border-line bg-surface-3 px-3 py-2 text-sm"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={(event) =>
-                        setResetFields((current) => ({
-                          ...current,
-                          [key]: event.target.checked,
-                        }))
-                      }
-                    />
-                    <span>{RESET_LABELS[key as keyof typeof resetFields]}</span>
-                  </label>
-                ))}
-              </div>
-              <div className="mt-5 flex justify-end gap-2">
-                <Button type="button" variant="ghost" onClick={() => setResetOpen(false)}>
-                  Cancelar
-                </Button>
-                <Button type="button" variant="destructive" onClick={resetSelectedMember}>
-                  Aplicar reset
-                </Button>
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-      <AnimatePresence>
-        {deleteOpen && selectedMember ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="modal-scrim z-[120]"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="panel-strong panel-frame w-full max-w-md p-5"
-            >
-              <p className="display-face text-sm text-danger">Mandar a caja</p>
-              <p className="mt-2 text-sm text-muted">
-                Vas a sacar a {selectedMember.nickname || selectedMember.species || "este Pokemon"} del roster activo.
-              </p>
-              <p className="mt-1 text-sm text-muted">
-                El Pokemon seguira guardado en tu PC para reusarlo despues.
-              </p>
-              <div className="mt-5 flex justify-end gap-2">
-                <Button type="button" variant="ghost" onClick={() => setDeleteOpen(false)}>
-                  Cancelar
-                </Button>
-                <Button
-                  type="button"
-                  variant="destructive"
-                  onClick={() => {
-                    onRemoveMember(selectedMember.id);
-                    onClearSelection();
-                    setDeleteOpen(false);
-                  }}
-                >
-                  Mandar a caja
-                </Button>
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <SlotModals
+        selectedMember={selectedMember}
+        resetOpen={resetOpen}
+        deleteOpen={deleteOpen}
+        resetFields={resetFields}
+        onCloseReset={() => setResetOpen(false)}
+        onCloseDelete={() => setDeleteOpen(false)}
+        onToggleResetField={(field, checked) =>
+          setResetFields((current) => ({
+            ...current,
+            [field]: checked,
+          }))
+        }
+        onApplyReset={resetSelectedMember}
+        onConfirmDelete={() => {
+          if (!selectedMember) {
+            return;
+          }
+          onRemoveMember(selectedMember.id);
+          onClearSelection();
+          setDeleteOpen(false);
+        }}
+      />
     </section>
   );
 }
-
-const RESET_LABELS = {
-  nickname: "Nickname",
-  level: "Nivel",
-  gender: "Genero",
-  nature: "Naturaleza",
-  ability: "Habilidad",
-  item: "Objeto",
-  moves: "Moveset",
-  ivs: "IVs",
-  evs: "EVs",
-};
 
 function getDockTone(types: string[] = []) {
   const primary = TYPE_COLORS[types[0] ?? ""] ?? "hsl(165 83% 65%)";
