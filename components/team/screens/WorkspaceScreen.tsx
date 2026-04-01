@@ -13,15 +13,13 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
-import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
-import { CopilotSection } from "@/components/team/checkpoints/CopilotSection";
 import { AddMemberSheet } from "@/components/team/collection/AddMemberSheet";
 import { PcBoxSection } from "@/components/team/collection/PcBoxSection";
+import { WorkspacePanels, type WorkspaceTab } from "@/components/team/screens/WorkspacePanels";
 import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
-import { AnalysisSection } from "@/components/team/workspace/AnalysisSection";
 import { RosterSection } from "@/components/team/workspace/RosterSection";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DragOverlayCard } from "@/components/team/workspace/roster/DragOverlayCard";
 import {
   useTeamAnalysis,
   useTeamCatalogs,
@@ -34,7 +32,6 @@ import { milestones, starters } from "@/lib/builder";
 import { createEditable } from "@/lib/builderStore";
 
 const WORKSPACE_TABS = ["builder", "copilot"] as const;
-type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
 
 export function WorkspaceScreen() {
   const router = useRouter();
@@ -228,69 +225,31 @@ export function WorkspaceScreen() {
             onCloseEditor={closeTeamEditor}
           />
 
-          <section className="mt-3">
-            <Tabs
-              value={workspaceTab}
-              onValueChange={(value) => setWorkspaceTab(value as WorkspaceTab)}
-              className="gap-0"
-            >
-              <TabsList className="tab-strip scrollbar-thin">
-                <TabsTrigger
-                  value="builder"
-                  className="tab-trigger-soft"
-                >
-                  Team
-                </TabsTrigger>
-                <TabsTrigger
-                  value="copilot"
-                  className="tab-trigger-soft"
-                >
-                  Checkpoint
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="builder" className="tab-panel">
-                {workspaceTab === "builder" ? (
-                  <AnalysisSection
-                    averageStats={analysis.averageStats}
-                    coveredCoverage={analysis.coveredCoverage}
-                    uncoveredCoverage={analysis.uncoveredCoverage}
-                    defensiveSections={analysis.defensiveSections}
-                    checkpointRisk={analysis.checkpointRisk}
-                    teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
-                    captureRecommendations={analysis.captureRecommendations}
-                    nextEncounter={analysis.nextEncounter}
-                    speciesCatalog={catalogs.speciesCatalog}
-                    onSendCaptureToIvCalc={openIvCalcForSpecies}
-                  />
-                ) : null}
-              </TabsContent>
-
-              <TabsContent value="copilot" className="tab-panel">
-                {workspaceTab === "copilot" ? (
-                  <CopilotSection
-                    activeMember={team.activeMember}
-                    teamSize={team.currentTeam.filter((member) => member.species.trim()).length}
-                    milestoneId={analysis.contextualMilestoneId}
-                    checkpointRisk={analysis.checkpointRisk}
-                    supportsContextualSwaps={analysis.supportsContextualSwaps}
-                    nextEncounter={analysis.nextEncounter}
-                    swapOpportunities={analysis.swapOpportunities}
-                    captureRecommendations={analysis.captureRecommendations}
-                    moveRecommendations={analysis.moveRecommendations}
-                    sourceCards={analysis.sourceCards}
-                    encounterCatalog={catalogs.encounterCatalog}
-                    completedEncounterIds={session.completedEncounterIds}
-                    speciesCatalog={catalogs.speciesCatalog}
-                    itemCatalog={catalogs.itemCatalog}
-                    starterKey={session.starter}
-                    onToggleEncounter={session.actions.toggleEncounterCompleted}
-                    onSendCaptureToIvCalc={openIvCalcForSpecies}
-                  />
-                ) : null}
-              </TabsContent>
-            </Tabs>
-          </section>
+          <WorkspacePanels
+            workspaceTab={workspaceTab}
+            setWorkspaceTab={setWorkspaceTab}
+            analysisTeamSize={team.currentTeam.filter((member) => member.species.trim()).length}
+            averageStats={analysis.averageStats}
+            coveredCoverage={analysis.coveredCoverage}
+            uncoveredCoverage={analysis.uncoveredCoverage}
+            defensiveSections={analysis.defensiveSections}
+            checkpointRisk={analysis.checkpointRisk}
+            captureRecommendations={analysis.captureRecommendations}
+            nextEncounter={analysis.nextEncounter}
+            speciesCatalog={catalogs.speciesCatalog}
+            onSendCaptureToIvCalc={openIvCalcForSpecies}
+            activeMember={team.activeMember}
+            supportsContextualSwaps={analysis.supportsContextualSwaps}
+            swapOpportunities={analysis.swapOpportunities}
+            moveRecommendations={analysis.moveRecommendations}
+            sourceCards={analysis.sourceCards}
+            encounterCatalog={catalogs.encounterCatalog}
+            completedEncounterIds={session.completedEncounterIds}
+            itemCatalog={catalogs.itemCatalog}
+            starterKey={session.starter}
+            onToggleEncounter={session.actions.toggleEncounterCompleted}
+            contextualMilestoneId={analysis.contextualMilestoneId}
+          />
           <AddMemberSheet
             open={addMemberOpen}
             libraryMembers={team.pokemonLibrary}
@@ -320,7 +279,7 @@ export function WorkspaceScreen() {
                   ease: "easeOut",
                 }}
               >
-                <RosterDragOverlay member={draggedMember} resolved={draggedResolved} />
+                <DragOverlayCard member={draggedMember} resolved={draggedResolved} />
               </motion.div>
             ) : null}
           </DragOverlay>
@@ -361,45 +320,5 @@ export function WorkspaceScreen() {
         </AnimatePresence>
       </motion.section>
     </main>
-  );
-}
-
-function RosterDragOverlay({
-  member,
-  resolved,
-}: {
-  member: { species: string; nickname: string; level: number };
-  resolved?: {
-    species?: string;
-    resolvedTypes?: string[];
-    spriteUrl?: string | null;
-    animatedSpriteUrl?: string | null;
-  };
-}) {
-  const types = resolved?.resolvedTypes ?? [];
-
-  return (
-    <div className="w-[17rem] rounded-[1rem] border border-primary-line-emphasis bg-[var(--sheet-surface-bg)] p-3 shadow-[0_22px_65px_rgba(0,0,0,0.36)]">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <p className="display-face truncate text-base text-text">
-            {member.nickname || resolved?.species || member.species || "Pokemon"}
-          </p>
-          <p className="mt-1 text-xs text-muted">
-            {resolved?.species || member.species || "slot pendiente"} · Lv {member.level}
-          </p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {types.length ? types.map((type) => <TypeBadge key={`drag-${type}`} type={type} />) : null}
-          </div>
-        </div>
-        <PokemonSprite
-          species={resolved?.species ?? member.species ?? "Pokemon"}
-          spriteUrl={resolved?.spriteUrl ?? undefined}
-          animatedSpriteUrl={resolved?.animatedSpriteUrl ?? undefined}
-          size="default"
-          chrome="plain"
-        />
-      </div>
-    </div>
   );
 }
