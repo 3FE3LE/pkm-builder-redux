@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
+import { WorkspaceRoute } from "@/components/team/screens/WorkspaceRoute";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function TeamPage() {
   return (
     <Suspense fallback={null}>
-      <TeamWorkspace />
+      <WorkspaceRoute />
     </Suspense>
   );
 }

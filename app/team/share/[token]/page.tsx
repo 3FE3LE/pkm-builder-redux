@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
+import { WorkspaceRoute } from "@/components/team/screens/WorkspaceRoute";
 import { getBuilderPageData } from "@/lib/builderPageData";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { inspectPokemonTransfer } from "@/lib/pokemonTransfer";
@@ -66,7 +66,7 @@ export async function generateMetadata({
 export default function TeamSharePage() {
   return (
     <Suspense fallback={null}>
-      <TeamWorkspace />
+      <WorkspaceRoute />
     </Suspense>
   );
 }

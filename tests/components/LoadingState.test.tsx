@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { LoadingScreen } from "@/components/team/LoadingScreen";
+import { LoadingState } from "@/components/team/screens/LoadingState";
 
-describe("LoadingScreen", () => {
+describe("LoadingState", () => {
   it("renders the loading copy for the team builder", () => {
-    render(<LoadingScreen />);
+    render(<LoadingState />);
 
     expect(screen.getByText("Cargando builder")).toBeTruthy();
     expect(

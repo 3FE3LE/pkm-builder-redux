@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
-import { LoadingScreen } from "@/components/team/LoadingScreen";
+import { LoadingState } from "@/components/team/screens/LoadingState";
 import { CompositionsSection } from "@/components/team/collection/CompositionsSection";
 import { WorkspaceSection } from "@/components/team/tools/compare/Section";
 import { IvCalculatorSection } from "@/components/team/tools/iv-calculator/Section";
@@ -33,7 +33,7 @@ export function ToolsScreen() {
   const speciesPrefill = searchParams.get("species") ?? "";
 
   if (!session.hydrated) {
-    return <LoadingScreen />;
+    return <LoadingState />;
   }
 
   function clearCompareMember(slot: 0 | 1) {

@@ -30,8 +30,8 @@ vi.mock("@/components/BuilderProvider", () => ({
   }),
 }));
 
-vi.mock("@/components/team/LoadingScreen", () => ({
-  LoadingScreen: () => <div>loading-screen</div>,
+vi.mock("@/components/team/screens/LoadingState", () => ({
+  LoadingState: () => <div>loading-screen</div>,
 }));
 
 vi.mock("@/components/onboarding/OnboardingScreen", () => ({

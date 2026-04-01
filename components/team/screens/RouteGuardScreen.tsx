@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export function RouteHintScreen({
+export function RouteGuardScreen({
   title,
   description,
   ctaHref,

@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { RouteHintScreen } from "@/components/team/RouteHintScreen";
+import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
 
-describe("RouteHintScreen", () => {
+describe("RouteGuardScreen", () => {
   it("renders the protected route hint and CTA", () => {
     render(
-      <RouteHintScreen
+      <RouteGuardScreen
         title="No hay run activo"
         description="Elige un inicial para crear el equipo."
         ctaHref="/onboarding"

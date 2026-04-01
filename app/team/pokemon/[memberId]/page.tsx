@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { TeamEditorRoute } from "@/components/team/editor/TeamEditorRoute";
-import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
+import { WorkspaceRoute } from "@/components/team/screens/WorkspaceRoute";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default async function TeamPokemonPage({
   return (
     <>
       <Suspense fallback={null}>
-        <TeamWorkspace />
+        <WorkspaceRoute />
       </Suspense>
       <Suspense fallback={null}>
         <TeamEditorRoute key={`team-editor-page-${memberId}`} memberId={memberId} closeMode="replace" />

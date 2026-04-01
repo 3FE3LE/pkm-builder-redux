@@ -1,6 +1,6 @@
 "use client";
 
-export function LoadingScreen() {
+export function LoadingState() {
   return (
     <main className="relative overflow-hidden px-4 py-6 sm:px-6 lg:px-10">
       <section className="mx-auto max-w-7xl">

@@ -1,6 +1,6 @@
 "use client";
 
-import { LoadingScreen } from "@/components/team/LoadingScreen";
+import { LoadingState } from "@/components/team/screens/LoadingState";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 
@@ -9,7 +9,7 @@ export function SettingsScreen() {
   const team = useTeamRoster();
 
   if (!session.hydrated) {
-    return <LoadingScreen />;
+    return <LoadingState />;
   }
 
   return (

@@ -42,12 +42,12 @@ vi.mock("@/components/BuilderProvider", () => ({
   }),
 }));
 
-vi.mock("@/components/team/LoadingScreen", () => ({
-  LoadingScreen: () => <div>loading-screen</div>,
+vi.mock("@/components/team/screens/LoadingState", () => ({
+  LoadingState: () => <div>loading-screen</div>,
 }));
 
-vi.mock("@/components/team/RouteHintScreen", () => ({
-  RouteHintScreen: (props: { title: string; description: string; ctaHref: string; ctaLabel: string }) => (
+vi.mock("@/components/team/screens/RouteGuardScreen", () => ({
+  RouteGuardScreen: (props: { title: string; description: string; ctaHref: string; ctaLabel: string }) => (
     <div>
       <div>{props.title}</div>
       <div>{props.description}</div>
@@ -60,9 +60,9 @@ vi.mock("@/components/team/screens/WorkspaceScreen", () => ({
   WorkspaceScreen: () => <div>active-screen</div>,
 }));
 
-import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
+import { WorkspaceRoute } from "@/components/team/screens/WorkspaceRoute";
 
-describe("TeamWorkspace", () => {
+describe("WorkspaceRoute", () => {
   beforeEach(() => {
     mocked.hydrated = true;
     mocked.builderStarted = true;
@@ -81,7 +81,7 @@ describe("TeamWorkspace", () => {
   it("shows loading until the session hydrates", () => {
     mocked.hydrated = false;
 
-    render(<TeamWorkspace />);
+    render(<WorkspaceRoute />);
 
     expect(screen.getByText("loading-screen")).toBeTruthy();
   });
@@ -89,7 +89,7 @@ describe("TeamWorkspace", () => {
   it("shows the route hint when there is no active run", () => {
     mocked.builderStarted = false;
 
-    render(<TeamWorkspace />);
+    render(<WorkspaceRoute />);
 
     expect(screen.getByText("No hay run activo")).toBeTruthy();
     expect(
@@ -101,7 +101,7 @@ describe("TeamWorkspace", () => {
   });
 
   it("renders the active screen when the run is ready", () => {
-    render(<TeamWorkspace />);
+    render(<WorkspaceRoute />);
 
     expect(screen.getByText("active-screen")).toBeTruthy();
   });
@@ -110,7 +110,7 @@ describe("TeamWorkspace", () => {
     mocked.searchParams = new URLSearchParams("m=compact-token&tab=team");
     mocked.builderStarted = false;
 
-    render(<TeamWorkspace />);
+    render(<WorkspaceRoute />);
 
     await waitFor(() => {
       expect(mocked.importPokemonFromHash).toHaveBeenCalledWith("compact-token");
@@ -123,7 +123,7 @@ describe("TeamWorkspace", () => {
   it("auto-imports a shared token from the clean share route", async () => {
     mocked.params = { token: "route-token" };
 
-    render(<TeamWorkspace />);
+    render(<WorkspaceRoute />);
 
     await waitFor(() => {
       expect(mocked.importPokemonFromHash).toHaveBeenCalledWith("route-token");

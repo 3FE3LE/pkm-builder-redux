@@ -3,13 +3,13 @@
 import { useEffect, useRef } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
-import { LoadingScreen } from "@/components/team/LoadingScreen";
-import { RouteHintScreen } from "@/components/team/RouteHintScreen";
+import { LoadingState } from "@/components/team/screens/LoadingState";
+import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
 import { WorkspaceScreen } from "@/components/team/screens/WorkspaceScreen";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 import { importPokemonFromHash } from "@/lib/pokemonTransfer";
 
-export function TeamWorkspace() {
+export function WorkspaceRoute() {
   const session = useTeamSession();
   const team = useTeamRoster();
   const router = useRouter();
@@ -48,12 +48,12 @@ export function TeamWorkspace() {
   ]);
 
   if (!session.hydrated) {
-    return <LoadingScreen />;
+    return <LoadingState />;
   }
 
   if (!session.builderStarted) {
     return (
-      <RouteHintScreen
+      <RouteGuardScreen
         title="No hay run activo"
         description="Primero necesitas elegir un inicial para crear el equipo."
         ctaHref="/onboarding"

@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 import {
   OnboardingScreen,
 } from "@/components/onboarding/OnboardingScreen";
-import { LoadingScreen } from "@/components/team/LoadingScreen";
-import { RouteHintScreen } from "@/components/team/RouteHintScreen";
+import { LoadingState } from "@/components/team/screens/LoadingState";
 import { BuilderProvider, useTeamSession } from "@/components/BuilderProvider";
 import type { BuilderDataProps } from "@/hooks/types";
 
@@ -18,14 +17,14 @@ function RedirectToTeam() {
     router.replace("/team");
   }, [router]);
 
-  return <LoadingScreen />;
+  return <LoadingState />;
 }
 
 function BuilderOnboardingGate() {
   const session = useTeamSession();
 
   if (!session.hydrated) {
-    return <LoadingScreen />;
+    return <LoadingState />;
   }
 
   if (session.builderStarted) {
