@@ -164,7 +164,7 @@ vi.mock("@dnd-kit/sortable", () => ({
 
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
 import { CopilotSection } from "@/components/team/checkpoints/CopilotSection";
-import { WorkspaceSection } from "@/components/team/tools/compare/WorkspaceSection";
+import { WorkspaceSection } from "@/components/team/tools/compare/Section";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { AnalysisSection } from "@/components/team/workspace/AnalysisSection";
 import { RosterSection } from "@/components/team/workspace/RosterSection";

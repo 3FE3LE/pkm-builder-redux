@@ -25,7 +25,7 @@ vi.mock("nuqs", () => ({
   useQueryState: () => [mocked.toolTab, mocked.setToolTab],
 }));
 
-vi.mock("@/components/team/tools/compare/WorkspaceSection", () => ({
+vi.mock("@/components/team/tools/compare/Section", () => ({
   WorkspaceSection: (props: Record<string, any>) => (
     <div>
       <div>compare-workspace</div>
@@ -61,7 +61,7 @@ vi.mock("@/components/team/tools/iv-calculator/Section", () => ({
   ),
 }));
 
-vi.mock("@/components/team/tools/TypeTierListSection", () => ({
+vi.mock("@/components/team/tools/type-tiers/Section", () => ({
   TypeTierListSection: ({ resolvedTeam }: { resolvedTeam: Array<{ species: string }> }) => (
     <div>{`types-${resolvedTeam.length}`}</div>
   ),

@@ -5,9 +5,9 @@ import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { LoadingScreen } from "@/components/team/LoadingScreen";
 import { CompositionsSection } from "@/components/team/collection/CompositionsSection";
-import { WorkspaceSection } from "@/components/team/tools/compare/WorkspaceSection";
+import { WorkspaceSection } from "@/components/team/tools/compare/Section";
 import { IvCalculatorSection } from "@/components/team/tools/iv-calculator/Section";
-import { TypeTierListSection } from "@/components/team/tools/TypeTierListSection";
+import { TypeTierListSection } from "@/components/team/tools/type-tiers/Section";
 import {
   useTeamCatalogs,
   useTeamCompare,
