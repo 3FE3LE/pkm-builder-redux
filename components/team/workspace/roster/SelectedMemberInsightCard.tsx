@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { useId } from "react";
+import useSWR from "swr";
 
 import { TypeBadge } from "@/components/BuilderShared";
 import { RoleAxesCard } from "@/components/team/shared/RoleAxes";
@@ -34,44 +35,32 @@ export function SelectedMemberInsightCard({
   starterLens: ReturnType<typeof buildMemberLens> | null;
   onClose: () => void;
 }) {
-  const [dexDetails, setDexDetails] = useState<DexPokemonDetail | null>(null);
-
-  useEffect(() => {
-    const species = member.species.trim();
-    if (!species) {
-      setDexDetails(null);
-      return;
-    }
-
-    const controller = new AbortController();
-    async function loadDexDetails() {
-      try {
-        const response = await fetch(`/api/dex?pokemon=${encodeURIComponent(species)}`, {
-          signal: controller.signal,
-        });
-        if (!response.ok) {
-          setDexDetails(null);
-          return;
-        }
-        const payload = (await response.json()) as DexPokemonDetail;
-        setDexDetails({
-          category: payload.category ?? null,
-          height: payload.height ?? null,
-          weight: payload.weight ?? null,
-          flavorText: payload.flavorText ?? null,
-        });
-      } catch {
-        if (!controller.signal.aborted) {
-          setDexDetails(null);
-        }
+  const requestScope = useId();
+  const species = member.species.trim();
+  const dexUrl = species ? `/api/dex?pokemon=${encodeURIComponent(species)}` : null;
+  const { data: dexDetails } = useSWR<DexPokemonDetail | null>(
+    dexUrl ? [dexUrl, requestScope] : null,
+    async ([url]) => {
+      const response = await fetch(url, { method: "GET" });
+      if (!response.ok) {
+        return null;
       }
-    }
-
-    setDexDetails(null);
-    void loadDexDetails();
-
-    return () => controller.abort();
-  }, [member.species]);
+      const payload = (await response.json()) as DexPokemonDetail;
+      return {
+        category: payload.category ?? null,
+        height: payload.height ?? null,
+        weight: payload.weight ?? null,
+        flavorText: payload.flavorText ?? null,
+      };
+    },
+    {
+      dedupingInterval: 0,
+      shouldRetryOnError: true,
+      errorRetryCount: 1,
+      errorRetryInterval: 0,
+    },
+  );
+  const normalizedDexDetails = dexDetails ?? null;
 
   return (
     <div className="max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
@@ -100,17 +89,17 @@ export function SelectedMemberInsightCard({
         </div>
       ) : null}
 
-      {dexDetails?.category || dexDetails?.height || dexDetails?.weight || dexDetails?.flavorText ? (
+      {normalizedDexDetails?.category || normalizedDexDetails?.height || normalizedDexDetails?.weight || normalizedDexDetails?.flavorText ? (
         <div className="mt-4">
           <p className="display-face text-xs text-accent">Dex Notes</p>
           <div className="mt-3 grid gap-2 sm:grid-cols-3">
-            {dexDetails?.category ? <StarterLensCard label="Categoria" value={dexDetails.category} /> : null}
-            {dexDetails?.height ? <StarterLensCard label="Altura" value={`${dexDetails.height.toFixed(1)} m`} /> : null}
-            {dexDetails?.weight ? <StarterLensCard label="Peso" value={`${dexDetails.weight.toFixed(1)} kg`} /> : null}
+            {normalizedDexDetails?.category ? <StarterLensCard label="Categoria" value={normalizedDexDetails.category} /> : null}
+            {normalizedDexDetails?.height ? <StarterLensCard label="Altura" value={`${normalizedDexDetails.height.toFixed(1)} m`} /> : null}
+            {normalizedDexDetails?.weight ? <StarterLensCard label="Peso" value={`${normalizedDexDetails.weight.toFixed(1)} kg`} /> : null}
           </div>
-          {dexDetails?.flavorText ? (
+          {normalizedDexDetails?.flavorText ? (
             <p className="mt-3 rounded-[0.7rem] border border-line bg-surface-3 px-3 py-3 text-sm text-muted">
-              {dexDetails.flavorText}
+              {normalizedDexDetails.flavorText}
             </p>
           ) : null}
         </div>

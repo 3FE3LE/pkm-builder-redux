@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import { Pencil, Plus } from "lucide-react";
 
@@ -28,15 +28,6 @@ export function CompositionsSection({
 }) {
   const [editingCompositionId, setEditingCompositionId] = useState<string | null>(null);
   const [draftName, setDraftName] = useState("");
-
-  useEffect(() => {
-    if (!editingCompositionId) {
-      return;
-    }
-
-    const current = compositions.find((composition) => composition.id === editingCompositionId);
-    setDraftName(current?.name ?? "");
-  }, [compositions, editingCompositionId]);
 
   function commitRename() {
     if (!editingCompositionId) {

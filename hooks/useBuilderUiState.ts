@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 import { PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 
@@ -56,6 +56,37 @@ function readLocalTime(): BuilderLocalTime {
   } as const;
 }
 
+let cachedLocalTimeSnapshot: BuilderLocalTime = DEFAULT_LOCAL_TIME;
+
+function subscribeToLocalTime(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const intervalId = window.setInterval(onStoreChange, 60_000);
+  return () => window.clearInterval(intervalId);
+}
+
+function getLocalTimeSnapshot() {
+  const next = readLocalTime();
+  if (
+    cachedLocalTimeSnapshot.ready &&
+    cachedLocalTimeSnapshot.hour24 === next.hour24 &&
+    cachedLocalTimeSnapshot.phase === next.phase &&
+    cachedLocalTimeSnapshot.period === next.period &&
+    cachedLocalTimeSnapshot.label === next.label
+  ) {
+    return cachedLocalTimeSnapshot;
+  }
+
+  cachedLocalTimeSnapshot = next;
+  return cachedLocalTimeSnapshot;
+}
+
+function getLocalTimeServerSnapshot() {
+  return DEFAULT_LOCAL_TIME;
+}
+
 export function useBuilderUiState() {
   const [movePickerState, setMovePickerState] = useState<MovePickerState | null>(null);
   const [moveModalTab, setMoveModalTab] = useState<MoveModalTab>("levelUp");
@@ -70,14 +101,11 @@ export function useBuilderUiState() {
   const [onboardingSelection, setOnboardingSelection] = useState<StarterKey | null>(null);
   const [onboardingModalStarter, setOnboardingModalStarter] = useState<StarterKey | null>(null);
   const [onboardingNickname, setOnboardingNickname] = useState("");
-  const [localTime, setLocalTime] = useState<BuilderLocalTime>(DEFAULT_LOCAL_TIME);
-
-  useEffect(() => {
-    const syncLocalTime = () => setLocalTime(readLocalTime());
-    syncLocalTime();
-    const intervalId = window.setInterval(syncLocalTime, 60_000);
-    return () => window.clearInterval(intervalId);
-  }, []);
+  const localTime = useSyncExternalStore(
+    subscribeToLocalTime,
+    getLocalTimeSnapshot,
+    getLocalTimeServerSnapshot,
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),

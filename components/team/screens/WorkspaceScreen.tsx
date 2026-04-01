@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams, useSelectedLayoutSegment } from "next/navigation";
 import {
   closestCenter,
@@ -53,7 +53,6 @@ export function WorkspaceScreen() {
   const evolution = useTeamEvolution();
   const editorOpen = pathname.startsWith("/team/pokemon/") || editorSegment !== null;
   const pcSectionRef = useRef<HTMLElement | null>(null);
-  const previousPcIdsRef = useRef<string[]>([]);
 
   function buildTeamHref(nextPath: string) {
     const nextParams = new URLSearchParams(searchParams.toString());
@@ -103,12 +102,14 @@ export function WorkspaceScreen() {
     team.actions.handleDragEnd(event);
   }
 
-  const draggedMember = draggedMemberId
-    ? team.currentTeam.find((member) => member.id === draggedMemberId)
-    : null;
-  const draggedResolved = draggedMemberId
-    ? team.resolvedTeam.find((member) => member.key === draggedMemberId)
-    : undefined;
+  const draggedMember = useMemo(
+    () => (draggedMemberId ? team.currentTeam.find((member) => member.id === draggedMemberId) : null),
+    [draggedMemberId, team.currentTeam],
+  );
+  const draggedResolved = useMemo(
+    () => (draggedMemberId ? team.resolvedTeam.find((member) => member.key === draggedMemberId) : undefined),
+    [draggedMemberId, team.resolvedTeam],
+  );
   const starterLine = starters[session.starter].stageSpecies;
   const starterMember = team.resolvedTeam.find((member) =>
     starterLine.includes(member.species),
@@ -116,22 +117,30 @@ export function WorkspaceScreen() {
   const activeCompositionName =
     team.compositions.find((composition) => composition.id === team.activeCompositionId)?.name ??
     "Roster del equipo";
-  const pcMembers = team.pcBoxIds
-    .map((memberId) => team.pokemonLibrary.find((member) => member.id === memberId))
-    .filter((member): member is (typeof team.pokemonLibrary)[number] => Boolean(member));
+  const libraryById = useMemo(
+    () => new Map(team.pokemonLibrary.map((member) => [member.id, member])),
+    [team.pokemonLibrary],
+  );
+  const pcMembers = useMemo(
+    () =>
+      team.pcBoxIds
+        .map((memberId) => libraryById.get(memberId))
+        .filter((member): member is (typeof team.pokemonLibrary)[number] => Boolean(member)),
+    [libraryById, team.pcBoxIds],
+  );
+  const analysisTeamSize = useMemo(
+    () => team.currentTeam.reduce((count, member) => count + (member.species.trim() ? 1 : 0), 0),
+    [team.currentTeam],
+  );
+  const activeTeamIds = useMemo(() => team.currentTeam.map((member) => member.id), [team.currentTeam]);
+  const effectivePcPulseMemberId = pcPulseMemberId ?? team.pcBoxIds[0] ?? null;
 
-  useEffect(() => {
-    const previousPcIds = previousPcIdsRef.current;
-    const nextPcIds = team.pcBoxIds;
-    const addedMemberId = nextPcIds.find((memberId) => !previousPcIds.includes(memberId)) ?? null;
-
-    if (addedMemberId) {
-      setPcPulseMemberId(addedMemberId);
-      window.setTimeout(() => setPcPulseMemberId((current) => (current === addedMemberId ? null : current)), 500);
-    }
-
-    previousPcIdsRef.current = nextPcIds;
-  }, [team.pcBoxIds]);
+  function pulsePcMember(memberId: string) {
+    setPcPulseMemberId(memberId);
+    window.setTimeout(() => {
+      setPcPulseMemberId((current) => (current === memberId ? null : current));
+    }, 500);
+  }
 
   function handleCreateFromDex(species: string) {
     const created = createEditable(species);
@@ -209,6 +218,7 @@ export function WorkspaceScreen() {
               if (!moved) {
                 return;
               }
+              pulsePcMember(id);
 
               window.setTimeout(() => {
                 pcSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -228,7 +238,7 @@ export function WorkspaceScreen() {
           <WorkspacePanels
             workspaceTab={workspaceTab}
             setWorkspaceTab={setWorkspaceTab}
-            analysisTeamSize={team.currentTeam.filter((member) => member.species.trim()).length}
+            analysisTeamSize={analysisTeamSize}
             averageStats={analysis.averageStats}
             coveredCoverage={analysis.coveredCoverage}
             uncoveredCoverage={analysis.uncoveredCoverage}
@@ -253,7 +263,7 @@ export function WorkspaceScreen() {
           <AddMemberSheet
             open={addMemberOpen}
             libraryMembers={team.pokemonLibrary}
-            activeTeamIds={team.currentTeam.map((member) => member.id)}
+            activeTeamIds={activeTeamIds}
             speciesCatalog={catalogs.speciesCatalog}
             onClose={() => setAddMemberOpen(false)}
             onPickLibraryMember={handleReuseLibraryMember}
@@ -291,7 +301,7 @@ export function WorkspaceScreen() {
             compositions={team.compositions}
             activeCompositionId={team.activeCompositionId}
             speciesCatalog={catalogs.speciesCatalog}
-            pulseMemberId={pcPulseMemberId}
+            pulseMemberId={effectivePcPulseMemberId}
             onOpenEditor={(memberId) => {
               team.actions.editMember(memberId);
               router.push(buildTeamHref(`/team/pokemon/${memberId}`));
@@ -299,7 +309,13 @@ export function WorkspaceScreen() {
             onAssignToComposition={(memberId, compositionId) => {
               team.actions.addLibraryMemberToComposition(memberId, compositionId);
             }}
-            onImportToPc={team.actions.saveMemberToPc}
+            onImportToPc={(member) => {
+              const saved = team.actions.saveMemberToPc(member);
+              if (saved) {
+                pulsePcMember(member.id);
+              }
+              return saved;
+            }}
           />
         </section>
 

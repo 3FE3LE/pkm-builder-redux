@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import {
   IntelligencePanel,
@@ -62,11 +62,13 @@ export function CopilotSection({
   onToggleEncounter: (id: string) => void;
   onSendCaptureToIvCalc?: (species: string) => void;
 }) {
-  const contentRef = useRef<HTMLDivElement | null>(null);
+  const contentResizeObserverRef = useRef<ResizeObserver | null>(null);
   const [timelineHeight, setTimelineHeight] = useState<number | null>(null);
 
-  useEffect(() => {
-    const node = contentRef.current;
+  function handleContentRef(node: HTMLDivElement | null) {
+    contentResizeObserverRef.current?.disconnect();
+    contentResizeObserverRef.current = null;
+
     if (!node || typeof ResizeObserver === "undefined") {
       return;
     }
@@ -78,15 +80,14 @@ export function CopilotSection({
       }
       setTimelineHeight(Math.round(entry.contentRect.height));
     });
-
     observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+    contentResizeObserverRef.current = observer;
+  }
 
   return (
     <section className="min-w-0 space-y-2 overflow-x-hidden">
       <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-start">
-        <div ref={contentRef} className="min-w-0 space-y-2 overflow-x-hidden">
+        <div ref={handleContentRef} className="min-w-0 space-y-2 overflow-x-hidden">
           <div className="xl:hidden">
             <PathPanel
               encounters={encounterCatalog}

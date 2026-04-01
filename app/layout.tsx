@@ -9,7 +9,8 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { AppFooter } from "@/components/AppFooter";
 import { AppNav } from "@/components/AppNav";
-import { BuilderThemeBridge } from "@/components/team/BuilderThemeBridge";
+import { SwrProvider } from "@/components/providers/SwrProvider";
+import { BuilderThemeShell } from "@/components/team/BuilderThemeShell";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -86,10 +87,13 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <NuqsAdapter>
-          <BuilderThemeBridge />
-          <AppNav />
-          <div className="flex-1">{children}</div>
-          <AppFooter />
+          <SwrProvider>
+            <BuilderThemeShell>
+              <AppNav />
+              <div className="flex-1">{children}</div>
+              <AppFooter />
+            </BuilderThemeShell>
+          </SwrProvider>
         </NuqsAdapter>
       </body>
     </html>

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import {
   OnboardingScreen,
@@ -11,13 +10,8 @@ import { BuilderProvider, useTeamSession } from "@/components/BuilderProvider";
 import type { BuilderDataProps } from "@/hooks/types";
 
 function RedirectToTeam() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace("/team");
-  }, [router]);
-
-  return <LoadingState />;
+  redirect("/team");
+  return null;
 }
 
 function BuilderOnboardingGate() {

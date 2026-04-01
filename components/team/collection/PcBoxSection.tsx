@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import clsx from "clsx";
 import { Archive } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -38,9 +38,15 @@ export function PcBoxSection({
   onImportToPc: (member: EditableMember) => boolean;
 }) {
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
-  const [targetCompositionName, setTargetCompositionName] = useState("");
+  const [manualTargetCompositionName, setManualTargetCompositionName] = useState<string | null>(null);
   const selectedMember = members.find((member) => member.id === selectedMemberId) ?? null;
   const compositionOptions = compositions.map((composition) => composition.name || "Team");
+  const defaultCompositionName = useMemo(() => {
+    const activeComposition =
+      compositions.find((composition) => composition.id === activeCompositionId) ?? compositions[0];
+    return activeComposition?.name ?? "";
+  }, [activeCompositionId, compositions]);
+  const targetCompositionName = manualTargetCompositionName ?? defaultCompositionName;
   const dexBySpecies = useMemo(
     () =>
       Object.fromEntries(speciesCatalog.map((entry) => [entry.name.toLowerCase(), entry.dex])) as Record<
@@ -49,22 +55,6 @@ export function PcBoxSection({
       >,
     [speciesCatalog],
   );
-
-  useEffect(() => {
-    if (!selectedMember) {
-      return;
-    }
-
-    const activeComposition =
-      compositions.find((composition) => composition.id === activeCompositionId) ?? compositions[0];
-    setTargetCompositionName(activeComposition?.name ?? "");
-  }, [activeCompositionId, compositions, selectedMember]);
-
-  useEffect(() => {
-    if (!selectedMember) {
-      setTargetCompositionName("");
-    }
-  }, [selectedMember]);
 
   return (
     <section className="space-y-2">
@@ -86,7 +76,10 @@ export function PcBoxSection({
               <button
                 key={member.id}
                 type="button"
-                onClick={() => setSelectedMemberId(member.id)}
+                onClick={() => {
+                  setManualTargetCompositionName(null);
+                  setSelectedMemberId(member.id);
+                }}
                 className={clsx(
                   "flex aspect-square items-center justify-center rounded-[0.75rem] transition",
                   selectedMemberId === member.id
@@ -136,7 +129,10 @@ export function PcBoxSection({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="modal-scrim z-[120]"
-            onClick={() => setSelectedMemberId(null)}
+            onClick={() => {
+              setManualTargetCompositionName(null);
+              setSelectedMemberId(null);
+            }}
           >
             <motion.div
               initial={{ opacity: 0, y: 18, scale: 0.97 }}
@@ -181,7 +177,10 @@ export function PcBoxSection({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => setSelectedMemberId(null)}
+                  onClick={() => {
+                    setManualTargetCompositionName(null);
+                    setSelectedMemberId(null);
+                  }}
                   aria-label="Cerrar menu de caja"
                 >
                   Cerrar
@@ -189,16 +188,16 @@ export function PcBoxSection({
               </div>
 
               <div className="mt-4 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto]">
-                <FilterCombobox
-                  value={targetCompositionName}
-                  options={compositionOptions}
-                  placeholder="Equipo destino"
-                  coordinationGroup="pc-composition-target"
-                  onChange={setTargetCompositionName}
-                />
-                <Button
-                  type="button"
-                  onClick={() => {
+              <FilterCombobox
+                value={targetCompositionName}
+                options={compositionOptions}
+                placeholder="Equipo destino"
+                coordinationGroup="pc-composition-target"
+                onChange={(next) => setManualTargetCompositionName(next)}
+              />
+              <Button
+                type="button"
+                onClick={() => {
                     const targetComposition = compositions.find(
                       (composition) => composition.name === targetCompositionName,
                     );
@@ -208,9 +207,10 @@ export function PcBoxSection({
 
                     onAssignToComposition(selectedMember.id, targetComposition.id);
                     setSelectedMemberId(null);
+                    setManualTargetCompositionName(null);
                   }}
                 >
-                  Agregar
+                Agregar
                 </Button>
               </div>
 
@@ -219,7 +219,10 @@ export function PcBoxSection({
                 <Button
                   type="button"
                   variant="ghost"
-                  onClick={() => onOpenEditor(selectedMember.id)}
+                  onClick={() => {
+                    setManualTargetCompositionName(null);
+                    onOpenEditor(selectedMember.id);
+                  }}
                 >
                   Ver datos
                 </Button>

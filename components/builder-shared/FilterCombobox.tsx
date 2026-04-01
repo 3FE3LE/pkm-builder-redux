@@ -1,10 +1,11 @@
 "use client";
 
-import { type CSSProperties, type ReactNode, useEffect, useId, useMemo, useRef, useState } from "react";
+import { type CSSProperties, type ReactNode, useId, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { Input } from "@/components/ui/Input";
+import { useCoordinatedPopover } from "@/hooks/useCoordinatedPopover";
 
 export function FilterCombobox({
   value,
@@ -38,46 +39,14 @@ export function FilterCombobox({
     return options.filter((option) => !searchable || !normalizedQuery || option.toLowerCase().includes(normalizedQuery));
   }, [options, query, searchable]);
 
-  useEffect(() => {
-    if (!coordinationGroup) {
-      return;
-    }
-
-    function handleComboboxOpen(event: Event) {
-      const detail = (event as CustomEvent<{ group?: string; id?: string }>).detail;
-      if (detail?.group === coordinationGroup && detail.id !== comboboxId) {
-        setOpen(false);
-      }
-    }
-
-    window.addEventListener("filter-combobox-open", handleComboboxOpen);
-    return () => window.removeEventListener("filter-combobox-open", handleComboboxOpen);
-  }, [comboboxId, coordinationGroup]);
-
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    function handlePointerDown(event: PointerEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    }
-
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open]);
+  useCoordinatedPopover({
+    open,
+    coordinationGroup,
+    coordinationEventName: "filter-combobox-open",
+    coordinationId: comboboxId,
+    rootRef,
+    onClose: () => setOpen(false),
+  });
 
   return (
     <div ref={rootRef} className="relative">

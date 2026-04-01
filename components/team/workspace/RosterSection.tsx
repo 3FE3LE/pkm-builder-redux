@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import {
@@ -67,17 +67,25 @@ export function RosterSection({
   onClearSelection: () => void;
   onCloseEditor: () => void;
 }) {
-  const filledTeam = currentTeam.filter((member) => member.species.trim());
-  const selectedMember = activeMemberKey
-    ? filledTeam.find((member) => member.id === activeMemberKey)
-    : undefined;
-  const selectedResolved = activeMemberKey
-    ? resolvedTeam.find((member) => member.key === activeMemberKey)
-    : undefined;
-  const selectedStarterLens =
-    selectedResolved && starterSpeciesLine.includes(selectedResolved.species)
-      ? buildMemberLens(selectedResolved)
-      : null;
+  const filledTeam = useMemo(
+    () => currentTeam.filter((member) => member.species.trim()),
+    [currentTeam],
+  );
+  const selectedMember = useMemo(
+    () => (activeMemberKey ? filledTeam.find((member) => member.id === activeMemberKey) : undefined),
+    [activeMemberKey, filledTeam],
+  );
+  const selectedResolved = useMemo(
+    () => (activeMemberKey ? resolvedTeam.find((member) => member.key === activeMemberKey) : undefined),
+    [activeMemberKey, resolvedTeam],
+  );
+  const selectedStarterLens = useMemo(
+    () =>
+      selectedResolved && starterSpeciesLine.includes(selectedResolved.species)
+        ? buildMemberLens(selectedResolved)
+        : null,
+    [selectedResolved, starterSpeciesLine],
+  );
   const hasActiveSelection = Boolean(selectedMember);
   const dockTone = getDockTone(selectedResolved?.resolvedTypes);
   const [resetOpen, setResetOpen] = useState(false);

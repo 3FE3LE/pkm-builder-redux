@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { SpeciesCombobox, FilterCombobox } from "@/components/BuilderShared";
 import { SpreadInput } from "@/components/team/UI";
@@ -44,13 +44,13 @@ export function IvCalculatorSection({
     | { ok: true; reason: null | "pc" }
     | { ok: false; reason: "full" | "duplicate" };
 }) {
-  const [species, setSpecies] = useState("");
+  const [species, setSpecies] = useState(prefillSpecies);
   const [level, setLevel] = useState("5");
   const [nature, setNature] = useState("Serious");
   const [nickname, setNickname] = useState("");
   const [gender, setGender] = useState<EditableMember["gender"]>("unknown");
   const [shiny, setShiny] = useState(false);
-  const [observedStats, setObservedStats] = useState<IvObservedState>(EMPTY_OBSERVED);
+  const [observedOverrides, setObservedOverrides] = useState<IvObservedState>(EMPTY_OBSERVED);
   const [addFeedback, setAddFeedback] = useState<AddFeedback>(null);
 
   const resolvedPokemon = species ? pokemonIndex[normalizeName(species)] : undefined;
@@ -73,6 +73,20 @@ export function IvCalculatorSection({
       ZERO_SPREAD,
     );
   }, [nature, numericLevel, resolvedPokemon?.stats]);
+  const observedStats = useMemo<IvObservedState>(() => {
+    if (!zeroIvStats) {
+      return EMPTY_OBSERVED;
+    }
+
+    return {
+      hp: observedOverrides.hp.trim() ? observedOverrides.hp : String(zeroIvStats.hp),
+      atk: observedOverrides.atk.trim() ? observedOverrides.atk : String(zeroIvStats.atk),
+      def: observedOverrides.def.trim() ? observedOverrides.def : String(zeroIvStats.def),
+      spa: observedOverrides.spa.trim() ? observedOverrides.spa : String(zeroIvStats.spa),
+      spd: observedOverrides.spd.trim() ? observedOverrides.spd : String(zeroIvStats.spd),
+      spe: observedOverrides.spe.trim() ? observedOverrides.spe : String(zeroIvStats.spe),
+    };
+  }, [observedOverrides, zeroIvStats]);
 
   const inferences = useMemo(() => {
     if (!resolvedPokemon?.stats) {
@@ -151,33 +165,11 @@ export function IvCalculatorSection({
 
   const canAddToTeam = Boolean(speciesMeta && resolvedPokemon);
 
-  useEffect(() => {
-    if (!zeroIvStats) {
-      setObservedStats(EMPTY_OBSERVED);
-      return;
+  function clearFeedbackOnInputChange() {
+    if (addFeedback) {
+      setAddFeedback(null);
     }
-
-    setObservedStats({
-      hp: String(zeroIvStats.hp),
-      atk: String(zeroIvStats.atk),
-      def: String(zeroIvStats.def),
-      spa: String(zeroIvStats.spa),
-      spd: String(zeroIvStats.spd),
-      spe: String(zeroIvStats.spe),
-    });
-  }, [zeroIvStats]);
-
-  useEffect(() => {
-    setAddFeedback(null);
-  }, [species, level, nature, nickname, gender, observedStats]);
-
-  useEffect(() => {
-    if (!prefillSpecies.trim()) {
-      return;
-    }
-
-    setSpecies(prefillSpecies);
-  }, [prefillSpecies]);
+  }
 
   function handleAddToTeam() {
     if (!resolvedPokemon) {
@@ -218,7 +210,7 @@ export function IvCalculatorSection({
     setNickname("");
     setGender("unknown");
     setShiny(false);
-    setObservedStats(createEmptyObservedState());
+    setObservedOverrides(createEmptyObservedState());
   }
 
   return (
@@ -233,7 +225,10 @@ export function IvCalculatorSection({
                   <SpeciesCombobox
                     value={species}
                     speciesCatalog={speciesCatalog}
-                    onChange={setSpecies}
+                    onChange={(next) => {
+                      clearFeedbackOnInputChange();
+                      setSpecies(next);
+                    }}
                   />
                 </div>
               </div>
@@ -242,7 +237,10 @@ export function IvCalculatorSection({
                   label="LEVEL"
                   value={numericLevel}
                   max={100}
-                  onChange={(next) => setLevel(String(Math.max(1, next)))}
+                  onChange={(next) => {
+                    clearFeedbackOnInputChange();
+                    setLevel(String(Math.max(1, next)));
+                  }}
                 />
               </div>
               <div>
@@ -253,7 +251,10 @@ export function IvCalculatorSection({
                     options={natureOptions}
                     placeholder="Nature"
                     searchable={false}
-                    onChange={setNature}
+                    onChange={(next) => {
+                      clearFeedbackOnInputChange();
+                      setNature(next);
+                    }}
                   />
                 </div>
               </div>
@@ -262,12 +263,13 @@ export function IvCalculatorSection({
             <ObservedStatsPanel
               observedStats={observedStats}
               inferenceByStat={inferenceByStat}
-              onChangeStat={(stat, next) =>
-                setObservedStats((current) => ({
+              onChangeStat={(stat, next) => {
+                clearFeedbackOnInputChange();
+                setObservedOverrides((current) => ({
                   ...current,
                   [stat]: next > 0 ? String(next) : "",
-                }))
-              }
+                }));
+              }}
             />
           </div>
 
@@ -279,11 +281,20 @@ export function IvCalculatorSection({
               nature={nature}
               spriteUrl={spriteUrl}
               nickname={nickname}
-              setNickname={setNickname}
+              setNickname={(next) => {
+                clearFeedbackOnInputChange();
+                setNickname(next);
+              }}
               gender={gender}
-              setGender={setGender}
+              setGender={(next) => {
+                clearFeedbackOnInputChange();
+                setGender(next);
+              }}
               shiny={shiny}
-              setShiny={setShiny}
+              setShiny={(next) => {
+                clearFeedbackOnInputChange();
+                setShiny(next);
+              }}
               suggestedMoves={suggestedMoves}
               canAddToTeam={canAddToTeam}
               onAddToTeam={handleAddToTeam}

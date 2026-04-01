@@ -99,6 +99,7 @@ export function ToolsScreen() {
           <TabsContent value="ivcalc" className="tab-panel">
             {toolTab === "ivcalc" ? (
               <IvCalculatorSection
+                key={`ivcalc-${speciesPrefill || "none"}`}
                 speciesCatalog={catalogs.speciesCatalog}
                 pokemonIndex={catalogs.pokemonIndex}
                 prefillSpecies={speciesPrefill}

@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Lock, LockOpen } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 
 import {
   FilterCombobox,
@@ -54,18 +54,6 @@ export function ProfileSection({
   onImportToPc: (member: EditableMember) => boolean;
 }) {
   const shouldAutoFocusSpecies = !currentSpecies.trim();
-  const profileGridRef = useRef<HTMLDivElement | null>(null);
-  const natureRef = useRef<HTMLLabelElement | null>(null);
-  const abilityRef = useRef<HTMLLabelElement | null>(null);
-  const itemRef = useRef<HTMLLabelElement | null>(null);
-  const [profilePanelMetrics, setProfilePanelMetrics] = useState({
-    width: 0,
-    speciesLeft: 0,
-    natureLeft: 0,
-    abilityLeft: 0,
-    itemLeft: 0,
-  });
-  const speciesRef = useRef<HTMLLabelElement | null>(null);
   const previewAbilityDetails =
     abilityCatalog.find((entry) => entry.name === currentAbility) ??
     resolved?.abilityDetails ??
@@ -92,53 +80,29 @@ export function ProfileSection({
     return Array.from(new Set(currentItem ? [...heldItems, currentItem] : heldItems));
   }, [currentItem, itemCatalog]);
 
-  useEffect(() => {
-    const resolvedAbilities = resolved?.abilities?.filter(Boolean) ?? [];
-    if (!currentSpecies.trim() || !resolvedAbilities.length) {
-      return;
-    }
-
-    const nextAbility = reconcileAbilitySelection(currentAbility, resolvedAbilities);
-    if (nextAbility === currentAbility) {
-      return;
-    }
-
-    updateEditorMember((current) => {
-      const updatedAbility = reconcileAbilitySelection(current.ability, resolvedAbilities);
-      if (updatedAbility === current.ability) {
-        return current;
-      }
-
-      return {
-        ...current,
-        ability: updatedAbility,
-      };
-    });
-  }, [currentAbility, currentSpecies, resolved?.abilities, updateEditorMember]);
-
-  useEffect(() => {
-    function updateMetrics() {
-      const grid = profileGridRef.current;
-      if (!grid) {
-        return;
-      }
-
-      setProfilePanelMetrics({
-        width: grid.getBoundingClientRect().width,
-        speciesLeft: speciesRef.current?.offsetLeft ?? 0,
-        natureLeft: natureRef.current?.offsetLeft ?? 0,
-        abilityLeft: abilityRef.current?.offsetLeft ?? 0,
-        itemLeft: itemRef.current?.offsetLeft ?? 0,
+  const abilitySyncKeyRef = useRef<string | null>(null);
+  const resolvedAbilities = resolved?.abilities?.filter(Boolean) ?? [];
+  const nextReconciledAbility = currentSpecies.trim() && resolvedAbilities.length
+    ? reconcileAbilitySelection(currentAbility, resolvedAbilities)
+    : currentAbility;
+  const shouldReconcileAbility = nextReconciledAbility !== currentAbility;
+  if (shouldReconcileAbility) {
+    const syncKey = `${currentSpecies}|${currentAbility}|${resolvedAbilities.join("|")}|${nextReconciledAbility}`;
+    if (abilitySyncKeyRef.current !== syncKey) {
+      abilitySyncKeyRef.current = syncKey;
+      queueMicrotask(() => {
+        updateEditorMember((current) => {
+          const updatedAbility = reconcileAbilitySelection(current.ability, resolvedAbilities);
+          if (updatedAbility === current.ability) {
+            return current;
+          }
+          return { ...current, ability: updatedAbility };
+        });
       });
     }
-
-    updateMetrics();
-    const observer = new ResizeObserver(updateMetrics);
-    if (profileGridRef.current) {
-      observer.observe(profileGridRef.current);
-    }
-    return () => observer.disconnect();
-  }, []);
+  } else {
+    abilitySyncKeyRef.current = null;
+  }
 
   return (
     <section className="px-0 py-0">
@@ -160,22 +124,14 @@ export function ProfileSection({
           </button>
         </div>
       </div>
-      <div ref={profileGridRef} className="grid grid-cols-2 gap-3">
-        <label ref={speciesRef} className="min-w-0 text-sm">
+      <div className="grid grid-cols-2 gap-3">
+        <label className="min-w-0 text-sm">
           <span className="mb-1 block text-muted">Pokemon</span>
           <SpeciesCombobox
             value={currentSpecies}
             speciesCatalog={speciesCatalog}
             autoFocus={shouldAutoFocusSpecies}
             panelClassName="max-w-none left-0"
-            panelStyle={
-              profilePanelMetrics.width
-                ? {
-                    width: `${Math.max(profilePanelMetrics.width - 12, 0)}px`,
-                    left: `${-profilePanelMetrics.speciesLeft + 6}px`,
-                  }
-                : undefined
-            }
             onChange={(species) => {
               updateEditorMember((current) => {
                 const shouldSyncNickname =
@@ -197,7 +153,7 @@ export function ProfileSection({
             </span>
           ) : null}
         </label>
-        <label ref={natureRef} className="min-w-0 text-sm">
+        <label className="min-w-0 text-sm">
           <span className="mb-1 block text-muted">Naturaleza</span>
           <FilterCombobox
             value={currentNature}
@@ -232,7 +188,7 @@ export function ProfileSection({
             }
           />
         </label>
-        <label ref={abilityRef} className="min-w-0 text-sm">
+        <label className="min-w-0 text-sm">
           <span className="mb-1 flex items-center gap-2 text-muted">
             Habilidad
             <InfoHint text={previewAbilityDetails?.effect} />
@@ -267,7 +223,7 @@ export function ProfileSection({
             }
           />
         </label>
-        <label ref={itemRef} className="min-w-0 text-sm">
+        <label className="min-w-0 text-sm">
           <span className="mb-1 flex items-center gap-2 text-muted">
             Objeto
             <InfoHint text={previewItemDetails?.effect} />

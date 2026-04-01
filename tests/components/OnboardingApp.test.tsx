@@ -4,14 +4,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocked = vi.hoisted(() => ({
   hydrated: true,
   builderStarted: false,
-  routerReplace: vi.fn(),
+  redirect: vi.fn(),
   builderProviderProps: null as Record<string, unknown> | null,
 }));
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({
-    replace: mocked.routerReplace,
-  }),
+  redirect: mocked.redirect,
 }));
 
 vi.mock("@/components/BuilderProvider", () => ({
@@ -76,9 +74,8 @@ describe("BuilderOnboarding", () => {
 
     render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
 
-    expect(screen.getByText("loading-screen")).toBeTruthy();
     await waitFor(() => {
-      expect(mocked.routerReplace).toHaveBeenCalledWith("/team");
+      expect(mocked.redirect).toHaveBeenCalledWith("/team");
     });
   });
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Check, Plus, Search } from "lucide-react";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
@@ -63,14 +63,13 @@ export function AddMemberSheet({
       .slice(0, 18);
   }, [query, speciesCatalog]);
 
-  useEffect(() => {
-    if (!open) {
-      setQuery("");
-    }
-  }, [open]);
-
   if (!open) {
     return null;
+  }
+
+  function closeSheet() {
+    setQuery("");
+    onClose();
   }
 
   return (
@@ -81,7 +80,7 @@ export function AddMemberSheet({
             <p className="display-face text-sm text-accent">Agregar Pokemon</p>
             <p className="text-sm text-muted">Tus Pokemon primero, luego la dex.</p>
           </div>
-          <Button type="button" variant="ghost" size="sm" onClick={onClose}>
+          <Button type="button" variant="ghost" size="sm" onClick={closeSheet}>
             Cerrar
           </Button>
         </div>
@@ -109,7 +108,10 @@ export function AddMemberSheet({
                   <button
                     key={member.id}
                     type="button"
-                    onClick={() => onPickLibraryMember(member.id)}
+                    onClick={() => {
+                      setQuery("");
+                      onPickLibraryMember(member.id);
+                    }}
                     className="soft-card flex w-full items-center gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
                   >
                     <PokemonSprite species={member.species} size="small" chrome="plain" />
@@ -143,7 +145,10 @@ export function AddMemberSheet({
                 <button
                   key={entry.slug}
                   type="button"
-                  onClick={() => onCreateFromDex(entry.name)}
+                  onClick={() => {
+                    setQuery("");
+                    onCreateFromDex(entry.name);
+                  }}
                   className="soft-card flex w-full items-center justify-between gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
                 >
                   <div className="min-w-0">

@@ -1,7 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { type CSSProperties, useEffect, useId, useMemo, useRef, useState } from "react";
+import {
+  startTransition,
+  type CSSProperties,
+  useDeferredValue,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -9,6 +17,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { buildSpriteUrls } from "@/lib/domain/names";
 import { TYPE_ORDER } from "@/lib/domain/typeChart";
+import { useCoordinatedPopover } from "@/hooks/useCoordinatedPopover";
 
 import { TypeBadge } from "@/components/builder-shared/TypeBadge";
 
@@ -39,6 +48,8 @@ export function SpeciesCombobox({
   const [query, setQuery] = useState("");
   const [typeFilters, setTypeFilters] = useState<[string | null, string | null]>([null, null]);
   const [scrollTop, setScrollTop] = useState(0);
+  const deferredQuery = useDeferredValue(query);
+  const deferredTypeFilters = useDeferredValue(typeFilters);
   const comboboxId = useId();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -49,15 +60,15 @@ export function SpeciesCombobox({
   );
 
   const filtered = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = deferredQuery.trim().toLowerCase();
 
     return speciesCatalog.filter((entry) => {
       const matchesQuery =
         !normalizedQuery || entry.name.toLowerCase().includes(normalizedQuery) || String(entry.dex).includes(normalizedQuery);
-      const matchesTypes = typeFilters.every((filterType) => !filterType || entry.types.includes(filterType));
+      const matchesTypes = deferredTypeFilters.every((filterType) => !filterType || entry.types.includes(filterType));
       return matchesQuery && matchesTypes;
     });
-  }, [query, speciesCatalog, typeFilters]);
+  }, [deferredQuery, deferredTypeFilters, speciesCatalog]);
   const totalHeight = filtered.length * SPECIES_ROW_HEIGHT;
   const maxScrollTop = Math.max(0, totalHeight - SPECIES_LIST_MAX_HEIGHT);
   const clampedScrollTop = Math.min(scrollTop, maxScrollTop);
@@ -65,47 +76,15 @@ export function SpeciesCombobox({
   const visibleCount = Math.ceil(SPECIES_LIST_MAX_HEIGHT / SPECIES_ROW_HEIGHT) + SPECIES_OVERSCAN * 2;
   const visibleEntries = filtered.slice(startIndex, startIndex + visibleCount);
 
-  useEffect(() => {
-    if (!coordinationGroup) {
-      return;
-    }
-
-    function handleComboboxOpen(event: Event) {
-      const detail = (event as CustomEvent<{ group?: string; id?: string }>).detail;
-      if (detail?.group === coordinationGroup && detail.id !== comboboxId) {
-        setOpen(false);
-      }
-    }
-
-    window.addEventListener("species-combobox-open", handleComboboxOpen);
-    return () => window.removeEventListener("species-combobox-open", handleComboboxOpen);
-  }, [comboboxId, coordinationGroup]);
-
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    function handlePointerDown(event: PointerEvent) {
-      const target = event.target as Node;
-      if (!rootRef.current?.contains(target) && !panelRef.current?.contains(target)) {
-        setOpen(false);
-      }
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    }
-
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open]);
+  useCoordinatedPopover({
+    open,
+    coordinationGroup,
+    coordinationEventName: "species-combobox-open",
+    coordinationId: comboboxId,
+    rootRef,
+    panelRef,
+    onClose: () => setOpen(false),
+  });
 
   const panelContent = open ? (
     <div
@@ -133,7 +112,9 @@ export function SpeciesCombobox({
           comboboxId="type-filter-1"
           onChange={(next) => {
             setScrollTop(0);
-            setTypeFilters((current) => [next, current[1] === next ? null : current[1]]);
+            startTransition(() => {
+              setTypeFilters((current) => [next, current[1] === next ? null : current[1]]);
+            });
           }}
         />
         <TypeFilterSelect
@@ -141,7 +122,9 @@ export function SpeciesCombobox({
           comboboxId="type-filter-2"
           onChange={(next) => {
             setScrollTop(0);
-            setTypeFilters((current) => [current[0] === next ? null : current[0], next]);
+            startTransition(() => {
+              setTypeFilters((current) => [current[0] === next ? null : current[0], next]);
+            });
           }}
         />
       </div>

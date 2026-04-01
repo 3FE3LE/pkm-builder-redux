@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useRef, type ReactNode } from "react";
 
 import { TypeBadge } from "@/components/BuilderShared";
 import { Input } from "@/components/ui/Input";
@@ -139,10 +139,14 @@ export function SpreadInput({
   const valueRef = useRef(value);
   const holdTimeoutRef = useRef<number | null>(null);
   const holdIntervalRef = useRef<number | null>(null);
+  const holdCleanupRef = useRef<(() => void) | null>(null);
+  const rootNodeRef = useRef<HTMLLabelElement | null>(null);
 
   valueRef.current = value;
 
   function clearHold() {
+    holdCleanupRef.current?.();
+    holdCleanupRef.current = null;
     if (holdTimeoutRef.current !== null) {
       window.clearTimeout(holdTimeoutRef.current);
       holdTimeoutRef.current = null;
@@ -160,6 +164,24 @@ export function SpreadInput({
   function startHold(getNextValue: () => number) {
     clearHold();
     step(getNextValue());
+
+    const stopHold = () => {
+      clearHold();
+    };
+    const listeners: Array<[keyof WindowEventMap, EventListenerOrEventListenerObject, boolean | AddEventListenerOptions | undefined]> = [
+      ["pointerup", stopHold, undefined],
+      ["pointercancel", stopHold, undefined],
+      ["blur", stopHold, undefined],
+    ];
+    listeners.forEach(([eventName, listener, options]) => {
+      window.addEventListener(eventName, listener, options);
+    });
+    holdCleanupRef.current = () => {
+      listeners.forEach(([eventName, listener, options]) => {
+        window.removeEventListener(eventName, listener, options);
+      });
+    };
+
     holdTimeoutRef.current = window.setTimeout(() => {
       holdIntervalRef.current = window.setInterval(() => {
         step(getNextValue());
@@ -167,24 +189,16 @@ export function SpreadInput({
     }, 260);
   }
 
-  useEffect(() => {
-    function stopHold() {
+  const handleRootRef = useCallback((node: HTMLLabelElement | null) => {
+    if (!node && rootNodeRef.current) {
       clearHold();
     }
-
-    window.addEventListener("pointerup", stopHold);
-    window.addEventListener("pointercancel", stopHold);
-    window.addEventListener("blur", stopHold);
-    return () => {
-      window.removeEventListener("pointerup", stopHold);
-      window.removeEventListener("pointercancel", stopHold);
-      window.removeEventListener("blur", stopHold);
-      clearHold();
-    };
+    rootNodeRef.current = node;
   }, []);
 
   return (
     <label
+      ref={handleRootRef}
       className={clsx(
         isVertical
           ? "inline-flex w-auto flex-col items-center"

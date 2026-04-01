@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import type { BattleWeather } from "@/lib/domain/battle";
@@ -34,23 +34,11 @@ const HAIL_FLAKES = [
 
 export function WeatherVisualLayer({ weather }: { weather: BattleWeather }) {
   const prefersReducedMotion = useReducedMotion();
-  const [disableAmbientFx, setDisableAmbientFx] = useState(false);
-
-  useEffect(() => {
-    const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
-    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => {
-      setDisableAmbientFx(coarsePointerQuery.matches || reduceMotionQuery.matches);
-    };
-
-    update();
-    coarsePointerQuery.addEventListener("change", update);
-    reduceMotionQuery.addEventListener("change", update);
-    return () => {
-      coarsePointerQuery.removeEventListener("change", update);
-      reduceMotionQuery.removeEventListener("change", update);
-    };
-  }, []);
+  const disableAmbientFx = useSyncExternalStore(
+    subscribeToAmbientFxConstraints,
+    readAmbientFxConstraintSnapshot,
+    readAmbientFxConstraintServerSnapshot,
+  );
 
   if (weather === "clear") {
     return null;
@@ -248,4 +236,34 @@ export function WeatherVisualLayer({ weather }: { weather: BattleWeather }) {
       ) : null}
     </div>
   );
+}
+
+function subscribeToAmbientFxConstraints(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+  const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  coarsePointerQuery.addEventListener("change", onStoreChange);
+  reduceMotionQuery.addEventListener("change", onStoreChange);
+  return () => {
+    coarsePointerQuery.removeEventListener("change", onStoreChange);
+    reduceMotionQuery.removeEventListener("change", onStoreChange);
+  };
+}
+
+function readAmbientFxConstraintSnapshot() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return (
+    window.matchMedia("(pointer: coarse)").matches ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+function readAmbientFxConstraintServerSnapshot() {
+  return false;
 }
