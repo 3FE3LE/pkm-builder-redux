@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { LoadingScreen } from "@/components/team/LoadingScreen";
 import { RouteHintScreen } from "@/components/team/RouteHintScreen";
-import { TeamWorkspaceScreen } from "@/components/team/screens/TeamWorkspaceScreen";
+import { WorkspaceScreen } from "@/components/team/screens/WorkspaceScreen";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 import { importPokemonFromHash } from "@/lib/pokemonTransfer";
 
@@ -62,5 +62,5 @@ export function TeamWorkspace() {
     );
   }
 
-  return <TeamWorkspaceScreen />;
+  return <WorkspaceScreen />;
 }

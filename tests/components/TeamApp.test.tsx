@@ -56,8 +56,8 @@ vi.mock("@/components/team/RouteHintScreen", () => ({
   ),
 }));
 
-vi.mock("@/components/team/screens/TeamWorkspaceScreen", () => ({
-  TeamWorkspaceScreen: () => <div>active-screen</div>,
+vi.mock("@/components/team/screens/WorkspaceScreen", () => ({
+  WorkspaceScreen: () => <div>active-screen</div>,
 }));
 
 import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";

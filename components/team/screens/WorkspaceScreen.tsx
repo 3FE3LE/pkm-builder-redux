@@ -38,7 +38,7 @@ import { createEditable } from "@/lib/builderStore";
 const WORKSPACE_TABS = ["builder", "copilot"] as const;
 type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
 
-export function TeamWorkspaceScreen() {
+export function WorkspaceScreen() {
   const router = useRouter();
   const pathname = usePathname();
   const editorSegment = useSelectedLayoutSegment("editor");

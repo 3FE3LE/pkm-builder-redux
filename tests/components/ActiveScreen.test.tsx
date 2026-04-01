@@ -417,9 +417,9 @@ vi.mock("@/lib/builderStore", () => ({
   createEditable: (species: string) => mocked.createEditable(species),
 }));
 
-import { TeamWorkspaceScreen } from "@/components/team/screens/TeamWorkspaceScreen";
+import { WorkspaceScreen } from "@/components/team/screens/WorkspaceScreen";
 
-describe("TeamWorkspaceScreen", () => {
+describe("WorkspaceScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     Element.prototype.scrollIntoView = vi.fn();
@@ -485,7 +485,7 @@ describe("TeamWorkspaceScreen", () => {
   it("renders builder workspace and wires roster, add-member, drag, pc, and evolution actions", async () => {
     const user = userEvent.setup();
 
-    render(<TeamWorkspaceScreen />);
+    render(<WorkspaceScreen />);
 
     expect(screen.getByText("builder-header-castelia-night")).toBeTruthy();
     expect(screen.getByText("roster-Main-2")).toBeTruthy();
@@ -592,7 +592,7 @@ describe("TeamWorkspaceScreen", () => {
     mocked.pathname = "/team/pokemon/member-1";
     mocked.editorSegment = "member-1";
 
-    render(<TeamWorkspaceScreen />);
+    render(<WorkspaceScreen />);
 
     expect(screen.getByText("editor-open-true")).toBeTruthy();
     expect(screen.getByText("copilot-team-size-1")).toBeTruthy();
@@ -610,7 +610,7 @@ describe("TeamWorkspaceScreen", () => {
     mocked.removeMember.mockReturnValue(false);
     mocked.addLibraryMemberToComposition.mockReturnValue(false);
 
-    render(<TeamWorkspaceScreen />);
+    render(<WorkspaceScreen />);
 
     await user.click(screen.getByRole("button", { name: "Checkpoint" }));
     expect(mocked.setWorkspaceTab).toHaveBeenCalledWith("copilot");
@@ -632,7 +632,7 @@ describe("TeamWorkspaceScreen", () => {
     const user = userEvent.setup();
     providerState.team.currentTeam = providerState.team.currentTeam.filter((member) => member.id !== "member-1");
 
-    render(<TeamWorkspaceScreen />);
+    render(<WorkspaceScreen />);
 
     await user.click(screen.getByRole("button", { name: "dnd-over-compare" }));
     expect(mocked.compareUpdateMember).not.toHaveBeenCalled();
@@ -651,7 +651,7 @@ describe("TeamWorkspaceScreen", () => {
       },
     } as any;
 
-    render(<TeamWorkspaceScreen />);
+    render(<WorkspaceScreen />);
 
     expect(screen.getByText("roster-Roster del equipo-2")).toBeTruthy();
     expect(screen.getByText("pc-members-0")).toBeTruthy();
@@ -681,7 +681,7 @@ describe("TeamWorkspaceScreen", () => {
     ];
     providerState.team.resolvedTeam = [];
 
-    render(<TeamWorkspaceScreen />);
+    render(<WorkspaceScreen />);
 
     await user.click(screen.getByRole("button", { name: "dnd-start" }));
 
