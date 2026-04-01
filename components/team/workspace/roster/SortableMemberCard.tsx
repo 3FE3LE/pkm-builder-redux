@@ -470,30 +470,39 @@ export function SortableMemberCard({
               </div>
 
               <div className="mt-3 grid grid-cols-2 gap-1.5">
-                {desktopMetaEntries.map((entry) => (
-                  <span
-                    key={`${member.id}-${entry.key}`}
-                    className="group relative min-w-0"
-                  >
-                    <MiniPill
-                      className="micro-copy flex w-full min-w-0 items-center justify-between gap-2 px-2.5 py-1.5 text-text"
+                {desktopMetaEntries.map((entry) => {
+                  const hintId = `entry-hint-${member.id}-${entry.key}`;
+                  return (
+                    <span
+                      key={`${member.id}-${entry.key}`}
+                      className="group relative min-w-0"
+                      tabIndex={entry.hint ? 0 : undefined}
+                      aria-describedby={entry.hint ? hintId : undefined}
                     >
-                      {entry.label ? (
-                        <span className="display-face shrink-0 text-[9px] tracking-[0.12em] text-text-faint">
-                          {entry.label}
+                      <MiniPill
+                        className="micro-copy flex w-full min-w-0 items-center justify-between gap-2 px-2.5 py-1.5 text-text"
+                      >
+                        {entry.label ? (
+                          <span className="display-face shrink-0 text-[9px] tracking-[0.12em] text-text-faint">
+                            {entry.label}
+                          </span>
+                        ) : null}
+                        <span className="pixel-face micro-copy min-w-0 flex-1 truncate leading-none tracking-[0.06em] text-text">
+                          {entry.value}
+                        </span>
+                      </MiniPill>
+                      {entry.hint ? (
+                        <span
+                          id={hintId}
+                          role="tooltip"
+                          className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 group-hover:block group-focus:block"
+                        >
+                          {entry.hint}
                         </span>
                       ) : null}
-                      <span className="pixel-face micro-copy min-w-0 flex-1 truncate leading-none tracking-[0.06em] text-text">
-                        {entry.value}
-                      </span>
-                    </MiniPill>
-                    {entry.hint ? (
-                      <span className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 group-hover:block">
-                        {entry.hint}
-                      </span>
-                    ) : null}
-                  </span>
-                ))}
+                    </span>
+                  );
+                })}
               </div>
             </div>
 

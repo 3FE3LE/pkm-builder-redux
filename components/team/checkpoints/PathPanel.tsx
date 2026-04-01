@@ -412,18 +412,21 @@ function MiniEncounterPokemon({
 
 function resolveEncounterDex(
   species: string,
-  dexByName: Record<string, number>,
-) {
+  dexByName: Record<string, number | undefined>,
+): number | undefined {
   const normalized = normalizeName(species);
   const exactDex = dexByName[normalized];
-  if (exactDex) {
+  if (exactDex !== undefined) {
     return exactDex;
   }
   if (normalized.startsWith("rotom-")) {
-    return dexByName.rotom;
+    const rotomDex = dexByName.rotom;
+    if (rotomDex !== undefined) {
+      return rotomDex;
+    }
   }
   const baseSpecies = normalized.split("-")[0];
-  return dexByName[baseSpecies];
+  return dexByName[baseSpecies] ?? undefined;
 }
 
 function getVisibleEncounterBosses(

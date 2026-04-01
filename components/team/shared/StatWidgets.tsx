@@ -233,7 +233,10 @@ export function SpreadInput({
             max={max}
             autoFocus={autoFocus}
             value={value}
-            onChange={(event) => onChange(Number(event.target.value || 0))}
+            onChange={(event) => {
+              const parsedValue = parseInt(event.target.value, 10);
+              onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
+            }}
             className={clsx(
               "h-8 min-w-0 w-full rounded-none border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
               isResponsive && "lg:h-8 lg:w-[3.25rem] lg:flex-none lg:border-y lg:border-x-0",
@@ -277,7 +280,10 @@ export function SpreadInput({
             max={max}
             autoFocus={autoFocus}
             value={value}
-            onChange={(event) => onChange(Number(event.target.value || 0))}
+            onChange={(event) => {
+              const parsedValue = parseInt(event.target.value, 10);
+              onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
+            }}
             className="h-8 min-w-[3rem] w-[3.25rem] flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
             aria-invalid={Boolean(error)}
           />

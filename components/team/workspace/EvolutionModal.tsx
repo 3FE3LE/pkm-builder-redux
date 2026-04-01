@@ -89,7 +89,14 @@ export function EvolutionModal({
     }, 6800);
   }
 
-  useEffect(() => resetAnimation, []);
+  useEffect(() => {
+    if (!open) {
+      resetAnimation();
+      return;
+    }
+
+    return () => resetAnimation();
+  }, [open]);
 
   if (!open) {
     return null;
