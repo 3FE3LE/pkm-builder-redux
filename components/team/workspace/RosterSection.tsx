@@ -4,10 +4,13 @@ import clsx from "clsx";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-import { ActionDock } from "@/components/team/workspace/roster/ActionDock";
-import { RosterGrid } from "@/components/team/workspace/roster/RosterGrid";
-import { SelectedMemberInsightCard } from "@/components/team/workspace/roster/SelectedMemberInsightCard";
-import { SlotModals, type ResetFields } from "@/components/team/workspace/roster/SlotModals";
+import {
+  ActionDock,
+  RosterGrid,
+  SelectedMemberInsightCard,
+  SlotModals,
+  type ResetFields,
+} from "@/components/team/workspace/roster";
 import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { EditableMember } from "@/lib/builderStore";
 import { createEditable } from "@/lib/builderStore";
