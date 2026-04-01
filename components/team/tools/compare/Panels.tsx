@@ -45,9 +45,9 @@ type ItemCatalogEntry = {
   sprite?: string | null;
 };
 
-export type CompareState = ReturnType<typeof buildCompareState>;
+export type State = ReturnType<typeof buildState>;
 
-export function buildCompareState(
+export function buildState(
   member: EditableMember,
   resolved: ResolvedTeamMember | undefined,
   abilityCatalog: AbilityCatalogEntry[],
@@ -126,7 +126,7 @@ export function buildCompareState(
   };
 }
 
-export function CompareMemberPanel({
+export function MemberPanel({
   index,
   state,
   speciesCatalog,
@@ -134,7 +134,7 @@ export function CompareMemberPanel({
   onChangeMember,
 }: {
   index: 0 | 1;
-  state: CompareState;
+  state: State;
   speciesCatalog: SpeciesCatalogEntry[];
   heldItemCatalog: ItemCatalogEntry[];
   onChangeMember: (index: 0 | 1, next: EditableMember) => void;
@@ -431,12 +431,12 @@ export function CompareMemberPanel({
   );
 }
 
-export function ComparisonSummary({
+export function Summary({
   left,
   right,
 }: {
-  left: CompareState;
-  right: CompareState;
+  left: State;
+  right: State;
 }) {
   const summaryDiffs = [
     { label: "BST base", left: left.resolved?.resolvedStats?.bst, right: right.resolved?.resolvedStats?.bst },
@@ -545,9 +545,9 @@ function ComparisonBucket({
   fallback,
   pickBucket = (entry) => (entry.buckets.x4 > 0 ? "x4" : "x2"),
 }: {
-  entries: CompareState["weaknesses"];
+  entries: State["weaknesses"];
   fallback: string;
-  pickBucket?: (entry: CompareState["weaknesses"][number]) => "x4" | "x2" | "x0" | "x0.25" | "x0.5";
+  pickBucket?: (entry: State["weaknesses"][number]) => "x4" | "x2" | "x0" | "x0.25" | "x0.5";
 }) {
   return (
     <div className="rounded-[0.625rem] px-1 py-1.5">

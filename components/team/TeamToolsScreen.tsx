@@ -6,7 +6,7 @@ import { parseAsStringEnum, useQueryState } from "nuqs";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
 import { CompositionsSection } from "@/components/team/collection/CompositionsSection";
 import { IvCalculatorSection } from "@/components/team/IvCalculatorSection";
-import { CompareWorkspaceSection } from "@/components/team/tools/compare/CompareWorkspaceSection";
+import { WorkspaceSection } from "@/components/team/tools/compare/WorkspaceSection";
 import { TypeTierListSection } from "@/components/team/TypeTierListSection";
 import {
   useTeamCatalogs,
@@ -82,7 +82,7 @@ export function TeamToolsScreen() {
 
           <TabsContent value="compare" className="tab-panel">
             {toolTab === "compare" ? (
-              <CompareWorkspaceSection
+              <WorkspaceSection
                 members={compare.members}
                 resolvedMembers={compare.resolvedMembers}
                 speciesCatalog={catalogs.speciesCatalog}

@@ -25,8 +25,8 @@ vi.mock("nuqs", () => ({
   useQueryState: () => [mocked.toolTab, mocked.setToolTab],
 }));
 
-vi.mock("@/components/team/tools/compare/CompareWorkspaceSection", () => ({
-  CompareWorkspaceSection: (props: Record<string, any>) => (
+vi.mock("@/components/team/tools/compare/WorkspaceSection", () => ({
+  WorkspaceSection: (props: Record<string, any>) => (
     <div>
       <div>compare-workspace</div>
       <button type="button" onClick={() => props.onClearMember(1)}>

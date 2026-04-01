@@ -76,10 +76,10 @@ vi.mock("@/components/ui/Input", () => ({
 }));
 
 import {
-  buildCompareState,
-  CompareMemberPanel,
-  ComparisonSummary,
-} from "@/components/team/tools/compare/ComparePanels";
+  buildState,
+  MemberPanel,
+  Summary,
+} from "@/components/team/tools/compare/Panels";
 
 class ResizeObserverMock {
   observe() {}
@@ -135,7 +135,7 @@ describe("CompareModalSections", () => {
   it("reconciles an invalid ability to one valid for the resolved species", async () => {
     const onChangeMember = vi.fn();
 
-    const state = buildCompareState(
+    const state = buildState(
       createMember(),
       createResolved(),
       [],
@@ -144,7 +144,7 @@ describe("CompareModalSections", () => {
     );
 
     render(
-      <CompareMemberPanel
+      <MemberPanel
         index={0}
         state={state}
         speciesCatalog={[]}
@@ -165,7 +165,7 @@ describe("CompareModalSections", () => {
     const user = userEvent.setup();
     const onChangeMember = vi.fn();
 
-    const state = buildCompareState(
+    const state = buildState(
       createMember({ nickname: "Aura", ability: "Inner Focus", item: "Choice Specs" }),
       createResolved({ nextEvolutions: ["Mega-ish"] }),
       [{ name: "Inner Focus", effect: "No flinch" }],
@@ -174,7 +174,7 @@ describe("CompareModalSections", () => {
     );
 
     render(
-      <CompareMemberPanel
+      <MemberPanel
         index={1}
         state={state}
         speciesCatalog={[]}
@@ -223,7 +223,7 @@ describe("CompareModalSections", () => {
     const user = userEvent.setup();
     const onChangeMember = vi.fn();
 
-    const syncedState = buildCompareState(
+    const syncedState = buildState(
       createMember({ nickname: "Lucario" }),
       createResolved(),
       [],
@@ -232,7 +232,7 @@ describe("CompareModalSections", () => {
     );
 
     const { rerender } = render(
-      <CompareMemberPanel
+      <MemberPanel
         index={0}
         state={syncedState}
         speciesCatalog={[]}
@@ -247,7 +247,7 @@ describe("CompareModalSections", () => {
       expect.objectContaining({ species: "Pikachu", nickname: "Pikachu" }),
     );
 
-    const invalidState = buildCompareState(
+    const invalidState = buildState(
       createMember({ species: "", nickname: "" }),
       undefined,
       [],
@@ -256,7 +256,7 @@ describe("CompareModalSections", () => {
     );
 
     rerender(
-      <CompareMemberPanel
+      <MemberPanel
         index={0}
         state={invalidState}
         speciesCatalog={[]}
@@ -269,7 +269,7 @@ describe("CompareModalSections", () => {
   });
 
   it("builds compare state with catalog fallbacks and defensive buckets", () => {
-    const state = buildCompareState(
+    const state = buildState(
       createMember({ ability: "Steadfast", item: "Choice Specs" }),
       createResolved(),
       [{ name: "Steadfast", effect: "Speed rises after flinching." }],
@@ -288,7 +288,7 @@ describe("CompareModalSections", () => {
 
   it("renders comparison summary deltas and fallback buckets", () => {
     render(
-      <ComparisonSummary
+      <Summary
         left={
           {
             resolved: { resolvedStats: { bst: 600 } },
@@ -320,9 +320,9 @@ describe("CompareModalSections", () => {
     const onChangeMember = vi.fn();
 
     const { rerender } = render(
-      <CompareMemberPanel
+      <MemberPanel
         index={0}
-        state={buildCompareState(
+        state={buildState(
           createMember({ species: "", ability: "Steadfast" }),
           createResolved(),
           [],
@@ -340,9 +340,9 @@ describe("CompareModalSections", () => {
     });
 
     rerender(
-      <CompareMemberPanel
+      <MemberPanel
         index={0}
-        state={buildCompareState(
+        state={buildState(
           createMember({ ability: "Steadfast" }),
           createResolved(),
           [],
@@ -365,9 +365,9 @@ describe("CompareModalSections", () => {
     const onChangeMember = vi.fn();
 
     render(
-      <CompareMemberPanel
+      <MemberPanel
         index={1}
-        state={buildCompareState(
+        state={buildState(
           createMember({ species: "", nickname: "", ability: "" }),
           undefined,
           [],
@@ -389,7 +389,7 @@ describe("CompareModalSections", () => {
 
   it("renders null-safe comparison summary values and resistance buckets", () => {
     render(
-      <ComparisonSummary
+      <Summary
         left={
           {
             resolved: undefined,

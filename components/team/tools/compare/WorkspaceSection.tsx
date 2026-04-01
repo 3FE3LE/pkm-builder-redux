@@ -6,17 +6,17 @@ import { motion } from "motion/react";
 import { useDroppable } from "@dnd-kit/core";
 
 import {
-  CompareMemberPanel,
-  ComparisonSummary,
-  buildCompareState,
-} from "@/components/team/tools/compare/ComparePanels";
+  MemberPanel,
+  Summary,
+  buildState,
+} from "@/components/team/tools/compare/Panels";
 import type { EditableMember } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 type CompareMembers = import("@/hooks/types").CompareMembers;
 
-export function CompareWorkspaceSection({
+export function WorkspaceSection({
   members,
   resolvedMembers,
   speciesCatalog,
@@ -42,8 +42,8 @@ export function CompareWorkspaceSection({
   );
   const [leftMember, rightMember] = members;
   const [leftResolved, rightResolved] = resolvedMembers;
-  const left = buildCompareState(leftMember, leftResolved, abilityCatalog, heldItemCatalog, battleWeather);
-  const right = buildCompareState(rightMember, rightResolved, abilityCatalog, heldItemCatalog, battleWeather);
+  const left = buildState(leftMember, leftResolved, abilityCatalog, heldItemCatalog, battleWeather);
+  const right = buildState(rightMember, rightResolved, abilityCatalog, heldItemCatalog, battleWeather);
 
   return (
     <section className="space-y-2">
@@ -55,7 +55,7 @@ export function CompareWorkspaceSection({
             onClear={onClearMember}
             hasSpecies={Boolean(leftMember.species.trim())}
           >
-            <CompareMemberPanel
+            <MemberPanel
               index={0}
               state={left}
               speciesCatalog={speciesCatalog}
@@ -71,7 +71,7 @@ export function CompareWorkspaceSection({
             onClear={onClearMember}
             hasSpecies={Boolean(rightMember.species.trim())}
           >
-            <CompareMemberPanel
+            <MemberPanel
               index={1}
               state={right}
               speciesCatalog={speciesCatalog}
@@ -81,7 +81,7 @@ export function CompareWorkspaceSection({
           </CompareDropZone>
         </div>
         <div className="col-span-2">
-          <ComparisonSummary left={left} right={right} />
+          <Summary left={left} right={right} />
         </div>
       </div>
       <div className="hidden xl:grid xl:grid-cols-[minmax(0,1fr)_18rem_minmax(0,1fr)] xl:items-start xl:gap-3">
@@ -91,7 +91,7 @@ export function CompareWorkspaceSection({
           onClear={onClearMember}
           hasSpecies={Boolean(leftMember.species.trim())}
         >
-          <CompareMemberPanel
+          <MemberPanel
             index={0}
             state={left}
             speciesCatalog={speciesCatalog}
@@ -99,14 +99,14 @@ export function CompareWorkspaceSection({
             onChangeMember={onChangeMember}
           />
         </CompareDropZone>
-        <ComparisonSummary left={left} right={right} />
+        <Summary left={left} right={right} />
         <CompareDropZone
           slot={1}
           pulseToken={dropPulse?.slot === 1 ? dropPulse.token : null}
           onClear={onClearMember}
           hasSpecies={Boolean(rightMember.species.trim())}
         >
-          <CompareMemberPanel
+          <MemberPanel
             index={1}
             state={right}
             speciesCatalog={speciesCatalog}

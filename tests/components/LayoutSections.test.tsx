@@ -72,18 +72,18 @@ vi.mock("@/components/team/CheckpointPanels", () => ({
   ),
 }));
 
-vi.mock("@/components/team/tools/compare/ComparePanels", () => ({
-  buildCompareState: (
+vi.mock("@/components/team/tools/compare/Panels", () => ({
+  buildState: (
     member: { species?: string },
     resolved: unknown,
     abilities: unknown,
     heldItems: { name: string }[],
     weather: string,
   ) => mocked.buildCompareState(member, resolved, abilities, heldItems, weather),
-  CompareMemberPanel: (props: Record<string, any>) => (
+  MemberPanel: (props: Record<string, any>) => (
     <div>{`member-panel-${props.index}-${props.state.species || "empty"}-${props.heldItemCatalog.length}`}</div>
   ),
-  ComparisonSummary: ({ left, right }: { left: { species?: string }; right: { species?: string } }) => (
+  Summary: ({ left, right }: { left: { species?: string }; right: { species?: string } }) => (
     <div>{`summary-${left.species || "empty"}-${right.species || "empty"}`}</div>
   ),
 }));
@@ -164,7 +164,7 @@ vi.mock("@dnd-kit/sortable", () => ({
 
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
 import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
-import { CompareWorkspaceSection } from "@/components/team/tools/compare/CompareWorkspaceSection";
+import { WorkspaceSection } from "@/components/team/tools/compare/WorkspaceSection";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { TeamAnalysisSection } from "@/components/team/workspace/TeamAnalysisSection";
 import { TeamRosterSection } from "@/components/team/workspace/TeamRosterSection";
@@ -259,7 +259,7 @@ describe("Team Sections", () => {
     const onClearMember = vi.fn();
 
     render(
-      <CompareWorkspaceSection
+      <WorkspaceSection
         members={[
           { species: "Lucario" } as any,
           { species: "" } as any,
@@ -300,7 +300,7 @@ describe("Team Sections", () => {
     mocked.isOver = true;
 
     render(
-      <CompareWorkspaceSection
+      <WorkspaceSection
         members={[
           { species: "" } as any,
           { species: "Lucario" } as any,
