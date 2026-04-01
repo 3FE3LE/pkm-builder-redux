@@ -21,7 +21,7 @@ export function AppNav() {
         <Link
           href="/"
           aria-label="Home"
-          className="nav-action group hidden border border-line-strong bg-[var(--panel-tint-soft)] text-accent shadow-[var(--glass-shadow),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex"
+          className="nav-action group hidden items-center justify-center border border-line-strong bg-[var(--panel-tint-soft)] text-accent shadow-[var(--glass-shadow),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex"
         >
           <Image
             src="/brand/snivy.png"
@@ -36,7 +36,7 @@ export function AppNav() {
           <Link
             href="/"
             aria-label="Home"
-            className="nav-action border border-transparent text-accent transition-[background,border-color,transform] duration-200 hover:border-line hover:bg-surface-3/80 lg:hidden"
+            className="nav-action inline-flex items-center justify-center border border-transparent text-accent transition-[background,border-color,transform] duration-200 hover:border-line hover:bg-surface-3/80 lg:hidden"
           >
             <Image
               src="/brand/snivy.png"
@@ -86,7 +86,7 @@ export function AppNav() {
             href="/team/settings"
             aria-label="Settings"
             className={clsx(
-              "nav-action border transition-[background,border-color,color,box-shadow,transform] duration-200 lg:w-10",
+              "nav-action inline-flex items-center justify-center border transition-[background,border-color,color,box-shadow,transform] duration-200 lg:w-10",
               settingsActive
                 ? "border border-info-line bg-[linear-gradient(180deg,rgba(112,199,255,0.18),rgba(112,199,255,0.06))] text-[hsl(203_100%_87%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(112,199,255,0.08)]"
                 : "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text",
