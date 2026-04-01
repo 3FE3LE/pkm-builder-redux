@@ -40,7 +40,7 @@ vi.mock("@/components/ui/Button", () => ({
   ),
 }));
 
-import { EvolutionModal } from "@/components/team/EvolutionModal";
+import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
 
 function buildProps(overrides: Record<string, unknown> = {}) {
   return {

@@ -10,7 +10,7 @@ import {
   ProfileSection,
   StatsSection,
 } from "@/components/team/editor/Sections";
-import { MovePickerModal } from "@/components/team/MovePickerModal";
+import { MovePickerModal } from "@/components/team/editor/MovePickerModal";
 import {
   Sheet,
   SheetContent,

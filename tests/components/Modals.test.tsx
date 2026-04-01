@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { MovePickerModal } from "@/components/team/MovePickerModal";
+import { MovePickerModal } from "@/components/team/editor/MovePickerModal";
 import {
   EvolutionModal as ExportedEvolutionModal,
   MovePickerModal as ExportedMovePickerModal,
   OnboardingConfirmModal as ExportedOnboardingConfirmModal,
 } from "@/components/team/Modals";
-import { EvolutionModal } from "@/components/team/EvolutionModal";
+import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
 import { OnboardingConfirmModal } from "@/components/onboarding/OnboardingConfirmModal";
 
 describe("Modals", () => {

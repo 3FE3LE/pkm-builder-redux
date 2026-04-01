@@ -45,7 +45,7 @@ vi.mock("@/components/team/editor/Sections", () => ({
   DefenseSection: () => <div>typing-section</div>,
 }));
 
-vi.mock("@/components/team/MovePickerModal", () => ({
+vi.mock("@/components/team/editor/MovePickerModal", () => ({
   MovePickerModal: () => <div>move-picker-modal</div>,
 }));
 

@@ -34,7 +34,7 @@ vi.mock("@/components/BuilderShared", () => ({
 import {
   AreaSourceCard,
   RecommendedCard,
-} from "@/components/team/SourceUI";
+} from "@/components/team/checkpoints/SourceCards";
 
 describe("SourceUI", () => {
   it("renders a recommended card with positive replace delta details", () => {

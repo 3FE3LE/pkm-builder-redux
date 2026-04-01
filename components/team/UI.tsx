@@ -7,7 +7,7 @@ import { TypeBadge } from "@/components/BuilderShared";
 import { Input } from "@/components/ui/Input";
 import { type MultiplierBucket } from "@/lib/domain/typeChart";
 export { MoveCueIcons, MovePowerBadge, MoveSlotSurface, getMoveProfileFit, getMoveStabStyle, getMoveSurfaceClass, getMoveSurfaceStyle } from "@/components/team/MoveUI";
-export { AreaSourceCard, RecommendedCard, type AreaSource } from "@/components/team/SourceUI";
+export { AreaSourceCard, RecommendedCard, type AreaSource } from "@/components/team/checkpoints/SourceCards";
 
 export function CoverageBadge({
   label: _label,
