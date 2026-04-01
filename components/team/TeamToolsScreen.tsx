@@ -3,12 +3,10 @@
 import { useSearchParams } from "next/navigation";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
-import {
-  CompareWorkspaceSection,
-  IvCalculatorSection,
-} from "@/components/team/LayoutSections";
 import { CompositionsSection } from "@/components/team/CollectionSections";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
+import { IvCalculatorSection } from "@/components/team/IvCalculatorSection";
+import { CompareWorkspaceSection } from "@/components/team/tools/compare/CompareWorkspaceSection";
 import { TypeTierListSection } from "@/components/team/TypeTierListSection";
 import {
   useTeamCatalogs,

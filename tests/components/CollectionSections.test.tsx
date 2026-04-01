@@ -134,6 +134,7 @@ describe("CollectionSections", () => {
         speciesCatalog={[]}
         onOpenEditor={onOpenEditor}
         onAssignToComposition={onAssignToComposition}
+        onImportToPc={vi.fn()}
       />,
     );
 
@@ -157,6 +158,7 @@ describe("CollectionSections", () => {
         pulseMemberId="2"
         onOpenEditor={onOpenEditor}
         onAssignToComposition={onAssignToComposition}
+        onImportToPc={vi.fn()}
       />,
     );
 

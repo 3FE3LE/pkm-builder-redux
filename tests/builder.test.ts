@@ -299,7 +299,6 @@ describe("builder", () => {
           createResolvedMember({
             key: "member-2",
             species: "Azumarill",
-            displayName: "Azumarill",
             resolvedTypes: ["Water", "Fairy"],
             locked: true,
           }),

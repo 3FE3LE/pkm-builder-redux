@@ -15,6 +15,10 @@ vi.mock("@/components/BuilderShared", () => ({
 
 import { EditorMovesSection } from "@/components/team/EditorMovesSection";
 
+function createDataTransfer(): DataTransfer {
+  return { effectAllowed: "" } as unknown as DataTransfer;
+}
+
 function createResolved() {
   return {
     moves: [
@@ -136,7 +140,7 @@ describe("EditorMovesSection", () => {
 
     const quickAttackSlot = screen.getAllByText("Quick Attack")[0]!.closest("[draggable='true']");
     const counterSlot = screen.getAllByText("Counter")[0]!.closest("[draggable='true']");
-    const dataTransfer = { effectAllowed: "" } as DataTransfer;
+    const dataTransfer = createDataTransfer();
 
     fireEvent.dragStart(quickAttackSlot!, { dataTransfer });
     fireEvent.dragOver(counterSlot!);
@@ -165,7 +169,7 @@ describe("EditorMovesSection", () => {
 
     const quickAttackSlot = screen.getAllByText("Quick Attack")[0]!.closest("[draggable='true']");
     const trashTarget = screen.getByText(/drop to delete/i).closest("div");
-    const dataTransfer = { effectAllowed: "" } as DataTransfer;
+    const dataTransfer = createDataTransfer();
 
     fireEvent.dragStart(quickAttackSlot!, { dataTransfer });
     fireEvent.dragOver(trashTarget!);
@@ -239,7 +243,7 @@ describe("EditorMovesSection", () => {
     const mysterySlot = screen.getAllByText("Mystery Move")[0]!.closest("[draggable='true']");
     const counterSlot = screen.getAllByText("Counter")[0]!.closest("[draggable='true']");
 
-    fireEvent.dragStart(mysterySlot!, { dataTransfer: { effectAllowed: "" } as DataTransfer });
+    fireEvent.dragStart(mysterySlot!, { dataTransfer: createDataTransfer() });
     fireEvent.dragOver(counterSlot!);
     fireEvent.dragLeave(counterSlot!);
     fireEvent.dragEnd(mysterySlot!);

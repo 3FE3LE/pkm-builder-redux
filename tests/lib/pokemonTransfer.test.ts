@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import { buildPokemonShareUrl, exportPokemonToHash, importPokemonFromHash } from "@/lib/pokemonTransfer";
+import type { EditableMember } from "@/lib/builderStore";
 
 describe("pokemonTransfer", () => {
   it("exports and imports a pokemon while preserving editable data", () => {
-    const member = {
+    const member: EditableMember = {
       id: "member-1",
       species: "Lucario",
       nickname: "Anubis",

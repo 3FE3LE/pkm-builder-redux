@@ -165,7 +165,7 @@ describe("IvCalculatorSection", () => {
 
   it("prefills species, renders stats and moves, and adds a prepared member with success feedback", async () => {
     const user = userEvent.setup();
-    const onAddPreparedMember = vi.fn(() => ({ ok: true, reason: "pc" as const }));
+    const onAddPreparedMember = vi.fn(() => ({ ok: true as const, reason: "pc" as const }));
 
     render(
       <IvCalculatorSection

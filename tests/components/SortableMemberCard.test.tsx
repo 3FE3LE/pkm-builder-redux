@@ -25,6 +25,8 @@ vi.mock("motion/react", () => ({
       ...props
     }: {
       children?: ReactNode;
+      animate?: unknown;
+      transition?: unknown;
     }) => <div {...props}>{children}</div>,
   },
 }));
@@ -170,7 +172,7 @@ describe("SortableMemberCard", () => {
     mocked.reducedMotion = true;
     mocked.sortable = {
       ...mocked.sortable,
-      transform: { x: 10, y: 12, scaleX: 1, scaleY: 1 },
+      transform: { x: 10, y: 12, scaleX: 1, scaleY: 1 } as never,
       isDragging: true,
     };
 

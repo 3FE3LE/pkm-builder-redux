@@ -106,7 +106,7 @@ function createStore() {
       excludeExactTypeDuplicates: false,
     },
     evolutionConstraints: { level: true, gender: true, timeOfDay: true },
-  } as never;
+  } as any;
 }
 
 function createUi() {
@@ -117,7 +117,7 @@ function createUi() {
     ],
     movePickerState: null,
     localTime: { ready: true, period: "day", label: "12:00 PM" },
-  } as never;
+  } as any;
 }
 
 function createData() {
@@ -127,7 +127,7 @@ function createData() {
     abilityCatalog: [],
     itemCatalog: [],
     moveIndex: {},
-  } as never;
+  } as any;
 }
 
 describe("useBuilderDerivedData route gating", () => {
@@ -188,7 +188,7 @@ describe("useBuilderDerivedData route gating", () => {
     mocked.buildCoverageSummary.mockReturnValue([
       { defenseType: "Fire", multiplier: 2, bucket: "x2" },
       { defenseType: "Water", multiplier: 1, bucket: "x1" },
-    ]);
+    ] as any);
 
     const ui = createUi();
     ui.compareMembers = [
@@ -241,11 +241,11 @@ describe("useBuilderDerivedData route gating", () => {
       { defenseType: "Fire", multiplier: 2, bucket: "x2" },
       { defenseType: "Electric", multiplier: 1, bucket: "x1" },
       { defenseType: "Ice", multiplier: 0, bucket: "x0" },
-    ]);
+    ] as any);
     mocked.buildAreaSources.mockReturnValue([
       { encounters: [], gifts: [], trades: [], items: [] },
       { encounters: [{ species: "Mareep" }], gifts: [], trades: [], items: [] },
-    ]);
+    ] as any);
 
     const { result } = renderHook(() => useBuilderDerivedData(createData(), createStore(), createUi()));
 
@@ -269,7 +269,7 @@ describe("useBuilderDerivedData route gating", () => {
       { defenseType: "Ground", multiplier: 0.5, bucket: "x0.5" },
       { defenseType: "Flying", multiplier: 1, bucket: "x1" },
       { defenseType: "Grass", multiplier: 2, bucket: "x2" },
-    ]);
+    ] as any);
 
     const { result } = renderHook(() => useBuilderDerivedData(createData(), createStore(), createUi()));
 

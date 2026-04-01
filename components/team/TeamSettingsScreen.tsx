@@ -1,7 +1,7 @@
 "use client";
 
-import { PreferencesSection } from "@/components/team/LayoutSections";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
+import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 
 export function TeamSettingsScreen() {

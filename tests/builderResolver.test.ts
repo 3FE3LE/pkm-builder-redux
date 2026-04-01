@@ -252,7 +252,7 @@ describe("builderResolver", () => {
         adjustedPower: 194,
       }),
     );
-    expect(resolved.moves[0]?.powerModifiers.map((entry) => entry.label)).toEqual([
+    expect((resolved.moves[0]?.powerModifiers ?? []).map((entry) => entry.label)).toEqual([
       "Fire +20%",
       "Fire +50%",
       "Fire +20%",
@@ -290,7 +290,7 @@ describe("builderResolver", () => {
       nextEvolutions: ["Magneton"],
       learnsets: {
         levelUp: [],
-        machines: [{ move: "Thunderbolt" }],
+        machines: [{ source: "TM24", move: "Thunderbolt", tab: "tm" }],
       },
     };
 
@@ -391,7 +391,7 @@ describe("builderResolver", () => {
           },
         ],
         machines: [
-          { move: "Mystery Beam" },
+          { source: "TM00", move: "Mystery Beam", tab: "tm" },
         ],
       },
     };

@@ -31,7 +31,24 @@ function createDeps() {
   const setBuilderStarted = vi.fn();
   const setEditorMoveSelection = vi.fn();
 
-  const deps = {
+  const deps: {
+    store: {
+      currentTeam: EditableMember[];
+      activeMemberId: string | null;
+      editorMemberId: string | null;
+      setCurrentTeam: typeof setCurrentTeam;
+      setActiveMemberId: typeof setActiveMemberId;
+      setEditorMemberId: typeof setEditorMemberId;
+      moveMemberToPc: typeof moveMemberToPc;
+      saveMemberToPc: typeof saveMemberToPc;
+      updateMember: typeof updateMember;
+      setBuilderStarted: typeof setBuilderStarted;
+    };
+    ui: {
+      editorMoveSelection: number | null;
+      setEditorMoveSelection: typeof setEditorMoveSelection;
+    };
+  } = {
     store: {
       currentTeam: [createMember("1", "Snivy"), createMember("2", "Riolu", ["Quick Attack", "Counter"])],
       activeMemberId: "1",

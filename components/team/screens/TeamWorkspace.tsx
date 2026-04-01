@@ -3,11 +3,9 @@
 import { useEffect, useRef } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
-import {
-  ActiveScreen,
-} from "@/components/team/ActiveScreen";
 import { LoadingScreen } from "@/components/team/LoadingScreen";
 import { RouteHintScreen } from "@/components/team/RouteHintScreen";
+import { TeamWorkspaceScreen } from "@/components/team/screens/TeamWorkspaceScreen";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 import { importPokemonFromHash } from "@/lib/pokemonTransfer";
 
@@ -64,7 +62,5 @@ export function TeamWorkspace() {
     );
   }
 
-  return (
-    <ActiveScreen />
-  );
+  return <TeamWorkspaceScreen />;
 }

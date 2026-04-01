@@ -68,7 +68,7 @@ function buildProps(overrides: Record<string, unknown> = {}) {
     onClose: vi.fn(),
     onComplete: vi.fn(),
     ...overrides,
-  } as const;
+  };
 }
 
 describe("EvolutionModal", () => {

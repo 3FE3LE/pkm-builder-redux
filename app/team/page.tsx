@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamWorkspace } from "@/components/team/TeamApp";
+import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {

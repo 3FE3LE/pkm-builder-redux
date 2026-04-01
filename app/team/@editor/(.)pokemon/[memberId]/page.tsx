@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamEditorRoute } from "@/components/team/TeamEditorRoute";
+import { TeamEditorRoute } from "@/components/team/editor/TeamEditorRoute";
 
 export const metadata: Metadata = {
   robots: {

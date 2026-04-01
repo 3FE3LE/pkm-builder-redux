@@ -21,7 +21,7 @@ describe("Radar", () => {
     const summary = buildSummaryStats(
       baseStats,
       { up: "spa", down: "atk" },
-      [{ stat: "spe", multiplier: 1.5 }],
+      [{ source: "ability", label: "Speed x1.5", stat: "spe", multiplier: 1.5 }],
     );
 
     expect(summary.hp).toBe(78);
@@ -48,7 +48,7 @@ describe("Radar", () => {
         nature="Timid"
         ivs={{ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }}
         evs={{ spa: 252, spe: 252 }}
-        statModifiers={[{ stat: "spe", multiplier: 1.5 }]}
+        statModifiers={[{ source: "ability", label: "Speed x1.5", stat: "spe", multiplier: 1.5 }]}
         natureEffect={{ up: "spe", down: "atk" }}
       />,
     );

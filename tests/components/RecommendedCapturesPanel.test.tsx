@@ -12,6 +12,7 @@ vi.mock("motion/react", () => ({
       ...props
     }: {
       children?: ReactNode;
+      layout?: unknown;
     }) => <div {...props}>{children}</div>,
     article: ({
       children,
@@ -22,6 +23,10 @@ vi.mock("motion/react", () => ({
       ...props
     }: {
       children?: ReactNode;
+      layout?: unknown;
+      initial?: unknown;
+      animate?: unknown;
+      exit?: unknown;
     }) => <article {...props}>{children}</article>,
   },
 }));

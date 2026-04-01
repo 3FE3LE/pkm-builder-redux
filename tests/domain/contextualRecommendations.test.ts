@@ -507,13 +507,7 @@ test("returns no contextual captures when a known candidate cannot be projected"
     nextEncounter: NEXT_ENCOUNTER,
     pokemonByName: {
       ...POKEMON_INDEX,
-      statlessmon: {
-        id: 1001,
-        name: "Statlessmon",
-        types: ["Normal"],
-        abilities: ["Run Away"],
-        nextEvolutions: [],
-      } as RemotePokemon,
+      statlessmon: null as RemotePokemon | null,
     },
     moveIndex: MOVE_INDEX,
     starter: "snivy",

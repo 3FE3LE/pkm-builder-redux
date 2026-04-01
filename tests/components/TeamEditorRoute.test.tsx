@@ -47,7 +47,7 @@ const providerState = vi.hoisted(() => ({
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       },
     ],
-    pokemonLibrary: [],
+    pokemonLibrary: [] as Array<any>,
     resolvedTeam: [{ key: "member-1", species: "Lucario" }],
     editorMemberId: "member-1",
     editorResolved: { species: "Lucario" },
@@ -158,7 +158,7 @@ vi.mock("@/components/team/EditorSheet", () => ({
   ),
 }));
 
-import { TeamEditorRoute } from "@/components/team/TeamEditorRoute";
+import { TeamEditorRoute } from "@/components/team/editor/TeamEditorRoute";
 
 describe("TeamEditorRoute", () => {
   beforeEach(() => {

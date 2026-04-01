@@ -51,28 +51,30 @@ describe("BuilderOnboarding", () => {
   it("shows loading while hydration is pending", () => {
     mocked.hydrated = false;
 
-    render(<BuilderOnboarding speciesCatalog={[]} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} encounterCatalog={[]} />);
+    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
 
     expect(screen.getByText("loading-screen")).toBeTruthy();
   });
 
   it("shows onboarding when the builder has not started", () => {
-    render(<BuilderOnboarding speciesCatalog={[]} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} encounterCatalog={[]} />);
+    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
 
     expect(screen.getByText("onboarding-screen")).toBeTruthy();
     expect(mocked.builderProviderProps).toMatchObject({
+      docs: {},
+      speciesOptions: [],
       speciesCatalog: [],
+      moveIndex: {},
       abilityCatalog: [],
       itemCatalog: [],
       pokemonIndex: {},
-      encounterCatalog: [],
     });
   });
 
   it("redirects to team when the builder already started", async () => {
     mocked.builderStarted = true;
 
-    render(<BuilderOnboarding speciesCatalog={[]} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} encounterCatalog={[]} />);
+    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
 
     expect(screen.getByText("loading-screen")).toBeTruthy();
     await waitFor(() => {

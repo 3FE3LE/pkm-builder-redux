@@ -71,7 +71,7 @@ describe("MoveUI", () => {
   });
 
   it("provides fallback and stab-aware surface styles", () => {
-    expect(getMoveSurfaceStyle(null)).toEqual({
+    expect(getMoveSurfaceStyle(undefined)).toEqual({
       background: "var(--surface-3)",
       color: "var(--text)",
     });
@@ -117,7 +117,7 @@ describe("MoveUI", () => {
         <MoveSlotSurface
           move={{
             name: "Calm Mind",
-            type: null,
+            type: undefined,
             hasStab: false,
             damageClass: "status",
             power: null,

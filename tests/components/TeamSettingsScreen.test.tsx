@@ -36,7 +36,7 @@ vi.mock("@/components/team/LoadingScreen", () => ({
   LoadingScreen: () => <div>loading-screen</div>,
 }));
 
-vi.mock("@/components/team/LayoutSections", () => ({
+vi.mock("@/components/team/settings/PreferencesSection", () => ({
   PreferencesSection: (props: Record<string, any>) => (
     <div>
       <div>{`prefs-${props.battleWeather}`}</div>

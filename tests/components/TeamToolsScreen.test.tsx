@@ -25,7 +25,7 @@ vi.mock("nuqs", () => ({
   useQueryState: () => [mocked.toolTab, mocked.setToolTab],
 }));
 
-vi.mock("@/components/team/LayoutSections", () => ({
+vi.mock("@/components/team/tools/compare/CompareWorkspaceSection", () => ({
   CompareWorkspaceSection: (props: Record<string, any>) => (
     <div>
       <div>compare-workspace</div>
@@ -45,6 +45,9 @@ vi.mock("@/components/team/LayoutSections", () => ({
       </button>
     </div>
   ),
+}));
+
+vi.mock("@/components/team/IvCalculatorSection", () => ({
   IvCalculatorSection: (props: Record<string, any>) => (
     <div>
       <div>{`ivcalc-${props.prefillSpecies || "none"}`}</div>

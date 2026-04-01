@@ -145,10 +145,11 @@ vi.mock("@/components/team/CollectionSections", () => ({
   ),
 }));
 
-vi.mock("@/components/team/LayoutSections", () => ({
-  BuilderHeader: (props: Record<string, any>) => (
-    <div>{`builder-header-${props.milestoneId}-${props.localTime}`}</div>
-  ),
+vi.mock("@/components/team/workspace/BuilderHeader", () => ({
+  BuilderHeader: (props: Record<string, any>) => <div>{`builder-header-${props.milestoneId}-${props.localTime}`}</div>,
+}));
+
+vi.mock("@/components/team/workspace/TeamRosterSection", () => ({
   TeamRosterSection: (props: Record<string, any>) => (
     <div>
       <div>{`roster-${props.compositionName}-${props.currentTeam.length}`}</div>
@@ -183,6 +184,9 @@ vi.mock("@/components/team/LayoutSections", () => ({
       </button>
     </div>
   ),
+}));
+
+vi.mock("@/components/team/workspace/TeamAnalysisSection", () => ({
   TeamAnalysisSection: (props: Record<string, any>) => (
     <div>
       <div>{`analysis-team-size-${props.teamSize}`}</div>
@@ -191,6 +195,9 @@ vi.mock("@/components/team/LayoutSections", () => ({
       </button>
     </div>
   ),
+}));
+
+vi.mock("@/components/team/checkpoints/CheckpointCopilotSection", () => ({
   CheckpointCopilotSection: (props: Record<string, any>) => (
     <div>
       <div>{`copilot-team-size-${props.teamSize}`}</div>
@@ -407,9 +414,9 @@ vi.mock("@/lib/builderStore", () => ({
   createEditable: (species: string) => mocked.createEditable(species),
 }));
 
-import { ActiveScreen } from "@/components/team/ActiveScreen";
+import { TeamWorkspaceScreen } from "@/components/team/screens/TeamWorkspaceScreen";
 
-describe("ActiveScreen", () => {
+describe("TeamWorkspaceScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     Element.prototype.scrollIntoView = vi.fn();
@@ -475,7 +482,7 @@ describe("ActiveScreen", () => {
   it("renders builder workspace and wires roster, add-member, drag, pc, and evolution actions", async () => {
     const user = userEvent.setup();
 
-    render(<ActiveScreen />);
+    render(<TeamWorkspaceScreen />);
 
     expect(screen.getByText("builder-header-castelia-night")).toBeTruthy();
     expect(screen.getByText("roster-Main-2")).toBeTruthy();
@@ -582,7 +589,7 @@ describe("ActiveScreen", () => {
     mocked.pathname = "/team/pokemon/member-1";
     mocked.editorSegment = "member-1";
 
-    render(<ActiveScreen />);
+    render(<TeamWorkspaceScreen />);
 
     expect(screen.getByText("editor-open-true")).toBeTruthy();
     expect(screen.getByText("copilot-team-size-1")).toBeTruthy();
@@ -600,7 +607,7 @@ describe("ActiveScreen", () => {
     mocked.removeMember.mockReturnValue(false);
     mocked.addLibraryMemberToComposition.mockReturnValue(false);
 
-    render(<ActiveScreen />);
+    render(<TeamWorkspaceScreen />);
 
     await user.click(screen.getByRole("button", { name: "Checkpoint" }));
     expect(mocked.setWorkspaceTab).toHaveBeenCalledWith("copilot");
@@ -622,7 +629,7 @@ describe("ActiveScreen", () => {
     const user = userEvent.setup();
     providerState.team.currentTeam = providerState.team.currentTeam.filter((member) => member.id !== "member-1");
 
-    render(<ActiveScreen />);
+    render(<TeamWorkspaceScreen />);
 
     await user.click(screen.getByRole("button", { name: "dnd-over-compare" }));
     expect(mocked.compareUpdateMember).not.toHaveBeenCalled();
@@ -641,7 +648,7 @@ describe("ActiveScreen", () => {
       },
     } as any;
 
-    render(<ActiveScreen />);
+    render(<TeamWorkspaceScreen />);
 
     expect(screen.getByText("roster-Roster del equipo-2")).toBeTruthy();
     expect(screen.getByText("pc-members-0")).toBeTruthy();
@@ -671,7 +678,7 @@ describe("ActiveScreen", () => {
     ];
     providerState.team.resolvedTeam = [];
 
-    render(<ActiveScreen />);
+    render(<TeamWorkspaceScreen />);
 
     await user.click(screen.getByRole("button", { name: "dnd-start" }));
 

@@ -49,7 +49,7 @@ const mockedStore = vi.hoisted(() => {
     resetRun: vi.fn(),
   };
 
-  const useBuilderStore = vi.fn((selector: (state: typeof state) => unknown) => selector(state));
+  const useBuilderStore = vi.fn((selector: (storeState: any) => unknown) => selector(state));
 
   return { state, useBuilderStore };
 });

@@ -14,16 +14,14 @@ import { AnimatePresence, motion } from "motion/react";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
 import { AddMemberSheet, PcBoxSection } from "@/components/team/CollectionSections";
-import {
-  CheckpointCopilotSection,
-  TeamAnalysisSection,
-  BuilderHeader,
-  TeamRosterSection,
-} from "@/components/team/LayoutSections";
 import {
   EvolutionModal,
 } from "@/components/team/Modals";
+import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
+import { TeamAnalysisSection } from "@/components/team/workspace/TeamAnalysisSection";
+import { TeamRosterSection } from "@/components/team/workspace/TeamRosterSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useTeamAnalysis,
@@ -39,7 +37,7 @@ import { createEditable } from "@/lib/builderStore";
 const WORKSPACE_TABS = ["builder", "copilot"] as const;
 type WorkspaceTab = (typeof WORKSPACE_TABS)[number];
 
-export function ActiveScreen() {
+export function TeamWorkspaceScreen() {
   const router = useRouter();
   const pathname = usePathname();
   const editorSegment = useSelectedLayoutSegment("editor");

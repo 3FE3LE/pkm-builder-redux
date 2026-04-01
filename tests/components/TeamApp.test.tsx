@@ -9,7 +9,7 @@ const mocked = vi.hoisted(() => ({
   routerReplace: vi.fn(),
   saveMemberToPc: vi.fn(),
   setBuilderStarted: vi.fn(),
-  importPokemonFromHash: vi.fn(() => ({
+  importPokemonFromHash: vi.fn((_: string) => ({
     ok: true as const,
     member: { id: "imported-1", species: "Lucario" },
   })),
@@ -56,11 +56,11 @@ vi.mock("@/components/team/RouteHintScreen", () => ({
   ),
 }));
 
-vi.mock("@/components/team/ActiveScreen", () => ({
-  ActiveScreen: () => <div>active-screen</div>,
+vi.mock("@/components/team/screens/TeamWorkspaceScreen", () => ({
+  TeamWorkspaceScreen: () => <div>active-screen</div>,
 }));
 
-import { TeamWorkspace } from "@/components/team/TeamApp";
+import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
 
 describe("TeamWorkspace", () => {
   beforeEach(() => {

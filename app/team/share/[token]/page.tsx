@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { TeamWorkspace } from "@/components/team/TeamApp";
+import { TeamWorkspace } from "@/components/team/screens/TeamWorkspace";
 import { getBuilderPageData } from "@/lib/builderPageData";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { inspectPokemonTransfer } from "@/lib/pokemonTransfer";

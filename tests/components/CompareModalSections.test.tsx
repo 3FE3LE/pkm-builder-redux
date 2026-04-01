@@ -79,7 +79,7 @@ import {
   buildCompareState,
   CompareMemberPanel,
   ComparisonSummary,
-} from "@/components/team/CompareModalSections";
+} from "@/components/team/tools/compare/ComparePanels";
 
 class ResizeObserverMock {
   observe() {}

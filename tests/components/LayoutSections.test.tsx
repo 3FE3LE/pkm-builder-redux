@@ -41,6 +41,8 @@ vi.mock("motion/react", () => ({
     }: {
       children?: ReactNode;
       initial?: unknown;
+      animate?: unknown;
+      transition?: unknown;
     }) => <div {...props}>{children}</div>,
   },
 }));
@@ -70,8 +72,14 @@ vi.mock("@/components/team/CheckpointPanels", () => ({
   ),
 }));
 
-vi.mock("@/components/team/CompareModalSections", () => ({
-  buildCompareState: (...args: any[]) => mocked.buildCompareState(...args),
+vi.mock("@/components/team/tools/compare/ComparePanels", () => ({
+  buildCompareState: (
+    member: { species?: string },
+    resolved: unknown,
+    abilities: unknown,
+    heldItems: { name: string }[],
+    weather: string,
+  ) => mocked.buildCompareState(member, resolved, abilities, heldItems, weather),
   CompareMemberPanel: (props: Record<string, any>) => (
     <div>{`member-panel-${props.index}-${props.state.species || "empty"}-${props.heldItemCatalog.length}`}</div>
   ),
@@ -138,10 +146,6 @@ vi.mock("@/components/ui/Button", () => ({
   ),
 }));
 
-vi.mock("@/components/team/IvCalculatorSection", () => ({
-  IvCalculatorSection: () => <div>iv-calc-section</div>,
-}));
-
 vi.mock("@/lib/builderStore", () => ({
   createEditable: (species: string) => mocked.createEditable(species),
 }));
@@ -158,16 +162,14 @@ vi.mock("@dnd-kit/sortable", () => ({
   rectSortingStrategy: "rect",
 }));
 
-import {
-  BuilderHeader,
-  CheckpointCopilotSection,
-  CompareWorkspaceSection,
-  PreferencesSection,
-  TeamAnalysisSection,
-  TeamRosterSection,
-} from "@/components/team/LayoutSections";
+import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
+import { CheckpointCopilotSection } from "@/components/team/checkpoints/CheckpointCopilotSection";
+import { CompareWorkspaceSection } from "@/components/team/tools/compare/CompareWorkspaceSection";
+import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
+import { TeamAnalysisSection } from "@/components/team/workspace/TeamAnalysisSection";
+import { TeamRosterSection } from "@/components/team/workspace/TeamRosterSection";
 
-describe("LayoutSections", () => {
+describe("Team Sections", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocked.isOver = false;
