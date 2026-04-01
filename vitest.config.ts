@@ -28,7 +28,7 @@ export default defineConfig({
         "lib/docsSchema.ts",
         "hooks/actionTypes.ts",
         "hooks/types.ts",
-        "components/team/CheckpointPanels.tsx",
+        "components/team/checkpoints/index.ts",
         "components/team/editor/Sections.tsx",
         "components/team/MoveHighlightsPanel.tsx",
       ],
