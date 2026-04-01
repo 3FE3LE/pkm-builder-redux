@@ -36,7 +36,7 @@ import {
   RecommendedCard,
 } from "@/components/team/checkpoints/SourceCards";
 
-describe("SourceUI", () => {
+describe("SourceCards", () => {
   it("renders a recommended card with positive replace delta details", () => {
     render(
       <RecommendedCard

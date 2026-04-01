@@ -11,12 +11,12 @@ vi.mock("@/components/team/UI", () => ({
   }) => <div>{`${source.area}-${activeSpecies ?? "none"}`}</div>,
 }));
 
-import { MapPanel as CheckpointMapPanel } from "@/components/team/checkpoints/MapPanel";
+import { MapPanel } from "@/components/team/checkpoints/MapPanel";
 
-describe("CheckpointMapPanel", () => {
+describe("MapPanel", () => {
   it("renders only visible source cards and forwards the active species", () => {
     render(
-      <CheckpointMapPanel
+      <MapPanel
         activeMember={{ species: "Lucario" } as never}
         sourceCards={[
           {
@@ -54,7 +54,7 @@ describe("CheckpointMapPanel", () => {
 
   it("shows the dataset fallback when no sources are visible", () => {
     render(
-      <CheckpointMapPanel
+      <MapPanel
         sourceCards={[
           {
             area: "Empty Area",

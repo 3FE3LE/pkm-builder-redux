@@ -11,12 +11,12 @@ vi.mock("@/components/BuilderShared", () => ({
   }) => <span>{`${type}${emphasis ? `-${emphasis}` : ""}`}</span>,
 }));
 
-import { IntelligencePanel as CheckpointIntelligencePanel } from "@/components/team/checkpoints/IntelligencePanel";
+import { IntelligencePanel } from "@/components/team/checkpoints/IntelligencePanel";
 
-describe("CheckpointIntelligencePanel", () => {
+describe("IntelligencePanel", () => {
   it("renders swap opportunities with status tones and upside badges", () => {
     render(
-      <CheckpointIntelligencePanel
+      <IntelligencePanel
         teamSize={6}
         supportsContextualSwaps
         checkpointRisk={{
@@ -82,7 +82,7 @@ describe("CheckpointIntelligencePanel", () => {
 
   it("renders role intelligence, buckets and composition notes", () => {
     render(
-      <CheckpointIntelligencePanel
+      <IntelligencePanel
         teamSize={4}
         supportsContextualSwaps={false}
         swapOpportunities={[]}
@@ -130,7 +130,7 @@ describe("CheckpointIntelligencePanel", () => {
 
   it("hides swaps when team size or feature support do not qualify and shows empty role buckets", () => {
     render(
-      <CheckpointIntelligencePanel
+      <IntelligencePanel
         teamSize={5}
         supportsContextualSwaps={false}
         swapOpportunities={[

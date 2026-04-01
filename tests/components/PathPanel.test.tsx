@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { PathPanel as RunPathPanel } from "@/components/team/checkpoints/PathPanel";
+import { PathPanel } from "@/components/team/checkpoints/PathPanel";
 
 function createEncounter(overrides: Record<string, unknown>) {
   return {
@@ -19,13 +19,13 @@ function createEncounter(overrides: Record<string, unknown>) {
   } as never;
 }
 
-describe("RunPathPanel", () => {
+describe("PathPanel", () => {
   it("marks the next available encounter, toggles unlocked rows, and blocks locked ones", async () => {
     const user = userEvent.setup();
     const onToggleEncounter = vi.fn();
 
     render(
-      <RunPathPanel
+      <PathPanel
         encounters={[
           createEncounter({ id: "mandatory-1", order: 1, label: "Cheren", mandatory: true, team: ["Patrat"] }),
           createEncounter({ id: "optional-2", order: 2, label: "Wattson", mandatory: false, affiliation: "hoenn-leaders", team: ["Magnemite"] }),
@@ -59,7 +59,7 @@ describe("RunPathPanel", () => {
 
   it("shows visible bosses by starter, team fallback, partial tag and sprite fallbacks", () => {
     const { container } = render(
-      <RunPathPanel
+      <PathPanel
         encounters={[
           createEncounter({
             id: "hugh-1",
@@ -103,7 +103,7 @@ describe("RunPathPanel", () => {
 
   it("builds the mobile summary window from the last completed encounter and respects maxHeight", () => {
     const { container } = render(
-      <RunPathPanel
+      <PathPanel
         encounters={[
           createEncounter({ id: "e1", order: 1, label: "One", mandatory: true }),
           createEncounter({ id: "e2", order: 2, label: "Two", mandatory: false }),
