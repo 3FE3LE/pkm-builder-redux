@@ -15,6 +15,7 @@ build/
 coverage/
 .codex-tests/
 .codex-tests-current/
+.codex
 
 # typescript / tooling caches
 *.tsbuildinfo
