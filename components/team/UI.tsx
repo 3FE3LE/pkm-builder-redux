@@ -8,7 +8,7 @@ export {
   getMoveStabStyle,
   getMoveSurfaceClass,
   getMoveSurfaceStyle,
-} from "@/components/team/MoveUI";
+} from "@/components/team/shared/MoveUI";
 export {
   AreaSourceCard,
   RecommendedCard,

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 import { TypeBadge } from "@/components/BuilderShared";
-import { RoleAxesCard } from "@/components/team/RoleAxes";
+import { RoleAxesCard } from "@/components/team/shared/RoleAxes";
 import { Button } from "@/components/ui/Button";
 import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";

@@ -12,7 +12,7 @@ import {
   SpeciesCombobox,
   TypeBadge,
 } from "@/components/BuilderShared";
-import { EffectiveStatsRadar } from "@/components/team/Radar";
+import { EffectiveStatsRadar } from "@/components/team/shared/StatRadar";
 import { StatCard } from "@/components/team/UI";
 import { Input } from "@/components/ui/Input";
 import { normalizeName } from "@/lib/domain/names";

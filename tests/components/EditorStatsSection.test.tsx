@@ -6,14 +6,14 @@ const mocked = vi.hoisted(() => ({
   buildSummaryStats: vi.fn(),
 }));
 
-vi.mock("@/components/team/Radar", () => ({
+vi.mock("@/components/team/shared/StatRadar", () => ({
   buildSummaryStats: mocked.buildSummaryStats,
   EffectiveStatsRadar: ({ level, nature }: { level: number; nature: string }) => (
     <div>{`radar-${level}-${nature}`}</div>
   ),
 }));
 
-vi.mock("@/components/team/RoleAxes", () => ({
+vi.mock("@/components/team/shared/RoleAxes", () => ({
   RoleAxesCard: ({ role }: { role: { roleLabel?: string } }) => (
     <div>{role.roleLabel ?? "role-card"}</div>
   ),

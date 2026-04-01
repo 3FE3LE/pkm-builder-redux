@@ -5,8 +5,8 @@ import { useMemo } from 'react';
 import {
   buildSummaryStats,
   EffectiveStatsRadar,
-} from '@/components/team/Radar';
-import { RoleAxesCard } from '@/components/team/RoleAxes';
+} from '@/components/team/shared/StatRadar';
+import { RoleAxesCard } from '@/components/team/shared/RoleAxes';
 import {
   MetaBadge,
   MiniPill,

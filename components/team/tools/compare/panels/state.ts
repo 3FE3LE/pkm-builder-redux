@@ -1,6 +1,6 @@
 "use client";
 
-import { buildSummaryStats } from "@/components/team/Radar";
+import { buildSummaryStats } from "@/components/team/shared/StatRadar";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import {
   applyStatModifiers,

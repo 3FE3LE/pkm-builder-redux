@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildSummaryStats,
   EffectiveStatsRadar,
-} from "@/components/team/Radar";
+} from "@/components/team/shared/StatRadar";
 
 const baseStats = {
   hp: 78,

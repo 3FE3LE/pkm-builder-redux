@@ -9,7 +9,7 @@ import {
   getMoveStabStyle,
   getMoveSurfaceClass,
   getMoveSurfaceStyle,
-} from "@/components/team/MoveUI";
+} from "@/components/team/shared/MoveUI";
 
 describe("MoveUI", () => {
   it("resolves move profile fit for physical, special, defensive status, and null cases", () => {

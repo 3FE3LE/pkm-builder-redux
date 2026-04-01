@@ -49,7 +49,7 @@ vi.mock("@/components/team/UI", () => ({
   ),
 }));
 
-vi.mock("@/components/team/Radar", () => ({
+vi.mock("@/components/team/shared/StatRadar", () => ({
   EffectiveStatsRadar: ({ level }: { level: number }) => <div>{`radar-${level}`}</div>,
   buildSummaryStats: () => ({
     hp: 100,

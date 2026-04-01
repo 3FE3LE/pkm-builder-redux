@@ -88,7 +88,7 @@ vi.mock("@/components/team/tools/compare/Panels", () => ({
   ),
 }));
 
-vi.mock("@/components/team/RoleAxes", () => ({
+vi.mock("@/components/team/shared/RoleAxes", () => ({
   RoleAxesCard: ({ role }: { role?: { primaryRole?: string } }) => <div>{`role-axes-${role?.primaryRole ?? "none"}`}</div>,
 }));
 
