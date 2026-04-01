@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/Input";
 import { buildPokemonShareUrl, exportPokemonToHash, importPokemonFromHash } from "@/lib/pokemonTransfer";
 import type { EditableMember } from "@/lib/builderStore";
 
-export function PokemonTransferActions({
+export function TransferActions({
   member,
   className,
 }: {
@@ -87,7 +87,7 @@ export function PokemonTransferActions({
   );
 }
 
-export function PokemonImportPanel({
+export function ImportPanel({
   onImportToPc,
   className,
 }: {

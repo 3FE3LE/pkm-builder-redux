@@ -6,7 +6,7 @@ import { Archive } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { FilterCombobox, PokemonSprite } from "@/components/BuilderShared";
-import { PokemonImportPanel, PokemonTransferActions } from "@/components/team/PokemonTransferPanel";
+import { ImportPanel, TransferActions } from "@/components/team/shared/TransferPanels";
 import { Button } from "@/components/ui/Button";
 import { buildSpriteUrls } from "@/lib/domain/names";
 
@@ -74,7 +74,7 @@ export function PcBoxSection({
           <p className="text-xs text-muted">{members.length} guardados</p>
         </div>
         <div className="flex items-center gap-2">
-          <PokemonImportPanel onImportToPc={onImportToPc} />
+          <ImportPanel onImportToPc={onImportToPc} />
           <Archive className="h-4 w-4 text-accent" />
         </div>
       </div>
@@ -215,7 +215,7 @@ export function PcBoxSection({
               </div>
 
               <div className="mt-3 flex items-center justify-between gap-3">
-                <PokemonTransferActions member={selectedMember} />
+                <TransferActions member={selectedMember} />
                 <Button
                   type="button"
                   variant="ghost"

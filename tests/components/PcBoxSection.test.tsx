@@ -58,8 +58,8 @@ vi.mock("@/lib/domain/names", () => ({
   })),
 }));
 
-vi.mock("@/components/team/PokemonTransferPanel", () => ({
-  PokemonTransferActions: ({
+vi.mock("@/components/team/shared/TransferPanels", () => ({
+  TransferActions: ({
     member,
   }: {
     member?: { id: string };
@@ -68,7 +68,7 @@ vi.mock("@/components/team/PokemonTransferPanel", () => ({
       <div>{`transfer-member-${member?.id ?? "none"}`}</div>
     </div>
   ),
-  PokemonImportPanel: ({
+  ImportPanel: ({
     onImportToPc,
   }: {
     onImportToPc: (member: { species: string }) => boolean;

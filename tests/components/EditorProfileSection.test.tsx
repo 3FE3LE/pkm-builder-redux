@@ -48,8 +48,8 @@ vi.mock("@/components/BuilderShared", () => ({
   ItemSprite: ({ name }: { name: string }) => <span>{name}-sprite</span>,
 }));
 
-vi.mock("@/components/team/PokemonTransferPanel", () => ({
-  PokemonTransferActions: ({ member }: { member?: { species?: string } }) => (
+vi.mock("@/components/team/shared/TransferPanels", () => ({
+  TransferActions: ({ member }: { member?: { species?: string } }) => (
     <div>{`transfer-actions-${member?.species ?? "none"}`}</div>
   ),
 }));
