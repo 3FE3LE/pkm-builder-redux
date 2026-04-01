@@ -4,26 +4,19 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 import type { StatSpread } from "@/lib/teamAnalysis";
-import type { PokemonGender, StarterKey, SuggestionInput } from "@/lib/builder";
-import type { BattleWeather } from "@/lib/domain/battle";
 import {
   createEmptyRunState,
-  type BuilderTheme,
   createStartedRunState,
-  type EvolutionConstraintKey,
-  type RecommendationFilterKey,
-  type RunFlagState,
-  type RunCompositionState,
-  type RunState,
 } from "@/lib/runState";
-
-export type EditableMember = SuggestionInput & {
-  id: string;
-  nickname: string;
-  locked: boolean;
-  ivs: StatSpread;
-  evs: StatSpread;
-};
+import { migrateBuilderState } from "@/lib/builderStore/migrate";
+import {
+  ensureRosterState,
+  normalizeEditableMember,
+  updateRoster,
+  upsertLibraryMembers,
+} from "@/lib/builderStore/roster";
+import type { BuilderStore, EditableMember } from "@/lib/builderStore/types";
+export type { BuilderStore, EditableMember } from "@/lib/builderStore/types";
 
 const DEFAULT_IVS: StatSpread = {
   hp: 0,
@@ -59,137 +52,6 @@ export function createEditable(species = "", locked = false): EditableMember {
     ivs: { ...DEFAULT_IVS },
     evs: { ...DEFAULT_EVS },
   };
-}
-
-type BuilderStore = {
-  hydrated: boolean;
-  run: RunState;
-  setHydrated: (hydrated: boolean) => void;
-  setBuilderStarted: (builderStarted: boolean) => void;
-  setStarter: (starter: StarterKey) => void;
-  beginRun: (starter: StarterKey, species: string, nickname?: string) => void;
-  setMilestoneId: (milestoneId: string) => void;
-  setCurrentTeam: (updater: EditableMember[] | ((items: EditableMember[]) => EditableMember[])) => void;
-  updateMember: (id: string, updater: EditableMember | ((member: EditableMember) => EditableMember)) => void;
-  createComposition: (name?: string) => string;
-  renameComposition: (compositionId: string, name: string) => void;
-  setActiveCompositionId: (compositionId: string) => void;
-  addLibraryMemberToComposition: (memberId: string, compositionId?: string) => boolean;
-  saveMemberToPc: (member: EditableMember) => boolean;
-  moveMemberToPc: (memberId: string, compositionId?: string) => boolean;
-  restoreMemberFromPc: (memberId: string, compositionId?: string) => boolean;
-  setActiveMemberId: (activeMemberId: string | null) => void;
-  setEditorMemberId: (editorMemberId: string | null) => void;
-  setEvolutionConstraint: (key: EvolutionConstraintKey, value: boolean) => void;
-  setRecommendationFilter: (key: RecommendationFilterKey, value: boolean) => void;
-  setBattleWeather: (weather: BattleWeather) => void;
-  setTheme: (theme: BuilderTheme) => void;
-  toggleEncounterCompleted: (encounterId: string) => void;
-  setHackEvent: (key: string, value: boolean) => void;
-  resetHackEvents: () => void;
-  resetRun: () => void;
-};
-
-function normalizeEditableMember(member: EditableMember): EditableMember {
-  return {
-    ...member,
-    locked: member.locked ?? false,
-    shiny: member.shiny ?? false,
-    gender: normalizeGender(member.gender),
-  };
-}
-
-function createFallbackComposition(memberIds: string[] = []): RunCompositionState {
-  return {
-    id: crypto.randomUUID(),
-    name: "Main Team",
-    memberIds,
-  };
-}
-
-function upsertLibraryMembers(
-  library: EditableMember[],
-  members: EditableMember[],
-): EditableMember[] {
-  const nextLibrary = [...library];
-
-  for (const member of members) {
-    const normalizedMember = normalizeEditableMember(member);
-    const existingIndex = nextLibrary.findIndex((entry) => entry.id === normalizedMember.id);
-
-    if (existingIndex === -1) {
-      nextLibrary.push(normalizedMember);
-      continue;
-    }
-
-    nextLibrary[existingIndex] = normalizedMember;
-  }
-
-  return nextLibrary;
-}
-
-function ensureRosterState(run: RunState): RunState {
-  const defaultRoster = createEmptyRunState().roster;
-  const normalizedTeam = (run.roster.currentTeam ?? []).map(normalizeEditableMember);
-  const normalizedLibrary = (run.roster.pokemonLibrary ?? []).map(normalizeEditableMember);
-  const librarySeed = upsertLibraryMembers(normalizedLibrary, normalizedTeam);
-  const safeMemberIds = new Set(librarySeed.map((member) => member.id));
-  const normalizedCompositions =
-    run.roster.compositions
-      ?.map((composition, index) => ({
-        id: composition.id || crypto.randomUUID(),
-        name: composition.name?.trim() || `Team ${index + 1}`,
-        memberIds: (composition.memberIds ?? []).filter((memberId) => safeMemberIds.has(memberId)),
-      })) ?? [];
-  const fallbackComposition =
-    normalizedCompositions[0] ??
-    createFallbackComposition(normalizedTeam.map((member) => member.id));
-  const activeCompositionId = normalizedCompositions.some(
-    (composition) => composition.id === run.roster.activeCompositionId,
-  )
-    ? run.roster.activeCompositionId
-    : fallbackComposition.id;
-  const compositions =
-    normalizedCompositions.length > 0 ? normalizedCompositions : [fallbackComposition];
-  const activeComposition =
-    compositions.find((composition) => composition.id === activeCompositionId) ?? compositions[0];
-  const activeTeam = activeComposition.memberIds
-    .map((memberId) => librarySeed.find((member) => member.id === memberId))
-    .filter((member): member is EditableMember => Boolean(member));
-  const pcBoxIds = Array.from(
-    new Set((run.roster.pcBoxIds ?? []).filter((memberId) => safeMemberIds.has(memberId))),
-  );
-
-  return {
-    ...run,
-    roster: {
-      ...defaultRoster,
-      ...run.roster,
-      pokemonLibrary: librarySeed,
-      compositions,
-      activeCompositionId,
-      pcBoxIds,
-      currentTeam: activeTeam,
-      activeMemberId:
-        activeTeam.some((member) => member.id === run.roster.activeMemberId)
-          ? run.roster.activeMemberId
-          : activeTeam[0]?.id ?? null,
-      editorMemberId:
-        activeTeam.some((member) => member.id === run.roster.editorMemberId)
-          ? run.roster.editorMemberId
-          : null,
-    },
-  };
-}
-
-function updateRoster(
-  run: RunState,
-  updater: (roster: RunState["roster"]) => RunState["roster"],
-): RunState {
-  return ensureRosterState({
-    ...run,
-    roster: updater(run.roster),
-  });
 }
 
 export const useBuilderStore = create<BuilderStore>()(
@@ -621,112 +483,10 @@ export const useBuilderStore = create<BuilderStore>()(
       partialize: (state) => ({
         run: state.run,
       }),
-      migrate: (persistedState) => {
-        const legacyState = persistedState as
-          | {
-              run?: RunState;
-              builderStarted?: boolean;
-              starter?: StarterKey;
-              milestoneId?: string;
-              currentTeam?: EditableMember[];
-              activeMemberId?: string | null;
-              editorMemberId?: string | null;
-              hackEvents?: RunFlagState;
-            }
-          | undefined;
-
-        if (!legacyState) {
-          return { hydrated: false, run: createEmptyRunState() };
-        }
-
-        if (legacyState.run) {
-          return {
-            ...legacyState,
-            run: ensureRosterState({
-              ...createEmptyRunState(),
-              ...legacyState.run,
-              preferences: {
-                ...createEmptyRunState().preferences,
-                ...legacyState.run.preferences,
-                evolutionConstraints: {
-                  ...createEmptyRunState().preferences.evolutionConstraints,
-                  ...legacyState.run.preferences?.evolutionConstraints,
-                },
-                recommendationFilters: {
-                  ...createEmptyRunState().preferences.recommendationFilters,
-                  ...legacyState.run.preferences?.recommendationFilters,
-                  excludeUniquePokemon:
-                    legacyState.run.preferences?.recommendationFilters?.excludeUniquePokemon ??
-                    (legacyState.run.preferences?.recommendationFilters as Record<string, boolean> | undefined)
-                      ?.excludeUniqueEncounters ??
-                    createEmptyRunState().preferences.recommendationFilters.excludeUniquePokemon,
-                },
-                battleWeather:
-                  legacyState.run.preferences?.battleWeather ??
-                  createEmptyRunState().preferences.battleWeather,
-                theme:
-                  legacyState.run.preferences?.theme ??
-                  createEmptyRunState().preferences.theme,
-              },
-              progress: {
-                ...createEmptyRunState().progress,
-                ...legacyState.run.progress,
-                claimedSources: {
-                  ...createEmptyRunState().progress.claimedSources,
-                  ...legacyState.run.progress.claimedSources,
-                },
-                completedEncounterIds:
-                  legacyState.run.progress.completedEncounterIds ?? [],
-                flags: legacyState.run.progress.flags ?? {},
-              },
-            }),
-          };
-        }
-
-        const normalizedCurrentTeam = (legacyState.currentTeam ?? []).map(normalizeEditableMember);
-        const defaultComposition = createFallbackComposition(
-          normalizedCurrentTeam.map((member) => member.id),
-        );
-
-        return {
-          hydrated: false,
-          run: ensureRosterState({
-            started: legacyState.builderStarted ?? false,
-            starter: legacyState.starter ?? "snivy",
-            preferences: createEmptyRunState().preferences,
-            roster: {
-              pokemonLibrary: normalizedCurrentTeam,
-              compositions: [defaultComposition],
-              activeCompositionId: defaultComposition.id,
-              pcBoxIds: [],
-              currentTeam: normalizedCurrentTeam,
-              activeMemberId: legacyState.activeMemberId ?? null,
-              editorMemberId: legacyState.editorMemberId ?? null,
-            },
-            progress: {
-              mode: "challenge",
-              milestoneId: legacyState.milestoneId ?? createEmptyRunState().progress.milestoneId,
-              completedEncounterIds: [],
-              completedMilestoneIds: [],
-              claimedSources: {
-                encounters: [],
-                gifts: [],
-                trades: [],
-                items: [],
-              },
-              achievements: [],
-              flags: legacyState.hackEvents ?? {},
-            },
-          }),
-        };
-      },
+      migrate: migrateBuilderState,
       onRehydrateStorage: () => (state) => {
         state?.setHydrated(true);
       },
     }
   )
 );
-
-function normalizeGender(value: unknown): PokemonGender {
-  return value === "male" || value === "female" ? value : "unknown";
-}
