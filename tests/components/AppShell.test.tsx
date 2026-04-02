@@ -78,7 +78,7 @@ describe("App shell", () => {
     rerender(<AppNav />);
     expect(screen.getByRole("link", { name: "Settings" }).className).toContain("border-info-line");
 
-    mockedUsePathname.mockReturnValue("/team/dex");
+    mockedUsePathname.mockReturnValue("/team/dex/pokemon/mareep");
     rerender(<AppNav />);
     expect(screen.getByRole("link", { name: /Dex/ }).className).toContain("border-warning-line");
   });

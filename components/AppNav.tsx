@@ -11,7 +11,7 @@ export function AppNav() {
   const pathname = usePathname();
   const settingsActive = pathname === "/team/settings";
   const toolsActive = pathname === "/team/tools";
-  const dexActive = pathname === "/team/dex";
+  const dexActive = pathname === "/team/dex" || pathname.startsWith("/team/dex/");
   const teamActive =
     pathname === "/team" ||
     pathname.startsWith("/team/pokemon/");

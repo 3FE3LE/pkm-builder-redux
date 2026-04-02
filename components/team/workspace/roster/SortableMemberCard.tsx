@@ -11,22 +11,17 @@ import { CSS } from '@dnd-kit/utilities';
 
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
-import { TYPE_COLORS } from "@/lib/domain/typeChart";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
+import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import type { EditableMember } from "@/lib/builderStore";
 
 function getRosterCardStyle(types: string[]) {
-  const primary = TYPE_COLORS[types[0] ?? ""] ?? "hsl(169 37% 68%)";
-  const secondary = TYPE_COLORS[types[1] ?? types[0] ?? ""] ?? primary;
-
-  return {
-    backgroundColor: "var(--roster-card-core)",
-    backgroundImage: `
-      radial-gradient(circle at 14% 14%, color-mix(in srgb, ${primary} 20%, transparent) 0%, transparent 34%),
-      radial-gradient(circle at 86% 84%, color-mix(in srgb, ${secondary} 18%, transparent) 0%, transparent 38%),
-      linear-gradient(160deg, color-mix(in srgb, ${primary} 10%, var(--roster-card-core)) 0%, var(--roster-card-core) 42%, color-mix(in srgb, ${secondary} 9%, var(--roster-card-core-strong)) 100%)
-    `,
-  } as const;
+  return getTypedSurfaceStyle(types, {
+    primaryGlowMix: 20,
+    secondaryGlowMix: 18,
+    primaryBodyMix: 10,
+    secondaryBodyMix: 9,
+  });
 }
 
 function renderGenderIcon(

@@ -3,8 +3,9 @@ import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+const mockedPush = vi.fn();
 const mocked = vi.hoisted(() => ({
-  tab: "moves",
+  tab: "pokemon",
   setTab: vi.fn((value: string) => {
     mocked.tab = value;
   }),
@@ -25,6 +26,9 @@ vi.mock("next/image", () => ({
 
 vi.mock("@/components/BuilderProvider", () => ({
   useTeamCatalogs: () => ({
+    speciesCatalog: [
+      { name: "Mareep", slug: "mareep", dex: 179, types: ["Electric"] },
+    ],
     moveIndex: {
       tackle: {
         name: "Tackle",
@@ -47,16 +51,28 @@ vi.mock("@/components/BuilderProvider", () => ({
     pokemonIndex: {
       mareep: {
         name: "Mareep",
+        stats: { hp: 55, atk: 40, def: 40, spa: 65, spd: 45, spe: 35, bst: 280 },
         abilities: ["Static"],
+        nextEvolutions: ["Flaaffy"],
+        evolutionDetails: [{ target: "Flaaffy", minLevel: 15, trigger: "level-up" }],
         learnsets: {
           levelUp: [{ level: 1, move: "Tackle" }],
-          machines: [],
+          machines: [{ source: "TM73", move: "Thunder Wave" }],
         },
       },
     },
     docs: {
+      gifts: [{ name: "Mareep", location: "Floccesy Ranch", level: "10", notes: [] }],
+      trades: [{ requested: "Basculin", received: "Mareep", location: "Nimbasa City", traits: [] }],
+      wildAreas: [{ area: "Route 1", methods: [{ method: "Grass", encounters: [{ species: "Mareep", level: "4" }] }] }],
       itemLocations: [{ area: "Castelia City", items: ["Repel -> Leftovers"] }],
     },
+  }),
+}));
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: mockedPush,
   }),
 }));
 
@@ -80,6 +96,9 @@ vi.mock("@/components/ui/tabs", () => ({
         <button type="button" onClick={() => onValueChange("items")}>
           switch-items
         </button>
+        <button type="button" onClick={() => onValueChange("pokemon")}>
+          switch-pokemon
+        </button>
         {children}
       </div>
     );
@@ -100,27 +119,40 @@ import { DexScreen } from "@/components/team/screens/DexScreen";
 describe("DexScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mocked.tab = "moves";
+    mocked.tab = "pokemon";
+    mockedPush.mockReset();
+    Object.defineProperty(document, "startViewTransition", {
+      writable: true,
+      configurable: true,
+      value: vi.fn((callback: () => void) => {
+        callback();
+        return { finished: Promise.resolve() };
+      }),
+    });
   });
 
-  it("renders move data and filters it by query", async () => {
+  it("renders pokemon data and filters it by query", async () => {
     const user = userEvent.setup();
 
     render(<DexScreen />);
 
-    expect(screen.getByText("Movimientos, habilidades y objetos")).toBeTruthy();
-    expect(screen.getByText("Tackle")).toBeTruthy();
-    expect(screen.getByText("Golpea sin efecto adicional.")).toBeTruthy();
-    expect(screen.getByText("Mareep")).toBeTruthy();
+    expect(screen.getByText("Pokemon, movimientos, habilidades y objetos")).toBeTruthy();
+    expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Electric").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Ver")).toBeNull();
 
-    await user.type(screen.getByPlaceholderText("Buscar movimiento o efecto"), "static");
-    expect(screen.queryByText("Tackle")).toBeNull();
+    await user.type(screen.getByPlaceholderText("Buscar Pokemon, tipo, habilidad o area"), "fire");
+    expect(screen.queryAllByText("Mareep")).toHaveLength(0);
   });
 
   it("switches to abilities and items with their linked data", async () => {
     const user = userEvent.setup();
 
     render(<DexScreen />);
+
+    await user.click(screen.getByRole("button", { name: "switch-pokemon" }));
+    expect(screen.queryByText("Ver")).toBeNull();
+    expect(screen.queryByText("TM73 · Thunder Wave")).toBeNull();
 
     await user.click(screen.getByRole("button", { name: "switch-abilities" }));
     expect(screen.getByText("Static")).toBeTruthy();
@@ -130,5 +162,16 @@ describe("DexScreen", () => {
     expect(screen.getByText("Leftovers")).toBeTruthy();
     expect(screen.getByText("Castelia City")).toBeTruthy();
     expect(screen.getByText("Repel -> Leftovers")).toBeTruthy();
+  });
+
+  it("uses native view transitions when available for pokemon detail navigation", async () => {
+    const user = userEvent.setup();
+
+    render(<DexScreen />);
+
+    await user.click(screen.getByRole("link", { name: /mareep/i }));
+
+    expect(document.startViewTransition).toBeTruthy();
+    expect(mockedPush).toHaveBeenCalledWith("/team/dex/pokemon/mareep");
   });
 });
