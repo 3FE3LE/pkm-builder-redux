@@ -5,12 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GeistPixelCircle } from "geist/font/pixel";
 import clsx from "clsx";
-import { Settings2, ShieldCheck, Wrench } from "lucide-react";
+import { BookOpenText, Settings2, ShieldCheck, Wrench } from "lucide-react";
 
 export function AppNav() {
   const pathname = usePathname();
   const settingsActive = pathname === "/team/settings";
   const toolsActive = pathname === "/team/tools";
+  const dexActive = pathname === "/team/dex";
   const teamActive =
     pathname === "/team" ||
     pathname.startsWith("/team/pokemon/");
@@ -32,7 +33,7 @@ export function AppNav() {
             unoptimized={false}
           />
         </Link>
-        <nav className="grid w-full max-w-md grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[var(--dock-surface-bg)] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),var(--glass-shadow)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
+        <nav className="grid w-full max-w-2xl grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[var(--dock-surface-bg)] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),var(--glass-shadow)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
           <Link
             href="/"
             aria-label="Home"
@@ -49,6 +50,7 @@ export function AppNav() {
           </Link>
           <Link
             href="/team"
+            aria-label="Team"
             className={clsx(
               "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
               "nav-action min-w-0 gap-2 px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:justify-start lg:px-3.5",
@@ -58,12 +60,13 @@ export function AppNav() {
             )}
           >
             <ShieldCheck className="h-4 w-4" />
-            <span className={clsx(GeistPixelCircle.className, "text-[0.72rem] uppercase tracking-[0.12em]")}>
+            <span className={clsx(GeistPixelCircle.className, "hidden text-[0.72rem] uppercase tracking-[0.12em] lg:inline")}>
               Team
             </span>
           </Link>
           <Link
             href="/team/tools?tool=compare"
+            aria-label="Tools"
             className={clsx(
               "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
               "nav-action min-w-0 gap-2 px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:justify-start lg:px-3.5",
@@ -76,10 +79,26 @@ export function AppNav() {
             <span
               className={clsx(
                 GeistPixelCircle.className,
-                "truncate text-[0.72rem] uppercase tracking-[0.12em]",
+                "hidden truncate text-[0.72rem] uppercase tracking-[0.12em] lg:inline",
               )}
             >
               Tools
+            </span>
+          </Link>
+          <Link
+            href="/team/dex"
+            aria-label="Dex"
+            className={clsx(
+              "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5",
+              "nav-action min-w-0 gap-2 px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:justify-start lg:px-3.5",
+              dexActive
+                ? "border border-warning-line bg-[linear-gradient(180deg,rgba(255,199,107,0.18),rgba(255,199,107,0.06))] text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(255,199,107,0.08)]"
+                : "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text",
+            )}
+          >
+            <BookOpenText className="h-4 w-4" />
+            <span className={clsx(GeistPixelCircle.className, "hidden truncate text-[0.72rem] uppercase tracking-[0.12em] lg:inline")}>
+              Dex
             </span>
           </Link>
           <Link

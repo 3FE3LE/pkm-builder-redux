@@ -22,7 +22,7 @@ describe("EditorDefenseSection", () => {
     ).toBeTruthy();
   });
 
-  it("renders weaknesses, resistances, and stab coverage buckets for resolved types", () => {
+  it("renders weaknesses, resistances, immunities, and stab coverage buckets for resolved types", () => {
     render(
       <DefenseSection
         resolved={
@@ -39,5 +39,6 @@ describe("EditorDefenseSection", () => {
     expect(screen.getAllByText("Water-x0.5").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Rock-x2").length).toBeGreaterThan(0);
     expect(screen.getByText("Dragon-x0.5")).toBeTruthy();
+    expect(screen.getAllByText("Sin targets inmunes.").length).toBe(2);
   });
 });

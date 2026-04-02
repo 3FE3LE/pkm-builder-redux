@@ -97,6 +97,7 @@ export function DefensiveThreatsPanel({
 }) {
   const weakItems = defensiveSections.netWeak;
   const resistItems = defensiveSections.netResist;
+  const immuneItems = defensiveSections.netImmune;
 
   return (
     <div className="rounded-[1rem] p-3 sm:p-4">
@@ -121,6 +122,18 @@ export function DefensiveThreatsPanel({
           title="Resiste"
           emptyLabel="Todavía no aparece una defensa tipada clara."
           items={resistItems.map((item) => (
+            <TypeBadge
+              key={item.attackType}
+              type={item.attackType}
+              emphasis="positive"
+              trailing={item.count}
+            />
+          ))}
+        />
+        <CompactBadgeRow
+          title="Inmunidad"
+          emptyLabel="Todavía no aparece una inmunidad tipada clara."
+          items={immuneItems.map((item) => (
             <TypeBadge
               key={item.attackType}
               type={item.attackType}

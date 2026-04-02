@@ -12,6 +12,7 @@ const mocked = vi.hoisted(() => ({
     mocked.workspaceTab = value;
   }),
   routerPush: vi.fn(),
+  routerReplace: vi.fn(),
   handleDragEnd: vi.fn(),
   selectMember: vi.fn(),
   editMember: vi.fn(),
@@ -46,6 +47,7 @@ const mocked = vi.hoisted(() => ({
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: mocked.routerPush,
+    replace: mocked.routerReplace,
   }),
   usePathname: () => mocked.pathname,
   useSearchParams: () => mocked.searchParams,
@@ -547,6 +549,7 @@ describe("WorkspaceScreen", () => {
 
     await user.click(screen.getByRole("button", { name: "roster-close-editor" }));
     expect(mocked.closeEditor).toHaveBeenCalled();
+    expect(mocked.routerReplace).not.toHaveBeenCalled();
 
     await user.click(screen.getByRole("button", { name: "analysis-send-ivcalc" }));
     expect(mocked.routerPush).toHaveBeenCalledWith("/team/tools?tool=ivcalc&species=Zorua");
@@ -599,6 +602,11 @@ describe("WorkspaceScreen", () => {
 
     await user.click(screen.getByRole("button", { name: "copilot-toggle-encounter" }));
     expect(mocked.toggleEncounterCompleted).toHaveBeenCalledWith("route-1");
+
+    await user.click(screen.getByRole("button", { name: "roster-close-editor" }));
+    expect(mocked.closeEditor).toHaveBeenCalled();
+    expect(mocked.clearSelection).toHaveBeenCalled();
+    expect(mocked.routerReplace).toHaveBeenCalledWith("/team?foo=bar");
 
     await user.click(screen.getByRole("button", { name: "copilot-send-ivcalc" }));
     expect(mocked.routerPush).toHaveBeenCalledWith("/team/tools?tool=ivcalc&species=Mareep");

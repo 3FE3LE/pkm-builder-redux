@@ -52,6 +52,7 @@ export function MovesSection({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="display-face text-sm text-accent">Moveset</p>
         <div
+          aria-label="Drop to delete"
           onDragOver={(event) => {
             if (dragIndex === null) {
               return;
@@ -71,14 +72,13 @@ export function MovesSection({
             resetDragState();
           }}
           className={clsx(
-            "inline-flex items-center gap-2 rounded-[999px] border px-3 py-1.5 text-xs transition",
+            "inline-flex h-9 w-9 items-center justify-center rounded-[999px] border transition",
             isTrashOver
               ? "border-danger-line-strong bg-danger-fill-hover text-danger"
               : "border-danger-line-faint bg-danger-fill text-danger",
           )}
         >
           <Trash2 className="h-3.5 w-3.5" />
-          drop to delete
         </div>
       </div>
 
@@ -140,7 +140,7 @@ export function MovesSection({
                   onSelectMoveIndex(null);
                   onOpenMoveModal(null);
                 }}
-                className="flex touch-manipulation items-center rounded-[0.625rem] border border-dashed border-line-soft bg-surface-1 px-3 py-3 text-sm text-muted transition hover:border-primary-line-emphasis hover:bg-primary-fill"
+                className="flex h-[42px] touch-manipulation items-center rounded-[0.625rem] border border-dashed border-line-soft bg-surface-1 px-3 text-sm text-muted transition hover:border-primary-line-emphasis hover:bg-primary-fill"
               >
                 empty move slot
               </button>
@@ -190,25 +190,25 @@ export function MovesSection({
                 </p>
               ) : null}
             </div>
-            <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-none">
+            <div className="flex w-full gap-2 sm:w-auto sm:flex-none">
               <button
                 type="button"
+                aria-label="Replace move"
                 onClick={() => onOpenMoveModal(selectedMoveIndex)}
-                className="inline-flex touch-manipulation items-center justify-center gap-2 rounded-[0.55rem] border border-primary-line bg-primary-fill px-3 py-2 text-xs text-primary-soft transition hover:bg-primary-fill-hover"
+                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-[0.55rem] border border-primary-line bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover"
               >
                 <RefreshCcw className="h-3.5 w-3.5" />
-                replace
               </button>
               <button
                 type="button"
+                aria-label="Delete move"
                 onClick={() => {
                   onRemoveMoveAt(selectedMoveIndex);
                   onSelectMoveIndex(null);
                 }}
-                className="inline-flex touch-manipulation items-center justify-center gap-2 rounded-[0.55rem] border border-danger-line-soft bg-danger-fill px-3 py-2 text-xs text-danger transition hover:bg-danger-fill-hover"
+                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-[0.55rem] border border-danger-line-soft bg-danger-fill text-danger transition hover:bg-danger-fill-hover"
               >
                 <Trash2 className="h-3.5 w-3.5" />
-                delete
               </button>
             </div>
           </div>

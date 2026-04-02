@@ -40,6 +40,7 @@ export function RosterSection({
   onEditMember,
   onToggleMemberLock,
   onRemoveMember,
+  onReleaseMember,
   onAddMember,
   onResetMember,
   onAssignToCompare,
@@ -61,6 +62,7 @@ export function RosterSection({
   onEditMember: (id: string) => void;
   onToggleMemberLock: (id: string) => void;
   onRemoveMember: (id: string) => void;
+  onReleaseMember: (id: string) => void;
   onAddMember: () => void;
   onResetMember: (id: string, next: EditableMember) => void;
   onAssignToCompare: (memberId: string) => void;
@@ -242,6 +244,14 @@ export function RosterSection({
             return;
           }
           onRemoveMember(selectedMember.id);
+          onClearSelection();
+          setDeleteOpen(false);
+        }}
+        onConfirmRelease={() => {
+          if (!selectedMember) {
+            return;
+          }
+          onReleaseMember(selectedMember.id);
           onClearSelection();
           setDeleteOpen(false);
         }}

@@ -26,6 +26,7 @@ function createDeps() {
   const setActiveMemberId = vi.fn();
   const setEditorMemberId = vi.fn();
   const moveMemberToPc = vi.fn(() => true);
+  const releaseMember = vi.fn(() => true);
   const saveMemberToPc = vi.fn(() => true);
   const updateMember = vi.fn();
   const setBuilderStarted = vi.fn();
@@ -40,6 +41,7 @@ function createDeps() {
       setActiveMemberId: typeof setActiveMemberId;
       setEditorMemberId: typeof setEditorMemberId;
       moveMemberToPc: typeof moveMemberToPc;
+      releaseMember: typeof releaseMember;
       saveMemberToPc: typeof saveMemberToPc;
       updateMember: typeof updateMember;
       setBuilderStarted: typeof setBuilderStarted;
@@ -57,6 +59,7 @@ function createDeps() {
       setActiveMemberId,
       setEditorMemberId,
       moveMemberToPc,
+      releaseMember,
       saveMemberToPc,
       updateMember,
       setBuilderStarted,
@@ -74,6 +77,7 @@ function createDeps() {
       setActiveMemberId,
       setEditorMemberId,
       moveMemberToPc,
+      releaseMember,
       saveMemberToPc,
       updateMember,
       setBuilderStarted,
@@ -368,6 +372,16 @@ describe("useBuilderTeamActions", () => {
 
     expect(actions.removeMember("1")).toBe(false);
     expect(spies.setActiveMemberId).not.toHaveBeenCalled();
+  });
+
+  it("releases a member completely when the store action succeeds", () => {
+    const { deps, spies } = createDeps();
+    const actions = useBuilderTeamActions(deps as never);
+
+    expect(actions.releaseMember("2")).toBe(true);
+    expect(spies.releaseMember).toHaveBeenCalledWith("2");
+    expect(spies.setEditorMemberId).toHaveBeenCalledWith(null);
+    expect(spies.setEditorMoveSelection).toHaveBeenCalledWith(null);
   });
 
   it("closes the editor and prunes empty draft members", () => {

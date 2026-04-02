@@ -414,6 +414,7 @@ describe("Team Sections", () => {
     const onEditMember = vi.fn();
     const onToggleMemberLock = vi.fn();
     const onRemoveMember = vi.fn();
+    const onReleaseMember = vi.fn();
     const onAddMember = vi.fn();
     const onResetMember = vi.fn();
     const onAssignToCompare = vi.fn();
@@ -489,6 +490,7 @@ describe("Team Sections", () => {
         onEditMember={onEditMember}
         onToggleMemberLock={onToggleMemberLock}
         onRemoveMember={onRemoveMember}
+        onReleaseMember={onReleaseMember}
         onAddMember={onAddMember}
         onResetMember={onResetMember}
         onAssignToCompare={onAssignToCompare}
@@ -555,6 +557,7 @@ describe("Team Sections", () => {
 
     await user.click(screen.getAllByRole("button", { name: "Mandar Pokemon seleccionado a caja" })[0] as HTMLElement);
     expect(screen.getAllByText("Mandar a caja").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByRole("button", { name: "Liberar" })).toBeTruthy();
     const confirmRemoveButtons = screen.getAllByRole("button", { name: "Mandar a caja" });
     await user.click(confirmRemoveButtons[confirmRemoveButtons.length - 1] as HTMLElement);
     expect(onRemoveMember).toHaveBeenCalledWith("member-1");
@@ -609,6 +612,7 @@ describe("Team Sections", () => {
         onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={onRemoveMember}
+        onReleaseMember={vi.fn()}
         onAddMember={vi.fn()}
         onResetMember={vi.fn()}
         onAssignToCompare={vi.fn()}
@@ -666,6 +670,7 @@ describe("Team Sections", () => {
         onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
+        onReleaseMember={vi.fn()}
         onAddMember={vi.fn()}
         onResetMember={onResetMember}
         onAssignToCompare={vi.fn()}
@@ -707,6 +712,7 @@ describe("Team Sections", () => {
     const user = userEvent.setup();
     const onResetMember = vi.fn();
     const onRemoveMember = vi.fn();
+    const onReleaseMember = vi.fn();
     const onClearSelection = vi.fn();
 
     render(
@@ -749,6 +755,7 @@ describe("Team Sections", () => {
         onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={onRemoveMember}
+        onReleaseMember={onReleaseMember}
         onAddMember={vi.fn()}
         onResetMember={onResetMember}
         onAssignToCompare={vi.fn()}
@@ -771,6 +778,7 @@ describe("Team Sections", () => {
       expect(screen.queryByText("Mandar a caja")).toBeNull();
     });
     expect(onRemoveMember).not.toHaveBeenCalled();
+    expect(onReleaseMember).not.toHaveBeenCalled();
     expect(onClearSelection).not.toHaveBeenCalled();
   });
 
@@ -821,6 +829,7 @@ describe("Team Sections", () => {
         onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
+        onReleaseMember={vi.fn()}
         onAddMember={vi.fn()}
         onResetMember={vi.fn()}
         onAssignToCompare={vi.fn()}
@@ -895,6 +904,7 @@ describe("Team Sections", () => {
         onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
+        onReleaseMember={vi.fn()}
         onAddMember={vi.fn()}
         onResetMember={vi.fn()}
         onAssignToCompare={vi.fn()}
@@ -949,6 +959,7 @@ describe("Team Sections", () => {
         onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
+        onReleaseMember={vi.fn()}
         onAddMember={vi.fn()}
         onResetMember={vi.fn()}
         onAssignToCompare={vi.fn()}

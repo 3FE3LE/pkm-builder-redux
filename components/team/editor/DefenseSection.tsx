@@ -19,17 +19,22 @@ export function DefenseSection({
   const resistances = defensiveSummary.filter(
     (entry) =>
       entry.buckets["x0.5"] > 0 ||
-      entry.buckets["x0.25"] > 0 ||
-      entry.buckets.x0 > 0,
+      entry.buckets["x0.25"] > 0,
   );
+  const immunities = defensiveSummary.filter((entry) => entry.buckets.x0 > 0);
   const stabCoverage = (resolved?.resolvedTypes ?? []).map((attackType) => {
     const effective = TYPE_ORDER.filter((defenseType) => getTypeEffectiveness(attackType, [defenseType]) > 1);
-    const resisted = TYPE_ORDER.filter((defenseType) => getTypeEffectiveness(attackType, [defenseType]) < 1);
+    const resisted = TYPE_ORDER.filter((defenseType) => {
+      const multiplier = getTypeEffectiveness(attackType, [defenseType]);
+      return multiplier > 0 && multiplier < 1;
+    });
+    const noDamage = TYPE_ORDER.filter((defenseType) => getTypeEffectiveness(attackType, [defenseType]) === 0);
 
     return {
       attackType,
       effective,
       resisted,
+      noDamage,
     };
   });
 
@@ -89,6 +94,24 @@ export function DefenseSection({
         </article>
 
         <article className="rounded-[0.75rem] px-1 py-1">
+          <p className="display-face text-xs text-info">Inmunidades</p>
+          <div className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
+            {immunities.length ? (
+              immunities.map((entry) => (
+                <CoverageBadge
+                  key={`editor-immune-${entry.attackType}`}
+                  type={entry.attackType}
+                  label={entry.attackType}
+                  bucket="x0"
+                />
+              ))
+            ) : (
+              <span className="text-xs text-muted">Sin inmunidades.</span>
+            )}
+          </div>
+        </article>
+
+        <article className="rounded-[0.75rem] px-1 py-1">
           <p className="display-face text-xs text-accent">STAB</p>
           <div className="mt-2 space-y-3">
             {stabCoverage.map((stab) => (
@@ -127,6 +150,24 @@ export function DefenseSection({
                       ))
                     ) : (
                       <span className="text-xs text-muted">Sin targets resistidos.</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-3">
+                  <p className="display-face text-[10px] text-info-soft">Daño nulo</p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5 sm:gap-2">
+                    {stab.noDamage.length ? (
+                      stab.noDamage.map((defenseType) => (
+                        <CoverageBadge
+                          key={`editor-stab-no-damage-${stab.attackType}-${defenseType}`}
+                          type={defenseType}
+                          label={defenseType}
+                          bucket="x0"
+                        />
+                      ))
+                    ) : (
+                      <span className="text-xs text-muted">Sin targets inmunes.</span>
                     )}
                   </div>
                 </div>

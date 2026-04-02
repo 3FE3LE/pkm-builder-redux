@@ -90,6 +90,7 @@ describe("AnalysisPanels", () => {
             { attackType: "Rock", count: 1, severe: false },
           ],
           netResist: [{ attackType: "Water", count: 3 }],
+          netImmune: [{ attackType: "Ground", count: 1 }],
         } as never}
       />,
     );
@@ -97,15 +98,17 @@ describe("AnalysisPanels", () => {
     expect(screen.getByText("Ice-2-danger")).toBeTruthy();
     expect(screen.getByText("Rock-1-normal")).toBeTruthy();
     expect(screen.getByText("Water-3-positive")).toBeTruthy();
+    expect(screen.getByText("Ground-1-positive")).toBeTruthy();
 
     rerender(
       <DefensiveThreatsPanel
-        defensiveSections={{ netWeak: [], netResist: [] } as never}
+        defensiveSections={{ netWeak: [], netResist: [], netImmune: [] } as never}
       />,
     );
 
     expect(screen.getByText("No aparece una amenaza defensiva clara por tipos en el equipo actual.")).toBeTruthy();
     expect(screen.getByText("Todavía no aparece una defensa tipada clara.")).toBeTruthy();
+    expect(screen.getByText("Todavía no aparece una inmunidad tipada clara.")).toBeTruthy();
   });
 
   it("renders roster reading pills, notes and risk bands", () => {

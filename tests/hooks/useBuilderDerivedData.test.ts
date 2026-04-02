@@ -6,7 +6,7 @@ let mockParams = new URLSearchParams();
 
 const mocked = vi.hoisted(() => ({
   buildCoverageSummary: vi.fn(() => []),
-  buildDefensiveSections: vi.fn(() => ({ netWeak: [], netResist: [] })),
+  buildDefensiveSections: vi.fn(() => ({ netWeak: [], netResist: [], netImmune: [] })),
   buildAverageStats: vi.fn(() => null),
   buildCheckpointRiskSnapshot: vi.fn(() => ({
     totalRisk: 0,

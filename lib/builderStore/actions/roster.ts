@@ -18,6 +18,7 @@ type RosterActions = Pick<
   | "addLibraryMemberToComposition"
   | "saveMemberToPc"
   | "moveMemberToPc"
+  | "releaseMember"
   | "restoreMemberFromPc"
   | "setActiveMemberId"
   | "setEditorMemberId"
@@ -253,6 +254,36 @@ export function createRosterActions(set: BuilderSet): RosterActions {
       }));
 
       return moved;
+    },
+    releaseMember: (memberId) => {
+      let released = false;
+
+      set((state) => ({
+        run: updateRoster(state.run, () => {
+          const normalizedRoster = ensureRosterState(state.run).roster;
+          if (!normalizedRoster.pokemonLibrary.some((member) => member.id === memberId)) {
+            return normalizedRoster;
+          }
+
+          released = true;
+
+          return {
+            ...normalizedRoster,
+            pokemonLibrary: normalizedRoster.pokemonLibrary.filter((member) => member.id !== memberId),
+            compositions: normalizedRoster.compositions.map((composition) => ({
+              ...composition,
+              memberIds: composition.memberIds.filter((id) => id !== memberId),
+            })),
+            pcBoxIds: normalizedRoster.pcBoxIds.filter((id) => id !== memberId),
+            activeMemberId:
+              normalizedRoster.activeMemberId === memberId ? null : normalizedRoster.activeMemberId,
+            editorMemberId:
+              normalizedRoster.editorMemberId === memberId ? null : normalizedRoster.editorMemberId,
+          };
+        }),
+      }));
+
+      return released;
     },
     restoreMemberFromPc: (memberId, compositionId) => {
       let restored = false;

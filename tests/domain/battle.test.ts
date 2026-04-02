@@ -115,6 +115,10 @@ test("builds defensive sections using net resistance minus weakness balance", ()
     severe: false,
   });
   assert.equal(sections.netResist.find((entry) => entry.attackType === "Fire"), undefined);
+  assert.deepEqual(sections.netImmune.find((entry) => entry.attackType === "Poison"), {
+    attackType: "Poison",
+    count: 1,
+  });
 });
 
 test("normalizes stat calculation inputs and nature effects", () => {

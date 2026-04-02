@@ -39,6 +39,7 @@ export function SlotModals({
   onToggleResetField,
   onApplyReset,
   onConfirmDelete,
+  onConfirmRelease,
 }: {
   selectedMember?: EditableMember;
   resetOpen: boolean;
@@ -49,6 +50,7 @@ export function SlotModals({
   onToggleResetField: (field: keyof ResetFields, checked: boolean) => void;
   onApplyReset: () => void;
   onConfirmDelete: () => void;
+  onConfirmRelease: () => void;
 }) {
   return (
     <>
@@ -121,7 +123,13 @@ export function SlotModals({
               <p className="mt-1 text-sm text-muted">
                 El Pokemon seguira guardado en tu PC para reusarlo despues.
               </p>
+              <p className="mt-3 text-xs text-text-faint">
+                Si no quieres conservarlo, puedes liberarlo y quitarlo por completo de tu builder.
+              </p>
               <div className="mt-5 flex justify-end gap-2">
+                <Button type="button" variant="ghost" onClick={onConfirmRelease}>
+                  Liberar
+                </Button>
                 <Button type="button" variant="ghost" onClick={onCloseDelete}>
                   Cancelar
                 </Button>

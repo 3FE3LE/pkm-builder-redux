@@ -294,6 +294,13 @@ export function buildDefensiveSections(team: TeamCoverageMember[]) {
     resist: summary.filter((entry) => entry.buckets["x0.5"] > 0),
     superResist: summary.filter((entry) => entry.buckets["x0.25"] > 0),
     immune: summary.filter((entry) => entry.buckets.x0 > 0),
+    netImmune: summary
+      .filter((entry) => entry.buckets.x0 > 0)
+      .map((entry) => ({
+        attackType: entry.attackType,
+        count: entry.buckets.x0,
+      }))
+      .sort((left, right) => right.count - left.count || left.attackType.localeCompare(right.attackType)),
     netWeak: netBalance
       .filter((entry) => entry.score < 0)
       .map((entry) => ({

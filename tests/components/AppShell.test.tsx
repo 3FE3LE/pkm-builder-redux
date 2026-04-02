@@ -64,6 +64,7 @@ describe("App shell", () => {
     expect(screen.getAllByRole("link", { name: "Home" }).length).toBe(2);
     expect(screen.getByRole("link", { name: /Team/ }).className).toContain("border-primary-line-strong");
     expect(screen.getByRole("link", { name: /Tools/ }).className).not.toContain("border-accent-line-strong");
+    expect(screen.getByRole("link", { name: /Dex/ }).className).not.toContain("border-warning-line");
     expect(screen.getByRole("link", { name: "Settings" }).className).not.toContain("border-info-line");
     expect(screen.getAllByAltText("Snivy").length).toBe(2);
   });
@@ -76,5 +77,9 @@ describe("App shell", () => {
     mockedUsePathname.mockReturnValue("/team/settings");
     rerender(<AppNav />);
     expect(screen.getByRole("link", { name: "Settings" }).className).toContain("border-info-line");
+
+    mockedUsePathname.mockReturnValue("/team/dex");
+    rerender(<AppNav />);
+    expect(screen.getByRole("link", { name: /Dex/ }).className).toContain("border-warning-line");
   });
 });

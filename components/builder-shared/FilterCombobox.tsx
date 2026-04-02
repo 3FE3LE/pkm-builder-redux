@@ -1,8 +1,10 @@
 "use client";
 
 import { type CSSProperties, type ReactNode, useId, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import clsx from "clsx";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
 
 import { Input } from "@/components/ui/Input";
 import { useCoordinatedPopover } from "@/hooks/useCoordinatedPopover";
@@ -33,6 +35,11 @@ export function FilterCombobox({
   const [query, setQuery] = useState("");
   const comboboxId = useId();
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useMediaQuery("(max-width: 639px)", {
+    defaultValue: false,
+    initializeWithValue: false,
+  });
 
   const filtered = useMemo(() => {
     const normalizedQuery = (query ?? "").trim().toLowerCase();
@@ -45,8 +52,94 @@ export function FilterCombobox({
     coordinationEventName: "filter-combobox-open",
     coordinationId: comboboxId,
     rootRef,
+    panelRef,
     onClose: () => setOpen(false),
   });
+
+  const panelBody = (
+    <>
+      {searchable ? (
+        <Input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={placeholder}
+          className="h-9"
+          autoFocus
+        />
+      ) : null}
+      <div className={clsx("max-h-56 overflow-auto", searchable && "mt-2")}>
+        {filtered.length ? (
+          filtered.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => {
+                onChange(option);
+                setQuery(option);
+                setOpen(false);
+              }}
+              className="control-surface-hover flex w-full items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm text-text transition"
+            >
+              {renderOption ? (
+                renderOption(option, option === safeValue)
+              ) : (
+                <>
+                  <span>{option}</span>
+                  {option === safeValue ? <Check className="h-4 w-4 text-accent" /> : null}
+                </>
+              )}
+            </button>
+          ))
+        ) : (
+          <div className="px-3 py-2 text-sm text-muted">Sin coincidencias.</div>
+        )}
+      </div>
+    </>
+  );
+
+  const panelContent = open ? (
+    isMobile ? (
+      <div className="fixed inset-0 z-[1000]">
+        <button
+          type="button"
+          aria-label="Cerrar combobox"
+          className="modal-backdrop absolute inset-0 supports-backdrop-filter:backdrop-blur-md"
+          onPointerDown={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setOpen(false);
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 px-3 pt-[max(env(safe-area-inset-top),1rem)]">
+          <div
+            ref={panelRef}
+            style={panelStyle}
+            className={clsx(
+              "status-popover box-border w-full rounded-[12px] border border-line p-2 shadow-2xl backdrop-blur-md",
+              panelClassName,
+            )}
+          >
+            {panelBody}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div
+        ref={panelRef}
+        style={panelStyle}
+        className={clsx(
+          "status-popover absolute left-0 z-[1000] mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
+          panelClassName,
+        )}
+      >
+        {panelBody}
+      </div>
+    )
+  ) : null;
 
   return (
     <div ref={rootRef} className="relative">
@@ -71,53 +164,7 @@ export function FilterCombobox({
         <span className={clsx("truncate", !safeValue && "text-text-faint")}>{safeValue || placeholder}</span>
         <ChevronsUpDown className="h-4 w-4 text-muted" />
       </button>
-
-      {open ? (
-        <div
-          style={panelStyle}
-          className={clsx(
-            "status-popover absolute left-0 z-20 mt-2 min-w-full rounded-[8px] border border-line p-2 backdrop-blur-md",
-            panelClassName,
-          )}
-        >
-          {searchable ? (
-            <Input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder={placeholder}
-              className="h-9"
-              autoFocus
-            />
-          ) : null}
-          <div className={clsx("max-h-56 overflow-auto", searchable && "mt-2")}>
-            {filtered.length ? (
-              filtered.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => {
-                    onChange(option);
-                    setQuery(option);
-                    setOpen(false);
-                  }}
-                  className="control-surface-hover flex w-full items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm text-text transition"
-                >
-                  {renderOption ? (
-                    renderOption(option, option === safeValue)
-                  ) : (
-                    <>
-                      <span>{option}</span>
-                      {option === safeValue ? <Check className="h-4 w-4 text-accent" /> : null}
-                    </>
-                  )}
-                </button>
-              ))
-            ) : (
-              <div className="px-3 py-2 text-sm text-muted">Sin coincidencias.</div>
-            )}
-          </div>
-        </div>
-      ) : null}
+      {panelContent ? (isMobile ? createPortal(panelContent, document.body) : panelContent) : null}
     </div>
   );
 }

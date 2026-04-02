@@ -94,10 +94,10 @@ describe("EditorMovesSection", () => {
     expect(screen.getByText(/returns damage/i)).toBeTruthy();
     expect(screen.getByText(/stab/i)).toBeTruthy();
 
-    await user.click(screen.getByRole("button", { name: /replace/i }));
+    await user.click(screen.getByRole("button", { name: /replace move/i }));
     expect(onOpenMoveModal).toHaveBeenCalledWith(1);
 
-    await user.click(screen.getByRole("button", { name: /^delete$/i }));
+    await user.click(screen.getByRole("button", { name: /delete move/i }));
     expect(onRemoveMoveAt).toHaveBeenCalledWith(1);
     expect(onSelectMoveIndex).toHaveBeenCalledWith(null);
   });
@@ -168,7 +168,7 @@ describe("EditorMovesSection", () => {
     );
 
     const quickAttackSlot = screen.getAllByText("Quick Attack")[0]!.closest("[draggable='true']");
-    const trashTarget = screen.getByText(/drop to delete/i).closest("div");
+    const trashTarget = screen.getByLabelText(/drop to delete/i);
     const dataTransfer = createDataTransfer();
 
     fireEvent.dragStart(quickAttackSlot!, { dataTransfer });
@@ -194,7 +194,7 @@ describe("EditorMovesSection", () => {
 
     expect(screen.getAllByRole("button", { name: /empty move slot/i })).toHaveLength(4);
 
-    const trashTarget = screen.getByText(/drop to delete/i).closest("div");
+    const trashTarget = screen.getByLabelText(/drop to delete/i);
     fireEvent.dragOver(trashTarget!);
   });
 

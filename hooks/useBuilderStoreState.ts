@@ -42,6 +42,7 @@ export function useBuilderStoreState() {
   );
   const saveMemberToPc = useBuilderStore((state) => state.saveMemberToPc);
   const moveMemberToPc = useBuilderStore((state) => state.moveMemberToPc);
+  const releaseMember = useBuilderStore((state) => state.releaseMember);
   const restoreMemberFromPc = useBuilderStore((state) => state.restoreMemberFromPc);
   const setActiveMemberId = useBuilderStore((state) => state.setActiveMemberId);
   const setEditorMemberId = useBuilderStore((state) => state.setEditorMemberId);
@@ -82,6 +83,7 @@ export function useBuilderStoreState() {
     addLibraryMemberToComposition,
     saveMemberToPc,
     moveMemberToPc,
+    releaseMember,
     restoreMemberFromPc,
     setActiveMemberId,
     setEditorMemberId,

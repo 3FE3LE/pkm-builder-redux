@@ -32,6 +32,7 @@ export type BuilderStore = {
   addLibraryMemberToComposition: (memberId: string, compositionId?: string) => boolean;
   saveMemberToPc: (member: EditableMember) => boolean;
   moveMemberToPc: (memberId: string, compositionId?: string) => boolean;
+  releaseMember: (memberId: string) => boolean;
   restoreMemberFromPc: (memberId: string, compositionId?: string) => boolean;
   setActiveMemberId: (activeMemberId: string | null) => void;
   setEditorMemberId: (editorMemberId: string | null) => void;

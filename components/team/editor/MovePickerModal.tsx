@@ -2,7 +2,9 @@
 
 import clsx from "clsx";
 import { X } from "lucide-react";
-import type { CSSProperties } from "react";
+import { type CSSProperties } from "react";
+import { createPortal } from "react-dom";
+import { useMediaQuery } from "usehooks-ts";
 
 import {
   getMoveProfileFit,
@@ -49,6 +51,11 @@ export function MovePickerModal({
   onPickMove: (moveName: string) => void;
   getMoveSurfaceStyle: (type?: string | null) => CSSProperties | undefined;
 }) {
+  const isMobile = useMediaQuery("(max-width: 639px)", {
+    defaultValue: false,
+    initializeWithValue: false,
+  });
+
   const levelUpItems = (member.learnsets?.levelUp ?? []).map((entry) => ({
     key: `level-${entry.level}-${entry.move}`,
     label: `Lv ${entry.level}`,
@@ -64,10 +71,9 @@ export function MovePickerModal({
   const items = tab === "levelUp" ? levelUpItems : machineItems;
   const isReplaceMode = slotIndex !== null;
   const replaceMoveName = slotIndex !== null ? currentMoves[slotIndex] ?? null : null;
-
-  return (
+  const content = (
     <section className="space-y-2">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[rgba(255,255,255,0.08)] pt-3">
+      <div className={clsx("flex flex-wrap items-center justify-between gap-3", !isMobile && "border-t border-[rgba(255,255,255,0.08)] pt-3")}>
         <div className="min-w-0">
           <p className="display-face text-[11px] text-accent">
             {isReplaceMode ? `replace ${replaceMoveName ?? "move"}` : "add move"}
@@ -205,5 +211,34 @@ export function MovePickerModal({
         )}
       </div>
     </section>
+  );
+
+  if (!isMobile) {
+    return content;
+  }
+
+  return createPortal(
+    <div className="fixed inset-0 z-[1000]">
+      <button
+        type="button"
+        aria-label="Cerrar lista de movimientos"
+        className="modal-backdrop absolute inset-0 supports-backdrop-filter:backdrop-blur-md"
+        onPointerDown={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+        }}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          onClose();
+        }}
+      />
+      <div className="absolute inset-x-0 top-0 px-3 pt-[max(env(safe-area-inset-top),1rem)]">
+        <div className="status-popover rounded-[12px] border border-line p-3 shadow-2xl backdrop-blur-md">
+          {content}
+        </div>
+      </div>
+    </div>,
+    document.body,
   );
 }

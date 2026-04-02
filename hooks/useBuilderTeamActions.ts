@@ -69,6 +69,24 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     return true;
   }
 
+  function releaseMember(memberId: string) {
+    const released = store.releaseMember(memberId);
+    if (!released) {
+      return false;
+    }
+
+    if (store.activeMemberId === memberId) {
+      store.setActiveMemberId(null);
+    }
+
+    if (store.editorMemberId === memberId) {
+      store.setEditorMemberId(null);
+      ui.setEditorMoveSelection(null);
+    }
+
+    return true;
+  }
+
   function addMember() {
     const pending = store.currentTeam.find((item) => !item.species.trim());
     if (pending) {
@@ -204,6 +222,7 @@ export function useBuilderTeamActions({ store, ui }: BuilderActionDeps) {
     clearSelection,
     editMember,
     removeMember,
+    releaseMember,
     addMember,
     addPreparedMember,
     closeEditor,

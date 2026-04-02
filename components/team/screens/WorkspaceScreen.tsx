@@ -61,9 +61,19 @@ export function WorkspaceScreen() {
     return query ? `${nextPath}?${query}` : nextPath;
   }
 
+  const closeEditorHref = useMemo(() => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.delete("editorNonce");
+    const query = nextParams.toString();
+    return query ? `/team?${query}` : "/team";
+  }, [searchParams]);
+
   function closeTeamEditor() {
     team.actions.closeEditor();
     team.actions.clearSelection();
+    if (editorOpen) {
+      router.replace(closeEditorHref);
+    }
   }
 
   function assignCompareFromRoster(slot: 0 | 1, memberId: string) {
@@ -223,6 +233,9 @@ export function WorkspaceScreen() {
               window.setTimeout(() => {
                 pcSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
               }, 120);
+            }}
+            onReleaseMember={(id) => {
+              team.actions.releaseMember(id);
             }}
             onAddMember={() => {
               setAddMemberOpen(true);

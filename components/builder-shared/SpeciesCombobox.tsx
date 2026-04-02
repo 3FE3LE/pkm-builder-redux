@@ -13,6 +13,7 @@ import {
 import { createPortal } from "react-dom";
 import clsx from "clsx";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
 
 import { Input } from "@/components/ui/Input";
 import { buildSpriteUrls } from "@/lib/domain/names";
@@ -31,7 +32,7 @@ export function SpeciesCombobox({
   panelClassName,
   panelStyle,
   coordinationGroup,
-  portal = false,
+  portal = true,
   autoFocus = false,
   onChange,
 }: {
@@ -53,6 +54,10 @@ export function SpeciesCombobox({
   const comboboxId = useId();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useMediaQuery("(max-width: 639px)", {
+    defaultValue: false,
+    initializeWithValue: false,
+  });
   const spriteBySlug = useMemo(
     () =>
       Object.fromEntries(speciesCatalog.map((entry) => [entry.slug, buildSpriteUrls(entry.name, entry.dex).spriteUrl])) as Record<string, string | undefined>,
@@ -86,16 +91,8 @@ export function SpeciesCombobox({
     onClose: () => setOpen(false),
   });
 
-  const panelContent = open ? (
-    <div
-      ref={panelRef}
-      style={panelStyle}
-      className={clsx(
-        "status-popover absolute z-[120] mt-2 w-full rounded-[8px] border border-line p-2 backdrop-blur-md",
-        portal && "mt-0",
-        panelClassName,
-      )}
-    >
+  const panelBody = (
+    <>
       <Input
         value={query}
         onChange={(event) => {
@@ -177,7 +174,51 @@ export function SpeciesCombobox({
           <div className="px-3 py-2 text-sm text-muted">No hay resultados para ese filtro.</div>
         )}
       </div>
-    </div>
+    </>
+  );
+
+  const panelContent = open ? (
+    isMobile ? (
+      <div className="fixed inset-0 z-[1000]">
+        <button
+          type="button"
+          aria-label="Cerrar selector de Pokemon"
+          className="modal-backdrop absolute inset-0 supports-backdrop-filter:backdrop-blur-md"
+          onPointerDown={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setOpen(false);
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 px-3 pt-[max(env(safe-area-inset-top),1rem)]">
+          <div
+            ref={panelRef}
+            style={panelStyle}
+            className={clsx(
+              "status-popover box-border w-full rounded-[12px] border border-line p-2 shadow-2xl backdrop-blur-md",
+              panelClassName,
+            )}
+          >
+            {panelBody}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div
+        ref={panelRef}
+        style={panelStyle}
+        className={clsx(
+          "status-popover absolute left-0 z-[120] mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
+          panelClassName,
+        )}
+      >
+        {panelBody}
+      </div>
+    )
   ) : null;
 
   return (
@@ -206,7 +247,7 @@ export function SpeciesCombobox({
         <ChevronsUpDown className="h-4 w-4 text-muted" />
       </button>
 
-      {portal && panelContent ? createPortal(panelContent, document.body) : panelContent}
+      {panelContent ? (isMobile ? createPortal(panelContent, document.body) : panelContent) : null}
     </div>
   );
 }
