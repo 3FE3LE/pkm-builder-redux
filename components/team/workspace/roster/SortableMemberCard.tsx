@@ -1,7 +1,9 @@
 "use client";
 
+import { ViewTransition } from "react";
 import clsx from 'clsx';
 import { Mars, Venus } from 'lucide-react';
+import { useMediaQuery } from "usehooks-ts";
 
 import { ItemSprite, PokemonSprite, TypeBadge } from '@/components/BuilderShared';
 import { MiniPill } from '@/components/team/UI';
@@ -14,6 +16,7 @@ import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import type { EditableMember } from "@/lib/builderStore";
+import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
 
 function getRosterCardStyle(types: string[]) {
   return getTypedSurfaceStyle(types, {
@@ -99,6 +102,10 @@ export function SortableMemberCard({
   const currentItem = String(member.item ?? "").trim();
   const genderIcon = renderGenderIcon(resolved?.supportsGender, member.gender);
   const cardStyle = getRosterCardStyle(resolved?.resolvedTypes ?? []);
+  const isDesktop = useMediaQuery("(min-width: 768px)", {
+    defaultValue: false,
+    initializeWithValue: false,
+  });
   const desktopMetaEntries = [
     {
       key: "ability",
@@ -132,7 +139,8 @@ export function SortableMemberCard({
   ];
 
   return (
-    <article
+    <ViewTransition name={getTeamEditorTransitionName("card", member.id)}>
+      <article
       ref={setNodeRef}
       {...attributes}
       {...listeners}
@@ -152,54 +160,21 @@ export function SortableMemberCard({
           "roster-card-unselected",
       )}
       onClick={onSelect}
-    >
+      >
       <WeatherVisualLayer weather={weather} />
       <div className="min-w-0">
         <div className="flex min-w-0 items-start gap-2">
           <p className="roster-name-face mt-0.5 min-w-0 flex-1 truncate">
             <span className="inline-flex max-w-full items-center gap-1.5">
-              <span className="truncate">{displayName}</span>
+              <ViewTransition name={getTeamEditorTransitionName("title", member.id)}>
+                <span className="truncate">{displayName}</span>
+              </ViewTransition>
               {genderIcon}
             </span>
           </p>
         </div>
 
-        <div className="mt-2 lg:hidden">
-          <div className="flex justify-center">
-            <div className="relative">
-              <PokemonSprite
-                species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
-                spriteUrl={resolved?.spriteUrl}
-                animatedSpriteUrl={resolved?.animatedSpriteUrl}
-                isEvolving={isEvolving}
-                size="default"
-                chrome="plain"
-              />
-              {currentItem ? (
-                <div className="absolute bottom-0 right-0">
-                  <ItemSprite name={currentItem} sprite={resolved?.itemDetails?.sprite} chrome="plain" />
-                </div>
-              ) : null}
-            </div>
-          </div>
-          <div className="mt-2 grid grid-cols-2 gap-1 sm:gap-1.5">
-            {resolved?.resolvedTypes.length ? (
-              resolved.resolvedTypes.map((type) => (
-                <div key={`${member.id}-${type}`} className="min-w-0">
-                  <TypeBadge type={type} className="w-full" />
-                </div>
-              ))
-            ) : (
-              <div className="min-w-0">
-                <MiniPill className="micro-label flex w-full items-center justify-center px-2 py-1 sm:text-xs">
-                  tipo pendiente
-                </MiniPill>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="hidden md:block">
+        {isDesktop ? (
           <div className="mt-2 flex items-start gap-4">
             <div className="min-w-0 flex-1">
               {member.nickname && resolved?.species && member.nickname !== resolved.species ? (
@@ -208,15 +183,17 @@ export function SortableMemberCard({
                 </p>
               ) : null}
 
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {resolved?.resolvedTypes.length ? (
-                  resolved.resolvedTypes.map((type) => (
-                    <TypeBadge key={`${member.id}-${type}-desktop`} type={type} />
-                  ))
-                ) : (
-                  <MiniPill className="micro-copy px-2.5 py-1">tipo pendiente</MiniPill>
-                )}
-              </div>
+              <ViewTransition name={getTeamEditorTransitionName("types", member.id)}>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {resolved?.resolvedTypes.length ? (
+                    resolved.resolvedTypes.map((type) => (
+                      <TypeBadge key={`${member.id}-${type}-desktop`} type={type} />
+                    ))
+                  ) : (
+                    <MiniPill className="micro-copy px-2.5 py-1">tipo pendiente</MiniPill>
+                  )}
+                </div>
+              </ViewTransition>
 
               <div className="mt-3 grid grid-cols-2 gap-1.5">
                 {desktopMetaEntries.map((entry) => {
@@ -257,14 +234,16 @@ export function SortableMemberCard({
 
             <div className="flex shrink-0 justify-center">
               <div className="relative">
-                <PokemonSprite
-                  species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
-                  spriteUrl={resolved?.spriteUrl}
-                  animatedSpriteUrl={resolved?.animatedSpriteUrl}
-                  isEvolving={isEvolving}
-                  size="large"
-                  chrome="plain"
-                />
+                <ViewTransition name={getTeamEditorTransitionName("sprite", member.id)}>
+                  <PokemonSprite
+                    species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
+                    spriteUrl={resolved?.spriteUrl}
+                    animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                    isEvolving={isEvolving}
+                    size="large"
+                    chrome="plain"
+                  />
+                </ViewTransition>
                 {currentItem ? (
                   <div className="absolute bottom-1 right-1">
                     <ItemSprite name={currentItem} sprite={resolved?.itemDetails?.sprite} chrome="plain" />
@@ -273,9 +252,49 @@ export function SortableMemberCard({
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-2">
+            <div className="flex justify-center">
+              <div className="relative">
+                <ViewTransition name={getTeamEditorTransitionName("sprite", member.id)}>
+                  <PokemonSprite
+                    species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
+                    spriteUrl={resolved?.spriteUrl}
+                    animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                    isEvolving={isEvolving}
+                    size="default"
+                    chrome="plain"
+                  />
+                </ViewTransition>
+                {currentItem ? (
+                  <div className="absolute bottom-0 right-0">
+                    <ItemSprite name={currentItem} sprite={resolved?.itemDetails?.sprite} chrome="plain" />
+                  </div>
+                ) : null}
+              </div>
+            </div>
+            <ViewTransition name={getTeamEditorTransitionName("types", member.id)}>
+              <div className="mt-2 grid grid-cols-2 gap-1 sm:gap-1.5">
+                {resolved?.resolvedTypes.length ? (
+                  resolved.resolvedTypes.map((type) => (
+                    <div key={`${member.id}-${type}`} className="min-w-0">
+                      <TypeBadge type={type} className="w-full" />
+                    </div>
+                  ))
+                ) : (
+                  <div className="min-w-0">
+                    <MiniPill className="micro-label flex w-full items-center justify-center px-2 py-1 sm:text-xs">
+                      tipo pendiente
+                    </MiniPill>
+                  </div>
+                )}
+              </div>
+            </ViewTransition>
+          </div>
+        )}
 
       </div>
-    </article>
+      </article>
+    </ViewTransition>
   );
 }

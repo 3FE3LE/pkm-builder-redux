@@ -57,7 +57,7 @@ describe("App shell", () => {
   });
 
   it("marks the active nav destination for team routes", () => {
-    mockedUsePathname.mockReturnValue("/team/pokemon/lucario");
+    mockedUsePathname.mockReturnValue("/team");
 
     render(<AppNav />);
 

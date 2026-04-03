@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import { useMediaQuery } from "usehooks-ts";
 
 import { ActionDock } from "@/components/team/workspace/roster/ActionDock";
 import { SelectedMemberInsightCard } from "@/components/team/workspace/roster/SelectedMemberInsightCard";
@@ -39,7 +40,7 @@ export function RosterGrid({
   onAddMember,
   onToggleDetails,
   onOpenReset,
-  onEditSelected,
+  editSelectedHref,
   onToggleLockSelected,
   onAssignToCompareSelected,
   onOpenDelete,
@@ -64,12 +65,16 @@ export function RosterGrid({
   onAddMember: () => void;
   onToggleDetails: () => void;
   onOpenReset: () => void;
-  onEditSelected: () => void;
+  editSelectedHref?: string;
   onToggleLockSelected: () => void;
   onAssignToCompareSelected: () => void;
   onOpenDelete: () => void;
   onCloseEditor: () => void;
 }) {
+  const isDesktop = useMediaQuery("(min-width: 768px)", {
+    defaultValue: false,
+    initializeWithValue: false,
+  });
   const desktopTopRow = filledTeam.slice(0, 3);
   const desktopBottomRow = filledTeam.slice(3, 6);
 
@@ -92,20 +97,20 @@ export function RosterGrid({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2.5 md:hidden">
-        <SortableContext
-          items={filledTeam.map((member) => member.id)}
-          strategy={rectSortingStrategy}
-        >
-          {filledTeam.map((member, index) => renderRosterCard(member, index))}
-        </SortableContext>
+      {!isDesktop ? (
+        <div className="grid grid-cols-2 gap-2.5">
+          <SortableContext
+            items={filledTeam.map((member) => member.id)}
+            strategy={rectSortingStrategy}
+          >
+            {filledTeam.map((member, index) => renderRosterCard(member, index))}
+          </SortableContext>
 
-        {filledTeam.length < 6 ? (
-          <AddMemberSlot onAddMember={onAddMember} />
-        ) : null}
-      </div>
-
-      <div className="hidden md:block">
+          {filledTeam.length < 6 ? (
+            <AddMemberSlot onAddMember={onAddMember} />
+          ) : null}
+        </div>
+      ) : (
         <SortableContext
           items={filledTeam.map((member) => member.id)}
           strategy={rectSortingStrategy}
@@ -158,7 +163,7 @@ export function RosterGrid({
                         editorOpen={editorOpen}
                         onToggleDetails={onToggleDetails}
                         onOpenReset={onOpenReset}
-                        onEdit={onEditSelected}
+                        editHref={editSelectedHref}
                         onToggleLock={onToggleLockSelected}
                         onAssignToCompare={onAssignToCompareSelected}
                         onOpenDelete={onOpenDelete}
@@ -178,7 +183,7 @@ export function RosterGrid({
             </div>
           </div>
         </SortableContext>
-      </div>
+      )}
     </>
   );
 }

@@ -38,6 +38,7 @@ export function ItemSprite({
         width={36}
         height={36}
         className="h-9 w-9 object-contain pixelated"
+        style={{ width: "auto", height: "auto" }}
         unoptimized={false}
       />
     </span>

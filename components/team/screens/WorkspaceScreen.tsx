@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams, useSelectedLayoutSegment } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   closestCenter,
   DndContext,
@@ -35,9 +35,6 @@ const WORKSPACE_TABS = ["builder", "copilot"] as const;
 
 export function WorkspaceScreen() {
   const router = useRouter();
-  const pathname = usePathname();
-  const editorSegment = useSelectedLayoutSegment("editor");
-  const searchParams = useSearchParams();
   const [workspaceTab, setWorkspaceTab] = useQueryState(
     "tab",
     parseAsStringEnum<WorkspaceTab>([...WORKSPACE_TABS]).withDefault("builder"),
@@ -51,29 +48,12 @@ export function WorkspaceScreen() {
   const analysis = useTeamAnalysis();
   const compare = useTeamCompare();
   const evolution = useTeamEvolution();
-  const editorOpen = pathname.startsWith("/team/pokemon/") || editorSegment !== null;
+  const editorOpen = false;
   const pcSectionRef = useRef<HTMLElement | null>(null);
-
-  function buildTeamHref(nextPath: string) {
-    const nextParams = new URLSearchParams(searchParams.toString());
-    nextParams.set("editorNonce", String(Date.now()));
-    const query = nextParams.toString();
-    return query ? `${nextPath}?${query}` : nextPath;
-  }
-
-  const closeEditorHref = useMemo(() => {
-    const nextParams = new URLSearchParams(searchParams.toString());
-    nextParams.delete("editorNonce");
-    const query = nextParams.toString();
-    return query ? `/team?${query}` : "/team";
-  }, [searchParams]);
 
   function closeTeamEditor() {
     team.actions.closeEditor();
     team.actions.clearSelection();
-    if (editorOpen) {
-      router.replace(closeEditorHref);
-    }
   }
 
   function assignCompareFromRoster(slot: 0 | 1, memberId: string) {
@@ -160,7 +140,7 @@ export function WorkspaceScreen() {
     }
 
     setAddMemberOpen(false);
-    router.push(buildTeamHref(`/team/pokemon/${created.id}`));
+    router.push(`/team/pokemon/${created.id}`);
   }
 
   function handleReuseLibraryMember(memberId: string) {
@@ -178,12 +158,7 @@ export function WorkspaceScreen() {
 
   return (
     <main className="relative overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mx-auto max-w-7xl"
-      >
+      <section className="mx-auto max-w-7xl">
         <BuilderHeader
           milestoneId={analysis.contextualMilestoneId}
           milestones={milestones}
@@ -212,10 +187,6 @@ export function WorkspaceScreen() {
             starterSpeciesLine={starterLine}
             editorOpen={editorOpen}
             onSelectMember={team.actions.selectMember}
-            onEditMember={(id) => {
-              team.actions.editMember(id);
-              router.push(buildTeamHref(`/team/pokemon/${id}`));
-            }}
             onToggleMemberLock={(id) => {
               team.actions.updateMember(id, (current) => ({
                 ...current,
@@ -316,8 +287,7 @@ export function WorkspaceScreen() {
             speciesCatalog={catalogs.speciesCatalog}
             pulseMemberId={effectivePcPulseMemberId}
             onOpenEditor={(memberId) => {
-              team.actions.editMember(memberId);
-              router.push(buildTeamHref(`/team/pokemon/${memberId}`));
+              router.push(`/team/pokemon/${memberId}`);
             }}
             onAssignToComposition={(memberId, compositionId) => {
               team.actions.addLibraryMemberToComposition(memberId, compositionId);
@@ -347,7 +317,7 @@ export function WorkspaceScreen() {
             />
           ) : null}
         </AnimatePresence>
-      </motion.section>
+      </section>
     </main>
   );
 }

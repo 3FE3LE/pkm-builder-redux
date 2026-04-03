@@ -411,7 +411,6 @@ describe("Team Sections", () => {
   it("renders the roster section, opens slot details, resets fields and sends a member to pc", async () => {
     const user = userEvent.setup();
     const onSelectMember = vi.fn();
-    const onEditMember = vi.fn();
     const onToggleMemberLock = vi.fn();
     const onRemoveMember = vi.fn();
     const onReleaseMember = vi.fn();
@@ -487,7 +486,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={["Riolu", "Lucario"]}
         editorOpen={false}
         onSelectMember={onSelectMember}
-        onEditMember={onEditMember}
         onToggleMemberLock={onToggleMemberLock}
         onRemoveMember={onRemoveMember}
         onReleaseMember={onReleaseMember}
@@ -500,34 +498,35 @@ describe("Team Sections", () => {
     );
 
     expect(screen.getByText("Main")).toBeTruthy();
-    expect(screen.getAllByText("sortable-Aura-selected").length).toBe(2);
-    expect(screen.getAllByText("sortable-Wool-idle").length).toBe(2);
+    expect(screen.getAllByText("sortable-Aura-selected").length).toBe(1);
+    expect(screen.getAllByText("sortable-Wool-idle").length).toBe(1);
 
     await user.click(screen.getAllByText("sortable-Wool-idle")[0]);
     expect(onSelectMember).toHaveBeenCalledWith("member-2");
 
     await user.click(screen.getAllByRole("button", { name: "Mostrar info del slot seleccionado" })[0] as HTMLElement);
-    expect((await screen.findAllByText("Info del slot")).length).toBe(2);
+    expect((await screen.findAllByText("Info del slot")).length).toBe(1);
     expect(global.fetch).toHaveBeenCalledWith("/api/dex?pokemon=Lucario", expect.anything());
     await waitFor(() => {
-      expect(screen.getAllByText("Dex Notes").length).toBe(2);
+      expect(screen.getAllByText("Dex Notes").length).toBe(1);
     });
-    expect(screen.getAllByText("Aura Pokemon").length).toBe(2);
-    expect(screen.getAllByText("1.2 m").length).toBe(2);
-    expect(screen.getAllByText("54.0 kg").length).toBe(2);
-    expect(screen.getAllByText("Starter Lens").length).toBe(2);
-    expect(screen.getAllByText("Mejoras del slot").length).toBe(2);
-    expect(screen.getAllByText("Flash Cannon").length).toBe(2);
-    expect(screen.getAllByText("coverage · stab").length).toBe(2);
-    expect(screen.getAllByText("role-axes-wallbreaker").length).toBe(2);
+    expect(screen.getAllByText("Aura Pokemon").length).toBe(1);
+    expect(screen.getAllByText("1.2 m").length).toBe(1);
+    expect(screen.getAllByText("54.0 kg").length).toBe(1);
+    expect(screen.getAllByText("Starter Lens").length).toBe(1);
+    expect(screen.getAllByText("Mejoras del slot").length).toBe(1);
+    expect(screen.getAllByText("Flash Cannon").length).toBe(1);
+    expect(screen.getAllByText("coverage · stab").length).toBe(1);
+    expect(screen.getAllByText("role-axes-wallbreaker").length).toBe(1);
 
     await user.click(screen.getAllByRole("button", { name: "Cerrar info del slot" })[0] as HTMLElement);
     await waitFor(() => {
       expect(screen.queryByText("Info del slot")).toBeNull();
     });
 
-    await user.click(screen.getAllByRole("button", { name: "Editar slot seleccionado" })[0] as HTMLElement);
-    expect(onEditMember).toHaveBeenCalledWith("member-1");
+    expect(
+      screen.getAllByRole("link", { name: "Editar slot seleccionado" })[0]?.getAttribute("href"),
+    ).toBe("/team/pokemon/member-1");
 
     await user.click(screen.getAllByRole("button", { name: "Bloquear slot seleccionado" })[0] as HTMLElement);
     expect(onToggleMemberLock).toHaveBeenCalledWith("member-1");
@@ -609,7 +608,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={[]}
         editorOpen
         onSelectMember={vi.fn()}
-        onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={onRemoveMember}
         onReleaseMember={vi.fn()}
@@ -621,7 +619,7 @@ describe("Team Sections", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: "Cerrar menu flotante" }));
+    await user.click(screen.getByRole("button", { name: "Volver al team" }));
     expect(onCloseEditor).toHaveBeenCalled();
     expect(onRemoveMember).not.toHaveBeenCalled();
   });
@@ -667,7 +665,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={[]}
         editorOpen={false}
         onSelectMember={vi.fn()}
-        onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
         onReleaseMember={vi.fn()}
@@ -752,7 +749,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={[]}
         editorOpen={false}
         onSelectMember={vi.fn()}
-        onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={onRemoveMember}
         onReleaseMember={onReleaseMember}
@@ -826,7 +822,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={[]}
         editorOpen={false}
         onSelectMember={vi.fn()}
-        onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
         onReleaseMember={vi.fn()}
@@ -841,7 +836,7 @@ describe("Team Sections", () => {
     await user.click(screen.getAllByRole("button", { name: "Mostrar info del slot seleccionado" })[0] as HTMLElement);
 
     await waitFor(() => {
-      expect(screen.getAllByText("Info del slot").length).toBe(2);
+      expect(screen.getAllByText("Info del slot").length).toBe(1);
     });
 
     expect(screen.queryByText("Dex Notes")).toBeNull();
@@ -901,7 +896,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={[]}
         editorOpen={false}
         onSelectMember={vi.fn()}
-        onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
         onReleaseMember={vi.fn()}
@@ -915,7 +909,7 @@ describe("Team Sections", () => {
 
     await user.click(screen.getAllByRole("button", { name: "Mostrar info del slot seleccionado" })[0] as HTMLElement);
     await waitFor(() => {
-      expect(screen.getAllByText("Info del slot").length).toBe(2);
+      expect(screen.getAllByText("Info del slot").length).toBe(1);
     });
     expect(fetchMock).not.toHaveBeenCalled();
 
@@ -956,7 +950,6 @@ describe("Team Sections", () => {
         starterSpeciesLine={[]}
         editorOpen={false}
         onSelectMember={vi.fn()}
-        onEditMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
         onRemoveMember={vi.fn()}
         onReleaseMember={vi.fn()}

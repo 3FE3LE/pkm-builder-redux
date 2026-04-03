@@ -48,6 +48,7 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
         <div className="mb-4">
           <Link
             href="/team/dex"
+            transitionTypes={["dex-back"]}
             className="inline-flex items-center gap-2 rounded-full border border-line-soft bg-surface-2/80 px-3 py-2 text-sm text-text transition-colors hover:border-warning-line hover:bg-surface-3"
           >
             <ChevronLeft className="h-4 w-4" />

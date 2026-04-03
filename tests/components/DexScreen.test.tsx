@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const mockedPush = vi.fn();
 const mocked = vi.hoisted(() => ({
   tab: "pokemon",
   setTab: vi.fn((value: string) => {
@@ -71,9 +70,7 @@ vi.mock("@/components/BuilderProvider", () => ({
 }));
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: mockedPush,
-  }),
+  useRouter: () => ({}),
 }));
 
 vi.mock("@/components/ui/tabs", () => ({
@@ -120,14 +117,26 @@ describe("DexScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocked.tab = "pokemon";
-    mockedPush.mockReset();
-    Object.defineProperty(document, "startViewTransition", {
+    Object.defineProperty(globalThis, "CSS", {
       writable: true,
       configurable: true,
-      value: vi.fn((callback: () => void) => {
-        callback();
-        return { finished: Promise.resolve() };
-      }),
+      value: {
+        escape: (value: string) => value,
+      },
+    });
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      configurable: true,
+      value: vi.fn().mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
     });
   });
 
@@ -164,14 +173,10 @@ describe("DexScreen", () => {
     expect(screen.getByText("Repel -> Leftovers")).toBeTruthy();
   });
 
-  it("uses native view transitions when available for pokemon detail navigation", async () => {
-    const user = userEvent.setup();
-
+  it("renders pokemon detail links with transition types", () => {
     render(<DexScreen />);
 
-    await user.click(screen.getByRole("link", { name: /mareep/i }));
-
-    expect(document.startViewTransition).toBeTruthy();
-    expect(mockedPush).toHaveBeenCalledWith("/team/dex/pokemon/mareep");
+    const detailLink = screen.getByRole("link", { name: /mareep/i });
+    expect(detailLink.getAttribute("href")).toBe("/team/dex/pokemon/mareep");
   });
 });

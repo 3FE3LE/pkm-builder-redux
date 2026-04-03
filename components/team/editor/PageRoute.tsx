@@ -1,33 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+import { useParams, useRouter } from "next/navigation";
 
-import { EditorSheet } from "@/components/team/editor/Sheet";
 import {
   useTeamAnalysis,
   useTeamCatalogs,
+  useTeamCompare,
   useTeamMovePicker,
   useTeamRoster,
   useTeamSession,
 } from "@/components/BuilderProvider";
+import { EditorPage } from "@/components/team/editor/Page";
+import { LoadingState } from "@/components/team/screens/LoadingState";
+import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
+import { starters } from "@/lib/builder";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 
-type EditorRouteProps = {
-  memberId: string;
-  closeMode: "back" | "replace";
-};
-
-export function EditorRoute({ memberId, closeMode }: EditorRouteProps) {
+export function EditorPageRoute() {
+  const params = useParams<{ memberId?: string }>();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const memberId = params?.memberId ?? "";
   const session = useTeamSession();
   const catalogs = useTeamCatalogs();
   const team = useTeamRoster();
   const analysis = useTeamAnalysis();
+  const compare = useTeamCompare();
   const movePicker = useTeamMovePicker();
-  const [open, setOpen] = useState(true);
-  const editorNonce = searchParams.get("editorNonce") ?? "";
 
   const member = useMemo(
     () =>
@@ -36,10 +35,8 @@ export function EditorRoute({ memberId, closeMode }: EditorRouteProps) {
     [memberId, team.currentTeam, team.pokemonLibrary],
   );
   const resolved = useMemo(
-    () =>
-      team.resolvedTeam.find((entry) => entry.key === memberId) ??
-      (team.editorMemberId === memberId ? team.editorResolved : undefined),
-    [memberId, team.editorMemberId, team.editorResolved, team.resolvedTeam],
+    () => team.resolvedTeam.find((entry) => entry.key === memberId),
+    [memberId, team.resolvedTeam],
   );
   const editorEvolutionEligibility = useMemo(
     () =>
@@ -52,59 +49,45 @@ export function EditorRoute({ memberId, closeMode }: EditorRouteProps) {
     [resolved, session.evolutionConstraints, team.localTime, team.resolvedTeam],
   );
 
-  const closeHref = useMemo(() => {
-    const nextParams = new URLSearchParams(searchParams.toString());
-    nextParams.delete("editorNonce");
-    const query = nextParams.toString();
-    return query ? `/team?${query}` : "/team";
-  }, [searchParams]);
-
-  function navigateAfterClose() {
-    if (movePicker.memberId === memberId) {
-      movePicker.actions.close();
-    }
-    if (closeMode === "back") {
-      router.back();
-      return;
-    }
-    router.replace(closeHref);
+  if (!session.hydrated) {
+    return <LoadingState />;
   }
 
-  function requestClose() {
-    setOpen(false);
+  if (!session.builderStarted) {
+    return (
+      <RouteGuardScreen
+        title="No hay run activo"
+        description="Primero necesitas elegir un inicial para crear el equipo."
+        ctaHref="/onboarding"
+        ctaLabel="Ir a onboarding"
+      />
+    );
   }
 
   if (!member) {
-    return null;
+    return (
+      <RouteGuardScreen
+        title="Pokemon no encontrado"
+        description="Ese miembro ya no existe en el roster o en la caja."
+        ctaHref="/team"
+        ctaLabel="Volver al team"
+      />
+    );
   }
 
   return (
-    <EditorSheet
-      key={`editor-sheet-${memberId}-${editorNonce}`}
+    <EditorPage
       member={member}
-      open={closeMode === "back" ? open && team.editorMemberId === memberId : open}
       resolved={resolved}
       weather={session.battleWeather}
       roleRecommendation={analysis.checkpointRisk.roleSnapshot.members.find(
         (entry) => entry.key === member.id,
       )}
+      moveRecommendations={analysis.moveRecommendations}
+      starterSpeciesLine={starters[session.starter].stageSpecies}
       speciesCatalog={catalogs.speciesCatalog}
       abilityCatalog={catalogs.abilityCatalog}
       itemCatalog={catalogs.itemCatalog}
-      onOpenChange={(open) => {
-        if (!open) {
-          if (!member.species.trim()) {
-            team.actions.removeMember(member.id);
-          }
-          team.actions.closeEditor();
-          requestClose();
-        }
-      }}
-      onOpenChangeComplete={(nextOpen) => {
-        if (!nextOpen) {
-          navigateAfterClose();
-        }
-      }}
       onChange={(next) => team.actions.updateMember(next.id, next)}
       onImportToPc={team.actions.saveMemberToPc}
       onOpenMoveModal={(slotIndex) => movePicker.actions.open(member.id, slotIndex)}
@@ -113,6 +96,16 @@ export function EditorRoute({ memberId, closeMode }: EditorRouteProps) {
         team.actions.reorderMovesForMember(member.id, fromIndex, toIndex)
       }
       onRequestEvolution={() => team.actions.requestEvolutionForMember(member.id)}
+      onToggleLock={() => {
+        team.actions.updateMember(member.id, (current) => ({
+          ...current,
+          locked: !current.locked,
+        }));
+      }}
+      onAssignToCompare={() => {
+        compare.actions.updateMember(0, { ...member, id: crypto.randomUUID() });
+        router.push("/team/tools?tool=compare");
+      }}
       editorEvolutionEligibility={editorEvolutionEligibility}
       selectedMoveIndex={team.editorMoveSelection}
       onSelectMoveIndex={team.actions.setEditorMoveSelection}

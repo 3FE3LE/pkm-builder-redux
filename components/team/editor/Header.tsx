@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { ViewTransition, useState } from "react";
 import clsx from 'clsx';
 import {
   CircleArrowUp,
@@ -15,6 +15,7 @@ import { MiniPill, SpreadInput } from '@/components/team/UI';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { supportsPokemonGender } from '@/lib/teamAnalysis';
+import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
 
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
@@ -31,6 +32,7 @@ function LevelControls({
   evolutionBlockReason,
   updateEditorMember,
   onRequestEvolution,
+  transitionMemberId,
 }: {
   currentLevel: number;
   getIssue: IssueGetter;
@@ -38,6 +40,7 @@ function LevelControls({
   evolutionBlockReason?: string;
   updateEditorMember: Update;
   onRequestEvolution: () => void;
+  transitionMemberId?: string;
 }) {
   return (
     <>
@@ -120,6 +123,7 @@ export function Header({
   evolutionBlockReason,
   updateEditorMember,
   onRequestEvolution,
+  transitionMemberId,
 }: {
   member: EditableMember;
   resolved?: ResolvedTeamMember;
@@ -132,6 +136,7 @@ export function Header({
   evolutionBlockReason?: string;
   updateEditorMember: Update;
   onRequestEvolution: () => void;
+  transitionMemberId?: string;
 }) {
   const [nicknameEditable, setNicknameEditable] = useState(false);
   const supportsGender =
@@ -143,13 +148,25 @@ export function Header({
     <div className="px-4 py-4 sm:px-5 sm:py-5">
       <div className="flex items-start gap-3 sm:gap-4">
         <div className="flex shrink-0 flex-col items-center gap-2.5">
-          <PokemonSprite
-            species={resolved?.species ?? currentSpecies ?? "Pokemon"}
-            spriteUrl={resolved?.spriteUrl}
-            animatedSpriteUrl={resolved?.animatedSpriteUrl}
-            size="large"
-            chrome="plain"
-          />
+          {transitionMemberId ? (
+            <ViewTransition name={getTeamEditorTransitionName("sprite", transitionMemberId)}>
+              <PokemonSprite
+                species={resolved?.species ?? currentSpecies ?? "Pokemon"}
+                spriteUrl={resolved?.spriteUrl}
+                animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                size="large"
+                chrome="plain"
+              />
+            </ViewTransition>
+          ) : (
+            <PokemonSprite
+              species={resolved?.species ?? currentSpecies ?? "Pokemon"}
+              spriteUrl={resolved?.spriteUrl}
+              animatedSpriteUrl={resolved?.animatedSpriteUrl}
+              size="large"
+              chrome="plain"
+            />
+          )}
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -216,25 +233,38 @@ export function Header({
         </div>
         <div className="min-w-0 flex-1">
           <div className="relative max-w-md">
-            <Input
-              value={nicknameEditable ? member.nickname : nicknameDisplayValue}
-              readOnly={!nicknameEditable}
-              tabIndex={nicknameEditable ? 0 : -1}
-              onChange={(event) =>
-                updateEditorMember((current) => ({
-                  ...current,
-                  nickname: event.target.value,
-                }))
-              }
-              placeholder={nicknamePlaceholder}
-              maxLength={24}
-              className={clsx(
-                "display-face h-12 pr-11 text-xl",
-                nicknameEditable
-                  ? "border-line bg-surface-4"
-                  : "cursor-default border-transparent bg-transparent px-0 text-text shadow-none focus-visible:border-transparent focus-visible:bg-transparent focus-visible:ring-0",
-              )}
-            />
+            {transitionMemberId && !nicknameEditable ? (
+              <ViewTransition name={getTeamEditorTransitionName("title", transitionMemberId)}>
+                <Input
+                  value={nicknameDisplayValue}
+                  readOnly
+                  tabIndex={-1}
+                  placeholder={nicknamePlaceholder}
+                  maxLength={24}
+                  className="display-face h-12 cursor-default border-transparent bg-transparent px-0 pr-11 text-xl text-text shadow-none focus-visible:border-transparent focus-visible:bg-transparent focus-visible:ring-0"
+                />
+              </ViewTransition>
+            ) : (
+              <Input
+                value={nicknameEditable ? member.nickname : nicknameDisplayValue}
+                readOnly={!nicknameEditable}
+                tabIndex={nicknameEditable ? 0 : -1}
+                onChange={(event) =>
+                  updateEditorMember((current) => ({
+                    ...current,
+                    nickname: event.target.value,
+                  }))
+                }
+                placeholder={nicknamePlaceholder}
+                maxLength={24}
+                className={clsx(
+                  "display-face h-12 pr-11 text-xl",
+                  nicknameEditable
+                    ? "border-line bg-surface-4"
+                    : "cursor-default border-transparent bg-transparent px-0 text-text shadow-none focus-visible:border-transparent focus-visible:bg-transparent focus-visible:ring-0",
+                )}
+              />
+            )}
             <button
               type="button"
               onClick={() => setNicknameEditable((current) => !current)}
@@ -253,15 +283,29 @@ export function Header({
             {resolved?.species || currentSpecies || "Pokemon pendiente"}
           </p>
           <div className="mt-3 flex flex-wrap items-start justify-between gap-2">
-            <div className="flex flex-wrap gap-2">
-              {resolved?.resolvedTypes.length ? (
-                resolved.resolvedTypes.map((type) => (
-                  <TypeBadge key={`sheet-${type}`} type={type} />
-                ))
-              ) : (
-                <MiniPill>tipo pendiente</MiniPill>
-              )}
-            </div>
+            {transitionMemberId ? (
+              <ViewTransition name={getTeamEditorTransitionName("types", transitionMemberId)}>
+                <div className="flex flex-wrap gap-2">
+                  {resolved?.resolvedTypes.length ? (
+                    resolved.resolvedTypes.map((type) => (
+                      <TypeBadge key={`sheet-${type}`} type={type} />
+                    ))
+                  ) : (
+                    <MiniPill>tipo pendiente</MiniPill>
+                  )}
+                </div>
+              </ViewTransition>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {resolved?.resolvedTypes.length ? (
+                  resolved.resolvedTypes.map((type) => (
+                    <TypeBadge key={`sheet-${type}`} type={type} />
+                  ))
+                ) : (
+                  <MiniPill>tipo pendiente</MiniPill>
+                )}
+              </div>
+            )}
           </div>
           {resolved?.evolutionHints?.length ? (
             <div className="mt-3 space-y-1">

@@ -37,7 +37,6 @@ export function RosterSection({
   starterSpeciesLine,
   editorOpen,
   onSelectMember,
-  onEditMember,
   onToggleMemberLock,
   onRemoveMember,
   onReleaseMember,
@@ -59,7 +58,6 @@ export function RosterSection({
   starterSpeciesLine: string[];
   editorOpen: boolean;
   onSelectMember: (id: string) => void;
-  onEditMember: (id: string) => void;
   onToggleMemberLock: (id: string) => void;
   onRemoveMember: (id: string) => void;
   onReleaseMember: (id: string) => void;
@@ -163,7 +161,7 @@ export function RosterSection({
         onAddMember={onAddMember}
         onToggleDetails={() => setDetailsOpen((current) => !current)}
         onOpenReset={() => setResetOpen(true)}
-        onEditSelected={() => selectedMember && onEditMember(selectedMember.id)}
+        editSelectedHref={selectedMember ? `/team/pokemon/${selectedMember.id}` : undefined}
         onToggleLockSelected={() => selectedMember && onToggleMemberLock(selectedMember.id)}
         onAssignToCompareSelected={() => selectedMember && onAssignToCompare(selectedMember.id)}
         onOpenDelete={() => setDeleteOpen(true)}
@@ -215,7 +213,7 @@ export function RosterSection({
                 editorOpen={editorOpen}
                 onToggleDetails={() => setDetailsOpen((current) => !current)}
                 onOpenReset={() => setResetOpen(true)}
-                onEdit={() => onEditMember(selectedMember.id)}
+                editHref={`/team/pokemon/${selectedMember.id}`}
                 onToggleLock={() => onToggleMemberLock(selectedMember.id)}
                 onAssignToCompare={() => onAssignToCompare(selectedMember.id)}
                 onOpenDelete={() => setDeleteOpen(true)}

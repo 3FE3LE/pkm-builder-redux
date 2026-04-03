@@ -16,10 +16,8 @@ export const metadata: Metadata = {
 
 export default function TeamLayout({
   children,
-  editor,
 }: {
   children: React.ReactNode;
-  editor: React.ReactNode;
 }) {
   const data = getBuilderPageData();
 
@@ -27,7 +25,6 @@ export default function TeamLayout({
     <Suspense fallback={null}>
       <BuilderProvider {...data}>
         {children}
-        {editor}
       </BuilderProvider>
     </Suspense>
   );

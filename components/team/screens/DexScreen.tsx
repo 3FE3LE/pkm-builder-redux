@@ -1,8 +1,7 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { ViewTransition, useDeferredValue, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 import { useTeamCatalogs } from "@/components/BuilderProvider";
@@ -17,11 +16,9 @@ import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 const DEX_TABS = ["pokemon", "moves", "abilities", "items"] as const;
 type DexTab = (typeof DEX_TABS)[number];
 const RESULT_LIMIT = 80;
-let dexTransitionInFlight = false;
 
 export function DexScreen() {
   const catalogs = useTeamCatalogs();
-  const router = useRouter();
   const [tab, setTab] = useState<DexTab>("pokemon");
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
@@ -251,7 +248,6 @@ export function DexScreen() {
                         gifts={gifts}
                         trades={trades}
                         href={`/team/dex/pokemon/${pokemon.slug}`}
-                        onNavigate={(href) => navigateWithNativeViewTransition(router, href)}
                       />
                     );
                   })}
@@ -443,7 +439,7 @@ export function PokemonDexCard({
   gifts,
   trades,
   href,
-  onNavigate,
+  transitionTypes,
   expanded = false,
 }: {
   pokemon: {
@@ -485,151 +481,148 @@ export function PokemonDexCard({
   gifts: { location: string; level: string }[];
   trades: { location: string; requested: string }[];
   href?: string;
-  onNavigate?: (href: string) => void;
+  transitionTypes?: string[];
   expanded?: boolean;
 }) {
   const spriteShellStyle = getDexSpriteShellStyle(pokemon.types);
   const cardBody = (
-    <article
-      className={clsx(
-        "panel-strong panel-frame relative overflow-hidden rounded-[1rem] p-3 transition-[transform,border-color,background-color] duration-200",
-        href && "group hover:border-warning-line hover:bg-surface-2/90",
-        expanded && "p-5 sm:p-6",
-      )}
-      style={{ viewTransitionName: getDexTransitionName("card", pokemon.slug) }}
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,214,120,0.12),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(89,181,255,0.12),transparent_28%)]" />
-      <div className="relative">
-        <div className={clsx("flex items-start gap-4", expanded && "gap-5")}>
-          <div style={{ viewTransitionName: getDexTransitionName("sprite", pokemon.slug) }}>
-            <div
-              className={clsx(
-                "relative flex items-center justify-center overflow-hidden border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
-                expanded ? "h-36 w-36 rounded-[1rem]" : "h-14 w-14 rounded-[0.75rem]",
-              )}
-              style={spriteShellStyle}
-            >
-              <PokemonSprite
-                species={pokemon.name}
-                spriteUrl={pokemon.spriteUrl}
-                animatedSpriteUrl={pokemon.animatedSpriteUrl}
-                size={expanded ? "large" : "small"}
-                chrome="plain"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_38%,rgba(0,0,0,0.12))]" />
-            </div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="pixel-face text-xs text-text-faint">#{String(pokemon.dex).padStart(3, "0")}</span>
-              <h2
-                className={clsx("display-face text-sm text-text", expanded && "text-base")}
-                style={{ viewTransitionName: getDexTransitionName("title", pokemon.slug) }}
+    <ViewTransition name={getDexTransitionName("card", pokemon.slug)}>
+      <article
+        className={clsx(
+          "panel-strong panel-frame relative overflow-hidden rounded-[1rem] p-3 transition-[transform,border-color,background-color] duration-200",
+          href && "group hover:border-warning-line hover:bg-surface-2/90",
+          expanded && "p-5 sm:p-6",
+        )}
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,214,120,0.12),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(89,181,255,0.12),transparent_28%)]" />
+        <div className="relative">
+          <div className={clsx("flex items-start gap-4", expanded && "gap-5")}>
+            <ViewTransition name={getDexTransitionName("sprite", pokemon.slug)}>
+              <div
+                className={clsx(
+                  "relative flex items-center justify-center overflow-hidden border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+                  expanded ? "h-36 w-36 rounded-[1rem]" : "h-14 w-14 rounded-[0.75rem]",
+                )}
+                style={spriteShellStyle}
               >
-                {pokemon.name}
-              </h2>
-            </div>
-            <div
-              className="mt-2 flex flex-wrap gap-2"
-              style={{ viewTransitionName: getDexTransitionName("types", pokemon.slug) }}
-            >
-              {pokemon.types.map((type, index) => (
-                <TypeBadge key={`${pokemon.slug}-${type}-${index}`} type={type} />
-              ))}
-            </div>
-            {expanded ? (
-              <>
-                <div className="mt-3 grid grid-cols-3 gap-2">
-                  <StatChip label={`HP ${pokemon.stats?.hp ?? "-"}`} />
-                  <StatChip label={`Atk ${pokemon.stats?.atk ?? "-"}`} />
-                  <StatChip label={`Def ${pokemon.stats?.def ?? "-"}`} />
-                  <StatChip label={`SpA ${pokemon.stats?.spa ?? "-"}`} />
-                  <StatChip label={`SpD ${pokemon.stats?.spd ?? "-"}`} />
-                  <StatChip label={`Spe ${pokemon.stats?.spe ?? "-"}`} />
-                </div>
-                <div className="mt-2">
-                  <StatChip label={`BST ${pokemon.stats?.bst ?? "-"}`} />
-                </div>
-              </>
-            ) : null}
-          </div>
-        </div>
-
-        {expanded ? (
-          <div className={clsx("mt-4 grid gap-3 lg:grid-cols-2", expanded && "xl:grid-cols-2")}>
-            <InfoBlock label="Habilidades">
-              {pokemon.abilities.length ? (
-                <div className="space-y-2">
-                  {pokemon.abilities.map((ability, index) => (
-                    <div key={`${pokemon.slug}-${ability}-${index}`} className="rounded-[0.8rem] border border-line-soft bg-surface-3 px-3 py-2">
-                      <p className="display-face text-[11px] text-text">{ability}</p>
-                      <p className="mt-1 text-xs leading-5 text-muted">
-                        {abilityEffects.get(normalizeName(ability)) ?? "Sin efecto registrado."}
-                      </p>
-                    </div>
+                <PokemonSprite
+                  species={pokemon.name}
+                  spriteUrl={pokemon.spriteUrl}
+                  animatedSpriteUrl={pokemon.animatedSpriteUrl}
+                  size={expanded ? "large" : "small"}
+                  chrome="plain"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_38%,rgba(0,0,0,0.12))]" />
+              </div>
+            </ViewTransition>
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="pixel-face text-xs text-text-faint">#{String(pokemon.dex).padStart(3, "0")}</span>
+                <ViewTransition name={getDexTransitionName("title", pokemon.slug)}>
+                  <h2 className={clsx("display-face text-sm text-text", expanded && "text-base")}>{pokemon.name}</h2>
+                </ViewTransition>
+              </div>
+              <ViewTransition name={getDexTransitionName("types", pokemon.slug)}>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {pokemon.types.map((type, index) => (
+                    <TypeBadge key={`${pokemon.slug}-${type}-${index}`} type={type} />
                   ))}
                 </div>
-              ) : (
-                <p className="text-sm text-muted">Sin habilidades registradas.</p>
-              )}
-            </InfoBlock>
+              </ViewTransition>
+              {expanded ? (
+                <>
+                  <div className="mt-3 grid grid-cols-3 gap-2">
+                    <StatChip label={`HP ${pokemon.stats?.hp ?? "-"}`} />
+                    <StatChip label={`Atk ${pokemon.stats?.atk ?? "-"}`} />
+                    <StatChip label={`Def ${pokemon.stats?.def ?? "-"}`} />
+                    <StatChip label={`SpA ${pokemon.stats?.spa ?? "-"}`} />
+                    <StatChip label={`SpD ${pokemon.stats?.spd ?? "-"}`} />
+                    <StatChip label={`Spe ${pokemon.stats?.spe ?? "-"}`} />
+                  </div>
+                  <div className="mt-2">
+                    <StatChip label={`BST ${pokemon.stats?.bst ?? "-"}`} />
+                  </div>
+                </>
+              ) : null}
+            </div>
+          </div>
 
-            <InfoBlock label="Evolucion">
-              {pokemon.nextEvolutions.length ? (
-                <div className="space-y-2">
-                  {pokemon.nextEvolutions.map((evolution, index) => {
-                    const detail = pokemon.evolutionDetails.find((entry) => normalizeName(entry.target) === normalizeName(evolution));
-
-                    return (
-                      <div key={`${pokemon.slug}-${evolution}-${index}`} className="rounded-[0.8rem] border border-line-soft bg-surface-3 px-3 py-2">
-                        <p className="display-face text-[11px] text-text">{evolution}</p>
+          {expanded ? (
+            <div className={clsx("mt-4 grid gap-3 lg:grid-cols-2", expanded && "xl:grid-cols-2")}>
+              <InfoBlock label="Habilidades">
+                {pokemon.abilities.length ? (
+                  <div className="space-y-2">
+                    {pokemon.abilities.map((ability, index) => (
+                      <div key={`${pokemon.slug}-${ability}-${index}`} className="rounded-[0.8rem] border border-line-soft bg-surface-3 px-3 py-2">
+                        <p className="display-face text-[11px] text-text">{ability}</p>
                         <p className="mt-1 text-xs leading-5 text-muted">
-                          {summarizeEvolution(detail)}
+                          {abilityEffects.get(normalizeName(ability)) ?? "Sin efecto registrado."}
                         </p>
                       </div>
-                    );
-                  })}
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted">Sin habilidades registradas.</p>
+                )}
+              </InfoBlock>
+
+              <InfoBlock label="Evolucion">
+                {pokemon.nextEvolutions.length ? (
+                  <div className="space-y-2">
+                    {pokemon.nextEvolutions.map((evolution, index) => {
+                      const detail = pokemon.evolutionDetails.find((entry) => normalizeName(entry.target) === normalizeName(evolution));
+
+                      return (
+                        <div key={`${pokemon.slug}-${evolution}-${index}`} className="rounded-[0.8rem] border border-line-soft bg-surface-3 px-3 py-2">
+                          <p className="display-face text-[11px] text-text">{evolution}</p>
+                          <p className="mt-1 text-xs leading-5 text-muted">
+                            {summarizeEvolution(detail)}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted">Sin evolucion posterior registrada.</p>
+                )}
+              </InfoBlock>
+
+              <InfoBlock label="Learnset">
+                <div className="space-y-2">
+                  <LearnsetStrip
+                    label="Level up"
+                    values={(pokemon.learnsets?.levelUp ?? []).slice(0, 6).map((entry) => `Lv ${entry.level} · ${entry.move}`)}
+                    overflow={(pokemon.learnsets?.levelUp?.length ?? 0) - 6}
+                  />
+                  <LearnsetStrip
+                    label="Machines"
+                    values={(pokemon.learnsets?.machines ?? []).slice(0, 6).map((entry) => `${entry.source} · ${entry.move}`)}
+                    overflow={(pokemon.learnsets?.machines?.length ?? 0) - 6}
+                  />
                 </div>
-              ) : (
-                <p className="text-sm text-muted">Sin evolucion posterior registrada.</p>
-              )}
-            </InfoBlock>
+              </InfoBlock>
 
-            <InfoBlock label="Learnset">
-              <div className="space-y-2">
-                <LearnsetStrip
-                  label="Level up"
-                  values={(pokemon.learnsets?.levelUp ?? []).slice(0, 6).map((entry) => `Lv ${entry.level} · ${entry.move}`)}
-                  overflow={(pokemon.learnsets?.levelUp?.length ?? 0) - 6}
-                />
-                <LearnsetStrip
-                  label="Machines"
-                  values={(pokemon.learnsets?.machines ?? []).slice(0, 6).map((entry) => `${entry.source} · ${entry.move}`)}
-                  overflow={(pokemon.learnsets?.machines?.length ?? 0) - 6}
-                />
-              </div>
-            </InfoBlock>
-
-            <InfoBlock label="Obtencion en Redux">
-              <div className="space-y-2">
-                <AcquisitionList
-                  title="Wild"
-                  values={wildEncounters.map((entry) => `${entry.area} · ${entry.method}`)}
-                />
-                <AcquisitionList
-                  title="Gift"
-                  values={gifts.map((entry) => `${entry.location} · Lv ${entry.level}`)}
-                />
-                <AcquisitionList
-                  title="Trade"
-                  values={trades.map((entry) => `${entry.location} · por ${entry.requested}`)}
-                />
-              </div>
-            </InfoBlock>
-          </div>
-        ) : null}
-      </div>
-    </article>
+              <InfoBlock label="Obtencion en Redux">
+                <div className="space-y-2">
+                  <AcquisitionList
+                    title="Wild"
+                    values={wildEncounters.map((entry) => `${entry.area} · ${entry.method}`)}
+                  />
+                  <AcquisitionList
+                    title="Gift"
+                    values={gifts.map((entry) => `${entry.location} · Lv ${entry.level}`)}
+                  />
+                  <AcquisitionList
+                    title="Trade"
+                    values={trades.map((entry) => `${entry.location} · por ${entry.requested}`)}
+                  />
+                </div>
+              </InfoBlock>
+            </div>
+          ) : null}
+        </div>
+      </article>
+    </ViewTransition>
   );
 
   if (!href) {
@@ -639,11 +632,8 @@ export function PokemonDexCard({
   return (
     <Link
       href={href}
+      transitionTypes={transitionTypes ?? ["dex-forward"]}
       className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-line"
-      onClick={(event) => {
-        event.preventDefault();
-        onNavigate?.(href);
-      }}
     >
       {cardBody}
     </Link>
@@ -806,43 +796,6 @@ function getDexTransitionName(part: string, slug: string) {
 
 function dedupeStrings(values: string[]) {
   return Array.from(new Set(values.filter(Boolean)));
-}
-
-function navigateWithNativeViewTransition(
-  router: ReturnType<typeof useRouter>,
-  href: string,
-) {
-  const supportsViewTransition =
-    typeof document !== "undefined" &&
-    typeof (document as Document & {
-      startViewTransition?: (callback: () => void) => { finished?: Promise<void> };
-    }).startViewTransition === "function";
-
-  if (!supportsViewTransition) {
-    router.push(href);
-    return;
-  }
-
-  if (dexTransitionInFlight) {
-    return;
-  }
-
-  const transitionDocument = document as Document & {
-    startViewTransition: (callback: () => void) => { finished?: Promise<void> };
-  };
-
-  try {
-    dexTransitionInFlight = true;
-    const transition = transitionDocument.startViewTransition(() => {
-      router.push(href);
-    });
-    void transition.finished?.finally(() => {
-      dexTransitionInFlight = false;
-    });
-  } catch {
-    dexTransitionInFlight = false;
-    router.push(href);
-  }
 }
 
 function getDexSpriteShellStyle(types: string[]) {

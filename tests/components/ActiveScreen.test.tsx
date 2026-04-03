@@ -163,9 +163,6 @@ vi.mock("@/components/team/workspace/RosterSection", () => ({
       <button type="button" onClick={() => props.onSelectMember("member-1")}>
         roster-select
       </button>
-      <button type="button" onClick={() => props.onEditMember("member-1")}>
-        roster-edit
-      </button>
       <button type="button" onClick={() => props.onToggleMemberLock("member-1")}>
         roster-toggle-lock
       </button>
@@ -501,12 +498,6 @@ describe("WorkspaceScreen", () => {
     await user.click(screen.getByRole("button", { name: "roster-select" }));
     expect(mocked.selectMember).toHaveBeenCalledWith("member-1");
 
-    await user.click(screen.getByRole("button", { name: "roster-edit" }));
-    expect(mocked.editMember).toHaveBeenCalledWith("member-1");
-    expect(mocked.routerPush).toHaveBeenCalledWith(
-      expect.stringMatching(/^\/team\/pokemon\/member-1\?foo=bar&editorNonce=\d+$/),
-    );
-
     await user.click(screen.getByRole("button", { name: "roster-toggle-lock" }));
     expect(mocked.updateMember).toHaveBeenCalledWith(
       "member-1",
@@ -527,9 +518,7 @@ describe("WorkspaceScreen", () => {
     expect(mocked.addPreparedMember).toHaveBeenCalledWith(
       expect.objectContaining({ species: "Snivy" }),
     );
-    expect(mocked.routerPush).toHaveBeenCalledWith(
-      expect.stringMatching(/^\/team\/pokemon\/created-snivy\?foo=bar&editorNonce=\d+$/),
-    );
+    expect(mocked.routerPush).toHaveBeenCalledWith("/team/pokemon/created-snivy");
 
     await user.click(screen.getByRole("button", { name: "pick-library-member" }));
     expect(mocked.addLibraryMemberToComposition).toHaveBeenCalledWith("pc-1");
@@ -574,7 +563,7 @@ describe("WorkspaceScreen", () => {
     );
 
     await user.click(screen.getByRole("button", { name: "open-pc-editor" }));
-    expect(mocked.editMember).toHaveBeenCalledWith("pc-1");
+    expect(mocked.routerPush).toHaveBeenCalledWith("/team/pokemon/pc-1");
 
     await user.click(screen.getByRole("button", { name: "assign-pc-composition" }));
     expect(mocked.addLibraryMemberToComposition).toHaveBeenCalledWith("pc-1", "comp-2");
@@ -589,7 +578,7 @@ describe("WorkspaceScreen", () => {
     expect(mocked.evolutionConfirm).toHaveBeenCalled();
   });
 
-  it("renders copilot workspace and editor-open state from the route", async () => {
+  it("renders copilot workspace and keeps editor-open false in the routed page model", async () => {
     const user = userEvent.setup();
     mocked.workspaceTab = "copilot";
     mocked.pathname = "/team/pokemon/member-1";
@@ -597,7 +586,7 @@ describe("WorkspaceScreen", () => {
 
     render(<WorkspaceScreen />);
 
-    expect(screen.getByText("editor-open-true")).toBeTruthy();
+    expect(screen.getByText("editor-open-false")).toBeTruthy();
     expect(screen.getByText("copilot-team-size-1")).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "copilot-toggle-encounter" }));
@@ -606,7 +595,7 @@ describe("WorkspaceScreen", () => {
     await user.click(screen.getByRole("button", { name: "roster-close-editor" }));
     expect(mocked.closeEditor).toHaveBeenCalled();
     expect(mocked.clearSelection).toHaveBeenCalled();
-    expect(mocked.routerReplace).toHaveBeenCalledWith("/team?foo=bar");
+    expect(mocked.routerReplace).not.toHaveBeenCalled();
 
     await user.click(screen.getByRole("button", { name: "copilot-send-ivcalc" }));
     expect(mocked.routerPush).toHaveBeenCalledWith("/team/tools?tool=ivcalc&species=Mareep");

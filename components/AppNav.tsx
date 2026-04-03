@@ -9,12 +9,17 @@ import { BookOpenText, Settings2, ShieldCheck, Wrench } from "lucide-react";
 
 export function AppNav() {
   const pathname = usePathname();
+  const hideNav = pathname.startsWith("/team/pokemon/");
   const settingsActive = pathname === "/team/settings";
   const toolsActive = pathname === "/team/tools";
   const dexActive = pathname === "/team/dex" || pathname.startsWith("/team/dex/");
   const teamActive =
     pathname === "/team" ||
     pathname.startsWith("/team/pokemon/");
+
+  if (hideNav) {
+    return null;
+  }
 
   return (
     <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 border-t border-line-soft bg-[var(--dock-surface-bg)] px-3 pb-[max(env(safe-area-inset-bottom),0px)] backdrop-blur-[16px] lg:sticky lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b lg:border-line-soft lg:bg-[var(--dock-surface-bg)] lg:px-0 lg:pb-0">
@@ -29,6 +34,7 @@ export function AppNav() {
             alt="Snivy"
             width={32}
             height={32}
+            loading="eager"
             className="h-8 w-8 object-contain pixelated transition duration-200 group-hover:scale-[1.06]"
             unoptimized={false}
           />
@@ -44,6 +50,7 @@ export function AppNav() {
               alt="Snivy"
               width={28}
               height={28}
+              loading="eager"
               className="h-7 w-7 object-contain pixelated"
               unoptimized={false}
             />

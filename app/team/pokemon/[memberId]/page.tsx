@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { EditorRoute } from "@/components/team/editor/Route";
-import { WorkspaceRoute } from "@/components/team/screens/WorkspaceRoute";
+import { EditorPageRoute } from "@/components/team/editor/PageRoute";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -18,20 +17,13 @@ export const metadata: Metadata = {
 };
 
 export default async function TeamPokemonPage({
-  params,
+  params: _params,
 }: {
   params: Promise<{ memberId: string }>;
 }) {
-  const { memberId } = await params;
-
   return (
-    <>
-      <Suspense fallback={null}>
-        <WorkspaceRoute />
-      </Suspense>
-      <Suspense fallback={null}>
-        <EditorRoute key={`team-editor-page-${memberId}`} memberId={memberId} closeMode="replace" />
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <EditorPageRoute />
+    </Suspense>
   );
 }

@@ -153,16 +153,10 @@ describe("SortableMemberCard", () => {
     );
 
     expect(screen.getByText("Aura")).toBeTruthy();
-    expect(screen.getByText("Lucario")).toBeTruthy();
     expect(screen.getAllByText("Fighting").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Steel").length).toBeGreaterThan(0);
-    expect(screen.getByText("Inner Focus")).toBeTruthy();
-    expect(screen.getByText("Jolly")).toBeTruthy();
-    expect(screen.getByText("Leftovers")).toBeTruthy();
-    expect(screen.getByText("525")).toBeTruthy();
-    expect(screen.getAllByText("item-Leftovers-/leftovers.png").length).toBe(2);
+    expect(screen.getAllByText("item-Leftovers-/leftovers.png").length).toBe(1);
     expect(screen.getByText("sprite-Lucario-/lucario.png-default-idle")).toBeTruthy();
-    expect(screen.getByText("sprite-Lucario-/lucario.png-large-idle")).toBeTruthy();
 
     await user.click(screen.getByText("Aura").closest("article") as HTMLElement);
     expect(onSelect).toHaveBeenCalled();
@@ -207,11 +201,8 @@ describe("SortableMemberCard", () => {
     );
 
     expect(screen.getByText("Pokemon pendiente")).toBeTruthy();
-    expect(screen.getAllByText("tipo pendiente").length).toBe(2);
-    expect(screen.getAllByText("-").length).toBe(3);
-    expect(screen.getByText("Item")).toBeTruthy();
+    expect(screen.getAllByText("tipo pendiente").length).toBe(1);
     expect(screen.getByText("sprite--/lucario.png-default-evo")).toBeTruthy();
-    expect(screen.getByText("sprite--/lucario.png-large-evo")).toBeTruthy();
     expect(container.querySelector(".drag-surface")).toBeTruthy();
     expect((container.querySelector("article") as HTMLElement).style.transform).toContain("translate3d");
     expect(container.querySelector('.pointer-events-none.absolute.inset-0')).toBeTruthy();
@@ -250,10 +241,7 @@ describe("SortableMemberCard", () => {
 
     expect(screen.getByText("Mareep")).toBeTruthy();
     expect(screen.queryByText("Lucario")).toBeNull();
-    expect(screen.getByText("Static")).toBeTruthy();
-    expect(screen.getByText("Serious")).toBeTruthy();
-    expect(screen.getByText("365")).toBeTruthy();
-    expect(screen.getAllByText("Electric").length).toBe(2);
+    expect(screen.getAllByText("Electric").length).toBe(1);
   });
 
   it("falls back to slot labels and handles nullish member fields without resolved data", () => {
@@ -279,10 +267,7 @@ describe("SortableMemberCard", () => {
 
     expect(screen.getByText("Pokemon pendiente")).toBeTruthy();
     expect(screen.getByText("sprite-Slot 4-none-default-idle")).toBeTruthy();
-    expect(screen.getByText("sprite-Slot 4-none-large-idle")).toBeTruthy();
-    expect(screen.getAllByText("tipo pendiente").length).toBe(2);
-    expect(screen.getAllByText("-").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByText("Item")).toBeTruthy();
+    expect(screen.getAllByText("tipo pendiente").length).toBe(1);
   });
 
   it("renders animated weather layers for sun, sand and hail when motion is enabled", () => {
