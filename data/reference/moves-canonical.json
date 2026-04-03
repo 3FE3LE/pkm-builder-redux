@@ -299,6 +299,16 @@
     "damageClass": "physical",
     "description": "Inflicts double damage if the user takes damage before attacking this turn."
   },
+  "barrage": {
+    "slug": "barrage",
+    "name": "Barrage",
+    "type": "Normal",
+    "power": 15,
+    "accuracy": 85,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "Hits 2-5 times in one turn."
+  },
   "barrier": {
     "slug": "barrier",
     "name": "Barrier",
@@ -549,6 +559,16 @@
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
+  "bubble": {
+    "slug": "bubble",
+    "name": "Bubble",
+    "type": "Water",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30,
+    "damageClass": "special",
+    "description": "Has a 10% chance to lower the target’s Speed by one stage."
+  },
   "bubble-beam": {
     "slug": "bubble-beam",
     "name": "Bubble Beam",
@@ -709,6 +729,16 @@
     "damageClass": "physical",
     "description": "Ends wild battles.  Forces trainers to switch Pokémon."
   },
+  "clamp": {
+    "slug": "clamp",
+    "name": "Clamp",
+    "type": "Water",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15,
+    "damageClass": "physical",
+    "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
+  },
   "clear-smog": {
     "slug": "clear-smog",
     "name": "Clear Smog",
@@ -739,6 +769,16 @@
     "damageClass": "status",
     "description": "Raises the user’s Attack, Defense, and accuracy by one stage each."
   },
+  "comet-punch": {
+    "slug": "comet-punch",
+    "name": "Comet Punch",
+    "type": "Normal",
+    "power": 18,
+    "accuracy": 85,
+    "pp": 15,
+    "damageClass": "physical",
+    "description": "Hits 2-5 times in one turn."
+  },
   "confuse-ray": {
     "slug": "confuse-ray",
     "name": "Confuse Ray",
@@ -758,6 +798,16 @@
     "pp": 25,
     "damageClass": "special",
     "description": "Has a 10% chance to confuse the target."
+  },
+  "constrict": {
+    "slug": "constrict",
+    "name": "Constrict",
+    "type": "Normal",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 35,
+    "damageClass": "physical",
+    "description": "Has a 10% chance to lower the target’s Speed by one stage."
   },
   "conversion": {
     "slug": "conversion",
@@ -1309,6 +1359,16 @@
     "damageClass": "special",
     "description": "Power increases by 100% for each consecutive use by any friendly Pokémon, to a maximum of 200."
   },
+  "egg-bomb": {
+    "slug": "egg-bomb",
+    "name": "Egg Bomb",
+    "type": "Normal",
+    "power": 100,
+    "accuracy": 75,
+    "pp": 10,
+    "damageClass": "physical",
+    "description": "Inflicts regular damage with no additional effect."
+  },
   "electro-ball": {
     "slug": "electro-ball",
     "name": "Electro Ball",
@@ -1789,6 +1849,16 @@
     "damageClass": "physical",
     "description": "Calculates damage with the target’s attacking stat."
   },
+  "frenzy-plant": {
+    "slug": "frenzy-plant",
+    "name": "Frenzy Plant",
+    "type": "Grass",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5,
+    "damageClass": "special",
+    "description": "User foregoes its next turn to recharge."
+  },
   "frost-breath": {
     "slug": "frost-breath",
     "name": "Frost Breath",
@@ -1798,6 +1868,16 @@
     "pp": 10,
     "damageClass": "special",
     "description": "Always scores a critical hit."
+  },
+  "frustration": {
+    "slug": "frustration",
+    "name": "Frustration",
+    "type": "Normal",
+    "power": null,
+    "accuracy": 100,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "Power increases as happiness decreases, up to a maximum of 102."
   },
   "fury-attack": {
     "slug": "fury-attack",
@@ -2299,6 +2379,16 @@
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
+  "horn-drill": {
+    "slug": "horn-drill",
+    "name": "Horn Drill",
+    "type": "Normal",
+    "power": null,
+    "accuracy": 30,
+    "pp": 5,
+    "damageClass": "physical",
+    "description": "Causes a one-hit KO."
+  },
   "horn-leech": {
     "slug": "horn-leech",
     "name": "Horn Leech",
@@ -2388,6 +2478,16 @@
     "pp": 20,
     "damageClass": "status",
     "description": "Puts the target to sleep."
+  },
+  "ice-ball": {
+    "slug": "ice-ball",
+    "name": "Ice Ball",
+    "type": "Ice",
+    "power": 30,
+    "accuracy": 90,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "Power doubles every turn this move is used in succession after the first, resetting after five turns."
   },
   "ice-beam": {
     "slug": "ice-beam",
@@ -2759,6 +2859,16 @@
     "damageClass": "physical",
     "description": "Lowers the target’s Attack by one stage after inflicting damage."
   },
+  "luster-purge": {
+    "slug": "luster-purge",
+    "name": "Luster Purge",
+    "type": "Psychic",
+    "power": 95,
+    "accuracy": 100,
+    "pp": 5,
+    "damageClass": "special",
+    "description": "Has a 50% chance to lower the target’s Special Defense by one stage."
+  },
   "mach-punch": {
     "slug": "mach-punch",
     "name": "Mach Punch",
@@ -2879,6 +2989,26 @@
     "damageClass": "special",
     "description": "Drains half the damage inflicted to heal the user."
   },
+  "mega-kick": {
+    "slug": "mega-kick",
+    "name": "Mega Kick",
+    "type": "Normal",
+    "power": 120,
+    "accuracy": 75,
+    "pp": 5,
+    "damageClass": "physical",
+    "description": "Inflicts regular damage with no additional effect."
+  },
+  "mega-punch": {
+    "slug": "mega-punch",
+    "name": "Mega Punch",
+    "type": "Normal",
+    "power": 80,
+    "accuracy": 85,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "Inflicts regular damage with no additional effect."
+  },
   "megahorn": {
     "slug": "megahorn",
     "name": "Megahorn",
@@ -2918,6 +3048,16 @@
     "pp": 35,
     "damageClass": "physical",
     "description": "Has a 10% chance to raise the user’s Attack by one stage."
+  },
+  "metal-sound": {
+    "slug": "metal-sound",
+    "name": "Metal Sound",
+    "type": "Steel",
+    "power": null,
+    "accuracy": 85,
+    "pp": 40,
+    "damageClass": "status",
+    "description": "Lowers the target’s Special Defense by two stages."
   },
   "meteor-mash": {
     "slug": "meteor-mash",
@@ -3029,6 +3169,16 @@
     "damageClass": "status",
     "description": "Protects the user’s stats from being changed by enemy moves."
   },
+  "mist-ball": {
+    "slug": "mist-ball",
+    "name": "Mist Ball",
+    "type": "Psychic",
+    "power": 95,
+    "accuracy": 100,
+    "pp": 5,
+    "damageClass": "special",
+    "description": "Has a 50% chance to lower the target’s Special Attack by one stage."
+  },
   "moonblast": {
     "slug": "moonblast",
     "name": "Moonblast",
@@ -3088,6 +3238,16 @@
     "pp": 10,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s accuracy by one stage."
+  },
+  "mud-sport": {
+    "slug": "mud-sport",
+    "name": "Mud Sport",
+    "type": "Ground",
+    "power": null,
+    "accuracy": null,
+    "pp": 15,
+    "damageClass": "status",
+    "description": "Halves all Electric-type damage."
   },
   "muddy-water": {
     "slug": "muddy-water",
@@ -3579,6 +3739,16 @@
     "damageClass": "physical",
     "description": ""
   },
+  "psyshock": {
+    "slug": "psyshock",
+    "name": "Psyshock",
+    "type": "Psychic",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "damageClass": "special",
+    "description": "Inflicts damage based on the target’s Defense, not Special Defense."
+  },
   "psystrike": {
     "slug": "psystrike",
     "name": "Psystrike",
@@ -3598,6 +3768,16 @@
     "pp": 15,
     "damageClass": "special",
     "description": "Inflicts damage between 50% and 150% of the user’s level."
+  },
+  "punishment": {
+    "slug": "punishment",
+    "name": "Punishment",
+    "type": "Dark",
+    "power": null,
+    "accuracy": 100,
+    "pp": 5,
+    "damageClass": "physical",
+    "description": "Power increases against targets with more raised stats, up to a maximum of 200."
   },
   "pursuit": {
     "slug": "pursuit",
@@ -3719,6 +3899,16 @@
     "damageClass": "physical",
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
+  "razor-wind": {
+    "slug": "razor-wind",
+    "name": "Razor Wind",
+    "type": "Normal",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "damageClass": "special",
+    "description": "Requires a turn to charge before attacking."
+  },
   "recover": {
     "slug": "recover",
     "name": "Recover",
@@ -3798,6 +3988,16 @@
     "pp": 5,
     "damageClass": "physical",
     "description": "Has double power if a friendly Pokémon fainted last turn."
+  },
+  "return": {
+    "slug": "return",
+    "name": "Return",
+    "type": "Normal",
+    "power": null,
+    "accuracy": 100,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "Power increases with happiness, up to a maximum of 102."
   },
   "revenge": {
     "slug": "revenge",
@@ -3929,6 +4129,16 @@
     "damageClass": "status",
     "description": "Copies the target’s ability."
   },
+  "rolling-kick": {
+    "slug": "rolling-kick",
+    "name": "Rolling Kick",
+    "type": "Fighting",
+    "power": 60,
+    "accuracy": 85,
+    "pp": 15,
+    "damageClass": "physical",
+    "description": "Has a 30% chance to make the target flinch."
+  },
   "rollout": {
     "slug": "rollout",
     "name": "Rollout",
@@ -3948,6 +4158,26 @@
     "pp": 5,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
+  },
+  "round": {
+    "slug": "round",
+    "name": "Round",
+    "type": "Normal",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15,
+    "damageClass": "special",
+    "description": "Has double power if it’s used more than once per turn."
+  },
+  "sacred-fire": {
+    "slug": "sacred-fire",
+    "name": "Sacred Fire",
+    "type": "Fire",
+    "power": 100,
+    "accuracy": 95,
+    "pp": 5,
+    "damageClass": "physical",
+    "description": "Has a 50% chance to burn the target.  Lets frozen Pokémon thaw themselves."
   },
   "sacred-sword": {
     "slug": "sacred-sword",
@@ -3978,6 +4208,16 @@
     "pp": 15,
     "damageClass": "status",
     "description": "Lowers the target’s accuracy by one stage."
+  },
+  "sand-tomb": {
+    "slug": "sand-tomb",
+    "name": "Sand Tomb",
+    "type": "Ground",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15,
+    "damageClass": "physical",
+    "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
   "sandstorm": {
     "slug": "sandstorm",
@@ -4079,6 +4319,16 @@
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
+  "seed-flare": {
+    "slug": "seed-flare",
+    "name": "Seed Flare",
+    "type": "Grass",
+    "power": 120,
+    "accuracy": 85,
+    "pp": 5,
+    "damageClass": "special",
+    "description": "Has a 40% chance to lower the target’s Special Defense by two stages."
+  },
   "seismic-toss": {
     "slug": "seismic-toss",
     "name": "Seismic Toss",
@@ -4148,6 +4398,16 @@
     "pp": 30,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
+  },
+  "sharpen": {
+    "slug": "sharpen",
+    "name": "Sharpen",
+    "type": "Normal",
+    "power": null,
+    "accuracy": null,
+    "pp": 30,
+    "damageClass": "status",
+    "description": "Raises the user’s Attack by one stage."
   },
   "sheer-cold": {
     "slug": "sheer-cold",
@@ -4269,6 +4529,16 @@
     "damageClass": "physical",
     "description": "User charges for one turn before attacking.  Has a 30% chance to make the target flinch."
   },
+  "sky-drop": {
+    "slug": "sky-drop",
+    "name": "Sky Drop",
+    "type": "Flying",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 10,
+    "damageClass": "physical",
+    "description": "Carries the target high into the air, dodging all attacks against either, and drops it next turn."
+  },
   "sky-uppercut": {
     "slug": "sky-uppercut",
     "name": "Sky Uppercut",
@@ -4289,6 +4559,16 @@
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
+  "slam": {
+    "slug": "slam",
+    "name": "Slam",
+    "type": "Normal",
+    "power": 80,
+    "accuracy": 75,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "Inflicts regular damage with no additional effect."
+  },
   "slash": {
     "slug": "slash",
     "name": "Slash",
@@ -4308,6 +4588,16 @@
     "pp": 15,
     "damageClass": "status",
     "description": "Puts the target to sleep."
+  },
+  "sleep-talk": {
+    "slug": "sleep-talk",
+    "name": "Sleep Talk",
+    "type": "Normal",
+    "power": null,
+    "accuracy": null,
+    "pp": 10,
+    "damageClass": "status",
+    "description": "Randomly uses one of the user’s other three moves.  Only works if the user is sleeping."
   },
   "sludge": {
     "slug": "sludge",
@@ -4359,6 +4649,16 @@
     "damageClass": "physical",
     "description": "Never misses."
   },
+  "smelling-salts": {
+    "slug": "smelling-salts",
+    "name": "Smelling Salts",
+    "type": "Normal",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 10,
+    "damageClass": "physical",
+    "description": "If the target is paralyzed, inflicts double damage and cures the paralysis."
+  },
   "smog": {
     "slug": "smog",
     "name": "Smog",
@@ -4398,6 +4698,16 @@
     "pp": 10,
     "damageClass": "status",
     "description": "Steals the target’s move, if it’s self-targeted."
+  },
+  "snore": {
+    "slug": "snore",
+    "name": "Snore",
+    "type": "Normal",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 15,
+    "damageClass": "special",
+    "description": "Has a 30% chance to make the target flinch.  Only works if the user is sleeping."
   },
   "soak": {
     "slug": "soak",
@@ -4468,6 +4778,16 @@
     "pp": 10,
     "damageClass": "status",
     "description": "Prevents the target from leaving battle."
+  },
+  "spike-cannon": {
+    "slug": "spike-cannon",
+    "name": "Spike Cannon",
+    "type": "Normal",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 15,
+    "damageClass": "physical",
+    "description": "Hits 2-5 times in one turn."
   },
   "spikes": {
     "slug": "spikes",
@@ -4639,6 +4959,16 @@
     "damageClass": "status",
     "description": "Paralyzes the target."
   },
+  "submission": {
+    "slug": "submission",
+    "name": "Submission",
+    "type": "Fighting",
+    "power": 80,
+    "accuracy": 80,
+    "pp": 20,
+    "damageClass": "physical",
+    "description": "User receives 1/4 the damage it inflicts in recoil."
+  },
   "substitute": {
     "slug": "substitute",
     "name": "Substitute",
@@ -4728,6 +5058,16 @@
     "pp": 10,
     "damageClass": "status",
     "description": "Recovers 1/4 HP after one Stockpile, 1/2 HP after two Stockpiles, or full HP after three Stockpiles."
+  },
+  "sweet-kiss": {
+    "slug": "sweet-kiss",
+    "name": "Sweet Kiss",
+    "type": "Fairy",
+    "power": null,
+    "accuracy": 75,
+    "pp": 10,
+    "damageClass": "status",
+    "description": "Confuses the target."
   },
   "sweet-scent": {
     "slug": "sweet-scent",
@@ -4899,6 +5239,26 @@
     "damageClass": "status",
     "description": "Immediately ends wild battles.  No effect otherwise."
   },
+  "thief": {
+    "slug": "thief",
+    "name": "Thief",
+    "type": "Dark",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25,
+    "damageClass": "physical",
+    "description": "Takes the target’s item."
+  },
+  "thrash": {
+    "slug": "thrash",
+    "name": "Thrash",
+    "type": "Normal",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10,
+    "damageClass": "physical",
+    "description": "Hits every turn for 2-3 turns, then confuses the user."
+  },
   "thunder": {
     "slug": "thunder",
     "name": "Thunder",
@@ -5049,6 +5409,16 @@
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
+  "triple-kick": {
+    "slug": "triple-kick",
+    "name": "Triple Kick",
+    "type": "Fighting",
+    "power": 10,
+    "accuracy": 90,
+    "pp": 10,
+    "damageClass": "physical",
+    "description": "Hits three times, increasing power by 100% with each successful hit."
+  },
   "trump-card": {
     "slug": "trump-card",
     "name": "Trump Card",
@@ -5129,6 +5499,16 @@
     "damageClass": "special",
     "description": "Inflicts double damage if the target is Poisoned."
   },
+  "vice-grip": {
+    "slug": "vice-grip",
+    "name": "Vice Grip",
+    "type": "Normal",
+    "power": 55,
+    "accuracy": 100,
+    "pp": 30,
+    "damageClass": "physical",
+    "description": "Inflicts regular damage with no additional effect."
+  },
   "vine-whip": {
     "slug": "vine-whip",
     "name": "Vine Whip",
@@ -5208,6 +5588,16 @@
     "pp": 20,
     "damageClass": "special",
     "description": "Has a 20% chance to confuse the target."
+  },
+  "water-sport": {
+    "slug": "water-sport",
+    "name": "Water Sport",
+    "type": "Water",
+    "power": null,
+    "accuracy": null,
+    "pp": 15,
+    "damageClass": "status",
+    "description": "Halves all Fire-type damage."
   },
   "water-spout": {
     "slug": "water-spout",

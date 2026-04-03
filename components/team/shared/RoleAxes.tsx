@@ -15,9 +15,8 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/Tooltip";
+} from "@/components/ui/tooltip";
 import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 
 import type {
@@ -111,34 +110,32 @@ export function RoleAxesCard({
           );
         })}
       </svg>
-      <TooltipProvider>
-        {ROLE_AXIS_ORDER.map((axis, index) => {
-          const point = buildAxisPoint(
-            index,
-            ROLE_AXIS_ORDER.length,
-            center,
-            radius + (compact ? 16 : 26),
-          );
-          const Icon = roleIcon(axis);
-          return (
-            <Tooltip key={`icon-${axis}`}>
-              <TooltipTrigger
-                type="button"
-                className={clsx(
-                  "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-line-soft bg-[rgba(7,20,24,0.9)] text-[rgba(220,247,242,0.82)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)]",
-                  compact ? "p-1" : "p-1.5",
-                )}
-                style={{ left: point.x, top: point.y }}
-              >
-                <span className={clsx("block")}>
-                  <Icon className={compact ? "h-3 w-3" : "h-3.5 w-3.5"} />
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>{ROLE_LABELS[axis]}</TooltipContent>
-            </Tooltip>
-          );
-        })}
-      </TooltipProvider>
+      {ROLE_AXIS_ORDER.map((axis, index) => {
+        const point = buildAxisPoint(
+          index,
+          ROLE_AXIS_ORDER.length,
+          center,
+          radius + (compact ? 16 : 26),
+        );
+        const Icon = roleIcon(axis);
+        return (
+          <Tooltip key={`icon-${axis}`}>
+            <TooltipTrigger
+              type="button"
+              className={clsx(
+                "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-line-soft bg-[rgba(7,20,24,0.9)] text-[rgba(220,247,242,0.82)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)]",
+                compact ? "p-1" : "p-1.5",
+              )}
+              style={{ left: point.x, top: point.y }}
+            >
+              <span className={clsx("block")}>
+                <Icon className={compact ? "h-3 w-3" : "h-3.5 w-3.5"} />
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>{ROLE_LABELS[axis]}</TooltipContent>
+          </Tooltip>
+        );
+      })}
     </div>
   );
 }

@@ -449,92 +449,90 @@ export function mapEncounterOrderToMilestoneId(order: number) {
   return "postgame";
 }
 
-export function getContextualSourceAreas(order: number) {
-  if (order <= 3) {
-    return ["Aspertia City", "Route 19"];
-  }
-  if (order <= 5) {
-    return ["Route 20 - Spring", "Floccesy Ranch", "Floccesy Town"];
-  }
-  if (order <= 7) {
-    return ["Virbank City", "Virbank Complex - Outside", "Virbank Complex - Inside"];
-  }
-  if (order === 8) {
-    return ["Castelia City", "Castelia Sewers", "Relic Passage - Castelia", "Route 4"];
-  }
-  if (order <= 13) {
-    return ["Castelia City", "Castelia Sewers", "Relic Passage - Castelia", "Route 4"];
-  }
-  if (order <= 17) {
-    return [
-      "Desert Resort",
-      "Relic Castle - Upper Floors",
-      "Route 5",
-      "Route 16",
-      "Lostlorn Forest",
-      "Driftveil Drawbridge, Charizard Bridge",
-      "Route 6 - Spring, Summer, Autumn",
-      "Route 6 - Winter",
-      "Driftveil City",
-      "Clay Tunnel - All Areas",
-      "Relic Passage - Driftveil Side",
-      "Relic Passage - Center (Main) Room",
-      "Mistralton Cave",
-      "Chargestone Cave",
-    ];
-  }
-  if (order <= 22) {
-    return [
-      "Route 7 - Spring, Summer, Autumn",
-      "Route 7 - Winter",
-      "Celestial Tower",
-      "Reversal Mountain - Outside",
-      "Reversal Mountain - Inside",
-      "Strange House",
-      "Undella Town",
-      "Undella Bay",
-      "Route 14",
-      "Abundant Shrine",
-      "Seaside Cave - Upper Floor",
-      "Seaside Cave - Lower Floor",
-    ];
-  }
-  if (order <= 27) {
-    return [
-      "Route 13",
-      "Route 12",
-      "Village Bridge",
-      "Route 11",
-      "Route 9",
-      "Route 21",
-      "Humilau City",
-      "Route 22",
-      "Giants Chasm - Route 13",
-      "Giants Chasm - Entrance Cave",
-      "Giants Chasm - Plasma Airship Area",
-      "Giants Chasm - Kyurems Cave",
-    ];
-  }
-  if (order <= 34) {
-    return [
-      "Route 23",
-      "Victory Road - Ruined Area",
-      "Victory Road - Lower Mountainside",
-      "Victory Road - Forest",
-      "Victory Road - Connecting Caves I",
-      "Victory Road - Upper Mountainside",
-      "Victory Road - Connecting Caves II",
-      "Victory Road - N's Castle, Entrance",
-      "Route 8, Moor of Icirrus - All Seasons",
-      "Icirrus City - All Seasons",
-      "Dragonspiral Tower - Spring/Summer/Autumn",
-      "Dragonspiral Tower - Winter",
-      "Dragonspiral Tower - Indoors",
-      "Twist Mountain - All Seasons",
-      "Underground Ruins - All Areas",
-    ];
-  }
-  return [
+const CONTEXTUAL_SOURCE_AREA_CHUNKS: Record<string, string[]> = {
+  opening: ["Aspertia City", "Route 19"],
+  floccesy: ["Route 20 - Spring", "Floccesy Ranch", "Floccesy Town"],
+  virbank: ["Virbank City", "Virbank Complex - Outside", "Virbank Complex - Inside"],
+  castelia: ["Castelia City", "Castelia Sewers", "Relic Passage - Castelia", "Route 4"],
+  driftveil: [
+    "Desert Resort",
+    "Relic Castle - Upper Floors",
+    "Route 5",
+    "Route 16",
+    "Lostlorn Forest",
+    "Driftveil Drawbridge, Charizard Bridge",
+    "Route 6 - Spring, Summer, Autumn",
+    "Route 6 - Winter",
+    "Driftveil City",
+    "Clay Tunnel - All Areas",
+    "Relic Passage - Driftveil Side",
+    "Relic Passage - Center (Main) Room",
+    "Mistralton Cave",
+    "Chargestone Cave",
+  ],
+  mistralton: [
+    "Route 7 - Spring, Summer, Autumn",
+    "Route 7 - Winter",
+    "Celestial Tower",
+    "Reversal Mountain - Outside",
+    "Reversal Mountain - Inside",
+    "Strange House",
+    "Undella Town",
+    "Undella Bay",
+    "Route 14",
+    "Abundant Shrine",
+    "Seaside Cave - Upper Floor",
+    "Seaside Cave - Lower Floor",
+  ],
+  undella: [
+    "Route 13",
+    "Route 12",
+    "Village Bridge",
+    "Route 11",
+    "Route 9",
+    "Route 21",
+    "Humilau City",
+    "Route 22",
+    "Giants Chasm - Route 13",
+    "Giants Chasm - Entrance Cave",
+    "Giants Chasm - Plasma Airship Area",
+    "Giants Chasm - Kyurems Cave",
+  ],
+  humilau: [
+    "Route 23",
+    "Victory Road - Ruined Area",
+    "Victory Road - Lower Mountainside",
+    "Victory Road - Forest",
+    "Victory Road - Connecting Caves I",
+    "Victory Road - Upper Mountainside",
+    "Victory Road - Connecting Caves II",
+    "Victory Road - N's Castle, Entrance",
+    "Route 8, Moor of Icirrus - All Seasons",
+    "Icirrus City - All Seasons",
+    "Dragonspiral Tower - Spring/Summer/Autumn",
+    "Dragonspiral Tower - Winter",
+    "Dragonspiral Tower - Indoors",
+    "Twist Mountain - All Seasons",
+    "Underground Ruins - All Areas",
+  ],
+  league: [
+    "Route 23",
+    "Victory Road - Ruined Area",
+    "Victory Road - Lower Mountainside",
+    "Victory Road - Forest",
+    "Victory Road - Connecting Caves I",
+    "Victory Road - Upper Mountainside",
+    "Victory Road - Connecting Caves II",
+    "Victory Road - N's Castle, Entrance",
+    "Route 8, Moor of Icirrus - All Seasons",
+    "Icirrus City - All Seasons",
+    "Dragonspiral Tower - Spring/Summer/Autumn",
+    "Dragonspiral Tower - Winter",
+    "Dragonspiral Tower - Indoors",
+    "Twist Mountain - All Seasons",
+    "Underground Ruins - All Areas",
+  ],
+  postgame: [
     "Marvellous Bridge",
     "Route 15",
     "Pinwheel Forest - Inside",
@@ -548,5 +546,49 @@ export function getContextualSourceAreas(order: number) {
     "Route 17",
     "Route 18",
     "P2 Laboratory",
-  ];
+  ],
+};
+
+const CONTEXTUAL_MILESTONE_ORDER = [
+  "opening",
+  "floccesy",
+  "virbank",
+  "castelia",
+  "driftveil",
+  "mistralton",
+  "undella",
+  "humilau",
+  "league",
+  "postgame",
+] as const;
+
+export function getFurthestMilestoneId(...milestoneIds: Array<string | null | undefined>) {
+  return milestoneIds
+    .filter((value): value is string => Boolean(value))
+    .reduce((furthest, current) => {
+      const currentIndex = CONTEXTUAL_MILESTONE_ORDER.indexOf(current as (typeof CONTEXTUAL_MILESTONE_ORDER)[number]);
+      const furthestIndex = CONTEXTUAL_MILESTONE_ORDER.indexOf(furthest as (typeof CONTEXTUAL_MILESTONE_ORDER)[number]);
+      return currentIndex > furthestIndex ? current : furthest;
+    }, "opening");
+}
+
+export function getContextualSourceAreasForMilestone(milestoneId: string) {
+  const targetIndex = Math.max(
+    0,
+    CONTEXTUAL_MILESTONE_ORDER.indexOf(
+      getFurthestMilestoneId(milestoneId) as (typeof CONTEXTUAL_MILESTONE_ORDER)[number],
+    ),
+  );
+
+  return Array.from(
+    new Set(
+      CONTEXTUAL_MILESTONE_ORDER.slice(0, targetIndex + 1).flatMap(
+        (key) => CONTEXTUAL_SOURCE_AREA_CHUNKS[key] ?? [],
+      ),
+    ),
+  );
+}
+
+export function getContextualSourceAreas(order: number) {
+  return getContextualSourceAreasForMilestone(mapEncounterOrderToMilestoneId(order));
 }

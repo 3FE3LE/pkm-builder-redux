@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   challengeRunEncounters,
+  getFurthestMilestoneId,
   getContextualSourceAreas,
   getNextRelevantEncounter,
   getPendingMandatoryBeforeEncounter,
@@ -58,13 +59,42 @@ describe("runEncounters", () => {
 
   it("returns the right source areas for each progression band", () => {
     expect(getContextualSourceAreas(2)).toEqual(["Aspertia City", "Route 19"]);
-    expect(getContextualSourceAreas(5)).toEqual(["Route 20 - Spring", "Floccesy Ranch", "Floccesy Town"]);
+    expect(getContextualSourceAreas(5)).toEqual([
+      "Aspertia City",
+      "Route 19",
+      "Route 20 - Spring",
+      "Floccesy Ranch",
+      "Floccesy Town",
+    ]);
     expect(getContextualSourceAreas(7)).toEqual([
+      "Aspertia City",
+      "Route 19",
+      "Route 20 - Spring",
+      "Floccesy Ranch",
+      "Floccesy Town",
       "Virbank City",
       "Virbank Complex - Outside",
       "Virbank Complex - Inside",
     ]);
     expect(getContextualSourceAreas(8)).toEqual([
+      "Aspertia City",
+      "Route 19",
+      "Route 20 - Spring",
+      "Floccesy Ranch",
+      "Floccesy Town",
+      "Virbank City",
+      "Virbank Complex - Outside",
+      "Virbank Complex - Inside",
+    ]);
+    expect(getContextualSourceAreas(12)).toEqual([
+      "Aspertia City",
+      "Route 19",
+      "Route 20 - Spring",
+      "Floccesy Ranch",
+      "Floccesy Town",
+      "Virbank City",
+      "Virbank Complex - Outside",
+      "Virbank Complex - Inside",
       "Castelia City",
       "Castelia Sewers",
       "Relic Passage - Castelia",
@@ -74,21 +104,14 @@ describe("runEncounters", () => {
     expect(getContextualSourceAreas(21)).toContain("Seaside Cave - Lower Floor");
     expect(getContextualSourceAreas(25)).toContain("Giants Chasm - Plasma Airship Area");
     expect(getContextualSourceAreas(33)).toContain("Victory Road - Lower Mountainside");
-    expect(getContextualSourceAreas(39)).toContain("Pinwheel Forest - Inside");
-    expect(getContextualSourceAreas(42)).toEqual([
-      "Marvellous Bridge",
-      "Route 15",
-      "Pinwheel Forest - Inside",
-      "Pinwheel Forest - Outside",
-      "Route 3",
-      "Wellspring Cave - Both Floors",
-      "Striation City",
-      "Dreamyard - All Areas",
-      "Route 2",
-      "Route 1",
-      "Route 17",
-      "Route 18",
-      "P2 Laboratory",
-    ]);
+    expect(getContextualSourceAreas(42)).toContain("Pinwheel Forest - Inside");
+    expect(getContextualSourceAreas(42)).toContain("P2 Laboratory");
+    expect(getContextualSourceAreas(42)).toContain("Route 19");
+    expect(getContextualSourceAreas(42)).toContain("Chargestone Cave");
+  });
+
+  it("prefers the furthest milestone when store progress is ahead of the next unresolved battle", () => {
+    expect(getFurthestMilestoneId("castelia", "driftveil")).toBe("driftveil");
+    expect(getFurthestMilestoneId("humilau", "castelia")).toBe("humilau");
   });
 });

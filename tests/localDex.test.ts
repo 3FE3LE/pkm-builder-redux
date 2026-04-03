@@ -33,7 +33,14 @@ describe("localDex", () => {
     });
 
     expect(pokemonIndex.darmanitan.types).toEqual(["Fire"]);
-    expect(pokemonIndex["darmanitan-standard"]).toBe(pokemonIndex.darmanitan);
+    expect(pokemonIndex["darmanitan-standard"]).toMatchObject({
+      slug: "darmanitan-standard",
+      name: "Darmanitan Standard",
+    });
+    expect(pokemonIndex.darmanitan).toMatchObject({
+      slug: "darmanitan",
+      name: "Darmanitan",
+    });
     expect(pokemonIndex["darmanitan-zen"]).toMatchObject({
       dex: 555,
       slug: "darmanitan-zen",
@@ -41,10 +48,31 @@ describe("localDex", () => {
       types: ["Fire", "Psychic"],
       abilities: ["Zen Mode"],
     });
-    expect(pokemonIndex["darmanitan zen"]).toBe(pokemonIndex["darmanitan-zen"]);
     expect(pokemonIndex["darmanitan-zen"].learnsets).toBe(
       pokemonIndex.darmanitan.learnsets
     );
+    expect(pokemonIndex.deoxys).toMatchObject({
+      slug: "deoxys-normal",
+      name: "Deoxys Normal",
+    });
+    expect(pokemonIndex["deoxys-attack"]).toMatchObject({
+      dex: 386,
+      slug: "deoxys-attack",
+      name: "Deoxys-Attack",
+      stats: { atk: 180, spe: 150 },
+    });
+    expect(pokemonIndex["shaymin-sky"]).toMatchObject({
+      dex: 492,
+      slug: "shaymin-sky",
+      name: "Shaymin-Sky",
+      types: ["Grass", "Flying"],
+    });
+    expect(pokemonIndex["kyurem-black"]).toMatchObject({
+      dex: 646,
+      slug: "kyurem-black",
+      name: "Kyurem-Black",
+      abilities: ["Teravolt"],
+    });
   });
 
   it("falls back to canonical indexes and sorts the derived species list", async () => {
@@ -64,6 +92,16 @@ describe("localDex", () => {
       name: "Absorb",
       type: "Grass",
     });
+    expect(moveIndex["sleep-talk"]).toMatchObject({
+      name: "Sleep Talk",
+      type: "Normal",
+      damageClass: "status",
+    });
+    expect(moveIndex.snore).toMatchObject({
+      name: "Snore",
+      type: "Normal",
+      damageClass: "special",
+    });
     expect(itemIndex["oval-stone"]).toMatchObject({
       name: "Oval Stone",
       replacedBy: "Link Cable",
@@ -77,7 +115,12 @@ describe("localDex", () => {
       dex: 1,
       slug: "bulbasaur",
     });
-    expect(speciesList.some((entry) => entry.slug === "darmanitan-zen")).toBe(true);
+    expect(speciesList.some((entry) => entry.slug === "darmanitan-zen")).toBe(false);
+    expect(speciesList.some((entry) => entry.slug === "darmanitan")).toBe(true);
+    expect(speciesList.some((entry) => entry.slug === "deoxys")).toBe(true);
+    expect(speciesList.some((entry) => entry.slug === "deoxys-attack")).toBe(false);
+    expect(speciesList.some((entry) => entry.slug === "shaymin")).toBe(true);
+    expect(speciesList.some((entry) => entry.slug === "shaymin-sky")).toBe(false);
     expect(speciesList.find((entry) => entry.slug === "pikachu")).toMatchObject({
       dex: 25,
       types: ["Electric"],
@@ -277,8 +320,7 @@ describe("localDex", () => {
         { move: "Secret Power", source: "redux", tab: "tm" },
       ]);
       expect(speciesList).toEqual([
-        { name: "Testmon Standard", slug: "testmon-standard", dex: 1, types: ["Normal", "Fairy"] },
-        { name: "Darmanitan-Zen", slug: "darmanitan-zen", dex: 555, types: ["Fire", "Psychic"] },
+        { name: "Testmon", slug: "testmon", dex: 1, types: ["Normal", "Fairy"] },
       ]);
     } finally {
       process.chdir(originalCwd);

@@ -4,6 +4,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const DOC_PATH = path.join(ROOT, "Documentation", "Pokemon Changes.txt");
 const OUTPUT_DIR = path.join(ROOT, "data", "reference");
+const CANONICAL_LEARNSETS_PATH = path.join(ROOT, "data", "reference", "pokemon-canonical-learnsets-gen5.json");
 
 function normalize(value) {
   return value
@@ -167,12 +168,29 @@ async function main() {
   await mkdir(OUTPUT_DIR, { recursive: true });
   const source = await readFile(DOC_PATH, "utf8");
   const { overrides, moveNames } = parsePokemonChanges(source);
+  const mergedMoveNames = new Set(moveNames);
+
+  try {
+    const canonicalLearnsets = JSON.parse(await readFile(CANONICAL_LEARNSETS_PATH, "utf8"));
+    for (const entry of Object.values(canonicalLearnsets)) {
+      for (const move of [...(entry.levelUp ?? []), ...(entry.machines ?? [])]) {
+        if (move?.move) {
+          mergedMoveNames.add(move.move);
+        }
+      }
+    }
+  } catch {
+    // Allow the extractor to run before canonical learnsets exist.
+  }
 
   await writeFile(
     path.join(OUTPUT_DIR, "pokemon-redux-overrides-gen5.json"),
     JSON.stringify(overrides, null, 2)
   );
-  await writeFile(path.join(OUTPUT_DIR, "move-name-list-gen5.json"), JSON.stringify(moveNames, null, 2));
+  await writeFile(
+    path.join(OUTPUT_DIR, "move-name-list-gen5.json"),
+    JSON.stringify(Array.from(mergedMoveNames).sort((left, right) => left.localeCompare(right)), null, 2)
+  );
 
   console.log("Wrote data/reference/pokemon-redux-overrides-gen5.json");
   console.log("Wrote data/reference/move-name-list-gen5.json");

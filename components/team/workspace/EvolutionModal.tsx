@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { X } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { PokemonSprite } from "@/components/BuilderShared";
 import { Button } from "@/components/ui/Button";
@@ -36,38 +36,22 @@ export function EvolutionModal({
   onComplete: (species: string) => void;
 }) {
   const [phase, setPhase] = useState<"confirm" | "animating">("confirm");
-  const [animationStage, setAnimationStage] = useState<"charge" | "flare" | "morph" | "reveal">("charge");
-  const [isSkipping, setIsSkipping] = useState(false);
-  const completionTimerRef = useRef<number | null>(null);
-  const stageTimerRefs = useRef<number[]>([]);
+  const [animationStage, setAnimationStage] = useState<
+    "charge" | "flare" | "morph" | "reveal"
+  >("charge");
 
-  function clearCompletionTimer() {
-    if (completionTimerRef.current !== null) {
-      window.clearTimeout(completionTimerRef.current);
-      completionTimerRef.current = null;
-    }
-  }
-
-  function clearStageTimers() {
-    stageTimerRefs.current.forEach((timerId) => window.clearTimeout(timerId));
-    stageTimerRefs.current = [];
-  }
-
-  function resetAnimation() {
-    clearCompletionTimer();
-    clearStageTimers();
+  function resetSequence() {
     setPhase("confirm");
     setAnimationStage("charge");
-    setIsSkipping(false);
   }
 
   function handleClose() {
-    resetAnimation();
+    resetSequence();
     onClose();
   }
 
   function handleComplete(nextSpecies: string) {
-    resetAnimation();
+    resetSequence();
     onComplete(nextSpecies);
   }
 
@@ -75,28 +59,9 @@ export function EvolutionModal({
     if (!selectedNext) {
       return;
     }
-    clearCompletionTimer();
-    clearStageTimers();
     setPhase("animating");
     setAnimationStage("charge");
-    stageTimerRefs.current = [
-      window.setTimeout(() => setAnimationStage("flare"), 1400),
-      window.setTimeout(() => setAnimationStage("morph"), 3000),
-      window.setTimeout(() => setAnimationStage("reveal"), 5000),
-    ];
-    completionTimerRef.current = window.setTimeout(() => {
-      handleComplete(selectedNext);
-    }, 6800);
   }
-
-  useEffect(() => {
-    if (!open) {
-      resetAnimation();
-      return;
-    }
-
-    return () => resetAnimation();
-  }, [open]);
 
   if (!open) {
     return null;
@@ -127,8 +92,8 @@ export function EvolutionModal({
             </h2>
             <p className="mt-2 text-sm text-muted">
               {phase === "confirm"
-                ? "Confirma la siguiente forma y arranca la secuencia cuando quieras."
-                : "La secuencia se puede saltar, pero está pensada para sentirse más ceremonial."}
+                ? "Elige la siguiente forma y arranca la secuencia ceremonial."
+                : "La evolución avanza sola y puedes saltarla cuando quieras."}
             </p>
           </div>
           <div className="flex gap-2">
@@ -141,7 +106,6 @@ export function EvolutionModal({
                   if (!selectedNext) {
                     return;
                   }
-                  setIsSkipping(true);
                   handleComplete(selectedNext);
                 }}
                 className="border-primary-line-strong bg-primary-fill-strong text-primary-soft hover:bg-primary-fill-hover"
@@ -237,18 +201,22 @@ export function EvolutionModal({
               nextSpriteUrl={nextSelection?.spriteUrl}
               nextAnimatedSpriteUrl={nextSelection?.animatedSpriteUrl}
               stage={animationStage}
-              isSkipping={isSkipping}
+              onAdvanceStage={setAnimationStage}
+              onComplete={() => {
+                if (!selectedNext) {
+                  return;
+                }
+                handleComplete(selectedNext);
+              }}
             />
             <p className="mt-6 text-center text-sm text-muted">
-              {isSkipping
-                ? "Saltando animación..."
-                : animationStage === "charge"
-                  ? "..."
-                  : animationStage === "flare"
-                    ? `${currentSpecies}?`
-                    : animationStage === "morph"
-                      ? "What? "
-                      : `${currentSpecies} evolved into ${nextSelection?.species ?? "its next form"}!`}
+              {animationStage === "charge"
+                ? "..."
+                : animationStage === "flare"
+                  ? `${currentSpecies}?`
+                  : animationStage === "morph"
+                    ? "What?"
+                    : `${currentSpecies} evolved into ${nextSelection?.species ?? "its next form"}!`}
             </p>
           </div>
         )}
@@ -301,7 +269,8 @@ function EvolutionSequenceStage({
   nextSpriteUrl,
   nextAnimatedSpriteUrl,
   stage,
-  isSkipping,
+  onAdvanceStage,
+  onComplete,
 }: {
   currentSpecies: string;
   currentSpriteUrl?: string;
@@ -310,31 +279,83 @@ function EvolutionSequenceStage({
   nextSpriteUrl?: string;
   nextAnimatedSpriteUrl?: string;
   stage: "charge" | "flare" | "morph" | "reveal";
-  isSkipping: boolean;
+  onAdvanceStage: (stage: "charge" | "flare" | "morph" | "reveal") => void;
+  onComplete: () => void;
 }) {
   return (
-    <div className="relative mx-auto flex min-h-[22rem] w-full max-w-[24rem] flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-6">
-      <div className={clsx("evo-stage-backdrop absolute inset-0", stage === "charge" && "evo-stage-backdrop-charge", stage === "flare" && "evo-stage-backdrop-flare", stage === "morph" && "evo-stage-backdrop-morph", stage === "reveal" && "evo-stage-backdrop-reveal")} />
-      <div className={clsx("evo-energy-ring evo-energy-ring-1", stage !== "reveal" && "opacity-100")} />
-      <div className={clsx("evo-energy-ring evo-energy-ring-2", stage !== "reveal" && "opacity-100")} />
-      <div className={clsx("evo-energy-ring evo-energy-ring-3", stage === "flare" || stage === "morph" ? "opacity-100" : "opacity-0")} />
-      <div className={clsx("evo-flash absolute inset-[16%] rounded-full", stage === "flare" && "evo-flash-active", stage === "morph" && "evo-flash-morph", stage === "reveal" && "evo-flash-reveal")} />
+    <motion.div
+      key={stage}
+      initial={{ opacity: 0.86, scale: 0.985 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration:
+          stage === "charge" ? 1.1 : stage === "flare" ? 0.95 : 0.35,
+      }}
+      onAnimationComplete={() => {
+        if (stage === "charge") {
+          onAdvanceStage("flare");
+        } else if (stage === "flare") {
+          onAdvanceStage("morph");
+        }
+      }}
+      className="relative mx-auto flex min-h-[22rem] w-full max-w-[24rem] flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-6"
+    >
+      <div
+        className={clsx(
+          "evo-stage-backdrop absolute inset-0",
+          stage === "charge" && "evo-stage-backdrop-charge",
+          stage === "flare" && "evo-stage-backdrop-flare",
+          stage === "morph" && "evo-stage-backdrop-morph",
+          stage === "reveal" && "evo-stage-backdrop-reveal",
+        )}
+      />
+      <div
+        className={clsx(
+          "evo-energy-ring evo-energy-ring-1",
+          stage !== "reveal" && "opacity-100",
+        )}
+      />
+      <div
+        className={clsx(
+          "evo-energy-ring evo-energy-ring-2",
+          stage !== "reveal" && "opacity-100",
+        )}
+      />
+      <div
+        className={clsx(
+          "evo-energy-ring evo-energy-ring-3",
+          (stage === "flare" || stage === "morph") && "opacity-100",
+        )}
+      />
+      <div
+        className={clsx(
+          "evo-flash absolute inset-[16%] rounded-full",
+          stage === "flare" && "evo-flash-active",
+          stage === "morph" && "evo-flash-morph",
+          stage === "reveal" && "evo-flash-reveal",
+        )}
+      />
       <div className="relative h-44 w-44">
         <div
           className={clsx(
             "absolute inset-0 transition-all duration-500",
-            stage === "charge" && "opacity-100 scale-100",
+            stage === "charge" && "opacity-100 scale-100 evo-sprite-charge",
             stage === "flare" && "evo-sprite-charge",
             stage === "morph" && "evo-sprite-fade evo-pixel-morph-out",
             stage === "reveal" && "opacity-0 scale-125",
           )}
+          onAnimationEnd={() => {
+            if (stage === "morph") {
+              onAdvanceStage("reveal");
+            }
+          }}
         >
           <PokemonSprite
             species={currentSpecies}
             spriteUrl={currentSpriteUrl}
             animatedSpriteUrl={currentAnimatedSpriteUrl}
             size="large"
-            isEvolving={!isSkipping}
+            isEvolving={stage !== "reveal"}
             chrome="plain"
           />
         </div>
@@ -346,13 +367,18 @@ function EvolutionSequenceStage({
             stage === "morph" && "evo-silhouette-rise evo-pixel-morph-in",
             stage === "reveal" && "evo-sprite-reveal",
           )}
+          onAnimationEnd={() => {
+            if (stage === "reveal") {
+              onComplete();
+            }
+          }}
         >
           <PokemonSprite
             species={nextSpecies}
             spriteUrl={nextSpriteUrl}
             animatedSpriteUrl={nextAnimatedSpriteUrl}
             size="large"
-            isEvolving={!isSkipping && stage !== "reveal"}
+            isEvolving={stage !== "reveal"}
             chrome="plain"
           />
         </div>
@@ -360,10 +386,16 @@ function EvolutionSequenceStage({
       <div className="relative mt-3 flex flex-col items-center gap-2 text-accent">
         <div className="evolution-divider h-px w-24" />
         <div className="display-face text-sm text-primary-soft">
-          {stage === "charge" ? "..." : stage === "flare" ? "?" : stage === "morph" ? "What?" : "Congratulations!"}
+          {stage === "charge"
+            ? "..."
+            : stage === "flare"
+              ? "?"
+              : stage === "morph"
+                ? "What?"
+                : "Congratulations!"}
         </div>
         <div className="evolution-divider h-px w-24" />
       </div>
-    </div>
+    </motion.div>
   );
 }

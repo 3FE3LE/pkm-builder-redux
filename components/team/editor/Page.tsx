@@ -20,10 +20,12 @@ import type { EditableMember } from "@/lib/builderStore";
 import { createEditable } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { EvolutionEligibility } from "@/lib/domain/evolutionEligibility";
+import { getAvailableFormsForSpecies, getBaseSpeciesName } from "@/lib/forms";
 import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
+import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 import type {
   AbilityCatalogEntry,
@@ -115,6 +117,8 @@ export function EditorPage({
 
   const currentLevel = Number(member.level ?? 1);
   const currentSpecies = String(member.species ?? "");
+  const currentBaseSpecies = getBaseSpeciesName(currentSpecies);
+  const formOptions = getAvailableFormsForSpecies(currentSpecies);
   const nicknameValue = String(member.nickname ?? "").trim();
   const parsedValues = editableMemberSchema.safeParse(member);
   const issues = parsedValues.success ? [] : parsedValues.error.issues;
@@ -132,6 +136,7 @@ export function EditorPage({
   const currentNature = String(member.nature ?? "Serious");
   const currentAbility = String(member.ability ?? "");
   const currentItem = String(member.item ?? "");
+  const backTransition = useSafeTransitionTypes(["editor-back"]);
   const starterLens = useMemo(
     () =>
       resolved && starterSpeciesLine.includes(resolved.species)
@@ -175,7 +180,7 @@ export function EditorPage({
         <div className="mb-4">
           <Link
             href="/team"
-            transitionTypes={["editor-back"]}
+            transitionTypes={backTransition}
             className="hidden items-center gap-2 rounded-full border border-line-soft bg-surface-2/80 px-3 py-2 text-sm text-text transition-colors hover:border-warning-line hover:bg-surface-3 md:inline-flex"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -209,6 +214,8 @@ export function EditorPage({
                 itemCatalog={itemCatalog}
                 nicknameValue={nicknameValue}
                 currentSpecies={currentSpecies}
+                currentBaseSpecies={currentBaseSpecies}
+                formOptions={formOptions}
                 currentNature={currentNature}
                 currentAbility={currentAbility}
                 currentItem={currentItem}

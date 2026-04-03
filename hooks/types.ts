@@ -14,6 +14,7 @@ export type BuilderDataProps = {
     types: string[];
   }[];
   moveIndex: Record<string, RemoteMove>;
+  canonicalPokemonIndex: Record<string, RemotePokemon>;
   pokemonIndex: Record<string, RemotePokemon>;
   abilityCatalog: { name: string; effect?: string }[];
   itemCatalog: {

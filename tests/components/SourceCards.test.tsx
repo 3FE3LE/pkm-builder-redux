@@ -252,9 +252,9 @@ describe("SourceCards", () => {
     expect(screen.getByText("Lucario for Leftovers")).toBeTruthy();
     expect(screen.getByText("Axew -> Potion")).toBeTruthy();
     expect(screen.getByText("Leftovers x2")).toBeTruthy();
-    expect(screen.getByText("Potion -> Lucario")).toBeTruthy();
+    expect(screen.getByText("Reemplaza Potion")).toBeTruthy();
     expect(screen.getAllByText("item-Leftovers-/leftovers.png").length).toBe(2);
-    expect(screen.getByText("item-Potion-none")).toBeTruthy();
+    expect(screen.getByText("item-Lucario-none")).toBeTruthy();
 
     const mareepChip = screen.getByText("Mareep").closest("span.text-primary-soft");
     expect(mareepChip).toBeTruthy();
@@ -312,7 +312,7 @@ describe("SourceCards", () => {
     expect(screen.getByText("Rotom-Fan")).toBeTruthy();
     expect(screen.getByText("Axew for")).toBeTruthy();
     expect(screen.getByText("Mareep ->")).toBeTruthy();
-    expect(screen.getByText("Rare Candy x2 ->")).toBeTruthy();
+    expect(screen.getByText("Rare Candy x2")).toBeTruthy();
     expect(screen.getByText("Odd Keystone")).toBeTruthy();
   });
 
@@ -333,8 +333,7 @@ describe("SourceCards", () => {
 
     expect(screen.getAllByText("-> Potion").length).toBeGreaterThan(0);
     expect(screen.getAllByText("for Leftovers").length).toBeGreaterThan(0);
-    expect(
-      screen.getByText((content) => content.includes("item--> Potion-none")),
-    ).toBeTruthy();
+    expect(screen.getByText("item-Potion-none")).toBeTruthy();
+    expect(screen.getByText("Reemplaza")).toBeTruthy();
   });
 });

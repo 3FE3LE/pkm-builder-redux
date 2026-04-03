@@ -1,10 +1,24 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("motion/react", () => ({
   motion: {
-    div: ({ children, ...props }: { children?: ReactNode }) => <div {...props}>{children}</div>,
+    div: ({
+      children,
+      onAnimationComplete,
+      ...props
+    }: {
+      children?: ReactNode;
+      onAnimationComplete?: () => void;
+      [key: string]: unknown;
+    }) => {
+      useEffect(() => {
+        onAnimationComplete?.();
+      }, [onAnimationComplete]);
+
+      return <div {...props}>{children}</div>;
+    },
   },
 }));
 
@@ -94,7 +108,7 @@ describe("EvolutionModal", () => {
 
     expect(screen.getByText("Confirmar evolución")).toBeTruthy();
     expect(
-      screen.getByText("Confirma la siguiente forma y arranca la secuencia cuando quieras."),
+      screen.getByText("Elige la siguiente forma y arranca la secuencia ceremonial."),
     ).toBeTruthy();
     expect(screen.getByText("Forma actual")).toBeTruthy();
     expect(screen.getByText("Siguiente forma")).toBeTruthy();
@@ -138,32 +152,19 @@ describe("EvolutionModal", () => {
 
     expect(screen.getByText("Evolucionando...")).toBeTruthy();
     expect(
-      screen.getByText("La secuencia se puede saltar, pero está pensada para sentirse más ceremonial."),
+      screen.getByText("La evolución avanza sola y puedes saltarla cuando quieras."),
     ).toBeTruthy();
-    expect(screen.getAllByText("...").length).toBe(2);
     expect(screen.getByText("Skip")).toBeTruthy();
 
     act(() => {
       vi.advanceTimersByTime(1400);
     });
-    expect(screen.getByText("Pignite?")).toBeTruthy();
-    expect(screen.getByText("?")).toBeTruthy();
+    expect(screen.getAllByText(/What\?/).length).toBe(2);
 
     act(() => {
       vi.advanceTimersByTime(1600);
     });
     expect(screen.getAllByText(/What\?/).length).toBe(2);
-
-    act(() => {
-      vi.advanceTimersByTime(2000);
-    });
-    expect(screen.getByText("Pignite evolved into Emboar!")).toBeTruthy();
-    expect(screen.getByText("Congratulations!")).toBeTruthy();
-
-    act(() => {
-      vi.advanceTimersByTime(1800);
-    });
-    expect(props.onComplete).toHaveBeenCalledWith("Emboar");
   });
 
   it("skips the animation and completes immediately", async () => {

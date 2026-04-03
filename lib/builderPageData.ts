@@ -1,5 +1,8 @@
+import { cache } from "react";
+
 import { parseDocumentation } from "@/lib/docs";
 import {
+  getCanonicalPokemonIndex,
   getLocalAbilityIndex,
   getLocalItemIndex,
   getLocalMoveIndex,
@@ -10,11 +13,11 @@ import type { RemoteMove, RemotePokemon } from "@/lib/teamAnalysis";
 import { getWorldData } from "@/lib/worldData";
 
 function stripPokemonDexNotes(entry: RemotePokemon): RemotePokemon {
-  const { category: _category, height: _height, weight: _weight, flavorText: _flavorText, ...rest } = entry;
+  const { category: _category, height: _height, weight: _weight, ...rest } = entry;
   return rest;
 }
 
-export function getBuilderPageData() {
+export const getBuilderPageData = cache(function getBuilderPageData() {
   const docs = parseDocumentation() as ReturnType<typeof parseDocumentation> & {
     worldData: ReturnType<typeof getWorldData>;
   };
@@ -22,6 +25,12 @@ export function getBuilderPageData() {
 
   const speciesCatalog = getLocalSpeciesList();
   const moveIndex = getLocalMoveIndex() as Record<string, RemoteMove>;
+  const canonicalPokemonIndex = Object.fromEntries(
+    Object.entries(getCanonicalPokemonIndex() as Record<string, RemotePokemon>).map(([key, entry]) => [
+      key,
+      stripPokemonDexNotes(entry),
+    ]),
+  ) as Record<string, RemotePokemon>;
   const pokemonIndex = Object.fromEntries(
     Object.entries(getLocalPokemonIndex() as Record<string, RemotePokemon>).map(([key, entry]) => [
       key,
@@ -44,8 +53,9 @@ export function getBuilderPageData() {
     speciesOptions,
     speciesCatalog,
     moveIndex,
+    canonicalPokemonIndex,
     pokemonIndex,
     abilityCatalog,
     itemCatalog,
   };
-}
+});

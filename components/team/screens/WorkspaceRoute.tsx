@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { redirect, useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { LoadingState } from "@/components/team/screens/LoadingState";
-import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
 import { WorkspaceScreen } from "@/components/team/screens/WorkspaceScreen";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 import { importPokemonFromHash } from "@/lib/pokemonTransfer";
@@ -52,14 +51,7 @@ export function WorkspaceRoute() {
   }
 
   if (!session.builderStarted) {
-    return (
-      <RouteGuardScreen
-        title="No hay run activo"
-        description="Primero necesitas elegir un inicial para crear el equipo."
-        ctaHref="/onboarding"
-        ctaLabel="Ir a onboarding"
-      />
-    );
+    redirect("/onboarding");
   }
 
   return <WorkspaceScreen />;

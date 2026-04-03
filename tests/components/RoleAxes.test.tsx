@@ -1,8 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import type { ReactNode } from "react";
+import { describe, expect, it, vi } from "vitest";
 
 import { RoleAxesCard } from "@/components/team/shared/RoleAxes";
+
+vi.mock("@/components/ui/tooltip", () => ({
+  TooltipProvider: ({ children }: { children: ReactNode }) => <>{children}</>,
+  Tooltip: ({ children }: { children: ReactNode }) => <>{children}</>,
+  TooltipTrigger: ({
+    children,
+    ...props
+  }: {
+    children: ReactNode;
+    [key: string]: unknown;
+  }) => <button type="button" {...props}>{children}</button>,
+  TooltipContent: ({ children }: { children: ReactNode }) => (
+    <div role="tooltip">{children}</div>
+  ),
+}));
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 function createRole() {
   return {
@@ -30,7 +47,11 @@ describe("RoleAxesCard", () => {
 
   it("renders the radar and exposes role tooltips", async () => {
     const user = userEvent.setup();
-    const { container } = render(<RoleAxesCard role={createRole()} compact />);
+    const { container } = render(
+      <TooltipProvider>
+        <RoleAxesCard role={createRole()} compact />
+      </TooltipProvider>,
+    );
     const chart = container.querySelector('svg[viewBox="0 0 116 116"]');
 
     expect(chart?.querySelectorAll("polygon")).toHaveLength(5);
@@ -39,6 +60,10 @@ describe("RoleAxesCard", () => {
     expect(screen.getAllByRole("button")).toHaveLength(8);
 
     await user.hover(screen.getAllByRole("button")[0]);
-    expect((await screen.findByRole("tooltip")).textContent).toContain("wallbreaker");
+    expect(
+      screen.getAllByRole("tooltip").some((tooltip) =>
+        tooltip.textContent?.includes("wallbreaker"),
+      ),
+    ).toBe(true);
   });
 });

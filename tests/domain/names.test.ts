@@ -15,12 +15,19 @@ describe("names utilities", () => {
     expect(toTitleCase("sERPERIOR")).toBe("Serperior");
   });
 
-  it("builds special-case sprite urls for darmanitan zen", () => {
+  it("builds special-case sprite urls for synthetic forms", () => {
     expect(buildSpriteUrls("Darmanitan-Zen", 555)).toEqual({
       spriteUrl:
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10017.png",
       animatedSpriteUrl:
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/10017.gif",
+    });
+
+    expect(buildSpriteUrls("Shaymin-Sky", 492)).toEqual({
+      spriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10006.png",
+      animatedSpriteUrl:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/10006.gif",
     });
   });
 

@@ -235,7 +235,7 @@ function parseItemChanges(text: string) {
       }
       continue;
     }
-    const areaMatch = line.match(/^~~~~~\s+(.+?)\s+~~~~~$/);
+    const areaMatch = line.match(/^~{5,}\s+(.+?)\s+~{5,}$/);
     if (areaMatch) {
       currentArea = { area: areaMatch[1].trim(), items: [] };
       locations.push(currentArea);
@@ -254,20 +254,55 @@ function parseWildAreas(text: string) {
   const areas: WildArea[] = [];
   let currentArea: WildArea | null = null;
   let currentMethod: WildMethod | null = null;
+  let inHiddenGrottoGuide = false;
+  let hiddenGrottoArea: WildArea | null = null;
+  let hiddenGrottoMethod: WildMethod | null = null;
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
     if (!line) {
       continue;
     }
+    if (line === "Hidden Grotto Guide") {
+      inHiddenGrottoGuide = true;
+      currentArea = null;
+      currentMethod = null;
+      continue;
+    }
     if (/^=+$/.test(line) || /^o-+/.test(line) || /^\|/.test(line) || line.startsWith("Main Story")) {
       continue;
     }
-    const areaMatch = line.match(/^~~~~~\s+(.+?)\s+~~~~~$/);
+    const areaMatch = line.match(/^~{5,}\s+(.+?)\s+~{5,}$/);
     if (areaMatch) {
-      currentArea = { area: areaMatch[1].trim(), methods: [] };
-      areas.push(currentArea);
-      currentMethod = null;
+      if (inHiddenGrottoGuide) {
+        hiddenGrottoArea = { area: areaMatch[1].trim(), methods: [] };
+        areas.push(hiddenGrottoArea);
+        hiddenGrottoMethod = null;
+      } else {
+        currentArea = { area: areaMatch[1].trim(), methods: [] };
+        areas.push(currentArea);
+        currentMethod = null;
+      }
+      continue;
+    }
+    if (inHiddenGrottoGuide) {
+      if (!hiddenGrottoArea) {
+        continue;
+      }
+      if (line.endsWith("Encounters:")) {
+        hiddenGrottoMethod = {
+          method: `Hidden Grotto - ${line.replace(/:$/, "").trim()}`,
+          encounters: [],
+        };
+        hiddenGrottoArea.methods.push(hiddenGrottoMethod);
+        continue;
+      }
+      if (hiddenGrottoMethod && line.startsWith("- ")) {
+        hiddenGrottoMethod.encounters.push({
+          species: line.replace(/^- /, "").trim(),
+          level: "",
+        });
+      }
       continue;
     }
     if (!currentArea) {

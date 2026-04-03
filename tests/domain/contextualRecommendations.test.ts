@@ -376,8 +376,27 @@ test("excludes candidates that share any type with a locked member when duplicat
   assert.ok(recommendations.some((entry) => entry.species === "Mareep"));
 });
 
-test("uses Castelia sources when the next encounter is Burgh", () => {
+test("keeps prior checkpoint sources cumulative through Burgh and reaches Castelia by Elesa", () => {
   assert.deepEqual(getContextualSourceAreas(8), [
+    "Aspertia City",
+    "Route 19",
+    "Route 20 - Spring",
+    "Floccesy Ranch",
+    "Floccesy Town",
+    "Virbank City",
+    "Virbank Complex - Outside",
+    "Virbank Complex - Inside",
+  ]);
+
+  assert.deepEqual(getContextualSourceAreas(12), [
+    "Aspertia City",
+    "Route 19",
+    "Route 20 - Spring",
+    "Floccesy Ranch",
+    "Floccesy Town",
+    "Virbank City",
+    "Virbank Complex - Outside",
+    "Virbank Complex - Inside",
     "Castelia City",
     "Castelia Sewers",
     "Relic Passage - Castelia",

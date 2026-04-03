@@ -21,6 +21,7 @@ import { natureOptions } from "@/lib/builderForm";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { getNatureEffect } from "@/lib/domain/battle";
 import { isHeldItem } from "@/lib/domain/items";
+import { getBaseSpeciesName } from "@/lib/forms";
 import { normalizeName } from "@/lib/domain/names";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
@@ -33,6 +34,8 @@ export function ProfileSection({
   itemCatalog,
   nicknameValue,
   currentSpecies,
+  currentBaseSpecies,
+  formOptions,
   currentNature,
   currentAbility,
   currentItem,
@@ -47,6 +50,8 @@ export function ProfileSection({
   itemCatalog: ItemCatalogEntry[];
   nicknameValue: string;
   currentSpecies: string;
+  currentBaseSpecies: string;
+  formOptions: string[];
   currentNature: string;
   currentAbility: string;
   currentItem: string;
@@ -129,7 +134,7 @@ export function ProfileSection({
         <label className="min-w-0 text-sm">
           <span className="mb-1 block text-muted">Pokemon</span>
           <SpeciesCombobox
-            value={currentSpecies}
+            value={currentBaseSpecies}
             speciesCatalog={speciesCatalog}
             autoFocus={shouldAutoFocusSpecies}
             panelClassName="max-w-none left-0"
@@ -137,7 +142,8 @@ export function ProfileSection({
               updateEditorMember((current) => {
                 const shouldSyncNickname =
                   !nicknameValue ||
-                  normalizeName(nicknameValue) === normalizeName(current.species);
+                  normalizeName(nicknameValue) === normalizeName(current.species) ||
+                  normalizeName(nicknameValue) === normalizeName(getBaseSpeciesName(current.species));
 
                 return {
                   ...current,
@@ -154,6 +160,22 @@ export function ProfileSection({
             </span>
           ) : null}
         </label>
+        {formOptions.length > 1 ? (
+          <label className="min-w-0 text-sm">
+            <span className="mb-1 block text-muted">Forma</span>
+            <FilterCombobox
+              value={currentSpecies}
+              options={formOptions}
+              placeholder="Forma"
+              searchable={false}
+              panelClassName=""
+              coordinationGroup="editor-profile"
+              onChange={(species) =>
+                updateEditorMember((current) => ({ ...current, species }))
+              }
+            />
+          </label>
+        ) : null}
         <label className="min-w-0 text-sm">
           <span className="mb-1 block text-muted">Naturaleza</span>
           <FilterCombobox

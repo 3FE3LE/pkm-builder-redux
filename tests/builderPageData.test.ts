@@ -4,6 +4,7 @@ let docsFixture: any;
 let worldDataFixture: any;
 let speciesListFixture: any[];
 let moveIndexFixture: Record<string, any>;
+let canonicalPokemonIndexFixture: Record<string, any>;
 let pokemonIndexFixture: Record<string, any>;
 let abilityIndexFixture: Record<string, any>;
 let itemIndexFixture: Record<string, any>;
@@ -19,6 +20,7 @@ vi.mock("@/lib/worldData", () => ({
 vi.mock("@/lib/localDex", () => ({
   getLocalSpeciesList: vi.fn(() => speciesListFixture),
   getLocalMoveIndex: vi.fn(() => moveIndexFixture),
+  getCanonicalPokemonIndex: vi.fn(() => canonicalPokemonIndexFixture),
   getLocalPokemonIndex: vi.fn(() => pokemonIndexFixture),
   getLocalAbilityIndex: vi.fn(() => abilityIndexFixture),
   getLocalItemIndex: vi.fn(() => itemIndexFixture),
@@ -66,6 +68,13 @@ describe("builderPageData", () => {
     moveIndexFixture = {
       tackle: { name: "Tackle", type: "Normal" },
     };
+    canonicalPokemonIndexFixture = {
+      bulbasaur: {
+        id: 1,
+        name: "Bulbasaur",
+        types: ["Grass", "Poison"],
+      },
+    };
     pokemonIndexFixture = {
       bulbasaur: {
         id: 1,
@@ -96,15 +105,20 @@ describe("builderPageData", () => {
     expect(data.speciesCatalog).toEqual(speciesListFixture);
     expect(data.speciesOptions).toEqual(["Bulbasaur", "Charmander"]);
     expect(data.moveIndex).toEqual(moveIndexFixture);
-    expect(data.pokemonIndex.bulbasaur).toEqual({
+    expect(data.canonicalPokemonIndex.bulbasaur).toEqual({
       id: 1,
       name: "Bulbasaur",
       types: ["Grass", "Poison"],
     });
+    expect(data.pokemonIndex.bulbasaur).toEqual({
+      id: 1,
+      name: "Bulbasaur",
+      types: ["Grass", "Poison"],
+      flavorText: "A strange seed was planted on its back at birth.",
+    });
     expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("category");
     expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("height");
     expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("weight");
-    expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("flavorText");
     expect(data.abilityCatalog.map((entry: { name: string }) => entry.name)).toEqual([
       "Chlorophyll",
       "Overgrow",

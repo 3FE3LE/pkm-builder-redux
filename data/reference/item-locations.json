@@ -1,5 +1,16 @@
 [
   {
+    "area": "Aspertia City",
+    "items": [
+      "Pokéball x10 -> Pokéball x50",
+      "Potion x1 -> Bike",
+      "TM27 Return -> TM54 False Swipe",
+      "TM53 Energy Ball",
+      "Max Revive x2 -> Choice Scarf",
+      "TM83 Work Up"
+    ]
+  },
+  {
     "area": "Route 19",
     "items": [
       "Potion",
@@ -994,12 +1005,24 @@
       "PP Max (Hidden)",
       "Prism Scale (Hidden)",
       "Modified Marts",
-      "Several Pokémarts now sell different items. These are listed below.",
-      "~~~~~ Virbank City ~~~~~~",
-      "Secondary Mart now sells Luxury Balls and Net Balls, as well as Aspear, Oran and Rawst Berries.",
-      "~~~~~ Castelia City ~~~~~~",
-      "Secondary Mart now sells EV decreasing berries, as well as Pecha and Chesto Berries.",
-      "~~~~~ Driftveil City ~~~~~~",
+      "Several Pokémarts now sell different items. These are listed below."
+    ]
+  },
+  {
+    "area": "Virbank City",
+    "items": [
+      "Secondary Mart now sells Luxury Balls and Net Balls, as well as Aspear, Oran and Rawst Berries."
+    ]
+  },
+  {
+    "area": "Castelia City",
+    "items": [
+      "Secondary Mart now sells EV decreasing berries, as well as Pecha and Chesto Berries."
+    ]
+  },
+  {
+    "area": "Driftveil City",
+    "items": [
       "Secondary Mart now sells:",
       "- Red Shards",
       "- Blue Shards",
@@ -1011,10 +1034,18 @@
       "- Wiki Berries.",
       "- Mago Berries.",
       "- Aguav Berries.",
-      "- Iapapa Berries.",
-      "~~~~~ Driftveil Market ~~~~~~",
-      "Plasma Grunt now sells evolutionary stones, instead of incense.",
-      "~~~~~ Route 9 Shopping Mall ~~~~~~",
+      "- Iapapa Berries."
+    ]
+  },
+  {
+    "area": "Driftveil Market",
+    "items": [
+      "Plasma Grunt now sells evolutionary stones, instead of incense."
+    ]
+  },
+  {
+    "area": "Route 9 Shopping Mall",
+    "items": [
       "Now sells:",
       "- Incense Items.",
       "- All evolutionary items.",

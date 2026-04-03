@@ -6,6 +6,7 @@ import { useMemo } from "react";
 
 import { ItemSprite } from "@/components/BuilderShared";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
+import { parseItemLocationDetail } from "@/lib/domain/sourceData";
 type DecisionDelta = ReturnType<typeof import("@/lib/domain/decisionDelta").buildDecisionDeltas>[number];
 
 type RecommendedMember = {
@@ -337,17 +338,17 @@ function ItemEntryChip({
   itemByName: Record<string, { name: string; effect?: string; sprite?: string | null }>;
   dexByName: Record<string, number>;
 }) {
-  const { primary, reference } = parseSourceRelation(entry);
-  const itemName = (primary ?? entry).replace(/\s+x\d+$/i, "").trim();
+  const parsed = parseItemLocationDetail(entry);
+  const itemName = (parsed.replacement ?? entry).replace(/\s+x\d+$/i, "").trim();
   const details = itemByName[normalizeName(itemName)];
 
   return (
     <span className="group relative inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
       <ItemSprite name={itemName} sprite={details?.sprite} chrome="plain" />
-      <span className="min-w-0 break-words">{entry}</span>
-      {reference ? (
+      <span className="min-w-0 break-words">{parsed.display}</span>
+      {parsed.original ? (
         <ReferencedThingSprite
-          label={reference}
+          label={parsed.original}
           dexByName={dexByName}
           itemByName={itemByName}
         />

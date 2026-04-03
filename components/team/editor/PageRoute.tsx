@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 
 import {
   useTeamAnalysis,
@@ -54,14 +54,7 @@ export function EditorPageRoute() {
   }
 
   if (!session.builderStarted) {
-    return (
-      <RouteGuardScreen
-        title="No hay run activo"
-        description="Primero necesitas elegir un inicial para crear el equipo."
-        ctaHref="/onboarding"
-        ctaLabel="Ir a onboarding"
-      />
-    );
+    redirect("/onboarding");
   }
 
   if (!member) {

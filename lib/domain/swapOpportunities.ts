@@ -7,11 +7,12 @@ import {
   type StarterKey,
 } from "@/lib/builder";
 import { buildCoverageSummary } from "@/lib/domain/battle";
+import { extractEncounterSpecies, extractGiftSpecies, sanitizeSpeciesName } from "@/lib/domain/sourceData";
 import { buildTeamRoleSnapshot } from "@/lib/domain/roleAnalysis";
 import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 import { getTypeEffectiveness } from "@/lib/domain/typeChart";
 import type { RemoteMove, RemotePokemon, ResolvedTeamMember } from "@/lib/teamAnalysis";
-import { getContextualSourceAreas, type RunEncounterDefinition } from "@/lib/runEncounters";
+import { getContextualSourceAreasForMilestone, type RunEncounterDefinition } from "@/lib/runEncounters";
 
 import {
   buildDecisionDeltas,
@@ -76,6 +77,7 @@ export function buildSwapOpportunities({
   docs,
   team,
   nextEncounter,
+  milestoneId,
   pokemonByName,
   moveIndex,
   starter,
@@ -84,6 +86,7 @@ export function buildSwapOpportunities({
   docs: ParsedDocs;
   team: Array<ResolvedTeamMember & { locked?: boolean }>;
   nextEncounter: RunEncounterDefinition | null;
+  milestoneId?: string;
   pokemonByName: Record<string, RemotePokemon | null | undefined>;
   moveIndex: Record<string, RemoteMove | null | undefined>;
   starter: StarterKey;
@@ -93,11 +96,11 @@ export function buildSwapOpportunities({
   if (!nextEncounter || !activeTeam.length) {
     return [];
   }
-  const checkpointId = inferCheckpointIdFromOrder(nextEncounter.order);
+  const checkpointId = milestoneId ?? inferCheckpointIdFromOrder(nextEncounter.order);
 
   const candidatePool = collectCandidateSources({
     docs,
-    areas: getContextualSourceAreas(nextEncounter.order),
+    areas: getContextualSourceAreasForMilestone(checkpointId),
     existingSpecies: new Set(activeTeam.map((member) => normalizeWords(member.species))),
     pokemonByName,
   });
@@ -440,12 +443,14 @@ function collectCandidateSources({
   for (const areaName of areas) {
     const wildArea = findArea(docs.wildAreas, areaName);
     for (const encounter of wildArea?.methods.flatMap((method) => method.encounters) ?? []) {
-      addCandidate(candidates, {
-        species: encounter.species,
-        source: "Wild",
-        area: areaName,
-        existingSpecies,
-      });
+      for (const species of extractEncounterSpecies(encounter.species, pokemonNames)) {
+        addCandidate(candidates, {
+          species,
+          source: "Wild",
+          area: areaName,
+          existingSpecies,
+        });
+      }
     }
 
     for (const trade of findTrade(docs.trades, areaName)) {
@@ -504,27 +509,11 @@ function addCandidate(
   }
 }
 
-function extractGiftSpecies(name: string, notes: string[], pokemonNames: string[]) {
-  const fromName = matchPokemonNames(name, pokemonNames);
-  if (fromName.length) {
-    return fromName;
-  }
-
-  return matchPokemonNames(notes.join(" "), pokemonNames);
-}
-
 function matchPokemonNames(text: string, pokemonNames: string[]) {
   const haystack = ` ${normalizeWords(text)} `;
   return pokemonNames.filter((species) =>
     haystack.includes(` ${normalizeWords(species)} `),
   );
-}
-
-function sanitizeSpeciesName(species: string) {
-  return species
-    .replace(/^a\s+/i, "")
-    .replace(/\.$/, "")
-    .trim();
 }
 
 function buildEncounterEdges({

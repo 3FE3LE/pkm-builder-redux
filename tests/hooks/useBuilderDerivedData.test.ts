@@ -73,7 +73,8 @@ vi.mock("@/lib/runEncounters", () => ({
   getRunEncounterCatalog: () => [],
   getNextRelevantEncounter: () => null,
   mapEncounterOrderToMilestoneId: () => "floccesy",
-  getContextualSourceAreas: () => [],
+  getFurthestMilestoneId: (current: string, upcoming: string | null) => upcoming ?? current,
+  getContextualSourceAreasForMilestone: () => [],
 }));
 
 vi.mock("@/lib/builder", () => ({

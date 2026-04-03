@@ -9,7 +9,8 @@ import {
 import { buildCoverageSummary } from "./battle";
 import { buildTeamRoleSnapshot } from "./roleAnalysis";
 import { ROLE_LABELS } from "./roleLabels";
-import { getContextualSourceAreas, type RunEncounterDefinition } from "../runEncounters";
+import { extractEncounterSpecies, extractGiftSpecies, sanitizeSpeciesName } from "./sourceData";
+import { getContextualSourceAreasForMilestone, type RunEncounterDefinition } from "../runEncounters";
 import {
   isRecommendationSpeciesAllowed,
   starters,
@@ -60,6 +61,7 @@ export function buildCaptureRecommendations({
   docs,
   team,
   nextEncounter,
+  milestoneId,
   pokemonByName,
   moveIndex,
   starter,
@@ -68,6 +70,7 @@ export function buildCaptureRecommendations({
   docs: ParsedDocs;
   team: Array<ResolvedTeamMember & { locked?: boolean }>;
   nextEncounter: RunEncounterDefinition | null;
+  milestoneId?: string;
   pokemonByName: Record<string, RemotePokemon | null | undefined>;
   moveIndex: Record<string, RemoteMove | null | undefined>;
   starter: StarterKey;
@@ -78,10 +81,10 @@ export function buildCaptureRecommendations({
     return [];
   }
 
-  const checkpointId = inferCheckpointIdFromOrder(nextEncounter.order);
+  const checkpointId = milestoneId ?? inferCheckpointIdFromOrder(nextEncounter.order);
   const candidatePool = collectCandidateSources({
     docs,
-    areas: getContextualSourceAreas(nextEncounter.order),
+    areas: getContextualSourceAreasForMilestone(checkpointId),
     existingSpecies: new Set(activeTeam.map((member) => normalizeWords(member.species))),
     pokemonByName,
   });
@@ -359,12 +362,14 @@ function collectCandidateSources({
   for (const areaName of areas) {
     const wildArea = findArea(docs.wildAreas, areaName);
     for (const encounter of wildArea?.methods.flatMap((method) => method.encounters) ?? []) {
-      addCandidate(candidates, {
-        species: encounter.species,
-        source: "Wild",
-        area: areaName,
-        existingSpecies,
-      });
+      for (const species of extractEncounterSpecies(encounter.species, pokemonNames)) {
+        addCandidate(candidates, {
+          species,
+          source: "Wild",
+          area: areaName,
+          existingSpecies,
+        });
+      }
     }
 
     for (const trade of findTrade(docs.trades, areaName)) {
@@ -423,27 +428,11 @@ function addCandidate(
   }
 }
 
-function extractGiftSpecies(name: string, notes: string[], pokemonNames: string[]) {
-  const fromName = matchPokemonNames(name, pokemonNames);
-  if (fromName.length) {
-    return fromName;
-  }
-
-  return matchPokemonNames(notes.join(" "), pokemonNames);
-}
-
 function matchPokemonNames(text: string, pokemonNames: string[]) {
   const haystack = ` ${normalizeWords(text)} `;
   return pokemonNames.filter((species) =>
     haystack.includes(` ${normalizeWords(species)} `),
   );
-}
-
-function sanitizeSpeciesName(species: string) {
-  return species
-    .replace(/^a\s+/i, "")
-    .replace(/\.$/, "")
-    .trim();
 }
 
 function sourcePriority(source: CandidateSource["source"]) {

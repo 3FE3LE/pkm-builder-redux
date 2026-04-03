@@ -39,7 +39,12 @@ export function resolvePokemonProfile(
       summary: entry.summary,
     }));
 
-  const canonicalEvolutionDetails = remote?.evolutionDetails ?? [];
+  const knownSpecies = docs.pokemonProfiles.length > 1
+    ? new Set(docs.pokemonProfiles.map((entry) => normalizeName(entry.species)))
+    : null;
+  const canonicalEvolutionDetails = (remote?.evolutionDetails ?? []).filter((detail) =>
+    !knownSpecies || knownSpecies.has(normalizeName(formatName(detail.target))),
+  );
   const canonicalEvolutionHints = canonicalEvolutionDetails.map((detail) => {
     const target = formatName(detail.target);
     const method = formatCanonicalEvolutionMethod(detail);
@@ -53,7 +58,9 @@ export function resolvePokemonProfile(
   const nextEvolutions =
     (documentedEvolutionHints.length
       ? documentedEvolutionHints.map((entry) => formatName(entry.target))
-      : remote?.nextEvolutions?.map(formatName)) ?? [];
+      : remote?.nextEvolutions
+          ?.map(formatName)
+          .filter((target) => !knownSpecies || knownSpecies.has(normalizeName(target)))) ?? [];
   const effectiveEvolutionDetails =
     documentedEvolutionDetails.length > 0 ? documentedEvolutionDetails : canonicalEvolutionDetails;
 

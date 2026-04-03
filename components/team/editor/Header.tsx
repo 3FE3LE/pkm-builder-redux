@@ -156,6 +156,7 @@ export function Header({
                 animatedSpriteUrl={resolved?.animatedSpriteUrl}
                 size="large"
                 chrome="plain"
+                eager
               />
             </ViewTransition>
           ) : (
@@ -165,6 +166,7 @@ export function Header({
               animatedSpriteUrl={resolved?.animatedSpriteUrl}
               size="large"
               chrome="plain"
+              eager
             />
           )}
           <div className="flex items-center gap-2">

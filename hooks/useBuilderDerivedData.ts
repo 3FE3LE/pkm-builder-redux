@@ -15,7 +15,8 @@ import { getMoveRecommendations } from "@/lib/domain/moveRecommendations";
 import { buildSwapOpportunities } from "@/lib/domain/swapOpportunities";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import {
-  getContextualSourceAreas,
+  getFurthestMilestoneId,
+  getContextualSourceAreasForMilestone,
   getNextRelevantEncounter,
   getRunEncounterCatalog,
   mapEncounterOrderToMilestoneId,
@@ -61,8 +62,10 @@ export function useBuilderDerivedData(
     () => getNextRelevantEncounter(encounterCatalog, store.completedEncounterIds),
     [encounterCatalog, store.completedEncounterIds],
   );
-  const contextualMilestoneId =
-    (nextEncounter ? mapEncounterOrderToMilestoneId(nextEncounter.order) : null) ?? store.milestoneId;
+  const contextualMilestoneId = getFurthestMilestoneId(
+    store.milestoneId,
+    nextEncounter ? mapEncounterOrderToMilestoneId(nextEncounter.order) : null,
+  );
   const supportsContextualSwaps = Boolean(nextEncounter);
 
   const resolverContext = useMemo<BuilderResolverContext>(
@@ -173,7 +176,7 @@ export function useBuilderDerivedData(
       return [];
     }
 
-    const contextualAreas = getContextualSourceAreas(nextEncounter?.order ?? 1);
+    const contextualAreas = getContextualSourceAreasForMilestone(contextualMilestoneId);
     return buildAreaSources(
       docs,
       contextualAreas,
@@ -190,7 +193,15 @@ export function useBuilderDerivedData(
         source.trades.length ||
         source.items.length,
     );
-  }, [docs, needsCopilotAnalysis, nextEncounter?.order, store.recommendationFilters, store.starter]);
+  }, [
+    contextualMilestoneId,
+    docs,
+    needsCopilotAnalysis,
+    pokemonIndex,
+    resolvedTeam,
+    store.recommendationFilters,
+    store.starter,
+  ]);
 
   const activeMovePickerMemberId = ui.movePickerState?.memberId ?? null;
   const activeMovePickerMember = activeMovePickerMemberId
@@ -233,6 +244,7 @@ export function useBuilderDerivedData(
             docs,
             team: resolvedTeam,
             nextEncounter,
+            milestoneId: contextualMilestoneId,
             pokemonByName: pokemonIndex,
             moveIndex,
             starter: store.starter,
@@ -243,6 +255,7 @@ export function useBuilderDerivedData(
       docs,
       moveIndex,
       needsCopilotAnalysis,
+      contextualMilestoneId,
       nextEncounter,
       pokemonIndex,
       resolvedTeam,
@@ -257,6 +270,7 @@ export function useBuilderDerivedData(
             docs,
             team: resolvedTeam,
             nextEncounter,
+            milestoneId: contextualMilestoneId,
             pokemonByName: pokemonIndex,
             moveIndex,
             starter: store.starter,
@@ -267,6 +281,7 @@ export function useBuilderDerivedData(
       docs,
       moveIndex,
       needsCaptureRecommendations,
+      contextualMilestoneId,
       nextEncounter,
       pokemonIndex,
       resolvedTeam,

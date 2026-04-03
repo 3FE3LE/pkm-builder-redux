@@ -41,7 +41,7 @@ vi.mock("@/components/BuilderShared", () => ({
       >
         {placeholder}
       </button>
-      <div>{options.slice(0, 2).map((option) => <div key={`${placeholder}-${option}`}>{renderOption(option, option === value)}</div>)}</div>
+      <div>{options.slice(0, 2).map((option) => <div key={`${placeholder}-${option}`}>{renderOption ? renderOption(option, option === value) : option}</div>)}</div>
     </div>
   ),
   InfoHint: ({ text }: { text?: string }) => <span>{text ?? "no-hint"}</span>,
@@ -88,6 +88,8 @@ describe("EditorProfileSection", () => {
         itemCatalog={[]}
         nicknameValue="Lucario"
         currentSpecies="Lucario"
+        currentBaseSpecies="Lucario"
+        formOptions={["Lucario"]}
         currentNature="Serious"
         currentAbility="Prankster"
         currentItem=""
@@ -122,6 +124,8 @@ describe("EditorProfileSection", () => {
         itemCatalog={[]}
         nicknameValue="Riolu"
         currentSpecies="Riolu"
+        currentBaseSpecies="Riolu"
+        formOptions={["Riolu"]}
         currentNature="Serious"
         currentAbility="Prankster"
         currentItem=""
@@ -153,6 +157,8 @@ describe("EditorProfileSection", () => {
         itemCatalog={[]}
         nicknameValue="Aura"
         currentSpecies="Riolu"
+        currentBaseSpecies="Riolu"
+        formOptions={["Riolu"]}
         currentNature="Serious"
         currentAbility="Prankster"
         currentItem=""
@@ -206,6 +212,8 @@ describe("EditorProfileSection", () => {
         ]}
         nicknameValue="Riolu"
         currentSpecies="Riolu"
+        currentBaseSpecies="Riolu"
+        formOptions={["Riolu"]}
         currentNature="Serious"
         currentAbility="Prankster"
         currentItem="Oran Berry"
@@ -239,5 +247,41 @@ describe("EditorProfileSection", () => {
     await user.click(screen.getByRole("button", { name: "Held item" }));
     updater = updateEditorMember.mock.calls.at(-1)?.[0];
     expect(updater(createMember())).toMatchObject({ item: "Leftovers" });
+  });
+
+  it("shows a form selector for supported species and updates the effective species", async () => {
+    const user = userEvent.setup();
+    const updateEditorMember = vi.fn();
+
+    render(
+      <ProfileSection
+        member={createMember({ species: "Rotom-Wash", nickname: "Rotom" }) as never}
+        resolved={{ abilities: ["Levitate"] } as never}
+        speciesCatalog={[
+          { name: "Rotom", slug: "rotom", dex: 479, types: ["Electric", "Ghost"] },
+        ]}
+        abilityCatalog={[]}
+        itemCatalog={[]}
+        nicknameValue="Rotom"
+        currentSpecies="Rotom-Wash"
+        currentBaseSpecies="Rotom"
+        formOptions={["Rotom", "Rotom-Heat", "Rotom-Wash"]}
+        currentNature="Serious"
+        currentAbility="Levitate"
+        currentItem=""
+        updateEditorMember={updateEditorMember}
+        getIssue={() => undefined}
+        onImportToPc={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Forma" })).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "Forma" }));
+
+    const updater = updateEditorMember.mock.calls.at(-1)?.[0];
+    expect(updater(createMember({ species: "Rotom-Wash", nickname: "Rotom" }))).toMatchObject({
+      species: "Rotom-Wash",
+    });
   });
 });

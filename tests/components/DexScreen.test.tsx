@@ -8,6 +8,16 @@ const mocked = vi.hoisted(() => ({
   setTab: vi.fn((value: string) => {
     mocked.tab = value;
   }),
+  query: "",
+  setQuery: vi.fn((value: string) => {
+    mocked.query = value;
+  }),
+  parseAsStringEnum: {
+    withDefault: (_defaultValue: string) => "pokemon",
+  },
+  parseAsString: {
+    withDefault: (_defaultValue: string) => "",
+  },
 }));
 
 vi.mock("next/image", () => ({
@@ -47,6 +57,14 @@ vi.mock("@/components/BuilderProvider", () => ({
         sprite: "/leftovers.png",
       },
     ],
+    canonicalPokemonIndex: {
+      mareep: {
+        name: "Mareep",
+        stats: { hp: 55, atk: 40, def: 40, spa: 65, spd: 45, spe: 35, bst: 280 },
+        abilities: ["Static"],
+        types: ["Electric"],
+      },
+    },
     pokemonIndex: {
       mareep: {
         name: "Mareep",
@@ -71,6 +89,30 @@ vi.mock("@/components/BuilderProvider", () => ({
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({}),
+}));
+
+vi.mock("nuqs", () => ({
+  parseAsStringEnum: () => mocked.parseAsStringEnum,
+  parseAsString: mocked.parseAsString,
+  useQueryState: (key: string) => {
+    const React = require("react") as typeof import("react");
+    const [value, setValue] = React.useState(
+      key === "tab" ? mocked.tab : mocked.query,
+    );
+
+    const wrappedSetter = (next: string) => {
+      if (key === "tab") {
+        mocked.tab = next;
+        mocked.setTab(next);
+      } else {
+        mocked.query = next;
+        mocked.setQuery(next);
+      }
+      setValue(next);
+    };
+
+    return [value, wrappedSetter];
+  },
 }));
 
 vi.mock("@/components/ui/tabs", () => ({
@@ -117,6 +159,7 @@ describe("DexScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocked.tab = "pokemon";
+    mocked.query = "";
     Object.defineProperty(globalThis, "CSS", {
       writable: true,
       configurable: true,
@@ -145,7 +188,7 @@ describe("DexScreen", () => {
 
     render(<DexScreen />);
 
-    expect(screen.getByText("Pokemon, movimientos, habilidades y objetos")).toBeTruthy();
+    expect(screen.getByText("Redux Dex")).toBeTruthy();
     expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Electric").length).toBeGreaterThan(0);
     expect(screen.queryByText("Ver")).toBeNull();
@@ -170,7 +213,7 @@ describe("DexScreen", () => {
     await user.click(screen.getByRole("button", { name: "switch-items" }));
     expect(screen.getByText("Leftovers")).toBeTruthy();
     expect(screen.getByText("Castelia City")).toBeTruthy();
-    expect(screen.getByText("Repel -> Leftovers")).toBeTruthy();
+    expect(screen.getByText("Reemplaza Repel")).toBeTruthy();
   });
 
   it("renders pokemon detail links with transition types", () => {

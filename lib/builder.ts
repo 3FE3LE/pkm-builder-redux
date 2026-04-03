@@ -1,12 +1,18 @@
 import { type ParsedDocs } from "./docsSchema";
 import {
-  findWorldArea,
   findWorldGifts,
   findWorldItems,
   findWorldTrades,
+  normalizeWorldName,
   type WorldArea,
   type WorldData,
 } from "./worldDataSchema";
+import {
+  extractEncounterSpecies,
+  extractGiftSpecies,
+  parseItemLocationDetail,
+  sanitizeSpeciesName,
+} from "./domain/sourceData";
 import type { RemotePokemon, ResolvedTeamMember } from "./teamAnalysis";
 
 export type StarterKey = "snivy" | "tepig" | "oshawott";
@@ -279,8 +285,15 @@ export function buildAreaSources(
   );
   const activeTeam = options?.team?.filter((member) => member.species.trim()) ?? [];
   const pokemonByName = options?.pokemonByName;
+  const pokemonNames = Object.values(pokemonByName ?? {})
+    .map((entry) => entry?.name)
+    .filter((entry): entry is string => Boolean(entry));
   return areas.map((areaName) => {
-    const area = worldData ? findWorldArea(worldData.wildAreas, areaName) : undefined;
+    const matchingAreas = worldData
+      ? worldData.wildAreas.filter(
+          (entry) => normalizeWorldName(entry.area) === normalizeWorldName(areaName),
+        )
+      : [];
     const gifts = worldData
       ? findWorldGifts(worldData.gifts, areaName).filter((gift) =>
           isRecommendationCandidateAllowed({
@@ -310,7 +323,7 @@ export function buildAreaSources(
     const items = worldData ? findWorldItems(worldData.items, areaName) : undefined;
     return {
       area: areaName,
-      encounters: summarizeEncounters(area).filter((encounter) =>
+      encounters: summarizeEncounters(matchingAreas, pokemonNames).filter((encounter) =>
         isRecommendationCandidateAllowed({
           species: encounter.species,
           starterFamily,
@@ -321,25 +334,33 @@ export function buildAreaSources(
           starter,
         }),
       ).map((encounter) => `${encounter.species} (${encounter.method})`),
-      gifts: gifts.map((gift) => gift.name),
+      gifts: gifts.flatMap((gift) => {
+        const extracted = extractGiftSpecies(gift.name, gift.notes, pokemonNames);
+        return extracted.length ? extracted : [sanitizeSpeciesName(gift.name)];
+      }),
       trades: trades.map((trade) => `${trade.received} for ${trade.requested}`),
-      items: items?.items.slice(0, 5) ?? [],
+      items: items?.items
+        .slice(0, 5)
+        .map((entry) => parseItemLocationDetail(entry).replacement ?? entry) ?? [],
     };
   });
 }
 
-function summarizeEncounters(area?: WorldArea) {
-  if (!area) {
+function summarizeEncounters(areas: WorldArea[], pokemonNames: string[]) {
+  if (!areas.length) {
     return [];
   }
-  return area.methods
+  return areas
+    .flatMap((area) => area.methods)
     .flatMap((method: WorldArea["methods"][number]) =>
       method.encounters
         .slice(0, 4)
-        .map((encounter: WorldArea["methods"][number]["encounters"][number]) => ({
-          species: encounter.species,
-          method: method.method,
-        }))
+        .flatMap((encounter: WorldArea["methods"][number]["encounters"][number]) =>
+          extractEncounterSpecies(encounter.species, pokemonNames).map((species) => ({
+            species,
+            method: method.method,
+          })),
+        )
     )
     .slice(0, 8);
 }

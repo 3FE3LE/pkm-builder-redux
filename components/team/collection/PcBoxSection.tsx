@@ -106,7 +106,7 @@ export function PcBoxSection({
                         species={member.species}
                         spriteUrl={sprites.spriteUrl}
                         animatedSpriteUrl={sprites.animatedSpriteUrl}
-                        size="small"
+                        size="tiny"
                         chrome="plain"
                       />
                     );

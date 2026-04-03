@@ -7,6 +7,7 @@ const mocked = vi.hoisted(() => ({
   params: {} as { token?: string },
   searchParams: new URLSearchParams(),
   routerReplace: vi.fn(),
+  redirect: vi.fn(),
   saveMemberToPc: vi.fn(),
   setBuilderStarted: vi.fn(),
   importPokemonFromHash: vi.fn((_: string) => ({
@@ -16,6 +17,7 @@ const mocked = vi.hoisted(() => ({
 }));
 
 vi.mock("next/navigation", () => ({
+  redirect: (href: string) => mocked.redirect(href),
   useRouter: () => ({
     replace: mocked.routerReplace,
   }),
@@ -69,6 +71,7 @@ describe("WorkspaceRoute", () => {
     mocked.params = {};
     mocked.searchParams = new URLSearchParams();
     mocked.routerReplace.mockReset();
+    mocked.redirect.mockReset();
     mocked.saveMemberToPc.mockReset();
     mocked.setBuilderStarted.mockReset();
     mocked.importPokemonFromHash.mockReset();
@@ -91,13 +94,7 @@ describe("WorkspaceRoute", () => {
 
     render(<WorkspaceRoute />);
 
-    expect(screen.getByText("No hay run activo")).toBeTruthy();
-    expect(
-      screen.getByText("Primero necesitas elegir un inicial para crear el equipo."),
-    ).toBeTruthy();
-    expect(screen.getByRole("link", { name: "Ir a onboarding" }).getAttribute("href")).toBe(
-      "/onboarding",
-    );
+    expect(mocked.redirect).toHaveBeenCalledWith("/onboarding");
   });
 
   it("renders the active screen when the run is ready", () => {
@@ -108,14 +105,13 @@ describe("WorkspaceRoute", () => {
 
   it("auto-imports a shared token from the url and clears it", async () => {
     mocked.searchParams = new URLSearchParams("m=compact-token&tab=team");
-    mocked.builderStarted = false;
 
     render(<WorkspaceRoute />);
 
     await waitFor(() => {
       expect(mocked.importPokemonFromHash).toHaveBeenCalledWith("compact-token");
       expect(mocked.saveMemberToPc).toHaveBeenCalledWith(expect.objectContaining({ species: "Lucario" }));
-      expect(mocked.setBuilderStarted).toHaveBeenCalledWith(true);
+      expect(mocked.setBuilderStarted).not.toHaveBeenCalled();
       expect(mocked.routerReplace).toHaveBeenCalledWith("/team?tab=team");
     });
   });

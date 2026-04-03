@@ -10,6 +10,8 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { AppFooter } from "@/components/AppFooter";
 import { AppNav } from "@/components/AppNav";
 import { SwrProvider } from "@/components/providers/SwrProvider";
+import { BackToTopButton } from "@/components/ui/BackToTopButton";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -86,11 +88,14 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <NuqsAdapter>
-          <SwrProvider>
-            <AppNav />
-            <div className="flex-1">{children}</div>
-            <AppFooter />
-          </SwrProvider>
+          <TooltipProvider>
+            <SwrProvider>
+              <AppNav />
+              <div className="flex-1">{children}</div>
+              <BackToTopButton />
+              <AppFooter />
+            </SwrProvider>
+          </TooltipProvider>
         </NuqsAdapter>
       </body>
     </html>

@@ -1,7 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import { useCallback, useRef, type ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { useCallback, useRef, type ReactNode, ViewTransition } from "react";
 
 import { TypeBadge } from "@/components/BuilderShared";
 import { Input } from "@/components/ui/Input";
@@ -25,13 +26,31 @@ export function StatBar({
   label,
   value,
   max = 120,
+  transitionName,
+  baselineValue,
 }: {
   label: string;
   value: number;
   max?: number;
+  transitionName?: string;
+  baselineValue?: number;
 }) {
+  const reduceMotion = useReducedMotion();
   const isOverflow = value > max;
   const width = Math.min(100, Math.round((value / max) * 100));
+  const baselineWidth =
+    typeof baselineValue === "number"
+      ? Math.min(100, Math.round((baselineValue / max) * 100))
+      : null;
+  const delta =
+    typeof baselineValue === "number" ? value - baselineValue : null;
+  const deltaSegment =
+    baselineWidth !== null && delta
+      ? {
+          left: `${Math.min(width, baselineWidth)}%`,
+          width: `${Math.abs(width - baselineWidth)}%`,
+        }
+      : null;
   const badMarker = Math.min(100, Math.round((60 / max) * 100));
   const regularMarker = Math.min(100, Math.round((80 / max) * 100));
   const goodMarker = Math.min(100, Math.round((100 / max) * 100));
@@ -41,12 +60,22 @@ export function StatBar({
       : value >= 80
         ? "stat-bar-fill-regular"
         : "stat-bar-fill-bad";
-  return (
+  const content = (
     <div>
       <div className="mb-2 flex items-center justify-between text-sm">
         <span className="display-face text-xs text-muted">{label}</span>
         <span className="mono-face inline-flex items-center gap-1 text-sm text-accent">
           <span>{value}</span>
+          {delta ? (
+            <span
+              className={clsx(
+                "text-[11px]",
+                delta > 0 ? "text-[hsl(161_84%_67%)]" : "text-[hsl(9_90%_70%)]",
+              )}
+            >
+              {delta > 0 ? `+${delta}` : delta}
+            </span>
+          ) : null}
           {isOverflow ? (
             <span title={`Excede la escala visual base de ${max}`} className="text-warning-strong">
               *
@@ -55,6 +84,32 @@ export function StatBar({
         </span>
       </div>
       <div className="relative h-3 rounded-[6px] bg-surface-6">
+        {baselineWidth !== null && delta ? (
+          <span
+            className="absolute inset-y-0 left-0 rounded-[6px] border border-dashed border-white/20 bg-white/5"
+            style={{ width: `${baselineWidth}%` }}
+            aria-hidden="true"
+          />
+        ) : null}
+        {deltaSegment ? (
+          <span
+            className={clsx(
+              "absolute inset-y-0 rounded-[6px]",
+              (delta ?? 0) > 0
+                ? "bg-[rgba(94,240,203,0.38)]"
+                : "bg-[rgba(255,122,92,0.42)]",
+            )}
+            style={deltaSegment}
+            aria-hidden="true"
+          />
+        ) : null}
+        {baselineWidth !== null && delta ? (
+          <span
+            className="absolute inset-y-[-2px] w-[2px] -translate-x-1/2 rounded-full bg-white/75 shadow-[0_0_0_1px_rgba(0,0,0,0.15)]"
+            style={{ left: `${baselineWidth}%` }}
+            aria-hidden="true"
+          />
+        ) : null}
         <span
           className="absolute -inset-y-0.75 w-px bg-warning-mark"
           style={{ left: `${badMarker}%` }}
@@ -70,8 +125,15 @@ export function StatBar({
           style={{ left: `${goodMarker}%` }}
           aria-hidden="true"
         />
-        <div
+        <motion.div
           className={`h-full rounded-[6px] ${fillClass}`}
+          initial={reduceMotion ? false : { width: 0 }}
+          animate={{ width: `${width}%` }}
+          transition={
+            reduceMotion
+              ? undefined
+              : { duration: 0.55, ease: "easeInOut" }
+          }
           style={{ width: `${width}%` }}
         />
       </div>
@@ -91,6 +153,12 @@ export function StatBar({
       </div>
     </div>
   );
+
+  if (!transitionName) {
+    return content;
+  }
+
+  return <ViewTransition name={transitionName}>{content}</ViewTransition>;
 }
 
 export function MiniPill({

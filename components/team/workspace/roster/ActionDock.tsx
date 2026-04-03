@@ -6,6 +6,7 @@ import { ChevronLeft, GitCompareArrows, Info, Lock, LockOpen, Pencil, RotateCcw,
 
 import { Button } from "@/components/ui/Button";
 import type { EditableMember } from "@/lib/builderStore";
+import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 export function ActionDock({
   mode = "full",
@@ -54,13 +55,17 @@ export function ActionDock({
   const iconClass = isDesktop ? "h-4 w-4" : "h-5 w-5";
   const editLabel = editAriaLabel ?? "Editar slot seleccionado";
   const editNode = editIcon === "back" ? <ChevronLeft className={iconClass} /> : <Pencil className={iconClass} />;
+  const backTransition = useSafeTransitionTypes(["editor-back"]);
+  const forwardTransition = useSafeTransitionTypes(
+    editTransitionTypes ?? ["editor-forward"],
+  );
 
   if (mode === "close-only") {
     if (closeHref) {
       return (
         <Link
           href={closeHref}
-          transitionTypes={["editor-back"]}
+          transitionTypes={backTransition}
           aria-label="Volver al team"
           className={clsx(
             "inline-flex items-center justify-center",
@@ -117,7 +122,7 @@ export function ActionDock({
       {editHref ? (
         <Link
           href={editHref}
-          transitionTypes={editTransitionTypes ?? ["editor-forward"]}
+          transitionTypes={forwardTransition}
           aria-label={editLabel}
           className={clsx(
             "inline-flex items-center justify-center",
@@ -167,7 +172,7 @@ export function ActionDock({
       {showCloseDockAction && closeHref ? (
         <Link
           href={closeHref}
-          transitionTypes={["editor-back"]}
+          transitionTypes={backTransition}
           aria-label="Volver al team"
           className={clsx(
             "inline-flex items-center justify-center",

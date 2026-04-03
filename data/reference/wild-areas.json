@@ -7899,250 +7899,1451 @@
             "rate": "05%"
           }
         ]
+      }
+    ]
+  },
+  {
+    "area": "Route 5",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Guaranteed Encounters",
+        "encounters": [
+          {
+            "species": "When you first make it to Route 5, Bianca will demonstrate the Hidden Grotto mechanic.",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "You will always encounter a Lv. 30 Stantler here.",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "This replaces the overpowered Munchlax from BB2 and VW2 and the fairly useless Minccino of the vanilla games.",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Guaranteed Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Pachirisu",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Liepard",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Minccino",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Sigilyph",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Nidorina",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Nidorino",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Gothorita",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Duosion",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Squirtle",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Totodile",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Stantler",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Lostlorn Forest",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Pansage",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Pansear",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Panpour",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Burmy",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Heracross",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Pinsir",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Goldeen",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Exeggcute",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Bulbasaur",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Treecko",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Scyther",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 6 - Driftveil Entrance",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Shroomish",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Hoothoot",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Natu",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Mankey",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Tympole",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Mime Jr.",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Bonsly",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Yanma",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Snover",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Chikorita",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Turtwig",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 6 - Mistralton Cave Entrance",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Rhyhorn",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Onix",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Whismur",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Geodude",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Gurdurr",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Aron",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Nosepass",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Tyrogue",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Gible",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Cyndaquil",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Torchic",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Floccesy Ranch",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Azumarill",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Herdier",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Quagsire",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Swellow",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Zebstrika",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Watchog",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Dunsparce",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Ponyta",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Houndour",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Miltank",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Tauros",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 7",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Swinub",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Snorunt",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Phanpy",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Aipom",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Cubchoo",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Spinda",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Zangoose",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Seviper",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Sneasel",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Charmander",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Chimchar",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Abundant Shrine - Entrance",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Oddish",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Psyduck",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Pineco",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Swablu",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Qwilfish",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Corphish",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Budew",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Marill",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Eevee",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Slowpoke",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Vulpix",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Abra",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Abundant Shrine - Back Pond near Shrine",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Swablu",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Alomomola",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Corphish",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Krabby",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Qwilfish",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Carvanha",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Dratini",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Poliwag",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 13 - Near Cobalion's Grove",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Hoppip",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Zigzagoon",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Lunatone",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Solrock",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Zubat",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Taillow",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Luvdisc",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Wingull",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Mudkip",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Piplup",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Staryu",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 9",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Croagunk",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Scraggy",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Poochyena",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Gulpin",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Bellsprout",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Druddigon",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Houndour",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Grimer",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Ralts",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Magnemite",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Golett",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Munchlax",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 22",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Venonat",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Ledyba",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Spinarak",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Shuckle",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Surskit",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Skitty",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Shelmet",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Karrablast",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Mienfoo",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Delibird",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Gligar",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Corsola",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Giant Chasm",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Clefairy",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Absol",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Drowzee",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Castform",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Porygon",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Jynx",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Buneary",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Vanillish",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Drilbur",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Beldum",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Ditto",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Roggenrola",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 13 - Outside Giant Chasm",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Kecleon",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Farfetch'd",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Shellos-E",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Shellos-W",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Seel",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Spheal",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Snorunt",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Horsea",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Feebas",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Drifloon",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Togepi",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Happiny",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 23",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Zangoose",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Seviper",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Throh",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Sawk",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Teddiursa",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Tropius",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Wooper",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Smeargle",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Glameow",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Stunky",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Tauros",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Gastly",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Pinwheel Forest - Deep in the Woods",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Amoonguss",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Murkrow",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Pinsir",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Scyther",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Beedrill",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Butterfree",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Breloom",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Scolipede",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Pinwheel Forest - Challenger's Rock",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Poliwhirl",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Hariyama",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Medicham",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Shelgon",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Wormadam",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Mothim",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Ledian",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Ariados",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 3 - In the Dark, Doubles Grass",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Pachirisu",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Manectric",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Zebstrika",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Luxray",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Lombre",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Nuzleaf",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Ninetales",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Arcanine",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 3 - Over the Clear, Blue Pond",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Bibarel",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Venonat",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Lombre",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Masquerain",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Basculin",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Lanturn",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Flaaffy",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Mightyena",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 2",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Watchog",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Nidorino",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Nidorina",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Granbull",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Primeape",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Herdier",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Uncommon Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Dunsparce",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Kricketune",
+            "level": "",
+            "rate": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "area": "Route 18",
+    "methods": [
+      {
+        "method": "Hidden Grotto - Common Encounters",
+        "encounters": [
+          {
+            "species": "Kingler",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Crawdaunt",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Chatot",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Dragonite",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Uncommon Encounters",
+        "encounters": [
+          {
+            "species": "Feebas",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Crustle",
+            "level": "",
+            "rate": null
+          }
+        ]
       },
       {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Common Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Uncommon Encounters",
-        "encounters": []
-      },
-      {
-        "method": "Rare Encounters",
-        "encounters": []
+        "method": "Hidden Grotto - Rare Encounters",
+        "encounters": [
+          {
+            "species": "Galvantula",
+            "level": "",
+            "rate": null
+          },
+          {
+            "species": "Maractus",
+            "level": "",
+            "rate": null
+          }
+        ]
       }
     ]
   }
