@@ -39,7 +39,8 @@
     "slug": "charmeleon",
     "dex": 5,
     "types": [
-      "Fire"
+      "Fire",
+      "Dragon"
     ]
   },
   {
@@ -48,7 +49,7 @@
     "dex": 6,
     "types": [
       "Fire",
-      "Flying"
+      "Dragon"
     ]
   },
   {
@@ -146,6 +147,15 @@
     ]
   },
   {
+    "name": "Pidgeot",
+    "slug": "pidgeot",
+    "dex": 18,
+    "types": [
+      "Normal",
+      "Flying"
+    ]
+  },
+  {
     "name": "Rattata",
     "slug": "rattata",
     "dex": 19,
@@ -166,7 +176,6 @@
     "slug": "spearow",
     "dex": 21,
     "types": [
-      "Normal",
       "Flying"
     ]
   },
@@ -175,7 +184,6 @@
     "slug": "fearow",
     "dex": 22,
     "types": [
-      "Normal",
       "Flying"
     ]
   },
@@ -228,7 +236,7 @@
     ]
   },
   {
-    "name": "Nidoran♀",
+    "name": "Nidoran F",
     "slug": "nidoran-f",
     "dex": 29,
     "types": [
@@ -253,7 +261,7 @@
     ]
   },
   {
-    "name": "Nidoran♂",
+    "name": "Nidoran M",
     "slug": "nidoran-m",
     "dex": 32,
     "types": [
@@ -306,7 +314,8 @@
     "slug": "ninetales",
     "dex": 38,
     "types": [
-      "Fire"
+      "Fire",
+      "Fairy"
     ]
   },
   {
@@ -453,7 +462,8 @@
     "slug": "golduck",
     "dex": 55,
     "types": [
-      "Water"
+      "Water",
+      "Psychic"
     ]
   },
   {
@@ -646,7 +656,8 @@
     "slug": "rapidash",
     "dex": 78,
     "types": [
-      "Fire"
+      "Fire",
+      "Fairy"
     ]
   },
   {
@@ -686,11 +697,11 @@
     ]
   },
   {
-    "name": "Farfetch'd",
+    "name": "Farfetchd",
     "slug": "farfetchd",
     "dex": 83,
     "types": [
-      "Normal",
+      "Fighting",
       "Flying"
     ]
   },
@@ -750,7 +761,8 @@
     "slug": "shellder",
     "dex": 90,
     "types": [
-      "Water"
+      "Water",
+      "Ice"
     ]
   },
   {
@@ -1012,7 +1024,7 @@
     ]
   },
   {
-    "name": "Mr. Mime",
+    "name": "Mr Mime",
     "slug": "mr-mime",
     "dex": 122,
     "types": [
@@ -1278,7 +1290,8 @@
     "slug": "bayleef",
     "dex": 153,
     "types": [
-      "Grass"
+      "Grass",
+      "Fairy"
     ]
   },
   {
@@ -1286,7 +1299,8 @@
     "slug": "meganium",
     "dex": 154,
     "types": [
-      "Grass"
+      "Grass",
+      "Fairy"
     ]
   },
   {
@@ -1367,7 +1381,7 @@
     "slug": "noctowl",
     "dex": 164,
     "types": [
-      "Normal",
+      "Psychic",
       "Flying"
     ]
   },
@@ -1515,7 +1529,8 @@
     "slug": "ampharos",
     "dex": 181,
     "types": [
-      "Electric"
+      "Electric",
+      "Dragon"
     ]
   },
   {
@@ -1677,7 +1692,8 @@
     "slug": "misdreavus",
     "dex": 200,
     "types": [
-      "Ghost"
+      "Ghost",
+      "Fairy"
     ]
   },
   {
@@ -1753,6 +1769,7 @@
     "slug": "snubbull",
     "dex": 209,
     "types": [
+      "Fighting",
       "Fairy"
     ]
   },
@@ -1761,6 +1778,7 @@
     "slug": "granbull",
     "dex": 210,
     "types": [
+      "Fighting",
       "Fairy"
     ]
   },
@@ -1814,7 +1832,8 @@
     "slug": "teddiursa",
     "dex": 216,
     "types": [
-      "Normal"
+      "Normal",
+      "Ground"
     ]
   },
   {
@@ -1822,7 +1841,8 @@
     "slug": "ursaring",
     "dex": 217,
     "types": [
-      "Normal"
+      "Normal",
+      "Ground"
     ]
   },
   {
@@ -1830,7 +1850,8 @@
     "slug": "slugma",
     "dex": 218,
     "types": [
-      "Fire"
+      "Fire",
+      "Rock"
     ]
   },
   {
@@ -2135,7 +2156,8 @@
     "slug": "sceptile",
     "dex": 254,
     "types": [
-      "Grass"
+      "Grass",
+      "Dragon"
     ]
   },
   {
@@ -2395,7 +2417,7 @@
     "dex": 284,
     "types": [
       "Bug",
-      "Flying"
+      "Water"
     ]
   },
   {
@@ -2639,7 +2661,8 @@
     "slug": "volbeat",
     "dex": 313,
     "types": [
-      "Bug"
+      "Bug",
+      "Electric"
     ]
   },
   {
@@ -2647,7 +2670,8 @@
     "slug": "illumise",
     "dex": 314,
     "types": [
-      "Bug"
+      "Bug",
+      "Fairy"
     ]
   },
   {
@@ -2764,6 +2788,7 @@
     "slug": "trapinch",
     "dex": 328,
     "types": [
+      "Bug",
       "Ground"
     ]
   },
@@ -2772,7 +2797,7 @@
     "slug": "vibrava",
     "dex": 329,
     "types": [
-      "Ground",
+      "Bug",
       "Dragon"
     ]
   },
@@ -2781,7 +2806,7 @@
     "slug": "flygon",
     "dex": 330,
     "types": [
-      "Ground",
+      "Bug",
       "Dragon"
     ]
   },
@@ -2790,7 +2815,8 @@
     "slug": "cacnea",
     "dex": 331,
     "types": [
-      "Grass"
+      "Grass",
+      "Dark"
     ]
   },
   {
@@ -2807,7 +2833,7 @@
     "slug": "swablu",
     "dex": 333,
     "types": [
-      "Normal",
+      "Fairy",
       "Flying"
     ]
   },
@@ -2817,7 +2843,7 @@
     "dex": 334,
     "types": [
       "Dragon",
-      "Flying"
+      "Fairy"
     ]
   },
   {
@@ -2988,7 +3014,8 @@
     "slug": "banette",
     "dex": 354,
     "types": [
-      "Ghost"
+      "Ghost",
+      "Normal"
     ]
   },
   {
@@ -3053,7 +3080,8 @@
     "slug": "glalie",
     "dex": 362,
     "types": [
-      "Ice"
+      "Ice",
+      "Rock"
     ]
   },
   {
@@ -3121,7 +3149,8 @@
     "slug": "luvdisc",
     "dex": 370,
     "types": [
-      "Water"
+      "Water",
+      "Fairy"
     ]
   },
   {
@@ -3417,7 +3446,8 @@
     "slug": "luxray",
     "dex": 405,
     "types": [
-      "Electric"
+      "Electric",
+      "Dark"
     ]
   },
   {
@@ -3612,7 +3642,8 @@
     "slug": "lopunny",
     "dex": 428,
     "types": [
-      "Normal"
+      "Normal",
+      "Fighting"
     ]
   },
   {
@@ -3620,7 +3651,8 @@
     "slug": "mismagius",
     "dex": 429,
     "types": [
-      "Ghost"
+      "Ghost",
+      "Fairy"
     ]
   },
   {
@@ -3701,7 +3733,7 @@
     ]
   },
   {
-    "name": "Mime Jr.",
+    "name": "Mime Jr",
     "slug": "mime-jr",
     "dex": 439,
     "types": [
@@ -3810,6 +3842,15 @@
     "types": [
       "Poison",
       "Bug"
+    ]
+  },
+  {
+    "name": "Drapion",
+    "slug": "drapion",
+    "dex": 452,
+    "types": [
+      "Poison",
+      "Dark"
     ]
   },
   {
@@ -3929,7 +3970,8 @@
     "slug": "electivire",
     "dex": 466,
     "types": [
-      "Electric"
+      "Electric",
+      "Fighting"
     ]
   },
   {
@@ -3975,6 +4017,15 @@
     ]
   },
   {
+    "name": "Gliscor",
+    "slug": "gliscor",
+    "dex": 472,
+    "types": [
+      "Ground",
+      "Flying"
+    ]
+  },
+  {
     "name": "Mamoswine",
     "slug": "mamoswine",
     "dex": 473,
@@ -4006,7 +4057,7 @@
     "dex": 476,
     "types": [
       "Rock",
-      "Steel"
+      "Electric"
     ]
   },
   {
@@ -4040,7 +4091,8 @@
     "slug": "uxie",
     "dex": 480,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ]
   },
   {
@@ -4048,7 +4100,8 @@
     "slug": "mesprit",
     "dex": 481,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ]
   },
   {
@@ -4056,7 +4109,8 @@
     "slug": "azelf",
     "dex": 482,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ]
   },
   {
@@ -4173,7 +4227,8 @@
     "slug": "servine",
     "dex": 496,
     "types": [
-      "Grass"
+      "Grass",
+      "Dragon"
     ]
   },
   {
@@ -4181,7 +4236,8 @@
     "slug": "serperior",
     "dex": 497,
     "types": [
-      "Grass"
+      "Grass",
+      "Dragon"
     ]
   },
   {
@@ -4198,7 +4254,7 @@
     "dex": 499,
     "types": [
       "Fire",
-      "Fighting"
+      "Ground"
     ]
   },
   {
@@ -4207,7 +4263,7 @@
     "dex": 500,
     "types": [
       "Fire",
-      "Fighting"
+      "Ground"
     ]
   },
   {
@@ -4223,7 +4279,8 @@
     "slug": "dewott",
     "dex": 502,
     "types": [
-      "Water"
+      "Water",
+      "Fighting"
     ]
   },
   {
@@ -4231,7 +4288,8 @@
     "slug": "samurott",
     "dex": 503,
     "types": [
-      "Water"
+      "Water",
+      "Fighting"
     ]
   },
   {
@@ -4343,7 +4401,8 @@
     "slug": "munna",
     "dex": 517,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ]
   },
   {
@@ -4351,7 +4410,8 @@
     "slug": "musharna",
     "dex": 518,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ]
   },
   {
@@ -4461,7 +4521,8 @@
     "slug": "audino",
     "dex": 531,
     "types": [
-      "Normal"
+      "Normal",
+      "Fairy"
     ]
   },
   {
@@ -4587,15 +4648,6 @@
   {
     "name": "Cottonee",
     "slug": "cottonee",
-    "dex": 546,
-    "types": [
-      "Grass",
-      "Fairy"
-    ]
-  },
-  {
-    "name": "Kyurem",
-    "slug": "kyurem",
     "dex": 546,
     "types": [
       "Grass",
@@ -4836,7 +4888,8 @@
     "slug": "gothita",
     "dex": 574,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Dark"
     ]
   },
   {
@@ -4844,7 +4897,8 @@
     "slug": "gothorita",
     "dex": 575,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Dark"
     ]
   },
   {
@@ -4852,7 +4906,8 @@
     "slug": "gothitelle",
     "dex": 576,
     "types": [
-      "Psychic"
+      "Psychic",
+      "Dark"
     ]
   },
   {
@@ -4918,7 +4973,8 @@
     "slug": "vanilluxe",
     "dex": 584,
     "types": [
-      "Ice"
+      "Ice",
+      "Fairy"
     ]
   },
   {
@@ -4984,8 +5040,8 @@
     ]
   },
   {
-    "name": "Frillish",
-    "slug": "frillish",
+    "name": "Frillish Male",
+    "slug": "frillish-male",
     "dex": 592,
     "types": [
       "Water",
@@ -4993,8 +5049,8 @@
     ]
   },
   {
-    "name": "Jellicent",
-    "slug": "jellicent",
+    "name": "Jellicent Male",
+    "slug": "jellicent-male",
     "dex": 593,
     "types": [
       "Water",
@@ -5173,7 +5229,8 @@
     "slug": "beartic",
     "dex": 614,
     "types": [
-      "Ice"
+      "Ice",
+      "Fighting"
     ]
   },
   {
@@ -5444,6 +5501,15 @@
     "types": [
       "Ground",
       "Flying"
+    ]
+  },
+  {
+    "name": "Kyurem",
+    "slug": "kyurem",
+    "dex": 646,
+    "types": [
+      "Dragon",
+      "Ice"
     ]
   },
   {

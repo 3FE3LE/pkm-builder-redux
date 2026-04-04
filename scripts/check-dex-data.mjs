@@ -30,15 +30,15 @@ function isValidSpeciesEntry(entry) {
 
 async function main() {
   const speciesList = await readJson("species-list.json");
-  const pokemonIndex = await readJson("pokemon-index.json");
+  const dexList = await readJson("dex-list.json");
 
   if (!Array.isArray(speciesList) || speciesList.length === 0) {
     fail("species-list.json is empty or invalid");
     return;
   }
 
-  if (!pokemonIndex || typeof pokemonIndex !== "object") {
-    fail("pokemon-index.json is empty or invalid");
+  if (!Array.isArray(dexList) || dexList.length === 0) {
+    fail("dex-list.json is empty or invalid");
     return;
   }
 
@@ -48,21 +48,16 @@ async function main() {
     return;
   }
 
-  const pokemonValues = Object.values(pokemonIndex);
-  if (pokemonValues.length !== speciesList.length) {
+  if (dexList.length !== speciesList.length) {
     fail(
-      `species-list.json length (${speciesList.length}) does not match pokemon-index.json length (${pokemonValues.length})`,
+      `dex-list.json length (${dexList.length}) does not match species-list.json length (${speciesList.length})`,
     );
     return;
   }
 
-  const missingSpecies = pokemonValues.find((entry) => {
-    const slug = entry?.slug;
-    return !speciesList.some((species) => species.slug === slug);
-  });
-
+  const missingSpecies = speciesList.find((entry) => !dexList.some((dexEntry) => dexEntry.slug === entry.slug));
   if (missingSpecies) {
-    fail(`species-list.json is missing slug "${missingSpecies.slug}" from pokemon-index.json`);
+    fail(`dex-list.json is missing slug "${missingSpecies.slug}" from species-list.json`);
     return;
   }
 

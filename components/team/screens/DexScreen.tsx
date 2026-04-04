@@ -190,13 +190,13 @@ export function DexScreen({
   const dexBySpecies = useMemo(() => {
     const next: Record<string, number> = {};
 
-    data.speciesCatalog.forEach((species) => {
+    pokemonEntries.forEach((species) => {
       next[normalizeName(species.name)] = species.dex;
       next[normalizeName(getBaseSpeciesName(species.name))] = species.dex;
     });
 
     return next;
-  }, [data.speciesCatalog]);
+  }, [pokemonEntries]);
   const pokemonEntriesBySlug = useMemo(
     () =>
       new Map(
@@ -220,13 +220,7 @@ export function DexScreen({
       const pokemon =
         pokemonEntriesBySlug.get(normalizedSpecies) ??
         pokemonEntriesBySlug.get(normalizeName(getBaseSpeciesName(speciesName)));
-      const speciesEntry =
-        data.speciesCatalog.find((entry) => entry.slug === normalizedSpecies) ??
-        data.speciesCatalog.find((entry) => normalizeName(entry.name) === normalizedSpecies) ??
-        data.speciesCatalog.find(
-          (entry) => normalizeName(getBaseSpeciesName(entry.name)) === normalizedSpecies,
-        );
-      const resolvedTypes = dedupeStrings(pokemon?.types ?? speciesEntry?.types ?? []);
+      const resolvedTypes = dedupeStrings(pokemon?.types ?? []);
 
       resolvedTypes.forEach((type) => {
         next.add(normalizeName(type));
@@ -234,7 +228,7 @@ export function DexScreen({
     });
 
     return next;
-  }, [currentTeam, data.speciesCatalog, pokemonEntriesBySlug]);
+  }, [currentTeam, pokemonEntriesBySlug]);
   const pokemonNames = useMemo(
     () => pokemonEntries.map((entry) => entry.name),
     [pokemonEntries],

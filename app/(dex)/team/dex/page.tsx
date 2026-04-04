@@ -20,8 +20,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TeamDexPage() {
-  const data = getDexListPageData();
+type PageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function TeamDexPage({ searchParams }: PageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const perfDebug = resolvedSearchParams.perf === "1";
+  const data = getDexListPageData(perfDebug);
 
   return <DexScreen data={data} />;
 }

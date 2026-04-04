@@ -1,0 +1,10354 @@
+[
+  {
+    "dex": 1,
+    "name": "Bulbasaur",
+    "slug": "bulbasaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 2,
+    "name": "Ivysaur",
+    "slug": "ivysaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 3,
+    "name": "Venusaur",
+    "slug": "venusaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 4,
+    "name": "Charmander",
+    "slug": "charmander",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Solar Power"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 5,
+    "name": "Charmeleon",
+    "slug": "charmeleon",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Solar Power"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 6,
+    "name": "Charizard",
+    "slug": "charizard",
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "abilities": [
+      "Blaze",
+      "Solar Power"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 7,
+    "name": "Squirtle",
+    "slug": "squirtle",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 8,
+    "name": "Wartortle",
+    "slug": "wartortle",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 9,
+    "name": "Blastoise",
+    "slug": "blastoise",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 10,
+    "name": "Caterpie",
+    "slug": "caterpie",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shield Dust",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 11,
+    "name": "Metapod",
+    "slug": "metapod",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 12,
+    "name": "Butterfree",
+    "slug": "butterfree",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Compound Eyes",
+      "Tinted Lens"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 13,
+    "name": "Weedle",
+    "slug": "weedle",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Shield Dust",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 14,
+    "name": "Kakuna",
+    "slug": "kakuna",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 15,
+    "name": "Beedrill",
+    "slug": "beedrill",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Swarm",
+      "Sniper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 16,
+    "name": "Pidgey",
+    "slug": "pidgey",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Tangled Feet",
+      "Big Pecks"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 17,
+    "name": "Pidgeotto",
+    "slug": "pidgeotto",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Tangled Feet",
+      "Big Pecks"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 18,
+    "name": "Pidgeot",
+    "slug": "pidgeot",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Tangled Feet",
+      "Big Pecks"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 19,
+    "name": "Rattata",
+    "slug": "rattata",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Guts",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 20,
+    "name": "Raticate",
+    "slug": "raticate",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Guts",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 21,
+    "name": "Spearow",
+    "slug": "spearow",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Sniper"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 22,
+    "name": "Fearow",
+    "slug": "fearow",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Sniper"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 23,
+    "name": "Ekans",
+    "slug": "ekans",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Shed Skin",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 24,
+    "name": "Arbok",
+    "slug": "arbok",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Shed Skin",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 25,
+    "name": "Pikachu",
+    "slug": "pikachu",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Lightning Rod"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 26,
+    "name": "Raichu",
+    "slug": "raichu",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Lightning Rod"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 27,
+    "name": "Sandshrew",
+    "slug": "sandshrew",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Sand Rush"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 28,
+    "name": "Sandslash",
+    "slug": "sandslash",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Sand Rush"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 29,
+    "name": "Nidoran F",
+    "slug": "nidoran-f",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 30,
+    "name": "Nidorina",
+    "slug": "nidorina",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 31,
+    "name": "Nidoqueen",
+    "slug": "nidoqueen",
+    "types": [
+      "Poison",
+      "Ground"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 32,
+    "name": "Nidoran M",
+    "slug": "nidoran-m",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 33,
+    "name": "Nidorino",
+    "slug": "nidorino",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 34,
+    "name": "Nidoking",
+    "slug": "nidoking",
+    "types": [
+      "Poison",
+      "Ground"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Rivalry",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 35,
+    "name": "Clefairy",
+    "slug": "clefairy",
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Magic Guard",
+      "Friend Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 36,
+    "name": "Clefable",
+    "slug": "clefable",
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Magic Guard",
+      "Unaware"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 37,
+    "name": "Vulpix",
+    "slug": "vulpix",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Drought"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 38,
+    "name": "Ninetales",
+    "slug": "ninetales",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Drought"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 39,
+    "name": "Jigglypuff",
+    "slug": "jigglypuff",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Competitive",
+      "Friend Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 40,
+    "name": "Wigglytuff",
+    "slug": "wigglytuff",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Competitive",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 41,
+    "name": "Zubat",
+    "slug": "zubat",
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 42,
+    "name": "Golbat",
+    "slug": "golbat",
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 43,
+    "name": "Oddish",
+    "slug": "oddish",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 44,
+    "name": "Gloom",
+    "slug": "gloom",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Stench"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 45,
+    "name": "Vileplume",
+    "slug": "vileplume",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Effect Spore"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 46,
+    "name": "Paras",
+    "slug": "paras",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Dry Skin",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 47,
+    "name": "Parasect",
+    "slug": "parasect",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Dry Skin",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 48,
+    "name": "Venonat",
+    "slug": "venonat",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Compound Eyes",
+      "Tinted Lens",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 49,
+    "name": "Venomoth",
+    "slug": "venomoth",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Shield Dust",
+      "Tinted Lens",
+      "Wonder Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 50,
+    "name": "Diglett",
+    "slug": "diglett",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Arena Trap",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 51,
+    "name": "Dugtrio",
+    "slug": "dugtrio",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Arena Trap",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 52,
+    "name": "Meowth",
+    "slug": "meowth",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Pickup",
+      "Technician",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 53,
+    "name": "Persian",
+    "slug": "persian",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Limber",
+      "Technician",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 54,
+    "name": "Psyduck",
+    "slug": "psyduck",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Damp",
+      "Cloud Nine",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 55,
+    "name": "Golduck",
+    "slug": "golduck",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Damp",
+      "Cloud Nine",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 56,
+    "name": "Mankey",
+    "slug": "mankey",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Vital Spirit",
+      "Anger Point",
+      "Defiant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 57,
+    "name": "Primeape",
+    "slug": "primeape",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Vital Spirit",
+      "Anger Point",
+      "Defiant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 58,
+    "name": "Growlithe",
+    "slug": "growlithe",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Flash Fire",
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 59,
+    "name": "Arcanine",
+    "slug": "arcanine",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Flash Fire",
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 60,
+    "name": "Poliwag",
+    "slug": "poliwag",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Damp",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 61,
+    "name": "Poliwhirl",
+    "slug": "poliwhirl",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Damp",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 62,
+    "name": "Poliwrath",
+    "slug": "poliwrath",
+    "types": [
+      "Water",
+      "Fighting"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Damp",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 63,
+    "name": "Abra",
+    "slug": "abra",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Inner Focus",
+      "Magic Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 64,
+    "name": "Kadabra",
+    "slug": "kadabra",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Inner Focus",
+      "Magic Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 65,
+    "name": "Alakazam",
+    "slug": "alakazam",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Inner Focus",
+      "Magic Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 66,
+    "name": "Machop",
+    "slug": "machop",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "No Guard",
+      "Steadfast"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 67,
+    "name": "Machoke",
+    "slug": "machoke",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "No Guard",
+      "Steadfast"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 68,
+    "name": "Machamp",
+    "slug": "machamp",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "No Guard",
+      "Steadfast"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 69,
+    "name": "Bellsprout",
+    "slug": "bellsprout",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 70,
+    "name": "Weepinbell",
+    "slug": "weepinbell",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 71,
+    "name": "Victreebel",
+    "slug": "victreebel",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 72,
+    "name": "Tentacool",
+    "slug": "tentacool",
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Liquid Ooze",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 73,
+    "name": "Tentacruel",
+    "slug": "tentacruel",
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Liquid Ooze",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 74,
+    "name": "Geodude",
+    "slug": "geodude",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sturdy",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 75,
+    "name": "Graveler",
+    "slug": "graveler",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sturdy",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 76,
+    "name": "Golem",
+    "slug": "golem",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sturdy",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 77,
+    "name": "Ponyta",
+    "slug": "ponyta",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Run Away",
+      "Flash Fire",
+      "Flame Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 78,
+    "name": "Rapidash",
+    "slug": "rapidash",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Run Away",
+      "Flash Fire",
+      "Flame Body"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 79,
+    "name": "Slowpoke",
+    "slug": "slowpoke",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Own Tempo",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 80,
+    "name": "Slowbro",
+    "slug": "slowbro",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Own Tempo",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 81,
+    "name": "Magnemite",
+    "slug": "magnemite",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "abilities": [
+      "Magnet Pull",
+      "Sturdy",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 82,
+    "name": "Magneton",
+    "slug": "magneton",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "abilities": [
+      "Magnet Pull",
+      "Sturdy",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 83,
+    "name": "Farfetchd",
+    "slug": "farfetchd",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Inner Focus",
+      "Defiant"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 84,
+    "name": "Doduo",
+    "slug": "doduo",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Run Away",
+      "Early Bird",
+      "Tangled Feet"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 85,
+    "name": "Dodrio",
+    "slug": "dodrio",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Run Away",
+      "Early Bird",
+      "Tangled Feet"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 86,
+    "name": "Seel",
+    "slug": "seel",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Hydration",
+      "Ice Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 87,
+    "name": "Dewgong",
+    "slug": "dewgong",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Hydration",
+      "Ice Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 88,
+    "name": "Grimer",
+    "slug": "grimer",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Stench",
+      "Sticky Hold",
+      "Poison Touch"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 89,
+    "name": "Muk",
+    "slug": "muk",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Stench",
+      "Sticky Hold",
+      "Poison Touch"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 90,
+    "name": "Shellder",
+    "slug": "shellder",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Shell Armor",
+      "Skill Link",
+      "Overcoat"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 91,
+    "name": "Cloyster",
+    "slug": "cloyster",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "abilities": [
+      "Shell Armor",
+      "Skill Link",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 92,
+    "name": "Gastly",
+    "slug": "gastly",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 93,
+    "name": "Haunter",
+    "slug": "haunter",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 94,
+    "name": "Gengar",
+    "slug": "gengar",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "abilities": [
+      "Cursed Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 95,
+    "name": "Onix",
+    "slug": "onix",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sturdy",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 96,
+    "name": "Drowzee",
+    "slug": "drowzee",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Forewarn",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 97,
+    "name": "Hypno",
+    "slug": "hypno",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Forewarn",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 98,
+    "name": "Krabby",
+    "slug": "krabby",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 99,
+    "name": "Kingler",
+    "slug": "kingler",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 100,
+    "name": "Voltorb",
+    "slug": "voltorb",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Static",
+      "Aftermath"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 101,
+    "name": "Electrode",
+    "slug": "electrode",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Static",
+      "Aftermath"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 102,
+    "name": "Exeggcute",
+    "slug": "exeggcute",
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Harvest"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 103,
+    "name": "Exeggutor",
+    "slug": "exeggutor",
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Harvest"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 104,
+    "name": "Cubone",
+    "slug": "cubone",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Lightning Rod",
+      "Battle Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 105,
+    "name": "Marowak",
+    "slug": "marowak",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Lightning Rod",
+      "Battle Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 106,
+    "name": "Hitmonlee",
+    "slug": "hitmonlee",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Limber",
+      "Reckless",
+      "Unburden"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 107,
+    "name": "Hitmonchan",
+    "slug": "hitmonchan",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Iron Fist",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 108,
+    "name": "Lickitung",
+    "slug": "lickitung",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Own Tempo",
+      "Oblivious",
+      "Cloud Nine"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 109,
+    "name": "Koffing",
+    "slug": "koffing",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate",
+      "Neutralizing Gas",
+      "Stench"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 110,
+    "name": "Weezing",
+    "slug": "weezing",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Levitate",
+      "Neutralizing Gas",
+      "Stench"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 111,
+    "name": "Rhyhorn",
+    "slug": "rhyhorn",
+    "types": [
+      "Ground",
+      "Rock"
+    ],
+    "abilities": [
+      "Lightning Rod",
+      "Rock Head",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 112,
+    "name": "Rhydon",
+    "slug": "rhydon",
+    "types": [
+      "Ground",
+      "Rock"
+    ],
+    "abilities": [
+      "Lightning Rod",
+      "Rock Head",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 113,
+    "name": "Chansey",
+    "slug": "chansey",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Serene Grace",
+      "Healer"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 114,
+    "name": "Tangela",
+    "slug": "tangela",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 115,
+    "name": "Kangaskhan",
+    "slug": "kangaskhan",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Early Bird",
+      "Scrappy",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 116,
+    "name": "Horsea",
+    "slug": "horsea",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Sniper",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 117,
+    "name": "Seadra",
+    "slug": "seadra",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Sniper",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 118,
+    "name": "Goldeen",
+    "slug": "goldeen",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil",
+      "Lightning Rod"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 119,
+    "name": "Seaking",
+    "slug": "seaking",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil",
+      "Lightning Rod"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 120,
+    "name": "Staryu",
+    "slug": "staryu",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Illuminate",
+      "Natural Cure",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 121,
+    "name": "Starmie",
+    "slug": "starmie",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "abilities": [
+      "Illuminate",
+      "Natural Cure",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 122,
+    "name": "Mr Mime",
+    "slug": "mr-mime",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Filter",
+      "Technician"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 123,
+    "name": "Scyther",
+    "slug": "scyther",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Swarm",
+      "Technician",
+      "Steadfast"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 124,
+    "name": "Jynx",
+    "slug": "jynx",
+    "types": [
+      "Ice",
+      "Psychic"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Forewarn",
+      "Dry Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 125,
+    "name": "Electabuzz",
+    "slug": "electabuzz",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 126,
+    "name": "Magmar",
+    "slug": "magmar",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flame Body",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 127,
+    "name": "Pinsir",
+    "slug": "pinsir",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Mold Breaker",
+      "Moxie"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 128,
+    "name": "Tauros",
+    "slug": "tauros",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Anger Point",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 129,
+    "name": "Magikarp",
+    "slug": "magikarp",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 130,
+    "name": "Gyarados",
+    "slug": "gyarados",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Moxie"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 131,
+    "name": "Lapras",
+    "slug": "lapras",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Shell Armor",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 132,
+    "name": "Ditto",
+    "slug": "ditto",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Limber",
+      "Imposter"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 133,
+    "name": "Eevee",
+    "slug": "eevee",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Adaptability",
+      "Anticipation"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 134,
+    "name": "Vaporeon",
+    "slug": "vaporeon",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 135,
+    "name": "Jolteon",
+    "slug": "jolteon",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Volt Absorb",
+      "Quick Feet"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 136,
+    "name": "Flareon",
+    "slug": "flareon",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Guts"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 137,
+    "name": "Porygon",
+    "slug": "porygon",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Trace",
+      "Download",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 138,
+    "name": "Omanyte",
+    "slug": "omanyte",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Shell Armor",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 139,
+    "name": "Omastar",
+    "slug": "omastar",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Shell Armor",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 140,
+    "name": "Kabuto",
+    "slug": "kabuto",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Battle Armor",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 141,
+    "name": "Kabutops",
+    "slug": "kabutops",
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Battle Armor",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 142,
+    "name": "Aerodactyl",
+    "slug": "aerodactyl",
+    "types": [
+      "Rock",
+      "Flying"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Pressure",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 143,
+    "name": "Snorlax",
+    "slug": "snorlax",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Immunity",
+      "Thick Fat",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 144,
+    "name": "Articuno",
+    "slug": "articuno",
+    "types": [
+      "Ice",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure",
+      "Snow Cloak"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 145,
+    "name": "Zapdos",
+    "slug": "zapdos",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure",
+      "Static"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 146,
+    "name": "Moltres",
+    "slug": "moltres",
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure",
+      "Flame Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 147,
+    "name": "Dratini",
+    "slug": "dratini",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Marvel Scale"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 148,
+    "name": "Dragonair",
+    "slug": "dragonair",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Marvel Scale"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 149,
+    "name": "Dragonite",
+    "slug": "dragonite",
+    "types": [
+      "Dragon",
+      "Flying"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Multiscale"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 150,
+    "name": "Mewtwo",
+    "slug": "mewtwo",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Pressure",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 151,
+    "name": "Mew",
+    "slug": "mew",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Synchronize"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 152,
+    "name": "Chikorita",
+    "slug": "chikorita",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 153,
+    "name": "Bayleef",
+    "slug": "bayleef",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 154,
+    "name": "Meganium",
+    "slug": "meganium",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 155,
+    "name": "Cyndaquil",
+    "slug": "cyndaquil",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Flash Fire"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 156,
+    "name": "Quilava",
+    "slug": "quilava",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Flash Fire"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 157,
+    "name": "Typhlosion",
+    "slug": "typhlosion",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Flash Fire"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 158,
+    "name": "Totodile",
+    "slug": "totodile",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 159,
+    "name": "Croconaw",
+    "slug": "croconaw",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 160,
+    "name": "Feraligatr",
+    "slug": "feraligatr",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 161,
+    "name": "Sentret",
+    "slug": "sentret",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Keen Eye",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 162,
+    "name": "Furret",
+    "slug": "furret",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Keen Eye",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 163,
+    "name": "Hoothoot",
+    "slug": "hoothoot",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Keen Eye",
+      "Tinted Lens"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 164,
+    "name": "Noctowl",
+    "slug": "noctowl",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Keen Eye",
+      "Tinted Lens"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 165,
+    "name": "Ledyba",
+    "slug": "ledyba",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Swarm",
+      "Early Bird",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 166,
+    "name": "Ledian",
+    "slug": "ledian",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Swarm",
+      "Early Bird",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 167,
+    "name": "Spinarak",
+    "slug": "spinarak",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Swarm",
+      "Insomnia",
+      "Sniper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 168,
+    "name": "Ariados",
+    "slug": "ariados",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Swarm",
+      "Insomnia",
+      "Sniper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 169,
+    "name": "Crobat",
+    "slug": "crobat",
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 170,
+    "name": "Chinchou",
+    "slug": "chinchou",
+    "types": [
+      "Water",
+      "Electric"
+    ],
+    "abilities": [
+      "Volt Absorb",
+      "Illuminate",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 171,
+    "name": "Lanturn",
+    "slug": "lanturn",
+    "types": [
+      "Water",
+      "Electric"
+    ],
+    "abilities": [
+      "Volt Absorb",
+      "Illuminate",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 172,
+    "name": "Pichu",
+    "slug": "pichu",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Lightning Rod"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 173,
+    "name": "Cleffa",
+    "slug": "cleffa",
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Magic Guard",
+      "Friend Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 174,
+    "name": "Igglybuff",
+    "slug": "igglybuff",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Competitive",
+      "Friend Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 175,
+    "name": "Togepi",
+    "slug": "togepi",
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Hustle",
+      "Serene Grace",
+      "Super Luck"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 176,
+    "name": "Togetic",
+    "slug": "togetic",
+    "types": [
+      "Fairy",
+      "Flying"
+    ],
+    "abilities": [
+      "Hustle",
+      "Serene Grace",
+      "Super Luck"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 177,
+    "name": "Natu",
+    "slug": "natu",
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Early Bird",
+      "Magic Bounce"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 178,
+    "name": "Xatu",
+    "slug": "xatu",
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Early Bird",
+      "Magic Bounce"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 179,
+    "name": "Mareep",
+    "slug": "mareep",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Plus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 180,
+    "name": "Flaaffy",
+    "slug": "flaaffy",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Plus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 181,
+    "name": "Ampharos",
+    "slug": "ampharos",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Plus"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 182,
+    "name": "Bellossom",
+    "slug": "bellossom",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Healer"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 183,
+    "name": "Marill",
+    "slug": "marill",
+    "types": [
+      "Water",
+      "Fairy"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Huge Power",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 184,
+    "name": "Azumarill",
+    "slug": "azumarill",
+    "types": [
+      "Water",
+      "Fairy"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Huge Power",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 185,
+    "name": "Sudowoodo",
+    "slug": "sudowoodo",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Rock Head",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 186,
+    "name": "Politoed",
+    "slug": "politoed",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Damp",
+      "Drizzle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 187,
+    "name": "Hoppip",
+    "slug": "hoppip",
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 188,
+    "name": "Skiploom",
+    "slug": "skiploom",
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 189,
+    "name": "Jumpluff",
+    "slug": "jumpluff",
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 190,
+    "name": "Aipom",
+    "slug": "aipom",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Pickup",
+      "Skill Link"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 191,
+    "name": "Sunkern",
+    "slug": "sunkern",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Solar Power",
+      "Early Bird"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 192,
+    "name": "Sunflora",
+    "slug": "sunflora",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Solar Power",
+      "Early Bird"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 193,
+    "name": "Yanma",
+    "slug": "yanma",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Speed Boost",
+      "Compound Eyes",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 194,
+    "name": "Wooper",
+    "slug": "wooper",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Damp",
+      "Water Absorb",
+      "Unaware"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 195,
+    "name": "Quagsire",
+    "slug": "quagsire",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Damp",
+      "Water Absorb",
+      "Unaware"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 196,
+    "name": "Espeon",
+    "slug": "espeon",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Magic Bounce"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 197,
+    "name": "Umbreon",
+    "slug": "umbreon",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 198,
+    "name": "Murkrow",
+    "slug": "murkrow",
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Super Luck",
+      "Prankster"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 199,
+    "name": "Slowking",
+    "slug": "slowking",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Own Tempo",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 200,
+    "name": "Misdreavus",
+    "slug": "misdreavus",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 201,
+    "name": "Unown",
+    "slug": "unown",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 202,
+    "name": "Wobbuffet",
+    "slug": "wobbuffet",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Shadow Tag",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 203,
+    "name": "Girafarig",
+    "slug": "girafarig",
+    "types": [
+      "Normal",
+      "Psychic"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Early Bird",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 204,
+    "name": "Pineco",
+    "slug": "pineco",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 205,
+    "name": "Forretress",
+    "slug": "forretress",
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 206,
+    "name": "Dunsparce",
+    "slug": "dunsparce",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Serene Grace",
+      "Run Away",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 207,
+    "name": "Gligar",
+    "slug": "gligar",
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Sand Veil",
+      "Immunity"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 208,
+    "name": "Steelix",
+    "slug": "steelix",
+    "types": [
+      "Steel",
+      "Ground"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sturdy",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 209,
+    "name": "Snubbull",
+    "slug": "snubbull",
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Run Away",
+      "Rattled"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 210,
+    "name": "Granbull",
+    "slug": "granbull",
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Quick Feet",
+      "Rattled"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 211,
+    "name": "Qwilfish",
+    "slug": "qwilfish",
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Swift Swim",
+      "Intimidate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 212,
+    "name": "Scizor",
+    "slug": "scizor",
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "abilities": [
+      "Swarm",
+      "Technician",
+      "Light Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 213,
+    "name": "Shuckle",
+    "slug": "shuckle",
+    "types": [
+      "Bug",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Gluttony",
+      "Contrary"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 214,
+    "name": "Heracross",
+    "slug": "heracross",
+    "types": [
+      "Bug",
+      "Fighting"
+    ],
+    "abilities": [
+      "Swarm",
+      "Guts",
+      "Moxie"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 215,
+    "name": "Sneasel",
+    "slug": "sneasel",
+    "types": [
+      "Dark",
+      "Ice"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Keen Eye",
+      "Pickpocket"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 216,
+    "name": "Teddiursa",
+    "slug": "teddiursa",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Pickup",
+      "Quick Feet",
+      "Honey Gather"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 217,
+    "name": "Ursaring",
+    "slug": "ursaring",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Guts",
+      "Quick Feet",
+      "Unnerve"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 218,
+    "name": "Slugma",
+    "slug": "slugma",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Magma Armor",
+      "Flame Body",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 219,
+    "name": "Magcargo",
+    "slug": "magcargo",
+    "types": [
+      "Fire",
+      "Rock"
+    ],
+    "abilities": [
+      "Magma Armor",
+      "Flame Body",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 220,
+    "name": "Swinub",
+    "slug": "swinub",
+    "types": [
+      "Ice",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Snow Cloak",
+      "Thick Fat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 221,
+    "name": "Piloswine",
+    "slug": "piloswine",
+    "types": [
+      "Ice",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Snow Cloak",
+      "Thick Fat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 222,
+    "name": "Corsola",
+    "slug": "corsola",
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "abilities": [
+      "Hustle",
+      "Natural Cure",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 223,
+    "name": "Remoraid",
+    "slug": "remoraid",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hustle",
+      "Sniper",
+      "Moody"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 224,
+    "name": "Octillery",
+    "slug": "octillery",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Suction Cups",
+      "Sniper",
+      "Moody"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 225,
+    "name": "Delibird",
+    "slug": "delibird",
+    "types": [
+      "Ice",
+      "Flying"
+    ],
+    "abilities": [
+      "Vital Spirit",
+      "Hustle",
+      "Insomnia"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 226,
+    "name": "Mantine",
+    "slug": "mantine",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Absorb",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 227,
+    "name": "Skarmory",
+    "slug": "skarmory",
+    "types": [
+      "Steel",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Sturdy",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 228,
+    "name": "Houndour",
+    "slug": "houndour",
+    "types": [
+      "Dark",
+      "Fire"
+    ],
+    "abilities": [
+      "Early Bird",
+      "Flash Fire",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 229,
+    "name": "Houndoom",
+    "slug": "houndoom",
+    "types": [
+      "Dark",
+      "Fire"
+    ],
+    "abilities": [
+      "Early Bird",
+      "Flash Fire",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 230,
+    "name": "Kingdra",
+    "slug": "kingdra",
+    "types": [
+      "Water",
+      "Dragon"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Sniper",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 231,
+    "name": "Phanpy",
+    "slug": "phanpy",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Pickup",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 232,
+    "name": "Donphan",
+    "slug": "donphan",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 233,
+    "name": "Porygon2",
+    "slug": "porygon2",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Trace",
+      "Download",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 234,
+    "name": "Stantler",
+    "slug": "stantler",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Frisk",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 235,
+    "name": "Smeargle",
+    "slug": "smeargle",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Own Tempo",
+      "Technician",
+      "Moody"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 236,
+    "name": "Tyrogue",
+    "slug": "tyrogue",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "Steadfast",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 237,
+    "name": "Hitmontop",
+    "slug": "hitmontop",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Technician",
+      "Steadfast"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 238,
+    "name": "Smoochum",
+    "slug": "smoochum",
+    "types": [
+      "Ice",
+      "Psychic"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Forewarn",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 239,
+    "name": "Elekid",
+    "slug": "elekid",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 240,
+    "name": "Magby",
+    "slug": "magby",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flame Body",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 241,
+    "name": "Miltank",
+    "slug": "miltank",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Scrappy",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 242,
+    "name": "Blissey",
+    "slug": "blissey",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Serene Grace",
+      "Healer"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 243,
+    "name": "Raikou",
+    "slug": "raikou",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Pressure",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 244,
+    "name": "Entei",
+    "slug": "entei",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Pressure",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 245,
+    "name": "Suicune",
+    "slug": "suicune",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Pressure",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 246,
+    "name": "Larvitar",
+    "slug": "larvitar",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Guts",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 247,
+    "name": "Pupitar",
+    "slug": "pupitar",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 248,
+    "name": "Tyranitar",
+    "slug": "tyranitar",
+    "types": [
+      "Rock",
+      "Dark"
+    ],
+    "abilities": [
+      "Sand Stream",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 249,
+    "name": "Lugia",
+    "slug": "lugia",
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure",
+      "Multiscale"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 250,
+    "name": "Ho Oh",
+    "slug": "ho-oh",
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 251,
+    "name": "Celebi",
+    "slug": "celebi",
+    "types": [
+      "Psychic",
+      "Grass"
+    ],
+    "abilities": [
+      "Natural Cure"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 252,
+    "name": "Treecko",
+    "slug": "treecko",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Unburden"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 253,
+    "name": "Grovyle",
+    "slug": "grovyle",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Unburden"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 254,
+    "name": "Sceptile",
+    "slug": "sceptile",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Unburden"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 255,
+    "name": "Torchic",
+    "slug": "torchic",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 256,
+    "name": "Combusken",
+    "slug": "combusken",
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 257,
+    "name": "Blaziken",
+    "slug": "blaziken",
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 258,
+    "name": "Mudkip",
+    "slug": "mudkip",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 259,
+    "name": "Marshtomp",
+    "slug": "marshtomp",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Torrent",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 260,
+    "name": "Swampert",
+    "slug": "swampert",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Torrent",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 261,
+    "name": "Poochyena",
+    "slug": "poochyena",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Run Away",
+      "Quick Feet",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 262,
+    "name": "Mightyena",
+    "slug": "mightyena",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Quick Feet",
+      "Moxie"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 263,
+    "name": "Zigzagoon",
+    "slug": "zigzagoon",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Pickup",
+      "Gluttony",
+      "Quick Feet"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 264,
+    "name": "Linoone",
+    "slug": "linoone",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Pickup",
+      "Gluttony",
+      "Quick Feet"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 265,
+    "name": "Wurmple",
+    "slug": "wurmple",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shield Dust",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 266,
+    "name": "Silcoon",
+    "slug": "silcoon",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 267,
+    "name": "Beautifly",
+    "slug": "beautifly",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Swarm",
+      "Rivalry"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 268,
+    "name": "Cascoon",
+    "slug": "cascoon",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 269,
+    "name": "Dustox",
+    "slug": "dustox",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Shield Dust",
+      "Compound Eyes"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 270,
+    "name": "Lotad",
+    "slug": "lotad",
+    "types": [
+      "Water",
+      "Grass"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rain Dish",
+      "Own Tempo"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 271,
+    "name": "Lombre",
+    "slug": "lombre",
+    "types": [
+      "Water",
+      "Grass"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rain Dish",
+      "Own Tempo"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 272,
+    "name": "Ludicolo",
+    "slug": "ludicolo",
+    "types": [
+      "Water",
+      "Grass"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rain Dish",
+      "Own Tempo"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 273,
+    "name": "Seedot",
+    "slug": "seedot",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Early Bird",
+      "Pickpocket"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 274,
+    "name": "Nuzleaf",
+    "slug": "nuzleaf",
+    "types": [
+      "Grass",
+      "Dark"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Early Bird",
+      "Pickpocket"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 275,
+    "name": "Shiftry",
+    "slug": "shiftry",
+    "types": [
+      "Grass",
+      "Dark"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Wind Rider",
+      "Pickpocket"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 276,
+    "name": "Taillow",
+    "slug": "taillow",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Guts",
+      "Scrappy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 277,
+    "name": "Swellow",
+    "slug": "swellow",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Guts",
+      "Scrappy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 278,
+    "name": "Wingull",
+    "slug": "wingull",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Hydration",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 279,
+    "name": "Pelipper",
+    "slug": "pelipper",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Drizzle",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 280,
+    "name": "Ralts",
+    "slug": "ralts",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Trace",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 281,
+    "name": "Kirlia",
+    "slug": "kirlia",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Trace",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 282,
+    "name": "Gardevoir",
+    "slug": "gardevoir",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ],
+    "abilities": [
+      "Synchronize",
+      "Trace",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 283,
+    "name": "Surskit",
+    "slug": "surskit",
+    "types": [
+      "Bug",
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rain Dish"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 284,
+    "name": "Masquerain",
+    "slug": "masquerain",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Unnerve"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 285,
+    "name": "Shroomish",
+    "slug": "shroomish",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Poison Heal",
+      "Quick Feet"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 286,
+    "name": "Breloom",
+    "slug": "breloom",
+    "types": [
+      "Grass",
+      "Fighting"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Poison Heal",
+      "Technician"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 287,
+    "name": "Slakoth",
+    "slug": "slakoth",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Truant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 288,
+    "name": "Vigoroth",
+    "slug": "vigoroth",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 289,
+    "name": "Slaking",
+    "slug": "slaking",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Truant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 290,
+    "name": "Nincada",
+    "slug": "nincada",
+    "types": [
+      "Bug",
+      "Ground"
+    ],
+    "abilities": [
+      "Compound Eyes",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 291,
+    "name": "Ninjask",
+    "slug": "ninjask",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Speed Boost",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 292,
+    "name": "Shedinja",
+    "slug": "shedinja",
+    "types": [
+      "Bug",
+      "Ghost"
+    ],
+    "abilities": [
+      "Wonder Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 293,
+    "name": "Whismur",
+    "slug": "whismur",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 294,
+    "name": "Loudred",
+    "slug": "loudred",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Scrappy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 295,
+    "name": "Exploud",
+    "slug": "exploud",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Scrappy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 296,
+    "name": "Makuhita",
+    "slug": "makuhita",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Guts",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 297,
+    "name": "Hariyama",
+    "slug": "hariyama",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Guts",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 298,
+    "name": "Azurill",
+    "slug": "azurill",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Huge Power",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 299,
+    "name": "Nosepass",
+    "slug": "nosepass",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Magnet Pull",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 300,
+    "name": "Skitty",
+    "slug": "skitty",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Normalize",
+      "Wonder Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 301,
+    "name": "Delcatty",
+    "slug": "delcatty",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Normalize",
+      "Wonder Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 302,
+    "name": "Sableye",
+    "slug": "sableye",
+    "types": [
+      "Dark",
+      "Ghost"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Stall",
+      "Prankster"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 303,
+    "name": "Mawile",
+    "slug": "mawile",
+    "types": [
+      "Steel",
+      "Fairy"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Intimidate",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 304,
+    "name": "Aron",
+    "slug": "aron",
+    "types": [
+      "Steel",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Rock Head",
+      "Heavy Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 305,
+    "name": "Lairon",
+    "slug": "lairon",
+    "types": [
+      "Steel",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Rock Head",
+      "Heavy Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 306,
+    "name": "Aggron",
+    "slug": "aggron",
+    "types": [
+      "Steel",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Rock Head",
+      "Heavy Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 307,
+    "name": "Meditite",
+    "slug": "meditite",
+    "types": [
+      "Fighting",
+      "Psychic"
+    ],
+    "abilities": [
+      "Pure Power",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 308,
+    "name": "Medicham",
+    "slug": "medicham",
+    "types": [
+      "Fighting",
+      "Psychic"
+    ],
+    "abilities": [
+      "Pure Power",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 309,
+    "name": "Electrike",
+    "slug": "electrike",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Lightning Rod",
+      "Minus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 310,
+    "name": "Manectric",
+    "slug": "manectric",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Lightning Rod",
+      "Minus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 311,
+    "name": "Plusle",
+    "slug": "plusle",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Plus",
+      "Lightning Rod"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 312,
+    "name": "Minun",
+    "slug": "minun",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Minus",
+      "Volt Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 313,
+    "name": "Volbeat",
+    "slug": "volbeat",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Illuminate",
+      "Swarm",
+      "Prankster"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 314,
+    "name": "Illumise",
+    "slug": "illumise",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Tinted Lens",
+      "Prankster"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 315,
+    "name": "Roselia",
+    "slug": "roselia",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Poison Point",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 316,
+    "name": "Gulpin",
+    "slug": "gulpin",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Liquid Ooze",
+      "Sticky Hold",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 317,
+    "name": "Swalot",
+    "slug": "swalot",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Liquid Ooze",
+      "Sticky Hold",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 318,
+    "name": "Carvanha",
+    "slug": "carvanha",
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "abilities": [
+      "Rough Skin",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 319,
+    "name": "Sharpedo",
+    "slug": "sharpedo",
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "abilities": [
+      "Rough Skin",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 320,
+    "name": "Wailmer",
+    "slug": "wailmer",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Veil",
+      "Oblivious",
+      "Pressure"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 321,
+    "name": "Wailord",
+    "slug": "wailord",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Water Veil",
+      "Oblivious",
+      "Pressure"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 322,
+    "name": "Numel",
+    "slug": "numel",
+    "types": [
+      "Fire",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Simple",
+      "Own Tempo"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 323,
+    "name": "Camerupt",
+    "slug": "camerupt",
+    "types": [
+      "Fire",
+      "Ground"
+    ],
+    "abilities": [
+      "Magma Armor",
+      "Solid Rock",
+      "Anger Point"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 324,
+    "name": "Torkoal",
+    "slug": "torkoal",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "White Smoke",
+      "Drought",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 325,
+    "name": "Spoink",
+    "slug": "spoink",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Own Tempo",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 326,
+    "name": "Grumpig",
+    "slug": "grumpig",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Own Tempo",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 327,
+    "name": "Spinda",
+    "slug": "spinda",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Own Tempo",
+      "Tangled Feet",
+      "Contrary"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 328,
+    "name": "Trapinch",
+    "slug": "trapinch",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Arena Trap",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 329,
+    "name": "Vibrava",
+    "slug": "vibrava",
+    "types": [
+      "Ground",
+      "Dragon"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 330,
+    "name": "Flygon",
+    "slug": "flygon",
+    "types": [
+      "Ground",
+      "Dragon"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 331,
+    "name": "Cacnea",
+    "slug": "cacnea",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 332,
+    "name": "Cacturne",
+    "slug": "cacturne",
+    "types": [
+      "Grass",
+      "Dark"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 333,
+    "name": "Swablu",
+    "slug": "swablu",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Cloud Nine"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 334,
+    "name": "Altaria",
+    "slug": "altaria",
+    "types": [
+      "Dragon",
+      "Flying"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Cloud Nine"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 335,
+    "name": "Zangoose",
+    "slug": "zangoose",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Immunity",
+      "Toxic Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 336,
+    "name": "Seviper",
+    "slug": "seviper",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 337,
+    "name": "Lunatone",
+    "slug": "lunatone",
+    "types": [
+      "Rock",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 338,
+    "name": "Solrock",
+    "slug": "solrock",
+    "types": [
+      "Rock",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 339,
+    "name": "Barboach",
+    "slug": "barboach",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Anticipation",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 340,
+    "name": "Whiscash",
+    "slug": "whiscash",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Anticipation",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 341,
+    "name": "Corphish",
+    "slug": "corphish",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor",
+      "Adaptability"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 342,
+    "name": "Crawdaunt",
+    "slug": "crawdaunt",
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Shell Armor",
+      "Adaptability"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 343,
+    "name": "Baltoy",
+    "slug": "baltoy",
+    "types": [
+      "Ground",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 344,
+    "name": "Claydol",
+    "slug": "claydol",
+    "types": [
+      "Ground",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 345,
+    "name": "Lileep",
+    "slug": "lileep",
+    "types": [
+      "Rock",
+      "Grass"
+    ],
+    "abilities": [
+      "Suction Cups",
+      "Storm Drain"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 346,
+    "name": "Cradily",
+    "slug": "cradily",
+    "types": [
+      "Rock",
+      "Grass"
+    ],
+    "abilities": [
+      "Suction Cups",
+      "Storm Drain"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 347,
+    "name": "Anorith",
+    "slug": "anorith",
+    "types": [
+      "Rock",
+      "Bug"
+    ],
+    "abilities": [
+      "Battle Armor",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 348,
+    "name": "Armaldo",
+    "slug": "armaldo",
+    "types": [
+      "Rock",
+      "Bug"
+    ],
+    "abilities": [
+      "Battle Armor",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 349,
+    "name": "Feebas",
+    "slug": "feebas",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Oblivious",
+      "Adaptability"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 350,
+    "name": "Milotic",
+    "slug": "milotic",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Marvel Scale",
+      "Competitive",
+      "Cute Charm"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 351,
+    "name": "Castform",
+    "slug": "castform",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Forecast"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 352,
+    "name": "Kecleon",
+    "slug": "kecleon",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Color Change",
+      "Protean"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 353,
+    "name": "Shuppet",
+    "slug": "shuppet",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Frisk",
+      "Cursed Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 354,
+    "name": "Banette",
+    "slug": "banette",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Frisk",
+      "Cursed Body"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 355,
+    "name": "Duskull",
+    "slug": "duskull",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Levitate",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 356,
+    "name": "Dusclops",
+    "slug": "dusclops",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Pressure",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 357,
+    "name": "Tropius",
+    "slug": "tropius",
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Solar Power",
+      "Harvest"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 358,
+    "name": "Chimecho",
+    "slug": "chimecho",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 359,
+    "name": "Absol",
+    "slug": "absol",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Pressure",
+      "Super Luck",
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 360,
+    "name": "Wynaut",
+    "slug": "wynaut",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Shadow Tag",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 361,
+    "name": "Snorunt",
+    "slug": "snorunt",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Ice Body",
+      "Moody"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 362,
+    "name": "Glalie",
+    "slug": "glalie",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Ice Body",
+      "Moody"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 363,
+    "name": "Spheal",
+    "slug": "spheal",
+    "types": [
+      "Ice",
+      "Water"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Ice Body",
+      "Oblivious"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 364,
+    "name": "Sealeo",
+    "slug": "sealeo",
+    "types": [
+      "Ice",
+      "Water"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Ice Body",
+      "Oblivious"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 365,
+    "name": "Walrein",
+    "slug": "walrein",
+    "types": [
+      "Ice",
+      "Water"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Ice Body",
+      "Oblivious"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 366,
+    "name": "Clamperl",
+    "slug": "clamperl",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Shell Armor",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 367,
+    "name": "Huntail",
+    "slug": "huntail",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 368,
+    "name": "Gorebyss",
+    "slug": "gorebyss",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 369,
+    "name": "Relicanth",
+    "slug": "relicanth",
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Rock Head",
+      "Sturdy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 370,
+    "name": "Luvdisc",
+    "slug": "luvdisc",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Hydration"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 371,
+    "name": "Bagon",
+    "slug": "bagon",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 372,
+    "name": "Shelgon",
+    "slug": "shelgon",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rock Head",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 373,
+    "name": "Salamence",
+    "slug": "salamence",
+    "types": [
+      "Dragon",
+      "Flying"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Moxie"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 374,
+    "name": "Beldum",
+    "slug": "beldum",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Light Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 375,
+    "name": "Metang",
+    "slug": "metang",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Light Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 376,
+    "name": "Metagross",
+    "slug": "metagross",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Light Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 377,
+    "name": "Regirock",
+    "slug": "regirock",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Sturdy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 378,
+    "name": "Regice",
+    "slug": "regice",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Ice Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 379,
+    "name": "Registeel",
+    "slug": "registeel",
+    "types": [
+      "Steel"
+    ],
+    "abilities": [
+      "Clear Body",
+      "Light Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 380,
+    "name": "Latias",
+    "slug": "latias",
+    "types": [
+      "Dragon",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 381,
+    "name": "Latios",
+    "slug": "latios",
+    "types": [
+      "Dragon",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 382,
+    "name": "Kyogre",
+    "slug": "kyogre",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Drizzle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 383,
+    "name": "Groudon",
+    "slug": "groudon",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Drought"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 384,
+    "name": "Rayquaza",
+    "slug": "rayquaza",
+    "types": [
+      "Dragon",
+      "Flying"
+    ],
+    "abilities": [
+      "Air Lock"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 385,
+    "name": "Jirachi",
+    "slug": "jirachi",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Serene Grace"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 386,
+    "name": "Deoxys",
+    "slug": "deoxys",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Pressure"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 387,
+    "name": "Turtwig",
+    "slug": "turtwig",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 388,
+    "name": "Grotle",
+    "slug": "grotle",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 389,
+    "name": "Torterra",
+    "slug": "torterra",
+    "types": [
+      "Grass",
+      "Ground"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 390,
+    "name": "Chimchar",
+    "slug": "chimchar",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 391,
+    "name": "Monferno",
+    "slug": "monferno",
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 392,
+    "name": "Infernape",
+    "slug": "infernape",
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 393,
+    "name": "Piplup",
+    "slug": "piplup",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Competitive"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 394,
+    "name": "Prinplup",
+    "slug": "prinplup",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Competitive"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 395,
+    "name": "Empoleon",
+    "slug": "empoleon",
+    "types": [
+      "Water",
+      "Steel"
+    ],
+    "abilities": [
+      "Torrent",
+      "Competitive"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 396,
+    "name": "Starly",
+    "slug": "starly",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 397,
+    "name": "Staravia",
+    "slug": "staravia",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 398,
+    "name": "Staraptor",
+    "slug": "staraptor",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 399,
+    "name": "Bidoof",
+    "slug": "bidoof",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Simple",
+      "Unaware",
+      "Moody"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 400,
+    "name": "Bibarel",
+    "slug": "bibarel",
+    "types": [
+      "Normal",
+      "Water"
+    ],
+    "abilities": [
+      "Simple",
+      "Unaware",
+      "Moody"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 401,
+    "name": "Kricketot",
+    "slug": "kricketot",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 402,
+    "name": "Kricketune",
+    "slug": "kricketune",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Swarm",
+      "Technician"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 403,
+    "name": "Shinx",
+    "slug": "shinx",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Rivalry",
+      "Intimidate",
+      "Guts"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 404,
+    "name": "Luxio",
+    "slug": "luxio",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Rivalry",
+      "Intimidate",
+      "Guts"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 405,
+    "name": "Luxray",
+    "slug": "luxray",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Rivalry",
+      "Intimidate",
+      "Guts"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 406,
+    "name": "Budew",
+    "slug": "budew",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Poison Point",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 407,
+    "name": "Roserade",
+    "slug": "roserade",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Poison Point",
+      "Technician"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 408,
+    "name": "Cranidos",
+    "slug": "cranidos",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Mold Breaker",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 409,
+    "name": "Rampardos",
+    "slug": "rampardos",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Mold Breaker",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 410,
+    "name": "Shieldon",
+    "slug": "shieldon",
+    "types": [
+      "Rock",
+      "Steel"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Soundproof"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 411,
+    "name": "Bastiodon",
+    "slug": "bastiodon",
+    "types": [
+      "Rock",
+      "Steel"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Soundproof"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 412,
+    "name": "Burmy",
+    "slug": "burmy",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 413,
+    "name": "Wormadam",
+    "slug": "wormadam",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "abilities": [
+      "Anticipation",
+      "Overcoat"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 414,
+    "name": "Mothim",
+    "slug": "mothim",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Swarm",
+      "Tinted Lens"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 415,
+    "name": "Combee",
+    "slug": "combee",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Honey Gather",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 416,
+    "name": "Vespiquen",
+    "slug": "vespiquen",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Pressure",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 417,
+    "name": "Pachirisu",
+    "slug": "pachirisu",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Run Away",
+      "Pickup",
+      "Volt Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 418,
+    "name": "Buizel",
+    "slug": "buizel",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 419,
+    "name": "Floatzel",
+    "slug": "floatzel",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 420,
+    "name": "Cherubi",
+    "slug": "cherubi",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 421,
+    "name": "Cherrim",
+    "slug": "cherrim",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Flower Gift"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 422,
+    "name": "Shellos",
+    "slug": "shellos",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Sticky Hold",
+      "Storm Drain",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 423,
+    "name": "Gastrodon",
+    "slug": "gastrodon",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Sticky Hold",
+      "Storm Drain",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 424,
+    "name": "Ambipom",
+    "slug": "ambipom",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Technician",
+      "Pickup",
+      "Skill Link"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 425,
+    "name": "Drifloon",
+    "slug": "drifloon",
+    "types": [
+      "Ghost",
+      "Flying"
+    ],
+    "abilities": [
+      "Aftermath",
+      "Unburden",
+      "Flare Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 426,
+    "name": "Drifblim",
+    "slug": "drifblim",
+    "types": [
+      "Ghost",
+      "Flying"
+    ],
+    "abilities": [
+      "Aftermath",
+      "Unburden",
+      "Flare Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 427,
+    "name": "Buneary",
+    "slug": "buneary",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Klutz",
+      "Limber"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 428,
+    "name": "Lopunny",
+    "slug": "lopunny",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Klutz",
+      "Limber"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 429,
+    "name": "Mismagius",
+    "slug": "mismagius",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 430,
+    "name": "Honchkrow",
+    "slug": "honchkrow",
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "abilities": [
+      "Insomnia",
+      "Super Luck",
+      "Moxie"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 431,
+    "name": "Glameow",
+    "slug": "glameow",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Limber",
+      "Own Tempo",
+      "Keen Eye"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 432,
+    "name": "Purugly",
+    "slug": "purugly",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Thick Fat",
+      "Own Tempo",
+      "Defiant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 433,
+    "name": "Chingling",
+    "slug": "chingling",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 434,
+    "name": "Stunky",
+    "slug": "stunky",
+    "types": [
+      "Poison",
+      "Dark"
+    ],
+    "abilities": [
+      "Stench",
+      "Aftermath",
+      "Keen Eye"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 435,
+    "name": "Skuntank",
+    "slug": "skuntank",
+    "types": [
+      "Poison",
+      "Dark"
+    ],
+    "abilities": [
+      "Stench",
+      "Aftermath",
+      "Keen Eye"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 436,
+    "name": "Bronzor",
+    "slug": "bronzor",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate",
+      "Heatproof",
+      "Heavy Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 437,
+    "name": "Bronzong",
+    "slug": "bronzong",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate",
+      "Heatproof",
+      "Heavy Metal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 438,
+    "name": "Bonsly",
+    "slug": "bonsly",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Rock Head",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 439,
+    "name": "Mime Jr",
+    "slug": "mime-jr",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ],
+    "abilities": [
+      "Soundproof",
+      "Filter",
+      "Technician"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 440,
+    "name": "Happiny",
+    "slug": "happiny",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Natural Cure",
+      "Serene Grace",
+      "Friend Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 441,
+    "name": "Chatot",
+    "slug": "chatot",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Tangled Feet",
+      "Big Pecks"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 442,
+    "name": "Spiritomb",
+    "slug": "spiritomb",
+    "types": [
+      "Ghost",
+      "Dark"
+    ],
+    "abilities": [
+      "Pressure",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 443,
+    "name": "Gible",
+    "slug": "gible",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Rough Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 444,
+    "name": "Gabite",
+    "slug": "gabite",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Rough Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 445,
+    "name": "Garchomp",
+    "slug": "garchomp",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Veil",
+      "Rough Skin"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 446,
+    "name": "Munchlax",
+    "slug": "munchlax",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Pickup",
+      "Thick Fat",
+      "Gluttony"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 447,
+    "name": "Riolu",
+    "slug": "riolu",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Steadfast",
+      "Inner Focus",
+      "Prankster"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 448,
+    "name": "Lucario",
+    "slug": "lucario",
+    "types": [
+      "Fighting",
+      "Steel"
+    ],
+    "abilities": [
+      "Steadfast",
+      "Inner Focus",
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 449,
+    "name": "Hippopotas",
+    "slug": "hippopotas",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Stream",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 450,
+    "name": "Hippowdon",
+    "slug": "hippowdon",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Stream",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 451,
+    "name": "Skorupi",
+    "slug": "skorupi",
+    "types": [
+      "Poison",
+      "Bug"
+    ],
+    "abilities": [
+      "Battle Armor",
+      "Sniper",
+      "Keen Eye"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 452,
+    "name": "Drapion",
+    "slug": "drapion",
+    "types": [
+      "Poison",
+      "Dark"
+    ],
+    "abilities": [
+      "Battle Armor",
+      "Sniper",
+      "Keen Eye"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 453,
+    "name": "Croagunk",
+    "slug": "croagunk",
+    "types": [
+      "Poison",
+      "Fighting"
+    ],
+    "abilities": [
+      "Anticipation",
+      "Dry Skin",
+      "Poison Touch"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 454,
+    "name": "Toxicroak",
+    "slug": "toxicroak",
+    "types": [
+      "Poison",
+      "Fighting"
+    ],
+    "abilities": [
+      "Anticipation",
+      "Dry Skin",
+      "Poison Touch"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 455,
+    "name": "Carnivine",
+    "slug": "carnivine",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 456,
+    "name": "Finneon",
+    "slug": "finneon",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Storm Drain",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 457,
+    "name": "Lumineon",
+    "slug": "lumineon",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Storm Drain",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 458,
+    "name": "Mantyke",
+    "slug": "mantyke",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Water Absorb",
+      "Water Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 459,
+    "name": "Snover",
+    "slug": "snover",
+    "types": [
+      "Grass",
+      "Ice"
+    ],
+    "abilities": [
+      "Snow Warning",
+      "Soundproof"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 460,
+    "name": "Abomasnow",
+    "slug": "abomasnow",
+    "types": [
+      "Grass",
+      "Ice"
+    ],
+    "abilities": [
+      "Snow Warning",
+      "Soundproof"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 461,
+    "name": "Weavile",
+    "slug": "weavile",
+    "types": [
+      "Dark",
+      "Ice"
+    ],
+    "abilities": [
+      "Pressure",
+      "Pickpocket"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 462,
+    "name": "Magnezone",
+    "slug": "magnezone",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "abilities": [
+      "Magnet Pull",
+      "Sturdy",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 463,
+    "name": "Lickilicky",
+    "slug": "lickilicky",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Own Tempo",
+      "Oblivious",
+      "Cloud Nine"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 464,
+    "name": "Rhyperior",
+    "slug": "rhyperior",
+    "types": [
+      "Ground",
+      "Rock"
+    ],
+    "abilities": [
+      "Lightning Rod",
+      "Solid Rock",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 465,
+    "name": "Tangrowth",
+    "slug": "tangrowth",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Leaf Guard",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 466,
+    "name": "Electivire",
+    "slug": "electivire",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Motor Drive",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 467,
+    "name": "Magmortar",
+    "slug": "magmortar",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Flame Body",
+      "Vital Spirit"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 468,
+    "name": "Togekiss",
+    "slug": "togekiss",
+    "types": [
+      "Fairy",
+      "Flying"
+    ],
+    "abilities": [
+      "Hustle",
+      "Serene Grace",
+      "Super Luck"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 469,
+    "name": "Yanmega",
+    "slug": "yanmega",
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "abilities": [
+      "Speed Boost",
+      "Tinted Lens",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 470,
+    "name": "Leafeon",
+    "slug": "leafeon",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Leaf Guard",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 471,
+    "name": "Glaceon",
+    "slug": "glaceon",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Snow Cloak",
+      "Ice Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 472,
+    "name": "Gliscor",
+    "slug": "gliscor",
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "abilities": [
+      "Hyper Cutter",
+      "Sand Veil",
+      "Poison Heal"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 473,
+    "name": "Mamoswine",
+    "slug": "mamoswine",
+    "types": [
+      "Ice",
+      "Ground"
+    ],
+    "abilities": [
+      "Oblivious",
+      "Snow Cloak",
+      "Thick Fat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 474,
+    "name": "Porygon Z",
+    "slug": "porygon-z",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Adaptability",
+      "Download",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 475,
+    "name": "Gallade",
+    "slug": "gallade",
+    "types": [
+      "Psychic",
+      "Fighting"
+    ],
+    "abilities": [
+      "Steadfast",
+      "Sharpness",
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 476,
+    "name": "Probopass",
+    "slug": "probopass",
+    "types": [
+      "Rock",
+      "Steel"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Magnet Pull",
+      "Sand Force"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 477,
+    "name": "Dusknoir",
+    "slug": "dusknoir",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Pressure",
+      "Frisk"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 478,
+    "name": "Froslass",
+    "slug": "froslass",
+    "types": [
+      "Ice",
+      "Ghost"
+    ],
+    "abilities": [
+      "Snow Cloak",
+      "Cursed Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 479,
+    "name": "Rotom",
+    "slug": "rotom",
+    "types": [
+      "Electric",
+      "Ghost"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 480,
+    "name": "Uxie",
+    "slug": "uxie",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 481,
+    "name": "Mesprit",
+    "slug": "mesprit",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 482,
+    "name": "Azelf",
+    "slug": "azelf",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 483,
+    "name": "Dialga",
+    "slug": "dialga",
+    "types": [
+      "Steel",
+      "Dragon"
+    ],
+    "abilities": [
+      "Pressure",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 484,
+    "name": "Palkia",
+    "slug": "palkia",
+    "types": [
+      "Water",
+      "Dragon"
+    ],
+    "abilities": [
+      "Pressure",
+      "Telepathy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 485,
+    "name": "Heatran",
+    "slug": "heatran",
+    "types": [
+      "Fire",
+      "Steel"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Flame Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 486,
+    "name": "Regigigas",
+    "slug": "regigigas",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Slow Start"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 487,
+    "name": "Giratina",
+    "slug": "giratina",
+    "types": [
+      "Ghost",
+      "Dragon"
+    ],
+    "abilities": [
+      "Pressure",
+      "Telepathy"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 488,
+    "name": "Cresselia",
+    "slug": "cresselia",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 489,
+    "name": "Phione",
+    "slug": "phione",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 490,
+    "name": "Manaphy",
+    "slug": "manaphy",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 491,
+    "name": "Darkrai",
+    "slug": "darkrai",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Bad Dreams"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 492,
+    "name": "Shaymin",
+    "slug": "shaymin",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Natural Cure"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 493,
+    "name": "Arceus",
+    "slug": "arceus",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Multitype"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 494,
+    "name": "Victini",
+    "slug": "victini",
+    "types": [
+      "Psychic",
+      "Fire"
+    ],
+    "abilities": [
+      "Victory Star"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 495,
+    "name": "Snivy",
+    "slug": "snivy",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Contrary"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 496,
+    "name": "Servine",
+    "slug": "servine",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Contrary"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 497,
+    "name": "Serperior",
+    "slug": "serperior",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Overgrow",
+      "Contrary"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 498,
+    "name": "Tepig",
+    "slug": "tepig",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Blaze",
+      "Thick Fat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 499,
+    "name": "Pignite",
+    "slug": "pignite",
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze",
+      "Thick Fat"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 500,
+    "name": "Emboar",
+    "slug": "emboar",
+    "types": [
+      "Fire",
+      "Fighting"
+    ],
+    "abilities": [
+      "Blaze",
+      "Reckless"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 501,
+    "name": "Oshawott",
+    "slug": "oshawott",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 502,
+    "name": "Dewott",
+    "slug": "dewott",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 503,
+    "name": "Samurott",
+    "slug": "samurott",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Torrent",
+      "Shell Armor"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 504,
+    "name": "Patrat",
+    "slug": "patrat",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Run Away",
+      "Keen Eye",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 505,
+    "name": "Watchog",
+    "slug": "watchog",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Illuminate",
+      "Keen Eye",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 506,
+    "name": "Lillipup",
+    "slug": "lillipup",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Vital Spirit",
+      "Pickup",
+      "Run Away"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 507,
+    "name": "Herdier",
+    "slug": "herdier",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Sand Rush",
+      "Scrappy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 508,
+    "name": "Stoutland",
+    "slug": "stoutland",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Sand Rush",
+      "Scrappy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 509,
+    "name": "Purrloin",
+    "slug": "purrloin",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Limber",
+      "Unburden",
+      "Prankster"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 510,
+    "name": "Liepard",
+    "slug": "liepard",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Limber",
+      "Unburden",
+      "Prankster"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 511,
+    "name": "Pansage",
+    "slug": "pansage",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Overgrow"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 512,
+    "name": "Simisage",
+    "slug": "simisage",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Overgrow"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 513,
+    "name": "Pansear",
+    "slug": "pansear",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Blaze"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 514,
+    "name": "Simisear",
+    "slug": "simisear",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Blaze"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 515,
+    "name": "Panpour",
+    "slug": "panpour",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Torrent"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 516,
+    "name": "Simipour",
+    "slug": "simipour",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Torrent"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 517,
+    "name": "Munna",
+    "slug": "munna",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Forewarn",
+      "Synchronize",
+      "Telepathy"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 518,
+    "name": "Musharna",
+    "slug": "musharna",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Forewarn",
+      "Synchronize",
+      "Telepathy"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 519,
+    "name": "Pidove",
+    "slug": "pidove",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Big Pecks",
+      "Super Luck",
+      "Rivalry"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 520,
+    "name": "Tranquill",
+    "slug": "tranquill",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Big Pecks",
+      "Super Luck",
+      "Rivalry"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 521,
+    "name": "Unfezant",
+    "slug": "unfezant",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Big Pecks",
+      "Super Luck",
+      "Rivalry"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 522,
+    "name": "Blitzle",
+    "slug": "blitzle",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Lightning Rod",
+      "Motor Drive",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 523,
+    "name": "Zebstrika",
+    "slug": "zebstrika",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Lightning Rod",
+      "Motor Drive",
+      "Sap Sipper"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 524,
+    "name": "Roggenrola",
+    "slug": "roggenrola",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Weak Armor",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 525,
+    "name": "Boldore",
+    "slug": "boldore",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Weak Armor",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 526,
+    "name": "Gigalith",
+    "slug": "gigalith",
+    "types": [
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Sand Stream",
+      "Sand Force"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 527,
+    "name": "Woobat",
+    "slug": "woobat",
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "abilities": [
+      "Unaware",
+      "Klutz",
+      "Simple"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 528,
+    "name": "Swoobat",
+    "slug": "swoobat",
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "abilities": [
+      "Unaware",
+      "Klutz",
+      "Simple"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 529,
+    "name": "Drilbur",
+    "slug": "drilbur",
+    "types": [
+      "Ground"
+    ],
+    "abilities": [
+      "Sand Rush",
+      "Sand Force",
+      "Mold Breaker"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 530,
+    "name": "Excadrill",
+    "slug": "excadrill",
+    "types": [
+      "Ground",
+      "Steel"
+    ],
+    "abilities": [
+      "Sand Rush",
+      "Sand Force",
+      "Mold Breaker"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 531,
+    "name": "Audino",
+    "slug": "audino",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Healer",
+      "Regenerator",
+      "Klutz"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 532,
+    "name": "Timburr",
+    "slug": "timburr",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "Sheer Force",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 533,
+    "name": "Gurdurr",
+    "slug": "gurdurr",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "Sheer Force",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 534,
+    "name": "Conkeldurr",
+    "slug": "conkeldurr",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "Sheer Force",
+      "Iron Fist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 535,
+    "name": "Tympole",
+    "slug": "tympole",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Hydration",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 536,
+    "name": "Palpitoad",
+    "slug": "palpitoad",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Hydration",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 537,
+    "name": "Seismitoad",
+    "slug": "seismitoad",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "abilities": [
+      "Swift Swim",
+      "Poison Touch",
+      "Water Absorb"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 538,
+    "name": "Throh",
+    "slug": "throh",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Guts",
+      "Inner Focus",
+      "Mold Breaker"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 539,
+    "name": "Sawk",
+    "slug": "sawk",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Inner Focus",
+      "Mold Breaker"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 540,
+    "name": "Sewaddle",
+    "slug": "sewaddle",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "abilities": [
+      "Swarm",
+      "Chlorophyll",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 541,
+    "name": "Swadloon",
+    "slug": "swadloon",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "abilities": [
+      "Leaf Guard",
+      "Chlorophyll",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 542,
+    "name": "Leavanny",
+    "slug": "leavanny",
+    "types": [
+      "Bug",
+      "Grass"
+    ],
+    "abilities": [
+      "Swarm",
+      "Chlorophyll",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 543,
+    "name": "Venipede",
+    "slug": "venipede",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Swarm",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 544,
+    "name": "Whirlipede",
+    "slug": "whirlipede",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Swarm",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 545,
+    "name": "Scolipede",
+    "slug": "scolipede",
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "abilities": [
+      "Poison Point",
+      "Swarm",
+      "Speed Boost"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 546,
+    "name": "Cottonee",
+    "slug": "cottonee",
+    "types": [
+      "Grass",
+      "Fairy"
+    ],
+    "abilities": [
+      "Prankster",
+      "Infiltrator",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 547,
+    "name": "Whimsicott",
+    "slug": "whimsicott",
+    "types": [
+      "Grass",
+      "Fairy"
+    ],
+    "abilities": [
+      "Prankster",
+      "Infiltrator",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 548,
+    "name": "Petilil",
+    "slug": "petilil",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Own Tempo",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 549,
+    "name": "Lilligant",
+    "slug": "lilligant",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Own Tempo",
+      "Leaf Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 550,
+    "name": "Basculin",
+    "slug": "basculin",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Reckless",
+      "Adaptability",
+      "Mold Breaker"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 551,
+    "name": "Sandile",
+    "slug": "sandile",
+    "types": [
+      "Ground",
+      "Dark"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Moxie",
+      "Anger Point"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 552,
+    "name": "Krokorok",
+    "slug": "krokorok",
+    "types": [
+      "Ground",
+      "Dark"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Moxie",
+      "Anger Point"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 553,
+    "name": "Krookodile",
+    "slug": "krookodile",
+    "types": [
+      "Ground",
+      "Dark"
+    ],
+    "abilities": [
+      "Intimidate",
+      "Moxie",
+      "Anger Point"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 554,
+    "name": "Darumaka",
+    "slug": "darumaka",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Hustle",
+      "Inner Focus"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 555,
+    "name": "Darmanitan",
+    "slug": "darmanitan",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Sheer Force",
+      "Zen Mode"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 556,
+    "name": "Maractus",
+    "slug": "maractus",
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Chlorophyll",
+      "Storm Drain"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 557,
+    "name": "Dwebble",
+    "slug": "dwebble",
+    "types": [
+      "Bug",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Shell Armor",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 558,
+    "name": "Crustle",
+    "slug": "crustle",
+    "types": [
+      "Bug",
+      "Rock"
+    ],
+    "abilities": [
+      "Sturdy",
+      "Shell Armor",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 559,
+    "name": "Scraggy",
+    "slug": "scraggy",
+    "types": [
+      "Dark",
+      "Fighting"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Moxie",
+      "Intimidate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 560,
+    "name": "Scrafty",
+    "slug": "scrafty",
+    "types": [
+      "Dark",
+      "Fighting"
+    ],
+    "abilities": [
+      "Shed Skin",
+      "Moxie",
+      "Intimidate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 561,
+    "name": "Sigilyph",
+    "slug": "sigilyph",
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "abilities": [
+      "Wonder Skin",
+      "Magic Guard",
+      "Tinted Lens"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 562,
+    "name": "Yamask",
+    "slug": "yamask",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Mummy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 563,
+    "name": "Cofagrigus",
+    "slug": "cofagrigus",
+    "types": [
+      "Ghost"
+    ],
+    "abilities": [
+      "Mummy"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 564,
+    "name": "Tirtouga",
+    "slug": "tirtouga",
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "abilities": [
+      "Solid Rock",
+      "Sturdy",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 565,
+    "name": "Carracosta",
+    "slug": "carracosta",
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "abilities": [
+      "Solid Rock",
+      "Sturdy",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 566,
+    "name": "Archen",
+    "slug": "archen",
+    "types": [
+      "Rock",
+      "Flying"
+    ],
+    "abilities": [
+      "Defeatist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 567,
+    "name": "Archeops",
+    "slug": "archeops",
+    "types": [
+      "Rock",
+      "Flying"
+    ],
+    "abilities": [
+      "Defeatist"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 568,
+    "name": "Trubbish",
+    "slug": "trubbish",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Stench",
+      "Sticky Hold",
+      "Aftermath"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 569,
+    "name": "Garbodor",
+    "slug": "garbodor",
+    "types": [
+      "Poison"
+    ],
+    "abilities": [
+      "Stench",
+      "Weak Armor",
+      "Aftermath"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 570,
+    "name": "Zorua",
+    "slug": "zorua",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Illusion"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 571,
+    "name": "Zoroark",
+    "slug": "zoroark",
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      "Illusion"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 572,
+    "name": "Minccino",
+    "slug": "minccino",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Technician",
+      "Skill Link"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 573,
+    "name": "Cinccino",
+    "slug": "cinccino",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Cute Charm",
+      "Technician",
+      "Skill Link"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 574,
+    "name": "Gothita",
+    "slug": "gothita",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Frisk",
+      "Competitive",
+      "Shadow Tag"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 575,
+    "name": "Gothorita",
+    "slug": "gothorita",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Frisk",
+      "Competitive",
+      "Shadow Tag"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 576,
+    "name": "Gothitelle",
+    "slug": "gothitelle",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Frisk",
+      "Competitive",
+      "Shadow Tag"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 577,
+    "name": "Solosis",
+    "slug": "solosis",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Overcoat",
+      "Magic Guard",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 578,
+    "name": "Duosion",
+    "slug": "duosion",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Overcoat",
+      "Magic Guard",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 579,
+    "name": "Reuniclus",
+    "slug": "reuniclus",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Overcoat",
+      "Magic Guard",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 580,
+    "name": "Ducklett",
+    "slug": "ducklett",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Big Pecks",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 581,
+    "name": "Swanna",
+    "slug": "swanna",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Big Pecks",
+      "Hydration"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 582,
+    "name": "Vanillite",
+    "slug": "vanillite",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Ice Body",
+      "Snow Cloak",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 583,
+    "name": "Vanillish",
+    "slug": "vanillish",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Ice Body",
+      "Snow Cloak",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 584,
+    "name": "Vanilluxe",
+    "slug": "vanilluxe",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Ice Body",
+      "Snow Warning",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 585,
+    "name": "Deerling",
+    "slug": "deerling",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Sap Sipper",
+      "Serene Grace"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 586,
+    "name": "Sawsbuck",
+    "slug": "sawsbuck",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "abilities": [
+      "Chlorophyll",
+      "Sap Sipper",
+      "Serene Grace"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 587,
+    "name": "Emolga",
+    "slug": "emolga",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "abilities": [
+      "Static",
+      "Motor Drive"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 588,
+    "name": "Karrablast",
+    "slug": "karrablast",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Swarm",
+      "Shed Skin",
+      "No Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 589,
+    "name": "Escavalier",
+    "slug": "escavalier",
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "abilities": [
+      "Swarm",
+      "Shell Armor",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 590,
+    "name": "Foongus",
+    "slug": "foongus",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 591,
+    "name": "Amoonguss",
+    "slug": "amoonguss",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "abilities": [
+      "Effect Spore",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 592,
+    "name": "Frillish Male",
+    "slug": "frillish-male",
+    "types": [
+      "Water",
+      "Ghost"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Cursed Body",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 593,
+    "name": "Jellicent Male",
+    "slug": "jellicent-male",
+    "types": [
+      "Water",
+      "Ghost"
+    ],
+    "abilities": [
+      "Water Absorb",
+      "Cursed Body",
+      "Damp"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 594,
+    "name": "Alomomola",
+    "slug": "alomomola",
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      "Healer",
+      "Hydration",
+      "Regenerator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 595,
+    "name": "Joltik",
+    "slug": "joltik",
+    "types": [
+      "Bug",
+      "Electric"
+    ],
+    "abilities": [
+      "Compound Eyes",
+      "Unnerve",
+      "Swarm"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 596,
+    "name": "Galvantula",
+    "slug": "galvantula",
+    "types": [
+      "Bug",
+      "Electric"
+    ],
+    "abilities": [
+      "Compound Eyes",
+      "Unnerve",
+      "Swarm"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 597,
+    "name": "Ferroseed",
+    "slug": "ferroseed",
+    "types": [
+      "Grass",
+      "Steel"
+    ],
+    "abilities": [
+      "Iron Barbs"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 598,
+    "name": "Ferrothorn",
+    "slug": "ferrothorn",
+    "types": [
+      "Grass",
+      "Steel"
+    ],
+    "abilities": [
+      "Iron Barbs",
+      "Anticipation"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 599,
+    "name": "Klink",
+    "slug": "klink",
+    "types": [
+      "Steel"
+    ],
+    "abilities": [
+      "Plus",
+      "Minus",
+      "Clear Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 600,
+    "name": "Klang",
+    "slug": "klang",
+    "types": [
+      "Steel"
+    ],
+    "abilities": [
+      "Plus",
+      "Minus",
+      "Clear Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 601,
+    "name": "Klinklang",
+    "slug": "klinklang",
+    "types": [
+      "Steel"
+    ],
+    "abilities": [
+      "Plus",
+      "Minus",
+      "Clear Body"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 602,
+    "name": "Tynamo",
+    "slug": "tynamo",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 603,
+    "name": "Eelektrik",
+    "slug": "eelektrik",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 604,
+    "name": "Eelektross",
+    "slug": "eelektross",
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 605,
+    "name": "Elgyem",
+    "slug": "elgyem",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Telepathy",
+      "Synchronize",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 606,
+    "name": "Beheeyem",
+    "slug": "beheeyem",
+    "types": [
+      "Psychic"
+    ],
+    "abilities": [
+      "Telepathy",
+      "Synchronize",
+      "Analytic"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 607,
+    "name": "Litwick",
+    "slug": "litwick",
+    "types": [
+      "Ghost",
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Flame Body",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 608,
+    "name": "Lampent",
+    "slug": "lampent",
+    "types": [
+      "Ghost",
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Flame Body",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 609,
+    "name": "Chandelure",
+    "slug": "chandelure",
+    "types": [
+      "Ghost",
+      "Fire"
+    ],
+    "abilities": [
+      "Flash Fire",
+      "Flame Body",
+      "Infiltrator"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 610,
+    "name": "Axew",
+    "slug": "axew",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rivalry",
+      "Mold Breaker",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 611,
+    "name": "Fraxure",
+    "slug": "fraxure",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rivalry",
+      "Mold Breaker",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 612,
+    "name": "Haxorus",
+    "slug": "haxorus",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rivalry",
+      "Mold Breaker",
+      "Unnerve"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 613,
+    "name": "Cubchoo",
+    "slug": "cubchoo",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Snow Cloak",
+      "Slush Rush",
+      "Rattled"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 614,
+    "name": "Beartic",
+    "slug": "beartic",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Snow Cloak",
+      "Slush Rush",
+      "Swift Swim"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 615,
+    "name": "Cryogonal",
+    "slug": "cryogonal",
+    "types": [
+      "Ice"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 616,
+    "name": "Shelmet",
+    "slug": "shelmet",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Hydration",
+      "Shell Armor",
+      "Overcoat"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 617,
+    "name": "Accelgor",
+    "slug": "accelgor",
+    "types": [
+      "Bug"
+    ],
+    "abilities": [
+      "Hydration",
+      "Sticky Hold",
+      "Unburden"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 618,
+    "name": "Stunfisk",
+    "slug": "stunfisk",
+    "types": [
+      "Ground",
+      "Electric"
+    ],
+    "abilities": [
+      "Static",
+      "Limber",
+      "Sand Veil"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 619,
+    "name": "Mienfoo",
+    "slug": "mienfoo",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Regenerator",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 620,
+    "name": "Mienshao",
+    "slug": "mienshao",
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      "Inner Focus",
+      "Regenerator",
+      "Reckless"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 621,
+    "name": "Druddigon",
+    "slug": "druddigon",
+    "types": [
+      "Dragon"
+    ],
+    "abilities": [
+      "Rough Skin",
+      "Sheer Force",
+      "Mold Breaker"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 622,
+    "name": "Golett",
+    "slug": "golett",
+    "types": [
+      "Ground",
+      "Ghost"
+    ],
+    "abilities": [
+      "Iron Fist",
+      "Klutz",
+      "No Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 623,
+    "name": "Golurk",
+    "slug": "golurk",
+    "types": [
+      "Ground",
+      "Ghost"
+    ],
+    "abilities": [
+      "Iron Fist",
+      "Klutz",
+      "No Guard"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 624,
+    "name": "Pawniard",
+    "slug": "pawniard",
+    "types": [
+      "Dark",
+      "Steel"
+    ],
+    "abilities": [
+      "Defiant",
+      "Inner Focus",
+      "Pressure"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 625,
+    "name": "Bisharp",
+    "slug": "bisharp",
+    "types": [
+      "Dark",
+      "Steel"
+    ],
+    "abilities": [
+      "Defiant",
+      "Inner Focus",
+      "Pressure"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 626,
+    "name": "Bouffalant",
+    "slug": "bouffalant",
+    "types": [
+      "Normal"
+    ],
+    "abilities": [
+      "Reckless",
+      "Sap Sipper",
+      "Soundproof"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 627,
+    "name": "Rufflet",
+    "slug": "rufflet",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Sheer Force",
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 628,
+    "name": "Braviary",
+    "slug": "braviary",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "abilities": [
+      "Keen Eye",
+      "Sheer Force",
+      "Defiant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 629,
+    "name": "Vullaby",
+    "slug": "vullaby",
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "abilities": [
+      "Big Pecks",
+      "Overcoat",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 630,
+    "name": "Mandibuzz",
+    "slug": "mandibuzz",
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "abilities": [
+      "Big Pecks",
+      "Overcoat",
+      "Weak Armor"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 631,
+    "name": "Heatmor",
+    "slug": "heatmor",
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      "Gluttony",
+      "Flash Fire",
+      "White Smoke"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 632,
+    "name": "Durant",
+    "slug": "durant",
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "abilities": [
+      "Swarm",
+      "Hustle",
+      "Truant"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 633,
+    "name": "Deino",
+    "slug": "deino",
+    "types": [
+      "Dark",
+      "Dragon"
+    ],
+    "abilities": [
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 634,
+    "name": "Zweilous",
+    "slug": "zweilous",
+    "types": [
+      "Dark",
+      "Dragon"
+    ],
+    "abilities": [
+      "Hustle"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 635,
+    "name": "Hydreigon",
+    "slug": "hydreigon",
+    "types": [
+      "Dark",
+      "Dragon"
+    ],
+    "abilities": [
+      "Levitate"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 636,
+    "name": "Larvesta",
+    "slug": "larvesta",
+    "types": [
+      "Bug",
+      "Fire"
+    ],
+    "abilities": [
+      "Flame Body",
+      "Swarm"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 637,
+    "name": "Volcarona",
+    "slug": "volcarona",
+    "types": [
+      "Bug",
+      "Fire"
+    ],
+    "abilities": [
+      "Flame Body",
+      "Swarm"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 638,
+    "name": "Cobalion",
+    "slug": "cobalion",
+    "types": [
+      "Steel",
+      "Fighting"
+    ],
+    "abilities": [
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 639,
+    "name": "Terrakion",
+    "slug": "terrakion",
+    "types": [
+      "Rock",
+      "Fighting"
+    ],
+    "abilities": [
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 640,
+    "name": "Virizion",
+    "slug": "virizion",
+    "types": [
+      "Grass",
+      "Fighting"
+    ],
+    "abilities": [
+      "Justified"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 641,
+    "name": "Tornadus",
+    "slug": "tornadus",
+    "types": [
+      "Flying"
+    ],
+    "abilities": [
+      "Prankster",
+      "Defiant"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 642,
+    "name": "Thundurus",
+    "slug": "thundurus",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "abilities": [
+      "Prankster",
+      "Defiant"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 643,
+    "name": "Reshiram",
+    "slug": "reshiram",
+    "types": [
+      "Dragon",
+      "Fire"
+    ],
+    "abilities": [
+      "Turboblaze"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 644,
+    "name": "Zekrom",
+    "slug": "zekrom",
+    "types": [
+      "Dragon",
+      "Electric"
+    ],
+    "abilities": [
+      "Teravolt"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  },
+  {
+    "dex": 645,
+    "name": "Landorus",
+    "slug": "landorus",
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "abilities": [
+      "Sand Force",
+      "Sheer Force"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 646,
+    "name": "Kyurem",
+    "slug": "kyurem",
+    "types": [
+      "Grass",
+      "Fairy"
+    ],
+    "abilities": [
+      "Prankster",
+      "Infiltrator",
+      "Chlorophyll"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 647,
+    "name": "Keldeo",
+    "slug": "keldeo",
+    "types": [
+      "Water",
+      "Fighting"
+    ],
+    "abilities": [
+      "Justified"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 648,
+    "name": "Meloetta",
+    "slug": "meloetta",
+    "types": [
+      "Normal",
+      "Psychic"
+    ],
+    "abilities": [
+      "Serene Grace"
+    ],
+    "hasTypeChanges": true,
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
+  },
+  {
+    "dex": 649,
+    "name": "Genesect",
+    "slug": "genesect",
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "abilities": [
+      "Download"
+    ],
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
+  }
+]

@@ -10,6 +10,16 @@ type MoveIndex = Record<string, unknown>;
 type ItemIndex = Record<string, unknown>;
 type AbilityIndex = Record<string, unknown>;
 type SpeciesList = Array<{ name: string; slug: string; dex: number; types: string[] }>;
+type DexList = Array<{
+  dex: number;
+  name: string;
+  slug: string;
+  types: string[];
+  abilities: string[];
+  hasTypeChanges: boolean;
+  hasStatChanges: boolean;
+  hasAbilityChanges: boolean;
+}>;
 type DexDocs = {
   wildAreas: WildArea[];
   gifts: GiftPokemon[];
@@ -23,6 +33,7 @@ let moveIndexCache: MoveIndex | null = null;
 let itemIndexCache: ItemIndex | null = null;
 let abilityIndexCache: AbilityIndex | null = null;
 let speciesListCache: SpeciesList | null = null;
+let dexListCache: DexList | null = null;
 let dexDocsCache: DexDocs | null = null;
 
 function sortSpeciesList(list: SpeciesList) {
@@ -582,6 +593,15 @@ export function getLocalDexDocs(): DexDocs {
   }
 
   return dexDocsCache;
+}
+
+export function getLocalDexList(): DexList {
+  if (!dexListCache) {
+    const localList = readJson("dex-list.json");
+    dexListCache = Array.isArray(localList) ? localList : [];
+  }
+
+  return dexListCache;
 }
 
 function reduxOverridesTypes(entry: any, canonical: Record<string, any> | null) {

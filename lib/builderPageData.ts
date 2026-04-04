@@ -5,17 +5,34 @@ import {
   getCanonicalPokemonIndex,
   getLocalAbilityIndex,
   getLocalDexDocs,
+  getLocalDexList,
   getLocalItemIndex,
   getLocalMoveIndex,
   getLocalPokemonIndex,
   getLocalSpeciesList,
 } from "@/lib/localDex";
 import type { RemoteMove, RemotePokemon } from "@/lib/teamAnalysis";
-import { normalizeName } from "@/lib/domain/names";
 import { getWorldData } from "@/lib/worldData";
 
 function stripPokemonDexNotes(entry: RemotePokemon): RemotePokemon {
   return entry;
+}
+
+function estimateJsonBytes(value: unknown) {
+  return Buffer.byteLength(JSON.stringify(value), "utf8");
+}
+
+function logDexServerPerf(
+  label: string,
+  timings: Record<string, number>,
+  payload: unknown,
+  counts: Record<string, number>,
+) {
+  console.info(`[perf:server:${label}]`, {
+    timings,
+    counts,
+    payloadBytes: estimateJsonBytes(payload),
+  });
 }
 
 export const getBuilderPageData = cache(function getBuilderPageData() {
@@ -114,8 +131,22 @@ export const getDexPageData = cache(function getDexPageData() {
   };
 });
 
-export const getDexListPageData = cache(function getDexListPageData() {
+export const getDexListPageData = cache(function getDexListPageData(perfDebug = false) {
+  const timings: Record<string, number> = {};
+  const mark = (name: string) => {
+    if (!perfDebug) {
+      return () => {};
+    }
+
+    const startedAt = performance.now();
+    return () => {
+      timings[name] = Number((performance.now() - startedAt).toFixed(2));
+    };
+  };
+
+  const stopDexDocs = mark("getLocalDexDocs");
   const dexDocs = getLocalDexDocs();
+  stopDexDocs();
   const docs = {
     moveReplacements: [],
     moveTypeChanges: [],
@@ -130,42 +161,24 @@ export const getDexListPageData = cache(function getDexListPageData() {
     pokemonProfiles: [],
     evolutionChanges: [],
   };
-  const speciesCatalog = getLocalSpeciesList();
-  const localPokemonIndex = getLocalPokemonIndex() as Record<string, RemotePokemon>;
-  const canonicalPokemonIndex = getCanonicalPokemonIndex() as Record<string, RemotePokemon>;
+  const stopDexList = mark("getLocalDexList");
+  const pokemonList = getLocalDexList();
+  stopDexList();
 
-  const pokemonList = speciesCatalog
-    .map((species) => {
-      const pokemon =
-        localPokemonIndex[species.slug] ??
-        localPokemonIndex[normalizeName(species.name)];
-      const canonicalPokemon =
-        canonicalPokemonIndex[species.slug] ??
-        canonicalPokemonIndex[normalizeName(species.name)];
-      const types = species.types ?? pokemon?.types ?? [];
-      const abilities = pokemon?.abilities ?? [];
-
-      return {
-        dex: species.dex,
-        name: species.name,
-        slug: species.slug,
-        types,
-        abilities,
-        hasTypeChanges:
-          JSON.stringify(types.map(normalizeName)) !==
-          JSON.stringify((canonicalPokemon?.types ?? []).map(normalizeName)),
-        hasStatChanges:
-          JSON.stringify(pokemon?.stats ?? null) !== JSON.stringify(canonicalPokemon?.stats ?? null),
-        hasAbilityChanges:
-          JSON.stringify(abilities.map(normalizeName)) !==
-          JSON.stringify((canonicalPokemon?.abilities ?? []).map(normalizeName)),
-      };
-    })
-    .sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name));
-
-  return {
+  const payload = {
     docs,
-    speciesCatalog,
     pokemonList,
   };
+
+  if (perfDebug) {
+    logDexServerPerf("dex-list", timings, payload, {
+      pokemonList: pokemonList.length,
+      wildAreas: docs.wildAreas.length,
+      gifts: docs.gifts.length,
+      trades: docs.trades.length,
+      itemLocations: docs.itemLocations.length,
+    });
+  }
+
+  return payload;
 });

@@ -318,21 +318,14 @@ async function main() {
   await mkdir(OUTPUT_DIR, { recursive: true });
   await writeFile(path.join(OUTPUT_DIR, "pokemon-index.json"), JSON.stringify(pokemonIndex, null, 2));
   await writeFile(path.join(OUTPUT_DIR, "move-index.json"), JSON.stringify(moveIndex, null, 2));
-  await writeFile(
-    path.join(OUTPUT_DIR, "species-list.json"),
-    JSON.stringify(
-      Object.values(pokemonIndex).map((pokemon) => ({
-        name: pokemon.name,
-        slug: pokemon.slug,
-        dex: pokemon.dex,
-        types: pokemon.types ?? [],
-      })),
-      null,
-      2
-    )
-  );
 
   const { execFileSync } = await import("node:child_process");
+  execFileSync(process.execPath, [path.join(ROOT, "scripts", "build-species-list.mjs")], {
+    stdio: "inherit",
+  });
+  execFileSync(process.execPath, [path.join(ROOT, "scripts", "build-dex-list.mjs")], {
+    stdio: "inherit",
+  });
   execFileSync(process.execPath, [path.join(ROOT, "scripts", "build-dex-docs.mjs")], {
     stdio: "inherit",
   });
