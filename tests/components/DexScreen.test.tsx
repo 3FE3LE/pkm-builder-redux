@@ -87,6 +87,64 @@ vi.mock("@/components/BuilderProvider", () => ({
   }),
 }));
 
+vi.mock("swr", () => ({
+  default: (key: string | null) => {
+    if (key === "/api/dex?movesList=1") {
+      return {
+        data: {
+          entries: [
+            {
+              name: "Tackle",
+              type: "Normal",
+              damageClass: "physical",
+              power: 40,
+              accuracy: 100,
+              description: "Golpea sin efecto adicional.",
+            },
+          ],
+          ownersByMove: {
+            tackle: {
+              levelUp: ["Mareep"],
+              machines: [],
+            },
+          },
+        },
+      };
+    }
+
+    if (key === "/api/dex?abilitiesList=1") {
+      return {
+        data: {
+          entries: [{ name: "Static", effect: "Puede paralizar al hacer contacto." }],
+          ownersByAbility: {
+            static: {
+              regular: ["Mareep"],
+              hidden: [],
+            },
+          },
+        },
+      };
+    }
+
+    if (key === "/api/dex?itemsList=1") {
+      return {
+        data: {
+          entries: [
+            {
+              name: "Leftovers",
+              category: "Held Items",
+              effect: "Restaura PS al final del turno.",
+              sprite: "/leftovers.png",
+            },
+          ],
+        },
+      };
+    }
+
+    return { data: undefined };
+  },
+}));
+
 vi.mock("next/navigation", () => ({
   useRouter: () => ({}),
 }));
@@ -155,6 +213,38 @@ vi.mock("@/components/ui/tabs", () => ({
 
 import { DexScreen } from "@/components/team/screens/DexScreen";
 
+const dexListData = {
+  speciesCatalog: [
+    { name: "Mareep", slug: "mareep", dex: 179, types: ["Electric"] },
+  ],
+  pokemonList: [
+    {
+      name: "Mareep",
+      slug: "mareep",
+      dex: 179,
+      types: ["Electric"],
+      abilities: ["Static"],
+      hasTypeChanges: false,
+      hasStatChanges: false,
+      hasAbilityChanges: false,
+    },
+  ],
+  docs: {
+    gifts: [{ name: "Mareep", location: "Floccesy Ranch", level: "10", notes: [] }],
+    trades: [{ requested: "Basculin", received: "Mareep", location: "Nimbasa City", traits: [] }],
+    wildAreas: [{ area: "Route 1", methods: [{ method: "Grass", encounters: [{ species: "Mareep", level: "4" }] }] }],
+    itemLocations: [{ area: "Castelia City", items: ["Repel -> Leftovers"] }],
+    moveReplacements: [],
+    moveTypeChanges: [],
+    moveTypeOverrides: [],
+    moveDetails: [],
+    typeChanges: [],
+    itemHighlights: [],
+    pokemonProfiles: [],
+    evolutionChanges: [],
+  },
+} as const;
+
 describe("DexScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -186,7 +276,7 @@ describe("DexScreen", () => {
   it("renders pokemon data and filters it by query", async () => {
     const user = userEvent.setup();
 
-    render(<DexScreen />);
+    render(<DexScreen data={dexListData} />);
 
     expect(screen.getByText("Redux Dex")).toBeTruthy();
     expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
@@ -200,7 +290,7 @@ describe("DexScreen", () => {
   it("places the search input above the tabs and clears it with the clear button", async () => {
     const user = userEvent.setup();
 
-    render(<DexScreen />);
+    render(<DexScreen data={dexListData} />);
 
     const searchInput = screen.getByPlaceholderText("Buscar Pokemon, tipo, habilidad o area");
     const pokemonTab = screen.getByRole("button", { name: "Pokemon" });
@@ -220,7 +310,7 @@ describe("DexScreen", () => {
   it("switches to abilities and items with their linked data", async () => {
     const user = userEvent.setup();
 
-    render(<DexScreen />);
+    render(<DexScreen data={dexListData} />);
 
     await user.click(screen.getByRole("button", { name: "switch-pokemon" }));
     expect(screen.queryByText("Ver")).toBeNull();
@@ -237,7 +327,7 @@ describe("DexScreen", () => {
   });
 
   it("renders pokemon detail links with transition types", () => {
-    render(<DexScreen />);
+    render(<DexScreen data={dexListData} />);
 
     const detailLink = screen.getByRole("link", { name: /mareep/i });
     expect(detailLink.getAttribute("href")).toBe("/team/dex/pokemon/mareep");

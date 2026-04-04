@@ -522,3 +522,25 @@ export function parseDocumentation(): ParsedDocs {
     evolutionChanges,
   };
 }
+
+export function parseDexDocumentation(): ParsedDocs {
+  const itemChanges = parseItemChanges(readDoc("Item Changes.txt"));
+  const gifts = parseGiftPokemon(readDoc("Gift Pokemon.txt"));
+  const trades = parseTradePokemon(readDoc("Trade Changes.txt"));
+  const wildAreas = parseWildAreas(readDoc("Wild Area Changes.txt"));
+
+  return {
+    moveReplacements: [],
+    moveTypeChanges: [],
+    moveTypeOverrides: [],
+    moveDetails: [],
+    typeChanges: [],
+    itemLocations: itemChanges.locations,
+    itemHighlights: [],
+    gifts,
+    trades,
+    wildAreas,
+    pokemonProfiles: [],
+    evolutionChanges: [],
+  };
+}

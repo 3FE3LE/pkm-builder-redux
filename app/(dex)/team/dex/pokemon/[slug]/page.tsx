@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
+import { BuilderProvider } from "@/components/BuilderProvider";
 import { DexPokemonDetailScreen } from "@/components/team/screens/DexPokemonDetailScreen";
-import { getBuilderPageData } from "@/lib/builderPageData";
+import { getDexPageData } from "@/lib/builderPageData";
 import { normalizeName } from "@/lib/domain/names";
 import { absoluteUrl } from "@/lib/site";
 
@@ -12,7 +14,7 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const data = getBuilderPageData();
+  const data = getDexPageData();
   const species =
     data.speciesCatalog.find((entry) => entry.slug === slug) ??
     data.speciesCatalog.find((entry) => normalizeName(entry.name) === slug);
@@ -37,12 +39,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function TeamDexPokemonPage({ params }: PageProps) {
   const { slug } = await params;
-  const data = getBuilderPageData();
+  const data = getDexPageData();
   const exists = data.speciesCatalog.some((entry) => entry.slug === slug || normalizeName(entry.name) === slug);
 
   if (!exists) {
     notFound();
   }
 
-  return <DexPokemonDetailScreen slug={slug} />;
+  return (
+    <Suspense fallback={null}>
+      <BuilderProvider {...data}>
+        <DexPokemonDetailScreen slug={slug} />
+      </BuilderProvider>
+    </Suspense>
+  );
 }

@@ -12,12 +12,12 @@ import {
   ViewTransition,
 } from "react";
 import { parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
+import useSWR from "swr";
 
 import { ItemSprite } from "@/components/builder-shared/ItemSprite";
 import { PokemonSprite } from "@/components/builder-shared/PokemonSprite";
 import { TypeBadge } from "@/components/builder-shared/TypeBadge";
 import { DefenseSection } from "@/components/team/editor/DefenseSection";
-import { useTeamCatalogs } from "@/components/BuilderProvider";
 import { StatBar } from "@/components/team/shared/StatWidgets";
 import { MoveSlotSurface } from "@/components/team/UI";
 import {
@@ -38,6 +38,7 @@ import { getBaseSpeciesName } from "@/lib/forms";
 import { markNavigationStart } from "@/lib/perf";
 import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
+import type { getDexListPageData } from "@/lib/builderPageData";
 
 const DEX_TABS = ["pokemon", "moves", "abilities", "items"] as const;
 const DEX_POKEMON_MODES = ["national", "gen5"] as const;
@@ -47,9 +48,46 @@ const RESULT_LIMIT = 80;
 const INITIAL_RESULTS = 10;
 const RESULT_BATCH_SIZE = 10;
 const DEX_SCROLL_RESTORE_KEY = "dex-scroll-restore";
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`);
+  }
+  return response.json();
+};
 
-export function DexScreen() {
-  const catalogs = useTeamCatalogs();
+type DexMovesPayload = {
+  entries: Array<{
+    name: string;
+    type: string;
+    damageClass: string;
+    power?: number | null;
+    accuracy?: number | null;
+    pp?: number | null;
+    description?: string;
+  }>;
+  ownersByMove: Record<string, { levelUp: string[]; machines: string[] }>;
+};
+
+type DexAbilitiesPayload = {
+  entries: Array<{ name: string; effect?: string }>;
+  ownersByAbility: Record<string, { regular: string[]; hidden: string[] }>;
+};
+
+type DexItemsPayload = {
+  entries: Array<{
+    name: string;
+    category?: string;
+    effect?: string;
+    sprite?: string | null;
+  }>;
+};
+
+export function DexScreen({
+  data,
+}: {
+  data: ReturnType<typeof getDexListPageData>;
+}) {
   const [tab, setTab] = useQueryState(
     "tab",
     parseAsStringEnum<DexTab>([...DEX_TABS]).withDefault("pokemon"),
@@ -82,27 +120,30 @@ export function DexScreen() {
   const deferredQuery = useDeferredValue(query);
   const forwardTransition = useSafeTransitionTypes(["dex-forward"]);
   const currentTeam = useBuilderStore((state) => state.run.roster.currentTeam);
+  const { data: movesPayload } = useSWR<DexMovesPayload>(
+    tab === "moves" || tab === "pokemon" ? "/api/dex?movesList=1" : null,
+    fetcher,
+  );
+  const { data: abilitiesPayload } = useSWR<DexAbilitiesPayload>(
+    tab === "abilities" || tab === "pokemon" ? "/api/dex?abilitiesList=1" : null,
+    fetcher,
+  );
+  const { data: itemsPayload } = useSWR<DexItemsPayload>(
+    tab === "items" ? "/api/dex?itemsList=1" : null,
+    fetcher,
+  );
 
   const moveEntries = useMemo(
-    () =>
-      Object.values(catalogs.moveIndex).sort((left, right) =>
-        left.name.localeCompare(right.name),
-      ),
-    [catalogs.moveIndex],
+    () => movesPayload?.entries ?? [],
+    [movesPayload],
   );
   const abilityEntries = useMemo(
-    () =>
-      [...catalogs.abilityCatalog].sort((left, right) =>
-        left.name.localeCompare(right.name),
-      ),
-    [catalogs.abilityCatalog],
+    () => abilitiesPayload?.entries ?? [],
+    [abilitiesPayload],
   );
   const itemEntries = useMemo(
-    () =>
-      [...catalogs.itemCatalog].sort((left, right) =>
-        left.name.localeCompare(right.name),
-      ),
-    [catalogs.itemCatalog],
+    () => itemsPayload?.entries ?? [],
+    [itemsPayload],
   );
   const abilityEffects = useMemo(
     () => {
@@ -129,51 +170,43 @@ export function DexScreen() {
     },
     [moveEntries, tab],
   );
-  const pokemonEntries = useMemo(() => {
-    return catalogs.speciesCatalog
-      .map((species) => {
-        const pokemon =
-          catalogs.pokemonIndex[species.slug] ??
-          catalogs.pokemonIndex[normalizeName(species.name)];
-        const sprites = buildSpriteUrls(species.name, species.dex);
+  const pokemonEntries = useMemo(
+    () =>
+      data.pokemonList.map((pokemon) => {
+        const sprites = buildSpriteUrls(pokemon.name, pokemon.dex);
 
         return {
-          dex: species.dex,
-          name: species.name,
-          slug: species.slug,
-          types: dedupeStrings(species.types),
+          ...pokemon,
+          types: dedupeStrings(pokemon.types),
+          abilities: dedupeStrings(pokemon.abilities),
           spriteUrl: sprites.spriteUrl,
           animatedSpriteUrl: sprites.animatedSpriteUrl,
-          stats: pokemon?.stats,
-          generation: pokemon?.generation,
-          category: pokemon?.category,
-          height: pokemon?.height,
-          weight: pokemon?.weight,
-          canonicalStats:
-            catalogs.canonicalPokemonIndex[species.slug]?.stats ??
-            catalogs.canonicalPokemonIndex[normalizeName(species.name)]?.stats,
-          abilities: dedupeStrings(pokemon?.abilities ?? []),
-          flavorText: pokemon?.flavorText,
-          nextEvolutions: dedupeStrings(pokemon?.nextEvolutions ?? []),
-          evolutionDetails: pokemon?.evolutionDetails ?? [],
-          learnsets: pokemon?.learnsets,
+          nextEvolutions: [],
+          evolutionDetails: [],
         };
-      })
-      .sort(
-        (left, right) =>
-          left.dex - right.dex || left.name.localeCompare(right.name),
-      );
-  }, [catalogs.pokemonIndex, catalogs.speciesCatalog]);
+      }),
+    [data.pokemonList],
+  );
   const dexBySpecies = useMemo(() => {
     const next: Record<string, number> = {};
 
-    catalogs.speciesCatalog.forEach((species) => {
+    data.speciesCatalog.forEach((species) => {
       next[normalizeName(species.name)] = species.dex;
       next[normalizeName(getBaseSpeciesName(species.name))] = species.dex;
     });
 
     return next;
-  }, [catalogs.speciesCatalog]);
+  }, [data.speciesCatalog]);
+  const pokemonEntriesBySlug = useMemo(
+    () =>
+      new Map(
+        pokemonEntries.flatMap((entry) => [
+          [entry.slug, entry],
+          [normalizeName(entry.name), entry],
+        ]),
+      ),
+    [pokemonEntries],
+  );
   const currentTeamTypes = useMemo(() => {
     const next = new Set<string>();
 
@@ -185,12 +218,12 @@ export function DexScreen() {
 
       const normalizedSpecies = normalizeName(speciesName);
       const pokemon =
-        catalogs.pokemonIndex[normalizedSpecies] ??
-        catalogs.pokemonIndex[normalizeName(getBaseSpeciesName(speciesName))];
+        pokemonEntriesBySlug.get(normalizedSpecies) ??
+        pokemonEntriesBySlug.get(normalizeName(getBaseSpeciesName(speciesName)));
       const speciesEntry =
-        catalogs.speciesCatalog.find((entry) => entry.slug === normalizedSpecies) ??
-        catalogs.speciesCatalog.find((entry) => normalizeName(entry.name) === normalizedSpecies) ??
-        catalogs.speciesCatalog.find(
+        data.speciesCatalog.find((entry) => entry.slug === normalizedSpecies) ??
+        data.speciesCatalog.find((entry) => normalizeName(entry.name) === normalizedSpecies) ??
+        data.speciesCatalog.find(
           (entry) => normalizeName(getBaseSpeciesName(entry.name)) === normalizedSpecies,
         );
       const resolvedTypes = dedupeStrings(pokemon?.types ?? speciesEntry?.types ?? []);
@@ -201,7 +234,7 @@ export function DexScreen() {
     });
 
     return next;
-  }, [catalogs.pokemonIndex, catalogs.speciesCatalog, currentTeam]);
+  }, [currentTeam, data.speciesCatalog, pokemonEntriesBySlug]);
   const pokemonNames = useMemo(
     () => pokemonEntries.map((entry) => entry.name),
     [pokemonEntries],
@@ -225,7 +258,7 @@ export function DexScreen() {
       { location: string; requested: string }[]
     >();
 
-    catalogs.docs.wildAreas.forEach((area) => {
+    data.docs.wildAreas.forEach((area) => {
       area.methods.forEach((method) => {
         method.encounters.forEach((entry) => {
           extractEncounterSpecies(entry.species, pokemonNames).forEach(
@@ -241,7 +274,7 @@ export function DexScreen() {
       });
     });
 
-    catalogs.docs.gifts.forEach((gift) => {
+    data.docs.gifts.forEach((gift) => {
       extractGiftSpecies(gift.name, gift.notes ?? [], pokemonNames).forEach(
         (species) => {
           const key = normalizeName(species);
@@ -253,7 +286,7 @@ export function DexScreen() {
       );
     });
 
-    catalogs.docs.trades.forEach((trade) => {
+    data.docs.trades.forEach((trade) => {
       const key = normalizeName(trade.received);
       if (!key) {
         return;
@@ -267,9 +300,9 @@ export function DexScreen() {
 
     return { wildBySpecies, giftsBySpecies, tradesBySpecies };
   }, [
-    catalogs.docs.gifts,
-    catalogs.docs.trades,
-    catalogs.docs.wildAreas,
+    data.docs.gifts,
+    data.docs.trades,
+    data.docs.wildAreas,
     pokemonNames,
     tab,
   ]);
@@ -336,53 +369,12 @@ export function DexScreen() {
       }
     >();
 
-    Object.values(catalogs.pokemonIndex).forEach((pokemon) => {
-      const seenLevelUp = new Set<string>();
-      const seenMachines = new Set<string>();
-
-      (pokemon.learnsets?.levelUp ?? []).forEach((entry) => {
-        const key = normalizeName(entry.move);
-        if (!key || seenLevelUp.has(key)) {
-          return;
-        }
-        seenLevelUp.add(key);
-        const current = next.get(key) ?? { levelUp: [], machines: [] };
-        next.set(key, {
-          ...current,
-          levelUp: [...current.levelUp, pokemon.name],
-        });
-      });
-
-      (pokemon.learnsets?.machines ?? []).forEach((entry) => {
-        const key = normalizeName(entry.move);
-        if (!key || seenMachines.has(key)) {
-          return;
-        }
-        seenMachines.add(key);
-        const current = next.get(key) ?? { levelUp: [], machines: [] };
-        next.set(key, {
-          ...current,
-          machines: [...current.machines, pokemon.name],
-        });
-      });
-    });
-
-    next.forEach((value, key) => {
-      next.set(
-        key,
-        {
-          levelUp: value.levelUp.sort((left, right) =>
-            left.localeCompare(right),
-          ),
-          machines: value.machines.sort((left, right) =>
-            left.localeCompare(right),
-          ),
-        },
-      );
+    Object.entries(movesPayload?.ownersByMove ?? {}).forEach(([key, value]) => {
+      next.set(key, value);
     });
 
     return next;
-  }, [catalogs.pokemonIndex, tab]);
+  }, [movesPayload, tab]);
 
   const ownersByAbility = useMemo(() => {
     if (tab !== "abilities") {
@@ -403,37 +395,12 @@ export function DexScreen() {
       }
     >();
 
-    Object.values(catalogs.pokemonIndex).forEach((pokemon) => {
-      (pokemon.abilities ?? []).forEach((ability, index, abilities) => {
-        const key = normalizeName(ability);
-        if (!key) {
-          return;
-        }
-        const current = next.get(key) ?? { regular: [], hidden: [] };
-        const isHidden = abilities.length >= 3 && index >= 2;
-        next.set(key, {
-          regular: isHidden ? current.regular : [...current.regular, pokemon.name],
-          hidden: isHidden ? [...current.hidden, pokemon.name] : current.hidden,
-        });
-      });
-    });
-
-    next.forEach((value, key) => {
-      next.set(
-        key,
-        {
-          regular: Array.from(new Set(value.regular)).sort((left, right) =>
-            left.localeCompare(right),
-          ),
-          hidden: Array.from(new Set(value.hidden)).sort((left, right) =>
-            left.localeCompare(right),
-          ),
-        },
-      );
+    Object.entries(abilitiesPayload?.ownersByAbility ?? {}).forEach(([key, value]) => {
+      next.set(key, value);
     });
 
     return next;
-  }, [catalogs.pokemonIndex, tab]);
+  }, [abilitiesPayload, tab]);
 
   const locationsByItem = useMemo(() => {
     if (tab !== "items") {
@@ -442,7 +409,7 @@ export function DexScreen() {
 
     const next = new Map<string, { area: string; detail: string }[]>();
 
-    catalogs.docs.itemLocations.forEach((location) => {
+    data.docs.itemLocations.forEach((location) => {
       location.items.forEach((detail) => {
         const parsed = parseItemLocationDetail(detail);
 
@@ -462,7 +429,7 @@ export function DexScreen() {
     });
 
     return next;
-  }, [catalogs.docs.itemLocations, itemEntries, tab]);
+  }, [data.docs.itemLocations, itemEntries, tab]);
 
   const normalizedQuery = normalizeName(deferredQuery);
   const filteredPokemon = useMemo(
@@ -472,35 +439,16 @@ export function DexScreen() {
       }
 
       return pokemonEntries.filter((pokemon) => {
-        const canonicalPokemon =
-          catalogs.canonicalPokemonIndex[pokemon.slug] ??
-          catalogs.canonicalPokemonIndex[normalizeName(pokemon.name)];
-        const currentPokemon =
-          catalogs.pokemonIndex[pokemon.slug] ??
-          catalogs.pokemonIndex[normalizeName(pokemon.name)];
-        const hasTypeChanges = !sameStringList(
-          dedupeStrings(pokemon.types),
-          dedupeStrings(canonicalPokemon?.types ?? []),
-        );
-        const hasStatChanges = !sameStats(
-          currentPokemon?.stats,
-          canonicalPokemon?.stats,
-        );
-        const hasAbilityChanges = !sameStringList(
-          dedupeStrings(currentPokemon?.abilities ?? []),
-          dedupeStrings(canonicalPokemon?.abilities ?? []),
-        );
-
         if (pokemonMode === "gen5" && (pokemon.dex < 494 || pokemon.dex > 649)) {
           return false;
         }
-        if (typeChangesOnly === "1" && !hasTypeChanges) {
+        if (typeChangesOnly === "1" && !pokemon.hasTypeChanges) {
           return false;
         }
-        if (statChangesOnly === "1" && !hasStatChanges) {
+        if (statChangesOnly === "1" && !pokemon.hasStatChanges) {
           return false;
         }
-        if (abilityChangesOnly === "1" && !hasAbilityChanges) {
+        if (abilityChangesOnly === "1" && !pokemon.hasAbilityChanges) {
           return false;
         }
         if (addsNewTeamTypeOnly === "1") {
@@ -531,9 +479,8 @@ export function DexScreen() {
     [
       abilityChangesOnly,
       addsNewTeamTypeOnly,
-      catalogs.canonicalPokemonIndex,
-      catalogs.pokemonIndex,
       currentTeamTypes,
+      data,
       normalizedQuery,
       allTypesNewToTeamOnly,
       pokemonEntries,
@@ -2100,8 +2047,8 @@ function resolveDexMoveCardData(
   };
 }
 
-function dedupeStrings(values: string[]) {
-  return Array.from(new Set(values.filter(Boolean)));
+function dedupeStrings(values?: string[] | null) {
+  return Array.from(new Set((values ?? []).filter(Boolean)));
 }
 
 function getDexSpriteShellStyle(types: string[]) {

@@ -52,8 +52,8 @@ describe("localDex", () => {
       pokemonIndex.darmanitan.learnsets
     );
     expect(pokemonIndex.deoxys).toMatchObject({
-      slug: "deoxys-normal",
-      name: "Deoxys Normal",
+      slug: "deoxys",
+      name: "Deoxys",
     });
     expect(pokemonIndex["deoxys-attack"]).toMatchObject({
       dex: 386,

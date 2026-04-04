@@ -321,11 +321,21 @@ async function main() {
   await writeFile(
     path.join(OUTPUT_DIR, "species-list.json"),
     JSON.stringify(
-      Object.values(pokemonIndex).map((pokemon) => ({ name: pokemon.name, slug: pokemon.slug })),
+      Object.values(pokemonIndex).map((pokemon) => ({
+        name: pokemon.name,
+        slug: pokemon.slug,
+        dex: pokemon.dex,
+        types: pokemon.types ?? [],
+      })),
       null,
       2
     )
   );
+
+  const { execFileSync } = await import("node:child_process");
+  execFileSync(process.execPath, [path.join(ROOT, "scripts", "build-dex-docs.mjs")], {
+    stdio: "inherit",
+  });
 
   console.log("Local dex generated in data/local-dex");
 }

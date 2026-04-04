@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
+import type { GiftPokemon, ItemLocation, TradePokemon, WildArea } from "@/lib/docsSchema";
 
 const DATA_DIR = path.join(process.cwd(), "data", "local-dex");
 const REFERENCE_DIR = path.join(process.cwd(), "data", "reference");
@@ -9,6 +10,12 @@ type MoveIndex = Record<string, unknown>;
 type ItemIndex = Record<string, unknown>;
 type AbilityIndex = Record<string, unknown>;
 type SpeciesList = Array<{ name: string; slug: string; dex: number; types: string[] }>;
+type DexDocs = {
+  wildAreas: WildArea[];
+  gifts: GiftPokemon[];
+  trades: TradePokemon[];
+  itemLocations: ItemLocation[];
+};
 
 let pokemonIndexCache: PokemonIndex | null = null;
 let canonicalPokemonIndexCache: PokemonIndex | null = null;
@@ -16,6 +23,7 @@ let moveIndexCache: MoveIndex | null = null;
 let itemIndexCache: ItemIndex | null = null;
 let abilityIndexCache: AbilityIndex | null = null;
 let speciesListCache: SpeciesList | null = null;
+let dexDocsCache: DexDocs | null = null;
 
 function sortSpeciesList(list: SpeciesList) {
   return [...list].sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name));
@@ -59,6 +67,35 @@ function mergeMachines(canonical: any[] = [], redux: any[] = []) {
       ])
     ).values()
   );
+}
+
+function mergePokemonIndexes(
+  fallbackIndex: Record<string, any>,
+  localIndex: Record<string, any>,
+) {
+  if (!Object.keys(fallbackIndex).length) {
+    return localIndex;
+  }
+
+  const merged = { ...fallbackIndex };
+
+  for (const [key, localEntry] of Object.entries(localIndex)) {
+    const fallbackEntry = fallbackIndex[key];
+    merged[key] = fallbackEntry
+      ? {
+          ...fallbackEntry,
+          ...localEntry,
+          types: fallbackEntry.types ?? localEntry.types ?? [],
+          abilities: fallbackEntry.abilities ?? localEntry.abilities ?? [],
+          stats: fallbackEntry.stats ?? localEntry.stats ?? null,
+          learnsets: fallbackEntry.learnsets ?? localEntry.learnsets ?? null,
+          nextEvolutions: localEntry.nextEvolutions ?? fallbackEntry.nextEvolutions ?? [],
+          evolutionDetails: localEntry.evolutionDetails ?? fallbackEntry.evolutionDetails ?? [],
+        }
+      : localEntry;
+  }
+
+  return merged;
 }
 
 const SYNTHETIC_FORM_ENTRIES = {
@@ -371,15 +408,15 @@ const BASE_FORM_SUFFIXES = [
 export function getLocalPokemonIndex(): PokemonIndex {
   if (!pokemonIndexCache) {
     const localIndex = readJson("pokemon-index.json");
-    if (Object.keys(localIndex).length) {
-      pokemonIndexCache = localIndex;
-    } else {
-      const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
-      const reduxOverrides = readReferenceJson("pokemon-redux-overrides-gen5.json") as Record<string, any> | null;
-      const canonicalLearnsets =
-        (readReferenceJson("pokemon-canonical-learnsets-gen5.json") as Record<string, any> | null) ?? {};
-      pokemonIndexCache = canonical ? buildPokemonIndex(canonical, reduxOverrides, canonicalLearnsets) : {};
-    }
+    const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
+    const reduxOverrides = readReferenceJson("pokemon-redux-overrides-gen5.json") as Record<string, any> | null;
+    const canonicalLearnsets =
+      (readReferenceJson("pokemon-canonical-learnsets-gen5.json") as Record<string, any> | null) ?? {};
+    const fallbackIndex = canonical ? buildPokemonIndex(canonical, reduxOverrides, canonicalLearnsets) : {};
+
+    pokemonIndexCache = Object.keys(localIndex).length
+      ? mergePokemonIndexes(fallbackIndex, localIndex as Record<string, any>)
+      : fallbackIndex;
   }
   return pokemonIndexCache ?? {};
 }
@@ -397,11 +434,13 @@ export function getCanonicalPokemonIndex(): PokemonIndex {
 export function getLocalMoveIndex(): MoveIndex {
   if (!moveIndexCache) {
     const localIndex = readJson("move-index.json");
-    if (Object.keys(localIndex).length) {
-      moveIndexCache = localIndex;
-    } else {
-      moveIndexCache = (readReferenceJson("moves-canonical.json") as MoveIndex | null) ?? {};
-    }
+    const canonicalIndex = (readReferenceJson("moves-canonical.json") as MoveIndex | null) ?? {};
+    moveIndexCache = Object.keys(localIndex).length
+      ? {
+          ...canonicalIndex,
+          ...localIndex,
+        }
+      : canonicalIndex;
   }
   return moveIndexCache ?? {};
 }
@@ -465,35 +504,84 @@ export function getLocalAbilityIndex(): AbilityIndex {
 export function getLocalSpeciesList(): SpeciesList {
   if (!speciesListCache) {
     const localList = readJson("species-list.json");
-    if (localList.length) {
+    const hasCompleteShape =
+      Array.isArray(localList) &&
+      localList.every(
+        (entry) =>
+          entry &&
+          typeof entry.name === "string" &&
+          typeof entry.slug === "string" &&
+          typeof entry.dex === "number" &&
+          Array.isArray(entry.types),
+      );
+
+    if (hasCompleteShape && localList.length) {
       speciesListCache = sortSpeciesList(localList);
     } else {
-      const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
-      speciesListCache = canonical
-        ? sortSpeciesList(
-            Array.from(
-              new Map(
-                Object.values(canonical).map((entry: any) => {
-                  const name = normalizeDexCatalogName(entry.name);
-                  const slug = normalizeDexCatalogSlug(entry.slug ?? entry.name);
+      const localPokemonIndex = readJson("pokemon-index.json") as Record<string, any>;
+      if (Object.keys(localPokemonIndex).length) {
+        speciesListCache = sortSpeciesList(
+          Array.from(
+            new Map(
+              Object.values(localPokemonIndex).map((entry: any) => {
+                const name = normalizeDexCatalogName(entry.name);
+                const slug = normalizeDexCatalogSlug(entry.slug ?? entry.name);
 
-                  return [
+                return [
+                  slug,
+                  {
+                    name,
                     slug,
-                    {
-                      name,
+                    dex: entry.dex ?? entry.id ?? 0,
+                    types: entry.types ?? [],
+                  },
+                ] as const;
+              }),
+            ).values(),
+          ),
+        );
+      } else {
+        const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
+        speciesListCache = canonical
+          ? sortSpeciesList(
+              Array.from(
+                new Map(
+                  Object.values(canonical).map((entry: any) => {
+                    const name = normalizeDexCatalogName(entry.name);
+                    const slug = normalizeDexCatalogSlug(entry.slug ?? entry.name);
+
+                    return [
                       slug,
-                      dex: entry.dex ?? entry.id ?? 0,
-                      types: reduxOverridesTypes(entry, canonical),
-                    },
-                  ] as const;
-                }),
-              ).values(),
-            ),
-          )
-        : [];
+                      {
+                        name,
+                        slug,
+                        dex: entry.dex ?? entry.id ?? 0,
+                        types: reduxOverridesTypes(entry, canonical),
+                      },
+                    ] as const;
+                  }),
+                ).values(),
+              ),
+            )
+          : [];
+      }
     }
   }
   return speciesListCache ?? [];
+}
+
+export function getLocalDexDocs(): DexDocs {
+  if (!dexDocsCache) {
+    const localDocs = readJson("dex-docs.json") as Partial<DexDocs>;
+    dexDocsCache = {
+      wildAreas: Array.isArray(localDocs?.wildAreas) ? localDocs.wildAreas : [],
+      gifts: Array.isArray(localDocs?.gifts) ? localDocs.gifts : [],
+      trades: Array.isArray(localDocs?.trades) ? localDocs.trades : [],
+      itemLocations: Array.isArray(localDocs?.itemLocations) ? localDocs.itemLocations : [],
+    };
+  }
+
+  return dexDocsCache;
 }
 
 function reduxOverridesTypes(entry: any, canonical: Record<string, any> | null) {

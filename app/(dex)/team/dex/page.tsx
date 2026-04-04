@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { DexScreen } from "@/components/team/screens/DexScreen";
+import { getDexListPageData } from "@/lib/builderPageData";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -20,5 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default function TeamDexPage() {
-  return <DexScreen />;
+  const data = getDexListPageData();
+
+  return <DexScreen data={data} />;
 }
