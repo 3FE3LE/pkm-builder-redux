@@ -6,6 +6,7 @@ import { ChevronLeft, GitCompareArrows, Info, Lock, LockOpen, Pencil, RotateCcw,
 
 import { Button } from "@/components/ui/Button";
 import type { EditableMember } from "@/lib/builderStore";
+import { markNavigationStart } from "@/lib/perf";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 export function ActionDock({
@@ -122,6 +123,7 @@ export function ActionDock({
       {editHref ? (
         <Link
           href={editHref}
+          prefetch
           transitionTypes={forwardTransition}
           aria-label={editLabel}
           className={clsx(
@@ -129,6 +131,7 @@ export function ActionDock({
             buttonClass,
             "border-line text-muted",
           )}
+          onClick={() => markNavigationStart("roster-to-editor", editHref)}
         >
           {editNode}
         </Link>

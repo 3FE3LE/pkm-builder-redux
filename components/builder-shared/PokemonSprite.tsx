@@ -1,8 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import clsx from "clsx";
+
+function subscribeAnimationCapability(callback: () => void) {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  coarsePointerQuery.addEventListener("change", callback);
+  reducedMotionQuery.addEventListener("change", callback);
+
+  return () => {
+    coarsePointerQuery.removeEventListener("change", callback);
+    reducedMotionQuery.removeEventListener("change", callback);
+  };
+}
+
+function getAnimationCapabilitySnapshot() {
+  if (typeof window === "undefined") {
+    return true;
+  }
+
+  return (
+    !window.matchMedia("(pointer: coarse)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
 
 export function PokemonSprite({
   species,
@@ -22,8 +50,16 @@ export function PokemonSprite({
   eager?: boolean;
 }) {
   const [useAnimated, setUseAnimated] = useState(true);
+  const canUseAnimatedSprites = useSyncExternalStore(
+    subscribeAnimationCapability,
+    getAnimationCapabilitySnapshot,
+    () => true,
+  );
   const hasAnimated = Boolean(animatedSpriteUrl);
-  const source = hasAnimated && useAnimated ? animatedSpriteUrl : spriteUrl;
+  const source =
+    hasAnimated && useAnimated && canUseAnimatedSprites
+      ? animatedSpriteUrl
+      : spriteUrl;
   const imageSize =
     size === "large" ? 140 : size === "small" ? 64 : size === "tiny" ? 40 : 112;
 
@@ -58,7 +94,7 @@ export function PokemonSprite({
             "h-full w-full object-contain transition-[filter,transform] duration-300",
             isEvolving ? "scale-[1.08] brightness-125 saturate-150" : "brightness-100",
           )}
-          unoptimized={hasAnimated && useAnimated}
+          unoptimized={hasAnimated && useAnimated && canUseAnimatedSprites}
           onError={() => {
             if (useAnimated && spriteUrl) {
               setUseAnimated(false);

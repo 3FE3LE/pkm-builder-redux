@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -87,6 +88,9 @@ export function RosterSection({
     [selectedResolved, starterSpeciesLine],
   );
   const hasActiveSelection = Boolean(selectedMember);
+  const selectedEditorHref = selectedMember
+    ? `/team/pokemon/${selectedMember.id}`
+    : undefined;
   const dockTone = getDockTone(selectedResolved?.resolvedTypes);
   const [resetOpen, setResetOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -161,12 +165,23 @@ export function RosterSection({
         onAddMember={onAddMember}
         onToggleDetails={() => setDetailsOpen((current) => !current)}
         onOpenReset={() => setResetOpen(true)}
-        editSelectedHref={selectedMember ? `/team/pokemon/${selectedMember.id}` : undefined}
+        editSelectedHref={selectedEditorHref}
         onToggleLockSelected={() => selectedMember && onToggleMemberLock(selectedMember.id)}
         onAssignToCompareSelected={() => selectedMember && onAssignToCompare(selectedMember.id)}
         onOpenDelete={() => setDeleteOpen(true)}
         onCloseEditor={onCloseEditor}
       />
+      {selectedEditorHref ? (
+        <Link
+          href={selectedEditorHref}
+          prefetch
+          aria-hidden="true"
+          tabIndex={-1}
+          className="hidden"
+        >
+          Prefetch selected editor route
+        </Link>
+      ) : null}
 
       <AnimatePresence initial={false}>
         {selectedMember ? (
@@ -213,7 +228,7 @@ export function RosterSection({
                 editorOpen={editorOpen}
                 onToggleDetails={() => setDetailsOpen((current) => !current)}
                 onOpenReset={() => setResetOpen(true)}
-                editHref={`/team/pokemon/${selectedMember.id}`}
+                editHref={selectedEditorHref}
                 onToggleLock={() => onToggleMemberLock(selectedMember.id)}
                 onAssignToCompare={() => onAssignToCompare(selectedMember.id)}
                 onOpenDelete={() => setDeleteOpen(true)}

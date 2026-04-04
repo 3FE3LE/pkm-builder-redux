@@ -33,6 +33,7 @@ import {
   parseItemLocationDetail,
 } from "@/lib/domain/sourceData";
 import { getBaseSpeciesName } from "@/lib/forms";
+import { markNavigationStart } from "@/lib/perf";
 import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
@@ -93,18 +94,29 @@ export function DexScreen() {
     [catalogs.itemCatalog],
   );
   const abilityEffects = useMemo(
-    () =>
-      new Map(
+    () => {
+      if (tab !== "pokemon") {
+        return new Map();
+      }
+
+      return new Map(
         abilityEntries.map((ability) => [
           normalizeName(ability.name),
           ability.effect ?? "Sin efecto registrado.",
         ]),
-      ),
-    [abilityEntries],
+      );
+    },
+    [abilityEntries, tab],
   );
   const moveDetailsByName = useMemo(
-    () => new Map(moveEntries.map((move) => [normalizeName(move.name), move])),
-    [moveEntries],
+    () => {
+      if (tab !== "pokemon") {
+        return new Map();
+      }
+
+      return new Map(moveEntries.map((move) => [normalizeName(move.name), move]));
+    },
+    [moveEntries, tab],
   );
   const pokemonEntries = useMemo(() => {
     return catalogs.speciesCatalog
@@ -152,6 +164,14 @@ export function DexScreen() {
     [pokemonEntries],
   );
   const acquisitionBySpecies = useMemo(() => {
+    if (tab !== "pokemon") {
+      return {
+        wildBySpecies: new Map<string, { area: string; method: string }[]>(),
+        giftsBySpecies: new Map<string, { location: string; level: string }[]>(),
+        tradesBySpecies: new Map<string, { location: string; requested: string }[]>(),
+      };
+    }
+
     const wildBySpecies = new Map<string, { area: string; method: string }[]>();
     const giftsBySpecies = new Map<
       string,
@@ -208,10 +228,15 @@ export function DexScreen() {
     catalogs.docs.trades,
     catalogs.docs.wildAreas,
     pokemonNames,
+    tab,
   ]);
   const pokemonSearchIndex = useMemo(
-    () =>
-      new Map(
+    () => {
+      if (tab !== "pokemon") {
+        return new Map();
+      }
+
+      return new Map(
         pokemonEntries.map((pokemon) => {
           const key = normalizeName(pokemon.name);
           const acquisitionTerms = [
@@ -238,16 +263,28 @@ export function DexScreen() {
             ),
           ] as const;
         }),
-      ),
+      );
+    },
     [
       acquisitionBySpecies.giftsBySpecies,
       acquisitionBySpecies.tradesBySpecies,
       acquisitionBySpecies.wildBySpecies,
       pokemonEntries,
+      tab,
     ],
   );
 
   const ownersByMove = useMemo(() => {
+    if (tab !== "moves") {
+      return new Map<
+        string,
+        {
+          levelUp: string[];
+          machines: string[];
+        }
+      >();
+    }
+
     const next = new Map<
       string,
       {
@@ -302,9 +339,19 @@ export function DexScreen() {
     });
 
     return next;
-  }, [catalogs.pokemonIndex]);
+  }, [catalogs.pokemonIndex, tab]);
 
   const ownersByAbility = useMemo(() => {
+    if (tab !== "abilities") {
+      return new Map<
+        string,
+        {
+          regular: string[];
+          hidden: string[];
+        }
+      >();
+    }
+
     const next = new Map<
       string,
       {
@@ -343,9 +390,13 @@ export function DexScreen() {
     });
 
     return next;
-  }, [catalogs.pokemonIndex]);
+  }, [catalogs.pokemonIndex, tab]);
 
   const locationsByItem = useMemo(() => {
+    if (tab !== "items") {
+      return new Map<string, { area: string; detail: string }[]>();
+    }
+
     const next = new Map<string, { area: string; detail: string }[]>();
 
     catalogs.docs.itemLocations.forEach((location) => {
@@ -368,12 +419,16 @@ export function DexScreen() {
     });
 
     return next;
-  }, [catalogs.docs.itemLocations, itemEntries]);
+  }, [catalogs.docs.itemLocations, itemEntries, tab]);
 
   const normalizedQuery = normalizeName(deferredQuery);
   const filteredPokemon = useMemo(
-    () =>
-      pokemonEntries.filter((pokemon) => {
+    () => {
+      if (tab !== "pokemon") {
+        return [];
+      }
+
+      return pokemonEntries.filter((pokemon) => {
         const canonicalPokemon =
           catalogs.canonicalPokemonIndex[pokemon.slug] ??
           catalogs.canonicalPokemonIndex[normalizeName(pokemon.name)];
@@ -412,7 +467,8 @@ export function DexScreen() {
         return (
           pokemonSearchIndex.get(normalizeName(pokemon.name)) ?? ""
         ).includes(normalizedQuery);
-      }),
+      });
+    },
     [
       abilityChangesOnly,
       catalogs.canonicalPokemonIndex,
@@ -422,6 +478,7 @@ export function DexScreen() {
       pokemonMode,
       pokemonSearchIndex,
       statChangesOnly,
+      tab,
       typeChangesOnly,
     ],
   );
@@ -445,8 +502,12 @@ export function DexScreen() {
     ],
   );
   const filteredMoves = useMemo(
-    () =>
-      moveEntries.filter((move) => {
+    () => {
+      if (tab !== "moves") {
+        return [];
+      }
+
+      return moveEntries.filter((move) => {
         if (!normalizedQuery) {
           return true;
         }
@@ -454,12 +515,17 @@ export function DexScreen() {
           normalizeName(move.name).includes(normalizedQuery) ||
           normalizeName(move.description ?? "").includes(normalizedQuery)
         );
-      }),
-    [moveEntries, normalizedQuery],
+      });
+    },
+    [moveEntries, normalizedQuery, tab],
   );
   const filteredAbilities = useMemo(
-    () =>
-      abilityEntries.filter((ability) => {
+    () => {
+      if (tab !== "abilities") {
+        return [];
+      }
+
+      return abilityEntries.filter((ability) => {
         if (!normalizedQuery) {
           return true;
         }
@@ -467,12 +533,17 @@ export function DexScreen() {
           normalizeName(ability.name).includes(normalizedQuery) ||
           normalizeName(ability.effect ?? "").includes(normalizedQuery)
         );
-      }),
-    [abilityEntries, normalizedQuery],
+      });
+    },
+    [abilityEntries, normalizedQuery, tab],
   );
   const filteredItems = useMemo(
-    () =>
-      itemEntries.filter((item) => {
+    () => {
+      if (tab !== "items") {
+        return [];
+      }
+
+      return itemEntries.filter((item) => {
         if (!normalizedQuery) {
           return true;
         }
@@ -481,8 +552,9 @@ export function DexScreen() {
           normalizeName(item.effect ?? "").includes(normalizedQuery) ||
           normalizeName(item.category ?? "").includes(normalizedQuery)
         );
-      }),
-    [itemEntries, normalizedQuery],
+      });
+    },
+    [itemEntries, normalizedQuery, tab],
   );
 
   useLayoutEffect(() => {
@@ -1206,6 +1278,14 @@ export function PokemonDexCard({
           href && "group hover:border-warning-line hover:bg-surface-2/90",
           expanded && "p-4 sm:p-5",
         )}
+        style={
+          expanded
+            ? undefined
+            : {
+                contentVisibility: "auto",
+                containIntrinsicSize: "320px",
+              }
+        }
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,214,120,0.12),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(89,181,255,0.12),transparent_28%)]" />
         <div className="relative">
@@ -1240,31 +1320,23 @@ export function PokemonDexCard({
                 <span className="pixel-face text-xs text-text-faint">
                   #{String(pokemon.dex).padStart(3, "0")}
                 </span>
-                <ViewTransition
-                  name={getDexTransitionName("title", pokemon.slug)}
+                <h2
+                  className={clsx(
+                    "display-face text-sm text-text",
+                    expanded && "text-base",
+                  )}
                 >
-                  <h2
-                    className={clsx(
-                      "display-face text-sm text-text",
-                      expanded && "text-base",
-                    )}
-                  >
-                    {pokemon.name}
-                  </h2>
-                </ViewTransition>
+                  {pokemon.name}
+                </h2>
               </div>
-              <ViewTransition
-                name={getDexTransitionName("types", pokemon.slug)}
-              >
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {pokemon.types.map((type, index) => (
-                    <TypeBadge
-                      key={`${pokemon.slug}-${type}-${index}`}
-                      type={type}
-                    />
-                  ))}
-                </div>
-              </ViewTransition>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {pokemon.types.map((type, index) => (
+                  <TypeBadge
+                    key={`${pokemon.slug}-${type}-${index}`}
+                    type={type}
+                  />
+                ))}
+              </div>
               {expanded ? (
                 <>
                   <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -1359,31 +1431,17 @@ export function PokemonDexCard({
                                   className="group flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-text transition-colors hover:text-[hsl(39_100%_78%)]"
                                 >
                                   <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-[0.65rem] border border-white/10 bg-surface-1">
-                                    <ViewTransition
-                                      name={getDexTransitionName(
-                                        "sprite",
-                                        node.slug,
-                                      )}
-                                    >
-                                      <PokemonSprite
-                                        species={node.name}
-                                        spriteUrl={node.spriteUrl}
-                                        animatedSpriteUrl={undefined}
-                                        size="small"
-                                        chrome="plain"
-                                      />
-                                    </ViewTransition>
+                                    <PokemonSprite
+                                      species={node.name}
+                                      spriteUrl={node.spriteUrl}
+                                      animatedSpriteUrl={undefined}
+                                      size="small"
+                                      chrome="plain"
+                                    />
                                   </div>
-                                  <ViewTransition
-                                    name={getDexTransitionName(
-                                      "title",
-                                      node.slug,
-                                    )}
-                                  >
-                                    <span className="display-face text-[10px] leading-3 text-current">
-                                      {node.name}
-                                    </span>
-                                  </ViewTransition>
+                                  <span className="display-face text-[10px] leading-3 text-current">
+                                    {node.name}
+                                  </span>
                                 </Link>
                               )}
                             </div>
@@ -1604,11 +1662,11 @@ export function PokemonDexCard({
   }
 
   return (
-    <Link
-      href={href}
-      transitionTypes={cardForwardTransition}
-      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-line"
-      onClick={(event) => {
+      <Link
+        href={href}
+        transitionTypes={cardForwardTransition}
+        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-line"
+        onClick={(event) => {
         if (typeof window === "undefined") {
           return;
         }
@@ -1621,6 +1679,8 @@ export function PokemonDexCard({
         ) {
           return;
         }
+
+        markNavigationStart("dex-card-to-detail", href);
 
         const card = document.getElementById(anchorId);
         if (!card) {

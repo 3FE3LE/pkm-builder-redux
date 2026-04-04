@@ -3,23 +3,37 @@
 import { useSyncExternalStore } from "react";
 
 function subscribe(callback: () => void) {
-  if (typeof document === "undefined") {
+  if (typeof document === "undefined" || typeof window === "undefined") {
     return () => {};
   }
 
+  const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
   document.addEventListener("visibilitychange", callback);
-  return () => document.removeEventListener("visibilitychange", callback);
+  coarsePointerQuery.addEventListener("change", callback);
+  reducedMotionQuery.addEventListener("change", callback);
+
+  return () => {
+    document.removeEventListener("visibilitychange", callback);
+    coarsePointerQuery.removeEventListener("change", callback);
+    reducedMotionQuery.removeEventListener("change", callback);
+  };
 }
 
 function getSnapshot() {
-  if (typeof document === "undefined") {
+  if (typeof document === "undefined" || typeof window === "undefined") {
     return true;
   }
 
-  return document.visibilityState === "visible";
+  return (
+    document.visibilityState === "visible" &&
+    !window.matchMedia("(pointer: coarse)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 }
 
 export function useSafeTransitionTypes(types?: string[]) {
-  const isVisible = useSyncExternalStore(subscribe, getSnapshot, () => true);
-  return isVisible ? types : undefined;
+  const shouldUseTransitions = useSyncExternalStore(subscribe, getSnapshot, () => true);
+  return shouldUseTransitions ? types : undefined;
 }

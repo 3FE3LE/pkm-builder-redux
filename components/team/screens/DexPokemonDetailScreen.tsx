@@ -3,27 +3,46 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useMemo } from "react";
 
 import { useTeamCatalogs } from "@/components/BuilderProvider";
 import { buildDexStateQuery, PokemonDexCard } from "@/components/team/screens/DexScreen";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { getAvailableFormsForSpecies } from "@/lib/forms";
+import { markNavigationStart } from "@/lib/perf";
 import { entryMatchesSpecies, giftMatchesSpecies } from "@/lib/domain/sourceData";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 export function DexPokemonDetailScreen({ slug }: { slug: string }) {
   const catalogs = useTeamCatalogs();
   const searchParams = useSearchParams();
-  const abilityEffects = new Map(
-    catalogs.abilityCatalog.map((ability) => [normalizeName(ability.name), ability.effect ?? "Sin efecto registrado."]),
+  const abilityEffects = useMemo(
+    () =>
+      new Map(
+        catalogs.abilityCatalog.map((ability) => [
+          normalizeName(ability.name),
+          ability.effect ?? "Sin efecto registrado.",
+        ]),
+      ),
+    [catalogs.abilityCatalog],
   );
-  const moveDetailsByName = new Map(
-    Object.values(catalogs.moveIndex).map((move) => [normalizeName(move.name), move]),
+  const moveDetailsByName = useMemo(
+    () =>
+      new Map(
+        Object.values(catalogs.moveIndex).map((move) => [
+          normalizeName(move.name),
+          move,
+        ]),
+      ),
+    [catalogs.moveIndex],
   );
 
-  const species =
-    catalogs.speciesCatalog.find((entry) => entry.slug === slug) ??
-    catalogs.speciesCatalog.find((entry) => normalizeName(entry.name) === slug);
+  const species = useMemo(
+    () =>
+      catalogs.speciesCatalog.find((entry) => entry.slug === slug) ??
+      catalogs.speciesCatalog.find((entry) => normalizeName(entry.name) === slug),
+    [catalogs.speciesCatalog, slug],
+  );
   const pokemon =
     catalogs.pokemonIndex[slug] ??
     (species ? catalogs.pokemonIndex[normalizeName(species.name)] : undefined);
@@ -37,36 +56,51 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
   const typeChangesOnly = searchParams.get("typeChanges") === "1";
   const statChangesOnly = searchParams.get("statChanges") === "1";
   const abilityChangesOnly = searchParams.get("abilityChanges") === "1";
-  const orderedSpecies = [...catalogs.speciesCatalog]
-    .filter((entry) => {
-      const canonicalPokemon =
-        catalogs.canonicalPokemonIndex[entry.slug] ??
-        catalogs.canonicalPokemonIndex[normalizeName(entry.name)];
-      const currentPokemon =
-        catalogs.pokemonIndex[entry.slug] ??
-        catalogs.pokemonIndex[normalizeName(entry.name)];
-      const hasTypeChanges = !sameStringList(entry.types ?? [], canonicalPokemon?.types ?? []);
-      const hasStatChanges = !sameStats(currentPokemon?.stats, canonicalPokemon?.stats);
-      const hasAbilityChanges = !sameStringList(
-        currentPokemon?.abilities ?? [],
-        canonicalPokemon?.abilities ?? [],
-      );
+  const orderedSpecies = useMemo(
+    () =>
+      [...catalogs.speciesCatalog]
+        .filter((entry) => {
+          const canonicalPokemon =
+            catalogs.canonicalPokemonIndex[entry.slug] ??
+            catalogs.canonicalPokemonIndex[normalizeName(entry.name)];
+          const currentPokemon =
+            catalogs.pokemonIndex[entry.slug] ??
+            catalogs.pokemonIndex[normalizeName(entry.name)];
+          const hasTypeChanges = !sameStringList(
+            entry.types ?? [],
+            canonicalPokemon?.types ?? [],
+          );
+          const hasStatChanges = !sameStats(currentPokemon?.stats, canonicalPokemon?.stats);
+          const hasAbilityChanges = !sameStringList(
+            currentPokemon?.abilities ?? [],
+            canonicalPokemon?.abilities ?? [],
+          );
 
-      if (dexMode === "gen5" && (entry.dex < 494 || entry.dex > 649)) {
-        return false;
-      }
-      if (typeChangesOnly && !hasTypeChanges) {
-        return false;
-      }
-      if (statChangesOnly && !hasStatChanges) {
-        return false;
-      }
-      if (abilityChangesOnly && !hasAbilityChanges) {
-        return false;
-      }
-      return true;
-    })
-    .sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name));
+          if (dexMode === "gen5" && (entry.dex < 494 || entry.dex > 649)) {
+            return false;
+          }
+          if (typeChangesOnly && !hasTypeChanges) {
+            return false;
+          }
+          if (statChangesOnly && !hasStatChanges) {
+            return false;
+          }
+          if (abilityChangesOnly && !hasAbilityChanges) {
+            return false;
+          }
+          return true;
+        })
+        .sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name)),
+    [
+      abilityChangesOnly,
+      catalogs.canonicalPokemonIndex,
+      catalogs.pokemonIndex,
+      catalogs.speciesCatalog,
+      dexMode,
+      statChangesOnly,
+      typeChangesOnly,
+    ],
+  );
   const currentIndex = orderedSpecies.findIndex((entry) => entry.slug === species.slug);
   const previousSpecies = currentIndex > 0 ? orderedSpecies[currentIndex - 1] : null;
   const nextSpecies =
@@ -83,7 +117,10 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
     statChangesOnly,
     abilityChangesOnly,
   });
-  const pokemonNames = catalogs.speciesCatalog.map((entry) => entry.name);
+  const pokemonNames = useMemo(
+    () => catalogs.speciesCatalog.map((entry) => entry.name),
+    [catalogs.speciesCatalog],
+  );
   const pokemonEntry = {
     dex: species.dex,
     name: species.name,
@@ -100,42 +137,65 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
     evolutionDetails: pokemon?.evolutionDetails ?? [],
     learnsets: pokemon?.learnsets,
   };
-  const wildEncounters = collectWildEncounters(catalogs.docs.wildAreas, species.name, pokemonNames);
-  const gifts = collectGifts(catalogs.docs.gifts, species.name, pokemonNames);
-  const trades = collectTrades(catalogs.docs.trades, species.name);
-  const forms = getAvailableFormsForSpecies(species.name)
-    .map((formName) => {
-      const formKey = normalizeName(formName);
-      const formPokemon = catalogs.pokemonIndex[formKey] as
-        | (typeof catalogs.pokemonIndex)[string] & { dex?: number; slug?: string }
-        | undefined;
-      if (!formPokemon) {
-        return null;
-      }
+  const wildEncounters = useMemo(
+    () => collectWildEncounters(catalogs.docs.wildAreas, species.name, pokemonNames),
+    [catalogs.docs.wildAreas, pokemonNames, species.name],
+  );
+  const gifts = useMemo(
+    () => collectGifts(catalogs.docs.gifts, species.name, pokemonNames),
+    [catalogs.docs.gifts, pokemonNames, species.name],
+  );
+  const trades = useMemo(
+    () => collectTrades(catalogs.docs.trades, species.name),
+    [catalogs.docs.trades, species.name],
+  );
+  const forms = useMemo(
+    () =>
+      getAvailableFormsForSpecies(species.name)
+        .map((formName) => {
+          const formKey = normalizeName(formName);
+          const formPokemon = catalogs.pokemonIndex[formKey] as
+            | (typeof catalogs.pokemonIndex)[string] & { dex?: number; slug?: string }
+            | undefined;
+          if (!formPokemon) {
+            return null;
+          }
 
-      const formSprites = buildSpriteUrls(formName, formPokemon.dex ?? species.dex);
-      return {
-        name: formPokemon.name ?? formName,
-        slug: formPokemon.slug ?? formKey,
-        types: formPokemon.types ?? [],
-        spriteUrl: formSprites.spriteUrl,
-        animatedSpriteUrl: formSprites.animatedSpriteUrl,
-        abilities: formPokemon.abilities ?? [],
-        stats: formPokemon.stats,
-      };
-    })
-    .filter((form): form is NonNullable<typeof form> => Boolean(form));
-  const evolutions = buildEvolutionChains(catalogs, species.slug);
+          const formSprites = buildSpriteUrls(formName, formPokemon.dex ?? species.dex);
+          return {
+            name: formPokemon.name ?? formName,
+            slug: formPokemon.slug ?? formKey,
+            types: formPokemon.types ?? [],
+            spriteUrl: formSprites.spriteUrl,
+            animatedSpriteUrl: formSprites.animatedSpriteUrl,
+            abilities: formPokemon.abilities ?? [],
+            stats: formPokemon.stats,
+          };
+        })
+        .filter((form): form is NonNullable<typeof form> => Boolean(form)),
+    [catalogs.pokemonIndex, species.dex, species.name],
+  );
+  const evolutions = useMemo(
+    () => buildEvolutionChains(catalogs, species.slug),
+    [catalogs, species.slug],
+  );
 
   return (
     <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
       {previousSpecies ? (
         <Link
           href={`/team/dex/pokemon/${previousSpecies.slug}${dexQuery}`}
+          prefetch
           transitionTypes={backTransition}
           aria-label={`Pokemon anterior: ${previousSpecies.name}`}
           className="fixed left-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-[16px] transition-colors hover:border-warning-line hover:bg-surface-3 sm:left-2"
           style={{ left: "max(0.375rem, env(safe-area-inset-left))" }}
+          onClick={() =>
+            markNavigationStart(
+              "dex-detail-to-previous",
+              `/team/dex/pokemon/${previousSpecies.slug}${dexQuery}`,
+            )
+          }
         >
           <ChevronLeft className="h-4 w-4" />
         </Link>
@@ -143,10 +203,17 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
       {nextSpecies ? (
         <Link
           href={`/team/dex/pokemon/${nextSpecies.slug}${dexQuery}`}
+          prefetch
           transitionTypes={forwardTransition}
           aria-label={`Pokemon siguiente: ${nextSpecies.name}`}
           className="fixed right-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-[16px] transition-colors hover:border-warning-line hover:bg-surface-3 sm:right-2"
           style={{ right: "max(0.375rem, env(safe-area-inset-right))" }}
+          onClick={() =>
+            markNavigationStart(
+              "dex-detail-to-next",
+              `/team/dex/pokemon/${nextSpecies.slug}${dexQuery}`,
+            )
+          }
         >
           <ChevronRight className="h-4 w-4" />
         </Link>
@@ -166,9 +233,16 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
           headerAction={(
             <Link
               href={`/team/dex${dexQuery}#dex-entry-${species.slug}`}
+              prefetch
               transitionTypes={backTransition}
               aria-label="Cerrar ficha"
               className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-surface-2/80 text-text transition-colors hover:border-warning-line hover:bg-surface-3"
+              onClick={() =>
+                markNavigationStart(
+                  "dex-detail-to-list",
+                  `/team/dex${dexQuery}#dex-entry-${species.slug}`,
+                )
+              }
             >
               <X className="h-4 w-4" />
             </Link>

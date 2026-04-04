@@ -1,12 +1,14 @@
 "use client";
 
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 import {
   useBuilderController,
   type BuilderController,
 } from "@/components/BuilderController";
 import type { BuilderDataProps } from "@/hooks/types";
+import { getRunEncounterCatalog } from "@/lib/runEncounters";
 
 type BuilderContextValue = BuilderController;
 
@@ -23,6 +25,45 @@ export function BuilderProvider({
   children,
   ...data
 }: BuilderDataProps & { children: ReactNode }) {
+  const pathname = usePathname() ?? "";
+  const isDexRoute = pathname.startsWith("/team/dex");
+
+  if (isDexRoute) {
+    return <DexCatalogsProvider data={data}>{children}</DexCatalogsProvider>;
+  }
+
+  return <FullBuilderProvider data={data}>{children}</FullBuilderProvider>;
+}
+
+function DexCatalogsProvider({
+  data,
+  children,
+}: {
+  data: BuilderDataProps;
+  children: ReactNode;
+}) {
+  const catalogs = useMemo(
+    () => ({
+      ...data,
+      encounterCatalog: getRunEncounterCatalog("challenge"),
+    }),
+    [data],
+  );
+
+  return (
+    <CatalogsContext.Provider value={catalogs}>
+      {children}
+    </CatalogsContext.Provider>
+  );
+}
+
+function FullBuilderProvider({
+  data,
+  children,
+}: {
+  data: BuilderDataProps;
+  children: ReactNode;
+}) {
   const controller = useBuilderController(data);
 
   return (

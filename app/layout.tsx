@@ -9,6 +9,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { AppFooter } from "@/components/AppFooter";
 import { AppNav } from "@/components/AppNav";
+import { PerfMonitor } from "@/components/providers/PerfMonitor";
 import { SwrProvider } from "@/components/providers/SwrProvider";
 import { BackToTopButton } from "@/components/ui/BackToTopButton";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -90,6 +91,7 @@ export default function RootLayout({
         <NuqsAdapter>
           <TooltipProvider>
             <SwrProvider>
+              <PerfMonitor />
               <AppNav />
               <div className="flex-1">{children}</div>
               <BackToTopButton />
