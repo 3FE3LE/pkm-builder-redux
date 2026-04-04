@@ -541,7 +541,25 @@ export function DexScreen() {
               onValueChange={(value) => setTab(value as DexTab)}
               className="gap-4"
             >
-              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex flex-col gap-3">
+                <div className="relative w-full max-w-xl">
+                  <Input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder={getSearchPlaceholder(tab)}
+                    className={query ? "pr-20" : undefined}
+                  />
+                  {query ? (
+                    <button
+                      type="button"
+                      onClick={() => setQuery("")}
+                      className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center rounded-full border border-line-soft bg-surface-5 px-2 py-1 text-[11px] font-medium text-muted transition hover:border-line hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fill-hover"
+                      aria-label="Clear search"
+                    >
+                      Clear
+                    </button>
+                  ) : null}
+                </div>
                 <TabsList className="tab-strip scrollbar-thin">
                   <TabsTrigger value="pokemon" className="tab-trigger-soft">
                     Pokemon
@@ -556,13 +574,6 @@ export function DexScreen() {
                     Items
                   </TabsTrigger>
                 </TabsList>
-                <div className="w-full max-w-xl">
-                  <Input
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder={getSearchPlaceholder(tab)}
-                  />
-                </div>
               </div>
 
               <TabsContent value="pokemon" className="tab-panel">

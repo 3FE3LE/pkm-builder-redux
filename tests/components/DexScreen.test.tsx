@@ -197,6 +197,26 @@ describe("DexScreen", () => {
     expect(screen.queryAllByText("Mareep")).toHaveLength(0);
   });
 
+  it("places the search input above the tabs and clears it with the clear button", async () => {
+    const user = userEvent.setup();
+
+    render(<DexScreen />);
+
+    const searchInput = screen.getByPlaceholderText("Buscar Pokemon, tipo, habilidad o area");
+    const pokemonTab = screen.getByRole("button", { name: "Pokemon" });
+
+    expect(
+      searchInput.compareDocumentPosition(pokemonTab) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+
+    await user.type(searchInput, "mareep");
+    expect(screen.getByRole("button", { name: "Clear search" })).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "Clear search" }));
+    expect((searchInput as HTMLInputElement).value).toBe("");
+    expect(screen.queryByRole("button", { name: "Clear search" })).toBeNull();
+  });
+
   it("switches to abilities and items with their linked data", async () => {
     const user = userEvent.setup();
 
