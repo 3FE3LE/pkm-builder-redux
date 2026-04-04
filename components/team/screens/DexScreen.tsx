@@ -1347,23 +1347,27 @@ export function PokemonDexCard({
                 <span className="pixel-face text-xs text-text-faint">
                   #{String(pokemon.dex).padStart(3, "0")}
                 </span>
-                <h2
-                  className={clsx(
-                    "display-face text-sm text-text",
-                    expanded && "text-base",
-                  )}
-                >
-                  {pokemon.name}
-                </h2>
+                <ViewTransition name={getDexTransitionName("title", pokemon.slug)}>
+                  <h2
+                    className={clsx(
+                      "display-face text-sm text-text",
+                      expanded && "text-base",
+                    )}
+                  >
+                    {pokemon.name}
+                  </h2>
+                </ViewTransition>
               </div>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {pokemon.types.map((type, index) => (
-                  <TypeBadge
-                    key={`${pokemon.slug}-${type}-${index}`}
-                    type={type}
-                  />
-                ))}
-              </div>
+              <ViewTransition name={getDexTransitionName("types", pokemon.slug)}>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {pokemon.types.map((type, index) => (
+                    <TypeBadge
+                      key={`${pokemon.slug}-${type}-${index}`}
+                      type={type}
+                    />
+                  ))}
+                </div>
+              </ViewTransition>
               {expanded ? (
                 <>
                   {(pokemon.generation || pokemon.category || pokemon.height || pokemon.weight) ? (

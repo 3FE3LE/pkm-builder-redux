@@ -7,16 +7,13 @@ function subscribe(callback: () => void) {
     return () => {};
   }
 
-  const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   document.addEventListener("visibilitychange", callback);
-  coarsePointerQuery.addEventListener("change", callback);
   reducedMotionQuery.addEventListener("change", callback);
 
   return () => {
     document.removeEventListener("visibilitychange", callback);
-    coarsePointerQuery.removeEventListener("change", callback);
     reducedMotionQuery.removeEventListener("change", callback);
   };
 }
@@ -28,7 +25,6 @@ function getSnapshot() {
 
   return (
     document.visibilityState === "visible" &&
-    !window.matchMedia("(pointer: coarse)").matches &&
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
 }

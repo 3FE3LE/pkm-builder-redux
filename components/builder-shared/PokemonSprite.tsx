@@ -40,6 +40,7 @@ export function PokemonSprite({
   size = "default",
   chrome = "framed",
   eager = false,
+  allowCoarsePointerAnimation = false,
 }: {
   species: string;
   spriteUrl?: string;
@@ -48,6 +49,7 @@ export function PokemonSprite({
   size?: "tiny" | "small" | "default" | "large";
   chrome?: "framed" | "plain";
   eager?: boolean;
+  allowCoarsePointerAnimation?: boolean;
 }) {
   const [useAnimated, setUseAnimated] = useState(true);
   const canUseAnimatedSprites = useSyncExternalStore(
@@ -56,8 +58,9 @@ export function PokemonSprite({
     () => true,
   );
   const hasAnimated = Boolean(animatedSpriteUrl);
+  const canAnimateHere = canUseAnimatedSprites || allowCoarsePointerAnimation;
   const source =
-    hasAnimated && useAnimated && canUseAnimatedSprites
+    hasAnimated && useAnimated && canAnimateHere
       ? animatedSpriteUrl
       : spriteUrl;
   const imageSize =
@@ -94,7 +97,7 @@ export function PokemonSprite({
             "h-full w-full object-contain transition-[filter,transform] duration-300",
             isEvolving ? "scale-[1.08] brightness-125 saturate-150" : "brightness-100",
           )}
-          unoptimized={hasAnimated && useAnimated && canUseAnimatedSprites}
+          unoptimized={hasAnimated && useAnimated && canAnimateHere}
           onError={() => {
             if (useAnimated && spriteUrl) {
               setUseAnimated(false);

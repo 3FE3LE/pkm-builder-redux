@@ -239,6 +239,7 @@ export function SortableMemberCard({
                     species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
                     spriteUrl={resolved?.spriteUrl}
                     animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                    allowCoarsePointerAnimation
                     isEvolving={isEvolving}
                     size="large"
                     chrome="plain"
@@ -261,6 +262,7 @@ export function SortableMemberCard({
                     species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
                     spriteUrl={resolved?.spriteUrl}
                     animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                    allowCoarsePointerAnimation
                     isEvolving={isEvolving}
                     size="default"
                     chrome="plain"
