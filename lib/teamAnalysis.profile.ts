@@ -91,6 +91,7 @@ export function resolvePokemonProfile(
     shiny,
     supportsGender: supportsPokemonGender(profile?.species ?? remote?.name ?? name),
     dexNumber,
+    generation: remote?.generation,
     category: remote?.category,
     height: remote?.height,
     weight: remote?.weight,

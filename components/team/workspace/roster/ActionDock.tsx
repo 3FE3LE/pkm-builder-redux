@@ -60,6 +60,9 @@ export function ActionDock({
   const forwardTransition = useSafeTransitionTypes(
     editTransitionTypes ?? ["editor-forward"],
   );
+  const showDetailsAction = !editorOpen;
+  const showEditAction = !editorOpen;
+  const showLockAction = !editorOpen;
 
   if (mode === "close-only") {
     if (closeHref) {
@@ -95,21 +98,23 @@ export function ActionDock({
 
   return (
     <>
-      <Button
-        type="button"
-        variant="ghost"
-        size={isDesktop ? "icon-sm" : "icon-lg"}
-        onClick={onToggleDetails}
-        aria-label={detailsOpen ? "Ocultar info del slot seleccionado" : "Mostrar info del slot seleccionado"}
-        className={clsx(
-          buttonClass,
-          detailsOpen
-            ? "border-info-line bg-info-fill text-info-soft"
-            : "border-line text-muted",
-        )}
-      >
-        <Info className={iconClass} />
-      </Button>
+      {showDetailsAction ? (
+        <Button
+          type="button"
+          variant="ghost"
+          size={isDesktop ? "icon-sm" : "icon-lg"}
+          onClick={onToggleDetails}
+          aria-label={detailsOpen ? "Ocultar info del slot seleccionado" : "Mostrar info del slot seleccionado"}
+          className={clsx(
+            buttonClass,
+            detailsOpen
+              ? "border-info-line bg-info-fill text-info-soft"
+              : "border-line text-muted",
+          )}
+        >
+          <Info className={iconClass} />
+        </Button>
+      ) : null}
       <Button
         type="button"
         variant="ghost"
@@ -120,48 +125,52 @@ export function ActionDock({
       >
         <RotateCcw className={iconClass} />
       </Button>
-      {editHref ? (
-        <Link
-          href={editHref}
-          prefetch
-          transitionTypes={forwardTransition}
-          aria-label={editLabel}
-          className={clsx(
-            "inline-flex items-center justify-center",
-            buttonClass,
-            "border-line text-muted",
-          )}
-          onClick={() => markNavigationStart("roster-to-editor", editHref)}
-        >
-          {editNode}
-        </Link>
-      ) : (
+      {showEditAction ? (
+        editHref ? (
+          <Link
+            href={editHref}
+            prefetch
+            transitionTypes={forwardTransition}
+            aria-label={editLabel}
+            className={clsx(
+              "inline-flex items-center justify-center",
+              buttonClass,
+              "border-line text-muted",
+            )}
+            onClick={() => markNavigationStart("roster-to-editor", editHref)}
+          >
+            {editNode}
+          </Link>
+        ) : (
+          <Button
+            type="button"
+            variant="ghost"
+            size={isDesktop ? "icon-sm" : "icon-lg"}
+            disabled
+            aria-label={editLabel}
+            className={clsx(buttonClass, "border-line text-muted")}
+          >
+            {editNode}
+          </Button>
+        )
+      ) : null}
+      {showLockAction ? (
         <Button
           type="button"
           variant="ghost"
           size={isDesktop ? "icon-sm" : "icon-lg"}
-          disabled
-          aria-label={editLabel}
-          className={clsx(buttonClass, "border-line text-muted")}
+          onClick={onToggleLock}
+          aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
+          className={clsx(
+            buttonClass,
+            selectedMember.locked
+              ? "border-warning-line text-warning-strong"
+              : "border-line text-muted",
+          )}
         >
-          {editNode}
+          {selectedMember.locked ? <Lock className={iconClass} /> : <LockOpen className={iconClass} />}
         </Button>
-      )}
-      <Button
-        type="button"
-        variant="ghost"
-        size={isDesktop ? "icon-sm" : "icon-lg"}
-        onClick={onToggleLock}
-        aria-label={selectedMember.locked ? "Desbloquear slot seleccionado" : "Bloquear slot seleccionado"}
-        className={clsx(
-          buttonClass,
-          selectedMember.locked
-            ? "border-warning-line text-warning-strong"
-            : "border-line text-muted",
-        )}
-      >
-        {selectedMember.locked ? <Lock className={iconClass} /> : <LockOpen className={iconClass} />}
-      </Button>
+      ) : null}
       <Button
         type="button"
         variant="ghost"

@@ -7,11 +7,18 @@ import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 export function DefenseSection({
   resolved,
+  types,
 }: {
   resolved?: ResolvedTeamMember;
+  types?: string[];
 }) {
-  const defensiveSummary = resolved?.resolvedTypes?.length
-    ? buildDefensiveSummary([resolved])
+  const resolvedTypes = resolved?.resolvedTypes ?? types ?? [];
+  const defensiveSummary = resolvedTypes.length
+    ? buildDefensiveSummary([
+        {
+          resolvedTypes,
+        } as ResolvedTeamMember,
+      ])
     : [];
   const weaknesses = defensiveSummary.filter(
     (entry) => entry.buckets.x4 > 0 || entry.buckets.x2 > 0,
@@ -22,7 +29,7 @@ export function DefenseSection({
       entry.buckets["x0.25"] > 0,
   );
   const immunities = defensiveSummary.filter((entry) => entry.buckets.x0 > 0);
-  const stabCoverage = (resolved?.resolvedTypes ?? []).map((attackType) => {
+  const stabCoverage = resolvedTypes.map((attackType) => {
     const effective = TYPE_ORDER.filter((defenseType) => getTypeEffectiveness(attackType, [defenseType]) > 1);
     const resisted = TYPE_ORDER.filter((defenseType) => {
       const multiplier = getTypeEffectiveness(attackType, [defenseType]);
@@ -38,7 +45,7 @@ export function DefenseSection({
     };
   });
 
-  if (!resolved?.resolvedTypes?.length) {
+  if (!resolvedTypes.length) {
     return (
       <div className="rounded-[0_1rem_1rem_1rem] p-0">
         <div className="rounded-[0.9rem] px-1 py-1 text-sm text-muted">

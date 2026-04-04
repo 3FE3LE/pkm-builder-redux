@@ -129,6 +129,10 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
     spriteUrl: sprites.spriteUrl,
     animatedSpriteUrl: sprites.animatedSpriteUrl,
     stats: pokemon?.stats,
+    generation: pokemon?.generation,
+    category: pokemon?.category,
+    height: pokemon?.height,
+    weight: pokemon?.weight,
     canonicalStats:
       catalogs.canonicalPokemonIndex[species.slug]?.stats ??
       catalogs.canonicalPokemonIndex[normalizeName(species.name)]?.stats,

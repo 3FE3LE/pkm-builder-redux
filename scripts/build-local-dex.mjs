@@ -5,19 +5,33 @@ const ROOT = process.cwd();
 const DOC_PATH = path.join(ROOT, "Documentation", "Pokemon Changes.txt");
 const OUTPUT_DIR = path.join(ROOT, "data", "local-dex");
 let moveCatalogPromise = null;
+const MOVE_ALIASES = {
+  "acid-armour": "acid-armor",
+  autonomize: "autotomize",
+  "faint-attack": "feint-attack",
+  "ominous-mind": "ominous-wind",
+  "sliver-wind": "silver-wind",
+  twinneedle: "twineedle",
+  "will-o-wiisp": "will-o-wisp",
+};
 
 function normalize(value) {
   return value
     .trim()
     .toLowerCase()
+    .replace(/\s*\[[^\]]*]\s*/g, " ")
     .replace(/♀/g, "-f")
     .replace(/♂/g, "-m")
     .replace(/['’.:]/g, "")
-    .replace(/\s+/g, "-");
+    .replace(/\s+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function normalizeMoveSlug(value) {
-  return normalize(value)
+  return MOVE_ALIASES[
+    normalize(value)
+      .replace(/armour/g, "armor")
+  ] ?? normalize(value)
     .replace(/armour/g, "armor");
 }
 
@@ -31,6 +45,17 @@ function formatName(value) {
 
 function pickEnglishGenus(speciesPayload) {
   return speciesPayload.genera?.find((entry) => entry.language.name === "en")?.genus ?? null;
+}
+
+function formatGenerationName(generationName) {
+  if (!generationName) {
+    return null;
+  }
+
+  return generationName
+    .replace(/^generation-/, "Generation ")
+    .replace(/-/g, " ")
+    .toUpperCase();
 }
 
 function pickEnglishFlavorText(speciesPayload) {
@@ -193,6 +218,7 @@ async function buildPokemonEntry(entry) {
       name: formatName(entry.species),
       slug: entry.slug,
       types: payload.types.map((item) => formatName(item.type.name)),
+      generation: formatGenerationName(speciesPayload.generation?.name),
       category: pickEnglishGenus(speciesPayload),
       height: typeof payload.height === "number" ? payload.height / 10 : null,
       weight: typeof payload.weight === "number" ? payload.weight / 10 : null,

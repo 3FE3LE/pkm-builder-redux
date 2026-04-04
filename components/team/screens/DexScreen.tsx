@@ -16,6 +16,7 @@ import { parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
 import { ItemSprite } from "@/components/builder-shared/ItemSprite";
 import { PokemonSprite } from "@/components/builder-shared/PokemonSprite";
 import { TypeBadge } from "@/components/builder-shared/TypeBadge";
+import { DefenseSection } from "@/components/team/editor/DefenseSection";
 import { useTeamCatalogs } from "@/components/BuilderProvider";
 import { StatBar } from "@/components/team/shared/StatWidgets";
 import { MoveSlotSurface } from "@/components/team/UI";
@@ -26,6 +27,7 @@ import {
 } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useBuilderStore } from "@/lib/builderStore";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import {
   extractEncounterSpecies,
@@ -69,8 +71,17 @@ export function DexScreen() {
     "abilityChanges",
     parseAsStringEnum(["0", "1"]).withDefault("0"),
   );
+  const [addsNewTeamTypeOnly, setAddsNewTeamTypeOnly] = useQueryState(
+    "addsNewTeamType",
+    parseAsStringEnum(["0", "1"]).withDefault("0"),
+  );
+  const [allTypesNewToTeamOnly, setAllTypesNewToTeamOnly] = useQueryState(
+    "allTypesNewToTeam",
+    parseAsStringEnum(["0", "1"]).withDefault("0"),
+  );
   const deferredQuery = useDeferredValue(query);
   const forwardTransition = useSafeTransitionTypes(["dex-forward"]);
+  const currentTeam = useBuilderStore((state) => state.run.roster.currentTeam);
 
   const moveEntries = useMemo(
     () =>
@@ -134,6 +145,10 @@ export function DexScreen() {
           spriteUrl: sprites.spriteUrl,
           animatedSpriteUrl: sprites.animatedSpriteUrl,
           stats: pokemon?.stats,
+          generation: pokemon?.generation,
+          category: pokemon?.category,
+          height: pokemon?.height,
+          weight: pokemon?.weight,
           canonicalStats:
             catalogs.canonicalPokemonIndex[species.slug]?.stats ??
             catalogs.canonicalPokemonIndex[normalizeName(species.name)]?.stats,
@@ -159,6 +174,34 @@ export function DexScreen() {
 
     return next;
   }, [catalogs.speciesCatalog]);
+  const currentTeamTypes = useMemo(() => {
+    const next = new Set<string>();
+
+    currentTeam.forEach((member) => {
+      const speciesName = String(member.species ?? "").trim();
+      if (!speciesName) {
+        return;
+      }
+
+      const normalizedSpecies = normalizeName(speciesName);
+      const pokemon =
+        catalogs.pokemonIndex[normalizedSpecies] ??
+        catalogs.pokemonIndex[normalizeName(getBaseSpeciesName(speciesName))];
+      const speciesEntry =
+        catalogs.speciesCatalog.find((entry) => entry.slug === normalizedSpecies) ??
+        catalogs.speciesCatalog.find((entry) => normalizeName(entry.name) === normalizedSpecies) ??
+        catalogs.speciesCatalog.find(
+          (entry) => normalizeName(getBaseSpeciesName(entry.name)) === normalizedSpecies,
+        );
+      const resolvedTypes = dedupeStrings(pokemon?.types ?? speciesEntry?.types ?? []);
+
+      resolvedTypes.forEach((type) => {
+        next.add(normalizeName(type));
+      });
+    });
+
+    return next;
+  }, [catalogs.pokemonIndex, catalogs.speciesCatalog, currentTeam]);
   const pokemonNames = useMemo(
     () => pokemonEntries.map((entry) => entry.name),
     [pokemonEntries],
@@ -460,6 +503,22 @@ export function DexScreen() {
         if (abilityChangesOnly === "1" && !hasAbilityChanges) {
           return false;
         }
+        if (addsNewTeamTypeOnly === "1") {
+          const addsAtLeastOneNewType = pokemon.types.some(
+            (type) => !currentTeamTypes.has(normalizeName(type)),
+          );
+          if (!addsAtLeastOneNewType) {
+            return false;
+          }
+        }
+        if (allTypesNewToTeamOnly === "1") {
+          const allTypesAreNew = pokemon.types.every(
+            (type) => !currentTeamTypes.has(normalizeName(type)),
+          );
+          if (!allTypesAreNew) {
+            return false;
+          }
+        }
         if (!normalizedQuery) {
           return true;
         }
@@ -471,9 +530,12 @@ export function DexScreen() {
     },
     [
       abilityChangesOnly,
+      addsNewTeamTypeOnly,
       catalogs.canonicalPokemonIndex,
       catalogs.pokemonIndex,
+      currentTeamTypes,
       normalizedQuery,
+      allTypesNewToTeamOnly,
       pokemonEntries,
       pokemonMode,
       pokemonSearchIndex,
@@ -491,9 +553,13 @@ export function DexScreen() {
         typeChangesOnly: typeChangesOnly === "1",
         statChangesOnly: statChangesOnly === "1",
         abilityChangesOnly: abilityChangesOnly === "1",
+        addsNewTeamTypeOnly: addsNewTeamTypeOnly === "1",
+        allTypesNewToTeamOnly: allTypesNewToTeamOnly === "1",
       }),
     [
       abilityChangesOnly,
+      addsNewTeamTypeOnly,
+      allTypesNewToTeamOnly,
       pokemonMode,
       query,
       statChangesOnly,
@@ -700,6 +766,22 @@ export function DexScreen() {
                       }
                     >
                       Habilidades nuevas/cambiadas
+                    </DexFilterToggle>
+                    <DexFilterToggle
+                      active={addsNewTeamTypeOnly === "1"}
+                      onClick={() =>
+                        setAddsNewTeamTypeOnly(addsNewTeamTypeOnly === "1" ? "0" : "1")
+                      }
+                    >
+                      Aporta tipo nuevo al team
+                    </DexFilterToggle>
+                    <DexFilterToggle
+                      active={allTypesNewToTeamOnly === "1"}
+                      onClick={() =>
+                        setAllTypesNewToTeamOnly(allTypesNewToTeamOnly === "1" ? "0" : "1")
+                      }
+                    >
+                      Todos sus tipos son nuevos
                     </DexFilterToggle>
                   </div>
                 </div>
@@ -1166,6 +1248,10 @@ export function PokemonDexCard({
       spe: number;
       bst: number;
     };
+    generation?: string | null;
+    category?: string | null;
+    height?: number | null;
+    weight?: number | null;
     canonicalStats?: {
       hp: number;
       atk: number;
@@ -1339,6 +1425,18 @@ export function PokemonDexCard({
               </div>
               {expanded ? (
                 <>
+                  {(pokemon.generation || pokemon.category || pokemon.height || pokemon.weight) ? (
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      {pokemon.generation ? <StatChip label={pokemon.generation} /> : null}
+                      {pokemon.category ? <StatChip label={pokemon.category} /> : null}
+                      {typeof pokemon.height === "number" ? (
+                        <StatChip label={`Height ${pokemon.height.toFixed(1)} m`} />
+                      ) : null}
+                      {typeof pokemon.weight === "number" ? (
+                        <StatChip label={`Weight ${pokemon.weight.toFixed(1)} kg`} />
+                      ) : null}
+                    </div>
+                  ) : null}
                   <div className="mt-2 flex flex-wrap items-center gap-2">
                     <StatChip
                       label={formatBstLabel(
@@ -1499,6 +1597,12 @@ export function PokemonDexCard({
                       transitionName="dex-stat-spe"
                     />
                   </div>
+                </InfoBlock>
+              ) : null}
+
+              {pokemon.types.length ? (
+                <InfoBlock label="Typing">
+                  <DefenseSection types={pokemon.types} />
                 </InfoBlock>
               ) : null}
 
@@ -1829,6 +1933,8 @@ export function buildDexStateQuery({
   typeChangesOnly,
   statChangesOnly,
   abilityChangesOnly,
+  addsNewTeamTypeOnly,
+  allTypesNewToTeamOnly,
 }: {
   tab?: DexTab | null;
   query?: string | null;
@@ -1836,6 +1942,8 @@ export function buildDexStateQuery({
   typeChangesOnly?: boolean;
   statChangesOnly?: boolean;
   abilityChangesOnly?: boolean;
+  addsNewTeamTypeOnly?: boolean;
+  allTypesNewToTeamOnly?: boolean;
 }) {
   const params = new URLSearchParams();
 
@@ -1856,6 +1964,12 @@ export function buildDexStateQuery({
   }
   if (abilityChangesOnly) {
     params.set("abilityChanges", "1");
+  }
+  if (addsNewTeamTypeOnly) {
+    params.set("addsNewTeamType", "1");
+  }
+  if (allTypesNewToTeamOnly) {
+    params.set("allTypesNewToTeam", "1");
   }
 
   const queryString = params.toString();

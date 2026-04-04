@@ -12,6 +12,7 @@ export type RemotePokemon = {
   types: string[];
   stats: Stats;
   abilities: string[];
+  generation?: string | null;
   category?: string | null;
   height?: number | null;
   weight?: number | null;
@@ -89,6 +90,7 @@ export type ResolvedTeamMember = {
   shiny?: boolean;
   supportsGender: boolean;
   dexNumber?: number;
+  generation?: string | null;
   category?: string | null;
   height?: number | null;
   weight?: number | null;

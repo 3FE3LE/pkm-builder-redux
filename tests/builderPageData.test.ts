@@ -96,7 +96,7 @@ describe("builderPageData", () => {
     };
   });
 
-  it("assembles builder page data, strips dex notes, and sorts catalogs", async () => {
+  it("assembles builder page data and sorts catalogs", async () => {
     const { getBuilderPageData } = await import("../lib/builderPageData");
 
     const data = getBuilderPageData();
@@ -114,11 +114,11 @@ describe("builderPageData", () => {
       id: 1,
       name: "Bulbasaur",
       types: ["Grass", "Poison"],
+      category: "Seed Pokemon",
+      height: 0.7,
+      weight: 6.9,
       flavorText: "A strange seed was planted on its back at birth.",
     });
-    expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("category");
-    expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("height");
-    expect(data.pokemonIndex.bulbasaur).not.toHaveProperty("weight");
     expect(data.abilityCatalog.map((entry: { name: string }) => entry.name)).toEqual([
       "Chlorophyll",
       "Overgrow",

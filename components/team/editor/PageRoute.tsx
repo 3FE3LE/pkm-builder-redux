@@ -48,6 +48,20 @@ export function EditorPageRoute() {
       ),
     [resolved, session.evolutionConstraints, team.localTime, team.resolvedTeam],
   );
+  const orderedTeamMembers = useMemo(
+    () => team.currentTeam.filter((entry) => entry.species.trim()),
+    [team.currentTeam],
+  );
+  const currentMemberIndex = useMemo(
+    () => orderedTeamMembers.findIndex((entry) => entry.id === memberId),
+    [memberId, orderedTeamMembers],
+  );
+  const previousMember =
+    currentMemberIndex > 0 ? orderedTeamMembers[currentMemberIndex - 1] : undefined;
+  const nextMember =
+    currentMemberIndex >= 0 && currentMemberIndex < orderedTeamMembers.length - 1
+      ? orderedTeamMembers[currentMemberIndex + 1]
+      : undefined;
 
   if (!session.hydrated) {
     return <LoadingState />;
@@ -99,6 +113,20 @@ export function EditorPageRoute() {
         compare.actions.updateMember(0, { ...member, id: crypto.randomUUID() });
         router.push("/team/tools?tool=compare");
       }}
+      previousMemberHref={
+        previousMember ? `/team/pokemon/${previousMember.id}` : undefined
+      }
+      previousMemberLabel={
+        previousMember
+          ? `Pokemon anterior: ${previousMember.nickname || previousMember.species || "slot anterior"}`
+          : undefined
+      }
+      nextMemberHref={nextMember ? `/team/pokemon/${nextMember.id}` : undefined}
+      nextMemberLabel={
+        nextMember
+          ? `Pokemon siguiente: ${nextMember.nickname || nextMember.species || "slot siguiente"}`
+          : undefined
+      }
       editorEvolutionEligibility={editorEvolutionEligibility}
       selectedMoveIndex={team.editorMoveSelection}
       onSelectMoveIndex={team.actions.setEditorMoveSelection}

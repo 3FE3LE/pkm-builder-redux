@@ -2,7 +2,7 @@
 
 import { ViewTransition, useMemo, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 
 import { DefenseSection } from "@/components/team/editor/DefenseSection";
@@ -51,6 +51,10 @@ type EditorPageProps = {
   onRequestEvolution: () => void;
   onToggleLock: () => void;
   onAssignToCompare: () => void;
+  previousMemberHref?: string;
+  previousMemberLabel?: string;
+  nextMemberHref?: string;
+  nextMemberLabel?: string;
   editorEvolutionEligibility: EvolutionEligibility[];
   selectedMoveIndex: number | null;
   onSelectMoveIndex: (index: number | null) => void;
@@ -87,6 +91,10 @@ export function EditorPage({
   onRequestEvolution,
   onToggleLock,
   onAssignToCompare,
+  previousMemberHref,
+  previousMemberLabel,
+  nextMemberHref,
+  nextMemberLabel,
   editorEvolutionEligibility,
   selectedMoveIndex,
   onSelectMoveIndex,
@@ -176,6 +184,28 @@ export function EditorPage({
 
   return (
     <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
+      {previousMemberHref ? (
+        <Link
+          href={previousMemberHref}
+          transitionTypes={backTransition}
+          aria-label={previousMemberLabel ?? "Pokemon anterior"}
+          className="fixed left-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-[16px] transition-colors hover:border-warning-line hover:bg-surface-3 sm:left-2"
+          style={{ left: "max(0.375rem, env(safe-area-inset-left))" }}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Link>
+      ) : null}
+      {nextMemberHref ? (
+        <Link
+          href={nextMemberHref}
+          transitionTypes={backTransition}
+          aria-label={nextMemberLabel ?? "Pokemon siguiente"}
+          className="fixed right-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-[16px] transition-colors hover:border-warning-line hover:bg-surface-3 sm:right-2"
+          style={{ right: "max(0.375rem, env(safe-area-inset-right))" }}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Link>
+      ) : null}
       <section className="mx-auto max-w-6xl">
         <div className="mb-4">
           <Link

@@ -13,8 +13,7 @@ import type { RemoteMove, RemotePokemon } from "@/lib/teamAnalysis";
 import { getWorldData } from "@/lib/worldData";
 
 function stripPokemonDexNotes(entry: RemotePokemon): RemotePokemon {
-  const { category: _category, height: _height, weight: _weight, ...rest } = entry;
-  return rest;
+  return entry;
 }
 
 export const getBuilderPageData = cache(function getBuilderPageData() {
