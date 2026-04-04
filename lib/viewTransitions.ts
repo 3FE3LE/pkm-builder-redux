@@ -3,30 +3,20 @@
 import { useSyncExternalStore } from "react";
 
 function subscribe(callback: () => void) {
-  if (typeof document === "undefined" || typeof window === "undefined") {
+  if (typeof document === "undefined") {
     return () => {};
   }
 
-  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
   document.addEventListener("visibilitychange", callback);
-  reducedMotionQuery.addEventListener("change", callback);
-
-  return () => {
-    document.removeEventListener("visibilitychange", callback);
-    reducedMotionQuery.removeEventListener("change", callback);
-  };
+  return () => document.removeEventListener("visibilitychange", callback);
 }
 
 function getSnapshot() {
-  if (typeof document === "undefined" || typeof window === "undefined") {
+  if (typeof document === "undefined") {
     return true;
   }
 
-  return (
-    document.visibilityState === "visible" &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  return document.visibilityState === "visible";
 }
 
 export function useSafeTransitionTypes(types?: string[]) {

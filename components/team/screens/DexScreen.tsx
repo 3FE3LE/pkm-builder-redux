@@ -1474,17 +1474,31 @@ export function PokemonDexCard({
                                   className="group flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-text transition-colors hover:text-[hsl(39_100%_78%)]"
                                 >
                                   <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-[0.65rem] border border-white/10 bg-surface-1">
-                                    <PokemonSprite
-                                      species={node.name}
-                                      spriteUrl={node.spriteUrl}
-                                      animatedSpriteUrl={undefined}
-                                      size="small"
-                                      chrome="plain"
-                                    />
+                                    <ViewTransition
+                                      name={getDexTransitionName(
+                                        "sprite",
+                                        node.slug,
+                                      )}
+                                    >
+                                      <PokemonSprite
+                                        species={node.name}
+                                        spriteUrl={node.spriteUrl}
+                                        animatedSpriteUrl={undefined}
+                                        size="small"
+                                        chrome="plain"
+                                      />
+                                    </ViewTransition>
                                   </div>
-                                  <span className="display-face text-[10px] leading-3 text-current">
-                                    {node.name}
-                                  </span>
+                                  <ViewTransition
+                                    name={getDexTransitionName(
+                                      "title",
+                                      node.slug,
+                                    )}
+                                  >
+                                    <span className="display-face text-[10px] leading-3 text-current">
+                                      {node.name}
+                                    </span>
+                                  </ViewTransition>
                                 </Link>
                               )}
                             </div>
