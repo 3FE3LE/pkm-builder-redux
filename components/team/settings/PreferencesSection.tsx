@@ -1,10 +1,23 @@
 "use client";
 
 import clsx from "clsx";
-import { CloudRain, CloudSun, Shield, Snowflake, Sun, Sword, Wind } from "lucide-react";
+import {
+  CloudRain,
+  CloudSun,
+  LaptopMinimal,
+  Moon,
+  Snowflake,
+  Sun,
+  Wind,
+} from "lucide-react";
 
+import {
+  SegmentedControl,
+  SegmentedControlItem,
+} from "@/components/ui/segmented-control";
 import { Switch } from "@/components/ui/Switch";
 import type { BattleWeather } from "@/lib/domain/battle";
+import { resolveAppliedTheme } from "@/lib/theme/applyTheme";
 import type {
   BuilderTheme,
   EvolutionConstraintKey,
@@ -34,6 +47,9 @@ export function PreferencesSection({
   onSetTheme: (theme: BuilderTheme) => void;
   onResetRun: () => void;
 }) {
+  const autoThemeActive = theme === "auto";
+  const currentAppliedTheme = resolveAppliedTheme(theme);
+
   return (
     <section className="space-y-2">
       <div className="px-1 py-1">
@@ -42,39 +58,52 @@ export function PreferencesSection({
       <div className="space-y-5 px-1 py-1">
         <div>
           <p className="display-face text-sm text-accent">Tema de la interfaz</p>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2">
-            {THEME_OPTIONS.map((option) => {
-              const Icon = option.icon;
-              const active = theme === option.key;
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <SegmentedControl className="w-fit">
+              {THEME_OPTIONS.map((option) => {
+                const active = theme === option.key;
 
-              return (
-                <button
-                  key={option.key}
-                  type="button"
-                  onClick={() => onSetTheme(option.key)}
-                  className={clsx(
-                    "flex items-center gap-3 rounded-[0.8rem] border px-3 py-3 text-left transition",
-                    active
-                      ? "border-primary-line bg-primary-fill text-text"
-                      : "border-line bg-surface-2 text-muted hover:border-line-strong hover:bg-surface-4 hover:text-text",
-                  )}
-                >
-                  <span className="icon-tile-md border border-line-soft bg-surface-4">
-                    <Icon className={clsx("h-5 w-5", active ? "text-primary-soft" : "text-accent")} />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="display-face block text-xs text-inherit">{option.label}</span>
-                    <span className="mt-1 block text-xs text-muted">{option.description}</span>
-                  </span>
-                </button>
-              );
-            })}
+                return (
+                  <SegmentedControlItem
+                    key={option.key}
+                    active={active}
+                    onClick={() => onSetTheme(option.key)}
+                    aria-label={option.label}
+                    title={option.label}
+                    className={clsx(
+                      "min-w-0 px-2.5",
+                      autoThemeActive && option.key !== "auto" && "opacity-55",
+                    )}
+                  >
+                    <option.icon className="h-4 w-4" />
+                  </SegmentedControlItem>
+                );
+              })}
+            </SegmentedControl>
+
+            <span
+              className={clsx(
+                "rounded-full border px-2.5 py-1 text-[11px] uppercase tracking-[0.14em] transition",
+                autoThemeActive
+                  ? "border-primary-line bg-primary-fill text-primary-soft"
+                  : "border-line-soft bg-surface-3 text-text-faint",
+              )}
+            >
+              {autoThemeActive
+                ? `Ahora ${currentAppliedTheme === "light" ? "claro" : "oscuro"}`
+                : "Manual"}
+            </span>
           </div>
+          <p className="mt-2 text-sm text-muted">
+            {autoThemeActive
+              ? "Autodetect usa la hora local del navegador para alternar entre claro y oscuro."
+              : "Elige un tema fijo o deja que la app siga la hora local."}
+          </p>
         </div>
 
         <div>
           <p className="display-face text-sm text-accent">Clima de combate</p>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             {BATTLE_WEATHER_OPTIONS.map((option) => {
               const Icon = option.icon;
               const active = battleWeather === option.key;
@@ -82,25 +111,25 @@ export function PreferencesSection({
                 <button
                   key={option.key}
                   type="button"
+                  aria-label={option.label}
+                  title={`${option.label}: ${option.description}`}
                   onClick={() => onSetBattleWeather(option.key)}
                   className={clsx(
-                    "flex items-center gap-3 rounded-[0.8rem] px-3 py-3 text-left transition",
+                    "inline-flex items-center gap-2 rounded-[0.75rem] border px-2.5 py-2 text-left transition",
                     active
-                      ? "bg-primary-fill text-text"
-                      : "text-muted hover:bg-surface-3",
+                      ? "border-primary-line bg-primary-fill text-text"
+                      : "border-line-soft bg-surface-2 text-muted hover:border-line hover:bg-surface-3 hover:text-text",
                   )}
                 >
-                  <span className="icon-tile-md bg-surface-4">
-                    <Icon className={clsx("h-5 w-5", active ? "text-primary-soft" : "text-accent")} />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="display-face block text-xs text-inherit">{option.label}</span>
-                    <span className="mt-1 block text-xs text-muted">{option.description}</span>
-                  </span>
+                  <Icon className={clsx("h-4 w-4", active ? "text-primary-soft" : "text-accent")} />
+                  <span className="display-face text-[11px] text-inherit">{option.label}</span>
                 </button>
               );
             })}
           </div>
+          <p className="mt-2 text-sm text-muted">
+            Ajusta el contexto de clima para recomendaciones y comparativas.
+          </p>
         </div>
 
         <div>
@@ -151,20 +180,22 @@ export function PreferencesSection({
 const THEME_OPTIONS: {
   key: BuilderTheme;
   label: string;
-  description: string;
-  icon: typeof Shield;
+  icon: typeof Sun;
 }[] = [
   {
     key: "dark",
-    label: "Dark",
-    description: "La cabina actual, con contraste alto y glow contenido.",
-    icon: Shield,
+    label: "Oscuro",
+    icon: Moon,
   },
   {
     key: "light",
-    label: "Light",
-    description: "Una mesa clara con tinta profunda y acentos tacticos.",
-    icon: Sword,
+    label: "Claro",
+    icon: Sun,
+  },
+  {
+    key: "auto",
+    label: "Auto",
+    icon: LaptopMinimal,
   },
 ];
 

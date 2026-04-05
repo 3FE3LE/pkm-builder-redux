@@ -215,7 +215,10 @@ vi.mock("@/components/ui/tabs", () => ({
   }) => (mocked.tab === value ? <section>{children}</section> : null),
 }));
 
-import { DexScreen } from "@/components/team/screens/DexScreen";
+import {
+  DexScreen,
+  matchesTypeSlotFilters,
+} from "@/components/team/screens/DexScreen";
 
 const dexListData = {
   speciesCatalog: [
@@ -335,5 +338,16 @@ describe("DexScreen", () => {
 
     const detailLink = screen.getByRole("link", { name: /mareep/i });
     expect(detailLink.getAttribute("href")).toBe("/team/dex/pokemon/mareep");
+  });
+
+  it("matches a single type filter against any type slot", () => {
+    expect(matchesTypeSlotFilters(["Bug", "Water"], "water", "")).toBe(true);
+    expect(matchesTypeSlotFilters(["Bug", "Water"], "", "bug")).toBe(true);
+    expect(matchesTypeSlotFilters(["Bug", "Water"], "fire", "")).toBe(false);
+  });
+
+  it("keeps slot-specific behavior when both type filters are set", () => {
+    expect(matchesTypeSlotFilters(["Bug", "Water"], "bug", "water")).toBe(true);
+    expect(matchesTypeSlotFilters(["Bug", "Water"], "water", "bug")).toBe(false);
   });
 });

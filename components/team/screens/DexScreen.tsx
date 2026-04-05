@@ -517,14 +517,11 @@ export function DexScreen({
           return false;
         }
         if (
-          normalizedPrimaryTypeFilter &&
-          normalizeName(pokemon.types[0] ?? "") !== normalizedPrimaryTypeFilter
-        ) {
-          return false;
-        }
-        if (
-          normalizedSecondaryTypeFilter &&
-          normalizeName(pokemon.types[1] ?? "") !== normalizedSecondaryTypeFilter
+          !matchesTypeSlotFilters(
+            pokemon.types,
+            normalizedPrimaryTypeFilter,
+            normalizedSecondaryTypeFilter,
+          )
         ) {
           return false;
         }
@@ -1407,6 +1404,31 @@ export function matchesDexMode(dex: number, mode: DexPokemonMode) {
     return dex >= 387 && dex <= 493;
   }
   return dex >= 494 && dex <= 649;
+}
+
+export function matchesTypeSlotFilters(
+  types: string[] | undefined,
+  primaryTypeFilter: string,
+  secondaryTypeFilter: string,
+) {
+  const normalizedTypes = types?.map((type) => normalizeName(type)) ?? [];
+
+  if (primaryTypeFilter && secondaryTypeFilter) {
+    return (
+      normalizedTypes[0] === primaryTypeFilter &&
+      normalizedTypes[1] === secondaryTypeFilter
+    );
+  }
+
+  if (primaryTypeFilter) {
+    return normalizedTypes.includes(primaryTypeFilter);
+  }
+
+  if (secondaryTypeFilter) {
+    return normalizedTypes.includes(secondaryTypeFilter);
+  }
+
+  return true;
 }
 
 export function PokemonDexCard({

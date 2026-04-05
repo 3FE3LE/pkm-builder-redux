@@ -29,7 +29,7 @@ export type RecommendationFilterKey =
   | "excludeOtherStarters"
   | "excludeExactTypeDuplicates";
 export type RecommendationFilterState = Record<RecommendationFilterKey, boolean>;
-export type BuilderTheme = "dark" | "light";
+export type BuilderTheme = "dark" | "light" | "auto";
 
 export type ClaimedSourceBuckets = {
   encounters: string[];

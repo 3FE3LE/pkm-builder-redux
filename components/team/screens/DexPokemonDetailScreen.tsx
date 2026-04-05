@@ -9,6 +9,7 @@ import { useTeamCatalogs } from "@/components/BuilderProvider";
 import {
   buildDexStateQuery,
   matchesDexMode,
+  matchesTypeSlotFilters,
   PokemonDexCard,
 } from "@/components/team/screens/DexScreen";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
@@ -103,14 +104,11 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
             return false;
           }
           if (
-            primaryTypeFilter &&
-            normalizeName(entry.types?.[0] ?? "") !== primaryTypeFilter
-          ) {
-            return false;
-          }
-          if (
-            secondaryTypeFilter &&
-            normalizeName(entry.types?.[1] ?? "") !== secondaryTypeFilter
+            !matchesTypeSlotFilters(
+              entry.types,
+              primaryTypeFilter,
+              secondaryTypeFilter,
+            )
           ) {
             return false;
           }

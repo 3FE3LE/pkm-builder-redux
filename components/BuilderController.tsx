@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { starters } from "@/lib/builder";
 import { TYPE_COLORS } from "@/lib/domain/typeChart";
 import { getRunEncounterCatalog } from "@/lib/runEncounters";
+import { applyTheme } from "@/lib/theme/applyTheme";
 
 import type { BuilderDataProps } from "@/hooks/types";
 import { useBuilderActions } from "@/hooks/useBuilderActions";
@@ -45,6 +46,11 @@ export function useBuilderController({
   const ui = useBuilderUiState();
   const derived = useBuilderDerivedData(data, store, ui);
   const actions = useBuilderActions(data, store, ui, derived);
+
+  useEffect(() => {
+    applyTheme(store.theme, ui.localTime.hour24);
+  }, [store.theme, ui.localTime.hour24]);
+
   const session = useMemo(
     () => ({
       run: store.run,
