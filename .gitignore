@@ -19,6 +19,7 @@ coverage/
 
 # typescript / tooling caches
 *.tsbuildinfo
+next-env.d.ts
 .turbo/
 .cache/
 .eslintcache
