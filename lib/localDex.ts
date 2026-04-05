@@ -597,11 +597,78 @@ export function getLocalDexDocs(): DexDocs {
 
 export function getLocalDexList(): DexList {
   if (!dexListCache) {
-    const localList = readJson("dex-list.json");
-    dexListCache = Array.isArray(localList) ? localList : [];
+    const speciesList = getLocalSpeciesList();
+    const canonical = (readReferenceJson("pokemon-canonical-gen5.json") as Record<
+      string,
+      any
+    > | null) ?? {};
+    const overrides = (readReferenceJson(
+      "pokemon-redux-overrides-gen5.json",
+    ) as Record<string, any> | null) ?? {};
+
+    dexListCache = speciesList.map((species) => {
+      const canonicalPokemon =
+        canonical[String(species.dex).padStart(3, "0")] ??
+        canonical[normalize(species.slug)] ??
+        canonical[normalize(species.name)] ??
+        null;
+      const override = overrides[normalize(species.slug)] ?? overrides[normalize(species.name)] ?? null;
+      const currentTypes = species.types ?? [];
+      const currentAbilities =
+        override?.complete?.abilities ??
+        canonicalPokemon?.abilities ??
+        [];
+      const currentStats =
+        override?.complete?.stats ??
+        canonicalPokemon?.stats ??
+        null;
+
+      return {
+        dex: species.dex,
+        name: species.name,
+        slug: species.slug,
+        types: currentTypes,
+        abilities: currentAbilities,
+        hasTypeChanges: !sameStringList(
+          currentTypes,
+          canonicalPokemon?.types ?? [],
+        ),
+        hasStatChanges: !sameStats(
+          currentStats,
+          canonicalPokemon?.stats ?? null,
+        ),
+        hasAbilityChanges: !sameStringList(
+          currentAbilities,
+          canonicalPokemon?.abilities ?? [],
+        ),
+      };
+    });
   }
 
   return dexListCache;
+}
+
+function sameStringList(left: string[] = [], right: string[] = []) {
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  return left.every(
+    (value, index) => normalize(value) === normalize(right[index] ?? ""),
+  );
+}
+
+function sameStats(
+  left:
+    | { hp?: number; atk?: number; def?: number; spa?: number; spd?: number; spe?: number; bst?: number }
+    | null
+    | undefined,
+  right:
+    | { hp?: number; atk?: number; def?: number; spa?: number; spd?: number; spe?: number; bst?: number }
+    | null
+    | undefined,
+) {
+  return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
 }
 
 function reduxOverridesTypes(entry: any, canonical: Record<string, any> | null) {

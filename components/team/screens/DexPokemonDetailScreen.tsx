@@ -6,7 +6,11 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useMemo } from "react";
 
 import { useTeamCatalogs } from "@/components/BuilderProvider";
-import { buildDexStateQuery, PokemonDexCard } from "@/components/team/screens/DexScreen";
+import {
+  buildDexStateQuery,
+  matchesDexMode,
+  PokemonDexCard,
+} from "@/components/team/screens/DexScreen";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { getAvailableFormsForSpecies } from "@/lib/forms";
 import { markNavigationStart } from "@/lib/perf";
@@ -52,10 +56,20 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
   }
 
   const sprites = buildSpriteUrls(species.name, species.dex);
-  const dexMode = searchParams.get("dexMode") === "gen5" ? "gen5" : "national";
+  const rawDexMode = searchParams.get("dexMode");
+  const dexMode =
+    rawDexMode === "gen1" ||
+    rawDexMode === "gen2" ||
+    rawDexMode === "gen3" ||
+    rawDexMode === "gen4" ||
+    rawDexMode === "gen5"
+      ? rawDexMode
+      : "national";
   const typeChangesOnly = searchParams.get("typeChanges") === "1";
   const statChangesOnly = searchParams.get("statChanges") === "1";
   const abilityChangesOnly = searchParams.get("abilityChanges") === "1";
+  const primaryTypeFilter = normalizeName(searchParams.get("type1") ?? "");
+  const secondaryTypeFilter = normalizeName(searchParams.get("type2") ?? "");
   const orderedSpecies = useMemo(
     () =>
       [...catalogs.speciesCatalog]
@@ -76,7 +90,7 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
             canonicalPokemon?.abilities ?? [],
           );
 
-          if (dexMode === "gen5" && (entry.dex < 494 || entry.dex > 649)) {
+          if (!matchesDexMode(entry.dex, dexMode)) {
             return false;
           }
           if (typeChangesOnly && !hasTypeChanges) {
@@ -88,6 +102,18 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
           if (abilityChangesOnly && !hasAbilityChanges) {
             return false;
           }
+          if (
+            primaryTypeFilter &&
+            normalizeName(entry.types?.[0] ?? "") !== primaryTypeFilter
+          ) {
+            return false;
+          }
+          if (
+            secondaryTypeFilter &&
+            normalizeName(entry.types?.[1] ?? "") !== secondaryTypeFilter
+          ) {
+            return false;
+          }
           return true;
         })
         .sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name)),
@@ -97,6 +123,8 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
       catalogs.pokemonIndex,
       catalogs.speciesCatalog,
       dexMode,
+      primaryTypeFilter,
+      secondaryTypeFilter,
       statChangesOnly,
       typeChangesOnly,
     ],
@@ -116,6 +144,8 @@ export function DexPokemonDetailScreen({ slug }: { slug: string }) {
     typeChangesOnly,
     statChangesOnly,
     abilityChangesOnly,
+    primaryTypeFilter: searchParams.get("type1"),
+    secondaryTypeFilter: searchParams.get("type2"),
   });
   const pokemonNames = useMemo(
     () => catalogs.speciesCatalog.map((entry) => entry.name),

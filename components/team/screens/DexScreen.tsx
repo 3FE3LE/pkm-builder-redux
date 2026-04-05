@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 import Link from "next/link";
 import {
   useCallback,
@@ -15,6 +16,7 @@ import { parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
 import useSWR from "swr";
 
 import { ItemSprite } from "@/components/builder-shared/ItemSprite";
+import { FilterCombobox } from "@/components/builder-shared/FilterCombobox";
 import { PokemonSprite } from "@/components/builder-shared/PokemonSprite";
 import { TypeBadge } from "@/components/builder-shared/TypeBadge";
 import { DefenseSection } from "@/components/team/editor/DefenseSection";
@@ -26,7 +28,16 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/Input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import {
+  SegmentedControl,
+  SegmentedControlItem,
+} from "@/components/ui/segmented-control";
 import { useBuilderStore } from "@/lib/builderStore";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import {
@@ -36,14 +47,30 @@ import {
 } from "@/lib/domain/sourceData";
 import { getBaseSpeciesName } from "@/lib/forms";
 import { markNavigationStart } from "@/lib/perf";
+import { TYPE_ORDER } from "@/lib/domain/typeChart";
 import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 import type { getDexListPageData } from "@/lib/builderPageData";
 
 const DEX_TABS = ["pokemon", "moves", "abilities", "items"] as const;
-const DEX_POKEMON_MODES = ["national", "gen5"] as const;
+const DEX_POKEMON_MODES = [
+  "national",
+  "gen1",
+  "gen2",
+  "gen3",
+  "gen4",
+  "gen5",
+] as const;
 type DexTab = (typeof DEX_TABS)[number];
 type DexPokemonMode = (typeof DEX_POKEMON_MODES)[number];
+const DEX_MODE_LABELS: Record<DexPokemonMode, string> = {
+  national: "Nacional",
+  gen1: "Gen 1",
+  gen2: "Gen 2",
+  gen3: "Gen 3",
+  gen4: "Gen 4",
+  gen5: "Gen 5",
+};
 const RESULT_LIMIT = 80;
 const INITIAL_RESULTS = 10;
 const RESULT_BATCH_SIZE = 10;
@@ -86,7 +113,18 @@ type DexItemsPayload = {
 export function DexScreen({
   data,
 }: {
-  data: ReturnType<typeof getDexListPageData>;
+  data: ReturnType<typeof getDexListPageData> & {
+    speciesCatalog?: Array<{
+      dex: number;
+      name: string;
+      slug: string;
+      types: string[];
+      abilities?: string[];
+      hasTypeChanges?: boolean;
+      hasStatChanges?: boolean;
+      hasAbilityChanges?: boolean;
+    }>;
+  };
 }) {
   const [tab, setTab] = useQueryState(
     "tab",
@@ -117,6 +155,19 @@ export function DexScreen({
     "allTypesNewToTeam",
     parseAsStringEnum(["0", "1"]).withDefault("0"),
   );
+  const [primaryTypeFilter, setPrimaryTypeFilter] = useQueryState(
+    "type1",
+    parseAsString.withDefault(""),
+  );
+  const [secondaryTypeFilter, setSecondaryTypeFilter] = useQueryState(
+    "type2",
+    parseAsString.withDefault(""),
+  );
+  const resolvedPokemonMode = DEX_POKEMON_MODES.includes(
+    pokemonMode as DexPokemonMode,
+  )
+    ? (pokemonMode as DexPokemonMode)
+    : "national";
   const deferredQuery = useDeferredValue(query);
   const forwardTransition = useSafeTransitionTypes(["dex-forward"]);
   const currentTeam = useBuilderStore((state) => state.run.roster.currentTeam);
@@ -170,22 +221,29 @@ export function DexScreen({
     },
     [moveEntries, tab],
   );
+  const pokemonListSource = useMemo(
+    () => data.pokemonList ?? data.speciesCatalog ?? [],
+    [data.pokemonList, data.speciesCatalog],
+  );
   const pokemonEntries = useMemo(
     () =>
-      data.pokemonList.map((pokemon) => {
+      pokemonListSource.map((pokemon) => {
         const sprites = buildSpriteUrls(pokemon.name, pokemon.dex);
 
         return {
           ...pokemon,
           types: dedupeStrings(pokemon.types),
-          abilities: dedupeStrings(pokemon.abilities),
+          abilities: dedupeStrings(pokemon.abilities ?? []),
           spriteUrl: sprites.spriteUrl,
           animatedSpriteUrl: sprites.animatedSpriteUrl,
           nextEvolutions: [],
           evolutionDetails: [],
+          hasTypeChanges: pokemon.hasTypeChanges ?? false,
+          hasStatChanges: pokemon.hasStatChanges ?? false,
+          hasAbilityChanges: pokemon.hasAbilityChanges ?? false,
         };
       }),
-    [data.pokemonList],
+    [pokemonListSource],
   );
   const dexBySpecies = useMemo(() => {
     const next: Record<string, number> = {};
@@ -426,6 +484,19 @@ export function DexScreen({
   }, [data.docs.itemLocations, itemEntries, tab]);
 
   const normalizedQuery = normalizeName(deferredQuery);
+  const normalizedPrimaryTypeFilter = normalizeName(primaryTypeFilter);
+  const normalizedSecondaryTypeFilter = normalizeName(secondaryTypeFilter);
+  const activeTypeSlotFilterCount =
+    (primaryTypeFilter ? 1 : 0) + (secondaryTypeFilter ? 1 : 0);
+  const activePokemonFilterCount =
+    (typeChangesOnly === "1" ? 1 : 0) +
+    (statChangesOnly === "1" ? 1 : 0) +
+    (abilityChangesOnly === "1" ? 1 : 0) +
+    (addsNewTeamTypeOnly === "1" ? 1 : 0) +
+    (allTypesNewToTeamOnly === "1" ? 1 : 0) +
+    activeTypeSlotFilterCount;
+  const hasPokemonFilters =
+    resolvedPokemonMode !== "national" || activePokemonFilterCount > 0;
   const filteredPokemon = useMemo(
     () => {
       if (tab !== "pokemon") {
@@ -433,7 +504,7 @@ export function DexScreen({
       }
 
       return pokemonEntries.filter((pokemon) => {
-        if (pokemonMode === "gen5" && (pokemon.dex < 494 || pokemon.dex > 649)) {
+        if (!matchesDexMode(pokemon.dex, resolvedPokemonMode)) {
           return false;
         }
         if (typeChangesOnly === "1" && !pokemon.hasTypeChanges) {
@@ -443,6 +514,18 @@ export function DexScreen({
           return false;
         }
         if (abilityChangesOnly === "1" && !pokemon.hasAbilityChanges) {
+          return false;
+        }
+        if (
+          normalizedPrimaryTypeFilter &&
+          normalizeName(pokemon.types[0] ?? "") !== normalizedPrimaryTypeFilter
+        ) {
+          return false;
+        }
+        if (
+          normalizedSecondaryTypeFilter &&
+          normalizeName(pokemon.types[1] ?? "") !== normalizedSecondaryTypeFilter
+        ) {
           return false;
         }
         if (addsNewTeamTypeOnly === "1") {
@@ -476,9 +559,11 @@ export function DexScreen({
       currentTeamTypes,
       data,
       normalizedQuery,
+      normalizedPrimaryTypeFilter,
+      normalizedSecondaryTypeFilter,
       allTypesNewToTeamOnly,
       pokemonEntries,
-      pokemonMode,
+      resolvedPokemonMode,
       pokemonSearchIndex,
       statChangesOnly,
       tab,
@@ -490,19 +575,23 @@ export function DexScreen({
       buildDexStateQuery({
         tab,
         query,
-        pokemonMode,
+        pokemonMode: resolvedPokemonMode,
         typeChangesOnly: typeChangesOnly === "1",
         statChangesOnly: statChangesOnly === "1",
         abilityChangesOnly: abilityChangesOnly === "1",
         addsNewTeamTypeOnly: addsNewTeamTypeOnly === "1",
         allTypesNewToTeamOnly: allTypesNewToTeamOnly === "1",
+        primaryTypeFilter,
+        secondaryTypeFilter,
       }),
     [
       abilityChangesOnly,
       addsNewTeamTypeOnly,
       allTypesNewToTeamOnly,
-      pokemonMode,
+      resolvedPokemonMode,
+      primaryTypeFilter,
       query,
+      secondaryTypeFilter,
       statChangesOnly,
       tab,
       typeChangesOnly,
@@ -605,12 +694,23 @@ export function DexScreen({
     <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
       <section className="mx-auto max-w-7xl">
         <div className="panel panel-frame overflow-hidden">
-          <div className="relative border-b border-line-soft px-5 py-5 sm:px-6">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,199,107,0.16),transparent_38%),radial-gradient(circle_at_80%_30%,rgba(81,255,204,0.12),transparent_34%)]" />
-            <div className="relative">
-              <p className="display-face text-sm text-[hsl(39_100%_78%)]">
-                Redux Dex
-              </p>
+          <div className="relative overflow-hidden border-b border-line-soft px-5 py-5 sm:px-6">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,199,107,0.18),transparent_34%),radial-gradient(circle_at_75%_18%,rgba(81,255,204,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.035),transparent)]" />
+            <div className="relative flex flex-col gap-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="display-face text-sm text-[hsl(39_100%_78%)]">
+                    Redux Dex
+                  </p>
+                  <h1 className="display-face mt-2 text-2xl text-text sm:text-[2rem]">
+                    Catalogo alineado al builder
+                  </h1>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-text-soft">
+                    Busca especies, compara cambios del hack y filtra por cobertura real
+                    del team sin salir de la misma data que consume Redux.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -620,25 +720,32 @@ export function DexScreen({
               onValueChange={(value) => setTab(value as DexTab)}
               className="gap-4"
             >
-              <div className="flex flex-col gap-3">
-                <div className="relative w-full max-w-xl">
+              <div className="mb-6">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-4 top-1/2 z-10 h-5 w-5 -translate-y-1/2 text-text-faint" />
                   <Input
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder={getSearchPlaceholder(tab)}
-                    className={query ? "pr-20" : undefined}
+                    className={clsx(
+                      "h-12 rounded-[1rem] border-line-emphasis bg-surface-3 pl-12 text-base shadow-[0_18px_40px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.05)] focus-visible:bg-surface-4",
+                      query ? "pr-20" : "pr-4",
+                    )}
                   />
                   {query ? (
                     <button
                       type="button"
                       onClick={() => setQuery("")}
-                      className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center rounded-full border border-line-soft bg-surface-5 px-2 py-1 text-[11px] font-medium text-muted transition hover:border-line hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fill-hover"
+                      className="absolute right-4 top-1/2 inline-flex -translate-y-1/2 items-center text-text-faint transition-colors hover:text-text"
                       aria-label="Clear search"
                     >
-                      Clear
+                      <X className="h-4 w-4" />
                     </button>
                   ) : null}
                 </div>
+              </div>
+
+              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <TabsList className="tab-strip scrollbar-thin">
                   <TabsTrigger value="pokemon" className="tab-trigger-soft">
                     Pokemon
@@ -653,77 +760,163 @@ export function DexScreen({
                     Items
                   </TabsTrigger>
                 </TabsList>
+
+                <div className="flex flex-wrap items-center gap-3 text-sm">
+                  <span className="text-text-soft">
+                    <span className="display-face text-text">
+                      {tab === "pokemon"
+                        ? filteredPokemon.length
+                        : tab === "moves"
+                          ? filteredMoves.length
+                          : tab === "abilities"
+                            ? filteredAbilities.length
+                            : filteredItems.length}
+                    </span>{" "}
+                    resultados
+                  </span>
+                  {tab === "pokemon" && activePokemonFilterCount > 0 ? (
+                    <>
+                      <span className="text-line-strong">|</span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-line-faint bg-accent-fill-soft px-3 py-1 text-xs text-accent-soft">
+                        <SlidersHorizontal className="h-3 w-3" />
+                        {activePokemonFilterCount} filtro
+                        {activePokemonFilterCount > 1 ? "s" : ""} activo
+                        {activePokemonFilterCount > 1 ? "s" : ""}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPokemonMode("national");
+                          setTypeChangesOnly("0");
+                          setStatChangesOnly("0");
+                          setAbilityChangesOnly("0");
+                          setAddsNewTeamTypeOnly("0");
+                          setAllTypesNewToTeamOnly("0");
+                          setPrimaryTypeFilter("");
+                          setSecondaryTypeFilter("");
+                        }}
+                        className="text-sm font-medium text-text-faint transition-colors hover:text-accent-soft"
+                      >
+                        Limpiar filtros
+                      </button>
+                    </>
+                  ) : null}
+                </div>
               </div>
 
               <TabsContent value="pokemon" className="tab-panel">
-                <div className="mb-4 flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setPokemonMode("national")}
-                      className={clsx(
-                        "inline-flex items-center rounded-full border px-3 py-1.5 text-xs transition",
-                        pokemonMode === "national"
-                          ? "border-warning-line bg-warning-line/10 text-[hsl(39_100%_82%)]"
-                          : "border-line-soft bg-surface-3 text-muted hover:border-line hover:text-text",
-                      )}
-                    >
-                      Dex nacional
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setPokemonMode("gen5")}
-                      className={clsx(
-                        "inline-flex items-center rounded-full border px-3 py-1.5 text-xs transition",
-                        pokemonMode === "gen5"
-                          ? "border-warning-line bg-warning-line/10 text-[hsl(39_100%_82%)]"
-                          : "border-line-soft bg-surface-3 text-muted hover:border-line hover:text-text",
-                      )}
-                    >
-                      BW2 Gen 5
-                    </button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <DexFilterToggle
-                      active={typeChangesOnly === "1"}
-                      onClick={() =>
-                        setTypeChangesOnly(typeChangesOnly === "1" ? "0" : "1")
-                      }
-                    >
-                      Tipos cambiados
-                    </DexFilterToggle>
-                    <DexFilterToggle
-                      active={statChangesOnly === "1"}
-                      onClick={() =>
-                        setStatChangesOnly(statChangesOnly === "1" ? "0" : "1")
-                      }
-                    >
-                      Stats cambiados
-                    </DexFilterToggle>
-                    <DexFilterToggle
-                      active={abilityChangesOnly === "1"}
-                      onClick={() =>
-                        setAbilityChangesOnly(abilityChangesOnly === "1" ? "0" : "1")
-                      }
-                    >
-                      Habilidades nuevas/cambiadas
-                    </DexFilterToggle>
-                    <DexFilterToggle
-                      active={addsNewTeamTypeOnly === "1"}
-                      onClick={() =>
-                        setAddsNewTeamTypeOnly(addsNewTeamTypeOnly === "1" ? "0" : "1")
-                      }
-                    >
-                      Aporta tipo nuevo al team
-                    </DexFilterToggle>
-                    <DexFilterToggle
-                      active={allTypesNewToTeamOnly === "1"}
-                      onClick={() =>
-                        setAllTypesNewToTeamOnly(allTypesNewToTeamOnly === "1" ? "0" : "1")
-                      }
-                    >
-                      Todos sus tipos son nuevos
-                    </DexFilterToggle>
+                <div className="mb-5 rounded-[1rem] border border-line-soft bg-surface-3/75 px-4 py-3">
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-text-faint">Dex:</span>
+                      <SegmentedControl>
+                        {DEX_POKEMON_MODES.map((mode) => (
+                          <SegmentedControlItem
+                            key={mode}
+                            onClick={() => setPokemonMode(mode)}
+                            active={resolvedPokemonMode === mode}
+                          >
+                            {DEX_MODE_LABELS[mode]}
+                          </SegmentedControlItem>
+                        ))}
+                      </SegmentedControl>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-text-faint">Tipo 1:</span>
+                      <div className="w-36">
+                        <FilterCombobox
+                          value={primaryTypeFilter}
+                          options={["", ...TYPE_ORDER]}
+                          placeholder="Cualquiera"
+                          searchable={false}
+                          coordinationGroup="dex-type-filters"
+                          onChange={(next) => setPrimaryTypeFilter(next)}
+                          renderOption={(option) =>
+                            option ? <TypeBadge type={option} /> : <span className="text-sm text-text-faint">Cualquiera</span>
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-text-faint">Tipo 2:</span>
+                      <div className="w-36">
+                        <FilterCombobox
+                          value={secondaryTypeFilter}
+                          options={["", ...TYPE_ORDER]}
+                          placeholder="Cualquiera"
+                          searchable={false}
+                          coordinationGroup="dex-type-filters"
+                          onChange={(next) => setSecondaryTypeFilter(next)}
+                          renderOption={(option) =>
+                            option ? <TypeBadge type={option} /> : <span className="text-sm text-text-faint">Cualquiera</span>
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="hidden h-4 w-px bg-line-soft sm:block" />
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-xs text-text-faint">Cambios:</span>
+                      <DexFilterToggle
+                        active={typeChangesOnly === "1"}
+                        onClick={() =>
+                          setTypeChangesOnly(typeChangesOnly === "1" ? "0" : "1")
+                        }
+                        tone="warning"
+                        compact
+                      >
+                        Tipos
+                      </DexFilterToggle>
+                      <DexFilterToggle
+                        active={statChangesOnly === "1"}
+                        onClick={() =>
+                          setStatChangesOnly(statChangesOnly === "1" ? "0" : "1")
+                        }
+                        tone="info"
+                        compact
+                      >
+                        Stats
+                      </DexFilterToggle>
+                      <DexFilterToggle
+                        active={abilityChangesOnly === "1"}
+                        onClick={() =>
+                          setAbilityChangesOnly(abilityChangesOnly === "1" ? "0" : "1")
+                        }
+                        tone="accent"
+                        compact
+                      >
+                        Habs
+                      </DexFilterToggle>
+                    </div>
+
+                    <div className="hidden h-4 w-px bg-line-soft sm:block" />
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-xs text-text-faint">Sinergia:</span>
+                      <DexFilterToggle
+                        active={addsNewTeamTypeOnly === "1"}
+                        onClick={() =>
+                          setAddsNewTeamTypeOnly(addsNewTeamTypeOnly === "1" ? "0" : "1")
+                        }
+                        tone="primary"
+                        compact
+                      >
+                        +Tipo
+                      </DexFilterToggle>
+                      <DexFilterToggle
+                        active={allTypesNewToTeamOnly === "1"}
+                        onClick={() =>
+                          setAllTypesNewToTeamOnly(allTypesNewToTeamOnly === "1" ? "0" : "1")
+                        }
+                        tone="accent"
+                        compact
+                      >
+                        Nuevo
+                      </DexFilterToggle>
+                    </div>
                   </div>
                 </div>
                 <DexIncrementalGrid
@@ -1120,13 +1313,45 @@ function sanitizeAbilityList(abilities: string[] = []) {
   });
 }
 
+function DexModeButton({
+  active,
+  title,
+  description,
+  onClick,
+}: {
+  active: boolean;
+  title: string;
+  description: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={clsx(
+        "flex min-h-24 flex-col items-start justify-between rounded-[1rem] border px-3 py-3 text-left transition",
+        active
+          ? "border-warning-line bg-[rgba(255,199,107,0.12)] text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+          : "border-line-soft bg-[rgba(255,255,255,0.025)] text-text-soft hover:border-line hover:text-text",
+      )}
+    >
+      <span className="display-face text-sm">{title}</span>
+      <span className="text-xs leading-5 text-current/80">{description}</span>
+    </button>
+  );
+}
+
 function DexFilterToggle({
   active,
   onClick,
+  tone = "accent",
+  compact = false,
   children,
 }: {
   active: boolean;
   onClick: () => void;
+  tone?: "warning" | "accent" | "info" | "primary";
+  compact?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -1134,9 +1359,16 @@ function DexFilterToggle({
       type="button"
       onClick={onClick}
       className={clsx(
-        "inline-flex items-center rounded-full border px-3 py-1.5 text-xs transition",
+        "inline-flex items-center rounded-full border text-xs transition",
+        compact ? "px-2.5 py-1.5" : "px-3 py-2",
         active
-          ? "border-accent-line bg-accent/10 text-accent"
+          ? {
+              warning:
+                "border-warning-line bg-warning-fill text-[hsl(39_100%_82%)]",
+              accent: "border-accent-line bg-accent-fill text-accent-soft",
+              info: "border-info-line bg-info-fill text-info-soft",
+              primary: "border-primary-line bg-primary-fill text-primary-soft",
+            }[tone]
           : "border-line-soft bg-surface-3 text-muted hover:border-line hover:text-text",
       )}
     >
@@ -1156,6 +1388,25 @@ function getSearchPlaceholder(tab: DexTab) {
     return "Buscar habilidad o efecto";
   }
   return "Buscar objeto, categoria o efecto";
+}
+
+export function matchesDexMode(dex: number, mode: DexPokemonMode) {
+  if (mode === "national") {
+    return true;
+  }
+  if (mode === "gen1") {
+    return dex >= 1 && dex <= 151;
+  }
+  if (mode === "gen2") {
+    return dex >= 152 && dex <= 251;
+  }
+  if (mode === "gen3") {
+    return dex >= 252 && dex <= 386;
+  }
+  if (mode === "gen4") {
+    return dex >= 387 && dex <= 493;
+  }
+  return dex >= 494 && dex <= 649;
 }
 
 export function PokemonDexCard({
@@ -1894,6 +2145,8 @@ export function buildDexStateQuery({
   abilityChangesOnly,
   addsNewTeamTypeOnly,
   allTypesNewToTeamOnly,
+  primaryTypeFilter,
+  secondaryTypeFilter,
 }: {
   tab?: DexTab | null;
   query?: string | null;
@@ -1903,6 +2156,8 @@ export function buildDexStateQuery({
   abilityChangesOnly?: boolean;
   addsNewTeamTypeOnly?: boolean;
   allTypesNewToTeamOnly?: boolean;
+  primaryTypeFilter?: string | null;
+  secondaryTypeFilter?: string | null;
 }) {
   const params = new URLSearchParams();
 
@@ -1929,6 +2184,12 @@ export function buildDexStateQuery({
   }
   if (allTypesNewToTeamOnly) {
     params.set("allTypesNewToTeam", "1");
+  }
+  if (primaryTypeFilter) {
+    params.set("type1", primaryTypeFilter);
+  }
+  if (secondaryTypeFilter) {
+    params.set("type2", secondaryTypeFilter);
   }
 
   const queryString = params.toString();

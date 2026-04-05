@@ -174,6 +174,10 @@ vi.mock("nuqs", () => ({
 }));
 
 vi.mock("@/components/ui/tabs", () => ({
+  segmentedControlListClassName: "segmented-list",
+  segmentedControlItemClassName: "segmented-item",
+  segmentedControlItemInactiveClassName: "segmented-item-inactive",
+  segmentedControlItemActiveClassName: "segmented-item-active",
   Tabs: ({
     children,
     value,
