@@ -47,7 +47,7 @@ export function WorkspaceRoute() {
   ]);
 
   if (!session.hydrated) {
-    return <LoadingState />;
+    return <LoadingState variant="workspace" />;
   }
 
   if (!session.builderStarted) {

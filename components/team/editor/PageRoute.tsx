@@ -64,7 +64,7 @@ export function EditorPageRoute() {
       : undefined;
 
   if (!session.hydrated) {
-    return <LoadingState />;
+    return <LoadingState variant="editor" />;
   }
 
   if (!session.builderStarted) {

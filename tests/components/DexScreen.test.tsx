@@ -154,9 +154,7 @@ vi.mock("nuqs", () => ({
   parseAsString: mocked.parseAsString,
   useQueryState: (key: string) => {
     const React = require("react") as typeof import("react");
-    const [value, setValue] = React.useState(
-      key === "tab" ? mocked.tab : mocked.query,
-    );
+    const [value, setValue] = React.useState(key === "tab" ? mocked.tab : mocked.query);
 
     const wrappedSetter = (next: string) => {
       if (key === "tab") {

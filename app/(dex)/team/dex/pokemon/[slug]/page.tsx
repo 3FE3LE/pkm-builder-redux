@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
-import { BuilderProvider } from "@/components/BuilderProvider";
 import { DexPokemonDetailScreen } from "@/components/team/screens/DexPokemonDetailScreen";
-import { getDexPageData } from "@/lib/builderPageData";
-import { normalizeName } from "@/lib/domain/names";
+import { getDexPokemonDetailPageData, getDexSpeciesRouteEntry } from "@/lib/dexDetailPageData";
 import { absoluteUrl } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const data = getDexPageData();
-  const species =
-    data.speciesCatalog.find((entry) => entry.slug === slug) ??
-    data.speciesCatalog.find((entry) => normalizeName(entry.name) === slug);
+  const species = getDexSpeciesRouteEntry(slug);
 
   if (!species) {
     return {
@@ -37,20 +32,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function TeamDexPokemonPage({ params }: PageProps) {
+export default async function TeamDexPokemonPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  const data = getDexPageData();
-  const exists = data.speciesCatalog.some((entry) => entry.slug === slug || normalizeName(entry.name) === slug);
-
-  if (!exists) {
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const detail = getDexPokemonDetailPageData(slug, resolvedSearchParams);
+  if (!detail) {
     notFound();
   }
 
-  return (
-    <Suspense fallback={null}>
-      <BuilderProvider {...data}>
-        <DexPokemonDetailScreen slug={slug} />
-      </BuilderProvider>
-    </Suspense>
-  );
+  return <DexPokemonDetailScreen detail={detail} />;
 }
