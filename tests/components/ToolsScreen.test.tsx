@@ -6,6 +6,8 @@ const mocked = vi.hoisted(() => ({
   searchParams: new URLSearchParams(),
   toolTab: "compare",
   hydrated: true,
+  builderStarted: true,
+  routerReplace: vi.fn(),
   setToolTab: vi.fn(),
   updateCompareMember: vi.fn(),
   addPreparedMember: vi.fn(),
@@ -15,6 +17,9 @@ const mocked = vi.hoisted(() => ({
 }));
 
 vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    replace: mocked.routerReplace,
+  }),
   useSearchParams: () => mocked.searchParams,
 }));
 
@@ -91,6 +96,7 @@ vi.mock("@/components/team/screens/LoadingState", () => ({
 vi.mock("@/components/BuilderProvider", () => ({
   useTeamSession: () => ({
     hydrated: mocked.hydrated,
+    builderStarted: mocked.builderStarted,
     battleWeather: "rain",
   }),
   useTeamCatalogs: () => ({
@@ -171,6 +177,8 @@ describe("ToolsScreen", () => {
     mocked.searchParams = new URLSearchParams();
     mocked.toolTab = "compare";
     mocked.hydrated = true;
+    mocked.builderStarted = true;
+    mocked.routerReplace.mockReset();
   });
 
   it("shows loading while the session is not hydrated", () => {

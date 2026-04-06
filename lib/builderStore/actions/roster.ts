@@ -7,6 +7,7 @@ import {
 import type { BuilderStore } from "@/lib/builderStore/types";
 
 import type { BuilderSet } from "@/lib/builderStore/actions/shared";
+import { createId } from "@/lib/createId";
 
 type RosterActions = Pick<
   BuilderStore,
@@ -83,7 +84,7 @@ export function createRosterActions(set: BuilderSet): RosterActions {
         }),
       })),
     createComposition: (name = "") => {
-      const compositionId = crypto.randomUUID();
+      const compositionId = createId();
 
       set((state) => ({
         run: updateRoster(state.run, () => {

@@ -33,7 +33,6 @@ export function PokemonDexCardExpanded({
   evolutions,
   dexQuery,
   acquisitionGroups,
-  headerAction,
   pokemonHrefBuilder,
 }: {
   pokemon: any;
@@ -43,7 +42,6 @@ export function PokemonDexCardExpanded({
   evolutions?: Array<Array<any>>;
   dexQuery: string;
   acquisitionGroups: Array<{ title: string; values: string[] }>;
-  headerAction?: React.ReactNode;
   pokemonHrefBuilder?: (slug: string) => string;
 }) {
   const evolutionForwardTransition = useSafeTransitionTypes(["dex-forward"]);
@@ -52,7 +50,6 @@ export function PokemonDexCardExpanded({
 
   return (
     <>
-      {headerAction ? <div className="mb-3 flex justify-end">{headerAction}</div> : null}
       <ViewTransition enter="dex-detail-body-enter" exit="dex-detail-body-exit" default="none">
         <div className="mt-3 grid gap-2.5 lg:grid-cols-2 xl:grid-cols-2">
           <InfoBlock label="Habilidades">

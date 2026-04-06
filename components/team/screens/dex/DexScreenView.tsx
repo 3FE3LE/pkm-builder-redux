@@ -30,18 +30,10 @@ export function DexScreenView({
   return (
     <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
       <section className="mx-auto max-w-7xl">
+        <div className="mb-4">
+          <h1 className="pixel-face text-2xl text-text sm:text-[2rem]">Redux Dex</h1>
+        </div>
         <div className="panel panel-frame overflow-hidden">
-          <div className="relative overflow-hidden border-b border-line-soft px-5 py-5 sm:px-6">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,199,107,0.18),transparent_34%),radial-gradient(circle_at_75%_18%,rgba(81,255,204,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.035),transparent)]" />
-            <div className="relative">
-              <p className="display-face text-sm text-[hsl(39_100%_78%)]">Redux Dex</p>
-              <h1 className="display-face mt-2 text-2xl text-text sm:text-[2rem]">Catalogo alineado al builder</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-text-soft">
-                Busca especies, compara cambios del hack y filtra por cobertura real del team sin salir de la misma data que consume Redux.
-              </p>
-            </div>
-          </div>
-
           <div className="px-5 py-5 sm:px-6">
             <Tabs value={model.tab} onValueChange={(value) => model.setTab(value as any)} className="gap-4">
               <div className="mb-6">

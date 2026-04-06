@@ -66,19 +66,8 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
         </Link>
       ) : null}
       <section className="mx-auto max-w-6xl">
-        <PokemonDexCard
-          pokemon={detail.pokemon}
-          abilityEffects={emptyAbilityEffects}
-          moveDetailsByName={moveDetailsByName}
-          wildEncounters={detail.wildEncounters}
-          gifts={detail.gifts}
-          trades={detail.trades}
-          forms={detail.forms.length > 1 ? detail.forms : undefined}
-          evolutions={detail.evolutions.length ? detail.evolutions : undefined}
-          dexQuery={detail.dexQuery}
-          pokemonHrefBuilder={(slug) => `/team/dex/pokemon/${slug}${detail.dexQuery}`}
-          expanded
-          headerAction={(
+        <div className="panel panel-frame overflow-hidden">
+          <div className="flex justify-end px-4 pt-4 sm:px-5 sm:pt-5">
             <Link
               href={detail.closeHref}
               prefetch
@@ -90,8 +79,21 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
             >
               <X className="h-4 w-4" />
             </Link>
-          )}
-        />
+          </div>
+          <PokemonDexCard
+            pokemon={detail.pokemon}
+            abilityEffects={emptyAbilityEffects}
+            moveDetailsByName={moveDetailsByName}
+            wildEncounters={detail.wildEncounters}
+            gifts={detail.gifts}
+            trades={detail.trades}
+            forms={detail.forms.length > 1 ? detail.forms : undefined}
+            evolutions={detail.evolutions.length ? detail.evolutions : undefined}
+            dexQuery={detail.dexQuery}
+            pokemonHrefBuilder={(slug) => `/team/dex/pokemon/${slug}${detail.dexQuery}`}
+            expanded
+          />
+        </div>
       </section>
     </main>
   );

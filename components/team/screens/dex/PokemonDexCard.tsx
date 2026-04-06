@@ -28,7 +28,6 @@ export function PokemonDexCard({
   transitionTypes,
   scroll = true,
   expanded = false,
-  headerAction,
   forms,
   evolutions,
   moveDetailsByName,
@@ -45,7 +44,6 @@ export function PokemonDexCard({
   transitionTypes?: string[];
   scroll?: boolean;
   expanded?: boolean;
-  headerAction?: React.ReactNode;
   forms?: Array<any>;
   evolutions?: Array<Array<any>>;
   moveDetailsByName?: Map<string, any>;
@@ -87,10 +85,10 @@ export function PokemonDexCard({
       suppressHydrationWarning
       id={!expanded ? anchorId : undefined}
       className={clsx(
-        "panel-strong panel-frame relative overflow-hidden rounded-[1rem] p-3 transition-[transform,border-color,background-color] duration-200",
+        "relative overflow-hidden transition-[transform,border-color,background-color] duration-200",
+        expanded ? "p-4 sm:p-5" : "panel-strong panel-frame rounded-[1rem] p-3",
         !expanded && "scroll-mt-24",
         href && "group hover:border-warning-line hover:bg-surface-2/90",
-        expanded && "p-4 sm:p-5",
       )}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,214,120,0.12),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(89,181,255,0.12),transparent_28%)]" />
@@ -150,7 +148,6 @@ export function PokemonDexCard({
             evolutions={evolutions}
             dexQuery={dexQuery}
             acquisitionGroups={acquisitionGroups}
-            headerAction={headerAction}
             pokemonHrefBuilder={pokemonHrefBuilder}
           />
         ) : null}

@@ -1,5 +1,6 @@
 import type { StatSpread } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore/types";
+import { createId } from "@/lib/createId";
 
 const DEFAULT_IVS: StatSpread = {
   hp: 0,
@@ -21,7 +22,7 @@ const DEFAULT_EVS: StatSpread = {
 
 export function createEditable(species = "", locked = false): EditableMember {
   return {
-    id: crypto.randomUUID(),
+    id: createId(),
     species,
     nickname: species,
     locked,

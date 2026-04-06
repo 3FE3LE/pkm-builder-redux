@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 import {
   useTeamAnalysis,
@@ -15,6 +15,7 @@ import { EditorPage } from "@/components/team/editor/Page";
 import { LoadingState } from "@/components/team/screens/LoadingState";
 import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
 import { starters } from "@/lib/builder";
+import { createId } from "@/lib/createId";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 
 export function EditorPageRoute() {
@@ -27,6 +28,12 @@ export function EditorPageRoute() {
   const analysis = useTeamAnalysis();
   const compare = useTeamCompare();
   const movePicker = useTeamMovePicker();
+
+  useEffect(() => {
+    if (session.hydrated && !session.builderStarted) {
+      router.replace("/onboarding");
+    }
+  }, [router, session.builderStarted, session.hydrated]);
 
   const member = useMemo(
     () =>
@@ -68,7 +75,7 @@ export function EditorPageRoute() {
   }
 
   if (!session.builderStarted) {
-    redirect("/onboarding");
+    return <LoadingState variant="editor" />;
   }
 
   if (!member) {
@@ -110,7 +117,7 @@ export function EditorPageRoute() {
         }));
       }}
       onAssignToCompare={() => {
-        compare.actions.updateMember(0, { ...member, id: crypto.randomUUID() });
+        compare.actions.updateMember(0, { ...member, id: createId() });
         router.push("/team/tools?tool=compare");
       }}
       previousMemberHref={

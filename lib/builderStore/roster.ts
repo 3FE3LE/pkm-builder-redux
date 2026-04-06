@@ -4,6 +4,7 @@ import {
   type RunState,
 } from "@/lib/runState";
 import type { EditableMember, PokemonGender } from "@/lib/builderStore/types";
+import { createId } from "@/lib/createId";
 
 export function normalizeGender(value: unknown): PokemonGender {
   return value === "male" || value === "female" ? value : "unknown";
@@ -20,7 +21,7 @@ export function normalizeEditableMember(member: EditableMember): EditableMember 
 
 export function createFallbackComposition(memberIds: string[] = []): RunCompositionState {
   return {
-    id: crypto.randomUUID(),
+    id: createId(),
     name: "Main Team",
     memberIds,
   };
@@ -56,7 +57,7 @@ export function ensureRosterState(run: RunState): RunState {
   const normalizedCompositions =
     run.roster.compositions
       ?.map((composition, index) => ({
-        id: composition.id || crypto.randomUUID(),
+        id: composition.id || createId(),
         name: composition.name?.trim() || `Team ${index + 1}`,
         memberIds: (composition.memberIds ?? []).filter((memberId) => safeMemberIds.has(memberId)),
       })) ?? [];

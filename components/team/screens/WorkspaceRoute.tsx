@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { redirect, useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { LoadingState } from "@/components/team/screens/LoadingState";
 import { WorkspaceScreen } from "@/components/team/screens/WorkspaceScreen";
@@ -16,6 +16,12 @@ export function WorkspaceRoute() {
   const searchParams = useSearchParams();
   const handledImportRef = useRef<string | null>(null);
   const sharedImportToken = params?.token ?? searchParams.get("m");
+
+  useEffect(() => {
+    if (session.hydrated && !session.builderStarted) {
+      router.replace("/onboarding");
+    }
+  }, [router, session.builderStarted, session.hydrated]);
 
   useEffect(() => {
     if (!session.hydrated || !sharedImportToken || handledImportRef.current === sharedImportToken) {
@@ -51,7 +57,7 @@ export function WorkspaceRoute() {
   }
 
   if (!session.builderStarted) {
-    redirect("/onboarding");
+    return <LoadingState variant="workspace" />;
   }
 
   return <WorkspaceScreen />;

@@ -44,6 +44,11 @@ export function ActionDock({
   onOpenDelete: () => void;
   onCloseEditor: () => void;
 }) {
+  const backTransition = useSafeTransitionTypes(["editor-back"]);
+  const forwardTransition = useSafeTransitionTypes(
+    editTransitionTypes ?? ["editor-forward"],
+  );
+
   if (!selectedMember) {
     return null;
   }
@@ -56,10 +61,6 @@ export function ActionDock({
   const iconClass = isDesktop ? "h-4 w-4" : "h-5 w-5";
   const editLabel = editAriaLabel ?? "Editar slot seleccionado";
   const editNode = editIcon === "back" ? <ChevronLeft className={iconClass} /> : <Pencil className={iconClass} />;
-  const backTransition = useSafeTransitionTypes(["editor-back"]);
-  const forwardTransition = useSafeTransitionTypes(
-    editTransitionTypes ?? ["editor-forward"],
-  );
   const showDetailsAction = !editorOpen;
   const showEditAction = !editorOpen;
   const showLockAction = !editorOpen;

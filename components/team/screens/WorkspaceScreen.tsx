@@ -30,6 +30,7 @@ import {
 } from "@/components/BuilderProvider";
 import { milestones, starters } from "@/lib/builder";
 import { createEditable } from "@/lib/builderStore";
+import { createId } from "@/lib/createId";
 
 const WORKSPACE_TABS = ["builder", "copilot"] as const;
 
@@ -62,7 +63,7 @@ export function WorkspaceScreen() {
       return;
     }
 
-    compare.actions.updateMember(slot, { ...rosterMember, id: crypto.randomUUID() });
+    compare.actions.updateMember(slot, { ...rosterMember, id: createId() });
   }
 
   function assignCompareFromRosterFirstEmpty(memberId: string) {
