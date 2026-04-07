@@ -7,6 +7,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 25,
+    "priority": 0,
     "description": "Drains half the damage inflicted to heal the user."
   },
   "accelerock": {
@@ -17,6 +18,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "acid": {
@@ -27,6 +29,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 30,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "acid-armor": {
@@ -37,6 +40,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Defense by two stages."
   },
   "acid-spray": {
@@ -47,6 +51,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s Special Defense by two stages."
   },
   "acrobatics": {
@@ -57,6 +62,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has double power if the user has no held item."
   },
   "acupressure": {
@@ -67,6 +73,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Raises one of a friendly Pokémon’s stats at random by two stages."
   },
   "aerial-ace": {
@@ -77,6 +84,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "aeroblast": {
@@ -87,6 +95,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "after-you": {
@@ -97,6 +106,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Makes the target act next this turn."
   },
   "agility": {
@@ -107,6 +117,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Raises the user’s Speed by two stages."
   },
   "air-cutter": {
@@ -117,6 +128,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 25,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "air-slash": {
@@ -127,6 +139,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "ally-switch": {
@@ -137,6 +150,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 2,
     "description": "User switches places with the friendly Pokémon opposite it."
   },
   "amnesia": {
@@ -147,6 +161,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Special Defense by two stages."
   },
   "ancient-power": {
@@ -157,6 +172,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 10% chance to raise all of the user’s stats by one stage."
   },
   "aqua-jet": {
@@ -167,6 +183,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "aqua-ring": {
@@ -177,6 +194,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Restores 1/16 of the user’s max HP each turn."
   },
   "aqua-tail": {
@@ -187,6 +205,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "arm-thrust": {
@@ -197,6 +216,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "aromatherapy": {
@@ -207,6 +227,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Cures the entire party of major status effects."
   },
   "assist": {
@@ -217,6 +238,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Randomly selects and uses one of the trainer’s other Pokémon’s moves."
   },
   "assurance": {
@@ -227,6 +249,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Power is doubled if the target has already received damage this turn."
   },
   "astonish": {
@@ -237,6 +260,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "attack-order": {
@@ -247,6 +271,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "attract": {
@@ -257,6 +282,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Target falls in love if it has the opposite gender, and has a 50% chance to refuse attacking the user."
   },
   "aura-sphere": {
@@ -267,6 +293,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "aurora-beam": {
@@ -277,6 +304,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Attack by one stage."
   },
   "autotomize": {
@@ -287,6 +315,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises the user’s Speed by two stages and halves the user’s weight."
   },
   "avalanche": {
@@ -297,6 +326,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": -4,
     "description": "Inflicts double damage if the user takes damage before attacking this turn."
   },
   "barrier": {
@@ -307,6 +337,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Defense by two stages."
   },
   "baton-pass": {
@@ -317,6 +348,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Allows the trainer to switch out the user and pass effects along to its replacement."
   },
   "beat-up": {
@@ -327,6 +359,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits once for every conscious Pokémon the trainer has."
   },
   "belly-drum": {
@@ -337,6 +370,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User pays half its max HP to max out its Attack."
   },
   "bestow": {
@@ -347,6 +381,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Gives the user’s held item to the target."
   },
   "bide": {
@@ -357,6 +392,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 1,
     "description": "User waits for two turns, then hits back for twice the damage it took."
   },
   "bind": {
@@ -367,6 +403,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
   "bite": {
@@ -377,6 +414,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "blast-burn": {
@@ -387,6 +425,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "User foregoes its next turn to recharge."
   },
   "blaze-kick": {
@@ -397,6 +436,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit and a 10% chance to burn the target."
   },
   "blizzard": {
@@ -407,6 +447,7 @@
     "accuracy": 70,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 10% chance to freeze the target."
   },
   "block": {
@@ -417,6 +458,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Prevents the target from leaving battle."
   },
   "blue-flare": {
@@ -427,6 +469,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 20% chance to burn the target."
   },
   "body-slam": {
@@ -437,6 +480,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "bolt-strike": {
@@ -447,6 +491,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 20% chance to paralyze the target."
   },
   "bone-club": {
@@ -457,6 +502,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 10% chance to make the target flinch."
   },
   "bone-rush": {
@@ -467,6 +513,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "bonemerang": {
@@ -477,6 +524,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits twice in one turn."
   },
   "boomburst": {
@@ -487,6 +535,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage."
   },
   "bounce": {
@@ -497,6 +546,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User bounces high into the air, dodging all attacks, and hits next turn."
   },
   "brave-bird": {
@@ -507,6 +557,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User receives 1/3 the damage inflicted in recoil."
   },
   "breaking-swipe": {
@@ -517,6 +568,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s Attack by one stage after inflicting damage."
   },
   "brick-break": {
@@ -527,6 +579,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Destroys Reflect and Light Screen."
   },
   "brine": {
@@ -537,6 +590,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has double power against Pokémon that have less than half their max HP remaining."
   },
   "brutal-swing": {
@@ -547,6 +601,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "bubble-beam": {
@@ -557,6 +612,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Speed by one stage."
   },
   "bug-bite": {
@@ -567,6 +623,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "If target has a berry, inflicts double damage and uses the berry."
   },
   "bug-buzz": {
@@ -577,6 +634,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "bulk-up": {
@@ -587,6 +645,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Attack and Defense by one stage."
   },
   "bulldoze": {
@@ -597,6 +656,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
   "bullet-punch": {
@@ -607,6 +667,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "bullet-seed": {
@@ -617,6 +678,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "calm-mind": {
@@ -627,6 +689,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Special Attack and Special Defense by one stage."
   },
   "camouflage": {
@@ -637,6 +700,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "User’s type changes to match the terrain."
   },
   "captivate": {
@@ -647,6 +711,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s Special Attack by two stages if it’s the opposite gender."
   },
   "charge": {
@@ -657,6 +722,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Special Defense by one stage.  User’s Electric moves have doubled power next turn."
   },
   "charge-beam": {
@@ -667,6 +733,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 70% chance to raise the user’s Special Attack by one stage."
   },
   "charm": {
@@ -677,6 +744,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s Attack by two stages."
   },
   "chatter": {
@@ -687,6 +755,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a higher chance to confuse the target when the recorded sound is louder."
   },
   "chip-away": {
@@ -697,6 +766,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Ignores the target’s stat modifiers."
   },
   "circle-throw": {
@@ -707,6 +777,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": -6,
     "description": "Ends wild battles.  Forces trainers to switch Pokémon."
   },
   "clear-smog": {
@@ -717,6 +788,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Removes all of the target’s stat modifiers."
   },
   "close-combat": {
@@ -727,6 +799,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Defense and Special Defense by one stage after inflicting damage."
   },
   "coil": {
@@ -737,6 +810,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Attack, Defense, and accuracy by one stage each."
   },
   "confuse-ray": {
@@ -747,6 +821,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Confuses the target."
   },
   "confusion": {
@@ -757,6 +832,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 10% chance to confuse the target."
   },
   "conversion": {
@@ -767,6 +843,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "User’s type changes to the type of one of its moves at random."
   },
   "conversion-2": {
@@ -777,6 +854,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Changes the user’s type to a random type either resistant or immune to the last move used against it."
   },
   "copycat": {
@@ -787,6 +865,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Uses the target’s last used move."
   },
   "cosmic-power": {
@@ -797,6 +876,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Defense and Special Defense by one stage."
   },
   "cotton-guard": {
@@ -807,6 +887,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Raises the user’s Defense by three stages."
   },
   "cotton-spore": {
@@ -817,6 +898,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Lowers the target’s Speed by two stages."
   },
   "counter": {
@@ -827,6 +909,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": -5,
     "description": "Inflicts twice the damage the user received from the last physical hit it took."
   },
   "covet": {
@@ -837,6 +920,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Takes the target’s item."
   },
   "crabhammer": {
@@ -847,6 +931,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "cross-chop": {
@@ -857,6 +942,7 @@
     "accuracy": 80,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "cross-poison": {
@@ -867,6 +953,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit and a 10% chance to poison the target."
   },
   "crunch": {
@@ -877,6 +964,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 20% chance to lower the target’s Defense by one stage."
   },
   "crush-claw": {
@@ -887,6 +975,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
   "crush-grip": {
@@ -897,6 +986,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Power increases against targets with more HP remaining, up to a maximum of 121 power."
   },
   "curse": {
@@ -907,6 +997,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Ghosts pay half their max HP to hurt the target every turn.  Others decrease Speed but raise Attack and Defense."
   },
   "cut": {
@@ -917,6 +1008,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "dark-pulse": {
@@ -927,6 +1019,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 20% chance to make the target flinch."
   },
   "dark-void": {
@@ -937,6 +1030,7 @@
     "accuracy": 50,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "dazzling-gleam": {
@@ -947,6 +1041,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "defend-order": {
@@ -957,6 +1052,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Raises the user’s Defense and Special Defense by one stage."
   },
   "defense-curl": {
@@ -967,6 +1063,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Raises user’s Defense by one stage."
   },
   "defog": {
@@ -977,6 +1074,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s evasion by one stage.  Removes field effects from the enemy field."
   },
   "destiny-bond": {
@@ -987,6 +1085,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "If the user faints this turn, the target automatically will, too."
   },
   "detect": {
@@ -997,6 +1096,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 4,
     "description": "Prevents any moves from hitting the user this turn."
   },
   "dig": {
@@ -1007,6 +1107,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "User digs underground, dodging all attacks, and hits next turn."
   },
   "disable": {
@@ -1017,6 +1118,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Disables the target’s last used move for 1-8 turns."
   },
   "disarming-voice": {
@@ -1027,6 +1129,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Never misses."
   },
   "discharge": {
@@ -1037,6 +1140,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "dive": {
@@ -1047,6 +1151,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "User dives underwater, dodging all attacks, and hits next turn."
   },
   "dizzy-punch": {
@@ -1057,6 +1162,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 20% chance to confuse the target."
   },
   "doom-desire": {
@@ -1067,6 +1173,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Hits the target two turns later."
   },
   "double-edge": {
@@ -1077,6 +1184,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User receives 1/3 the damage inflicted in recoil."
   },
   "double-hit": {
@@ -1087,6 +1195,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits twice in one turn."
   },
   "double-kick": {
@@ -1097,6 +1206,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 0,
     "description": "Hits twice in one turn."
   },
   "double-slap": {
@@ -1107,6 +1217,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "double-team": {
@@ -1117,6 +1228,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises the user’s evasion by one stage."
   },
   "draco-meteor": {
@@ -1127,6 +1239,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
   "dragon-breath": {
@@ -1137,6 +1250,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "dragon-claw": {
@@ -1147,6 +1261,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "dragon-dance": {
@@ -1157,6 +1272,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Attack and Speed by one stage."
   },
   "dragon-pulse": {
@@ -1167,6 +1283,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "dragon-rage": {
@@ -1177,6 +1294,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts 40 points of damage."
   },
   "dragon-rush": {
@@ -1187,6 +1305,7 @@
     "accuracy": 75,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 20% chance to make the target flinch."
   },
   "dragon-tail": {
@@ -1197,6 +1316,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": -6,
     "description": "Ends wild battles.  Forces trainers to switch Pokémon."
   },
   "drain-punch": {
@@ -1207,6 +1327,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Drains half the damage inflicted to heal the user."
   },
   "draining-kiss": {
@@ -1217,6 +1338,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Drains 75% of the damage inflicted to heal the user."
   },
   "dream-eater": {
@@ -1227,6 +1349,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Only works on sleeping Pokémon.  Drains half the damage inflicted to heal the user."
   },
   "drill-peck": {
@@ -1237,6 +1360,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "drill-run": {
@@ -1247,6 +1371,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "dual-chop": {
@@ -1257,6 +1382,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Hits twice in one turn."
   },
   "dual-wingbeat": {
@@ -1267,6 +1393,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "dynamic-punch": {
@@ -1277,6 +1404,7 @@
     "accuracy": 50,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 100% chance to confuse the target."
   },
   "earth-power": {
@@ -1287,6 +1415,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "earthquake": {
@@ -1297,6 +1426,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage and can hit Dig users."
   },
   "echoed-voice": {
@@ -1307,6 +1437,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Power increases by 100% for each consecutive use by any friendly Pokémon, to a maximum of 200."
   },
   "electro-ball": {
@@ -1317,6 +1448,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Power is higher when the user has greater Speed than the target, up to a maximum of 150."
   },
   "electroweb": {
@@ -1327,6 +1459,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s Speed by one stage."
   },
   "embargo": {
@@ -1337,6 +1470,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Target cannot use held items."
   },
   "ember": {
@@ -1347,6 +1481,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target."
   },
   "encore": {
@@ -1357,6 +1492,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Forces the target to repeat its last used move every turn for 2 to 6 turns."
   },
   "endeavor": {
@@ -1367,6 +1503,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the target’s HP to equal the user’s."
   },
   "endure": {
@@ -1377,6 +1514,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 4,
     "description": "Prevents the user’s HP from lowering below 1 this turn."
   },
   "energy-ball": {
@@ -1387,6 +1525,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "entrainment": {
@@ -1397,6 +1536,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Copies the user’s ability onto the target."
   },
   "eruption": {
@@ -1407,6 +1547,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Inflicts more damage when the user has more HP remaining, with a maximum of 150 power."
   },
   "esper-wing": {
@@ -1417,6 +1558,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": ""
   },
   "explosion": {
@@ -1427,6 +1569,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User faints."
   },
   "extrasensory": {
@@ -1437,6 +1580,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 10% chance to make the target flinch."
   },
   "extreme-speed": {
@@ -1447,6 +1591,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 2,
     "description": "Inflicts regular damage with no additional effect."
   },
   "facade": {
@@ -1457,6 +1602,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Power doubles if user is burned, paralyzed, or poisoned."
   },
   "feint-attack": {
@@ -1467,6 +1613,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "fake-out": {
@@ -1477,6 +1624,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 3,
     "description": "Can only be used as the first move after the user enters battle.  Causes the target to flinch."
   },
   "fake-tears": {
@@ -1487,6 +1635,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s Special Defense by two stages."
   },
   "false-swipe": {
@@ -1497,6 +1646,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 40,
+    "priority": 0,
     "description": "Cannot lower the target’s HP below 1."
   },
   "feather-dance": {
@@ -1507,6 +1657,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s Attack by two stages."
   },
   "feint": {
@@ -1517,6 +1668,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 2,
     "description": "Hits through Protect and Detect."
   },
   "fiery-dance": {
@@ -1527,6 +1679,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 50% chance to raise the user’s Special Attack by one stage."
   },
   "final-gambit": {
@@ -1537,6 +1690,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Inflicts damage equal to the user’s remaining HP.  User faints."
   },
   "fire-blast": {
@@ -1547,6 +1701,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target."
   },
   "fire-fang": {
@@ -1557,6 +1712,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target and a 10% chance to make the target flinch."
   },
   "fire-lash": {
@@ -1567,6 +1723,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s Defense by one stage after inflicting damage."
   },
   "fire-pledge": {
@@ -1577,6 +1734,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "With Water Pledge, doubles the effect chance of friendly Pokémon’s moves for four turns."
   },
   "fire-punch": {
@@ -1587,6 +1745,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target."
   },
   "fire-spin": {
@@ -1597,6 +1756,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
   "fissure": {
@@ -1607,6 +1767,7 @@
     "accuracy": 30,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Causes a one-hit KO."
   },
   "flail": {
@@ -1617,6 +1778,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts more damage when the user has less HP remaining, with a maximum of 200 power."
   },
   "flame-burst": {
@@ -1627,6 +1789,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Deals splash damage to Pokémon next to the target."
   },
   "flame-charge": {
@@ -1637,6 +1800,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts regular damage.  Raises the user’s Speed by one stage."
   },
   "flame-wheel": {
@@ -1647,6 +1811,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target.  Lets frozen Pokémon thaw themselves."
   },
   "flamethrower": {
@@ -1657,6 +1822,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target."
   },
   "flare-blitz": {
@@ -1667,6 +1833,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User takes 1/3 the damage inflicted in recoil.  Has a 10% chance to burn the target."
   },
   "flash": {
@@ -1677,6 +1844,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s accuracy by one stage."
   },
   "flash-cannon": {
@@ -1687,6 +1855,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "flatter": {
@@ -1697,6 +1866,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises the target’s Special Attack by one stage and confuses the target."
   },
   "fling": {
@@ -1707,6 +1877,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Throws held item at the target; power depends on the item."
   },
   "fly": {
@@ -1717,6 +1888,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User flies high into the air, dodging all attacks, and hits next turn."
   },
   "focus-blast": {
@@ -1727,6 +1899,7 @@
     "accuracy": 70,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "focus-energy": {
@@ -1737,6 +1910,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Increases the user’s chance to score a critical hit."
   },
   "focus-punch": {
@@ -1747,6 +1921,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": -3,
     "description": "If the user takes damage before attacking, the attack is canceled."
   },
   "follow-me": {
@@ -1757,6 +1932,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 2,
     "description": "Redirects the target’s single-target effects to the user for this turn."
   },
   "force-palm": {
@@ -1767,6 +1943,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "foresight": {
@@ -1777,6 +1954,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Forces the target to have no Evade, and allows it to be hit by Normal and Fighting moves even if it’s a Ghost."
   },
   "foul-play": {
@@ -1787,6 +1965,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Calculates damage with the target’s attacking stat."
   },
   "frost-breath": {
@@ -1797,6 +1976,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Always scores a critical hit."
   },
   "fury-attack": {
@@ -1807,6 +1987,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "fury-cutter": {
@@ -1817,6 +1998,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Power doubles every turn this move is used in succession after the first, maxing out after five turns."
   },
   "fury-swipes": {
@@ -1827,6 +2009,7 @@
     "accuracy": 80,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "fusion-bolt": {
@@ -1837,6 +2020,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "With Fusion Flare, inflicts double damage."
   },
   "fusion-flare": {
@@ -1847,6 +2031,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "With Fusion Bolt, inflicts double damage."
   },
   "future-sight": {
@@ -1857,6 +2042,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Hits the target two turns later."
   },
   "gastro-acid": {
@@ -1867,6 +2053,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Nullifies target’s ability until it leaves battle."
   },
   "gear-grind": {
@@ -1877,6 +2064,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Hits twice in one turn."
   },
   "giga-drain": {
@@ -1887,6 +2075,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Drains half the damage inflicted to heal the user."
   },
   "giga-impact": {
@@ -1897,6 +2086,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User foregoes its next turn to recharge."
   },
   "glaciate": {
@@ -1907,6 +2097,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Lowers the target’s Speed by one stage."
   },
   "glare": {
@@ -1917,6 +2108,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Paralyzes the target."
   },
   "grass-knot": {
@@ -1927,6 +2119,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts more damage to heavier targets, with a maximum of 120 power."
   },
   "grass-pledge": {
@@ -1937,6 +2130,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "With Fire Pledge, damages opposing Pokémon for 1/8 their max HP every turn for four turns."
   },
   "grass-whistle": {
@@ -1947,6 +2141,7 @@
     "accuracy": 55,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "gravity": {
@@ -1957,6 +2152,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Disables moves and immunities that involve flying or levitating for five turns."
   },
   "growl": {
@@ -1967,6 +2163,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Lowers the target’s Attack by one stage."
   },
   "growth": {
@@ -1977,6 +2174,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Attack and Special Attack by one stage."
   },
   "grudge": {
@@ -1987,6 +2185,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "If the user faints this turn, the PP of the move that fainted it drops to 0."
   },
   "guard-split": {
@@ -1997,6 +2196,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Averages Defense and Special Defense with the target."
   },
   "guard-swap": {
@@ -2007,6 +2207,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User swaps Defense and Special Defense changes with the target."
   },
   "guillotine": {
@@ -2017,6 +2218,7 @@
     "accuracy": 30,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Causes a one-hit KO."
   },
   "gunk-shot": {
@@ -2027,6 +2229,7 @@
     "accuracy": 80,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 30% chance to poison the target."
   },
   "gust": {
@@ -2037,6 +2240,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 35,
+    "priority": 0,
     "description": "Inflicts regular damage and can hit Pokémon in the air."
   },
   "gyro-ball": {
@@ -2047,6 +2251,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Power raises when the user has lower Speed, up to a maximum of 150."
   },
   "hail": {
@@ -2057,6 +2262,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Changes the weather to a hailstorm for five turns."
   },
   "hammer-arm": {
@@ -2067,6 +2273,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Lowers user’s Speed by one stage."
   },
   "harden": {
@@ -2077,6 +2284,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Raises the user’s Defense by one stage."
   },
   "haze": {
@@ -2087,6 +2295,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Resets all Pokémon’s stats, accuracy, and evasion."
   },
   "head-charge": {
@@ -2097,6 +2306,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
   "head-smash": {
@@ -2107,6 +2317,7 @@
     "accuracy": 80,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User receives 1/2 the damage inflicted in recoil."
   },
   "headbutt": {
@@ -2117,6 +2328,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "headlong-rush": {
@@ -2127,6 +2339,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": ""
   },
   "heal-bell": {
@@ -2137,6 +2350,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Cures the entire party of major status effects."
   },
   "heal-block": {
@@ -2147,6 +2361,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Prevents target from restoring its HP for five turns."
   },
   "heal-order": {
@@ -2157,6 +2372,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Heals the user by half its max HP."
   },
   "heal-pulse": {
@@ -2167,6 +2383,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Heals the target for half its max HP."
   },
   "healing-wish": {
@@ -2177,6 +2394,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User faints.  Its replacement has its HP fully restored and any major status effect removed."
   },
   "heart-stamp": {
@@ -2187,6 +2405,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "heart-swap": {
@@ -2197,6 +2416,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User and target swap stat changes."
   },
   "heat-crash": {
@@ -2207,6 +2427,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Power is higher when the user weighs more than the target, up to a maximum of 120."
   },
   "heat-wave": {
@@ -2217,6 +2438,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to burn the target."
   },
   "heavy-slam": {
@@ -2227,6 +2449,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Power is higher when the user weighs more than the target, up to a maximum of 120."
   },
   "helping-hand": {
@@ -2237,6 +2460,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 5,
     "description": "Ally’s next move inflicts half more damage."
   },
   "hex": {
@@ -2247,6 +2471,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has double power if the target has a major status ailment."
   },
   "hidden-power": {
@@ -2257,6 +2482,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Power and type depend upon user’s IVs.  Power can range from 30 to 70."
   },
   "high-horsepower": {
@@ -2267,6 +2493,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "high-jump-kick": {
@@ -2277,6 +2504,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "If the user misses, it takes half the damage it would have inflicted in recoil."
   },
   "hone-claws": {
@@ -2287,6 +2515,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises the user’s Attack and accuracy by one stage."
   },
   "horn-attack": {
@@ -2297,6 +2526,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "horn-leech": {
@@ -2307,6 +2537,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Drains half the damage inflicted to heal the user."
   },
   "howl": {
@@ -2317,6 +2548,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Raises the user’s Attack by one stage."
   },
   "hurricane": {
@@ -2327,6 +2559,7 @@
     "accuracy": 70,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to confuse the target."
   },
   "hydro-cannon": {
@@ -2337,6 +2570,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "User foregoes its next turn to recharge."
   },
   "hydro-pump": {
@@ -2347,6 +2581,7 @@
     "accuracy": 80,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "hyper-beam": {
@@ -2357,6 +2592,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "User foregoes its next turn to recharge."
   },
   "hyper-fang": {
@@ -2367,6 +2603,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to make the target flinch."
   },
   "hyper-voice": {
@@ -2377,6 +2614,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "hypnosis": {
@@ -2387,6 +2625,7 @@
     "accuracy": 60,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "ice-beam": {
@@ -2397,6 +2636,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to freeze the target."
   },
   "ice-fang": {
@@ -2407,6 +2647,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to freeze the target and a 10% chance to make the target flinch."
   },
   "ice-punch": {
@@ -2417,6 +2658,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to freeze the target."
   },
   "ice-shard": {
@@ -2427,6 +2669,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "icicle-crash": {
@@ -2437,6 +2680,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "icicle-spear": {
@@ -2447,6 +2691,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "icy-wind": {
@@ -2457,6 +2702,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
   "imprison": {
@@ -2467,6 +2713,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Prevents the target from using any moves that the user also knows."
   },
   "incinerate": {
@@ -2477,6 +2724,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Destroys the target’s held berry."
   },
   "inferno": {
@@ -2487,6 +2735,7 @@
     "accuracy": 50,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 100% chance to burn the target."
   },
   "infestation": {
@@ -2497,6 +2746,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
   "ingrain": {
@@ -2507,6 +2757,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Prevents the user from leaving battle.  User regains 1/16 of its max HP every turn."
   },
   "iron-defense": {
@@ -2517,6 +2768,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises the user’s Defense by two stages."
   },
   "iron-head": {
@@ -2527,6 +2779,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "iron-tail": {
@@ -2537,6 +2790,7 @@
     "accuracy": 75,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to lower the target’s Defense by one stage."
   },
   "judgment": {
@@ -2547,6 +2801,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "If the user is holding a appropriate plate or drive, the damage inflicted will match it."
   },
   "jump-kick": {
@@ -2557,6 +2812,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "If the user misses, it takes half the damage it would have inflicted in recoil."
   },
   "karate-chop": {
@@ -2567,6 +2823,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "kinesis": {
@@ -2577,6 +2834,7 @@
     "accuracy": 80,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s accuracy by one stage."
   },
   "knock-off": {
@@ -2587,6 +2845,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Target drops its held item."
   },
   "last-resort": {
@@ -2597,6 +2856,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Can only be used after all of the user’s other moves have been used."
   },
   "lava-plume": {
@@ -2607,6 +2867,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to burn the target."
   },
   "leaf-blade": {
@@ -2617,6 +2878,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "leaf-storm": {
@@ -2627,6 +2889,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
   "leaf-tornado": {
@@ -2637,6 +2900,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 50% chance to lower the target’s accuracy by one stage."
   },
   "leech-life": {
@@ -2647,6 +2911,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Drains half the damage inflicted to heal the user."
   },
   "leech-seed": {
@@ -2657,6 +2922,7 @@
     "accuracy": 90,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Seeds the target, stealing HP from it every turn."
   },
   "leer": {
@@ -2667,6 +2933,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Lowers the target’s Defense by one stage."
   },
   "lick": {
@@ -2677,6 +2944,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "light-screen": {
@@ -2687,6 +2955,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Reduces damage from special attacks by 50% for five turns."
   },
   "lock-on": {
@@ -2697,6 +2966,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Ensures that the user’s next move will hit the target."
   },
   "lovely-kiss": {
@@ -2707,6 +2977,7 @@
     "accuracy": 75,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "low-kick": {
@@ -2717,6 +2988,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts more damage to heavier targets, with a maximum of 120 power."
   },
   "low-sweep": {
@@ -2727,6 +2999,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s Speed by one stage."
   },
   "lucky-chant": {
@@ -2737,6 +3010,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Prevents the target from scoring critical hits for five turns."
   },
   "lunar-dance": {
@@ -2747,6 +3021,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User faints, and its replacement is fully healed."
   },
   "lunge": {
@@ -2757,6 +3032,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s Attack by one stage after inflicting damage."
   },
   "mach-punch": {
@@ -2767,6 +3043,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "magic-coat": {
@@ -2777,6 +3054,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 4,
     "description": "Reflects back the first effect move used on the user this turn."
   },
   "magic-room": {
@@ -2787,6 +3065,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Negates held items for five turns."
   },
   "magical-leaf": {
@@ -2797,6 +3076,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "magma-storm": {
@@ -2807,6 +3087,7 @@
     "accuracy": 75,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
   "magnet-bomb": {
@@ -2817,6 +3098,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "magnet-rise": {
@@ -2827,6 +3109,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User is immune to Ground moves and effects for five turns."
   },
   "magnitude": {
@@ -2837,6 +3120,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 0,
     "description": "Power varies randomly from 10 to 150."
   },
   "me-first": {
@@ -2847,6 +3131,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Uses the target’s move against it before it attacks, with power increased by half."
   },
   "mean-look": {
@@ -2857,6 +3142,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Prevents the target from leaving battle."
   },
   "meditate": {
@@ -2867,6 +3153,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Raises the user’s Attack by one stage."
   },
   "mega-drain": {
@@ -2877,6 +3164,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Drains half the damage inflicted to heal the user."
   },
   "megahorn": {
@@ -2887,6 +3175,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "memento": {
@@ -2897,6 +3186,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Lowers the target’s Attack and Special Attack by two stages.  User faints."
   },
   "metal-burst": {
@@ -2907,6 +3197,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Strikes back at the last Pokémon to hit the user this turn with 1.5× the damage."
   },
   "metal-claw": {
@@ -2917,6 +3208,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Has a 10% chance to raise the user’s Attack by one stage."
   },
   "meteor-mash": {
@@ -2927,6 +3219,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 20% chance to raise the user’s Attack by one stage."
   },
   "metronome": {
@@ -2937,6 +3230,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Randomly selects and uses any move in the game."
   },
   "milk-drink": {
@@ -2947,6 +3241,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP."
   },
   "mimic": {
@@ -2957,6 +3252,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Copies the target’s last used move."
   },
   "mind-reader": {
@@ -2967,6 +3263,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Ensures that the user’s next move will hit the target."
   },
   "minimize": {
@@ -2977,6 +3274,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Raises the user’s evasion by two stages."
   },
   "miracle-eye": {
@@ -2987,6 +3285,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Forces the target to have no evasion, and allows it to be hit by Psychic moves even if it’s Dark."
   },
   "mirror-coat": {
@@ -2997,6 +3296,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": -5,
     "description": "Inflicts twice the damage the user received from the last special hit it took."
   },
   "mirror-move": {
@@ -3007,6 +3307,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Uses the target’s last used move."
   },
   "mirror-shot": {
@@ -3017,6 +3318,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to lower the target’s accuracy by one stage."
   },
   "mist": {
@@ -3027,6 +3329,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Protects the user’s stats from being changed by enemy moves."
   },
   "moonblast": {
@@ -3037,6 +3340,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to lower the target’s Special Attack by one stage."
   },
   "moonlight": {
@@ -3047,6 +3351,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP.  Affected by weather."
   },
   "morning-sun": {
@@ -3057,6 +3362,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP.  Affected by weather."
   },
   "mud-bomb": {
@@ -3067,6 +3373,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to lower the target’s accuracy by one stage."
   },
   "mud-shot": {
@@ -3077,6 +3384,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
   "mud-slap": {
@@ -3087,6 +3395,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s accuracy by one stage."
   },
   "muddy-water": {
@@ -3097,6 +3406,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to lower the target’s accuracy by one stage."
   },
   "mystical-fire": {
@@ -3107,6 +3417,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Special Attack by one stage."
   },
   "nasty-plot": {
@@ -3117,6 +3428,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Special Attack by two stages."
   },
   "natural-gift": {
@@ -3127,6 +3439,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Power and type depend on the held berry."
   },
   "nature-power": {
@@ -3137,6 +3450,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Uses a move which depends upon the terrain."
   },
   "needle-arm": {
@@ -3147,6 +3461,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "night-daze": {
@@ -3157,6 +3472,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 40% chance to lower the target’s accuracy by one stage."
   },
   "night-shade": {
@@ -3167,6 +3483,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts damage equal to the user’s level."
   },
   "night-slash": {
@@ -3177,6 +3494,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "nightmare": {
@@ -3187,6 +3505,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Target loses 1/4 its max HP every turn as long as it’s asleep."
   },
   "nuzzle": {
@@ -3197,6 +3516,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 100% chance to paralyze the target."
   },
   "octazooka": {
@@ -3207,6 +3527,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 50% chance to lower the target’s accuracy by one stage."
   },
   "odor-sleuth": {
@@ -3217,6 +3538,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Forces the target to have no Evade, and allows it to be hit by Normal and Fighting moves even if it’s a Ghost."
   },
   "ominous-wind": {
@@ -3227,6 +3549,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 10% chance to raise all of the user’s stats by one stage."
   },
   "outrage": {
@@ -3237,6 +3560,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits every turn for 2-3 turns, then confuses the user."
   },
   "overheat": {
@@ -3247,6 +3571,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
   "pain-split": {
@@ -3257,6 +3582,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Sets the user’s and targets’s HP to the average of their current HP."
   },
   "pay-day": {
@@ -3267,6 +3593,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Scatters money on the ground worth five times the user’s level."
   },
   "payback": {
@@ -3277,6 +3604,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Power is doubled if the target has already moved this turn."
   },
   "peck": {
@@ -3287,6 +3615,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "perish-song": {
@@ -3297,6 +3626,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "User and target both faint after three turns."
   },
   "petal-dance": {
@@ -3307,6 +3637,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Hits every turn for 2-3 turns, then confuses the user."
   },
   "pin-missile": {
@@ -3317,6 +3648,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "play-rough": {
@@ -3327,6 +3659,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Attack by one stage."
   },
   "pluck": {
@@ -3337,6 +3670,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "If target has a berry, inflicts double damage and uses the berry."
   },
   "poison-fang": {
@@ -3347,6 +3681,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 50% chance to badly poison the target."
   },
   "poison-gas": {
@@ -3357,6 +3692,7 @@
     "accuracy": 90,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Poisons the target."
   },
   "poison-jab": {
@@ -3367,6 +3703,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to poison the target."
   },
   "poison-powder": {
@@ -3377,6 +3714,7 @@
     "accuracy": 75,
     "damageClass": "status",
     "pp": 35,
+    "priority": 0,
     "description": "Poisons the target."
   },
   "poison-sting": {
@@ -3387,6 +3725,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Has a 30% chance to poison the target."
   },
   "poison-tail": {
@@ -3397,6 +3736,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit and a 10% chance to poison the target."
   },
   "pound": {
@@ -3407,6 +3747,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "powder-snow": {
@@ -3417,6 +3758,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 10% chance to freeze the target."
   },
   "power-gem": {
@@ -3427,6 +3769,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "power-split": {
@@ -3437,6 +3780,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Averages Attack and Special Attack with the target."
   },
   "power-swap": {
@@ -3447,6 +3791,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User swaps Attack and Special Attack changes with the target."
   },
   "power-trick": {
@@ -3457,6 +3802,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User swaps Attack and Defense."
   },
   "power-whip": {
@@ -3467,6 +3813,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "power-up-punch": {
@@ -3477,6 +3824,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Attack by one stage after inflicting damage."
   },
   "present": {
@@ -3487,6 +3835,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Randomly inflicts damage with power from 40 to 120 or heals the target for 1/4 its max HP."
   },
   "protect": {
@@ -3497,6 +3846,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 4,
     "description": "Prevents any moves from hitting the user this turn."
   },
   "psybeam": {
@@ -3507,6 +3857,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 10% chance to confuse the target."
   },
   "psych-up": {
@@ -3517,6 +3868,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Discards the user’s stat changes and copies the target’s."
   },
   "psychic": {
@@ -3527,6 +3879,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
   "psychic-fangs": {
@@ -3537,6 +3890,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Destroys Reflect and Light Screen."
   },
   "psycho-boost": {
@@ -3547,6 +3901,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
   "psycho-cut": {
@@ -3557,6 +3912,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "psycho-shift": {
@@ -3567,6 +3923,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Transfers the user’s major status effect to the target."
   },
   "psyshield-bash": {
@@ -3577,6 +3934,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": ""
   },
   "psystrike": {
@@ -3587,6 +3945,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts damage based on the target’s Defense, not Special Defense."
   },
   "psywave": {
@@ -3597,6 +3956,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts damage between 50% and 150% of the user’s level."
   },
   "pursuit": {
@@ -3607,6 +3967,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has double power against, and can hit, Pokémon attempting to switch out."
   },
   "quash": {
@@ -3617,6 +3978,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Makes the target act last this turn."
   },
   "quick-attack": {
@@ -3627,6 +3989,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "quick-guard": {
@@ -3637,6 +4000,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 3,
     "description": "Prevents any priority moves from hitting friendly Pokémon this turn."
   },
   "quiver-dance": {
@@ -3647,6 +4011,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Special Attack, Special Defense, and Speed by one stage each."
   },
   "rage": {
@@ -3657,6 +4022,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "If the user is hit after using this move, its Attack rises by one stage."
   },
   "rage-powder": {
@@ -3667,6 +4033,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 2,
     "description": "Redirects the target’s single-target effects to the user for this turn."
   },
   "raging-fury": {
@@ -3677,6 +4044,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": ""
   },
   "rain-dance": {
@@ -3687,6 +4055,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Changes the weather to rain for five turns."
   },
   "rapid-spin": {
@@ -3697,6 +4066,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 40,
+    "priority": 0,
     "description": "Frees the user from binding moves, removes Leech Seed, and blows away Spikes."
   },
   "razor-leaf": {
@@ -3707,6 +4077,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "razor-shell": {
@@ -3717,6 +4088,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
   "recover": {
@@ -3727,6 +4099,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP."
   },
   "recycle": {
@@ -3737,6 +4110,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User recovers the item it last used up."
   },
   "reflect": {
@@ -3747,6 +4121,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Reduces damage from physical attacks by half."
   },
   "reflect-type": {
@@ -3757,6 +4132,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "User becomes the target’s type."
   },
   "refresh": {
@@ -3767,6 +4143,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Cleanses the user of a burn, paralysis, or poison."
   },
   "relic-song": {
@@ -3777,6 +4154,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to put the target to sleep."
   },
   "rest": {
@@ -3787,6 +4165,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "User sleeps for two turns, completely healing itself."
   },
   "retaliate": {
@@ -3797,6 +4176,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Has double power if a friendly Pokémon fainted last turn."
   },
   "revenge": {
@@ -3807,6 +4187,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": -4,
     "description": "Inflicts double damage if the user takes damage before attacking this turn."
   },
   "reversal": {
@@ -3817,6 +4198,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts more damage when the user has less HP remaining, with a maximum of 200 power."
   },
   "roar": {
@@ -3827,6 +4209,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": -6,
     "description": "Immediately ends wild battles.  Forces trainers to switch Pokémon."
   },
   "roar-of-time": {
@@ -3837,6 +4220,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "User foregoes its next turn to recharge."
   },
   "rock-blast": {
@@ -3847,6 +4231,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "rock-climb": {
@@ -3857,6 +4242,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 20% chance to confuse the target."
   },
   "rock-polish": {
@@ -3867,6 +4253,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Speed by two stages."
   },
   "rock-slide": {
@@ -3877,6 +4264,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "rock-smash": {
@@ -3887,6 +4275,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
   "rock-throw": {
@@ -3897,6 +4286,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "rock-tomb": {
@@ -3907,6 +4297,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
   "rock-wrecker": {
@@ -3917,6 +4308,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User foregoes its next turn to recharge."
   },
   "role-play": {
@@ -3927,6 +4319,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Copies the target’s ability."
   },
   "rollout": {
@@ -3937,6 +4330,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Power doubles every turn this move is used in succession after the first, resetting after five turns."
   },
   "roost": {
@@ -3947,6 +4341,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP."
   },
   "sacred-sword": {
@@ -3957,6 +4352,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Ignores the target’s stat modifiers."
   },
   "safeguard": {
@@ -3967,6 +4363,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 25,
+    "priority": 0,
     "description": "Protects the user’s field from major status ailments and confusion for five turns."
   },
   "sand-attack": {
@@ -3977,6 +4374,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Lowers the target’s accuracy by one stage."
   },
   "sandstorm": {
@@ -3987,6 +4385,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Changes the weather to a sandstorm for five turns."
   },
   "scald": {
@@ -3997,6 +4396,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 30% chance to burn the target."
   },
   "scary-face": {
@@ -4007,6 +4407,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Lowers the target’s Speed by two stages."
   },
   "scorching-sands": {
@@ -4017,6 +4418,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to burn the target."
   },
   "scratch": {
@@ -4027,6 +4429,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "screech": {
@@ -4037,6 +4440,7 @@
     "accuracy": 85,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Lowers the target’s Defense by two stages."
   },
   "searing-shot": {
@@ -4047,6 +4451,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 30% chance to burn the target."
   },
   "secret-power": {
@@ -4057,6 +4462,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to inflict a status effect which depends upon the terrain."
   },
   "secret-sword": {
@@ -4067,6 +4473,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts damage based on the target’s Defense, not Special Defense."
   },
   "seed-bomb": {
@@ -4077,6 +4484,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "seismic-toss": {
@@ -4087,6 +4495,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts damage equal to the user’s level."
   },
   "self-destruct": {
@@ -4097,6 +4506,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User faints."
   },
   "shadow-ball": {
@@ -4107,6 +4517,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 20% chance to lower the target’s Special Defense by one stage."
   },
   "shadow-claw": {
@@ -4117,6 +4528,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "shadow-force": {
@@ -4127,6 +4539,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User vanishes, dodging all attacks, and hits next turn.  Hits through Protect and Detect."
   },
   "shadow-punch": {
@@ -4137,6 +4550,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "shadow-sneak": {
@@ -4147,6 +4561,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 30,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "sheer-cold": {
@@ -4157,6 +4572,7 @@
     "accuracy": 30,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Causes a one-hit KO."
   },
   "shell-smash": {
@@ -4167,6 +4583,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises user’s Attack, Special Attack, and Speed by two stages.  Lower user’s Defense and Special Defense by one stage."
   },
   "shift-gear": {
@@ -4177,6 +4594,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Raises the user’s Attack by one stage and its Speed by two stages."
   },
   "shock-wave": {
@@ -4187,6 +4605,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "signal-beam": {
@@ -4197,6 +4616,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to confuse the target."
   },
   "silver-wind": {
@@ -4207,6 +4627,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 10% chance to raise all of the user’s stats by one stage."
   },
   "simple-beam": {
@@ -4217,6 +4638,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Changes the target’s ability to Simple."
   },
   "sing": {
@@ -4227,6 +4649,7 @@
     "accuracy": 55,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "sketch": {
@@ -4237,6 +4660,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 1,
+    "priority": 0,
     "description": "Permanently becomes the target’s last used move."
   },
   "skill-swap": {
@@ -4247,6 +4671,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User and target swap abilities."
   },
   "skull-bash": {
@@ -4257,6 +4682,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Raises the user’s Defense by one stage.  User charges for one turn before attacking."
   },
   "sky-attack": {
@@ -4267,6 +4693,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "User charges for one turn before attacking.  Has a 30% chance to make the target flinch."
   },
   "sky-uppercut": {
@@ -4277,6 +4704,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage and can hit Bounce and Fly users."
   },
   "slack-off": {
@@ -4287,6 +4715,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP."
   },
   "slash": {
@@ -4297,6 +4726,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "sleep-powder": {
@@ -4307,6 +4737,7 @@
     "accuracy": 75,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "sludge": {
@@ -4317,6 +4748,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to poison the target."
   },
   "sludge-bomb": {
@@ -4327,6 +4759,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to poison the target."
   },
   "sludge-wave": {
@@ -4337,6 +4770,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 10% chance to poison the target."
   },
   "smack-down": {
@@ -4347,6 +4781,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Removes any immunity to Ground damage."
   },
   "smart-strike": {
@@ -4357,6 +4792,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Never misses."
   },
   "smog": {
@@ -4367,6 +4803,7 @@
     "accuracy": 70,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 40% chance to poison the target."
   },
   "smokescreen": {
@@ -4377,6 +4814,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s accuracy by one stage."
   },
   "snarl": {
@@ -4387,6 +4825,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Special Attack by one stage."
   },
   "snatch": {
@@ -4397,6 +4836,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 4,
     "description": "Steals the target’s move, if it’s self-targeted."
   },
   "soak": {
@@ -4407,6 +4847,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Changes the target’s type to Water."
   },
   "soft-boiled": {
@@ -4417,6 +4858,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP."
   },
   "solar-beam": {
@@ -4427,6 +4869,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Requires a turn to charge before attacking."
   },
   "sonic-boom": {
@@ -4437,6 +4880,7 @@
     "accuracy": 90,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Inflicts 20 points of damage."
   },
   "spacial-rend": {
@@ -4447,6 +4891,7 @@
     "accuracy": 95,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "spark": {
@@ -4457,6 +4902,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "spider-web": {
@@ -4467,6 +4913,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Prevents the target from leaving battle."
   },
   "spikes": {
@@ -4477,6 +4924,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Scatters Spikes, hurting opposing Pokémon that switch in."
   },
   "spit-up": {
@@ -4487,6 +4935,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Power is 100 times the amount of energy Stockpiled."
   },
   "spite": {
@@ -4497,6 +4946,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Lowers the PP of the target’s last used move by 4."
   },
   "splash": {
@@ -4507,6 +4957,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Does nothing."
   },
   "spore": {
@@ -4517,6 +4968,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Puts the target to sleep."
   },
   "stealth-rock": {
@@ -4527,6 +4979,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Causes damage when opposing Pokémon switch in."
   },
   "steamroller": {
@@ -4537,6 +4990,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "steel-wing": {
@@ -4547,6 +5001,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Has a 10% chance to raise the user’s Defense by one stage."
   },
   "stockpile": {
@@ -4557,6 +5012,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Stores energy up to three times for use with Spit Up and Swallow."
   },
   "stomp": {
@@ -4567,6 +5023,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 30% chance to make the target flinch."
   },
   "stone-edge": {
@@ -4577,6 +5034,7 @@
     "accuracy": 80,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Has an increased chance for a critical hit."
   },
   "stored-power": {
@@ -4587,6 +5045,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Power is higher the more the user’s stats have been raised, to a maximum of 31×."
   },
   "storm-throw": {
@@ -4597,6 +5056,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Always scores a critical hit."
   },
   "strength": {
@@ -4607,6 +5067,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "string-shot": {
@@ -4617,6 +5078,7 @@
     "accuracy": 95,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Lowers the target’s Speed by two stages."
   },
   "struggle-bug": {
@@ -4627,6 +5089,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 100% chance to lower the target’s Special Attack by one stage."
   },
   "stun-spore": {
@@ -4637,6 +5100,7 @@
     "accuracy": 75,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Paralyzes the target."
   },
   "substitute": {
@@ -4647,6 +5111,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Transfers 1/4 of the user’s max HP into a doll, protecting the user from further damage or status changes until it breaks."
   },
   "sucker-punch": {
@@ -4657,6 +5122,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 1,
     "description": "Only works if the target is about to use a damaging move."
   },
   "sunny-day": {
@@ -4667,6 +5133,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Changes the weather to sunny for five turns."
   },
   "super-fang": {
@@ -4677,6 +5144,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts damage equal to half the target’s HP."
   },
   "superpower": {
@@ -4687,6 +5155,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Attack and Defense by one stage after inflicting damage."
   },
   "supersonic": {
@@ -4697,6 +5166,7 @@
     "accuracy": 55,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Confuses the target."
   },
   "surf": {
@@ -4707,6 +5177,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage and can hit Dive users."
   },
   "swagger": {
@@ -4717,6 +5188,7 @@
     "accuracy": 85,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Raises the target’s Attack by two stages and confuses the target."
   },
   "swallow": {
@@ -4727,6 +5199,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Recovers 1/4 HP after one Stockpile, 1/2 HP after two Stockpiles, or full HP after three Stockpiles."
   },
   "sweet-scent": {
@@ -4737,6 +5210,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s evasion by one stage."
   },
   "swift": {
@@ -4747,6 +5221,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Never misses."
   },
   "switcheroo": {
@@ -4757,6 +5232,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User and target swap items."
   },
   "swords-dance": {
@@ -4767,6 +5243,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Attack by two stages."
   },
   "synchronoise": {
@@ -4777,6 +5254,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Hits any Pokémon that shares a type with the user."
   },
   "synthesis": {
@@ -4787,6 +5265,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": 0,
     "description": "Heals the user by half its max HP.  Affected by weather."
   },
   "tackle": {
@@ -4797,6 +5276,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "tail-glow": {
@@ -4807,6 +5287,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Raises the user’s Special Attack by three stages."
   },
   "tail-slap": {
@@ -4817,6 +5298,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Hits 2-5 times in one turn."
   },
   "tail-whip": {
@@ -4827,6 +5309,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Lowers the target’s Defense by one stage."
   },
   "tailwind": {
@@ -4837,6 +5320,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "For three turns, friendly Pokémon have doubled Speed."
   },
   "take-down": {
@@ -4847,6 +5331,7 @@
     "accuracy": 85,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
   "taunt": {
@@ -4857,6 +5342,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "For the next few turns, the target can only use damaging moves."
   },
   "techno-blast": {
@@ -4867,6 +5353,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "If the user is holding a appropriate plate or drive, the damage inflicted will match it."
   },
   "teeter-dance": {
@@ -4877,6 +5364,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Confuses the target."
   },
   "telekinesis": {
@@ -4887,6 +5375,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Moves have 100% accuracy against the target for three turns."
   },
   "teleport": {
@@ -4897,6 +5386,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": -6,
     "description": "Immediately ends wild battles.  No effect otherwise."
   },
   "thunder": {
@@ -4907,6 +5397,7 @@
     "accuracy": 70,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 30% chance to paralyze the target."
   },
   "thunder-fang": {
@@ -4917,6 +5408,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to paralyze the target and a 10% chance to make the target flinch."
   },
   "thunder-punch": {
@@ -4927,6 +5419,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to paralyze the target."
   },
   "thunder-shock": {
@@ -4937,6 +5430,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 30,
+    "priority": 0,
     "description": "Has a 10% chance to paralyze the target."
   },
   "thunder-wave": {
@@ -4947,6 +5441,7 @@
     "accuracy": 90,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Paralyzes the target."
   },
   "thunderbolt": {
@@ -4957,6 +5452,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 10% chance to paralyze the target."
   },
   "tickle": {
@@ -4967,6 +5463,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Lowers the target’s Attack and Defense by one stage."
   },
   "torment": {
@@ -4977,6 +5474,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Prevents the target from using the same move twice in a row."
   },
   "toxic": {
@@ -4987,6 +5485,7 @@
     "accuracy": 90,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Badly poisons the target, inflicting more damage every turn."
   },
   "toxic-spikes": {
@@ -4997,6 +5496,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": 0,
     "description": "Scatters poisoned spikes, poisoning opposing Pokémon that switch in."
   },
   "transform": {
@@ -5007,6 +5507,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User becomes a copy of the target until it leaves battle."
   },
   "tri-attack": {
@@ -5017,6 +5518,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Has a 20% chance to burn, freeze, or paralyze the target."
   },
   "trick": {
@@ -5027,6 +5529,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User and target swap items."
   },
   "trick-room": {
@@ -5037,6 +5540,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 5,
+    "priority": -7,
     "description": "For five turns, slower Pokémon will act before faster Pokémon."
   },
   "triple-axel": {
@@ -5047,6 +5551,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "trump-card": {
@@ -5057,6 +5562,7 @@
     "accuracy": null,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Power increases when this move has less PP, up to a maximum of 200."
   },
   "twineedle": {
@@ -5067,6 +5573,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Hits twice in the same turn.  Has a 20% chance to poison the target."
   },
   "twister": {
@@ -5077,6 +5584,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 20% chance to make the target flinch."
   },
   "u-turn": {
@@ -5087,6 +5595,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "User must switch out after attacking."
   },
   "uproar": {
@@ -5097,6 +5606,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Forced to use this move for several turns.  Pokémon cannot fall asleep in that time."
   },
   "v-create": {
@@ -5107,6 +5617,7 @@
     "accuracy": 95,
     "damageClass": "physical",
     "pp": 5,
+    "priority": 0,
     "description": "Lowers the user’s Defense, Special Defense, and Speed by one stage each."
   },
   "vacuum-wave": {
@@ -5117,6 +5628,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 30,
+    "priority": 1,
     "description": "Inflicts regular damage with no additional effect."
   },
   "venoshock": {
@@ -5127,6 +5639,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "Inflicts double damage if the target is Poisoned."
   },
   "vine-whip": {
@@ -5137,6 +5650,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 25,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "vital-throw": {
@@ -5147,6 +5661,7 @@
     "accuracy": null,
     "damageClass": "physical",
     "pp": 10,
+    "priority": -1,
     "description": "Never misses."
   },
   "volt-switch": {
@@ -5157,6 +5672,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "User must switch out after attacking."
   },
   "volt-tackle": {
@@ -5167,6 +5683,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User takes 1/3 the damage inflicted in recoil.  Has a 10% chance to paralyze the target."
   },
   "wake-up-slap": {
@@ -5177,6 +5694,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": "If the target is asleep, has double power and wakes it up."
   },
   "water-gun": {
@@ -5187,6 +5705,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 25,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "water-pledge": {
@@ -5197,6 +5716,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "With Grass Pledge, halves opposing Pokémon’s Speed for four turns."
   },
   "water-pulse": {
@@ -5207,6 +5727,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 20,
+    "priority": 0,
     "description": "Has a 20% chance to confuse the target."
   },
   "water-spout": {
@@ -5217,6 +5738,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Inflicts more damage when the user has more HP remaining, with a maximum of 150 power."
   },
   "waterfall": {
@@ -5227,6 +5749,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 20% chance to make the target flinch."
   },
   "wave-crash": {
@@ -5237,6 +5760,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 10,
+    "priority": 0,
     "description": ""
   },
   "weather-ball": {
@@ -5247,6 +5771,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 10,
+    "priority": 0,
     "description": "If there be weather, this move has doubled power and the weather’s type."
   },
   "whirlpool": {
@@ -5257,6 +5782,7 @@
     "accuracy": 85,
     "damageClass": "special",
     "pp": 15,
+    "priority": 0,
     "description": "Prevents the target from leaving battle and inflicts 1/16 its max HP in damage for 2-5 turns."
   },
   "whirlwind": {
@@ -5267,6 +5793,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 20,
+    "priority": -6,
     "description": "Immediately ends wild battles.  Forces trainers to switch Pokémon."
   },
   "wide-guard": {
@@ -5277,6 +5804,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 3,
     "description": "Prevents any multi-target moves from hitting friendly Pokémon this turn."
   },
   "wild-charge": {
@@ -5287,6 +5815,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
   "will-o-wisp": {
@@ -5297,6 +5826,7 @@
     "accuracy": 85,
     "damageClass": "status",
     "pp": 15,
+    "priority": 0,
     "description": "Burns the target."
   },
   "wing-attack": {
@@ -5307,6 +5837,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 35,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "wish": {
@@ -5317,6 +5848,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "User will recover half its max HP at the end of the next turn."
   },
   "withdraw": {
@@ -5327,6 +5859,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 40,
+    "priority": 0,
     "description": "Raises the user’s Defense by one stage."
   },
   "wonder-room": {
@@ -5337,6 +5870,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "All Pokémon’s Defense and Special Defense are swapped for 5 turns."
   },
   "wood-hammer": {
@@ -5347,6 +5881,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "User receives 1/3 the damage inflicted in recoil."
   },
   "work-up": {
@@ -5357,6 +5892,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 30,
+    "priority": 0,
     "description": "Raises the user’s Attack and Special Attack by one stage each."
   },
   "worry-seed": {
@@ -5367,6 +5903,7 @@
     "accuracy": 100,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Changes the target’s ability to Insomnia."
   },
   "wrap": {
@@ -5377,6 +5914,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 20,
+    "priority": 0,
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
   "wring-out": {
@@ -5387,6 +5925,7 @@
     "accuracy": 100,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Power increases against targets with more HP remaining, up to a maximum of 121 power."
   },
   "x-scissor": {
@@ -5397,6 +5936,7 @@
     "accuracy": 100,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Inflicts regular damage with no additional effect."
   },
   "yawn": {
@@ -5407,6 +5947,7 @@
     "accuracy": null,
     "damageClass": "status",
     "pp": 10,
+    "priority": 0,
     "description": "Target sleeps at the end of the next turn."
   },
   "zap-cannon": {
@@ -5417,6 +5958,7 @@
     "accuracy": 50,
     "damageClass": "special",
     "pp": 5,
+    "priority": 0,
     "description": "Has a 100% chance to paralyze the target."
   },
   "zen-headbutt": {
@@ -5427,6 +5969,7 @@
     "accuracy": 90,
     "damageClass": "physical",
     "pp": 15,
+    "priority": 0,
     "description": "Has a 20% chance to make the target flinch."
   }
 }

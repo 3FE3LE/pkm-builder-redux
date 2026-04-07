@@ -36,15 +36,16 @@ describe("LevelUpMoveModal", () => {
         queuedMoves={[
           {
             level: 7,
-            move: "Vine Whip",
+            move: "Mach Punch",
             details: {
-              name: "Vine Whip",
-              type: "Grass",
+              name: "Mach Punch",
+              type: "Fighting",
               damageClass: "physical",
-              power: 45,
+              power: 40,
               accuracy: 100,
-              pp: 25,
-              description: "A basic Grass attack.",
+              pp: 30,
+              priority: 1,
+              description: "A quick strike.",
             },
           },
         ]}
@@ -55,6 +56,7 @@ describe("LevelUpMoveModal", () => {
       />,
     );
 
+    expect(screen.getByText("Pri +1")).toBeTruthy();
     await user.click(screen.getByRole("button", { name: /aprender/i }));
 
     expect(onLearn).toHaveBeenCalled();

@@ -64,6 +64,7 @@ export type RemoteMove = {
   power?: number | null;
   accuracy?: number | null;
   pp?: number | null;
+  priority?: number | null;
   description?: string;
 };
 
@@ -132,6 +133,7 @@ export type ResolvedTeamMember = {
     powerModifiers?: { source: string; multiplier: number; label: string }[];
     accuracy?: number | null;
     pp?: number | null;
+    priority?: number | null;
     description?: string;
   }[];
 };

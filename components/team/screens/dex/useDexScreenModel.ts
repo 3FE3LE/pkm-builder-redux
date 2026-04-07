@@ -41,6 +41,7 @@ export type DexMovesPayload = {
     power?: number | null;
     accuracy?: number | null;
     pp?: number | null;
+    priority?: number | null;
     description?: string;
   }>;
   ownersByMove: Record<string, { levelUp: string[]; machines: string[] }>;

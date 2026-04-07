@@ -40,6 +40,7 @@ test("weather ball changes type and power with weather", () => {
       type: "Water",
       power: 100,
       accuracy: 100,
+      priority: null,
       damageClass: "special",
     },
   );

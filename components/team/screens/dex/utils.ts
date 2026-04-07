@@ -186,6 +186,8 @@ export function resolveDexMoveCardData(
       damageClass: string;
       power?: number | null;
       accuracy?: number | null;
+      pp?: number | null;
+      priority?: number | null;
       description?: string;
     }
   >,

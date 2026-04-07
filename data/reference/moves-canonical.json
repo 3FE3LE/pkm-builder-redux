@@ -6,6 +6,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "special",
     "description": "Drains half the damage inflicted to heal the user."
   },
@@ -16,6 +17,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -26,6 +28,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -36,6 +39,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense by two stages."
   },
@@ -46,6 +50,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the target’s Special Defense by two stages."
   },
@@ -56,6 +61,7 @@
     "power": 55,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has double power if the user has no held item."
   },
@@ -66,6 +72,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises one of a friendly Pokémon’s stats at random by two stages."
   },
@@ -76,6 +83,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Never misses."
   },
@@ -86,6 +94,7 @@
     "power": 100,
     "accuracy": 95,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has an increased chance for a critical hit."
   },
@@ -96,6 +105,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Makes the target act next this turn."
   },
@@ -106,6 +116,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Speed by two stages."
   },
@@ -116,6 +127,7 @@
     "power": 60,
     "accuracy": 95,
     "pp": 25,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has an increased chance for a critical hit."
   },
@@ -126,6 +138,7 @@
     "power": 75,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -136,6 +149,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 2,
     "damageClass": "status",
     "description": "User switches places with the friendly Pokémon opposite it."
   },
@@ -146,6 +160,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Special Defense by two stages."
   },
@@ -156,6 +171,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to raise all of the user’s stats by one stage."
   },
@@ -166,6 +182,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -176,6 +193,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Restores 1/16 of the user’s max HP each turn."
   },
@@ -186,6 +204,7 @@
     "power": 90,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -196,6 +215,7 @@
     "power": 15,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -206,6 +226,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Cures the entire party of major status effects."
   },
@@ -216,6 +237,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Randomly selects and uses one of the trainer’s other Pokémon’s moves."
   },
@@ -226,6 +248,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power is doubled if the target has already received damage this turn."
   },
@@ -236,6 +259,7 @@
     "power": 30,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -246,6 +270,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -256,6 +281,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Target falls in love if it has the opposite gender, and has a 50% chance to refuse attacking the user."
   },
@@ -266,6 +292,7 @@
     "power": 80,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Never misses."
   },
@@ -276,6 +303,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Attack by one stage."
   },
@@ -286,6 +314,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Speed by two stages and halves the user’s weight."
   },
@@ -296,6 +325,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10,
+    "priority": -4,
     "damageClass": "physical",
     "description": "Inflicts double damage if the user takes damage before attacking this turn."
   },
@@ -306,6 +336,7 @@
     "power": 15,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -316,6 +347,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense by two stages."
   },
@@ -326,6 +358,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Allows the trainer to switch out the user and pass effects along to its replacement."
   },
@@ -336,6 +369,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits once for every conscious Pokémon the trainer has."
   },
@@ -346,6 +380,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User pays half its max HP to max out its Attack."
   },
@@ -356,6 +391,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Gives the user’s held item to the target."
   },
@@ -366,6 +402,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 1,
     "damageClass": "physical",
     "description": "User waits for two turns, then hits back for twice the damage it took."
   },
@@ -376,6 +413,7 @@
     "power": 15,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -386,6 +424,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -396,6 +435,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "User foregoes its next turn to recharge."
   },
@@ -406,6 +446,7 @@
     "power": 85,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit and a 10% chance to burn the target."
   },
@@ -416,6 +457,7 @@
     "power": 110,
     "accuracy": 70,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to freeze the target."
   },
@@ -426,6 +468,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the target from leaving battle."
   },
@@ -436,6 +479,7 @@
     "power": 130,
     "accuracy": 85,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 20% chance to burn the target."
   },
@@ -446,6 +490,7 @@
     "power": 85,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -456,6 +501,7 @@
     "power": 130,
     "accuracy": 85,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to paralyze the target."
   },
@@ -466,6 +512,7 @@
     "power": 65,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to make the target flinch."
   },
@@ -476,6 +523,7 @@
     "power": 25,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -486,6 +534,7 @@
     "power": 50,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits twice in one turn."
   },
@@ -496,6 +545,7 @@
     "power": 140,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage."
   },
@@ -506,6 +556,7 @@
     "power": 85,
     "accuracy": 85,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User bounces high into the air, dodging all attacks, and hits next turn."
   },
@@ -516,6 +567,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/3 the damage inflicted in recoil."
   },
@@ -526,6 +578,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the target’s Attack by one stage after inflicting damage."
   },
@@ -536,6 +589,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Destroys Reflect and Light Screen."
   },
@@ -546,6 +600,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has double power against Pokémon that have less than half their max HP remaining."
   },
@@ -556,6 +611,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -566,6 +622,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Speed by one stage."
   },
@@ -576,6 +633,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Speed by one stage."
   },
@@ -586,6 +644,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If target has a berry, inflicts double damage and uses the berry."
   },
@@ -596,6 +655,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -606,6 +666,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack and Defense by one stage."
   },
@@ -616,6 +677,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
@@ -626,6 +688,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -636,6 +699,7 @@
     "power": 25,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -646,6 +710,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Special Attack and Special Defense by one stage."
   },
@@ -656,6 +721,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "User’s type changes to match the terrain."
   },
@@ -666,6 +732,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Special Attack by two stages if it’s the opposite gender."
   },
@@ -676,6 +743,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Special Defense by one stage.  User’s Electric moves have doubled power next turn."
   },
@@ -686,6 +754,7 @@
     "power": 50,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 70% chance to raise the user’s Special Attack by one stage."
   },
@@ -696,6 +765,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Attack by two stages."
   },
@@ -706,6 +776,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a higher chance to confuse the target when the recorded sound is louder."
   },
@@ -716,6 +787,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Ignores the target’s stat modifiers."
   },
@@ -726,6 +798,7 @@
     "power": 60,
     "accuracy": 90,
     "pp": 10,
+    "priority": -6,
     "damageClass": "physical",
     "description": "Ends wild battles.  Forces trainers to switch Pokémon."
   },
@@ -736,6 +809,7 @@
     "power": 35,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -746,6 +820,7 @@
     "power": 50,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Removes all of the target’s stat modifiers."
   },
@@ -756,6 +831,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the user’s Defense and Special Defense by one stage after inflicting damage."
   },
@@ -766,6 +842,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack, Defense, and accuracy by one stage each."
   },
@@ -776,6 +853,7 @@
     "power": 18,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -786,6 +864,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Confuses the target."
   },
@@ -796,6 +875,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to confuse the target."
   },
@@ -806,6 +886,7 @@
     "power": 10,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to lower the target’s Speed by one stage."
   },
@@ -816,6 +897,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "User’s type changes to the type of one of its moves at random."
   },
@@ -826,6 +908,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the user’s type to a random type either resistant or immune to the last move used against it."
   },
@@ -836,6 +919,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Uses the target’s last used move."
   },
@@ -846,6 +930,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense and Special Defense by one stage."
   },
@@ -856,6 +941,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense by three stages."
   },
@@ -866,6 +952,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Speed by two stages."
   },
@@ -876,6 +963,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": -5,
     "damageClass": "physical",
     "description": "Inflicts twice the damage the user received from the last physical hit it took."
   },
@@ -886,6 +974,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Takes the target’s item."
   },
@@ -896,6 +985,7 @@
     "power": 100,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -906,6 +996,7 @@
     "power": 100,
     "accuracy": 80,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -916,6 +1007,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit and a 10% chance to poison the target."
   },
@@ -926,6 +1018,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to lower the target’s Defense by one stage."
   },
@@ -936,6 +1029,7 @@
     "power": 75,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
@@ -946,6 +1040,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power increases against targets with more HP remaining, up to a maximum of 121 power."
   },
@@ -956,6 +1051,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Ghosts pay half their max HP to hurt the target every turn.  Others decrease Speed but raise Attack and Defense."
   },
@@ -966,6 +1062,7 @@
     "power": 50,
     "accuracy": 95,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -976,6 +1073,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 20% chance to make the target flinch."
   },
@@ -986,6 +1084,7 @@
     "power": null,
     "accuracy": 50,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -996,6 +1095,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1006,6 +1106,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense and Special Defense by one stage."
   },
@@ -1016,6 +1117,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises user’s Defense by one stage."
   },
@@ -1026,6 +1128,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s evasion by one stage.  Removes field effects from the enemy field."
   },
@@ -1036,6 +1139,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "If the user faints this turn, the target automatically will, too."
   },
@@ -1046,6 +1150,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 4,
     "damageClass": "status",
     "description": "Prevents any moves from hitting the user this turn."
   },
@@ -1056,6 +1161,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User digs underground, dodging all attacks, and hits next turn."
   },
@@ -1066,6 +1172,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Disables the target’s last used move for 1-8 turns."
   },
@@ -1076,6 +1183,7 @@
     "power": 40,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Never misses."
   },
@@ -1086,6 +1194,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -1096,6 +1205,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User dives underwater, dodging all attacks, and hits next turn."
   },
@@ -1106,6 +1216,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to confuse the target."
   },
@@ -1116,6 +1227,7 @@
     "power": 140,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Hits the target two turns later."
   },
@@ -1126,6 +1238,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/3 the damage inflicted in recoil."
   },
@@ -1136,6 +1249,7 @@
     "power": 35,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits twice in one turn."
   },
@@ -1146,6 +1260,7 @@
     "power": 30,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits twice in one turn."
   },
@@ -1156,6 +1271,7 @@
     "power": 15,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -1166,6 +1282,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s evasion by one stage."
   },
@@ -1176,6 +1293,7 @@
     "power": 130,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
@@ -1186,6 +1304,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -1196,6 +1315,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1206,6 +1326,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack and Speed by one stage."
   },
@@ -1216,6 +1337,7 @@
     "power": 85,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1226,6 +1348,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts 40 points of damage."
   },
@@ -1236,6 +1359,7 @@
     "power": 100,
     "accuracy": 75,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to make the target flinch."
   },
@@ -1246,6 +1370,7 @@
     "power": 60,
     "accuracy": 90,
     "pp": 10,
+    "priority": -6,
     "damageClass": "physical",
     "description": "Ends wild battles.  Forces trainers to switch Pokémon."
   },
@@ -1256,6 +1381,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Drains half the damage inflicted to heal the user."
   },
@@ -1266,6 +1392,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Drains 75% of the damage inflicted to heal the user."
   },
@@ -1276,6 +1403,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Only works on sleeping Pokémon.  Drains half the damage inflicted to heal the user."
   },
@@ -1286,6 +1414,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1296,6 +1425,7 @@
     "power": 80,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -1306,6 +1436,7 @@
     "power": 40,
     "accuracy": 90,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits twice in one turn."
   },
@@ -1316,6 +1447,7 @@
     "power": 40,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1326,6 +1458,7 @@
     "power": 100,
     "accuracy": 50,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 100% chance to confuse the target."
   },
@@ -1336,6 +1469,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -1346,6 +1480,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage and can hit Dig users."
   },
@@ -1356,6 +1491,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power increases by 100% for each consecutive use by any friendly Pokémon, to a maximum of 200."
   },
@@ -1366,6 +1502,7 @@
     "power": 100,
     "accuracy": 75,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1376,6 +1513,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power is higher when the user has greater Speed than the target, up to a maximum of 150."
   },
@@ -1386,6 +1524,7 @@
     "power": 55,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the target’s Speed by one stage."
   },
@@ -1396,6 +1535,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Target cannot use held items."
   },
@@ -1406,6 +1546,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to burn the target."
   },
@@ -1416,6 +1557,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Forces the target to repeat its last used move every turn for 2 to 6 turns."
   },
@@ -1426,6 +1568,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the target’s HP to equal the user’s."
   },
@@ -1436,6 +1579,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 4,
     "damageClass": "status",
     "description": "Prevents the user’s HP from lowering below 1 this turn."
   },
@@ -1446,6 +1590,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -1456,6 +1601,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Copies the user’s ability onto the target."
   },
@@ -1466,6 +1612,7 @@
     "power": 150,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts more damage when the user has more HP remaining, with a maximum of 150 power."
   },
@@ -1476,6 +1623,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": ""
   },
@@ -1486,6 +1634,7 @@
     "power": 250,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User faints."
   },
@@ -1496,6 +1645,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to make the target flinch."
   },
@@ -1506,6 +1656,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 5,
+    "priority": 2,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -1516,6 +1667,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power doubles if user is burned, paralyzed, or poisoned."
   },
@@ -1526,6 +1678,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Never misses."
   },
@@ -1536,6 +1689,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 10,
+    "priority": 3,
     "damageClass": "physical",
     "description": "Can only be used as the first move after the user enters battle.  Causes the target to flinch."
   },
@@ -1546,6 +1700,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Special Defense by two stages."
   },
@@ -1556,6 +1711,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 40,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Cannot lower the target’s HP below 1."
   },
@@ -1566,6 +1722,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Attack by two stages."
   },
@@ -1576,6 +1733,7 @@
     "power": 30,
     "accuracy": 100,
     "pp": 10,
+    "priority": 2,
     "damageClass": "physical",
     "description": "Hits through Protect and Detect."
   },
@@ -1586,6 +1744,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 50% chance to raise the user’s Special Attack by one stage."
   },
@@ -1596,6 +1755,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts damage equal to the user’s remaining HP.  User faints."
   },
@@ -1606,6 +1766,7 @@
     "power": 110,
     "accuracy": 85,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to burn the target."
   },
@@ -1616,6 +1777,7 @@
     "power": 65,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to burn the target and a 10% chance to make the target flinch."
   },
@@ -1626,6 +1788,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the target’s Defense by one stage after inflicting damage."
   },
@@ -1636,6 +1799,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "With Water Pledge, doubles the effect chance of friendly Pokémon’s moves for four turns."
   },
@@ -1646,6 +1810,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to burn the target."
   },
@@ -1656,6 +1821,7 @@
     "power": 35,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -1666,6 +1832,7 @@
     "power": null,
     "accuracy": 30,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Causes a one-hit KO."
   },
@@ -1676,6 +1843,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts more damage when the user has less HP remaining, with a maximum of 200 power."
   },
@@ -1686,6 +1854,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Deals splash damage to Pokémon next to the target."
   },
@@ -1696,6 +1865,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage.  Raises the user’s Speed by one stage."
   },
@@ -1706,6 +1876,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to burn the target.  Lets frozen Pokémon thaw themselves."
   },
@@ -1716,6 +1887,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to burn the target."
   },
@@ -1726,6 +1898,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User takes 1/3 the damage inflicted in recoil.  Has a 10% chance to burn the target."
   },
@@ -1736,6 +1909,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s accuracy by one stage."
   },
@@ -1746,6 +1920,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -1756,6 +1931,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the target’s Special Attack by one stage and confuses the target."
   },
@@ -1766,6 +1942,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Throws held item at the target; power depends on the item."
   },
@@ -1776,6 +1953,7 @@
     "power": 90,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User flies high into the air, dodging all attacks, and hits next turn."
   },
@@ -1786,6 +1964,7 @@
     "power": 120,
     "accuracy": 70,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -1796,6 +1975,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Increases the user’s chance to score a critical hit."
   },
@@ -1806,6 +1986,7 @@
     "power": 150,
     "accuracy": 100,
     "pp": 20,
+    "priority": -3,
     "damageClass": "physical",
     "description": "If the user takes damage before attacking, the attack is canceled."
   },
@@ -1816,6 +1997,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 2,
     "damageClass": "status",
     "description": "Redirects the target’s single-target effects to the user for this turn."
   },
@@ -1826,6 +2008,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -1836,6 +2019,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Forces the target to have no Evade, and allows it to be hit by Normal and Fighting moves even if it’s a Ghost."
   },
@@ -1846,6 +2030,7 @@
     "power": 95,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Calculates damage with the target’s attacking stat."
   },
@@ -1856,6 +2041,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "User foregoes its next turn to recharge."
   },
@@ -1866,6 +2052,7 @@
     "power": 60,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Always scores a critical hit."
   },
@@ -1876,6 +2063,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power increases as happiness decreases, up to a maximum of 102."
   },
@@ -1886,6 +2074,7 @@
     "power": 15,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -1896,6 +2085,7 @@
     "power": 40,
     "accuracy": 95,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power doubles every turn this move is used in succession after the first, maxing out after five turns."
   },
@@ -1906,6 +2096,7 @@
     "power": 18,
     "accuracy": 80,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -1916,6 +2107,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "With Fusion Flare, inflicts double damage."
   },
@@ -1926,6 +2118,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "With Fusion Bolt, inflicts double damage."
   },
@@ -1936,6 +2129,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Hits the target two turns later."
   },
@@ -1946,6 +2140,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Nullifies target’s ability until it leaves battle."
   },
@@ -1956,6 +2151,7 @@
     "power": 50,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits twice in one turn."
   },
@@ -1966,6 +2162,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Drains half the damage inflicted to heal the user."
   },
@@ -1976,6 +2173,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User foregoes its next turn to recharge."
   },
@@ -1986,6 +2184,7 @@
     "power": 65,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the target’s Speed by one stage."
   },
@@ -1996,6 +2195,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Paralyzes the target."
   },
@@ -2006,6 +2206,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts more damage to heavier targets, with a maximum of 120 power."
   },
@@ -2016,6 +2217,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "With Fire Pledge, damages opposing Pokémon for 1/8 their max HP every turn for four turns."
   },
@@ -2026,6 +2228,7 @@
     "power": null,
     "accuracy": 55,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -2036,6 +2239,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Disables moves and immunities that involve flying or levitating for five turns."
   },
@@ -2046,6 +2250,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Attack by one stage."
   },
@@ -2056,6 +2261,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack and Special Attack by one stage."
   },
@@ -2066,6 +2272,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "If the user faints this turn, the PP of the move that fainted it drops to 0."
   },
@@ -2076,6 +2283,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Averages Defense and Special Defense with the target."
   },
@@ -2086,6 +2294,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User swaps Defense and Special Defense changes with the target."
   },
@@ -2096,6 +2305,7 @@
     "power": null,
     "accuracy": 30,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Causes a one-hit KO."
   },
@@ -2106,6 +2316,7 @@
     "power": 120,
     "accuracy": 80,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to poison the target."
   },
@@ -2116,6 +2327,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage and can hit Pokémon in the air."
   },
@@ -2126,6 +2338,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power raises when the user has lower Speed, up to a maximum of 150."
   },
@@ -2136,6 +2349,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the weather to a hailstorm for five turns."
   },
@@ -2146,6 +2360,7 @@
     "power": 100,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers user’s Speed by one stage."
   },
@@ -2156,6 +2371,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense by one stage."
   },
@@ -2166,6 +2382,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Resets all Pokémon’s stats, accuracy, and evasion."
   },
@@ -2176,6 +2393,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
@@ -2186,6 +2404,7 @@
     "power": 150,
     "accuracy": 80,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/2 the damage inflicted in recoil."
   },
@@ -2196,6 +2415,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -2206,6 +2426,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": ""
   },
@@ -2216,6 +2437,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Cures the entire party of major status effects."
   },
@@ -2226,6 +2448,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents target from restoring its HP for five turns."
   },
@@ -2236,6 +2459,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
@@ -2246,6 +2470,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the target for half its max HP."
   },
@@ -2256,6 +2481,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User faints.  Its replacement has its HP fully restored and any major status effect removed."
   },
@@ -2266,6 +2492,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -2276,6 +2503,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User and target swap stat changes."
   },
@@ -2286,6 +2514,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power is higher when the user weighs more than the target, up to a maximum of 120."
   },
@@ -2296,6 +2525,7 @@
     "power": 95,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to burn the target."
   },
@@ -2306,6 +2536,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power is higher when the user weighs more than the target, up to a maximum of 120."
   },
@@ -2316,6 +2547,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 5,
     "damageClass": "status",
     "description": "Ally’s next move inflicts half more damage."
   },
@@ -2326,6 +2558,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has double power if the target has a major status ailment."
   },
@@ -2336,6 +2569,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power and type depend upon user’s IVs.  Power can range from 30 to 70."
   },
@@ -2346,6 +2580,7 @@
     "power": 95,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -2356,6 +2591,7 @@
     "power": 130,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If the user misses, it takes half the damage it would have inflicted in recoil."
   },
@@ -2366,6 +2602,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack and accuracy by one stage."
   },
@@ -2376,6 +2613,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -2386,6 +2624,7 @@
     "power": null,
     "accuracy": 30,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Causes a one-hit KO."
   },
@@ -2396,6 +2635,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Drains half the damage inflicted to heal the user."
   },
@@ -2406,6 +2646,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack by one stage."
   },
@@ -2416,6 +2657,7 @@
     "power": 110,
     "accuracy": 70,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to confuse the target."
   },
@@ -2426,6 +2668,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "User foregoes its next turn to recharge."
   },
@@ -2436,6 +2679,7 @@
     "power": 110,
     "accuracy": 80,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -2446,6 +2690,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "User foregoes its next turn to recharge."
   },
@@ -2456,6 +2701,7 @@
     "power": 80,
     "accuracy": 90,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to make the target flinch."
   },
@@ -2466,6 +2712,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -2476,6 +2723,7 @@
     "power": null,
     "accuracy": 60,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -2486,6 +2734,7 @@
     "power": 30,
     "accuracy": 90,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power doubles every turn this move is used in succession after the first, resetting after five turns."
   },
@@ -2496,6 +2745,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to freeze the target."
   },
@@ -2506,6 +2756,7 @@
     "power": 65,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to freeze the target and a 10% chance to make the target flinch."
   },
@@ -2516,6 +2767,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to freeze the target."
   },
@@ -2526,6 +2778,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -2536,6 +2789,7 @@
     "power": 85,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -2546,6 +2800,7 @@
     "power": 25,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -2556,6 +2811,7 @@
     "power": 55,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
@@ -2566,6 +2822,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the target from using any moves that the user also knows."
   },
@@ -2576,6 +2833,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Destroys the target’s held berry."
   },
@@ -2586,6 +2844,7 @@
     "power": 100,
     "accuracy": 50,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to burn the target."
   },
@@ -2596,6 +2855,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -2606,6 +2866,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the user from leaving battle.  User regains 1/16 of its max HP every turn."
   },
@@ -2616,6 +2877,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense by two stages."
   },
@@ -2626,6 +2888,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -2636,6 +2899,7 @@
     "power": 100,
     "accuracy": 75,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to lower the target’s Defense by one stage."
   },
@@ -2646,6 +2910,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "If the user is holding a appropriate plate or drive, the damage inflicted will match it."
   },
@@ -2656,6 +2921,7 @@
     "power": 100,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If the user misses, it takes half the damage it would have inflicted in recoil."
   },
@@ -2666,6 +2932,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -2676,6 +2943,7 @@
     "power": null,
     "accuracy": 80,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s accuracy by one stage."
   },
@@ -2686,6 +2954,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Target drops its held item."
   },
@@ -2696,6 +2965,7 @@
     "power": 140,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Can only be used after all of the user’s other moves have been used."
   },
@@ -2706,6 +2976,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to burn the target."
   },
@@ -2716,6 +2987,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -2726,6 +2998,7 @@
     "power": 130,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
@@ -2736,6 +3009,7 @@
     "power": 65,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 50% chance to lower the target’s accuracy by one stage."
   },
@@ -2746,6 +3020,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Drains half the damage inflicted to heal the user."
   },
@@ -2756,6 +3031,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Seeds the target, stealing HP from it every turn."
   },
@@ -2766,6 +3042,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Defense by one stage."
   },
@@ -2776,6 +3053,7 @@
     "power": 30,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -2786,6 +3064,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Reduces damage from special attacks by 50% for five turns."
   },
@@ -2796,6 +3075,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Ensures that the user’s next move will hit the target."
   },
@@ -2806,6 +3086,7 @@
     "power": null,
     "accuracy": 75,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -2816,6 +3097,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts more damage to heavier targets, with a maximum of 120 power."
   },
@@ -2826,6 +3108,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the target’s Speed by one stage."
   },
@@ -2836,6 +3119,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the target from scoring critical hits for five turns."
   },
@@ -2846,6 +3130,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User faints, and its replacement is fully healed."
   },
@@ -2856,6 +3141,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the target’s Attack by one stage after inflicting damage."
   },
@@ -2866,6 +3152,7 @@
     "power": 95,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 50% chance to lower the target’s Special Defense by one stage."
   },
@@ -2876,6 +3163,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -2886,6 +3174,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 4,
     "damageClass": "status",
     "description": "Reflects back the first effect move used on the user this turn."
   },
@@ -2896,6 +3185,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Negates held items for five turns."
   },
@@ -2906,6 +3196,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Never misses."
   },
@@ -2916,6 +3207,7 @@
     "power": 100,
     "accuracy": 75,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -2926,6 +3218,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Never misses."
   },
@@ -2936,6 +3229,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User is immune to Ground moves and effects for five turns."
   },
@@ -2946,6 +3240,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power varies randomly from 10 to 150."
   },
@@ -2956,6 +3251,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Uses the target’s move against it before it attacks, with power increased by half."
   },
@@ -2966,6 +3262,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the target from leaving battle."
   },
@@ -2976,6 +3273,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack by one stage."
   },
@@ -2986,6 +3284,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Drains half the damage inflicted to heal the user."
   },
@@ -2996,6 +3295,7 @@
     "power": 120,
     "accuracy": 75,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3006,6 +3306,7 @@
     "power": 80,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3016,6 +3317,7 @@
     "power": 120,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3026,6 +3328,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Attack and Special Attack by two stages.  User faints."
   },
@@ -3036,6 +3339,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Strikes back at the last Pokémon to hit the user this turn with 1.5× the damage."
   },
@@ -3046,6 +3350,7 @@
     "power": 50,
     "accuracy": 95,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to raise the user’s Attack by one stage."
   },
@@ -3056,6 +3361,7 @@
     "power": null,
     "accuracy": 85,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Special Defense by two stages."
   },
@@ -3066,6 +3372,7 @@
     "power": 90,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to raise the user’s Attack by one stage."
   },
@@ -3076,6 +3383,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Randomly selects and uses any move in the game."
   },
@@ -3086,6 +3394,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
@@ -3096,6 +3405,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Copies the target’s last used move."
   },
@@ -3106,6 +3416,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Ensures that the user’s next move will hit the target."
   },
@@ -3116,6 +3427,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s evasion by two stages."
   },
@@ -3126,6 +3438,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Forces the target to have no evasion, and allows it to be hit by Psychic moves even if it’s Dark."
   },
@@ -3136,6 +3449,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": -5,
     "damageClass": "special",
     "description": "Inflicts twice the damage the user received from the last special hit it took."
   },
@@ -3146,6 +3460,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Uses the target’s last used move."
   },
@@ -3156,6 +3471,7 @@
     "power": 65,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to lower the target’s accuracy by one stage."
   },
@@ -3166,6 +3482,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Protects the user’s stats from being changed by enemy moves."
   },
@@ -3176,6 +3493,7 @@
     "power": 95,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 50% chance to lower the target’s Special Attack by one stage."
   },
@@ -3186,6 +3504,7 @@
     "power": 95,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to lower the target’s Special Attack by one stage."
   },
@@ -3196,6 +3515,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP.  Affected by weather."
   },
@@ -3206,6 +3526,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP.  Affected by weather."
   },
@@ -3216,6 +3537,7 @@
     "power": 65,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to lower the target’s accuracy by one stage."
   },
@@ -3226,6 +3548,7 @@
     "power": 55,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
@@ -3236,6 +3559,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s accuracy by one stage."
   },
@@ -3246,6 +3570,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Halves all Electric-type damage."
   },
@@ -3256,6 +3581,7 @@
     "power": 90,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to lower the target’s accuracy by one stage."
   },
@@ -3266,6 +3592,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s Special Attack by one stage."
   },
@@ -3276,6 +3603,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Special Attack by two stages."
   },
@@ -3286,6 +3614,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power and type depend on the held berry."
   },
@@ -3296,6 +3625,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Uses a move which depends upon the terrain."
   },
@@ -3306,6 +3636,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -3316,6 +3647,7 @@
     "power": 85,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 40% chance to lower the target’s accuracy by one stage."
   },
@@ -3326,6 +3658,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts damage equal to the user’s level."
   },
@@ -3336,6 +3669,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -3346,6 +3680,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Target loses 1/4 its max HP every turn as long as it’s asleep."
   },
@@ -3356,6 +3691,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 100% chance to paralyze the target."
   },
@@ -3366,6 +3702,7 @@
     "power": 65,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 50% chance to lower the target’s accuracy by one stage."
   },
@@ -3376,6 +3713,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Forces the target to have no Evade, and allows it to be hit by Normal and Fighting moves even if it’s a Ghost."
   },
@@ -3386,6 +3724,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to raise all of the user’s stats by one stage."
   },
@@ -3396,6 +3735,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits every turn for 2-3 turns, then confuses the user."
   },
@@ -3406,6 +3746,7 @@
     "power": 130,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
@@ -3416,6 +3757,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Sets the user’s and targets’s HP to the average of their current HP."
   },
@@ -3426,6 +3768,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Scatters money on the ground worth five times the user’s level."
   },
@@ -3436,6 +3779,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power is doubled if the target has already moved this turn."
   },
@@ -3446,6 +3790,7 @@
     "power": 35,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3456,6 +3801,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "User and target both faint after three turns."
   },
@@ -3466,6 +3812,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Hits every turn for 2-3 turns, then confuses the user."
   },
@@ -3476,6 +3823,7 @@
     "power": 25,
     "accuracy": 95,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -3486,6 +3834,7 @@
     "power": 90,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to lower the target’s Attack by one stage."
   },
@@ -3496,6 +3845,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If target has a berry, inflicts double damage and uses the berry."
   },
@@ -3506,6 +3856,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 50% chance to badly poison the target."
   },
@@ -3516,6 +3867,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Poisons the target."
   },
@@ -3526,6 +3878,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to poison the target."
   },
@@ -3536,6 +3889,7 @@
     "power": null,
     "accuracy": 75,
     "pp": 35,
+    "priority": 0,
     "damageClass": "status",
     "description": "Poisons the target."
   },
@@ -3546,6 +3900,7 @@
     "power": 15,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to poison the target."
   },
@@ -3556,6 +3911,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit and a 10% chance to poison the target."
   },
@@ -3566,6 +3922,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3576,6 +3933,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to freeze the target."
   },
@@ -3586,6 +3944,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3596,6 +3955,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Averages Attack and Special Attack with the target."
   },
@@ -3606,6 +3966,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User swaps Attack and Special Attack changes with the target."
   },
@@ -3616,6 +3977,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User swaps Attack and Defense."
   },
@@ -3626,6 +3988,7 @@
     "power": 120,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3636,6 +3999,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Raises the user’s Attack by one stage after inflicting damage."
   },
@@ -3646,6 +4010,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Randomly inflicts damage with power from 40 to 120 or heals the target for 1/4 its max HP."
   },
@@ -3656,6 +4021,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 4,
     "damageClass": "status",
     "description": "Prevents any moves from hitting the user this turn."
   },
@@ -3666,6 +4032,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to confuse the target."
   },
@@ -3676,6 +4043,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Discards the user’s stat changes and copies the target’s."
   },
@@ -3686,6 +4054,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to lower the target’s Special Defense by one stage."
   },
@@ -3696,6 +4065,7 @@
     "power": 85,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Destroys Reflect and Light Screen."
   },
@@ -3706,6 +4076,7 @@
     "power": 140,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Lowers the user’s Special Attack by two stages after inflicting damage."
   },
@@ -3716,6 +4087,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -3726,6 +4098,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Transfers the user’s major status effect to the target."
   },
@@ -3736,6 +4109,7 @@
     "power": 70,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": ""
   },
@@ -3746,6 +4120,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts damage based on the target’s Defense, not Special Defense."
   },
@@ -3756,6 +4131,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts damage based on the target’s Defense, not Special Defense."
   },
@@ -3766,6 +4142,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts damage between 50% and 150% of the user’s level."
   },
@@ -3776,6 +4153,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power increases against targets with more raised stats, up to a maximum of 200."
   },
@@ -3786,6 +4164,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has double power against, and can hit, Pokémon attempting to switch out."
   },
@@ -3796,6 +4175,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Makes the target act last this turn."
   },
@@ -3806,6 +4186,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -3816,6 +4197,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 3,
     "damageClass": "status",
     "description": "Prevents any priority moves from hitting friendly Pokémon this turn."
   },
@@ -3826,6 +4208,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Special Attack, Special Defense, and Speed by one stage each."
   },
@@ -3836,6 +4219,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If the user is hit after using this move, its Attack rises by one stage."
   },
@@ -3846,6 +4230,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 2,
     "damageClass": "status",
     "description": "Redirects the target’s single-target effects to the user for this turn."
   },
@@ -3856,6 +4241,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": ""
   },
@@ -3866,6 +4252,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the weather to rain for five turns."
   },
@@ -3876,6 +4263,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 40,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Frees the user from binding moves, removes Leech Seed, and blows away Spikes."
   },
@@ -3886,6 +4274,7 @@
     "power": 55,
     "accuracy": 95,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -3896,6 +4285,7 @@
     "power": 75,
     "accuracy": 95,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
@@ -3906,6 +4296,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Requires a turn to charge before attacking."
   },
@@ -3916,6 +4307,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
@@ -3926,6 +4318,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User recovers the item it last used up."
   },
@@ -3936,6 +4329,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Reduces damage from physical attacks by half."
   },
@@ -3946,6 +4340,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "User becomes the target’s type."
   },
@@ -3956,6 +4351,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Cleanses the user of a burn, paralysis, or poison."
   },
@@ -3966,6 +4362,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to put the target to sleep."
   },
@@ -3976,6 +4373,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "User sleeps for two turns, completely healing itself."
   },
@@ -3986,6 +4384,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has double power if a friendly Pokémon fainted last turn."
   },
@@ -3996,6 +4395,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power increases with happiness, up to a maximum of 102."
   },
@@ -4006,6 +4406,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10,
+    "priority": -4,
     "damageClass": "physical",
     "description": "Inflicts double damage if the user takes damage before attacking this turn."
   },
@@ -4016,6 +4417,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts more damage when the user has less HP remaining, with a maximum of 200 power."
   },
@@ -4026,6 +4428,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": -6,
     "damageClass": "status",
     "description": "Immediately ends wild battles.  Forces trainers to switch Pokémon."
   },
@@ -4036,6 +4439,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "User foregoes its next turn to recharge."
   },
@@ -4046,6 +4450,7 @@
     "power": 25,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -4056,6 +4461,7 @@
     "power": 90,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to confuse the target."
   },
@@ -4066,6 +4472,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Speed by two stages."
   },
@@ -4076,6 +4483,7 @@
     "power": 75,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -4086,6 +4494,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 50% chance to lower the target’s Defense by one stage."
   },
@@ -4096,6 +4505,7 @@
     "power": 50,
     "accuracy": 90,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -4106,6 +4516,7 @@
     "power": 60,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 100% chance to lower the target’s Speed by one stage."
   },
@@ -4116,6 +4527,7 @@
     "power": 150,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User foregoes its next turn to recharge."
   },
@@ -4126,6 +4538,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Copies the target’s ability."
   },
@@ -4136,6 +4549,7 @@
     "power": 60,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -4146,6 +4560,7 @@
     "power": 30,
     "accuracy": 90,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Power doubles every turn this move is used in succession after the first, resetting after five turns."
   },
@@ -4156,6 +4571,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
@@ -4166,6 +4582,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has double power if it’s used more than once per turn."
   },
@@ -4176,6 +4593,7 @@
     "power": 100,
     "accuracy": 95,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 50% chance to burn the target.  Lets frozen Pokémon thaw themselves."
   },
@@ -4186,6 +4604,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Ignores the target’s stat modifiers."
   },
@@ -4196,6 +4615,7 @@
     "power": null,
     "accuracy": null,
     "pp": 25,
+    "priority": 0,
     "damageClass": "status",
     "description": "Protects the user’s field from major status ailments and confusion for five turns."
   },
@@ -4206,6 +4626,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s accuracy by one stage."
   },
@@ -4216,6 +4637,7 @@
     "power": 35,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -4226,6 +4648,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the weather to a sandstorm for five turns."
   },
@@ -4236,6 +4659,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to burn the target."
   },
@@ -4246,6 +4670,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Speed by two stages."
   },
@@ -4256,6 +4681,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to burn the target."
   },
@@ -4266,6 +4692,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -4276,6 +4703,7 @@
     "power": null,
     "accuracy": 85,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Defense by two stages."
   },
@@ -4286,6 +4714,7 @@
     "power": 100,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to burn the target."
   },
@@ -4296,6 +4725,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to inflict a status effect which depends upon the terrain."
   },
@@ -4306,6 +4736,7 @@
     "power": 85,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts damage based on the target’s Defense, not Special Defense."
   },
@@ -4316,6 +4747,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -4326,6 +4758,7 @@
     "power": 120,
     "accuracy": 85,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 40% chance to lower the target’s Special Defense by two stages."
   },
@@ -4336,6 +4769,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts damage equal to the user’s level."
   },
@@ -4346,6 +4780,7 @@
     "power": 200,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User faints."
   },
@@ -4356,6 +4791,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 20% chance to lower the target’s Special Defense by one stage."
   },
@@ -4366,6 +4802,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -4376,6 +4813,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User vanishes, dodging all attacks, and hits next turn.  Hits through Protect and Detect."
   },
@@ -4386,6 +4824,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Never misses."
   },
@@ -4396,6 +4835,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -4406,6 +4846,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack by one stage."
   },
@@ -4416,6 +4857,7 @@
     "power": null,
     "accuracy": 30,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Causes a one-hit KO."
   },
@@ -4426,6 +4868,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises user’s Attack, Special Attack, and Speed by two stages.  Lower user’s Defense and Special Defense by one stage."
   },
@@ -4436,6 +4879,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack by one stage and its Speed by two stages."
   },
@@ -4446,6 +4890,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Never misses."
   },
@@ -4456,6 +4901,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to confuse the target."
   },
@@ -4466,6 +4912,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to raise all of the user’s stats by one stage."
   },
@@ -4476,6 +4923,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the target’s ability to Simple."
   },
@@ -4486,6 +4934,7 @@
     "power": null,
     "accuracy": 55,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -4496,6 +4945,7 @@
     "power": null,
     "accuracy": null,
     "pp": 1,
+    "priority": 0,
     "damageClass": "status",
     "description": "Permanently becomes the target’s last used move."
   },
@@ -4506,6 +4956,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User and target swap abilities."
   },
@@ -4516,6 +4967,7 @@
     "power": 130,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Raises the user’s Defense by one stage.  User charges for one turn before attacking."
   },
@@ -4526,6 +4978,7 @@
     "power": 140,
     "accuracy": 90,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User charges for one turn before attacking.  Has a 30% chance to make the target flinch."
   },
@@ -4536,6 +4989,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Carries the target high into the air, dodging all attacks against either, and drops it next turn."
   },
@@ -4546,6 +5000,7 @@
     "power": 85,
     "accuracy": 90,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage and can hit Bounce and Fly users."
   },
@@ -4556,6 +5011,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
@@ -4566,6 +5022,7 @@
     "power": 80,
     "accuracy": 75,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -4576,6 +5033,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -4586,6 +5044,7 @@
     "power": null,
     "accuracy": 75,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -4596,6 +5055,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Randomly uses one of the user’s other three moves.  Only works if the user is sleeping."
   },
@@ -4606,6 +5066,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to poison the target."
   },
@@ -4616,6 +5077,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to poison the target."
   },
@@ -4626,6 +5088,7 @@
     "power": 95,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to poison the target."
   },
@@ -4636,6 +5099,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Removes any immunity to Ground damage."
   },
@@ -4646,6 +5110,7 @@
     "power": 70,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Never misses."
   },
@@ -4656,6 +5121,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If the target is paralyzed, inflicts double damage and cures the paralysis."
   },
@@ -4666,6 +5132,7 @@
     "power": 30,
     "accuracy": 70,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 40% chance to poison the target."
   },
@@ -4676,6 +5143,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s accuracy by one stage."
   },
@@ -4686,6 +5154,7 @@
     "power": 55,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s Special Attack by one stage."
   },
@@ -4696,6 +5165,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 4,
     "damageClass": "status",
     "description": "Steals the target’s move, if it’s self-targeted."
   },
@@ -4706,6 +5176,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to make the target flinch.  Only works if the user is sleeping."
   },
@@ -4716,6 +5187,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the target’s type to Water."
   },
@@ -4726,6 +5198,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP."
   },
@@ -4736,6 +5209,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Requires a turn to charge before attacking."
   },
@@ -4746,6 +5220,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts 20 points of damage."
   },
@@ -4756,6 +5231,7 @@
     "power": 100,
     "accuracy": 95,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has an increased chance for a critical hit."
   },
@@ -4766,6 +5242,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -4776,6 +5253,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the target from leaving battle."
   },
@@ -4786,6 +5264,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -4796,6 +5275,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Scatters Spikes, hurting opposing Pokémon that switch in."
   },
@@ -4806,6 +5286,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power is 100 times the amount of energy Stockpiled."
   },
@@ -4816,6 +5297,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the PP of the target’s last used move by 4."
   },
@@ -4826,6 +5308,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Does nothing."
   },
@@ -4836,6 +5319,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Puts the target to sleep."
   },
@@ -4846,6 +5330,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Causes damage when opposing Pokémon switch in."
   },
@@ -4856,6 +5341,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -4866,6 +5352,7 @@
     "power": 70,
     "accuracy": 90,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to raise the user’s Defense by one stage."
   },
@@ -4876,6 +5363,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Stores energy up to three times for use with Spit Up and Swallow."
   },
@@ -4886,6 +5374,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 30% chance to make the target flinch."
   },
@@ -4896,6 +5385,7 @@
     "power": 100,
     "accuracy": 80,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has an increased chance for a critical hit."
   },
@@ -4906,6 +5396,7 @@
     "power": 20,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power is higher the more the user’s stats have been raised, to a maximum of 31×."
   },
@@ -4916,6 +5407,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Always scores a critical hit."
   },
@@ -4926,6 +5418,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -4936,6 +5429,7 @@
     "power": null,
     "accuracy": 95,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Speed by two stages."
   },
@@ -4946,6 +5440,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to lower the target’s Special Attack by one stage."
   },
@@ -4956,6 +5451,7 @@
     "power": null,
     "accuracy": 75,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Paralyzes the target."
   },
@@ -4966,6 +5462,7 @@
     "power": 80,
     "accuracy": 80,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
@@ -4976,6 +5473,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Transfers 1/4 of the user’s max HP into a doll, protecting the user from further damage or status changes until it breaks."
   },
@@ -4986,6 +5484,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 5,
+    "priority": 1,
     "damageClass": "physical",
     "description": "Only works if the target is about to use a damaging move."
   },
@@ -4996,6 +5495,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the weather to sunny for five turns."
   },
@@ -5006,6 +5506,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts damage equal to half the target’s HP."
   },
@@ -5016,6 +5517,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the user’s Attack and Defense by one stage after inflicting damage."
   },
@@ -5026,6 +5528,7 @@
     "power": null,
     "accuracy": 55,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Confuses the target."
   },
@@ -5036,6 +5539,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage and can hit Dive users."
   },
@@ -5046,6 +5550,7 @@
     "power": null,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the target’s Attack by two stages and confuses the target."
   },
@@ -5056,6 +5561,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Recovers 1/4 HP after one Stockpile, 1/2 HP after two Stockpiles, or full HP after three Stockpiles."
   },
@@ -5066,6 +5572,7 @@
     "power": null,
     "accuracy": 75,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Confuses the target."
   },
@@ -5076,6 +5583,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s evasion by one stage."
   },
@@ -5086,6 +5594,7 @@
     "power": 60,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Never misses."
   },
@@ -5096,6 +5605,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User and target swap items."
   },
@@ -5106,6 +5616,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack by two stages."
   },
@@ -5116,6 +5627,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Hits any Pokémon that shares a type with the user."
   },
@@ -5126,6 +5638,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "status",
     "description": "Heals the user by half its max HP.  Affected by weather."
   },
@@ -5136,6 +5649,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5146,6 +5660,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Special Attack by three stages."
   },
@@ -5156,6 +5671,7 @@
     "power": 25,
     "accuracy": 85,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits 2-5 times in one turn."
   },
@@ -5166,6 +5682,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Defense by one stage."
   },
@@ -5176,6 +5693,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "For three turns, friendly Pokémon have doubled Speed."
   },
@@ -5186,6 +5704,7 @@
     "power": 90,
     "accuracy": 85,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
@@ -5196,6 +5715,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "For the next few turns, the target can only use damaging moves."
   },
@@ -5206,6 +5726,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "If the user is holding a appropriate plate or drive, the damage inflicted will match it."
   },
@@ -5216,6 +5737,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Confuses the target."
   },
@@ -5226,6 +5748,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Moves have 100% accuracy against the target for three turns."
   },
@@ -5236,6 +5759,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": -6,
     "damageClass": "status",
     "description": "Immediately ends wild battles.  No effect otherwise."
   },
@@ -5246,6 +5770,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Takes the target’s item."
   },
@@ -5256,6 +5781,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits every turn for 2-3 turns, then confuses the user."
   },
@@ -5266,6 +5792,7 @@
     "power": 110,
     "accuracy": 70,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 30% chance to paralyze the target."
   },
@@ -5276,6 +5803,7 @@
     "power": 65,
     "accuracy": 95,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to paralyze the target and a 10% chance to make the target flinch."
   },
@@ -5286,6 +5814,7 @@
     "power": 75,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 10% chance to paralyze the target."
   },
@@ -5296,6 +5825,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to paralyze the target."
   },
@@ -5306,6 +5836,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Paralyzes the target."
   },
@@ -5316,6 +5847,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 10% chance to paralyze the target."
   },
@@ -5326,6 +5858,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Lowers the target’s Attack and Defense by one stage."
   },
@@ -5336,6 +5869,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Prevents the target from using the same move twice in a row."
   },
@@ -5346,6 +5880,7 @@
     "power": null,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Badly poisons the target, inflicting more damage every turn."
   },
@@ -5356,6 +5891,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": 0,
     "damageClass": "status",
     "description": "Scatters poisoned spikes, poisoning opposing Pokémon that switch in."
   },
@@ -5366,6 +5902,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User becomes a copy of the target until it leaves battle."
   },
@@ -5376,6 +5913,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 20% chance to burn, freeze, or paralyze the target."
   },
@@ -5386,6 +5924,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User and target swap items."
   },
@@ -5396,6 +5935,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": -7,
     "damageClass": "status",
     "description": "For five turns, slower Pokémon will act before faster Pokémon."
   },
@@ -5406,6 +5946,7 @@
     "power": 20,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5416,6 +5957,7 @@
     "power": 10,
     "accuracy": 90,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits three times, increasing power by 100% with each successful hit."
   },
@@ -5426,6 +5968,7 @@
     "power": null,
     "accuracy": null,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power increases when this move has less PP, up to a maximum of 200."
   },
@@ -5436,6 +5979,7 @@
     "power": 25,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Hits twice in the same turn.  Has a 20% chance to poison the target."
   },
@@ -5446,6 +5990,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 20% chance to make the target flinch."
   },
@@ -5456,6 +6001,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User must switch out after attacking."
   },
@@ -5466,6 +6012,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Forced to use this move for several turns.  Pokémon cannot fall asleep in that time."
   },
@@ -5476,6 +6023,7 @@
     "power": 180,
     "accuracy": 95,
     "pp": 5,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Lowers the user’s Defense, Special Defense, and Speed by one stage each."
   },
@@ -5486,6 +6034,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30,
+    "priority": 1,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5496,6 +6045,7 @@
     "power": 65,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts double damage if the target is Poisoned."
   },
@@ -5506,6 +6056,7 @@
     "power": 55,
     "accuracy": 100,
     "pp": 30,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5516,6 +6067,7 @@
     "power": 45,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5526,6 +6078,7 @@
     "power": 70,
     "accuracy": null,
     "pp": 10,
+    "priority": -1,
     "damageClass": "physical",
     "description": "Never misses."
   },
@@ -5536,6 +6089,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "User must switch out after attacking."
   },
@@ -5546,6 +6100,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User takes 1/3 the damage inflicted in recoil.  Has a 10% chance to paralyze the target."
   },
@@ -5556,6 +6111,7 @@
     "power": 70,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": "If the target is asleep, has double power and wakes it up."
   },
@@ -5566,6 +6122,7 @@
     "power": 40,
     "accuracy": 100,
     "pp": 25,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5576,6 +6133,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "With Grass Pledge, halves opposing Pokémon’s Speed for four turns."
   },
@@ -5586,6 +6144,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 20,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 20% chance to confuse the target."
   },
@@ -5596,6 +6155,7 @@
     "power": null,
     "accuracy": null,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Halves all Fire-type damage."
   },
@@ -5606,6 +6166,7 @@
     "power": 150,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Inflicts more damage when the user has more HP remaining, with a maximum of 150 power."
   },
@@ -5616,6 +6177,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to make the target flinch."
   },
@@ -5626,6 +6188,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "physical",
     "description": ""
   },
@@ -5636,6 +6199,7 @@
     "power": 50,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "special",
     "description": "If there be weather, this move has doubled power and the weather’s type."
   },
@@ -5646,6 +6210,7 @@
     "power": 35,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "special",
     "description": "Prevents the target from leaving battle and inflicts 1/16 its max HP in damage for 2-5 turns."
   },
@@ -5656,6 +6221,7 @@
     "power": null,
     "accuracy": null,
     "pp": 20,
+    "priority": -6,
     "damageClass": "status",
     "description": "Immediately ends wild battles.  Forces trainers to switch Pokémon."
   },
@@ -5666,6 +6232,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 3,
     "damageClass": "status",
     "description": "Prevents any multi-target moves from hitting friendly Pokémon this turn."
   },
@@ -5676,6 +6243,7 @@
     "power": 90,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/4 the damage it inflicts in recoil."
   },
@@ -5686,6 +6254,7 @@
     "power": null,
     "accuracy": 85,
     "pp": 15,
+    "priority": 0,
     "damageClass": "status",
     "description": "Burns the target."
   },
@@ -5696,6 +6265,7 @@
     "power": 60,
     "accuracy": 100,
     "pp": 35,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5706,6 +6276,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "User will recover half its max HP at the end of the next turn."
   },
@@ -5716,6 +6287,7 @@
     "power": null,
     "accuracy": null,
     "pp": 40,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Defense by one stage."
   },
@@ -5726,6 +6298,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "All Pokémon’s Defense and Special Defense are swapped for 5 turns."
   },
@@ -5736,6 +6309,7 @@
     "power": 120,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "User receives 1/3 the damage inflicted in recoil."
   },
@@ -5746,6 +6320,7 @@
     "power": null,
     "accuracy": null,
     "pp": 30,
+    "priority": 0,
     "damageClass": "status",
     "description": "Raises the user’s Attack and Special Attack by one stage each."
   },
@@ -5756,6 +6331,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Changes the target’s ability to Insomnia."
   },
@@ -5766,6 +6342,7 @@
     "power": 15,
     "accuracy": 90,
     "pp": 20,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Prevents the target from fleeing and inflicts damage for 2-5 turns."
   },
@@ -5776,6 +6353,7 @@
     "power": null,
     "accuracy": 100,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Power increases against targets with more HP remaining, up to a maximum of 121 power."
   },
@@ -5786,6 +6364,7 @@
     "power": 80,
     "accuracy": 100,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Inflicts regular damage with no additional effect."
   },
@@ -5796,6 +6375,7 @@
     "power": null,
     "accuracy": null,
     "pp": 10,
+    "priority": 0,
     "damageClass": "status",
     "description": "Target sleeps at the end of the next turn."
   },
@@ -5806,6 +6386,7 @@
     "power": 120,
     "accuracy": 50,
     "pp": 5,
+    "priority": 0,
     "damageClass": "special",
     "description": "Has a 100% chance to paralyze the target."
   },
@@ -5816,6 +6397,7 @@
     "power": 80,
     "accuracy": 90,
     "pp": 15,
+    "priority": 0,
     "damageClass": "physical",
     "description": "Has a 20% chance to make the target flinch."
   }

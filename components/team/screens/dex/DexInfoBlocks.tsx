@@ -30,6 +30,8 @@ export function DexMoveEntryCard({
     damageClass: string;
     power?: number | null;
     accuracy?: number | null;
+    pp?: number | null;
+    priority?: number | null;
     description?: string;
   };
   eyebrow?: string;
@@ -49,7 +51,30 @@ export function DexMoveEntryCard({
         }}
         className={clsx("w-full", compact && "px-2 py-1")}
       />
-      {!compact ? <p className="mt-3 text-sm leading-6 text-muted">{move.description || "Sin descripcion registrada."}</p> : null}
+      {!compact ? (
+        <>
+          <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
+            {move.accuracy ? (
+              <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                Acc {move.accuracy}%
+              </span>
+            ) : null}
+            {move.pp ? (
+              <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                PP {move.pp}
+              </span>
+            ) : null}
+            {move.priority ? (
+              <span className="rounded-[0.45rem] border border-warning-line px-2 py-1 text-warning-strong">
+                Pri {move.priority > 0 ? `+${move.priority}` : move.priority}
+              </span>
+            ) : null}
+          </div>
+          <p className="mt-3 text-sm leading-6 text-muted">
+            {move.description || "Sin descripcion registrada."}
+          </p>
+        </>
+      ) : null}
     </div>
   );
 }

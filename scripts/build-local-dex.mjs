@@ -278,6 +278,7 @@ async function buildMoveEntry(moveName) {
       accuracy: payload.accuracy ?? null,
       damageClass: payload.damage_class.name,
       pp: payload.pp ?? null,
+      priority: payload.priority ?? null,
       description: effect.replace(/\$effect_chance/g, String(payload.effect_chance ?? "")),
     },
   ];

@@ -227,6 +227,7 @@ async function buildMoveEntry(moveName) {
           power: null,
           accuracy: null,
           pp: null,
+          priority: null,
           damageClass: "unknown",
           description: "",
         },
@@ -242,17 +243,18 @@ async function buildMoveEntry(moveName) {
 
   return [
     slug,
-    {
-      slug,
-      name: formatName(move.name),
-      type: formatName(move.type.name),
-      power: move.power ?? null,
-      accuracy: move.accuracy ?? null,
-      pp: move.pp ?? null,
-      damageClass: move.damage_class.name,
-      description: effect.replace(/\$effect_chance/g, String(move.effect_chance ?? "")),
-    },
-  ];
+        {
+          slug,
+          name: formatName(move.name),
+          type: formatName(move.type.name),
+          power: move.power ?? null,
+          accuracy: move.accuracy ?? null,
+          pp: move.pp ?? null,
+          priority: move.priority ?? null,
+          damageClass: move.damage_class.name,
+          description: effect.replace(/\$effect_chance/g, String(move.effect_chance ?? "")),
+        },
+      ];
 }
 
 async function main() {

@@ -127,6 +127,7 @@ export function resolveEditableMember(
         damageClass: fromLearnset?.damageClass,
         power: movePower,
         accuracy: fromLearnset?.accuracy,
+        priority: fromLearnset?.priority,
         pp: fromLearnset?.pp,
         description: fromLearnset?.description,
       };
@@ -145,6 +146,7 @@ export function resolveEditableMember(
         type: weatherAdjustedMove.type ?? undefined,
         damageClass: weatherAdjustedMove.damageClass ?? undefined,
         accuracy: weatherAdjustedMove.accuracy ?? undefined,
+        priority: weatherAdjustedMove.priority ?? undefined,
         hasStab: Boolean(
           weatherAdjustedMove.type &&
             resolved.resolvedTypes.some(

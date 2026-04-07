@@ -12,6 +12,7 @@ export type MoveLike = {
   damageClass?: string | null;
   power?: number | null;
   accuracy?: number | null;
+  priority?: number | null;
   description?: string;
 };
 
@@ -19,6 +20,7 @@ export type RemoteMoveLike = {
   type: string;
   power?: number | null;
   damageClass: string;
+  priority?: number | null;
 };
 
 const HIDDEN_POWER_TYPES = [
@@ -195,6 +197,7 @@ export function getWeatherAdjustedMove(
     ...move,
     power: move.power ?? null,
     accuracy: move.accuracy ?? null,
+    priority: move.priority ?? null,
   };
 
   if (weather === "clear") {

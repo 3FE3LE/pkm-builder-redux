@@ -1,10 +1,9 @@
 "use client";
 
-import clsx from "clsx";
 import { X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-import { MoveCueIcons, MovePowerBadge, MoveSlotSurface, getMoveProfileFit } from "@/components/team/UI";
+import { MoveSlotSurface } from "@/components/team/UI";
 import { Button } from "@/components/ui/Button";
 import { applyMovePowerModifiers, getMovePowerModifiers, getWeatherAdjustedMove } from "@/lib/domain/moves";
 import type { BattleWeather } from "@/lib/domain/battle";
@@ -65,6 +64,7 @@ export function LevelUpMoveModal({
 
     return {
       ...weatherAdjustedMove,
+      pp: activeMove.details?.pp ?? null,
       adjustedPower: applyMovePowerModifiers(weatherAdjustedMove.power, powerModifiers),
       hasStab: Boolean(
         weatherAdjustedMove.type &&
@@ -80,7 +80,7 @@ export function LevelUpMoveModal({
   const moveIndex = queuedMoves.findIndex((entry) => entry.move === activeMove.move);
   const alreadyKnown = currentMoves.includes(activeMove.move);
   const canAddDirectly = !alreadyKnown && currentMoves.length < 4;
-  const moveFit = movePreview ? getMoveProfileFit(member, movePreview) : null;
+  const priority = activeMove.details?.priority ?? 0;
 
   return (
     <div className="modal-backdrop-strong fixed inset-0 z-[170] flex items-center justify-center px-4 py-6 backdrop-blur-md">
@@ -111,33 +111,35 @@ export function LevelUpMoveModal({
               <div className="mt-3 flex items-center gap-3">
                 {movePreview ? (
                   <div className="min-w-0 flex-1">
-                    <button
-                      type="button"
-                      disabled
-                      className={clsx("w-full cursor-default text-left")}
-                    >
-                      <span
-                        className={clsx(
-                          "flex w-full items-center gap-2 rounded-[0.65rem] border px-3 py-2",
-                          movePreview.hasStab && "move-stab-surface",
-                        )}
-                        style={undefined}
-                      >
-                        <span className="min-w-0 flex-1">
-                          <span className="flex min-w-0 items-center gap-1.5">
-                            <span className="pixel-face min-w-0 truncate text-[14px] leading-none tracking-[0.1em] font-normal">
-                              {activeMove.move}
-                            </span>
-                            <MoveCueIcons hasStab={movePreview.hasStab} fit={moveFit} />
-                          </span>
+                    <MoveSlotSurface
+                      move={{
+                        name: activeMove.move,
+                        type: movePreview.type ?? undefined,
+                        hasStab: movePreview.hasStab,
+                        damageClass: movePreview.damageClass ?? undefined,
+                        power: movePreview.power,
+                        adjustedPower: movePreview.adjustedPower,
+                      }}
+                      member={member}
+                      className="flex w-full rounded-[0.75rem] px-3 py-2.5"
+                    />
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
+                      {movePreview.accuracy ? (
+                        <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                          Acc {movePreview.accuracy}%
                         </span>
-                        <MovePowerBadge
-                          damageClass={movePreview.damageClass}
-                          power={movePreview.power}
-                          adjustedPower={movePreview.adjustedPower}
-                        />
-                      </span>
-                    </button>
+                      ) : null}
+                      {movePreview.pp ? (
+                        <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                          PP {movePreview.pp}
+                        </span>
+                      ) : null}
+                      {priority !== 0 ? (
+                        <span className="rounded-[0.45rem] border border-warning-line px-2 py-1 text-warning-strong">
+                          Pri {priority > 0 ? `+${priority}` : priority}
+                        </span>
+                      ) : null}
+                    </div>
                     {movePreview.description ? (
                       <p className="mt-3 text-sm leading-relaxed text-muted">
                         {movePreview.description}
