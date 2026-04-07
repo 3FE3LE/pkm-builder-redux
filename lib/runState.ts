@@ -4,6 +4,7 @@ import type { StarterKey, SuggestionInput } from "@/lib/builder";
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { StatSpread } from "@/lib/teamAnalysis";
 import type { RunMode } from "@/lib/runEncounters";
+import { createId } from "@/lib/createId";
 
 type RunEditableMember = SuggestionInput & {
   id: string;
@@ -174,7 +175,7 @@ export function createStartedRunState(
 
 function createDefaultComposition(memberIds: string[] = []): RunCompositionState {
   return {
-    id: crypto.randomUUID(),
+    id: createId(),
     name: "Main Team",
     memberIds,
   };

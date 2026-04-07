@@ -29,13 +29,13 @@ export function BuilderProvider({
   const isDexRoute = pathname.startsWith("/team/dex");
 
   if (isDexRoute) {
-    return <DexCatalogsProvider data={data}>{children}</DexCatalogsProvider>;
+    return <CatalogsOnlyProvider data={data}>{children}</CatalogsOnlyProvider>;
   }
 
   return <FullBuilderProvider data={data}>{children}</FullBuilderProvider>;
 }
 
-function DexCatalogsProvider({
+export function CatalogsOnlyProvider({
   data,
   children,
 }: {

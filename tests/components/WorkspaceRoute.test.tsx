@@ -7,7 +7,6 @@ const mocked = vi.hoisted(() => ({
   params: {} as { token?: string },
   searchParams: new URLSearchParams(),
   routerReplace: vi.fn(),
-  redirect: vi.fn(),
   saveMemberToPc: vi.fn(),
   setBuilderStarted: vi.fn(),
   importPokemonFromHash: vi.fn((_: string) => ({
@@ -17,7 +16,6 @@ const mocked = vi.hoisted(() => ({
 }));
 
 vi.mock("next/navigation", () => ({
-  redirect: (href: string) => mocked.redirect(href),
   useRouter: () => ({
     replace: mocked.routerReplace,
   }),
@@ -71,7 +69,6 @@ describe("WorkspaceRoute", () => {
     mocked.params = {};
     mocked.searchParams = new URLSearchParams();
     mocked.routerReplace.mockReset();
-    mocked.redirect.mockReset();
     mocked.saveMemberToPc.mockReset();
     mocked.setBuilderStarted.mockReset();
     mocked.importPokemonFromHash.mockReset();
@@ -94,7 +91,8 @@ describe("WorkspaceRoute", () => {
 
     render(<WorkspaceRoute />);
 
-    expect(mocked.redirect).toHaveBeenCalledWith("/onboarding");
+    expect(screen.getByText("loading-screen")).toBeTruthy();
+    expect(mocked.routerReplace).toHaveBeenCalledWith("/onboarding");
   });
 
   it("renders the active screen when the run is ready", () => {

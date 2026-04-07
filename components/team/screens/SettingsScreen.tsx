@@ -1,14 +1,28 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 import { LoadingState } from "@/components/team/screens/LoadingState";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 
 export function SettingsScreen() {
+  const router = useRouter();
   const session = useTeamSession();
   const team = useTeamRoster();
 
+  useEffect(() => {
+    if (session.hydrated && !session.builderStarted) {
+      router.replace("/onboarding");
+    }
+  }, [router, session.builderStarted, session.hydrated]);
+
   if (!session.hydrated) {
+    return <LoadingState />;
+  }
+
+  if (!session.builderStarted) {
     return <LoadingState />;
   }
 
@@ -28,7 +42,10 @@ export function SettingsScreen() {
           onToggleRecommendationFilter={session.actions.setRecommendationFilter}
           onSetBattleWeather={session.actions.setBattleWeather}
           onSetTheme={session.actions.setTheme}
-          onResetRun={team.actions.resetRun}
+          onResetRun={() => {
+            team.actions.resetRun();
+            router.replace("/onboarding");
+          }}
         />
       </section>
     </main>

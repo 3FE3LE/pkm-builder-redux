@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocked = vi.hoisted(() => ({
   hydrated: true,
+  builderStarted: true,
+  routerReplace: vi.fn(),
   setEvolutionConstraint: vi.fn(),
   setRecommendationFilter: vi.fn(),
   setBattleWeather: vi.fn(),
@@ -11,9 +13,16 @@ const mocked = vi.hoisted(() => ({
   resetRun: vi.fn(),
 }));
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    replace: mocked.routerReplace,
+  }),
+}));
+
 vi.mock("@/components/BuilderProvider", () => ({
   useTeamSession: () => ({
     hydrated: mocked.hydrated,
+    builderStarted: mocked.builderStarted,
     evolutionConstraints: { trade: false },
     recommendationFilters: { excludeTrades: false },
     battleWeather: "rain",
@@ -66,6 +75,8 @@ describe("SettingsScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocked.hydrated = true;
+    mocked.builderStarted = true;
+    mocked.routerReplace.mockReset();
   });
 
   it("shows loading while the session hydrates", () => {
@@ -99,5 +110,6 @@ describe("SettingsScreen", () => {
 
     await user.click(screen.getByRole("button", { name: "reset-run" }));
     expect(mocked.resetRun).toHaveBeenCalled();
+    expect(mocked.routerReplace).toHaveBeenCalledWith("/onboarding");
   });
 });
