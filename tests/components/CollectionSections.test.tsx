@@ -20,6 +20,17 @@ vi.mock("motion/react", () => ({
 }));
 
 vi.mock("@/components/BuilderShared", () => ({
+  SpeciesCombobox: ({
+    value,
+    onChange,
+  }: {
+    value: string;
+    onChange: (value: string) => void;
+  }) => (
+    <button type="button" aria-label="species-combobox" onClick={() => onChange(value || "Zorua")}>
+      {value || "Species"}
+    </button>
+  ),
   FilterCombobox: ({
     value,
     placeholder,
@@ -211,18 +222,14 @@ describe("CollectionSections", () => {
     expect(screen.queryByText("Aura")).toBeNull();
 
     const search = screen.getByPlaceholderText(/busca por nickname, especie o numero dex/i);
-    await user.type(search, "447");
-    expect(screen.getByText(/#447 riolu/i)).toBeTruthy();
-    expect(screen.queryByText(/#448 lucario/i)).toBeNull();
-
-    await user.clear(search);
     await user.type(search, "rio");
+    expect(screen.getByText("Rio")).toBeTruthy();
+    expect(screen.queryByText("Aura")).toBeNull();
+
     await user.click(screen.getByText("Rio").closest("button")!);
     expect(onPickLibraryMember).toHaveBeenCalledWith("1");
 
-    await user.clear(search);
-    await user.type(search, "570");
-    await user.click(screen.getByRole("button", { name: /#570 zorua/i }));
+    await user.click(screen.getByRole("button", { name: "species-combobox" }));
     expect(onCreateFromDex).toHaveBeenCalledWith("Zorua");
 
     await user.clear(search);

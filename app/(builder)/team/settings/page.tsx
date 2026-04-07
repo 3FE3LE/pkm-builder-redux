@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: absoluteUrl("/team/settings"),
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function TeamSettingsPage() {

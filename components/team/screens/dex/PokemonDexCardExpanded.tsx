@@ -54,16 +54,22 @@ export function PokemonDexCardExpanded({
         <div className="mt-3 grid gap-2.5 lg:grid-cols-2 xl:grid-cols-2">
           <InfoBlock label="Habilidades">
           {sanitizeAbilityList(pokemon.abilities).length ? (
-            <div className="flex flex-wrap gap-2">
-              {sanitizeAbilityList(pokemon.abilities).map((ability, index) => (
-                <Link
-                  key={`${pokemon.slug}-${ability}-${index}`}
-                  href={getDexSearchHref("abilities", ability)}
-                  className="display-face rounded-full border border-line-soft bg-surface-3 px-2.5 py-1.5 text-[11px] text-text transition-colors hover:border-warning-line hover:text-[hsl(39_100%_78%)]"
-                >
-                  {ability}
-                </Link>
-              ))}
+            <div className="space-y-2">
+              {pokemon.abilitySlots?.regular?.length ? (
+                <AbilityGroup
+                  pokemonSlug={pokemon.slug}
+                  label={pokemon.abilitySlots.regular.length > 1 ? "Normales" : "Normal"}
+                  abilities={pokemon.abilitySlots.regular}
+                />
+              ) : null}
+              {pokemon.abilitySlots?.hidden?.length ? (
+                <AbilityGroup
+                  pokemonSlug={pokemon.slug}
+                  label="Oculta"
+                  abilities={pokemon.abilitySlots.hidden}
+                  tone="hidden"
+                />
+              ) : null}
             </div>
           ) : (
             <p className="text-sm text-muted">Sin habilidades registradas.</p>
@@ -176,8 +182,13 @@ export function PokemonDexCardExpanded({
                       <div className="mt-1 flex flex-wrap gap-1">
                         {form.types.map((type: string) => <TypeBadge key={`${form.slug}-${type}`} type={type} />)}
                       </div>
-                      <div className="mt-1.5 flex flex-wrap gap-1">
-                        {sanitizeAbilityList(form.abilities).map((ability) => <span key={`${form.slug}-${ability}`} className="rounded-full border border-line-soft bg-surface-2 px-2.5 py-1 text-[11px] text-text-faint">{ability}</span>)}
+                      <div className="mt-1.5 space-y-1.5">
+                        {form.abilitySlots?.regular?.length ? (
+                          <FormAbilityGroup label={form.abilitySlots.regular.length > 1 ? "Normales" : "Normal"} abilities={form.abilitySlots.regular} />
+                        ) : null}
+                        {form.abilitySlots?.hidden?.length ? (
+                          <FormAbilityGroup label="Oculta" abilities={form.abilitySlots.hidden} tone="hidden" />
+                        ) : null}
                       </div>
                       <div className="mt-1.5 flex flex-wrap gap-1">
                         <StatChip label={`BST ${form.stats?.bst ?? "-"}`} />
@@ -224,6 +235,70 @@ export function PokemonDexCardExpanded({
         </div>
       </ViewTransition>
     </>
+  );
+}
+
+function AbilityGroup({
+  pokemonSlug,
+  label,
+  abilities,
+  tone = "regular",
+}: {
+  pokemonSlug: string;
+  label: string;
+  abilities: string[];
+  tone?: "regular" | "hidden";
+}) {
+  return (
+    <div className="space-y-1">
+      <p className="display-face text-[10px] uppercase tracking-[0.12em] text-text-faint">{label}</p>
+      <div className="flex flex-wrap gap-2">
+        {abilities.map((ability, index) => (
+          <Link
+            key={`${pokemonSlug}-${label}-${ability}-${index}`}
+            href={getDexSearchHref("abilities", ability)}
+            className={[
+              "display-face rounded-full border px-2.5 py-1.5 text-[11px] transition-colors",
+              tone === "hidden"
+                ? "border-accent-line-faint bg-accent-fill-soft text-accent-soft hover:border-warning-line hover:text-[hsl(39_100%_78%)]"
+                : "border-line-soft bg-surface-3 text-text hover:border-warning-line hover:text-[hsl(39_100%_78%)]",
+            ].join(" ")}
+          >
+            {ability}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FormAbilityGroup({
+  label,
+  abilities,
+  tone = "regular",
+}: {
+  label: string;
+  abilities: string[];
+  tone?: "regular" | "hidden";
+}) {
+  return (
+    <div className="space-y-1">
+      <p className="display-face text-[10px] uppercase tracking-[0.12em] text-text-faint">{label}</p>
+      <div className="flex flex-wrap gap-1">
+        {abilities.map((ability, index) => (
+          <span
+            key={`${label}-${ability}-${index}`}
+            className={
+              tone === "hidden"
+                ? "rounded-full border border-accent-line-faint bg-accent-fill-soft px-2.5 py-1 text-[11px] text-accent-soft"
+                : "rounded-full border border-line-soft bg-surface-2 px-2.5 py-1 text-[11px] text-text-faint"
+            }
+          >
+            {ability}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 

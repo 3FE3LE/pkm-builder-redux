@@ -3,17 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/components/BuilderShared", () => ({
-  SpeciesCombobox: ({
-    speciesCatalog,
-    onChange,
-  }: {
-    speciesCatalog: Array<{ name: string }>;
-    onChange: (value: string) => void;
-  }) => (
-    <button type="button" aria-label="pokemon" onClick={() => onChange(speciesCatalog[0]?.name ?? "")}>
-      pokemon
-    </button>
-  ),
   FilterCombobox: ({
     placeholder,
     options,
@@ -83,12 +72,9 @@ describe("EditorProfileSection", () => {
       <ProfileSection
         member={createMember({ species: "Lucario", nickname: "Lucario", level: 30 }) as never}
         resolved={{ abilities: ["Steadfast", "Inner Focus"] } as never}
-        speciesCatalog={[]}
         abilityCatalog={[]}
         itemCatalog={[]}
-        nicknameValue="Lucario"
         currentSpecies="Lucario"
-        currentBaseSpecies="Lucario"
         formOptions={["Lucario"]}
         currentNature="Serious"
         currentAbility="Prankster"
@@ -109,81 +95,6 @@ describe("EditorProfileSection", () => {
     });
   });
 
-  it("changes species, syncs nickname only when nicknameValue still matches, and clears the ability", async () => {
-    const user = userEvent.setup();
-    const updateEditorMember = vi.fn();
-
-    render(
-      <ProfileSection
-        member={createMember() as never}
-        resolved={{ abilities: ["Prankster", "Steadfast"] } as never}
-        speciesCatalog={[
-          { name: "Lucario", slug: "lucario", dex: 448, types: ["Fighting", "Steel"] },
-        ]}
-        abilityCatalog={[]}
-        itemCatalog={[]}
-        nicknameValue="Riolu"
-        currentSpecies="Riolu"
-        currentBaseSpecies="Riolu"
-        formOptions={["Riolu"]}
-        currentNature="Serious"
-        currentAbility="Prankster"
-        currentItem=""
-        updateEditorMember={updateEditorMember}
-        getIssue={() => undefined}
-        onImportToPc={vi.fn()}
-      />,
-    );
-
-    await user.click(screen.getByRole("button", { name: /pokemon/i }));
-
-    const updater = updateEditorMember.mock.calls.at(-1)?.[0];
-    expect(updater(createMember())).toMatchObject({
-      species: "Lucario",
-      nickname: "Lucario",
-      ability: "",
-    });
-
-    const updateCustomNickname = vi.fn();
-
-    render(
-      <ProfileSection
-        member={createMember({ nickname: "Aura" }) as never}
-        resolved={{ abilities: ["Prankster", "Steadfast"] } as never}
-        speciesCatalog={[
-          { name: "Lucario", slug: "lucario", dex: 448, types: ["Fighting", "Steel"] },
-        ]}
-        abilityCatalog={[]}
-        itemCatalog={[]}
-        nicknameValue="Aura"
-        currentSpecies="Riolu"
-        currentBaseSpecies="Riolu"
-        formOptions={["Riolu"]}
-        currentNature="Serious"
-        currentAbility="Prankster"
-        currentItem=""
-        updateEditorMember={updateCustomNickname}
-        getIssue={() => undefined}
-        onImportToPc={vi.fn()}
-      />,
-    );
-
-    await user.click(screen.getAllByRole("button", { name: /pokemon/i })[1]!);
-
-    const customUpdater = updateCustomNickname.mock.calls.at(-1)?.[0];
-    expect(
-      customUpdater(
-        createMember({
-          nickname: "Aura",
-        }),
-      ),
-    ).toMatchObject({
-      species: "Lucario",
-      nickname: "Aura",
-      ability: "",
-    });
-  });
-
   it("shows issues and lets the user toggle lock plus update nature, ability, and held item", async () => {
     const user = userEvent.setup();
     const updateEditorMember = vi.fn();
@@ -198,9 +109,6 @@ describe("EditorProfileSection", () => {
             itemDetails: { name: "Oran Berry", effect: "Fallback item effect" },
           } as never
         }
-        speciesCatalog={[
-          { name: "Lucario", slug: "lucario", dex: 448, types: ["Fighting", "Steel"] },
-        ]}
         abilityCatalog={[
           { name: "Prankster", effect: "Acts first on status moves." },
           { name: "Steadfast", effect: "Raises speed after flinching." },
@@ -210,9 +118,7 @@ describe("EditorProfileSection", () => {
           { name: "Oran Berry", category: "Held Item", effect: "Restores 10 HP." },
           { name: "Leftovers", category: "Held Item", effect: "Recovers HP every turn." },
         ]}
-        nicknameValue="Riolu"
         currentSpecies="Riolu"
-        currentBaseSpecies="Riolu"
         formOptions={["Riolu"]}
         currentNature="Serious"
         currentAbility="Prankster"
@@ -257,14 +163,9 @@ describe("EditorProfileSection", () => {
       <ProfileSection
         member={createMember({ species: "Rotom-Wash", nickname: "Rotom" }) as never}
         resolved={{ abilities: ["Levitate"] } as never}
-        speciesCatalog={[
-          { name: "Rotom", slug: "rotom", dex: 479, types: ["Electric", "Ghost"] },
-        ]}
         abilityCatalog={[]}
         itemCatalog={[]}
-        nicknameValue="Rotom"
         currentSpecies="Rotom-Wash"
-        currentBaseSpecies="Rotom"
         formOptions={["Rotom", "Rotom-Heat", "Rotom-Wash"]}
         currentNature="Serious"
         currentAbility="Levitate"

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import type { EditableMember } from "@/lib/builderStore";
 
 export type ResetFields = {
+  evolutionLine: boolean;
   nickname: boolean;
   level: boolean;
   gender: boolean;
@@ -18,6 +19,7 @@ export type ResetFields = {
 };
 
 const RESET_LABELS = {
+  evolutionLine: "Linea evolutiva",
   nickname: "Nickname",
   level: "Nivel",
   gender: "Genero",
@@ -37,6 +39,7 @@ export function SlotModals({
   onCloseReset,
   onCloseDelete,
   onToggleResetField,
+  onToggleAllResetFields,
   onApplyReset,
   onConfirmDelete,
   onConfirmRelease,
@@ -48,10 +51,14 @@ export function SlotModals({
   onCloseReset: () => void;
   onCloseDelete: () => void;
   onToggleResetField: (field: keyof ResetFields, checked: boolean) => void;
+  onToggleAllResetFields: (checked: boolean) => void;
   onApplyReset: () => void;
   onConfirmDelete: () => void;
   onConfirmRelease: () => void;
 }) {
+  const checkedCount = Object.values(resetFields).filter(Boolean).length;
+  const shouldMarkAll = checkedCount < Object.keys(resetFields).length;
+
   return (
     <>
       <AnimatePresence>
@@ -72,6 +79,15 @@ export function SlotModals({
               <p className="mt-2 text-sm text-muted">
                 Elige exactamente qué quieres restablecer. Todas las opciones vienen marcadas por defecto.
               </p>
+              <div className="mt-4 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => onToggleAllResetFields(shouldMarkAll)}
+                  className="display-face text-xs uppercase tracking-[0.14em] text-accent transition hover:text-text"
+                >
+                  {shouldMarkAll ? "Marcar todo" : "Desmarcar todos"}
+                </button>
+              </div>
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 {Object.entries(resetFields).map(([key, checked]) => (
                   <label

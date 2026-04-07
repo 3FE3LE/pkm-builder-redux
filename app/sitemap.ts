@@ -1,34 +1,36 @@
 import type { MetadataRoute } from "next";
 
+import { getLocalSpeciesList } from "@/lib/localDex";
 import { absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const speciesEntries = getLocalSpeciesList().map((species) => ({
+    url: absoluteUrl(`/team/dex/pokemon/${species.slug}`),
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
 
   return [
     {
       url: absoluteUrl("/"),
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: absoluteUrl("/home"),
+      url: absoluteUrl("/team/dex"),
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: absoluteUrl("/onboarding"),
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: absoluteUrl("/team"),
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.6,
     },
+    ...speciesEntries,
   ];
 }

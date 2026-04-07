@@ -75,7 +75,7 @@ export function EvolutionModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="modal-backdrop-strong fixed inset-0 z-[70] flex items-center justify-center px-4 py-6 backdrop-blur-md"
+      className="modal-backdrop-strong fixed inset-0 z-[160] flex items-center justify-center px-4 py-6 backdrop-blur-md"
     >
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -211,12 +211,12 @@ export function EvolutionModal({
             />
             <p className="mt-6 text-center text-sm text-muted">
               {animationStage === "charge"
-                ? "..."
+                ? `What? ${currentSpecies} is evolving!`
                 : animationStage === "flare"
-                  ? `${currentSpecies}?`
+                  ? `${currentSpecies} is glowing!`
                   : animationStage === "morph"
-                    ? "What?"
-                    : `${currentSpecies} evolved into ${nextSelection?.species ?? "its next form"}!`}
+                    ? "..."
+                    : `Congratulations! Your ${currentSpecies} evolved into ${nextSelection?.species ?? "its next form"}!`}
             </p>
           </div>
         )}

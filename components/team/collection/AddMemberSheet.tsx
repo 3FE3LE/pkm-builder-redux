@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Check, Plus, Search } from "lucide-react";
+import { Check, Search } from "lucide-react";
 
-import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { PokemonSprite, SpeciesCombobox } from "@/components/BuilderShared";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
@@ -27,6 +27,7 @@ export function AddMemberSheet({
   onCreateFromDex: (species: string) => void;
 }) {
   const [query, setQuery] = useState("");
+  const [selectedDexSpecies, setSelectedDexSpecies] = useState("");
   const activeTeamIdSet = useMemo(() => new Set(activeTeamIds), [activeTeamIds]);
   const availableMembers = useMemo(
     () => libraryMembers.filter((member) => !activeTeamIdSet.has(member.id)),
@@ -46,29 +47,13 @@ export function AddMemberSheet({
       );
     });
   }, [availableMembers, query]);
-  const filteredDex = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-
-    return speciesCatalog
-      .filter((entry) => {
-        if (!normalizedQuery) {
-          return true;
-        }
-
-        return (
-          entry.name.toLowerCase().includes(normalizedQuery) ||
-          String(entry.dex).includes(normalizedQuery)
-        );
-      })
-      .slice(0, 18);
-  }, [query, speciesCatalog]);
-
   if (!open) {
     return null;
   }
 
   function closeSheet() {
     setQuery("");
+    setSelectedDexSpecies("");
     onClose();
   }
 
@@ -140,30 +125,21 @@ export function AddMemberSheet({
               <p className="display-face text-xs text-accent">Dex</p>
               <p className="text-[11px] text-muted">Crear nuevo</p>
             </div>
-            <div className="max-h-[24rem] space-y-2 overflow-auto pr-1">
-              {filteredDex.map((entry) => (
-                <button
-                  key={entry.slug}
-                  type="button"
-                  onClick={() => {
-                    setQuery("");
-                    onCreateFromDex(entry.name);
-                  }}
-                  className="soft-card flex w-full items-center justify-between gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
-                >
-                  <div className="min-w-0">
-                    <p className="display-face truncate text-sm text-text">
-                      #{String(entry.dex).padStart(3, "0")} {entry.name}
-                    </p>
-                    <div className="mt-1 flex flex-wrap gap-1">
-                      {entry.types.map((type) => (
-                        <TypeBadge key={`${entry.slug}-${type}`} type={type} />
-                      ))}
-                    </div>
-                  </div>
-                  <Plus className="h-4 w-4 text-accent" />
-                </button>
-              ))}
+            <div className="space-y-3">
+              <SpeciesCombobox
+                value={selectedDexSpecies}
+                speciesCatalog={speciesCatalog}
+                coordinationGroup="add-member-dex"
+                panelClassName="max-w-none"
+                onChange={(species) => {
+                  setSelectedDexSpecies(species);
+                  setQuery("");
+                  onCreateFromDex(species);
+                }}
+              />
+              <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
+                Usa el buscador de especies para crear un Pokemon nuevo desde la dex.
+              </div>
             </div>
           </section>
         </div>

@@ -15,6 +15,11 @@ const ZERO_SPREAD = {
   spe: 0,
 } satisfies Record<keyof EditableMember["ivs"], number>;
 
+const RADAR_MIN_STAT = 5;
+const RADAR_MAX_STAT = 500;
+const RADAR_MIN_VISIBLE_RATIO = 0.08;
+const RADAR_SCALE_PIVOT = 110;
+
 export function buildSummaryStats(
   baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>,
   natureEffect: NonNullable<ResolvedTeamMember["natureEffect"]>,
@@ -92,7 +97,6 @@ export function EffectiveStatsRadar({
   statModifiers?: ResolvedTeamMember["statModifiers"];
   natureEffect?: ResolvedTeamMember["natureEffect"];
 }) {
-  const maxStats = buildMaxPotentialStats(baseStats, level, statModifiers);
   const axes = [
     { label: "HP", key: "hp" as const },
     { label: "Atk", key: "atk" as const },
@@ -118,7 +122,6 @@ export function EffectiveStatsRadar({
       axis,
       index,
       evLayerStats[axis.key],
-      maxStats[axis.key],
       center,
       radius,
       axes.length,
@@ -129,7 +132,6 @@ export function EffectiveStatsRadar({
       axis,
       index,
       baseLayerStats[axis.key],
-      maxStats[axis.key],
       center,
       radius,
       axes.length,
@@ -140,7 +142,6 @@ export function EffectiveStatsRadar({
       axis,
       index,
       ivLayerStats[axis.key],
-      maxStats[axis.key],
       center,
       radius,
       axes.length,
@@ -300,37 +301,15 @@ export function EffectiveStatsRadar({
   );
 }
 
-function buildMaxPotentialStats(
-  baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>,
-  level: number,
-  statModifiers?: ResolvedTeamMember["statModifiers"],
-) {
-  const maxed = {
-    hp: calculateEffectiveStats(baseStats, level, "Hardy", { hp: 31 }, { hp: 252 }).hp,
-    atk: calculateEffectiveStats(baseStats, level, "Adamant", { atk: 31 }, { atk: 252 }).atk,
-    def: calculateEffectiveStats(baseStats, level, "Bold", { def: 31 }, { def: 252 }).def,
-    spa: calculateEffectiveStats(baseStats, level, "Modest", { spa: 31 }, { spa: 252 }).spa,
-    spd: calculateEffectiveStats(baseStats, level, "Calm", { spd: 31 }, { spd: 252 }).spd,
-    spe: calculateEffectiveStats(baseStats, level, "Timid", { spe: 31 }, { spe: 252 }).spe,
-    bst: 0,
-  };
-  const withBst = {
-    ...maxed,
-    bst: maxed.hp + maxed.atk + maxed.def + maxed.spa + maxed.spd + maxed.spe,
-  };
-  return statModifiers?.length ? applyStatModifiers(withBst, statModifiers) : withBst;
-}
-
 function buildRadarPoint(
   axis: { label: string; key: "hp" | "atk" | "def" | "spe" | "spd" | "spa" },
   index: number,
   value: number,
-  maxValue: number,
   center: number,
   radius: number,
   totalAxes: number,
 ) {
-  const ratio = Math.max(0, Math.min(1, value / Math.max(1, maxValue)));
+  const ratio = getRadarScaleRatio(value);
   const angle = -Math.PI / 2 + (index * Math.PI * 2) / totalAxes;
 
   return {
@@ -347,8 +326,17 @@ function buildRadarPoint(
     axisX: center + Math.cos(angle) * radius,
     axisY: center + Math.sin(angle) * radius,
     value,
-    max: maxValue,
+    max: RADAR_MAX_STAT,
   };
+}
+
+export function getRadarScaleRatio(value: number) {
+  const clampedValue = Math.max(RADAR_MIN_STAT, Math.min(RADAR_MAX_STAT, value));
+  const normalized =
+    Math.asinh((clampedValue - RADAR_MIN_STAT) / RADAR_SCALE_PIVOT) /
+    Math.asinh((RADAR_MAX_STAT - RADAR_MIN_STAT) / RADAR_SCALE_PIVOT);
+
+  return RADAR_MIN_VISIBLE_RATIO + normalized * (1 - RADAR_MIN_VISIBLE_RATIO);
 }
 
 function buildLayerPath(

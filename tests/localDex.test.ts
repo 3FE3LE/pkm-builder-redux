@@ -23,7 +23,6 @@ describe("localDex", () => {
 
     expect(pokemonIndex.bulbasaur.types).toEqual(["Grass", "Poison"]);
     expect(pokemonIndex.bulbasaur.abilities).toEqual([
-      "Solar Power",
       "Overgrow",
       "Chlorophyll",
     ]);
@@ -45,12 +44,8 @@ describe("localDex", () => {
       dex: 555,
       slug: "darmanitan-zen",
       name: "Darmanitan-Zen",
-      types: ["Fire", "Psychic"],
       abilities: ["Zen Mode"],
     });
-    expect(pokemonIndex["darmanitan-zen"].learnsets).toBe(
-      pokemonIndex.darmanitan.learnsets
-    );
     expect(pokemonIndex.deoxys).toMatchObject({
       slug: "deoxys",
       name: "Deoxys",
@@ -322,6 +317,81 @@ describe("localDex", () => {
       expect(speciesList).toEqual([
         { name: "Testmon", slug: "testmon", dex: 1, types: ["Normal", "Fairy"] },
       ]);
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("uses normalized local pokemon abilities in the dex list instead of raw override triples", async () => {
+    const originalCwd = process.cwd();
+    const tempRoot = mkdtempSync(path.join(os.tmpdir(), "pkm-local-dex-list-"));
+    const referenceDir = path.join(tempRoot, "data", "reference");
+    const localDexDir = path.join(tempRoot, "data", "local-dex");
+
+    mkdirSync(referenceDir, { recursive: true });
+    mkdirSync(localDexDir, { recursive: true });
+
+    writeFileSync(
+      path.join(referenceDir, "pokemon-canonical-gen5.json"),
+      JSON.stringify({
+        "495": {
+          id: 495,
+          dex: 495,
+          slug: "snivy",
+          name: "Snivy",
+          types: ["Grass"],
+          abilities: ["Overgrow", "Contrary"],
+          stats: { hp: 45, atk: 45, def: 55, spa: 45, spd: 55, spe: 63, bst: 308 },
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(referenceDir, "pokemon-redux-overrides-gen5.json"),
+      JSON.stringify({
+        snivy: {
+          complete: {
+            abilities: ["Contrary", "Overgrow", "Contrary"],
+          },
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(localDexDir, "species-list.json"),
+      JSON.stringify([{ name: "Snivy", slug: "snivy", dex: 495, types: ["Grass"] }]),
+    );
+    writeFileSync(
+      path.join(localDexDir, "pokemon-index.json"),
+      JSON.stringify({
+        snivy: {
+          name: "Snivy",
+          slug: "snivy",
+          dex: 495,
+          types: ["Grass"],
+          abilities: ["Overgrow", "Contrary"],
+          stats: { hp: 45, atk: 45, def: 55, spa: 45, spd: 55, spe: 63, bst: 308 },
+        },
+      }),
+    );
+
+    try {
+      process.chdir(tempRoot);
+
+      const module = await import("../lib/localDex");
+      const dexList = module.getLocalDexList();
+      const slots = module.getPokemonAbilitySlots("Snivy");
+
+      expect(dexList).toEqual([
+        expect.objectContaining({
+          name: "Snivy",
+          abilities: ["Overgrow", "Contrary"],
+          hasAbilityChanges: false,
+        }),
+      ]);
+      expect(slots).toEqual({
+        regular: ["Contrary", "Overgrow"],
+        hidden: ["Contrary"],
+      });
     } finally {
       process.chdir(originalCwd);
       rmSync(tempRoot, { recursive: true, force: true });

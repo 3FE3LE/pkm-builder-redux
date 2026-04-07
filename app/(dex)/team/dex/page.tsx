@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: absoluteUrl("/team/dex"),
   },
+  openGraph: {
+    url: absoluteUrl("/team/dex"),
+    title: "Redux Dex",
+    description:
+      "Pokedex de Blaze Black 2 Redux y Volt White 2 Redux con fichas de Pokemon, habilidades, movimientos y objetos.",
+  },
 };
 
 type PageProps = {

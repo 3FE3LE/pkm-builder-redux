@@ -186,6 +186,8 @@ export function WorkspaceScreen() {
             )}
             moveRecommendations={analysis.moveRecommendations}
             starterSpeciesLine={starterLine}
+            speciesCatalog={catalogs.speciesCatalog}
+            pokemonIndex={catalogs.pokemonIndex as Record<string, { name?: string; nextEvolutions?: string[] }>}
             editorOpen={editorOpen}
             onSelectMember={team.actions.selectMember}
             onToggleMemberLock={(id) => {

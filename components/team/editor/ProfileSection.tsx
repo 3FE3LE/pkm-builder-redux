@@ -7,34 +7,27 @@ import {
   FilterCombobox,
   InfoHint,
   ItemSprite,
-  SpeciesCombobox,
 } from "@/components/BuilderShared";
 import { TransferActions } from "@/components/team/shared/TransferPanels";
 import type {
   AbilityCatalogEntry,
   IssueGetter,
   ItemCatalogEntry,
-  SpeciesCatalogEntry,
   Update,
 } from "@/components/team/editor/types";
 import { natureOptions } from "@/lib/builderForm";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { getNatureEffect } from "@/lib/domain/battle";
 import { isHeldItem } from "@/lib/domain/items";
-import { getBaseSpeciesName } from "@/lib/forms";
-import { normalizeName } from "@/lib/domain/names";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
 
 export function ProfileSection({
   member,
   resolved,
-  speciesCatalog,
   abilityCatalog,
   itemCatalog,
-  nicknameValue,
   currentSpecies,
-  currentBaseSpecies,
   formOptions,
   currentNature,
   currentAbility,
@@ -45,12 +38,9 @@ export function ProfileSection({
 }: {
   member: EditableMember;
   resolved?: ResolvedTeamMember;
-  speciesCatalog: SpeciesCatalogEntry[];
   abilityCatalog: AbilityCatalogEntry[];
   itemCatalog: ItemCatalogEntry[];
-  nicknameValue: string;
   currentSpecies: string;
-  currentBaseSpecies: string;
   formOptions: string[];
   currentNature: string;
   currentAbility: string;
@@ -59,7 +49,6 @@ export function ProfileSection({
   getIssue: IssueGetter;
   onImportToPc: (member: EditableMember) => boolean;
 }) {
-  const shouldAutoFocusSpecies = !currentSpecies.trim();
   const previewAbilityDetails =
     abilityCatalog.find((entry) => entry.name === currentAbility) ??
     resolved?.abilityDetails ??
@@ -130,38 +119,14 @@ export function ProfileSection({
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <label className="min-w-0 text-sm">
-          <span className="mb-1 block text-muted">Pokemon</span>
-          <SpeciesCombobox
-            value={currentBaseSpecies}
-            speciesCatalog={speciesCatalog}
-            autoFocus={shouldAutoFocusSpecies}
-            panelClassName="max-w-none left-0"
-            onChange={(species) => {
-              updateEditorMember((current) => {
-                const shouldSyncNickname =
-                  !nicknameValue ||
-                  normalizeName(nicknameValue) === normalizeName(current.species) ||
-                  normalizeName(nicknameValue) === normalizeName(getBaseSpeciesName(current.species));
-
-                return {
-                  ...current,
-                  species,
-                  nickname: shouldSyncNickname ? species : current.nickname,
-                  ability: "",
-                };
-              });
-            }}
-          />
-          {getIssue("species") ? (
-            <span className="mt-2 block text-[11px] text-danger">
-              {getIssue("species")}
-            </span>
-          ) : null}
-        </label>
+      <div className="space-y-3">
+        {getIssue("species") ? (
+          <span className="block text-[11px] text-danger">
+            {getIssue("species")}
+          </span>
+        ) : null}
         {formOptions.length > 1 ? (
-          <label className="min-w-0 text-sm">
+          <label className="block min-w-0 text-sm">
             <span className="mb-1 block text-muted">Forma</span>
             <FilterCombobox
               value={currentSpecies}
@@ -176,111 +141,113 @@ export function ProfileSection({
             />
           </label>
         ) : null}
-        <label className="min-w-0 text-sm">
-          <span className="mb-1 block text-muted">Naturaleza</span>
-          <FilterCombobox
-            value={currentNature}
-            options={natureOptions}
-            placeholder="Naturaleza"
-            panelClassName=""
-            coordinationGroup="editor-profile"
-            renderOption={(nature, selected) => {
-              const effect = getNatureEffect(nature);
-              const up = effect.up ? effect.up.toUpperCase() : null;
-              const down = effect.down ? effect.down.toUpperCase() : null;
-              return (
-                <div className="flex w-full items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <span>{nature}</span>
-                    {up || down ? (
-                      <span className="text-xs text-muted">
-                        {up ? `+${up}` : ""}
-                        {up && down ? " / " : ""}
-                        {down ? `-${down}` : ""}
-                      </span>
-                    ) : (
-                      <span className="text-xs text-muted">neutral</span>
-                    )}
+        <div className="grid gap-3 md:grid-cols-3">
+          <label className="min-w-0 text-sm">
+            <span className="mb-1 block text-muted">Naturaleza</span>
+            <FilterCombobox
+              value={currentNature}
+              options={natureOptions}
+              placeholder="Naturaleza"
+              panelClassName=""
+              coordinationGroup="editor-profile"
+              renderOption={(nature, selected) => {
+                const effect = getNatureEffect(nature);
+                const up = effect.up ? effect.up.toUpperCase() : null;
+                const down = effect.down ? effect.down.toUpperCase() : null;
+                return (
+                  <div className="flex w-full items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span>{nature}</span>
+                      {up || down ? (
+                        <span className="text-xs text-muted">
+                          {up ? `+${up}` : ""}
+                          {up && down ? " / " : ""}
+                          {down ? `-${down}` : ""}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-muted">neutral</span>
+                      )}
+                    </div>
+                    {selected ? <Check className="h-4 w-4 text-accent" /> : null}
                   </div>
-                  {selected ? <Check className="h-4 w-4 text-accent" /> : null}
-                </div>
-              );
-            }}
-            onChange={(nature) =>
-              updateEditorMember((current) => ({ ...current, nature }))
-            }
-          />
-        </label>
-        <label className="min-w-0 text-sm">
-          <span className="mb-1 flex items-center gap-2 text-muted">
-            Habilidad
-            <InfoHint text={previewAbilityDetails?.effect} />
-          </span>
-          <FilterCombobox
-            value={currentAbility}
-            options={abilityOptions}
-            placeholder="Ability"
-            searchable={false}
-            panelClassName=""
-            coordinationGroup="editor-profile"
-            renderOption={(ability, selected) => {
-              const details = abilityCatalog.find((entry) => entry.name === ability);
-              return (
-                <div className="flex w-full items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="text-sm text-text">{ability}</div>
-                    {details?.effect ? (
-                      <div className="mt-1 line-clamp-2 text-xs text-muted">
-                        {details.effect}
-                      </div>
+                );
+              }}
+              onChange={(nature) =>
+                updateEditorMember((current) => ({ ...current, nature }))
+              }
+            />
+          </label>
+          <label className="min-w-0 text-sm">
+            <span className="mb-1 flex items-center gap-2 text-muted">
+              Objeto
+              <InfoHint text={previewItemDetails?.effect} />
+            </span>
+            <FilterCombobox
+              value={currentItem}
+              options={heldItemOptions}
+              placeholder="Held item"
+              panelClassName=""
+              coordinationGroup="editor-profile"
+              renderOption={(itemName, selected) => {
+                const details = itemCatalog.find((entry) => entry.name === itemName);
+                return (
+                  <div className="flex w-full items-start gap-3">
+                    <ItemSprite name={itemName} sprite={details?.sprite} />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-sm text-text">{itemName}</div>
+                      {details?.effect ? (
+                        <div className="mt-1 line-clamp-2 text-xs text-muted">
+                          {details.effect}
+                        </div>
+                      ) : null}
+                    </div>
+                    {selected ? (
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-accent" />
                     ) : null}
                   </div>
-                  {selected ? (
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                  ) : null}
-                </div>
-              );
-            }}
-            onChange={(ability) =>
-              updateEditorMember((current) => ({ ...current, ability }))
-            }
-          />
-        </label>
-        <label className="min-w-0 text-sm">
-          <span className="mb-1 flex items-center gap-2 text-muted">
-            Objeto
-            <InfoHint text={previewItemDetails?.effect} />
-          </span>
-          <FilterCombobox
-            value={currentItem}
-            options={heldItemOptions}
-            placeholder="Held item"
-            panelClassName=""
-            coordinationGroup="editor-profile"
-            renderOption={(itemName, selected) => {
-              const details = itemCatalog.find((entry) => entry.name === itemName);
-              return (
-                <div className="flex w-full items-start gap-3">
-                  <ItemSprite name={itemName} sprite={details?.sprite} />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-sm text-text">{itemName}</div>
-                    {details?.effect ? (
-                      <div className="mt-1 line-clamp-2 text-xs text-muted">
-                        {details.effect}
-                      </div>
+                );
+              }}
+              onChange={(item) =>
+                updateEditorMember((current) => ({ ...current, item }))
+              }
+            />
+          </label>
+          <label className="col-span-full min-w-0 text-sm md:col-span-1">
+            <span className="mb-1 flex items-center gap-2 text-muted">
+              Habilidad
+              <InfoHint text={previewAbilityDetails?.effect} />
+            </span>
+            <FilterCombobox
+              value={currentAbility}
+              options={abilityOptions}
+              placeholder="Ability"
+              searchable={false}
+              panelClassName=""
+              coordinationGroup="editor-profile"
+              renderOption={(ability, selected) => {
+                const details = abilityCatalog.find((entry) => entry.name === ability);
+                return (
+                  <div className="flex w-full items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="text-sm text-text">{ability}</div>
+                      {details?.effect ? (
+                        <div className="mt-1 line-clamp-2 text-xs text-muted">
+                          {details.effect}
+                        </div>
+                      ) : null}
+                    </div>
+                    {selected ? (
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                     ) : null}
                   </div>
-                  {selected ? (
-                    <Check className="mt-1 h-4 w-4 shrink-0 text-accent" />
-                  ) : null}
-                </div>
-              );
-            }}
-            onChange={(item) =>
-              updateEditorMember((current) => ({ ...current, item }))
-            }
-          />
-        </label>
+                );
+              }}
+              onChange={(ability) =>
+                updateEditorMember((current) => ({ ...current, ability }))
+              }
+            />
+          </label>
+        </div>
       </div>
     </section>
   );

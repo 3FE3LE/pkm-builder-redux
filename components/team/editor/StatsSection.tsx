@@ -2,11 +2,11 @@
 
 import { useMemo } from 'react';
 
+import { RoleAxesCard } from '@/components/team/shared/RoleAxes';
 import {
   buildSummaryStats,
   EffectiveStatsRadar,
 } from '@/components/team/shared/StatRadar';
-import { RoleAxesCard } from '@/components/team/shared/RoleAxes';
 import {
   MetaBadge,
   MiniPill,
@@ -31,6 +31,20 @@ import type {
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
+
+function clampEvValue(
+  currentEvs: EditableMember["evs"],
+  key: (typeof statKeys)[number],
+  next: number,
+) {
+  const clampedNext = Math.max(0, Math.min(252, next));
+  const otherTotal = statKeys.reduce(
+    (sum, statKey) =>
+      sum + (statKey === key ? 0 : Number(currentEvs[statKey] ?? 0)),
+    0,
+  );
+  return Math.max(0, Math.min(clampedNext, 510 - otherTotal));
+}
 
 export function StatsSection({
   member,
@@ -139,9 +153,9 @@ export function StatsSection({
         ) : null}
       </div>
       <div className="grid gap-3 lg:grid-cols-4 lg:items-start">
-        <div>
+        <div className="lg:self-center">
           <p className="display-face text-sm text-accent">IV 0-31</p>
-          <div className="mt-3 flex flex-nowrap items-start justify-between gap-1 lg:flex-col lg:gap-2">
+          <div className="mt-3 flex flex-nowrap items-center justify-between gap-1 lg:flex-col lg:gap-2">
             {statKeys.map((key) => (
               <SpreadInput
                 key={`iv-${key}`}
@@ -191,12 +205,12 @@ export function StatsSection({
             </div>
           ) : null}
         </div>
-        <div>
+        <div className="lg:self-center">
           <p className="display-face text-sm text-accent">EV {totalEvs}/510</p>
           {evError ? (
             <p className="mt-3 text-sm text-danger">{evError}</p>
           ) : null}
-          <div className="mt-3 flex flex-nowrap items-start justify-between gap-1 lg:flex-col lg:gap-2">
+          <div className="mt-3 flex flex-nowrap items-center justify-between gap-1 lg:flex-col lg:gap-2">
             {statKeys.map((key) => (
               <SpreadInput
                 key={`ev-${key}`}
@@ -209,7 +223,7 @@ export function StatsSection({
                     ...current,
                     evs: {
                       ...current.evs,
-                      [key]: Math.max(0, Math.min(252, next)),
+                      [key]: clampEvValue(current.evs, key, next),
                     },
                   }))
                 }

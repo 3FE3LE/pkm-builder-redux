@@ -7,6 +7,7 @@ import {
   useTeamAnalysis,
   useTeamCatalogs,
   useTeamCompare,
+  useTeamEvolution,
   useTeamMovePicker,
   useTeamRoster,
   useTeamSession,
@@ -27,6 +28,7 @@ export function EditorPageRoute() {
   const team = useTeamRoster();
   const analysis = useTeamAnalysis();
   const compare = useTeamCompare();
+  const evolution = useTeamEvolution();
   const movePicker = useTeamMovePicker();
 
   useEffect(() => {
@@ -70,6 +72,15 @@ export function EditorPageRoute() {
       ? orderedTeamMembers[currentMemberIndex + 1]
       : undefined;
 
+  useEffect(() => {
+    if (!member) {
+      return;
+    }
+
+    const label = member.nickname?.trim() || member.species?.trim() || "Team Member";
+    document.title = `Edit ${label}`;
+  }, [member]);
+
   if (!session.hydrated) {
     return <LoadingState variant="editor" />;
   }
@@ -102,6 +113,7 @@ export function EditorPageRoute() {
       speciesCatalog={catalogs.speciesCatalog}
       abilityCatalog={catalogs.abilityCatalog}
       itemCatalog={catalogs.itemCatalog}
+      pokemonIndex={catalogs.pokemonIndex as Record<string, { name?: string; nextEvolutions?: string[] }>}
       onChange={(next) => team.actions.updateMember(next.id, next)}
       onImportToPc={team.actions.saveMemberToPc}
       onOpenMoveModal={(slotIndex) => movePicker.actions.open(member.id, slotIndex)}
@@ -146,6 +158,10 @@ export function EditorPageRoute() {
       onCloseMovePicker={movePicker.actions.close}
       onPickMove={movePicker.actions.pickMove}
       getMoveSurfaceStyle={movePicker.getSurfaceStyle}
+      evolutionState={evolution.state}
+      onSelectEvolution={evolution.actions.select}
+      onCloseEvolution={evolution.actions.close}
+      onConfirmEvolution={evolution.actions.confirm}
     />
   );
 }

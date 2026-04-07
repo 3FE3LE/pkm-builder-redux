@@ -5,6 +5,7 @@ import { getDexPageData } from "@/lib/builderPageData";
 import { extractEncounterSpecies, extractGiftSpecies } from "@/lib/domain/sourceData";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { getAvailableFormsForSpecies } from "@/lib/forms";
+import { getPokemonAbilitySlots, type PokemonAbilitySlots } from "@/lib/localDex";
 
 type SearchParamsInput = Record<string, string | string[] | undefined>;
 
@@ -59,6 +60,7 @@ const DEX_DETAIL_BASE_BY_SLUG = new Map(
           flavorText: pokemon?.flavorText ?? undefined,
           canonicalStats: canonicalPokemon?.stats,
           abilities: pokemon?.abilities ?? [],
+          abilitySlots: getPokemonAbilitySlots(species.slug),
           nextEvolutions: pokemon?.nextEvolutions ?? [],
           evolutionDetails: pokemon?.evolutionDetails ?? [],
           learnsets: pokemon?.learnsets,
@@ -90,6 +92,7 @@ export type DexDetailPageData = {
     flavorText?: DexPokemonEntry["flavorText"];
     canonicalStats?: DexPokemonEntry["stats"];
     abilities: string[];
+    abilitySlots: PokemonAbilitySlots;
     nextEvolutions: string[];
     evolutionDetails: NonNullable<DexPokemonEntry["evolutionDetails"]>;
     learnsets?: DexPokemonEntry["learnsets"];
@@ -105,6 +108,7 @@ export type DexDetailPageData = {
     spriteUrl?: string;
     animatedSpriteUrl?: string;
     abilities: string[];
+    abilitySlots: PokemonAbilitySlots;
     stats?: DexPokemonEntry["stats"];
   }>;
   evolutions: Array<
@@ -350,6 +354,7 @@ function buildForms(
         spriteUrl: formSprites.spriteUrl,
         animatedSpriteUrl: formSprites.animatedSpriteUrl,
         abilities: formPokemon.abilities ?? [],
+        abilitySlots: getPokemonAbilitySlots(formPokemon.slug ?? formKey),
         stats: formPokemon.stats,
       };
     })

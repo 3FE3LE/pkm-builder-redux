@@ -1,26 +1,35 @@
 "use client";
 
-import { ViewTransition, useMemo, useState } from "react";
+import { ViewTransition, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, GitCompareArrows, RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
 
 import { DefenseSection } from "@/components/team/editor/DefenseSection";
 import { Header } from "@/components/team/editor/Header";
+import { LevelUpMoveModal } from "@/components/team/editor/LevelUpMoveModal";
 import { MovePickerModal } from "@/components/team/editor/MovePickerModal";
 import { MovesSection } from "@/components/team/editor/MovesSection";
 import { ProfileSection } from "@/components/team/editor/ProfileSection";
 import { StatsSection } from "@/components/team/editor/StatsSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/Button";
 import { ActionDock } from "@/components/team/workspace/roster/ActionDock";
 import { SelectedMemberInsightCard } from "@/components/team/workspace/roster/SelectedMemberInsightCard";
 import { SlotModals, type ResetFields } from "@/components/team/workspace/roster/SlotModals";
+import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
 import { editableMemberSchema } from "@/lib/builderForm";
 import type { EditableMember } from "@/lib/builderStore";
 import { createEditable } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
+import { getEvolutionLineBaseSpecies } from "@/lib/domain/evolutionLine";
 import type { EvolutionEligibility } from "@/lib/domain/evolutionEligibility";
-import { getAvailableFormsForSpecies, getBaseSpeciesName } from "@/lib/forms";
+import {
+  getLevelUpMovesBetweenLevels,
+  mergeLevelUpMoveQueues,
+  type LevelUpMoveEntry,
+} from "@/lib/domain/levelUpMoves";
+import { getAvailableFormsForSpecies } from "@/lib/forms";
 import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
@@ -43,6 +52,7 @@ type EditorPageProps = {
   speciesCatalog: SpeciesCatalogEntry[];
   abilityCatalog: AbilityCatalogEntry[];
   itemCatalog: ItemCatalogEntry[];
+  pokemonIndex: Record<string, { name?: string; nextEvolutions?: string[] }>;
   onChange: (next: EditableMember) => void;
   onImportToPc: (member: EditableMember) => boolean;
   onOpenMoveModal: (slotIndex: number | null) => void;
@@ -67,6 +77,22 @@ type EditorPageProps = {
   onCloseMovePicker: () => void;
   onPickMove: (moveName: string) => void;
   getMoveSurfaceStyle: (type?: string | null) => React.CSSProperties | undefined;
+  evolutionState: {
+    currentSpecies: string;
+    currentSpriteUrl?: string;
+    currentAnimatedSpriteUrl?: string;
+    nextOptions: {
+      species: string;
+      spriteUrl?: string;
+      animatedSpriteUrl?: string;
+      eligible?: boolean;
+      reasons?: string[];
+    }[];
+    selectedNext: string | null;
+  } | null;
+  onSelectEvolution: (species: string) => void;
+  onCloseEvolution: () => void;
+  onConfirmEvolution: (species: string) => void;
 };
 
 type MoveRecommendation = ReturnType<
@@ -83,6 +109,7 @@ export function EditorPage({
   speciesCatalog,
   abilityCatalog,
   itemCatalog,
+  pokemonIndex,
   onChange,
   onImportToPc,
   onOpenMoveModal,
@@ -107,11 +134,21 @@ export function EditorPage({
   onCloseMovePicker,
   onPickMove,
   getMoveSurfaceStyle,
+  evolutionState,
+  onSelectEvolution,
+  onCloseEvolution,
+  onConfirmEvolution,
 }: EditorPageProps) {
   const [editorTab, setEditorTab] = useState<"stats" | "moves" | "typing">("stats");
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
+  const [levelUpQueue, setLevelUpQueue] = useState<LevelUpMoveEntry[]>([]);
+  const [pendingEvolutionPrompt, setPendingEvolutionPrompt] = useState<{
+    species: string;
+    level: number;
+  } | null>(null);
   const [resetFields, setResetFields] = useState<ResetFields>({
+    evolutionLine: false,
     nickname: true,
     level: true,
     gender: true,
@@ -125,9 +162,7 @@ export function EditorPage({
 
   const currentLevel = Number(member.level ?? 1);
   const currentSpecies = String(member.species ?? "");
-  const currentBaseSpecies = getBaseSpeciesName(currentSpecies);
   const formOptions = getAvailableFormsForSpecies(currentSpecies);
-  const nicknameValue = String(member.nickname ?? "").trim();
   const parsedValues = editableMemberSchema.safeParse(member);
   const issues = parsedValues.success ? [] : parsedValues.error.issues;
   const getIssue = (path: string) =>
@@ -152,23 +187,124 @@ export function EditorPage({
         : null,
     [resolved, starterSpeciesLine],
   );
+  const evolutionLineBaseSpecies = useMemo(() => {
+    return getEvolutionLineBaseSpecies({
+      species: currentSpecies,
+      speciesCatalog,
+      pokemonIndex,
+    });
+  }, [currentSpecies, pokemonIndex, speciesCatalog]);
+
+  useEffect(() => {
+    setLevelUpQueue([]);
+  }, [member.id, currentSpecies]);
+
+  useEffect(() => {
+    if (!pendingEvolutionPrompt) {
+      return;
+    }
+    if (pendingEvolutionPrompt.species !== currentSpecies || currentLevel < pendingEvolutionPrompt.level) {
+      setPendingEvolutionPrompt(null);
+      return;
+    }
+    if (levelUpQueue.length || evolutionState || !canRequestEvolution) {
+      return;
+    }
+
+    onRequestEvolution();
+    setPendingEvolutionPrompt(null);
+  }, [
+    canRequestEvolution,
+    currentLevel,
+    currentSpecies,
+    evolutionState,
+    levelUpQueue.length,
+    onRequestEvolution,
+    pendingEvolutionPrompt,
+  ]);
 
   function updateEditorMember(
     updater: (current: EditableMember) => EditableMember,
   ) {
     const next = updater(member);
+    const nextLevel = Number(next.level ?? currentLevel);
+    if (
+      next.species === member.species &&
+      nextLevel > currentLevel &&
+      resolved?.learnsets?.levelUp?.length
+    ) {
+      const unlockedMoves = getLevelUpMovesBetweenLevels({
+        learnset: resolved.learnsets.levelUp,
+        currentMoves: member.moves,
+        fromLevel: currentLevel,
+        toLevel: nextLevel,
+      });
+      if (unlockedMoves.length) {
+        setLevelUpQueue((currentQueue) => mergeLevelUpMoveQueues(currentQueue, unlockedMoves));
+        setEditorTab("moves");
+      }
+    }
+    if (next.species === member.species && nextLevel > currentLevel) {
+      setPendingEvolutionPrompt({
+        species: member.species,
+        level: nextLevel,
+      });
+    }
     const parsed = editableMemberSchema.safeParse(next);
     onChange(parsed.success ? parsed.data : next);
   }
 
-  function resetSelectedMember() {
-    const defaults = createEditable(member.species);
-    defaults.id = member.id;
-    defaults.locked = member.locked;
-    defaults.nickname = member.species;
+  function advanceLevelUpQueue() {
+    setLevelUpQueue((currentQueue) => currentQueue.slice(1));
+  }
+
+  function handleCloseLevelUpModal() {
+    setLevelUpQueue([]);
+  }
+
+  function handleSkipLevelUpMove() {
+    advanceLevelUpQueue();
+  }
+
+  function handleLearnLevelUpMove() {
+    const queuedMove = levelUpQueue[0];
+    if (!queuedMove || member.moves.includes(queuedMove.move) || member.moves.length >= 4) {
+      advanceLevelUpQueue();
+      return;
+    }
 
     onChange({
       ...member,
+      moves: [...member.moves, queuedMove.move],
+    });
+    advanceLevelUpQueue();
+  }
+
+  function handleReplaceLevelUpMove(slotIndex: number) {
+    const queuedMove = levelUpQueue[0];
+    if (!queuedMove || !member.moves[slotIndex]) {
+      return;
+    }
+
+    const nextMoves = [...member.moves];
+    nextMoves[slotIndex] = queuedMove.move;
+    onChange({
+      ...member,
+      moves: nextMoves,
+    });
+    advanceLevelUpQueue();
+  }
+
+  function resetSelectedMember() {
+    const resetSpecies = resetFields.evolutionLine ? evolutionLineBaseSpecies : member.species;
+    const defaults = createEditable(resetSpecies);
+    defaults.id = member.id;
+    defaults.locked = member.locked;
+    defaults.nickname = resetSpecies;
+
+    onChange({
+      ...member,
+      species: resetSpecies,
       nickname: resetFields.nickname ? defaults.nickname : member.nickname,
       level: resetFields.level ? defaults.level : member.level,
       gender: resetFields.gender ? defaults.gender : member.gender,
@@ -207,7 +343,7 @@ export function EditorPage({
         </Link>
       ) : null}
       <section className="mx-auto max-w-6xl">
-        <div className="mb-4">
+        <div className="mb-4 flex items-center justify-between gap-3">
           <Link
             href="/team"
             transitionTypes={backTransition}
@@ -216,6 +352,28 @@ export function EditorPage({
             <ChevronLeft className="h-4 w-4" />
             Volver al team
           </Link>
+          <div className="hidden items-center gap-2 md:flex">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              onClick={() => setResetOpen(true)}
+              aria-label="Resetear slot seleccionado"
+              className="size-9 rounded-[0.9rem] border border-danger-line-soft bg-surface-4 text-danger hover:bg-danger-fill"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              onClick={onAssignToCompare}
+              aria-label="Comparar slot seleccionado"
+              className="size-9 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+            >
+              <GitCompareArrows className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
 
         <ViewTransition name={getTeamEditorTransitionName("card", member.id)}>
@@ -239,12 +397,9 @@ export function EditorPage({
               <ProfileSection
                 member={member}
                 resolved={resolved}
-                speciesCatalog={speciesCatalog}
                 abilityCatalog={abilityCatalog}
                 itemCatalog={itemCatalog}
-                nicknameValue={nicknameValue}
                 currentSpecies={currentSpecies}
-                currentBaseSpecies={currentBaseSpecies}
                 formOptions={formOptions}
                 currentNature={currentNature}
                 currentAbility={currentAbility}
@@ -316,6 +471,17 @@ export function EditorPage({
                   getMoveSurfaceStyle={getMoveSurfaceStyle}
                 />
               ) : null}
+              <LevelUpMoveModal
+                open={levelUpQueue.length > 0}
+                member={resolved}
+                currentMoves={member.moves}
+                weather={weather}
+                queuedMoves={levelUpQueue}
+                onClose={handleCloseLevelUpModal}
+                onLearn={handleLearnLevelUpMove}
+                onSkip={handleSkipLevelUpMove}
+                onReplace={handleReplaceLevelUpMove}
+              />
             </div>
           </section>
         </ViewTransition>
@@ -367,10 +533,30 @@ export function EditorPage({
               [field]: checked,
             }))
           }
+          onToggleAllResetFields={(checked) =>
+            setResetFields((current) =>
+              Object.fromEntries(
+                Object.keys(current).map((key) => [key, checked]),
+              ) as ResetFields,
+            )
+          }
           onApplyReset={resetSelectedMember}
           onConfirmDelete={() => {}}
           onConfirmRelease={() => {}}
         />
+        {evolutionState ? (
+          <EvolutionModal
+            open
+            currentSpecies={evolutionState.currentSpecies}
+            currentSpriteUrl={evolutionState.currentSpriteUrl}
+            currentAnimatedSpriteUrl={evolutionState.currentAnimatedSpriteUrl}
+            nextOptions={evolutionState.nextOptions}
+            selectedNext={evolutionState.selectedNext}
+            onSelectNext={onSelectEvolution}
+            onClose={onCloseEvolution}
+            onComplete={onConfirmEvolution}
+          />
+        ) : null}
       </section>
     </main>
   );

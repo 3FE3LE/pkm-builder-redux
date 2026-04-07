@@ -484,6 +484,14 @@ describe("Team Sections", () => {
           { source: "Tutor", move: "Vacuum Wave", type: "Fighting", reasons: [] },
         ] as any}
         starterSpeciesLine={["Riolu", "Lucario"]}
+        speciesCatalog={[
+          { name: "Riolu", slug: "riolu" },
+          { name: "Lucario", slug: "lucario" },
+        ] as any}
+        pokemonIndex={{
+          riolu: { nextEvolutions: ["Lucario"] },
+          lucario: { nextEvolutions: [] },
+        } as any}
         editorOpen={false}
         onSelectMember={onSelectMember}
         onToggleMemberLock={onToggleMemberLock}
@@ -535,13 +543,17 @@ describe("Team Sections", () => {
     expect(onAssignToCompare).toHaveBeenCalledWith("member-1");
 
     await user.click(screen.getAllByRole("button", { name: "Resetear slot seleccionado" })[0] as HTMLElement);
+    await user.click(screen.getByRole("button", { name: "Marcar todo" }));
+    await user.click(screen.getByRole("button", { name: "Desmarcar todos" }));
+    await user.click(screen.getByRole("button", { name: "Marcar todo" }));
     expect(screen.getByText("Reset del slot")).toBeTruthy();
     await user.click(screen.getByLabelText("Nickname"));
     await user.click(screen.getByRole("button", { name: "Aplicar reset" }));
-    expect(mocked.createEditable).toHaveBeenCalledWith("Lucario");
+    expect(mocked.createEditable).toHaveBeenCalledWith("Riolu");
     expect(onResetMember).toHaveBeenCalledWith(
       "member-1",
       expect.objectContaining({
+        species: "Riolu",
         nickname: "Aura",
         level: 5,
         gender: "unknown",
@@ -606,6 +618,8 @@ describe("Team Sections", () => {
         activeRoleRecommendation={undefined}
         moveRecommendations={[] as any}
         starterSpeciesLine={[]}
+        speciesCatalog={[]}
+        pokemonIndex={{}}
         editorOpen
         onSelectMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
@@ -663,6 +677,8 @@ describe("Team Sections", () => {
         activeRoleRecommendation={undefined}
         moveRecommendations={[] as any}
         starterSpeciesLine={[]}
+        speciesCatalog={[]}
+        pokemonIndex={{}}
         editorOpen={false}
         onSelectMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
@@ -679,6 +695,17 @@ describe("Team Sections", () => {
     expect(screen.getByText("Roster del equipo")).toBeTruthy();
 
     await user.click(screen.getAllByRole("button", { name: "Resetear slot seleccionado" })[0] as HTMLElement);
+    await user.click(screen.getByRole("button", { name: "Marcar todo" }));
+    await user.click(screen.getByRole("button", { name: "Desmarcar todos" }));
+    await user.click(screen.getByLabelText("Nivel"));
+    await user.click(screen.getByLabelText("Genero"));
+    await user.click(screen.getByLabelText("Naturaleza"));
+    await user.click(screen.getByLabelText("Habilidad"));
+    await user.click(screen.getByLabelText("Objeto"));
+    await user.click(screen.getByLabelText("Moveset"));
+    await user.click(screen.getByLabelText("IVs"));
+    await user.click(screen.getByLabelText("EVs"));
+    await user.click(screen.getByRole("button", { name: "Marcar todo" }));
     await user.click(screen.getByLabelText("Nivel"));
     await user.click(screen.getByLabelText("Genero"));
     await user.click(screen.getByLabelText("Naturaleza"));
@@ -747,6 +774,8 @@ describe("Team Sections", () => {
         activeRoleRecommendation={undefined}
         moveRecommendations={[] as any}
         starterSpeciesLine={[]}
+        speciesCatalog={[]}
+        pokemonIndex={{}}
         editorOpen={false}
         onSelectMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
@@ -820,6 +849,8 @@ describe("Team Sections", () => {
         activeRoleRecommendation={undefined}
         moveRecommendations={[] as any}
         starterSpeciesLine={[]}
+        speciesCatalog={[]}
+        pokemonIndex={{}}
         editorOpen={false}
         onSelectMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
@@ -894,6 +925,8 @@ describe("Team Sections", () => {
         activeRoleRecommendation={undefined}
         moveRecommendations={[] as any}
         starterSpeciesLine={[]}
+        speciesCatalog={[]}
+        pokemonIndex={{}}
         editorOpen={false}
         onSelectMember={vi.fn()}
         onToggleMemberLock={vi.fn()}
@@ -948,6 +981,8 @@ describe("Team Sections", () => {
         activeRoleRecommendation={undefined}
         moveRecommendations={[] as any}
         starterSpeciesLine={[]}
+        speciesCatalog={[]}
+        pokemonIndex={{}}
         editorOpen={false}
         onSelectMember={vi.fn()}
         onToggleMemberLock={vi.fn()}

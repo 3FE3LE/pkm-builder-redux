@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: absoluteUrl("/team/tools"),
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function TeamToolsPage() {

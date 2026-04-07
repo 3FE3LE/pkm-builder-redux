@@ -159,12 +159,14 @@ describe("EvolutionModal", () => {
     act(() => {
       vi.advanceTimersByTime(1400);
     });
-    expect(screen.getAllByText(/What\?/).length).toBe(2);
+    expect(screen.getAllByText(/What\?/).length).toBe(1);
+    expect(screen.getByText("...")).toBeTruthy();
 
     act(() => {
       vi.advanceTimersByTime(1600);
     });
-    expect(screen.getAllByText(/What\?/).length).toBe(2);
+    expect(screen.getAllByText(/What\?/).length).toBe(1);
+    expect(screen.getByText("...")).toBeTruthy();
   });
 
   it("skips the animation and completes immediately", async () => {

@@ -6,6 +6,7 @@ import {
   getLocalMoveIndex,
   getLocalPokemonIndex,
   getLocalSpeciesList,
+  getPokemonAbilitySlots,
 } from "@/lib/localDex";
 
 export const runtime = "nodejs";
@@ -38,9 +39,14 @@ export async function GET(request: Request) {
   if (movesList) {
     const moveIndex = getLocalMoveIndex() as Record<string, any>;
     const pokemonIndex = getLocalPokemonIndex() as Record<string, any>;
+    const speciesList = getLocalSpeciesList();
     const ownersByMove = new Map<string, { levelUp: string[]; machines: string[] }>();
 
-    Object.values(pokemonIndex).forEach((pokemon: any) => {
+    speciesList.forEach((species) => {
+      const pokemon = pokemonIndex[normalize(species.slug)] ?? pokemonIndex[normalize(species.name)];
+      if (!pokemon) {
+        return;
+      }
       const seenLevelUp = new Set<string>();
       const seenMachines = new Set<string>();
 
@@ -88,19 +94,37 @@ export async function GET(request: Request) {
   if (abilitiesList) {
     const abilityIndex = getLocalAbilityIndex() as Record<string, any>;
     const pokemonIndex = getLocalPokemonIndex() as Record<string, any>;
+    const speciesList = getLocalSpeciesList();
     const ownersByAbility = new Map<string, { regular: string[]; hidden: string[] }>();
 
-    Object.values(pokemonIndex).forEach((pokemon: any) => {
-      (pokemon.abilities ?? []).forEach((ability: string, index: number, abilities: string[]) => {
+    speciesList.forEach((species) => {
+      const pokemon = pokemonIndex[normalize(species.slug)] ?? pokemonIndex[normalize(species.name)];
+      if (!pokemon) {
+        return;
+      }
+      const abilitySlots = getPokemonAbilitySlots(pokemon.slug ?? pokemon.name);
+
+      abilitySlots.regular.forEach((ability: string) => {
         const key = normalize(ability);
         if (!key) {
           return;
         }
         const current = ownersByAbility.get(key) ?? { regular: [], hidden: [] };
-        const isHidden = abilities.length >= 3 && index >= 2;
         ownersByAbility.set(key, {
-          regular: isHidden ? current.regular : [...current.regular, pokemon.name],
-          hidden: isHidden ? [...current.hidden, pokemon.name] : current.hidden,
+          regular: [...current.regular, pokemon.name],
+          hidden: current.hidden,
+        });
+      });
+
+      abilitySlots.hidden.forEach((ability: string) => {
+        const key = normalize(ability);
+        if (!key) {
+          return;
+        }
+        const current = ownersByAbility.get(key) ?? { regular: [], hidden: [] };
+        ownersByAbility.set(key, {
+          regular: current.regular,
+          hidden: [...current.hidden, pokemon.name],
         });
       });
     });

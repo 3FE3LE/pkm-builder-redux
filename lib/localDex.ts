@@ -26,15 +26,22 @@ type DexDocs = {
   trades: TradePokemon[];
   itemLocations: ItemLocation[];
 };
+export type PokemonAbilitySlots = {
+  regular: string[];
+  hidden: string[];
+};
 
 let pokemonIndexCache: PokemonIndex | null = null;
 let canonicalPokemonIndexCache: PokemonIndex | null = null;
+let canonicalPokemonReferenceCache: Record<string, any> | null = null;
 let moveIndexCache: MoveIndex | null = null;
 let itemIndexCache: ItemIndex | null = null;
 let abilityIndexCache: AbilityIndex | null = null;
 let speciesListCache: SpeciesList | null = null;
 let dexListCache: DexList | null = null;
 let dexDocsCache: DexDocs | null = null;
+let reduxOverridesCache: Record<string, any> | null = null;
+let pokemonAbilitySlotsCache: Map<string, PokemonAbilitySlots> | null = null;
 
 function sortSpeciesList(list: SpeciesList) {
   return [...list].sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name));
@@ -59,6 +66,24 @@ function readReferenceJson(fileName: string) {
   return JSON.parse(readFileSync(filePath, "utf8"));
 }
 
+function getReduxOverrides() {
+  if (!reduxOverridesCache) {
+    reduxOverridesCache =
+      (readReferenceJson("pokemon-redux-overrides-gen5.json") as Record<string, any> | null) ?? {};
+  }
+
+  return reduxOverridesCache;
+}
+
+function getCanonicalPokemonReference() {
+  if (!canonicalPokemonReferenceCache) {
+    canonicalPokemonReferenceCache =
+      (readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null) ?? {};
+  }
+
+  return canonicalPokemonReferenceCache;
+}
+
 function normalize(input: string) {
   return input
     .trim()
@@ -67,6 +92,62 @@ function normalize(input: string) {
     .replace(/♂/g, "-m")
     .replace(/['’.:]/g, "")
     .replace(/\s+/g, "-");
+}
+
+function dedupeAbilityNames(values: string[] = []) {
+  const seen = new Set<string>();
+  const next: string[] = [];
+
+  values.forEach((value) => {
+    const trimmed = String(value ?? "").trim();
+    if (!trimmed || trimmed === "-") {
+      return;
+    }
+    const key = normalize(trimmed);
+    if (seen.has(key)) {
+      return;
+    }
+    seen.add(key);
+    next.push(trimmed);
+  });
+
+  return next;
+}
+
+function sanitizeAbilityNames(values: string[] = []) {
+  return values
+    .map((value) => String(value ?? "").trim())
+    .filter((value) => value.length > 0 && value !== "-");
+}
+
+function partitionAbilitySlots(rawAbilities: string[] = [], availableAbilities?: string[]): PokemonAbilitySlots {
+  const available =
+    availableAbilities && availableAbilities.length
+      ? dedupeAbilityNames(availableAbilities)
+      : dedupeAbilityNames(rawAbilities);
+  const availableKeys = new Set(available.map((ability) => normalize(ability)));
+
+  const filterAvailable = (values: string[]) =>
+    dedupeAbilityNames(values).filter((ability) => availableKeys.has(normalize(ability)));
+
+  if (rawAbilities.length >= 3) {
+    return {
+      regular: filterAvailable(rawAbilities.slice(0, 2)),
+      hidden: filterAvailable(rawAbilities.slice(2, 3)),
+    };
+  }
+
+  if (rawAbilities.length === 2) {
+    return {
+      regular: filterAvailable(rawAbilities.slice(0, 1)),
+      hidden: filterAvailable(rawAbilities.slice(1, 2)),
+    };
+  }
+
+  return {
+    regular: filterAvailable(rawAbilities.slice(0, 1)),
+    hidden: [],
+  };
 }
 
 function mergeMachines(canonical: any[] = [], redux: any[] = []) {
@@ -96,10 +177,10 @@ function mergePokemonIndexes(
       ? {
           ...fallbackEntry,
           ...localEntry,
-          types: fallbackEntry.types ?? localEntry.types ?? [],
-          abilities: fallbackEntry.abilities ?? localEntry.abilities ?? [],
-          stats: fallbackEntry.stats ?? localEntry.stats ?? null,
-          learnsets: fallbackEntry.learnsets ?? localEntry.learnsets ?? null,
+          types: localEntry.types ?? fallbackEntry.types ?? [],
+          abilities: localEntry.abilities ?? fallbackEntry.abilities ?? [],
+          stats: localEntry.stats ?? fallbackEntry.stats ?? null,
+          learnsets: localEntry.learnsets ?? fallbackEntry.learnsets ?? null,
           nextEvolutions: localEntry.nextEvolutions ?? fallbackEntry.nextEvolutions ?? [],
           evolutionDetails: localEntry.evolutionDetails ?? fallbackEntry.evolutionDetails ?? [],
         }
@@ -419,8 +500,8 @@ const BASE_FORM_SUFFIXES = [
 export function getLocalPokemonIndex(): PokemonIndex {
   if (!pokemonIndexCache) {
     const localIndex = readJson("pokemon-index.json");
-    const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
-    const reduxOverrides = readReferenceJson("pokemon-redux-overrides-gen5.json") as Record<string, any> | null;
+    const canonical = getCanonicalPokemonReference();
+    const reduxOverrides = getReduxOverrides();
     const canonicalLearnsets =
       (readReferenceJson("pokemon-canonical-learnsets-gen5.json") as Record<string, any> | null) ?? {};
     const fallbackIndex = canonical ? buildPokemonIndex(canonical, reduxOverrides, canonicalLearnsets) : {};
@@ -434,7 +515,7 @@ export function getLocalPokemonIndex(): PokemonIndex {
 
 export function getCanonicalPokemonIndex(): PokemonIndex {
   if (!canonicalPokemonIndexCache) {
-    const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
+    const canonical = getCanonicalPokemonReference();
     const canonicalLearnsets =
       (readReferenceJson("pokemon-canonical-learnsets-gen5.json") as Record<string, any> | null) ?? {};
     canonicalPokemonIndexCache = canonical ? buildPokemonIndex(canonical, null, canonicalLearnsets) : {};
@@ -552,7 +633,7 @@ export function getLocalSpeciesList(): SpeciesList {
           ),
         );
       } else {
-        const canonical = readReferenceJson("pokemon-canonical-gen5.json") as Record<string, any> | null;
+        const canonical = getCanonicalPokemonReference();
         speciesListCache = canonical
           ? sortSpeciesList(
               Array.from(
@@ -598,28 +679,26 @@ export function getLocalDexDocs(): DexDocs {
 export function getLocalDexList(): DexList {
   if (!dexListCache) {
     const speciesList = getLocalSpeciesList();
-    const canonical = (readReferenceJson("pokemon-canonical-gen5.json") as Record<
-      string,
-      any
-    > | null) ?? {};
-    const overrides = (readReferenceJson(
-      "pokemon-redux-overrides-gen5.json",
-    ) as Record<string, any> | null) ?? {};
+    const localPokemonIndex = getLocalPokemonIndex() as Record<string, any>;
+    const canonical = getCanonicalPokemonReference();
 
     dexListCache = speciesList.map((species) => {
+      const localPokemon =
+        localPokemonIndex[normalize(species.slug)] ??
+        localPokemonIndex[normalize(species.name)] ??
+        null;
       const canonicalPokemon =
         canonical[String(species.dex).padStart(3, "0")] ??
         canonical[normalize(species.slug)] ??
         canonical[normalize(species.name)] ??
         null;
-      const override = overrides[normalize(species.slug)] ?? overrides[normalize(species.name)] ?? null;
       const currentTypes = species.types ?? [];
       const currentAbilities =
-        override?.complete?.abilities ??
+        localPokemon?.abilities ??
         canonicalPokemon?.abilities ??
         [];
       const currentStats =
-        override?.complete?.stats ??
+        localPokemon?.stats ??
         canonicalPokemon?.stats ??
         null;
 
@@ -648,6 +727,68 @@ export function getLocalDexList(): DexList {
   return dexListCache;
 }
 
+export function getPokemonAbilitySlots(speciesOrSlug: string): PokemonAbilitySlots {
+  const normalizedKey = normalize(speciesOrSlug);
+  if (!pokemonAbilitySlotsCache) {
+    pokemonAbilitySlotsCache = new Map();
+  }
+  const cached = pokemonAbilitySlotsCache.get(normalizedKey);
+  if (cached) {
+    return cached;
+  }
+
+  const localPokemonIndex = getLocalPokemonIndex() as Record<string, any>;
+  const canonical = getCanonicalPokemonReference();
+  const overrides = getReduxOverrides();
+
+  const localPokemon =
+    localPokemonIndex[normalizedKey] ??
+    localPokemonIndex[normalize(speciesOrSlug)] ??
+    null;
+
+  const canonicalPokemon =
+    canonical[String(localPokemon?.dex ?? "").padStart(3, "0")] ??
+    canonical[normalize(localPokemon?.slug ?? "")] ??
+    canonical[normalize(localPokemon?.name ?? "")] ??
+    canonical[normalizedKey] ??
+    null;
+
+  const override =
+    overrides[normalize(localPokemon?.slug ?? "")] ??
+    overrides[normalize(localPokemon?.name ?? "")] ??
+    overrides[normalizedKey] ??
+    null;
+
+  const rawAbilities = dedupeAbilityNames(
+    localPokemon?.abilities ?? [],
+  );
+  const rawSlots = sanitizeAbilityNames(
+    override?.complete?.abilities ??
+      canonicalPokemon?.abilities ??
+      localPokemon?.abilities ??
+      [],
+  );
+  const availableAbilities = dedupeAbilityNames(localPokemon?.abilities ?? rawAbilities);
+  const slots = partitionAbilitySlots(rawSlots, availableAbilities);
+
+  if (!slots.regular.length && !slots.hidden.length && availableAbilities.length) {
+    const fallbackSlots = availableAbilities.length >= 2
+      ? {
+          regular: availableAbilities.slice(0, 1),
+          hidden: availableAbilities.slice(1),
+        }
+      : {
+          regular: availableAbilities,
+          hidden: [],
+        };
+    pokemonAbilitySlotsCache.set(normalizedKey, fallbackSlots);
+    return fallbackSlots;
+  }
+
+  pokemonAbilitySlotsCache.set(normalizedKey, slots);
+  return slots;
+}
+
 function sameStringList(left: string[] = [], right: string[] = []) {
   if (left.length !== right.length) {
     return false;
@@ -672,7 +813,7 @@ function sameStats(
 }
 
 function reduxOverridesTypes(entry: any, canonical: Record<string, any> | null) {
-  const overrides = (readReferenceJson("pokemon-redux-overrides-gen5.json") as Record<string, any> | null) ?? {};
+  const overrides = getReduxOverrides();
   const key = normalize(entry.slug ?? entry.name);
   return overrides[key]?.complete?.types ?? canonical?.[String(entry.dex).padStart(3, "0")]?.types ?? entry.types ?? [];
 }

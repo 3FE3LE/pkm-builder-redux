@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildSummaryStats,
   EffectiveStatsRadar,
+  getRadarScaleRatio,
 } from "@/components/team/shared/StatRadar";
 
 const baseStats = {
@@ -63,5 +64,20 @@ describe("StatRadar", () => {
     expect(container.querySelectorAll("polygon")).toHaveLength(7);
     expect(container.querySelectorAll("path")).toHaveLength(2);
     expect(container.querySelectorAll("circle")).toHaveLength(18);
+  });
+
+  it("uses a compressed fixed radar scale with diminishing gains at high stats", () => {
+    const minRatio = getRadarScaleRatio(5);
+    const midRatio = getRadarScaleRatio(200);
+    const highRatio = getRadarScaleRatio(400);
+    const veryHighRatio = getRadarScaleRatio(600);
+    const maxRatio = getRadarScaleRatio(500);
+
+    expect(minRatio).toBeGreaterThan(0);
+    expect(midRatio).toBeGreaterThan(minRatio);
+    expect(highRatio).toBeGreaterThan(midRatio);
+    expect(veryHighRatio).toBeGreaterThan(highRatio);
+    expect(maxRatio).toBeCloseTo(1, 5);
+    expect(maxRatio - veryHighRatio).toBeLessThan(highRatio - midRatio);
   });
 });

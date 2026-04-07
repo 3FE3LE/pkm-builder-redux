@@ -26,12 +26,9 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
   applicationName: siteConfig.shortName,
-  alternates: {
-    canonical: absoluteUrl("/home"),
-  },
   openGraph: {
     type: "website",
-    url: absoluteUrl("/home"),
+    url: absoluteUrl("/"),
     siteName: siteConfig.shortName,
     title: "Pokemon Blaze Black 2 Redux / Volt White 2 Redux Team Builder",
     description: siteConfig.description,
@@ -71,6 +68,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  category: "gaming",
 };
 
 export default function RootLayout({

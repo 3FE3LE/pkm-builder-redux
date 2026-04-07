@@ -16,6 +16,7 @@ import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { EditableMember } from "@/lib/builderStore";
 import { createEditable } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
+import { getEvolutionLineBaseSpecies } from "@/lib/domain/evolutionLine";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import { TYPE_COLORS } from "@/lib/domain/typeChart";
@@ -36,6 +37,8 @@ export function RosterSection({
   activeRoleRecommendation,
   moveRecommendations,
   starterSpeciesLine,
+  speciesCatalog = [],
+  pokemonIndex = {},
   editorOpen,
   onSelectMember,
   onToggleMemberLock,
@@ -57,6 +60,8 @@ export function RosterSection({
   activeRoleRecommendation?: MemberRoleRecommendation;
   moveRecommendations: MoveRecommendation[];
   starterSpeciesLine: string[];
+  speciesCatalog?: { name: string; slug: string }[];
+  pokemonIndex?: Record<string, { name?: string; nextEvolutions?: string[] }>;
   editorOpen: boolean;
   onSelectMember: (id: string) => void;
   onToggleMemberLock: (id: string) => void;
@@ -96,6 +101,7 @@ export function RosterSection({
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [resetFields, setResetFields] = useState<ResetFields>({
+    evolutionLine: false,
     nickname: true,
     level: true,
     gender: true,
@@ -112,13 +118,21 @@ export function RosterSection({
       return;
     }
 
-    const defaults = createEditable(selectedMember.species);
+    const resetSpecies = resetFields.evolutionLine
+      ? getEvolutionLineBaseSpecies({
+          species: selectedMember.species,
+          speciesCatalog,
+          pokemonIndex,
+        })
+      : selectedMember.species;
+    const defaults = createEditable(resetSpecies);
     defaults.id = selectedMember.id;
     defaults.locked = selectedMember.locked;
-    defaults.nickname = selectedMember.species;
+    defaults.nickname = resetSpecies;
 
     onResetMember(selectedMember.id, {
       ...selectedMember,
+      species: resetSpecies,
       nickname: resetFields.nickname ? defaults.nickname : selectedMember.nickname,
       level: resetFields.level ? defaults.level : selectedMember.level,
       gender: resetFields.gender ? defaults.gender : selectedMember.gender,
@@ -238,22 +252,29 @@ export function RosterSection({
           </>
         ) : null}
       </AnimatePresence>
-      <SlotModals
-        selectedMember={selectedMember}
-        resetOpen={resetOpen}
-        deleteOpen={deleteOpen}
-        resetFields={resetFields}
+        <SlotModals
+          selectedMember={selectedMember}
+          resetOpen={resetOpen}
+          deleteOpen={deleteOpen}
+          resetFields={resetFields}
         onCloseReset={() => setResetOpen(false)}
         onCloseDelete={() => setDeleteOpen(false)}
-        onToggleResetField={(field, checked) =>
-          setResetFields((current) => ({
-            ...current,
-            [field]: checked,
-          }))
-        }
-        onApplyReset={resetSelectedMember}
-        onConfirmDelete={() => {
-          if (!selectedMember) {
+          onToggleResetField={(field, checked) =>
+            setResetFields((current) => ({
+              ...current,
+              [field]: checked,
+            }))
+          }
+          onToggleAllResetFields={(checked) =>
+            setResetFields((current) =>
+              Object.fromEntries(
+                Object.keys(current).map((key) => [key, checked]),
+              ) as ResetFields,
+            )
+          }
+          onApplyReset={resetSelectedMember}
+          onConfirmDelete={() => {
+            if (!selectedMember) {
             return;
           }
           onRemoveMember(selectedMember.id);

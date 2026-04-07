@@ -188,7 +188,7 @@ describe("EditorStatsSection", () => {
     await user.click(screen.getAllByRole("button", { name: "ATK" }).at(-1)!);
     updater = updateEditorMember.mock.calls.at(-1)?.[0];
     expect(updater(createMember())).toMatchObject({
-      evs: expect.objectContaining({ atk: 252 }),
+      evs: expect.objectContaining({ atk: 170 }),
     });
   });
 });
