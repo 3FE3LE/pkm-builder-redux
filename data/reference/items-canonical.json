@@ -373,6 +373,17 @@
     "effect": "Prevents wild encounters of level lower than your party’s lead Pokémon.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cleanse-tag.png"
   },
+  "clever-wing": {
+    "slug": "clever-wing",
+    "name": "Clever Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Special Defense effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/clever-wing.png"
+  },
   "comet-shard": {
     "slug": "comet-shard",
     "name": "Comet Shard",
@@ -835,6 +846,17 @@
     "effect": "Restores HP to full and cures any status ailment and confusion.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-restore.png"
   },
+  "genius-wing": {
+    "slug": "genius-wing",
+    "name": "Genius Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Special Attack effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/genius-wing.png"
+  },
   "ghost-gem": {
     "slug": "ghost-gem",
     "name": "Ghost Gem",
@@ -977,6 +999,17 @@
     "consumable": true,
     "effect": "Tries to catch a wild Pokémon.  Caught Pokémon are immediately healed.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-ball.png"
+  },
+  "health-wing": {
+    "slug": "health-wing",
+    "name": "Health Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases HP effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/health-wing.png"
   },
   "heart-scale": {
     "slug": "heart-scale",
@@ -1561,6 +1594,17 @@
     "effect": "Held: Boosts the damage of physical moves used by the holder by 10%.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/muscle-band.png"
   },
+  "muscle-wing": {
+    "slug": "muscle-wing",
+    "name": "Muscle Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Attack effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/muscle-wing.png"
+  },
   "mystic-water": {
     "slug": "mystic-water",
     "name": "Mystic Water",
@@ -1891,6 +1935,17 @@
     "effect": "Raises a move’s max PP by 20%.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pp-up.png"
   },
+  "pretty-wing": {
+    "slug": "pretty-wing",
+    "name": "Pretty Wing",
+    "category": "Loot",
+    "cost": 1000,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Sell for 100 Pokédollars.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pretty-wing.png"
+  },
   "prism-scale": {
     "slug": "prism-scale",
     "name": "Prism Scale",
@@ -2077,6 +2132,17 @@
     "consumable": false,
     "effect": "For 100 steps, prevents wild encounters of level lower than your party’s lead Pokémon.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/repel.png"
+  },
+  "resist-wing": {
+    "slug": "resist-wing",
+    "name": "Resist Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Defense effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/resist-wing.png"
   },
   "revive": {
     "slug": "revive",
@@ -2440,6 +2506,17 @@
     "consumable": false,
     "effect": "Used to catch Pokémon in bodies of water.",
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-rod.png"
+  },
+  "swift-wing": {
+    "slug": "swift-wing",
+    "name": "Swift Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Speed effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/swift-wing.png"
   },
   "tanga-berry": {
     "slug": "tanga-berry",

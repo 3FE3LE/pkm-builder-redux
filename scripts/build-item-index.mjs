@@ -5,6 +5,7 @@ const ROOT = process.cwd();
 const OUTPUT_DIR = path.join(ROOT, "data", "local-dex");
 const CANONICAL_ITEMS_PATH = path.join(ROOT, "data", "reference", "items-canonical.json");
 const CANONICAL_SOURCES_PATH = path.join(ROOT, "data", "reference", "item-sources-canonical-bw2.json");
+const CANONICAL_SOURCE_OVERRIDES_PATH = path.join(ROOT, "data", "reference", "item-sources-canonical-bw2-overrides.json");
 const REDUX_OVERRIDES_PATH = path.join(ROOT, "data", "reference", "item-redux-overrides.json");
 const DEX_DOCS_PATH = path.join(ROOT, "data", "local-dex", "dex-docs.json");
 
@@ -166,26 +167,35 @@ function dedupeSources(entries) {
 }
 
 async function main() {
-  const [canonicalRaw, overridesRaw, dexDocsRaw, canonicalSourcesRaw] = await Promise.all([
+  const [canonicalRaw, overridesRaw, dexDocsRaw, canonicalSourcesRaw, canonicalSourceOverridesRaw] = await Promise.all([
     readFile(CANONICAL_ITEMS_PATH, "utf8"),
     readFile(REDUX_OVERRIDES_PATH, "utf8"),
     readFile(DEX_DOCS_PATH, "utf8"),
     readFile(CANONICAL_SOURCES_PATH, "utf8").catch(() => "{}"),
+    readFile(CANONICAL_SOURCE_OVERRIDES_PATH, "utf8").catch(() => "{}"),
   ]);
 
   const canonical = JSON.parse(canonicalRaw);
   const overrides = JSON.parse(overridesRaw);
   const dexDocs = JSON.parse(dexDocsRaw);
   const canonicalSources = JSON.parse(canonicalSourcesRaw);
+  const canonicalSourceOverrides = JSON.parse(canonicalSourceOverridesRaw);
   const itemLocations = Array.isArray(dexDocs.itemLocations) ? dexDocs.itemLocations : Array.isArray(dexDocs.locations) ? dexDocs.locations : [];
   const itemShops = Array.isArray(dexDocs.itemShops) ? dexDocs.itemShops : [];
 
   const index = Object.fromEntries(
     Object.entries(canonical).map(([key, entry]) => {
       const canonicalEntrySources = canonicalSources[key]?.sources ?? {};
+      const canonicalOverrideSources = canonicalSourceOverrides[key]?.sources ?? {};
       const sources = {
-        locations: Array.isArray(canonicalEntrySources.locations) ? [...canonicalEntrySources.locations] : [],
-        shops: Array.isArray(canonicalEntrySources.shops) ? [...canonicalEntrySources.shops] : [],
+        locations: [
+          ...(Array.isArray(canonicalEntrySources.locations) ? canonicalEntrySources.locations : []),
+          ...(Array.isArray(canonicalOverrideSources.locations) ? canonicalOverrideSources.locations : []),
+        ],
+        shops: [
+          ...(Array.isArray(canonicalEntrySources.shops) ? canonicalEntrySources.shops : []),
+          ...(Array.isArray(canonicalOverrideSources.shops) ? canonicalOverrideSources.shops : []),
+        ],
       };
 
       itemLocations.forEach((location) => {

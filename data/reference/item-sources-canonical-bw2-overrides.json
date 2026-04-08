@@ -1,0 +1,193 @@
+{
+  "hp-up": {
+    "sources": {
+      "locations": [],
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
+    }
+  },
+  "protein": {
+    "sources": {
+      "locations": [],
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
+    }
+  },
+  "iron": {
+    "sources": {
+      "locations": [],
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
+    }
+  },
+  "calcium": {
+    "sources": {
+      "locations": [],
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
+    }
+  },
+  "zinc": {
+    "sources": {
+      "locations": [],
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
+    }
+  },
+  "carbos": {
+    "sources": {
+      "locations": [],
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
+    }
+  },
+  "health-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "muscle-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "resist-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "genius-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "clever-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "swift-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pretty-wing": {
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  }
+}

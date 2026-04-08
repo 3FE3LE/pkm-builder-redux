@@ -147,6 +147,16 @@ vi.mock("swr", () => ({
                 shops: [],
               },
             },
+            {
+              name: "Pretty Wing",
+              category: "Loot",
+              effect: "Se vende por poco dinero.",
+              sprite: "/pretty-wing.png",
+              sources: {
+                locations: [{ area: "Marvelous Bridge", detail: "Flying Pokémon's shadow" }],
+                shops: [],
+              },
+            },
           ],
         },
       };
@@ -355,6 +365,7 @@ describe("DexScreen", () => {
 
     await user.click(screen.getByRole("button", { name: "switch-items" }));
     expect(screen.getByText("Leftovers")).toBeTruthy();
+    expect(screen.getByText("Pretty Wing")).toBeTruthy();
     expect(screen.getByText("Castelia City")).toBeTruthy();
     expect(screen.getByText("Reemplaza Repel")).toBeTruthy();
   });

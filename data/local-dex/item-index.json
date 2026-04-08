@@ -716,7 +716,20 @@
           "detail": "Calcium"
         }
       ],
-      "shops": []
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
     }
   },
   "carbos": {
@@ -784,7 +797,20 @@
           "detail": "Carbos"
         }
       ],
-      "shops": []
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
     }
   },
   "cell-battery": {
@@ -1014,6 +1040,26 @@
         {
           "area": "Lentimas Town",
           "detail": "Reemplaza Spell Tag"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "clever-wing": {
+    "slug": "clever-wing",
+    "name": "Clever Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Special Defense effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/clever-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
         }
       ],
       "shops": []
@@ -2252,6 +2298,26 @@
       "shops": []
     }
   },
+  "genius-wing": {
+    "slug": "genius-wing",
+    "name": "Genius Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Special Attack effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/genius-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
   "ghost-gem": {
     "slug": "ghost-gem",
     "name": "Ghost Gem",
@@ -2681,6 +2747,26 @@
       "shops": []
     }
   },
+  "health-wing": {
+    "slug": "health-wing",
+    "name": "Health Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases HP effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/health-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
   "heart-scale": {
     "slug": "heart-scale",
     "name": "Heart Scale",
@@ -3061,7 +3147,20 @@
           "detail": "HP Up"
         }
       ],
-      "shops": []
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
     }
   },
   "hyper-potion": {
@@ -3274,7 +3373,20 @@
           "detail": "Iron"
         }
       ],
-      "shops": []
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
     }
   },
   "iron-ball": {
@@ -4481,6 +4593,26 @@
       "shops": []
     }
   },
+  "muscle-wing": {
+    "slug": "muscle-wing",
+    "name": "Muscle Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Attack effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/muscle-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
   "mystic-water": {
     "slug": "mystic-water",
     "name": "Mystic Water",
@@ -5384,6 +5516,26 @@
       ]
     }
   },
+  "pretty-wing": {
+    "slug": "pretty-wing",
+    "name": "Pretty Wing",
+    "category": "Loot",
+    "cost": 1000,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Sell for 100 Pokédollars.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pretty-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
+      "shops": []
+    }
+  },
   "prism-scale": {
     "slug": "prism-scale",
     "name": "Prism Scale",
@@ -5511,7 +5663,20 @@
           "detail": "Protein (Hidden)"
         }
       ],
-      "shops": []
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
     }
   },
   "psychic-gem": {
@@ -6059,6 +6224,26 @@
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/repel.png",
     "sources": {
       "locations": [],
+      "shops": []
+    }
+  },
+  "resist-wing": {
+    "slug": "resist-wing",
+    "name": "Resist Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Defense effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/resist-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
+        }
+      ],
       "shops": []
     }
   },
@@ -7051,6 +7236,26 @@
         {
           "area": "Route 20",
           "detail": "Reemplaza Pecha Berry x3"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "swift-wing": {
+    "slug": "swift-wing",
+    "name": "Swift Wing",
+    "category": "Vitamins",
+    "cost": 300,
+    "flingPower": 20,
+    "flingEffect": null,
+    "consumable": false,
+    "effect": "Increases Speed effort by 1.",
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/swift-wing.png",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marvelous Bridge",
+          "detail": "Flying Pokémon's shadow"
         }
       ],
       "shops": []
@@ -9729,7 +9934,20 @@
           "detail": "Zinc"
         }
       ],
-      "shops": []
+      "shops": [
+        {
+          "area": "Shopping Mall Nine",
+          "detail": "For sale"
+        },
+        {
+          "area": "Join Avenue",
+          "detail": "Market"
+        },
+        {
+          "area": "Battle Subway / PWT",
+          "detail": "1 BP"
+        }
+      ]
     }
   },
   "zoom-lens": {

@@ -5,6 +5,16 @@ const ROOT = process.cwd();
 const DOC_PATH = path.join(ROOT, "Documentation", "Item Changes.txt");
 const OUTPUT_DIR = path.join(ROOT, "data", "reference");
 
+const MANUAL_ITEM_NAMES = [
+  "Health Wing",
+  "Muscle Wing",
+  "Resist Wing",
+  "Genius Wing",
+  "Clever Wing",
+  "Swift Wing",
+  "Pretty Wing",
+];
+
 function normalize(value) {
   return value
     .normalize("NFD")
@@ -220,6 +230,10 @@ function collectItemNames(itemText) {
       }
       items.set(key, toTitleCase(item));
     }
+  }
+
+  for (const item of MANUAL_ITEM_NAMES) {
+    items.set(normalize(item), item);
   }
 
   return Array.from(items.values()).sort((left, right) => left.localeCompare(right));
