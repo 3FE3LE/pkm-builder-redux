@@ -9,6 +9,7 @@ import {
 } from "@/components/BuilderController";
 import type { BuilderDataProps } from "@/hooks/types";
 import { getRunEncounterCatalog } from "@/lib/runEncounters";
+import { resolveAppliedTheme } from "@/lib/theme/applyTheme";
 
 type BuilderContextValue = BuilderController;
 
@@ -65,25 +66,31 @@ function FullBuilderProvider({
   children: ReactNode;
 }) {
   const controller = useBuilderController(data);
+  const appliedTheme = resolveAppliedTheme(
+    controller.session.theme,
+    controller.team.localTime?.hour24,
+  );
 
   return (
-    <SessionContext.Provider value={controller.session}>
-      <CatalogsContext.Provider value={controller.catalogs}>
-        <OnboardingContext.Provider value={controller.onboarding}>
-          <TeamContext.Provider value={controller.team}>
-            <AnalysisContext.Provider value={controller.analysis}>
-              <CompareContext.Provider value={controller.compare}>
-                <MovePickerContext.Provider value={controller.movePicker}>
-                  <EvolutionContext.Provider value={controller.evolution}>
-                    {children}
-                  </EvolutionContext.Provider>
-                </MovePickerContext.Provider>
-              </CompareContext.Provider>
-            </AnalysisContext.Provider>
-          </TeamContext.Provider>
-        </OnboardingContext.Provider>
-      </CatalogsContext.Provider>
-    </SessionContext.Provider>
+    <div className={appliedTheme} style={{ colorScheme: appliedTheme }}>
+      <SessionContext.Provider value={controller.session}>
+        <CatalogsContext.Provider value={controller.catalogs}>
+          <OnboardingContext.Provider value={controller.onboarding}>
+            <TeamContext.Provider value={controller.team}>
+              <AnalysisContext.Provider value={controller.analysis}>
+                <CompareContext.Provider value={controller.compare}>
+                  <MovePickerContext.Provider value={controller.movePicker}>
+                    <EvolutionContext.Provider value={controller.evolution}>
+                      {children}
+                    </EvolutionContext.Provider>
+                  </MovePickerContext.Provider>
+                </CompareContext.Provider>
+              </AnalysisContext.Provider>
+            </TeamContext.Provider>
+          </OnboardingContext.Provider>
+        </CatalogsContext.Provider>
+      </SessionContext.Provider>
+    </div>
   );
 }
 

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { LoadingState } from "@/components/team/screens/LoadingState";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
@@ -12,18 +11,12 @@ export function SettingsScreen() {
   const session = useTeamSession();
   const team = useTeamRoster();
 
-  useEffect(() => {
-    if (session.hydrated && !session.builderStarted) {
-      router.replace("/onboarding");
-    }
-  }, [router, session.builderStarted, session.hydrated]);
-
   if (!session.hydrated) {
     return <LoadingState />;
   }
 
   if (!session.builderStarted) {
-    return <LoadingState />;
+    redirect("/onboarding");
   }
 
   return (

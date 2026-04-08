@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useMemo } from "react";
+import { redirect, useParams, useRouter } from "next/navigation";
 
 import {
   useTeamAnalysis,
@@ -32,12 +32,6 @@ export function EditorPageRoute() {
   const compare = useTeamCompare();
   const evolution = useTeamEvolution();
   const movePicker = useTeamMovePicker();
-
-  useEffect(() => {
-    if (session.hydrated && !session.builderStarted) {
-      router.replace("/onboarding");
-    }
-  }, [router, session.builderStarted, session.hydrated]);
 
   const member = useMemo(
     () =>
@@ -98,29 +92,12 @@ export function EditorPageRoute() {
       ? orderedTeamMembers[currentMemberIndex + 1]
       : undefined;
 
-  useEffect(() => {
-    if (!member) {
-      return;
-    }
-
-    const label = member.nickname?.trim() || member.species?.trim() || "Team Member";
-    document.title = `Edit ${label}`;
-  }, [member]);
-
-  useEffect(() => {
-    if (!dexDetailHref) {
-      return;
-    }
-
-    router.prefetch(dexDetailHref);
-  }, [dexDetailHref, router]);
-
   if (!session.hydrated) {
     return <LoadingState variant="editor" />;
   }
 
   if (!session.builderStarted) {
-    return <LoadingState variant="editor" />;
+    redirect("/onboarding");
   }
 
   if (!member) {

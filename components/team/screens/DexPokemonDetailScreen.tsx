@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import { PokemonDexCard } from "@/components/team/screens/DexScreen";
-import { DEX_SCROLL_RESTORE_KEY } from "@/components/team/screens/dex/utils";
 import type { DexDetailPageData } from "@/lib/dexDetailPageData";
 import { markNavigationStart } from "@/lib/perf";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
@@ -21,35 +20,9 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
   );
   const emptyAbilityEffects = useMemo(() => new Map<string, string>(), []);
 
-  useEffect(() => {
-    router.prefetch(detail.closeHref);
-    if (detail.previousSpecies) {
-      router.prefetch(`/team/dex/pokemon/${detail.previousSpecies.slug}${detail.dexQuery}`);
-    }
-    if (detail.nextSpecies) {
-      router.prefetch(`/team/dex/pokemon/${detail.nextSpecies.slug}${detail.dexQuery}`);
-    }
-  }, [detail.closeHref, detail.dexQuery, detail.nextSpecies, detail.previousSpecies, router]);
-
   const prepareRoute = (href: string, label: string) => {
     router.prefetch(href);
     markNavigationStart(label, href);
-  };
-
-  const closeDetail = () => {
-    if (typeof window !== "undefined") {
-      const hasDexReturnState = Boolean(window.sessionStorage.getItem(DEX_SCROLL_RESTORE_KEY));
-      if (hasDexReturnState && window.history.length > 1) {
-        markNavigationStart("dex-detail-history-back", detail.closeHref);
-        router.back();
-        return;
-      }
-    }
-
-    prepareRoute(detail.closeHref, "dex-detail-to-list");
-    void router.push(detail.closeHref, {
-      scroll: false,
-    });
   };
 
   return (
@@ -84,17 +57,18 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
       ) : null}
       <section className="relative mx-auto max-w-6xl">
         <div className="pointer-events-none absolute right-0 top-0 z-20 flex justify-end">
-          <button
-            type="button"
+          <Link
+            href={detail.closeHref}
+            prefetch
+            scroll={false}
+            transitionTypes={backTransition}
             aria-label="Cerrar ficha"
             className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-surface-2/80 text-text transition-[transform,color,background-color,border-color] hover:border-warning-line hover:bg-surface-3 active:scale-95"
-            onPointerDown={() => {
-              router.prefetch(detail.closeHref);
-            }}
-            onClick={closeDetail}
+            onPointerDown={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
+            onClick={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
           >
             <X className="h-4 w-4" />
-          </button>
+          </Link>
         </div>
         <PokemonDexCard
           pokemon={detail.pokemon}

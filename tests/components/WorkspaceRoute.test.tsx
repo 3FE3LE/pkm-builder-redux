@@ -13,6 +13,7 @@ const mocked = vi.hoisted(() => ({
     ok: true as const,
     member: { id: "imported-1", species: "Lucario" },
   })),
+  redirect: vi.fn(),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -21,6 +22,7 @@ vi.mock("next/navigation", () => ({
   }),
   useParams: () => mocked.params,
   useSearchParams: () => mocked.searchParams,
+  redirect: mocked.redirect,
 }));
 
 vi.mock("@/lib/pokemonTransfer", () => ({
@@ -72,6 +74,7 @@ describe("WorkspaceRoute", () => {
     mocked.saveMemberToPc.mockReset();
     mocked.setBuilderStarted.mockReset();
     mocked.importPokemonFromHash.mockReset();
+    mocked.redirect.mockReset();
     mocked.importPokemonFromHash.mockReturnValue({
       ok: true,
       member: { id: "imported-1", species: "Lucario" },
@@ -86,13 +89,12 @@ describe("WorkspaceRoute", () => {
     expect(screen.getByText("loading-screen")).toBeTruthy();
   });
 
-  it("shows the route hint when there is no active run", () => {
+  it("redirects when there is no active run", () => {
     mocked.builderStarted = false;
 
     render(<WorkspaceRoute />);
 
-    expect(screen.getByText("loading-screen")).toBeTruthy();
-    expect(mocked.routerReplace).toHaveBeenCalledWith("/onboarding");
+    expect(mocked.redirect).toHaveBeenCalledWith("/onboarding");
   });
 
   it("renders the active screen when the run is ready", () => {

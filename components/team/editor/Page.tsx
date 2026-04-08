@@ -1,6 +1,6 @@
 "use client";
 
-import { ViewTransition, useEffect, useMemo, useState } from "react";
+import { ViewTransition, useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, GitCompareArrows, RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
@@ -199,11 +199,7 @@ export function EditorPage({
     });
   }, [currentSpecies, pokemonIndex, speciesCatalog]);
 
-  useEffect(() => {
-    setLevelUpQueue([]);
-  }, [member.id, currentSpecies]);
-
-  useEffect(() => {
+  function maybeOpenPendingEvolution(nextQueueLength: number) {
     if (!pendingEvolutionPrompt) {
       return;
     }
@@ -211,29 +207,26 @@ export function EditorPage({
       setPendingEvolutionPrompt(null);
       return;
     }
-    if (levelUpQueue.length || evolutionState || !canRequestEvolution) {
+    if (nextQueueLength > 0 || evolutionState || !canRequestEvolution) {
       return;
     }
 
     onRequestEvolution();
     setPendingEvolutionPrompt(null);
-  }, [
-    canRequestEvolution,
-    currentLevel,
-    currentSpecies,
-    evolutionState,
-    levelUpQueue.length,
-    onRequestEvolution,
-    pendingEvolutionPrompt,
-  ]);
+  }
 
   function updateEditorMember(
     updater: (current: EditableMember) => EditableMember,
   ) {
     const next = updater(member);
     const nextLevel = Number(next.level ?? currentLevel);
+    const speciesChanged = next.species !== member.species;
+    if (speciesChanged) {
+      setLevelUpQueue([]);
+      setPendingEvolutionPrompt(null);
+    }
     if (
-      next.species === member.species &&
+      !speciesChanged &&
       nextLevel > currentLevel &&
       resolved?.learnsets?.levelUp?.length
     ) {
@@ -248,22 +241,30 @@ export function EditorPage({
         setEditorTab("moves");
       }
     }
-    if (next.species === member.species && nextLevel > currentLevel) {
+    if (!speciesChanged && nextLevel > currentLevel) {
       setPendingEvolutionPrompt({
         species: member.species,
         level: nextLevel,
       });
+    }
+    if (!speciesChanged && nextLevel < currentLevel) {
+      setPendingEvolutionPrompt(null);
     }
     const parsed = editableMemberSchema.safeParse(next);
     onChange(parsed.success ? parsed.data : next);
   }
 
   function advanceLevelUpQueue() {
-    setLevelUpQueue((currentQueue) => currentQueue.slice(1));
+    setLevelUpQueue((currentQueue) => {
+      const nextQueue = currentQueue.slice(1);
+      maybeOpenPendingEvolution(nextQueue.length);
+      return nextQueue;
+    });
   }
 
   function handleCloseLevelUpModal() {
     setLevelUpQueue([]);
+    maybeOpenPendingEvolution(0);
   }
 
   function handleSkipLevelUpMove() {
@@ -305,6 +306,8 @@ export function EditorPage({
     defaults.id = member.id;
     defaults.locked = member.locked;
     defaults.nickname = resetSpecies;
+    setLevelUpQueue([]);
+    setPendingEvolutionPrompt(null);
 
     onChange({
       ...member,

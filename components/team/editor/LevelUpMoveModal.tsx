@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { MoveSlotSurface } from "@/components/team/UI";
 import { Button } from "@/components/ui/Button";
@@ -31,12 +31,9 @@ export function LevelUpMoveModal({
   onSkip: () => void;
   onReplace: (slotIndex: number) => void;
 }) {
-  const [replacementStage, setReplacementStage] = useState(false);
+  const [replacementStageMove, setReplacementStageMove] = useState<string | null>(null);
   const activeMove = queuedMoves[0] ?? null;
-
-  useEffect(() => {
-    setReplacementStage(false);
-  }, [activeMove?.move]);
+  const replacementStage = Boolean(activeMove?.move) && replacementStageMove === activeMove.move;
 
   const movePreview = useMemo(() => {
     if (!activeMove) {
@@ -171,7 +168,11 @@ export function LevelUpMoveModal({
                   Aprender
                 </Button>
               ) : (
-                <Button type="button" variant="outline" onClick={() => setReplacementStage(true)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setReplacementStageMove(activeMove.move)}
+                >
                   Reemplazar movimiento
                 </Button>
               )}
@@ -206,7 +207,7 @@ export function LevelUpMoveModal({
               })}
             </div>
             <div className="flex flex-wrap justify-end gap-3">
-              <Button type="button" variant="ghost" onClick={() => setReplacementStage(false)}>
+              <Button type="button" variant="ghost" onClick={() => setReplacementStageMove(null)}>
                 Volver
               </Button>
               <Button type="button" variant="ghost" onClick={onSkip}>

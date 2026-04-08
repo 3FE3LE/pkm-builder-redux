@@ -5,6 +5,7 @@ const mocked = vi.hoisted(() => ({
   hydrated: true,
   builderStarted: false,
   routerReplace: vi.fn(),
+  redirect: vi.fn(),
   builderProviderProps: null as Record<string, unknown> | null,
 }));
 
@@ -12,6 +13,7 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({
     replace: mocked.routerReplace,
   }),
+  redirect: mocked.redirect,
 }));
 
 vi.mock("@/components/BuilderProvider", () => ({
@@ -47,18 +49,19 @@ describe("BuilderOnboarding", () => {
     mocked.builderStarted = false;
     mocked.builderProviderProps = null;
     mocked.routerReplace.mockReset();
+    mocked.redirect.mockReset();
   });
 
   it("shows loading while hydration is pending", () => {
     mocked.hydrated = false;
 
-    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
+    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} canonicalPokemonIndex={{}} />);
 
     expect(screen.getByText("loading-screen")).toBeTruthy();
   });
 
   it("shows onboarding when the builder has not started", () => {
-    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
+    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} canonicalPokemonIndex={{}} />);
 
     expect(screen.getByText("onboarding-screen")).toBeTruthy();
     expect(mocked.builderProviderProps).toMatchObject({
@@ -69,18 +72,17 @@ describe("BuilderOnboarding", () => {
       abilityCatalog: [],
       itemCatalog: [],
       pokemonIndex: {},
+      canonicalPokemonIndex: {},
     });
   });
 
-  it("navigates to team when the builder already started", async () => {
+  it("redirects to team when the builder already started", async () => {
     mocked.builderStarted = true;
 
-    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} />);
-
-    expect(screen.getByText("loading-screen")).toBeTruthy();
+    render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} canonicalPokemonIndex={{}} />);
 
     await waitFor(() => {
-      expect(mocked.routerReplace).toHaveBeenCalledWith("/team");
+      expect(mocked.redirect).toHaveBeenCalledWith("/team");
     });
   });
 });

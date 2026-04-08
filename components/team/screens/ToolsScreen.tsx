@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { LoadingState } from "@/components/team/screens/LoadingState";
@@ -22,7 +21,6 @@ const TOOL_TABS = ["compare", "ivcalc", "types", "compositions"] as const;
 type ToolTab = (typeof TOOL_TABS)[number];
 
 export function ToolsScreen() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [toolTab, setToolTab] = useQueryState(
     "tool",
@@ -34,18 +32,12 @@ export function ToolsScreen() {
   const compare = useTeamCompare();
   const speciesPrefill = searchParams.get("species") ?? "";
 
-  useEffect(() => {
-    if (session.hydrated && !session.builderStarted) {
-      router.replace("/onboarding");
-    }
-  }, [router, session.builderStarted, session.hydrated]);
-
   if (!session.hydrated) {
     return <LoadingState />;
   }
 
   if (!session.builderStarted) {
-    return <LoadingState />;
+    redirect("/onboarding");
   }
 
   function clearCompareMember(slot: 0 | 1) {
