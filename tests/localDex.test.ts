@@ -68,6 +68,13 @@ describe("localDex", () => {
       name: "Kyurem-Black",
       abilities: ["Teravolt"],
     });
+    expect(pokemonIndex.kyurem).toMatchObject({
+      dex: 646,
+      slug: "kyurem",
+      name: "Kyurem",
+      types: ["Dragon", "Ice"],
+      nextEvolutions: [],
+    });
   });
 
   it("falls back to canonical indexes and sorts the derived species list", async () => {

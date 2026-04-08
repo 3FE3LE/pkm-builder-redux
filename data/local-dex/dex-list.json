@@ -10294,17 +10294,15 @@
     "name": "Kyurem",
     "slug": "kyurem",
     "types": [
-      "Grass",
-      "Fairy"
+      "Dragon",
+      "Ice"
     ],
     "abilities": [
-      "Prankster",
-      "Infiltrator",
-      "Chlorophyll"
+      "Pressure"
     ],
-    "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasTypeChanges": false,
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 647,

@@ -4,6 +4,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const DOC_PATH = path.join(ROOT, "Documentation", "Pokemon Changes.txt");
 const OUTPUT_DIR = path.join(ROOT, "data", "local-dex");
+const CANONICAL_POKEMON_PATH = path.join(ROOT, "data", "reference", "pokemon-canonical-gen5.json");
 let moveCatalogPromise = null;
 const MOVE_ALIASES = {
   "acid-armour": "acid-armor",
@@ -203,8 +204,15 @@ function findEvolutionDetails(chain, currentName) {
   return [];
 }
 
-async function buildPokemonEntry(entry) {
-  const payload = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${entry.dex}`);
+function buildCanonicalDexBySlug(canonical) {
+  return Object.fromEntries(
+    Object.values(canonical).map((entry) => [normalize(entry.slug ?? entry.name), entry.dex ?? entry.id ?? null]),
+  );
+}
+
+async function buildPokemonEntry(entry, canonicalDexBySlug) {
+  const resolvedDex = canonicalDexBySlug[entry.slug] ?? entry.dex;
+  const payload = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${resolvedDex}`);
   const speciesPayload = await fetchJson(payload.species.url);
   const evolutionPayload = speciesPayload.evolution_chain?.url
     ? await fetchJson(speciesPayload.evolution_chain.url)
@@ -297,6 +305,8 @@ async function mapWithConcurrency(items, limit, mapper) {
 
 async function main() {
   const source = await readFile(DOC_PATH, "utf8");
+  const canonical = JSON.parse(await readFile(CANONICAL_POKEMON_PATH, "utf8"));
+  const canonicalDexBySlug = buildCanonicalDexBySlug(canonical);
   const pokemonEntries = parsePokemonChanges(source);
   const uniqueMoves = Array.from(
     new Set(
@@ -310,7 +320,7 @@ async function main() {
   console.log(`Generating local dex for ${pokemonEntries.length} Pokemon and ${uniqueMoves.length} moves...`);
 
   const pokemonIndex = Object.fromEntries(
-    await mapWithConcurrency(pokemonEntries, 8, (entry) => buildPokemonEntry(entry))
+    await mapWithConcurrency(pokemonEntries, 8, (entry) => buildPokemonEntry(entry, canonicalDexBySlug))
   );
   const moveIndex = Object.fromEntries(
     await mapWithConcurrency(uniqueMoves, 12, (move) => buildMoveEntry(move))

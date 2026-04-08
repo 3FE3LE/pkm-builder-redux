@@ -129,4 +129,60 @@ describe("buildEvolutionEligibility", () => {
       },
     ]);
   });
+
+  it("blocks manual item evolutions from appearing as automatic", () => {
+    const result = buildEvolutionEligibility(
+      buildMember({
+        species: "Cottonee",
+        nextEvolutions: ["Whimsicott"],
+        evolutionDetails: [{ target: "Whimsicott", trigger: "use-item", item: "Sun Stone" }],
+      }),
+      [],
+      READY_DAY,
+      PREFER_ALL,
+    );
+
+    expect(result).toEqual([
+      {
+        species: "Whimsicott",
+        eligible: false,
+        reasons: ["Requiere usar Sun Stone manualmente"],
+      },
+    ]);
+  });
+
+  it("requires the known move to already be in the current moveset", () => {
+    const blocked = buildEvolutionEligibility(
+      buildMember({
+        species: "Piloswine",
+        nextEvolutions: ["Mamoswine"],
+        moves: [{ name: "Ice Fang", type: "Ice" }],
+        evolutionDetails: [{ target: "Mamoswine", trigger: "level-up", knownMove: "Ancient Power" }],
+      }),
+      [],
+      READY_DAY,
+      PREFER_ALL,
+    );
+
+    const eligible = buildEvolutionEligibility(
+      buildMember({
+        species: "Piloswine",
+        nextEvolutions: ["Mamoswine"],
+        moves: [{ name: "Ancient Power", type: "Rock" }],
+        evolutionDetails: [{ target: "Mamoswine", trigger: "level-up", knownMove: "Ancient Power" }],
+      }),
+      [],
+      READY_DAY,
+      PREFER_ALL,
+    );
+
+    expect(blocked).toEqual([
+      {
+        species: "Mamoswine",
+        eligible: false,
+        reasons: ["Requiere saber Ancient Power"],
+      },
+    ]);
+    expect(eligible).toEqual([{ species: "Mamoswine", eligible: true, reasons: [] }]);
+  });
 });

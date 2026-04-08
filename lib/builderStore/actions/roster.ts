@@ -271,6 +271,7 @@ export function createRosterActions(set: BuilderSet): RosterActions {
           return {
             ...normalizedRoster,
             pokemonLibrary: normalizedRoster.pokemonLibrary.filter((member) => member.id !== memberId),
+            currentTeam: normalizedRoster.currentTeam.filter((member) => member.id !== memberId),
             compositions: normalizedRoster.compositions.map((composition) => ({
               ...composition,
               memberIds: composition.memberIds.filter((id) => id !== memberId),

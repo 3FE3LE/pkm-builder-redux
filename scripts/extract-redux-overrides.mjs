@@ -5,6 +5,7 @@ const ROOT = process.cwd();
 const DOC_PATH = path.join(ROOT, "Documentation", "Pokemon Changes.txt");
 const OUTPUT_DIR = path.join(ROOT, "data", "reference");
 const CANONICAL_LEARNSETS_PATH = path.join(ROOT, "data", "reference", "pokemon-canonical-learnsets-gen5.json");
+const CANONICAL_POKEMON_PATH = path.join(ROOT, "data", "reference", "pokemon-canonical-gen5.json");
 
 function normalize(value) {
   return value
@@ -34,7 +35,13 @@ function parseStatsLine(line) {
   };
 }
 
-function parsePokemonChanges(text) {
+function buildCanonicalDexBySlug(canonical) {
+  return Object.fromEntries(
+    Object.values(canonical).map((entry) => [normalize(entry.slug ?? entry.name), entry.dex ?? entry.id ?? null]),
+  );
+}
+
+function parsePokemonChanges(text, canonicalDexBySlug = {}) {
   const blocks = text
     .replace(/\r/g, "")
     .split(/(?=^===================\n\d{3} - .+\n===================$)/m)
@@ -52,9 +59,9 @@ function parsePokemonChanges(text) {
       continue;
     }
 
-    const dex = Number(headerMatch[1]);
     const species = headerMatch[2].trim();
     const slug = normalize(species);
+    const dex = canonicalDexBySlug[slug] ?? Number(headerMatch[1]);
     const entry = {
       dex,
       species,
@@ -167,7 +174,9 @@ function parsePokemonChanges(text) {
 async function main() {
   await mkdir(OUTPUT_DIR, { recursive: true });
   const source = await readFile(DOC_PATH, "utf8");
-  const { overrides, moveNames } = parsePokemonChanges(source);
+  const canonical = JSON.parse(await readFile(CANONICAL_POKEMON_PATH, "utf8"));
+  const canonicalDexBySlug = buildCanonicalDexBySlug(canonical);
+  const { overrides, moveNames } = parsePokemonChanges(source, canonicalDexBySlug);
   const mergedMoveNames = new Set(moveNames);
 
   try {

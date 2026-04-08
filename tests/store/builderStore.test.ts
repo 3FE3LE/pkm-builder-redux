@@ -103,6 +103,17 @@ describe("builderStore updateMember", () => {
     expect(useBuilderStore.getState().moveMemberToPc(second.id)).toBe(false);
   });
 
+  it("releases a member from both pokemonLibrary and currentTeam", () => {
+    const member = useBuilderStore.getState().run.roster.currentTeam[0]!;
+
+    expect(useBuilderStore.getState().releaseMember(member.id)).toBe(true);
+
+    const roster = useBuilderStore.getState().run.roster;
+    expect(roster.pokemonLibrary.find((entry) => entry.id === member.id)).toBeUndefined();
+    expect(roster.currentTeam.find((entry) => entry.id === member.id)).toBeUndefined();
+    expect(roster.compositions[0]?.memberIds).not.toContain(member.id);
+  });
+
   it("creates and activates a new empty composition", () => {
     const compositionId = useBuilderStore.getState().createComposition("Speed Control");
     const roster = useBuilderStore.getState().run.roster;

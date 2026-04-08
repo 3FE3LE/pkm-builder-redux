@@ -86294,59 +86294,33 @@
     }
   },
   "kyurem": {
-    "id": 546,
-    "dex": 546,
+    "id": 646,
+    "dex": 646,
     "name": "Kyurem",
     "slug": "kyurem",
     "types": [
-      "Grass",
-      "Fairy"
+      "Dragon",
+      "Ice"
     ],
     "generation": "GENERATION V",
-    "category": "Cotton Puff Pokémon",
-    "height": 0.3,
-    "weight": 0.6,
-    "flavorText": "When attacked, it escapes by shooting cotton from its body. The cotton serves as a decoy to distract the attacker.",
+    "category": "Boundary Pokémon",
+    "height": 3,
+    "weight": 325,
+    "flavorText": "It generates a powerful, freezing energy inside itself, but its body became frozen when the energy leaked out.",
     "stats": {
-      "hp": 40,
-      "atk": 27,
-      "def": 60,
-      "spa": 37,
-      "spd": 50,
-      "spe": 66,
-      "bst": 280
+      "hp": 125,
+      "atk": 130,
+      "def": 90,
+      "spa": 130,
+      "spd": 90,
+      "spe": 95,
+      "bst": 660
     },
     "abilities": [
-      "Prankster",
-      "Infiltrator",
-      "Chlorophyll"
+      "Pressure"
     ],
-    "nextEvolutions": [
-      "Whimsicott"
-    ],
-    "evolutionDetails": [
-      {
-        "target": "Whimsicott",
-        "trigger": "use-item",
-        "minLevel": null,
-        "item": "Sun Stone",
-        "heldItem": null,
-        "knownMove": null,
-        "knownMoveType": null,
-        "minHappiness": null,
-        "minBeauty": null,
-        "minAffection": null,
-        "partySpecies": null,
-        "partyType": null,
-        "tradeSpecies": null,
-        "timeOfDay": "",
-        "location": null,
-        "gender": null,
-        "relativePhysicalStats": null,
-        "needsOverworldRain": false,
-        "turnUpsideDown": false
-      }
-    ],
+    "nextEvolutions": [],
+    "evolutionDetails": [],
     "learnsets": {
       "levelUp": [
         {

@@ -30,7 +30,7 @@ export function AddMemberSheet({
   const [selectedDexSpecies, setSelectedDexSpecies] = useState("");
   const activeTeamIdSet = useMemo(() => new Set(activeTeamIds), [activeTeamIds]);
   const availableMembers = useMemo(
-    () => libraryMembers.filter((member) => !activeTeamIdSet.has(member.id)),
+    () => libraryMembers.filter((member) => member.species.trim() && !activeTeamIdSet.has(member.id)),
     [libraryMembers, activeTeamIdSet],
   );
   const filteredLibrary = useMemo(() => {
@@ -70,18 +70,41 @@ export function AddMemberSheet({
           </Button>
         </div>
 
-        <div className="mt-3 relative">
+        <section className="mt-4 space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <p className="display-face text-xs text-accent">Dex</p>
+            <p className="text-[11px] text-muted">Crear nuevo</p>
+          </div>
+          <div className="space-y-3">
+            <SpeciesCombobox
+              value={selectedDexSpecies}
+              speciesCatalog={speciesCatalog}
+              coordinationGroup="add-member-dex"
+              panelClassName="max-w-none"
+              onChange={(species) => {
+                setSelectedDexSpecies(species);
+                setQuery("");
+                onCreateFromDex(species);
+              }}
+            />
+            <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
+              Usa el selector de especies para crear un Pokemon nuevo desde la dex.
+            </div>
+          </div>
+        </section>
+
+        <div className="mt-4 relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <Input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Busca por nickname, especie o numero dex"
+            placeholder="Busca en tu libreria por nickname o especie"
             className="pl-9"
             autoFocus
           />
         </div>
 
-        <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+        <div className="mt-4">
           <section className="space-y-2">
             <div className="flex items-center justify-between gap-2">
               <p className="display-face text-xs text-accent">Tus Pokemon</p>
@@ -117,29 +140,6 @@ export function AddMemberSheet({
                   No hay coincidencias en tu libreria.
                 </div>
               )}
-            </div>
-          </section>
-
-          <section className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <p className="display-face text-xs text-accent">Dex</p>
-              <p className="text-[11px] text-muted">Crear nuevo</p>
-            </div>
-            <div className="space-y-3">
-              <SpeciesCombobox
-                value={selectedDexSpecies}
-                speciesCatalog={speciesCatalog}
-                coordinationGroup="add-member-dex"
-                panelClassName="max-w-none"
-                onChange={(species) => {
-                  setSelectedDexSpecies(species);
-                  setQuery("");
-                  onCreateFromDex(species);
-                }}
-              />
-              <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
-                Usa el buscador de especies para crear un Pokemon nuevo desde la dex.
-              </div>
             </div>
           </section>
         </div>

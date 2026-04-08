@@ -53,7 +53,7 @@ export function DexPokemonPanel({ model }: { model: any }) {
         </div>
       </div>
       <DexIncrementalGrid
-        key={`pokemon:${model.query}`}
+        key={`pokemon:${model.dexQuery}`}
         items={model.filteredPokemon}
         emptyLabel="No encontré Pokemon con ese filtro."
         loadingLabel="Cargando mas Pokemon..."

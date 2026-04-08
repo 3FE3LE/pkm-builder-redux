@@ -221,7 +221,13 @@ describe("CollectionSections", () => {
     expect(screen.getByText("Rio")).toBeTruthy();
     expect(screen.queryByText("Aura")).toBeNull();
 
-    const search = screen.getByPlaceholderText(/busca por nickname, especie o numero dex/i);
+    const speciesSelector = screen.getByRole("button", { name: "species-combobox" });
+    const search = screen.getByPlaceholderText(/busca en tu libreria por nickname o especie/i);
+
+    expect(
+      speciesSelector.compareDocumentPosition(search) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+
     await user.type(search, "rio");
     expect(screen.getByText("Rio")).toBeTruthy();
     expect(screen.queryByText("Aura")).toBeNull();
@@ -272,7 +278,7 @@ describe("CollectionSections", () => {
       />,
     );
     expect(
-      (screen.getByPlaceholderText(/busca por nickname/i) as HTMLInputElement).value,
+      (screen.getByPlaceholderText(/busca en tu libreria por nickname o especie/i) as HTMLInputElement).value,
     ).toBe("");
   });
 });
