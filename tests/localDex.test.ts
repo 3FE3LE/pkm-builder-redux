@@ -110,6 +110,27 @@ describe("localDex", () => {
       replacedBy: "Link Cable",
       cost: 2000,
     });
+    expect(itemIndex["air-balloon"]).toMatchObject({
+      name: "Air Balloon",
+      sources: {
+        locations: expect.arrayContaining([
+          expect.objectContaining({
+            area: "Driftveil City",
+          }),
+        ]),
+      },
+    });
+    expect(itemIndex.leftovers).toMatchObject({
+      name: "Leftovers",
+      sources: {
+        locations: expect.arrayContaining([
+          expect.objectContaining({
+            area: "Castelia City",
+            detail: "Reemplaza Repel",
+          }),
+        ]),
+      },
+    });
     expect(abilityIndex.adaptability).toMatchObject({
       name: "Adaptability",
     });

@@ -221,7 +221,8 @@ async function main() {
   ]);
 
   const dexDocs = {
-    ...parseItemChanges(itemChanges),
+    itemLocations: parseItemChanges(itemChanges).locations,
+    itemShops: parseItemChanges(itemChanges).shops,
     gifts: parseGiftPokemon(gifts),
     trades: parseTradePokemon(trades),
     wildAreas: parseWildAreas(wildAreas),

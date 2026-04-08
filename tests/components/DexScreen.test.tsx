@@ -142,6 +142,10 @@ vi.mock("swr", () => ({
               category: "Held Items",
               effect: "Restaura PS al final del turno.",
               sprite: "/leftovers.png",
+              sources: {
+                locations: [{ area: "Castelia City", detail: "Reemplaza Repel" }],
+                shops: [],
+              },
             },
           ],
         },

@@ -735,7 +735,11 @@ export function getLocalDexDocs(): DexDocs {
       wildAreas: Array.isArray(localDocs?.wildAreas) ? localDocs.wildAreas : [],
       gifts: Array.isArray(localDocs?.gifts) ? localDocs.gifts : [],
       trades: Array.isArray(localDocs?.trades) ? localDocs.trades : [],
-      itemLocations: Array.isArray(localDocs?.itemLocations) ? localDocs.itemLocations : [],
+      itemLocations: Array.isArray(localDocs?.itemLocations)
+        ? localDocs.itemLocations
+        : Array.isArray((localDocs as any)?.locations)
+          ? (localDocs as any).locations
+          : [],
       itemShops: Array.isArray(localDocs?.itemShops) ? localDocs.itemShops : [],
     };
   }

@@ -8,8 +8,6 @@ import { useBuilderStore } from "@/lib/builderStore";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import {
   buildAcquisitionIndex,
-  parseItemLocationDetail,
-  shopDetailMatchesItem,
 } from "@/lib/domain/sourceData";
 import { getBaseSpeciesName } from "@/lib/forms";
 import type { getDexListPageData } from "@/lib/builderPageData";
@@ -58,6 +56,10 @@ export type DexItemsPayload = {
     category?: string;
     effect?: string;
     sprite?: string | null;
+    sources?: {
+      locations?: Array<{ area: string; detail: string }>;
+      shops?: Array<{ area: string; detail: string }>;
+    };
   }>;
 };
 
@@ -210,37 +212,6 @@ export function useDexScreenModel(
   const ownersByMove = useMemo(() => (tab !== "moves" ? new Map() : new Map(Object.entries(movesPayload?.ownersByMove ?? {}))), [movesPayload, tab]);
   const ownersByAbility = useMemo(() => (tab !== "abilities" ? new Map() : new Map(Object.entries(abilitiesPayload?.ownersByAbility ?? {}))), [abilitiesPayload, tab]);
 
-  const locationsByItem = useMemo(() => {
-    if (tab !== "items") return new Map<string, { area: string; detail: string }[]>();
-    const next = new Map<string, { area: string; detail: string }[]>();
-    data.docs.itemLocations.forEach((location) => {
-      location.items.forEach((detail) => {
-        const parsed = parseItemLocationDetail(detail);
-        itemEntries.forEach((item) => {
-          const itemKey = normalizeName(item.name);
-          if (!itemKey || itemKey !== normalizeName(parsed.replacement ?? "")) return;
-          next.set(itemKey, [...(next.get(itemKey) ?? []), { area: location.area, detail: parsed.display }]);
-        });
-      });
-    });
-    return next;
-  }, [data.docs.itemLocations, itemEntries, tab]);
-
-  const shopsByItem = useMemo(() => {
-    if (tab !== "items") return new Map<string, { area: string; detail: string }[]>();
-    const next = new Map<string, { area: string; detail: string }[]>();
-    (data.docs.itemShops ?? []).forEach((shop) => {
-      shop.details.forEach((detail) => {
-        itemEntries.forEach((item) => {
-          const itemKey = normalizeName(item.name);
-          if (!itemKey || !shopDetailMatchesItem(detail, item.name)) return;
-          next.set(itemKey, [...(next.get(itemKey) ?? []), { area: shop.area, detail }]);
-        });
-      });
-    });
-    return next;
-  }, [data.docs.itemShops, itemEntries, tab]);
-
   const normalizedQuery = normalizeName(query);
   const normalizedPrimaryTypeFilter = normalizeName(primaryTypeFilterState);
   const normalizedSecondaryTypeFilter = normalizeName(secondaryTypeFilterState);
@@ -370,8 +341,6 @@ export function useDexScreenModel(
     moveDetailsByName,
     ownersByMove,
     ownersByAbility,
-    locationsByItem,
-    shopsByItem,
     filteredPokemon,
     filteredMoves,
     filteredAbilities,

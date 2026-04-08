@@ -154,7 +154,7 @@ function DexModeSegmentedControl({
 export function DexSecondaryPanels({ model }: { model: any }) {
   if (model.tab === "moves") {
     if (!model.movesPayload) return <DexCollectionLoadingSkeleton />;
-    return <DexIncrementalGrid key={`moves:${model.query}`} items={model.filteredMoves} emptyLabel="No encontré movimientos con ese filtro." loadingLabel="Cargando mas movimientos..." renderItem={(move: any) => (
+    return <DexIncrementalGrid key={`moves:${model.query}`} items={model.filteredMoves} emptyLabel="No encontré movimientos con ese filtro." loadingLabel="Cargando mas movimientos..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(move: any) => (
       <article key={move.name} className="panel-strong panel-frame rounded-[1rem] p-4">
         <div className="space-y-3">
           <div>
@@ -200,7 +200,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
 
   if (model.tab === "abilities") {
     if (!model.abilitiesPayload) return <DexCollectionLoadingSkeleton />;
-    return <DexIncrementalGrid key={`abilities:${model.query}`} items={model.filteredAbilities} emptyLabel="No encontré habilidades con ese filtro." loadingLabel="Cargando mas habilidades..." renderItem={(ability: any) => (
+    return <DexIncrementalGrid key={`abilities:${model.query}`} items={model.filteredAbilities} emptyLabel="No encontré habilidades con ese filtro." loadingLabel="Cargando mas habilidades..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(ability: any) => (
       <article key={ability.name} className="panel-strong panel-frame rounded-[1rem] p-4">
         <div className="space-y-3">
           <div>
@@ -217,9 +217,9 @@ export function DexSecondaryPanels({ model }: { model: any }) {
   }
 
   if (!model.itemsPayload) return <DexCollectionLoadingSkeleton />;
-  return <DexIncrementalGrid key={`items:${model.query}`} items={model.filteredItems} emptyLabel="No encontré objetos con ese filtro." loadingLabel="Cargando mas objetos..." renderItem={(item: any) => {
-    const locations = model.locationsByItem.get(normalizeName(item.name)) ?? [];
-    const shopLocations = model.shopsByItem.get(normalizeName(item.name)) ?? [];
+  return <DexIncrementalGrid key={`items:${model.query}`} items={model.filteredItems} emptyLabel="No encontré objetos con ese filtro." loadingLabel="Cargando mas objetos..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(item: any) => {
+    const locations = item.sources?.locations ?? [];
+    const shopLocations = item.sources?.shops ?? [];
     return (
       <article key={item.name} className="panel-strong panel-frame rounded-[1rem] p-4">
         <div className="space-y-3">

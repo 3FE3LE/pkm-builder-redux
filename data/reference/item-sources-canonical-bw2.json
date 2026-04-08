@@ -1,0 +1,4195 @@
+{
+  "xtransceiver": {
+    "slug": "xtransceiver",
+    "name": "Xtransceiver",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "In the bag at the start of the game"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pal-pad": {
+    "slug": "pal-pad",
+    "name": "Pal Pad",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "In the bag at the start of the game"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pok-dex": {
+    "slug": "pok-dex",
+    "name": "Pokédex",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Bianca at Aspertia Outlook"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pok-ball": {
+    "slug": "pok-ball",
+    "name": "Poké Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Bianca inside the Pokémon Center"
+        },
+        {
+          "area": "Route 20",
+          "detail": "On a rock northwest of Hiker Jerome (hidden) South of Floccesy Ranch Autumn"
+        },
+        {
+          "area": "Virbank City",
+          "detail": "From the Roughneck outside the Gym"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "From a man in the northwest building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "running-shoes": {
+    "slug": "running-shoes",
+    "name": "Running Shoes",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Mom outside the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "town-map": {
+    "slug": "town-map",
+    "name": "Town Map",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Hugh's sister outside the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "potion": {
+    "slug": "potion",
+    "name": "Potion",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From the attendant in the gate"
+        },
+        {
+          "area": "Route 19",
+          "detail": "In the eastern patch of grass"
+        },
+        {
+          "area": "Floccesy Town",
+          "detail": "From an old man in a house east of the Pokémon Center Dead-end path accessible via Route 20 Autumn (hidden)"
+        },
+        {
+          "area": "Floccesy Town",
+          "detail": "From the old man in the first house east of the Pokémon Center"
+        },
+        {
+          "area": "Route 1",
+          "detail": "From the dark-haired girl in the middle grass patch"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm53": {
+    "slug": "tm53",
+    "name": "TM53",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "Beyond the water outside the player's house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "max-revive": {
+    "slug": "max-revive",
+    "name": "Max Revive",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Mom"
+        },
+        {
+          "area": "Route 20 2",
+          "detail": "Near Pokémon Ranger Leaf Autumn"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "From Rood after defeating the first Plasma Grunt"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "North of the western pond"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "In a tree stump, northwest of Youngster Keita"
+        },
+        {
+          "area": "Route 2",
+          "detail": "On the road between the two ledges (hidden) In the tall grass near Veteran Oriana"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "oran-berry": {
+    "slug": "oran-berry",
+    "name": "Oran Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 19",
+          "detail": "From Alder on your second meeting"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "water-stone": {
+    "slug": "water-stone",
+    "name": "Water Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 19",
+          "detail": "Northwest of the pond"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "In a rock, southwest of the pond (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "nest-ball": {
+    "slug": "nest-ball",
+    "name": "Nest Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 19",
+          "detail": "Northeastern part"
+        },
+        {
+          "area": "Route 8",
+          "detail": "Northeast of Youngster Astor"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "From the Scientist on the south side"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "expert-belt": {
+    "slug": "expert-belt",
+    "name": "Expert Belt",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 19",
+          "detail": "Where Alder was standing (hidden)"
+        },
+        {
+          "area": "Driftveil City",
+          "detail": "From the man in sunglasses in the Market (upon showing a Pokémon at or above level 30)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "parlyz-heal": {
+    "slug": "parlyz-heal",
+    "name": "Parlyz Heal",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20",
+          "detail": "North of Lass Isabel"
+        },
+        {
+          "area": "Nimbasa City",
+          "detail": "From the Beauty in the back of Shining Roller Coaster Near the Audino figure in the park"
+        },
+        {
+          "area": "Icirrus City",
+          "detail": "From Aha for answering her quiz incorrectly"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "x-speed": {
+    "slug": "x-speed",
+    "name": "X Speed",
+    "sources": {
+      "locations": [
+        {
+          "area": "Floccesy Town",
+          "detail": "West of Alder's house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "medal-box": {
+    "slug": "medal-box",
+    "name": "Medal Box",
+    "sources": {
+      "locations": [
+        {
+          "area": "Floccesy Town",
+          "detail": "From Mr. Medal, in front of Alder's house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "x-defend": {
+    "slug": "x-defend",
+    "name": "X Defend",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From a boy in the Trainers' School"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "fresh-water": {
+    "slug": "fresh-water",
+    "name": "Fresh Water",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Clyde behind the school"
+        },
+        {
+          "area": "Virbank City",
+          "detail": "From Clyde inside the Gym"
+        },
+        {
+          "area": "Nimbasa City",
+          "detail": "From Clyde at the entrance"
+        },
+        {
+          "area": "Route 16",
+          "detail": "From the Roughneck in the Bridge Gate"
+        },
+        {
+          "area": "Driftveil City",
+          "detail": "From Clyde near the entrance"
+        },
+        {
+          "area": "Mistralton City",
+          "detail": "From Clyde in the Gym"
+        },
+        {
+          "area": "Opelucid City",
+          "detail": "From Clyde at the entrance"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "From Clyde near the entrance"
+        },
+        {
+          "area": "Skyarrow Bridge",
+          "detail": "Buy from the man near the bridge's midpoint for $ 300"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm83": {
+    "slug": "tm83",
+    "name": "TM83",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Cheren after defeating him"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm27": {
+    "slug": "tm27",
+    "name": "TM27",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Bianca outside the Gym"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "c-gear": {
+    "slug": "c-gear",
+    "name": "C-Gear",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From Bianca outside the Gym"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "ultra-ball": {
+    "slug": "ultra-ball",
+    "name": "Ultra Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Aspertia City",
+          "detail": "From girl in the northeast house"
+        },
+        {
+          "area": "Driftveil City",
+          "detail": "On the island, southwest of the statue (hidden)"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "East chamber, accessible from Castelia side (requires Strength )"
+        },
+        {
+          "area": "Relic Castle",
+          "detail": "On a pile of sand in the easternmost room"
+        },
+        {
+          "area": "Route 6",
+          "detail": "Between Parasol Lady Tihana and School Kid Alvin"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "North of the Nugget Brothers (hidden)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "On the beach, north of Battle Girl Alize"
+        },
+        {
+          "area": "Route 12",
+          "detail": "Northeast part of the dark grass (hidden)"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "Southwest corner"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Northwest corner (hidden)"
+        },
+        {
+          "area": "Route 23",
+          "detail": "Dead-end path in the eastern part of the forest (hidden, requires Cut )"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "Southwest corner of the cave with Veteran Chloris (hidden)"
+        },
+        {
+          "area": "Route 15",
+          "detail": "In the patch of dark grass (hidden; requires Strength )"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "West of Pokémon Ranger Hillary West of Youngster Keita (hidden)"
+        },
+        {
+          "area": "Route 3",
+          "detail": "West of Fisherman Mack (hidden, requires Surf ) North of the T-intersection"
+        },
+        {
+          "area": "Route 2",
+          "detail": "In the tall grass near Youngster Jimmy"
+        },
+        {
+          "area": "Route 1",
+          "detail": "In the grass patch with the Potion girl (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dire-hit": {
+    "slug": "dire-hit",
+    "name": "Dire Hit",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "Northeast of Nursery Aide Kimya"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "antidote": {
+    "slug": "antidote",
+    "name": "Antidote",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "Northeast of Preschooler Lin"
+        },
+        {
+          "area": "Virbank City",
+          "detail": "In the trash can outside the southwest building (hidden)"
+        },
+        {
+          "area": "Icirrus City",
+          "detail": "From Aha for answering her quiz correctly"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pecha-berry": {
+    "slug": "pecha-berry",
+    "name": "Pecha Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "Gift from Cheren near the dark grass"
+        },
+        {
+          "area": "Route 6",
+          "detail": "From Pokémon Ranger Richard after defeating him"
+        },
+        {
+          "area": "Lacunosa Town",
+          "detail": "From the businessman in the northeast house (night/late night only)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "great-ball": {
+    "slug": "great-ball",
+    "name": "Great Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "In the patch of dark grass"
+        },
+        {
+          "area": "Virbank City",
+          "detail": "From the attendant in the western gate"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "From a man in the southeast apartment building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "rare-candy": {
+    "slug": "rare-candy",
+    "name": "Rare Candy",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "Near Pokémon Ranger Leaf Autumn"
+        },
+        {
+          "area": "Virbank City",
+          "detail": "Near the stairway to the west of the Pokémon Center"
+        },
+        {
+          "area": "Castelia City",
+          "detail": "From the Harlequin on Oceanfront Road, after completing the Harlequin Hunt"
+        },
+        {
+          "area": "Anville Town",
+          "detail": "From the Depot Agent in the southeast house"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "East chamber, accessible from Castelia side (requires Strength )"
+        },
+        {
+          "area": "Strange House",
+          "detail": "Entrance Hall; in the upper-east room"
+        },
+        {
+          "area": "Route 12",
+          "detail": "East of the tallest hill (hidden)"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "Northeast corner"
+        },
+        {
+          "area": "Route 22",
+          "detail": "Northwest of Hiker Justin"
+        },
+        {
+          "area": "Route 23",
+          "detail": "Upper level, east of the waterfall (hidden)"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "2F, northeast of Worker Ryan (hidden)"
+        },
+        {
+          "area": "Route 8",
+          "detail": "South of Youngster Astor (hidden)"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "South edge of the pond (hidden)"
+        },
+        {
+          "area": "Route 3",
+          "detail": "Inside the Preschool, northeast corner On the playground, in the sandbox (hidden)"
+        },
+        {
+          "area": "Route 18",
+          "detail": "Southeast of Black Belt Zachary (hidden, requires Strength )"
+        },
+        {
+          "area": "Nature Preserve",
+          "detail": "On the cliff in the northeast (requires Surf , Waterfall )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "sitrus-berry": {
+    "slug": "sitrus-berry",
+    "name": "Sitrus Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "From Pokémon Ranger Leaf after defeating her"
+        },
+        {
+          "area": "Route 20 2",
+          "detail": "From Pokémon Ranger Naoko after defeating her Autumn"
+        },
+        {
+          "area": "Route 13",
+          "detail": "From Pokémon Ranger Daryl after defeating him From Pokémon Ranger Dianne after defeating her"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "From the girl on the bridge after solving her problem"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "Held by the Roughneck's traded Tangrowth"
+        },
+        {
+          "area": "Route 23",
+          "detail": "From Pokémon Ranger Steve upon his defeat From Pokémon Ranger Lena upon her defeat"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "From Pokémon Ranger Hillary upon her defeat From Pokémon Ranger Dwayne upon his defeat"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "Held by traded Ambipom"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "leppa-berry": {
+    "slug": "leppa-berry",
+    "name": "Leppa Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "From Pokémon Ranger Malory after defeating her Autumn From Pokémon Ranger Bret after defeating him Autumn"
+        },
+        {
+          "area": "Route 7",
+          "detail": "Held by the Hiker's traded Gigalith"
+        },
+        {
+          "area": "Lacunosa Town",
+          "detail": "From the businessman in the northeast house (night/late night only)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "sticky-barb": {
+    "slug": "sticky-barb",
+    "name": "Sticky Barb",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 20 2",
+          "detail": "South of the two bridges, near Pokémon Ranger Naoko Autumn"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pok-toy": {
+    "slug": "pok-toy",
+    "name": "Poké Toy",
+    "sources": {
+      "locations": [
+        {
+          "area": "Virbank City",
+          "detail": "In the house east of the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "burn-heal": {
+    "slug": "burn-heal",
+    "name": "Burn Heal",
+    "sources": {
+      "locations": [
+        {
+          "area": "Virbank City",
+          "detail": "From a Nursery Aide in the southwest building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pearl": {
+    "slug": "pearl",
+    "name": "Pearl",
+    "sources": {
+      "locations": [
+        {
+          "area": "Virbank City",
+          "detail": "Under the south bridge, accessed from the ramp behind the Gym (hidden)"
+        },
+        {
+          "area": "Undella Town",
+          "detail": "South of the gate (hidden, reappears occasionally) South of the construction zone (hidden, reappears occasionally)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "North of the sandbar, at the foot of the stairway (hidden, reappears occasionally)"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "From the Socialite in the northwest building for taking her Mienfoo on a walk"
+        },
+        {
+          "area": "Route 18",
+          "detail": "On the eastern shoreline (hidden, reappears occasionally)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm09": {
+    "slug": "tm09",
+    "name": "TM09",
+    "sources": {
+      "locations": [
+        {
+          "area": "Virbank City",
+          "detail": "From Roxie after defeating her"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hm01": {
+    "slug": "hm01",
+    "name": "HM01",
+    "sources": {
+      "locations": [
+        {
+          "area": "Virbank City",
+          "detail": "From Roxie after defeating the Plasma Grunt by the docks"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "heart-scale": {
+    "slug": "heart-scale",
+    "name": "Heart Scale",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "On the south end of Prime Pier"
+        },
+        {
+          "area": "Desert Resort",
+          "detail": "North of the Relic Castle"
+        },
+        {
+          "area": "Driftveil City",
+          "detail": "From the Lady on Luxury Suites 1F (one per day)"
+        },
+        {
+          "area": "Route 6",
+          "detail": "Between the center and southernmost bridges (requires Surf )"
+        },
+        {
+          "area": "Undella Town",
+          "detail": "Near the southwest villa (hidden)"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "On the beach (hidden)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "On the beach, north of Battle Girl Alize (hidden) Accessible from Giant Chasm (hidden)"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "On the patch of land supporting the bridge's center (requires Surf )"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "Near the northeast building Near a Swimmer ♀ in the central part of town (hidden) Speak to the Nurse in the northeast building with a Luvdisc in your party (×5)"
+        },
+        {
+          "area": "Route 23",
+          "detail": "Near the house outside the Giant Chasm (requires Cut or Surf )"
+        },
+        {
+          "area": "Route 14",
+          "detail": "North of Backpacker Reece (requires Surf )"
+        },
+        {
+          "area": "Route 18",
+          "detail": "On the northeast shoreline (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "bicycle": {
+    "slug": "bicycle",
+    "name": "Bicycle",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "From the Harlequin on Oceanfront Road"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "casteliacone": {
+    "slug": "casteliacone",
+    "name": "Casteliacone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "From the ice-cream store on Mode Street, except in winter, $ 100 per serving"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "exp-share": {
+    "slug": "exp-share",
+    "name": "Exp. Share",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Battle Company 1F: From a Janitor, the company's former president"
+        },
+        {
+          "area": "Icirrus City",
+          "detail": "From the Fan Club chairman, if Pokémon shown has gained 25-49 levels since it was met"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "quick-ball": {
+    "slug": "quick-ball",
+    "name": "Quick Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Battle Company 47F: From Clerk♂ Clemens after defeating him"
+        },
+        {
+          "area": "Route 9",
+          "detail": "On the road near Biker Phillip"
+        },
+        {
+          "area": "Route 3",
+          "detail": "Near School Kid Marsha"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "timer-ball": {
+    "slug": "timer-ball",
+    "name": "Timer Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Battle Company 47F: From Clerk♂ Warren after defeating him"
+        },
+        {
+          "area": "Route 12",
+          "detail": "North of the entrance to Lacunosa Town"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "Behind the fence, southwest of the apartment buildings"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "guard-spec": {
+    "slug": "guard-spec",
+    "name": "Guard Spec.",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Battle Company 47F: Near Clerk♀ Britney"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "scope-lens": {
+    "slug": "scope-lens",
+    "name": "Scope Lens",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Battle Company 47F: From the Scientist"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "ether": {
+    "slug": "ether",
+    "name": "Ether",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Battle Company 55F: In the northwest corner"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "quick-claw": {
+    "slug": "quick-claw",
+    "name": "Quick Claw",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "From a woman in the gate to Skyarrow Bridge"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "destiny-knot": {
+    "slug": "destiny-knot",
+    "name": "Destiny Knot",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "From a girl on Unity Pier"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "revive": {
+    "slug": "revive",
+    "name": "Revive",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Game Freak building, 22F"
+        },
+        {
+          "area": "Nimbasa City",
+          "detail": "In the trash can outside the Shining Roller Coaster (hidden)"
+        },
+        {
+          "area": "Anville Town",
+          "detail": "From the Backpacker in exchange for two Escape Ropes Sa Su"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "Southwest of Scientist Lumi"
+        },
+        {
+          "area": "Route 7",
+          "detail": "On a rock in front of the eastern house (hidden)"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "Speak to the couple and fulfill their request by ringing the bell at Celestial Tower"
+        },
+        {
+          "area": "Plasma Frigate",
+          "detail": "Bow of the ship"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "moomoo-milk": {
+    "slug": "moomoo-milk",
+    "name": "Moomoo Milk",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "From the manager of Café Sonata on Narrow Street"
+        },
+        {
+          "area": "Skyarrow Bridge",
+          "detail": "Give the thirsty man a Fresh Water at each location, then return here"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "soda-pop": {
+    "slug": "soda-pop",
+    "name": "Soda Pop",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Passerby Analytics HQ, after completing all surveys"
+        },
+        {
+          "area": "Nacrene City",
+          "detail": "From the Waitress in the Café Warehouse We"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "miracle-seed": {
+    "slug": "miracle-seed",
+    "name": "Miracle Seed",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "In the Empty Lot, accessed from Castelia Sewers"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "amulet-coin": {
+    "slug": "amulet-coin",
+    "name": "Amulet Coin",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Street to Route 4: From a man on 1F of the left building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm45": {
+    "slug": "tm45",
+    "name": "TM45",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Street to Route 4: From a girl on 47F of the south building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "eviolite": {
+    "slug": "eviolite",
+    "name": "Eviolite",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Street to Route 4: From a Scientist on 1F of the north building, if you've seen at least 40 different Pokémon"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm44": {
+    "slug": "tm44",
+    "name": "TM44",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Guitarist on 11F of Pokémon Massage on Castelia Street"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm70": {
+    "slug": "tm70",
+    "name": "TM70",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Received from a man behind a dumpster on Narrow Street"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "charcoal": {
+    "slug": "charcoal",
+    "name": "Charcoal",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Street to Route 4: On 47F of the north building on the right"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "blackglasses": {
+    "slug": "blackglasses",
+    "name": "BlackGlasses",
+    "sources": {
+      "locations": [
+        {
+          "area": "Castelia City",
+          "detail": "Near the three Trainers on Back Street, accessible from Castelia Sewers Spring Summer"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "rawst-berry": {
+    "slug": "rawst-berry",
+    "name": "Rawst Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "From Pokémon Ranger Anja after defeating her From Pokémon Ranger Jaden after defeating him"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "stardust": {
+    "slug": "stardust",
+    "name": "Stardust",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Southwest of Pokémon Ranger Jaden"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "star-piece": {
+    "slug": "star-piece",
+    "name": "Star Piece",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "In the deep sand north of Pokémon Ranger Jaden (hidden)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "On the rock pillar south of Ace Trainer Angi"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "In a rock near the Crater Forest entrance (hidden) Northwest corner (requires Strength )"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Southeast part of the crater *"
+        },
+        {
+          "area": "Route 23",
+          "detail": "In a rock southeast of Black Belt Luke (hidden) Upper level, on a ledge west of the Giant Chasm (requires Cut )"
+        },
+        {
+          "area": "Victory Road",
+          "detail": "On the ledge to the southeast of the Pokémon Center"
+        },
+        {
+          "area": "Route 18",
+          "detail": "In the valley, near Veteran Vincent (requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "yellow-shard": {
+    "slug": "yellow-shard",
+    "name": "Yellow Shard",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Northeast of Pokémon Ranger Anja"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "In a rock, north of Backpacker Annie (hidden)"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "On the ledge north of Guitarist Anna, under the floating stone (hidden)"
+        },
+        {
+          "area": "Route 12",
+          "detail": "Central part of the dark grass"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Northeast of the cave entrance"
+        },
+        {
+          "area": "Route 23",
+          "detail": "In a rock south of the Strength puzzle (hidden)"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "In a rock, south of Worker Patton (hidden)"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "Southeast of the fountain"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "soft-sand": {
+    "slug": "soft-sand",
+    "name": "Soft Sand",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "From the man in black, north of Pokémon Ranger Anja"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "super-repel": {
+    "slug": "super-repel",
+    "name": "Super Repel",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Northeast corner of the desert (hidden)"
+        },
+        {
+          "area": "Route 5",
+          "detail": "On the ledge near the dark grass patch"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "ground-gem": {
+    "slug": "ground-gem",
+    "name": "Ground Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Southwest of the Relic Castle (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "red-shard": {
+    "slug": "red-shard",
+    "name": "Red Shard",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "West of the Relic Castle, near Backpacker Walt (hidden) Near Backpacker Sam on the desert's west side"
+        },
+        {
+          "area": "Nimbasa City",
+          "detail": "From the Gentleman in the Pokémon Center"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "In a rock, west of Psychic Ena (hidden)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "On the southern cliff (requires Strength )"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "East of the pond"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "Northwest side of the highest-level walkway"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "blue-shard": {
+    "slug": "blue-shard",
+    "name": "Blue Shard",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "In deep sand, near Backpacker Clara (hidden) In a pit, west of Backpacker Clara"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "In a rock, south of the lake (hidden)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "Near Pokémon Ranger Dianne"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "East of the basketball court"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "In a rock, northwest of Hiker Teppei (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "green-shard": {
+    "slug": "green-shard",
+    "name": "Green Shard",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "South-central part of the desert"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "In a rock, south of Psychic Tully (hidden)"
+        },
+        {
+          "area": "Route 12",
+          "detail": "Near the Trainer Tips sign"
+        },
+        {
+          "area": "Route 22",
+          "detail": "East of Hiker Justin (hidden)"
+        },
+        {
+          "area": "Route 23",
+          "detail": "In a grass patch, northeast of the Strength puzzle"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "Near the mine cart in the northeast (requires Strength )"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "East of the break in the fence (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "fire-stone": {
+    "slug": "fire-stone",
+    "name": "Fire Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Southwest corner of the desert (hidden)"
+        },
+        {
+          "area": "Lentimas Town",
+          "detail": "On the hill behind the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "max-ether": {
+    "slug": "max-ether",
+    "name": "Max Ether",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Southwest corner of the desert"
+        },
+        {
+          "area": "Route 13",
+          "detail": "Near Pokémon Ranger Dianne"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "Southwest corner (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "nugget": {
+    "slug": "nugget",
+    "name": "Nugget",
+    "sources": {
+      "locations": [
+        {
+          "area": "Desert Resort",
+          "detail": "Northwest corner of the desert"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "From the Nugget Brothers"
+        },
+        {
+          "area": "Route 9",
+          "detail": "West of Roughneck Reese"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "Southwest of the pond (requires Strength )"
+        },
+        {
+          "area": "Route 14",
+          "detail": "Northwest of Backpacker Reece (hidden; requires Surf , Waterfall ) South of Black Belt Jay (requires Surf , Waterfall )"
+        },
+        {
+          "area": "Route 3",
+          "detail": "On the ledge near Lass Shannon (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "soothe-bell": {
+    "slug": "soothe-bell",
+    "name": "Soothe Bell",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "From the Socialite in the building north of the Battle Institute, if the lead Pokémon's friendship is high"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "sun-stone": {
+    "slug": "sun-stone",
+    "name": "Sun Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "From a male Ace Trainer in the building north of the Pokémon Center"
+        },
+        {
+          "area": "Relic Castle",
+          "detail": "Center room (hidden)"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "North of the Frigate's landing zone *"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "Southwest of Rumination Field"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "thunderstone": {
+    "slug": "thunderstone",
+    "name": "Thunderstone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "Between the Pokémon Center and Battle Institute (hidden)"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "North of Ace Trainer Shaye"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "vs-recorder": {
+    "slug": "vs-recorder",
+    "name": "Vs. Recorder",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "From Rosa or Nate, after defeating Ingo and Emmet"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "prop-case": {
+    "slug": "prop-case",
+    "name": "Prop Case",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "From the Pokémon Musical owner in the Musical Theater"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm49": {
+    "slug": "tm49",
+    "name": "TM49",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "From a girl in the Musical Theater"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dropped-item": {
+    "slug": "dropped-item",
+    "name": "Dropped Item",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "South of the park entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm72": {
+    "slug": "tm72",
+    "name": "TM72",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nimbasa City",
+          "detail": "From Elesa after defeating her"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "brightpowder": {
+    "slug": "brightpowder",
+    "name": "BrightPowder",
+    "sources": {
+      "locations": [
+        {
+          "area": "Anville Town",
+          "detail": "From the girl on the platform for finding her Pansage"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pp-up": {
+    "slug": "pp-up",
+    "name": "PP Up",
+    "sources": {
+      "locations": [
+        {
+          "area": "Anville Town",
+          "detail": "From the Clerk♂ in exchange for a Star Piece Sa Su"
+        },
+        {
+          "area": "Route 6",
+          "detail": "East of the Season Research Lab (requires Surf )"
+        },
+        {
+          "area": "Route 12",
+          "detail": "Central part of the dark grass"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "West of the basketball court, in the trash can (hidden)"
+        },
+        {
+          "area": "Route 22",
+          "detail": "Northwest of Backpacker Myra"
+        },
+        {
+          "area": "Route 21",
+          "detail": "South of Fisherman Kenzo"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "East side of the Frigate's landing zone *"
+        },
+        {
+          "area": "Route 23",
+          "detail": "On the rock column to the southeast of Victory Road (hidden)"
+        },
+        {
+          "area": "Victory Road",
+          "detail": "South side of the ruins"
+        },
+        {
+          "area": "Icirrus City",
+          "detail": "East of the Pokémon Center"
+        },
+        {
+          "area": "Nacrene City",
+          "detail": "On the west end of the railroad tracks (hidden)"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "Northeast part of the garden (hidden, requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "full-restore": {
+    "slug": "full-restore",
+    "name": "Full Restore",
+    "sources": {
+      "locations": [
+        {
+          "area": "Anville Town",
+          "detail": "From the female Ace Trainer in exchange for twenty Poké Balls Sa Su"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "In the southwest building, in the trash can (hidden)"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "In the trash can near the vending machine (hidden) Spring Summer Autumn"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "North of Nurse Carol"
+        },
+        {
+          "area": "Route 3",
+          "detail": "North of Fisherman Mack (requires Surf )"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "Southwest of the fountain (hidden)"
+        },
+        {
+          "area": "Route 1",
+          "detail": "Northwest of Ace Trainer Sean"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "macho-brace": {
+    "slug": "macho-brace",
+    "name": "Macho Brace",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 16",
+          "detail": "From the Infielder in Nimbasa's east gate"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "heal-ball": {
+    "slug": "heal-ball",
+    "name": "Heal Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 16",
+          "detail": "Northwest part of the grove (requires Cut )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tinymushroom": {
+    "slug": "tinymushroom",
+    "name": "TinyMushroom",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 16",
+          "detail": "North of Backpacker Blossom (hidden, requires Strength )"
+        },
+        {
+          "area": "Route 6",
+          "detail": "In the fenced area south of the Season Research Lab (hidden, regrows occasionally)"
+        },
+        {
+          "area": "Route 7",
+          "detail": "Behind Celestial Tower (hidden, regrows occasionally)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm66": {
+    "slug": "tm66",
+    "name": "TM66",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 16",
+          "detail": "Behind the fence, east of Backpacker Blossom (requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hm02": {
+    "slug": "hm02",
+    "name": "HM02",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 5",
+          "detail": "From Bianca, just outside Nimbasa City"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "cheri-berry": {
+    "slug": "cheri-berry",
+    "name": "Cheri Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 5",
+          "detail": "From Pokémon Ranger Lois after defeating her"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hyper-potion": {
+    "slug": "hyper-potion",
+    "name": "Hyper Potion",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 5",
+          "detail": "In the trees to the southwest, behind the fence South of the Trainer Tips sign (hidden)"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "In the alcove northeast of Scientist Ronald On the platform north of the bridge (hidden)"
+        },
+        {
+          "area": "Route 13",
+          "detail": "Accessible from Giant Chasm"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "electric-guitar": {
+    "slug": "electric-guitar",
+    "name": "Electric Guitar",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 5",
+          "detail": "Prop ; from Musician Preston after defeating him"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "calcium": {
+    "slug": "calcium",
+    "name": "Calcium",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "Near the west end of the stone bridge"
+        },
+        {
+          "area": "Route 23",
+          "detail": "Dead-end path in the southwest part of the forest (requires Cut )"
+        },
+        {
+          "area": "Route 3",
+          "detail": "Northwest of Fisherman Mack (requires Surf )"
+        },
+        {
+          "area": "Route 2",
+          "detail": "West of Accumula Town (requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "shell-bell": {
+    "slug": "shell-bell",
+    "name": "Shell Bell",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From an old man on Grand Hotel Driftveil 1F"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "Behind the Gym"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "haban-berry": {
+    "slug": "haban-berry",
+    "name": "Haban Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From the Axew on Grand Hotel Driftveil 19F"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "luxury-ball": {
+    "slug": "luxury-ball",
+    "name": "Luxury Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From a girl in the Pokémon Center"
+        },
+        {
+          "area": "Route 13",
+          "detail": "On the island, north of Ace Trainer Miguel"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm63": {
+    "slug": "tm63",
+    "name": "TM63",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "In the Market, near the west entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "everstone": {
+    "slug": "everstone",
+    "name": "Everstone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From the Waiter on Luxury Suites 23F"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "big-root": {
+    "slug": "big-root",
+    "name": "Big Root",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From the Veteran on Continental Hotel 25F"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "air-balloon": {
+    "slug": "air-balloon",
+    "name": "Air Balloon",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From the Gentleman on Chateau Hotel 25F"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm78": {
+    "slug": "tm78",
+    "name": "TM78",
+    "sources": {
+      "locations": [
+        {
+          "area": "Driftveil City",
+          "detail": "From Clay after defeating him"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "protein": {
+    "slug": "protein",
+    "name": "Protein",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "Northeast, near Backpacker Randall"
+        },
+        {
+          "area": "Route 6",
+          "detail": "In the grass patch south of Chargestone Cave (hidden)"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "West of the Lady on the north side of town"
+        },
+        {
+          "area": "Route 14",
+          "detail": "West of Fisherman Sid (hidden; requires Surf , Waterfall )"
+        },
+        {
+          "area": "Route 1",
+          "detail": "In the grass patch near Ace Trainer Cheyenne (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "big-pearl": {
+    "slug": "big-pearl",
+    "name": "Big Pearl",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "Northwest of the lake (requires Surf )"
+        },
+        {
+          "area": "Route 13",
+          "detail": "North of Parasol Lady Laura (hidden, reappears occasionally)"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "On the islet north of the bridge (requires Surf )"
+        },
+        {
+          "area": "Route 21",
+          "detail": "Northeast of Black Belt Kenneth"
+        },
+        {
+          "area": "Route 14",
+          "detail": "East of Socialite Marian"
+        },
+        {
+          "area": "Route 8",
+          "detail": "Southwest of the eastern Fisherman (requires Surf )"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "From the Fisherman in the northwest part of the garden (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "max-repel": {
+    "slug": "max-repel",
+    "name": "Max Repel",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "Dead-end path southeast of the lake (hidden)"
+        },
+        {
+          "area": "Relic Passage",
+          "detail": "Between two western ledges, accessible from Driftveil side"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "South of Scientist Ronald, behind two floating stones"
+        },
+        {
+          "area": "Mistralton City",
+          "detail": "South of the runway, between the greenhouses B2 or fields W2"
+        },
+        {
+          "area": "Route 13",
+          "detail": "West of Battle Girl Alize (requires Cut )"
+        },
+        {
+          "area": "Route 12",
+          "detail": "Near the northwest part of the dark grass (hidden)"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Dead-end tunnel in the southwest corner (requires Strength )"
+        },
+        {
+          "area": "Route 8",
+          "detail": "Between Fisherman Ryder and Parasol Lady Tyra (hidden)"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "East of Pokémon Ranger Hillary"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "In the trash can in the center of town (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "rock-gem": {
+    "slug": "rock-gem",
+    "name": "Rock Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "East chamber, accessible from Castelia side (hidden, requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "rocky-helmet": {
+    "slug": "rocky-helmet",
+    "name": "Rocky Helmet",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "East chamber, accessible from Castelia side (requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "escape-rope": {
+    "slug": "escape-rope",
+    "name": "Escape Rope",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "North of Scientist Terrance South of Scientist Lumina (hidden)"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "South of Guitarist Beverly"
+        },
+        {
+          "area": "Reversal MountainB2",
+          "detail": "On the cliff, accessible from mountain interior"
+        },
+        {
+          "area": "Reversal MountainW2",
+          "detail": "On the cliff, accessible from mountain interior"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hard-stone": {
+    "slug": "hard-stone",
+    "name": "Hard Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Relic Passage",
+          "detail": "West of Scientist Lumina"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "elixir": {
+    "slug": "elixir",
+    "name": "Elixir",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 6",
+          "detail": "East of School Kid Mara"
+        },
+        {
+          "area": "Route 7",
+          "detail": "East of Preschooler Chrissy, near the eastern house"
+        },
+        {
+          "area": "Route 9",
+          "detail": "South of the Opelucid gate"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "big-mushroom": {
+    "slug": "big-mushroom",
+    "name": "Big Mushroom",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 6",
+          "detail": "East of the Season Research Lab (hidden, requires Surf )"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "Northeast corner (hidden)"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "From the woman in the restaurant, for correctly guessing its location"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hm03": {
+    "slug": "hm03",
+    "name": "HM03",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 6",
+          "detail": "From Cheren in the Season Research Lab"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "moon-stone": {
+    "slug": "moon-stone",
+    "name": "Moon Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 6",
+          "detail": "Inside the fenced area of the Season Research Lab"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "On the dead-end bridge (hidden)"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Southwest part of the crater"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "shiny-stone": {
+    "slug": "shiny-stone",
+    "name": "Shiny Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 6",
+          "detail": "From a girl in the rest house"
+        },
+        {
+          "area": "Undella Town",
+          "detail": "In front of the bulldozer (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm56": {
+    "slug": "tm56",
+    "name": "TM56",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 6",
+          "detail": "Behind the Season Research Lab (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "full-heal": {
+    "slug": "full-heal",
+    "name": "Full Heal",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "On the ledge north of the entrance"
+        },
+        {
+          "area": "Strange House",
+          "detail": "Entrance Hall; in the lower-west room"
+        },
+        {
+          "area": "Reversal MountainB2",
+          "detail": "Near the entrance from Lentimas Town"
+        },
+        {
+          "area": "Reversal MountainW2",
+          "detail": "Near the entrance from Lentimas Town"
+        },
+        {
+          "area": "Lacunosa Town",
+          "detail": "In the southwest corner of the upper level"
+        },
+        {
+          "area": "Route 11",
+          "detail": "Near the west gate, behind the fence (requires Surf )"
+        },
+        {
+          "area": "Route 23",
+          "detail": "On the platform near the group of boulders"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "Lower level, near the boulder (hidden)"
+        },
+        {
+          "area": "Route 2",
+          "detail": "On the hill to the east"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "magnet": {
+    "slug": "magnet",
+    "name": "Magnet",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "South of the bridge's east end"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "big-nugget": {
+    "slug": "big-nugget",
+    "name": "Big Nugget",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "From the Nugget Brothers"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "In a rock, near the Underground Ruins entrance (hidden)"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "2F, east of Veteran Zach"
+        },
+        {
+          "area": "Route 3",
+          "detail": "East of the pond, near School Kid Edgar"
+        },
+        {
+          "area": "Nature Preserve",
+          "detail": "In the dark grass north of the pond (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "carbos": {
+    "slug": "carbos",
+    "name": "Carbos",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "South of Pokémon Ranger Louis (hidden)"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "East of Hiker Otto"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "On the tennis court"
+        },
+        {
+          "area": "Route 22",
+          "detail": "Northeast cliff, north of the movable boulder (hidden)"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Northwest part of the crater *"
+        },
+        {
+          "area": "Route 2",
+          "detail": "South of Lass Henrietta (requires Cut )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "chesto-berry": {
+    "slug": "chesto-berry",
+    "name": "Chesto Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "From Pokémon Ranger Louis after defeating him"
+        },
+        {
+          "area": "Chargestone Cave",
+          "detail": "From Pokémon Ranger Briana after defeating her"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "iron": {
+    "slug": "iron",
+    "name": "Iron",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "North of Pokémon Ranger Briana"
+        },
+        {
+          "area": "Mistralton City",
+          "detail": "In the southeast house, in the trash can (hidden)"
+        },
+        {
+          "area": "Route 9",
+          "detail": "Outside the collapsed Challenger's Cave"
+        },
+        {
+          "area": "Route 23",
+          "detail": "On the cliff to the north of the Ace Trainer's house"
+        },
+        {
+          "area": "Victory Road",
+          "detail": "Dead-end path in the ruins, south of the ledge (hidden)"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "In a rock, northeast of the eastern pond (requires Surf )"
+        },
+        {
+          "area": "Route 18",
+          "detail": "North of Battle Girl Wendy"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "metal-coat": {
+    "slug": "metal-coat",
+    "name": "Metal Coat",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "South of Ace Trainer Vicki"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "Dead-end path in the southwest part of the chamber"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "electric-gem": {
+    "slug": "electric-gem",
+    "name": "Electric Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Chargestone Cave",
+          "detail": "At the dead-end northeast of Ace Trainer Vicki (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hp-up": {
+    "slug": "hp-up",
+    "name": "HP Up",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "From a woman in the southeast house when the number of TMs collected reaches 10, 20, 35, 50, 70, and 95"
+        },
+        {
+          "area": "Route 11",
+          "detail": "On the cliff behind the trailer (hidden; requires Surf , Waterfall )"
+        },
+        {
+          "area": "Route 9",
+          "detail": "Near Hooligans Jim & Cas"
+        },
+        {
+          "area": "Route 23",
+          "detail": "Dead-end path in the northwest part of the forest (requires Cut )"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "Southwest of the pond (requires Strength )"
+        },
+        {
+          "area": "Route 15",
+          "detail": "Near the rock to the east of Backpacker Talon (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "master-ball": {
+    "slug": "master-ball",
+    "name": "Master Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "From Professor Juniper, west of the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "sharp-beak": {
+    "slug": "sharp-beak",
+    "name": "Sharp Beak",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "From the female Veteran in the Cargo Service building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "net-ball": {
+    "slug": "net-ball",
+    "name": "Net Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "From the Worker in the Cargo Service building, after talking to him with a Flying - or Psychic-type in your party"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "In a tree stump, east of Veterans Sinan and Rosaline"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "flying-gem": {
+    "slug": "flying-gem",
+    "name": "Flying Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "Between the two northernmost planes (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm58": {
+    "slug": "tm58",
+    "name": "TM58",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "On the runway, south of the Cargo Service"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm55": {
+    "slug": "tm55",
+    "name": "TM55",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "From Skyla for defeating her"
+        },
+        {
+          "area": "Humilau City",
+          "detail": "From Marlon after defeating him"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm40": {
+    "slug": "tm40",
+    "name": "TM40",
+    "sources": {
+      "locations": [
+        {
+          "area": "Mistralton City",
+          "detail": "South end of the runway, after talking to the Youngster in the northern house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "zinc": {
+    "slug": "zinc",
+    "name": "Zinc",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 7",
+          "detail": "Near Youngster Cody in the southernmost patch of grass"
+        },
+        {
+          "area": "Route 13",
+          "detail": "In the grass patch on the southern cliff (hidden)"
+        },
+        {
+          "area": "Route 11",
+          "detail": "On the cliff where Virizion was standing (requires Surf , Waterfall )"
+        },
+        {
+          "area": "Route 3",
+          "detail": "South of the pond, near Fisherman Bruce"
+        },
+        {
+          "area": "Route 18",
+          "detail": "In the tall grass southwest of Black Belt Zachary (requires Strength )"
+        },
+        {
+          "area": "Nuvema Town",
+          "detail": "South of the Juniper Lab (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "leaf-stone": {
+    "slug": "leaf-stone",
+    "name": "Leaf Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 7",
+          "detail": "Near Preschooler Greg, in the western grass patch"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm81": {
+    "slug": "tm81",
+    "name": "TM81",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 7",
+          "detail": "In the east, near Harlequin Pat"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm57": {
+    "slug": "tm57",
+    "name": "TM57",
+    "sources": {
+      "locations": [
+        {
+          "area": "Lentimas Town",
+          "detail": "From a woman in the southwest house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "spell-tag": {
+    "slug": "spell-tag",
+    "name": "Spell Tag",
+    "sources": {
+      "locations": [
+        {
+          "area": "Lentimas Town",
+          "detail": "From an old woman in the Pokémon Center"
+        },
+        {
+          "area": "Strange House",
+          "detail": "B2F; in the center of the room"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dusk-stone": {
+    "slug": "dusk-stone",
+    "name": "Dusk Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Strange House",
+          "detail": "B2F; southeast part of the library"
+        },
+        {
+          "area": "Victory Road",
+          "detail": "In the ruins, in a rock on the west side (hidden)"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "East of Worker Gus"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "lunar-wing": {
+    "slug": "lunar-wing",
+    "name": "Lunar Wing",
+    "sources": {
+      "locations": [
+        {
+          "area": "Strange House",
+          "detail": "Entrance Hall; in the upper-middle room"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm30": {
+    "slug": "tm30",
+    "name": "TM30",
+    "sources": {
+      "locations": [
+        {
+          "area": "Reversal MountainB2",
+          "detail": "Behind the Strange House"
+        },
+        {
+          "area": "Reversal MountainW2",
+          "detail": "Behind the Strange House"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "smoke-ball": {
+    "slug": "smoke-ball",
+    "name": "Smoke Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Reversal MountainB2",
+          "detail": "On the cliff, accessible from mountain interior"
+        },
+        {
+          "area": "Reversal MountainW2",
+          "detail": "On the cliff, accessible from mountain interior"
+        },
+        {
+          "area": "Opelucid City",
+          "detail": "From the Lady in the building east of the Gym"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "berry-juice": {
+    "slug": "berry-juice",
+    "name": "Berry Juice",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Town",
+          "detail": "South of the Reversal Mountain exit"
+        },
+        {
+          "area": "Nuvema Town",
+          "detail": "From Cheren's father in the southeast house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "prism-scale": {
+    "slug": "prism-scale",
+    "name": "Prism Scale",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Town",
+          "detail": "In the Pokémon Center, from the man near the PC"
+        },
+        {
+          "area": "Route 1",
+          "detail": "Southeast of Pokémon Ranger Rick"
+        },
+        {
+          "area": "Route 18",
+          "detail": "Southwest part of the bay (hidden, reappears occasionally)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hm06": {
+    "slug": "hm06",
+    "name": "HM06",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Town",
+          "detail": "From Hugh, near the gate"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "draco-plate": {
+    "slug": "draco-plate",
+    "name": "Draco Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "On the north side of the beach"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "splash-plate": {
+    "slug": "splash-plate",
+    "name": "Splash Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "On the island with Ace Trainer Summer"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm29": {
+    "slug": "tm29",
+    "name": "TM29",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 13",
+          "detail": "East of the island, near Fisherman Vince (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "metronome": {
+    "slug": "metronome",
+    "name": "Metronome",
+    "sources": {
+      "locations": [
+        {
+          "area": "Lacunosa Town",
+          "detail": "In the northeast house"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "From the Lady in the northeast building, after showing her a Kricketot and a Whismur"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "bluk-berry": {
+    "slug": "bluk-berry",
+    "name": "Bluk Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Lacunosa Town",
+          "detail": "From the businessman in the northeast house (night/late night only)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "lum-berry": {
+    "slug": "lum-berry",
+    "name": "Lum Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Lacunosa Town",
+          "detail": "From the businessman in the northeast house (night/late night only)"
+        },
+        {
+          "area": "Village Bridge",
+          "detail": "From Baker Chris, for showing him a Pokémon with the Honey Gather Ability (post game)"
+        },
+        {
+          "area": "Clay Tunnel",
+          "detail": "From Pokémon Ranger Maxwell upon his defeat From Pokémon Ranger Katie upon her defeat"
+        },
+        {
+          "area": "Pinwheel Forest",
+          "detail": "From Pokémon Ranger Ralph upon his defeat From Pokémon Ranger Melita upon her defeat"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "Held by traded Alakazam"
+        },
+        {
+          "area": "Route 1",
+          "detail": "From Pokémon Ranger Audra upon her defeat From Pokémon Ranger Rick upon his defeat"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "max-potion": {
+    "slug": "max-potion",
+    "name": "Max Potion",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 12",
+          "detail": "Southeast of the gate"
+        },
+        {
+          "area": "Route 11",
+          "detail": "Northwest corner of the westernmost grass patch (hidden)"
+        },
+        {
+          "area": "Route 22",
+          "detail": "East of Backpacker Lowell"
+        },
+        {
+          "area": "Giant Chasm",
+          "detail": "Southwest of the cave entrance, on the highest level (hidden)"
+        },
+        {
+          "area": "Route 23",
+          "detail": "Near Battle Girl Tiffany (requires Cut and Strength )"
+        },
+        {
+          "area": "Route 14",
+          "detail": "East of Fisherman Sid"
+        },
+        {
+          "area": "Route 15",
+          "detail": "Beneath the western bridge"
+        },
+        {
+          "area": "Nature Preserve",
+          "detail": "Northwest of the runway (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "favored-mail": {
+    "slug": "favored-mail",
+    "name": "Favored Mail",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 11",
+          "detail": "From the Pokémon Ranger inside the trailer"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "aspear-berry": {
+    "slug": "aspear-berry",
+    "name": "Aspear Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 11",
+          "detail": "From Pokémon Ranger Crofton after defeating him From Pokémon Ranger Thalia after defeating her (requires Surf , Waterfall )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "razor-fang": {
+    "slug": "razor-fang",
+    "name": "Razor Fang",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 11",
+          "detail": "East of Pokémon Ranger Thalia (requires Surf , Waterfall )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "prop": {
+    "slug": "prop",
+    "name": "Prop",
+    "sources": {
+      "locations": [
+        {
+          "area": "Opelucid City",
+          "detail": "From the Musical fan in the westernmost building (once daily; Big Bag, Fluffy Beard, Gift Box, Scarlet Hat)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "float-stone": {
+    "slug": "float-stone",
+    "name": "Float Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Opelucid City",
+          "detail": "From the Linebacker on the second floor of Drayden's house"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "Southeast side of the highest-level walkway"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "ring-target": {
+    "slug": "ring-target",
+    "name": "Ring Target",
+    "sources": {
+      "locations": [
+        {
+          "area": "Opelucid City",
+          "detail": "From the girl on the second floor of Drayden's house"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm82": {
+    "slug": "tm82",
+    "name": "TM82",
+    "sources": {
+      "locations": [
+        {
+          "area": "Opelucid City",
+          "detail": "From Drayden after defeating him"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dark-gem": {
+    "slug": "dark-gem",
+    "name": "Dark Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 9",
+          "detail": "Southeast of Roughneck Reese (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "black-sludge": {
+    "slug": "black-sludge",
+    "name": "Black Sludge",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marine Tube",
+          "detail": "From a girl after showing her a Pokémon holding a Poison Barb"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm42": {
+    "slug": "tm42",
+    "name": "TM42",
+    "sources": {
+      "locations": [
+        {
+          "area": "Marine Tube",
+          "detail": "From a Parasol Lady in the north entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "poison-barb": {
+    "slug": "poison-barb",
+    "name": "Poison Barb",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 22",
+          "detail": "On the ridge southwest of Hiker Justin"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "colress-mchn": {
+    "slug": "colress-mchn",
+    "name": "Colress MCHN",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 22",
+          "detail": "From Colress upon approaching Terrakion"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "amoonguss": {
+    "slug": "amoonguss",
+    "name": "Amoonguss",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 22",
+          "detail": "North of Backpacker Myra West of Backpacker Lowell"
+        },
+        {
+          "area": "Route 23",
+          "detail": "East side, in a grass patch near Black Belt Luke West side, in a grass patch near Hiker Doug West side, in a grass patch to the east of the Strength puzzle"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm67": {
+    "slug": "tm67",
+    "name": "TM67",
+    "sources": {
+      "locations": [
+        {
+          "area": "Plasma Frigate",
+          "detail": "Stern of the ship"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm13": {
+    "slug": "tm13",
+    "name": "TM13",
+    "sources": {
+      "locations": [
+        {
+          "area": "Giant Chasm",
+          "detail": "Near the Route 22 entrance (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "ice-gem": {
+    "slug": "ice-gem",
+    "name": "Ice Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Giant Chasm",
+          "detail": "Near the north wall (hidden; requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "razor-claw": {
+    "slug": "razor-claw",
+    "name": "Razor Claw",
+    "sources": {
+      "locations": [
+        {
+          "area": "Giant Chasm",
+          "detail": "Southwest part of the crater"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm03": {
+    "slug": "tm03",
+    "name": "TM03",
+    "sources": {
+      "locations": [
+        {
+          "area": "Giant Chasm",
+          "detail": "West side of the Frigate's landing zone *"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm35": {
+    "slug": "tm35",
+    "name": "TM35",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 23",
+          "detail": "From the old man in the house near the waterfall (requires Surf )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm05": {
+    "slug": "tm05",
+    "name": "TM05",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 23",
+          "detail": "Upper level, west of Pokémon Ranger Steve"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "repeat-ball": {
+    "slug": "repeat-ball",
+    "name": "Repeat Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 23",
+          "detail": "Dead-end path north of Ace Trainer Tom (requires Cut )"
+        },
+        {
+          "area": "Route 2",
+          "detail": "On the hill to the east"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm12": {
+    "slug": "tm12",
+    "name": "TM12",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 23",
+          "detail": "On the rock column to the southwest of Victory Road"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "hm05": {
+    "slug": "hm05",
+    "name": "HM05",
+    "sources": {
+      "locations": [
+        {
+          "area": "Victory Road",
+          "detail": "From N when first entering Victory Road"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm01": {
+    "slug": "tm01",
+    "name": "TM01",
+    "sources": {
+      "locations": [
+        {
+          "area": "Victory Road",
+          "detail": "East of the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "rare-bone": {
+    "slug": "rare-bone",
+    "name": "Rare Bone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Clay Tunnel",
+          "detail": "Lower level, northeast of Hiker Teppei (requires Strength )"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "In a rock, southwest of Worker Victor (hidden) Spring Summer Autumn"
+        },
+        {
+          "area": "Twist Mountain",
+          "detail": "Southeast of Veteran Chloris"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "steel-gem": {
+    "slug": "steel-gem",
+    "name": "Steel Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Clay Tunnel",
+          "detail": "In a rock, on the island in the pond (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm71": {
+    "slug": "tm71",
+    "name": "TM71",
+    "sources": {
+      "locations": [
+        {
+          "area": "Twist Mountain",
+          "detail": "East of the Ice Rock"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dusk-ball": {
+    "slug": "dusk-ball",
+    "name": "Dusk Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Twist Mountain",
+          "detail": "Cave north of the Workers' shed, west of Worker Victor Spring Summer Autumn"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "From the Roughneck southeast of the restaurant"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm90": {
+    "slug": "tm90",
+    "name": "TM90",
+    "sources": {
+      "locations": [
+        {
+          "area": "Twist Mountain",
+          "detail": "West of Veteran Chloris"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm91": {
+    "slug": "tm91",
+    "name": "TM91",
+    "sources": {
+      "locations": [
+        {
+          "area": "Twist Mountain",
+          "detail": "West of Nurse Carol"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "eject-button": {
+    "slug": "eject-button",
+    "name": "Eject Button",
+    "sources": {
+      "locations": [
+        {
+          "area": "Twist Mountain",
+          "detail": "2F, southwest of Worker Ryan"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dread-plate": {
+    "slug": "dread-plate",
+    "name": "Dread Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "North of the western entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "earth-plate": {
+    "slug": "earth-plate",
+    "name": "Earth Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southeast quadrant"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "fist-plate": {
+    "slug": "fist-plate",
+    "name": "Fist Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southwest corner"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "flame-plate": {
+    "slug": "flame-plate",
+    "name": "Flame Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "West of the room's center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "icicle-plate": {
+    "slug": "icicle-plate",
+    "name": "Icicle Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "South of the room's center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "insect-plate": {
+    "slug": "insect-plate",
+    "name": "Insect Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Near the northeast corner"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "iron-plate": {
+    "slug": "iron-plate",
+    "name": "Iron Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Northwest quadrant"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "meadow-plate": {
+    "slug": "meadow-plate",
+    "name": "Meadow Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southwest quadrant"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "mind-plate": {
+    "slug": "mind-plate",
+    "name": "Mind Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "North of the room's center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "sky-plate": {
+    "slug": "sky-plate",
+    "name": "Sky Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "North of the eastern entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "spooky-plate": {
+    "slug": "spooky-plate",
+    "name": "Spooky Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southeast quadrant"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "stone-plate": {
+    "slug": "stone-plate",
+    "name": "Stone Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Near the northern entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "toxic-plate": {
+    "slug": "toxic-plate",
+    "name": "Toxic Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southeast corner"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "zap-plate": {
+    "slug": "zap-plate",
+    "name": "Zap Plate",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "South of the western entrance"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-gold": {
+    "slug": "relic-gold",
+    "name": "Relic Gold",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Near the northwest corner Southwest quadrant East of the room's center"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Northwest quadrant Northeast quadrant Along the east wall"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Southwest corner"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-silver": {
+    "slug": "relic-silver",
+    "name": "Relic Silver",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Northwest quadrant Northeast quadrant Southeast quadrant"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Northeast quadrant Southwest quadrant"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "South side"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-copper": {
+    "slug": "relic-copper",
+    "name": "Relic Copper",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Inside the northern entrance Inside the eastern entrance Inside the southern entrance Southwest of the western entrance"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Southwest quadrant Near the entrance from 1F"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-statue": {
+    "slug": "relic-statue",
+    "name": "Relic Statue",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Just north of the room's center"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Southwest corner"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Northwest corner"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-vase": {
+    "slug": "relic-vase",
+    "name": "Relic Vase",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southeast quadrant"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Northwest corner"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Northeast corner Along the west wall"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-band": {
+    "slug": "relic-band",
+    "name": "Relic Band",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "Southeast corner Northeast quadrant"
+        },
+        {
+          "area": "Undella Bay",
+          "detail": "Northeast quadrant Southeast quadrant In the room's center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "relic-crown": {
+    "slug": "relic-crown",
+    "name": "Relic Crown",
+    "sources": {
+      "locations": [
+        {
+          "area": "Undella Bay",
+          "detail": "In the center of the room"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm26": {
+    "slug": "tm26",
+    "name": "TM26",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 15",
+          "detail": "South of the eastern gate (requires Strength )"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "max-elixir": {
+    "slug": "max-elixir",
+    "name": "Max Elixir",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 15",
+          "detail": "Held by traded Rotom"
+        },
+        {
+          "area": "Icirrus City",
+          "detail": "West of the Pokémon Center Winter"
+        },
+        {
+          "area": "Striaton City",
+          "detail": "West of the fountain"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm43": {
+    "slug": "tm43",
+    "name": "TM43",
+    "sources": {
+      "locations": [
+        {
+          "area": "Tubeline Bridge",
+          "detail": "From the Battle Girl"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "energypowder": {
+    "slug": "energypowder",
+    "name": "EnergyPowder",
+    "sources": {
+      "locations": [
+        {
+          "area": "Tubeline Bridge",
+          "detail": "From the Scientist in the west gate"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "damp-rock": {
+    "slug": "damp-rock",
+    "name": "Damp Rock",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 8",
+          "detail": "From the Parasol Lady near the Tubeline Bridge gate (morning)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "heat-rock": {
+    "slug": "heat-rock",
+    "name": "Heat Rock",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 8",
+          "detail": "From the Parasol Lady near the Tubeline Bridge gate (afternoon)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "smooth-rock": {
+    "slug": "smooth-rock",
+    "name": "Smooth Rock",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 8",
+          "detail": "From the Parasol Lady near the Tubeline Bridge gate (evening)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "icy-rock": {
+    "slug": "icy-rock",
+    "name": "Icy Rock",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 8",
+          "detail": "From the Parasol Lady near the Tubeline Bridge gate (night)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm36": {
+    "slug": "tm36",
+    "name": "TM36",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 8",
+          "detail": "North of Youngster Astor"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "cleanse-tag": {
+    "slug": "cleanse-tag",
+    "name": "Cleanse Tag",
+    "sources": {
+      "locations": [
+        {
+          "area": "Icirrus City",
+          "detail": "From the Fan Club chairman, if Pokémon shown has gained 50-98 levels since it was met"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "king-s-rock": {
+    "slug": "king-s-rock",
+    "name": "King's Rock",
+    "sources": {
+      "locations": [
+        {
+          "area": "Icirrus City",
+          "detail": "From the Fan Club chairman, if Pokémon shown has gained 99 levels since it was met"
+        },
+        {
+          "area": "Nuvema Town",
+          "detail": "In the hero's bedroom"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "black-belt": {
+    "slug": "black-belt",
+    "name": "Black Belt",
+    "sources": {
+      "locations": [
+        {
+          "area": "Icirrus City",
+          "detail": "From a Battle Girl inside the Pokémon Center"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "balmmushroom": {
+    "slug": "balmmushroom",
+    "name": "BalmMushroom",
+    "sources": {
+      "locations": [
+        {
+          "area": "Pinwheel Forest",
+          "detail": "Northwest of Lass Helia and Youngster Henley (hidden)"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "From a man in the northern building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm86": {
+    "slug": "tm86",
+    "name": "TM86",
+    "sources": {
+      "locations": [
+        {
+          "area": "Pinwheel Forest",
+          "detail": "Next to Pokémon Ranger Melita"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "bug-gem": {
+    "slug": "bug-gem",
+    "name": "Bug Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Pinwheel Forest",
+          "detail": "Southeast of Rumination Field (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm22": {
+    "slug": "tm22",
+    "name": "TM22",
+    "sources": {
+      "locations": [
+        {
+          "area": "Pinwheel Forest",
+          "detail": "Southeast corner of the forest"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pp-max": {
+    "slug": "pp-max",
+    "name": "PP Max",
+    "sources": {
+      "locations": [
+        {
+          "area": "Pinwheel Forest",
+          "detail": "West of the pond"
+        },
+        {
+          "area": "Route 2",
+          "detail": "West of Lass Henrietta (hidden, requires Cut )"
+        },
+        {
+          "area": "Route 18",
+          "detail": "Southwest part of the bay Northwest of Battle Girl Wendy (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "lemonade": {
+    "slug": "lemonade",
+    "name": "Lemonade",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nacrene City",
+          "detail": "From the Waitress in the Café Warehouse Sa"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "grubby-hanky": {
+    "slug": "grubby-hanky",
+    "name": "Grubby Hanky",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nacrene City",
+          "detail": "From the customer on the Café's lower level Su"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "fluffy-tail": {
+    "slug": "fluffy-tail",
+    "name": "Fluffy Tail",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nacrene City",
+          "detail": "From the customer on the Café's lower level Su , after returning the Grubby Hanky on Thursday"
+        },
+        {
+          "area": "Accumula Town",
+          "detail": "From the Lass on the town's upper level, after showing her a very tall Pokémon"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pok-mon-egg": {
+    "slug": "pok-mon-egg",
+    "name": "Pokémon Egg",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nacrene City",
+          "detail": "From a Pokémon Breeder in the east gate"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dive-ball": {
+    "slug": "dive-ball",
+    "name": "Dive Ball",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 3",
+          "detail": "From the School Kid at the fork in the road"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "persim-berry": {
+    "slug": "persim-berry",
+    "name": "Persim Berry",
+    "sources": {
+      "locations": [
+        {
+          "area": "Striaton City",
+          "detail": "In the Trainers' School, after acing the quiz"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm04": {
+    "slug": "tm04",
+    "name": "TM04",
+    "sources": {
+      "locations": [
+        {
+          "area": "Striaton City",
+          "detail": "Poké Mart; $ 80,000"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm08": {
+    "slug": "tm08",
+    "name": "TM08",
+    "sources": {
+      "locations": [
+        {
+          "area": "Striaton City",
+          "detail": "Poké Mart; $ 80,000"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "gracidea": {
+    "slug": "gracidea",
+    "name": "Gracidea",
+    "sources": {
+      "locations": [
+        {
+          "area": "Striaton City",
+          "detail": "Pokémon Center; bring an event Shaymin to the woman at the desk"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "up-grade": {
+    "slug": "up-grade",
+    "name": "Up-Grade",
+    "sources": {
+      "locations": [
+        {
+          "area": "Striaton City",
+          "detail": "Top floor of the eastern apartment building"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "dawn-stone": {
+    "slug": "dawn-stone",
+    "name": "Dawn Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 2",
+          "detail": "From the Lady on the hill"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "grass-gem": {
+    "slug": "grass-gem",
+    "name": "Grass Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Accumula Town",
+          "detail": "From a girl in the northwest building, after acing the quiz about Snivy"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "fire-gem": {
+    "slug": "fire-gem",
+    "name": "Fire Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Accumula Town",
+          "detail": "From a girl in the northwest building, after acing the quiz about Tepig"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "water-gem": {
+    "slug": "water-gem",
+    "name": "Water Gem",
+    "sources": {
+      "locations": [
+        {
+          "area": "Accumula Town",
+          "detail": "From a girl in the northwest building, after acing the quiz about Oshawott"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pok-doll": {
+    "slug": "pok-doll",
+    "name": "Poké Doll",
+    "sources": {
+      "locations": [
+        {
+          "area": "Accumula Town",
+          "detail": "From the Youngster on the town's lower level, after showing him a very short Pokémon"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "pearl-string": {
+    "slug": "pearl-string",
+    "name": "Pearl String",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 18",
+          "detail": "In a rock on the southwest shoreline (hidden)"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "tm19": {
+    "slug": "tm19",
+    "name": "TM19",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 18",
+          "detail": "West side of the island, near Veteran Maya"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "magma-stone": {
+    "slug": "magma-stone",
+    "name": "Magma Stone",
+    "sources": {
+      "locations": [
+        {
+          "area": "Route 18",
+          "detail": "On the northeast cliff, east of Veteran Chester"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "super-rod": {
+    "slug": "super-rod",
+    "name": "Super Rod",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nuvema Town",
+          "detail": "From Cedric Juniper in the lab"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "permit": {
+    "slug": "permit",
+    "name": "Permit",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nuvema Town",
+          "detail": "Reward for seeing 297 Pokémon of the Unova Pokédex"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "oval-charm": {
+    "slug": "oval-charm",
+    "name": "Oval Charm",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nuvema Town",
+          "detail": "Reward for catching 297 Pokémon of the Unova Pokédex"
+        }
+      ],
+      "shops": []
+    }
+  },
+  "shiny-charm": {
+    "slug": "shiny-charm",
+    "name": "Shiny Charm",
+    "sources": {
+      "locations": [
+        {
+          "area": "Nuvema Town",
+          "detail": "Reward for catching 636 Pokémon of the National Pokédex"
+        }
+      ],
+      "shops": []
+    }
+  }
+}
