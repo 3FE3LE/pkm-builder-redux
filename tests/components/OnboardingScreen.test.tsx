@@ -73,6 +73,7 @@ vi.mock("@/components/BuilderProvider", () => ({
 }));
 
 vi.mock("@/lib/domain/names", () => ({
+  normalizeName: (value: string) => value.trim().toLowerCase().replace(/\s+/g, "-"),
   buildSpriteUrls: (species: string, dex: number) => ({
     spriteUrl: `/${species.toLowerCase()}-${dex}.png`,
     animatedSpriteUrl: `/${species.toLowerCase()}-${dex}.gif`,

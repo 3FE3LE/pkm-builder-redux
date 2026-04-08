@@ -13,6 +13,7 @@ import {
   parseItemLocationDetail,
   sanitizeSpeciesName,
 } from "./domain/sourceData";
+import { LEGENDARY_SPECIES, UNIQUE_SPECIES } from "./domain/speciesTags";
 import type { RemotePokemon, ResolvedTeamMember } from "./teamAnalysis";
 
 export type StarterKey = "snivy" | "tepig" | "oshawott";
@@ -137,64 +138,6 @@ export const milestones: Milestone[] = [
     focus: ["terminar seis slots", "cubrir matchups de midgame"],
   },
 ];
-
-const LEGENDARY_SPECIES = new Set(
-  [
-    "Articuno",
-    "Zapdos",
-    "Moltres",
-    "Mewtwo",
-    "Raikou",
-    "Entei",
-    "Suicune",
-    "Lugia",
-    "Ho-Oh",
-    "Regirock",
-    "Regice",
-    "Registeel",
-    "Latias",
-    "Latios",
-    "Kyogre",
-    "Groudon",
-    "Rayquaza",
-    "Uxie",
-    "Mesprit",
-    "Azelf",
-    "Dialga",
-    "Palkia",
-    "Heatran",
-    "Regigigas",
-    "Giratina",
-    "Cresselia",
-    "Cobalion",
-    "Terrakion",
-    "Virizion",
-    "Tornadus",
-    "Thundurus",
-    "Reshiram",
-    "Zekrom",
-    "Landorus",
-    "Kyurem",
-  ].map(normalizeRecommendationName),
-);
-
-const UNIQUE_SPECIES = new Set(
-  [
-    "Mew",
-    "Celebi",
-    "Jirachi",
-    "Deoxys",
-    "Phione",
-    "Manaphy",
-    "Darkrai",
-    "Shaymin",
-    "Arceus",
-    "Victini",
-    "Keldeo",
-    "Meloetta",
-    "Genesect",
-  ].map(normalizeRecommendationName),
-);
 
 const PSEUDO_LEGENDARY_SPECIES = new Set(
   [

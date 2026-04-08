@@ -12,6 +12,7 @@
       "Overgrow",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -29,6 +30,7 @@
       "Overgrow",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -46,6 +48,7 @@
       "Overgrow",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -62,6 +65,7 @@
       "Blaze",
       "Solar Power"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -79,6 +83,7 @@
       "Blaze",
       "Solar Power"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -96,6 +101,7 @@
       "Blaze",
       "Solar Power"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -112,6 +118,7 @@
       "Torrent",
       "Rain Dish"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -128,6 +135,7 @@
       "Torrent",
       "Rain Dish"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -144,6 +152,7 @@
       "Torrent",
       "Rain Dish"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -160,6 +169,7 @@
       "Run Away",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -176,6 +186,7 @@
       "Battle Armor",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -193,6 +204,7 @@
       "Tinted Lens",
       "Tinted Lens"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -210,6 +222,7 @@
       "Run Away",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -227,6 +240,7 @@
       "Battle Armor",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -244,6 +258,7 @@
       "Sniper",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -261,6 +276,7 @@
       "Tangled Feet",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -278,6 +294,7 @@
       "Tangled Feet",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -295,6 +312,7 @@
       "Tangled Feet",
       "Big Pecks"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -311,6 +329,7 @@
       "Guts",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -327,6 +346,7 @@
       "Guts",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -343,6 +363,7 @@
       "Sniper",
       "Sniper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -359,6 +380,7 @@
       "Sniper",
       "Sniper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -375,6 +397,7 @@
       "Shed Skin",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -391,6 +414,7 @@
       "Shed Skin",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -407,6 +431,7 @@
       "Lightning Rod",
       "Lightning Rod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -423,6 +448,7 @@
       "Lightning Rod",
       "Lightning Rod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -439,6 +465,7 @@
       "Sand Rush",
       "Sand Rush"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -455,6 +482,7 @@
       "Sand Rush",
       "Sand Rush"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -471,6 +499,7 @@
       "Poison Point",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -487,6 +516,7 @@
       "Poison Point",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -504,6 +534,7 @@
       "Poison Point",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -520,6 +551,7 @@
       "Poison Point",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -536,6 +568,7 @@
       "Poison Point",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -553,6 +586,7 @@
       "Poison Point",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -569,6 +603,7 @@
       "Magic Guard",
       "Friend Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -585,6 +620,7 @@
       "Magic Guard",
       "Unaware"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -601,6 +637,7 @@
       "Flash Fire",
       "Drought"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -618,6 +655,7 @@
       "Flash Fire",
       "Drought"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -635,6 +673,7 @@
       "Friend Guard",
       "Friend Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -652,6 +691,7 @@
       "Friend Guard",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -669,6 +709,7 @@
       "Infiltrator",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -686,6 +727,7 @@
       "Infiltrator",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -703,6 +745,7 @@
       "Run Away",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -720,6 +763,7 @@
       "Stench",
       "Stench"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -737,6 +781,7 @@
       "Effect Spore",
       "Effect Spore"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -754,6 +799,7 @@
       "Dry Skin",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -771,6 +817,7 @@
       "Dry Skin",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -788,6 +835,7 @@
       "Tinted Lens",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -805,6 +853,7 @@
       "Tinted Lens",
       "Shield Dust"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -821,6 +870,7 @@
       "Arena Trap",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -837,6 +887,7 @@
       "Arena Trap",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -853,6 +904,7 @@
       "Technician",
       "Pick Up"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -869,6 +921,7 @@
       "Technician",
       "Pick Up"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -885,6 +938,7 @@
       "Swift Swim",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -902,6 +956,7 @@
       "Swift Swim",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -918,6 +973,7 @@
       "Anger Point",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -934,6 +990,7 @@
       "Anger Point",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -950,6 +1007,7 @@
       "Flash Fire",
       "Justified"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -966,6 +1024,7 @@
       "Flash Fire",
       "Justified"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -982,6 +1041,7 @@
       "Swift Swim",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -998,6 +1058,7 @@
       "Swift Swim",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1015,6 +1076,7 @@
       "Swift Swim",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1031,6 +1093,7 @@
       "Magic Guard",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1047,6 +1110,7 @@
       "Magic Guard",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1063,6 +1127,7 @@
       "Magic Guard",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1079,6 +1144,7 @@
       "No Guard",
       "Steadfast"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1095,6 +1161,7 @@
       "No Guard",
       "Steadfast"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1111,6 +1178,7 @@
       "No Guard",
       "Steadfast"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1128,6 +1196,7 @@
       "Gluttony",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1145,6 +1214,7 @@
       "Gluttony",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1162,6 +1232,7 @@
       "Gluttony",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1179,6 +1250,7 @@
       "Rain Dish",
       "Liquid Ooze"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1196,6 +1268,7 @@
       "Rain Dish",
       "Liquid Ooze"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1213,6 +1286,7 @@
       "Sturdy",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1230,6 +1304,7 @@
       "Sturdy",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1247,6 +1322,7 @@
       "Sturdy",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1263,6 +1339,7 @@
       "-",
       "Flame Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1280,6 +1357,7 @@
       "-",
       "Flame Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1297,6 +1375,7 @@
       "Own Tempo",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1314,6 +1393,7 @@
       "Own Tempo",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1331,6 +1411,7 @@
       "Sturdy",
       "Magnet Pull"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1348,6 +1429,7 @@
       "Sturdy",
       "Magnet Pull"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1365,6 +1447,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1382,6 +1465,7 @@
       "Early Bird",
       "Tangled Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1399,6 +1483,7 @@
       "Early Bird",
       "Tangled Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1415,6 +1500,7 @@
       "Hydration",
       "Ice Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1432,6 +1518,7 @@
       "Hydration",
       "Ice Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -1448,6 +1535,7 @@
       "Stench",
       "Poison Touch"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1464,6 +1552,7 @@
       "Stench",
       "Poison Touch"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1481,6 +1570,7 @@
       "Skill Link",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1498,6 +1588,7 @@
       "Skill Link",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1515,6 +1606,7 @@
       "Cursed Body",
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1532,6 +1624,7 @@
       "Cursed Body",
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1549,6 +1642,7 @@
       "Cursed Body",
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1566,6 +1660,7 @@
       "Sturdy",
       "Rock Head"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1582,6 +1677,7 @@
       "Insomnia",
       "Forewarn"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1598,6 +1694,7 @@
       "Insomnia",
       "Forewarn"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1614,6 +1711,7 @@
       "Shell Armor",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1630,6 +1728,7 @@
       "Shell Armor",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1646,6 +1745,7 @@
       "Static",
       "Aftermath"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -1662,6 +1762,7 @@
       "Static",
       "Aftermath"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1679,6 +1780,7 @@
       "Harvest",
       "Harvest"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1696,6 +1798,7 @@
       "Harvest",
       "Harvest"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1712,6 +1815,7 @@
       "Lightning Rod",
       "Rock Head"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1728,6 +1832,7 @@
       "Lightning Rod",
       "Rock Head"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1744,6 +1849,7 @@
       "Reckless",
       "Limber"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1760,6 +1866,7 @@
       "Keen Eye",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1776,6 +1883,7 @@
       "Gluttony",
       "Cloud Nine"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1792,6 +1900,7 @@
       "Neutralizing Gas",
       "Stench"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1808,6 +1917,7 @@
       "Neutralizing Gas",
       "Stench"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1825,6 +1935,7 @@
       "Rock Head",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1842,6 +1953,7 @@
       "Rock Head",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1858,6 +1970,7 @@
       "Serene Grace",
       "Healer"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1874,6 +1987,7 @@
       "Leaf Guard",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1890,6 +2004,7 @@
       "Scrappy",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1906,6 +2021,7 @@
       "Sniper",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1922,6 +2038,7 @@
       "Sniper",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -1938,6 +2055,7 @@
       "Swift Swim",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1954,6 +2072,7 @@
       "Swift Swim",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -1970,6 +2089,7 @@
       "Natural Cure",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -1987,6 +2107,7 @@
       "Natural Cure",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2004,6 +2125,7 @@
       "Filter",
       "Technician"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2021,6 +2143,7 @@
       "Technician",
       "Steadfast"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2038,6 +2161,7 @@
       "Dry Skin",
       "Dry Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2054,6 +2178,7 @@
       "Vital Spirit",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2070,6 +2195,7 @@
       "Vital Spirit",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2086,6 +2212,7 @@
       "Mold Breaker",
       "Moxie"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2102,6 +2229,7 @@
       "Sheer Force",
       "Anger Point"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2118,6 +2246,7 @@
       "Rattled",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2135,6 +2264,7 @@
       "Moxie",
       "Moxie"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2152,6 +2282,7 @@
       "Shell Armor",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2168,6 +2299,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2184,6 +2316,7 @@
       "Run Away",
       "Anticipation"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2200,6 +2333,7 @@
       "Hydration",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2216,6 +2350,7 @@
       "Quick Feet",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2232,6 +2367,7 @@
       "Guts",
       "Guts"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2248,6 +2384,7 @@
       "Download",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2265,6 +2402,7 @@
       "Shell Armor",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2282,6 +2420,7 @@
       "Shell Armor",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2299,6 +2438,7 @@
       "Battle Armor",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2316,6 +2456,7 @@
       "Battle Armor",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2333,6 +2474,7 @@
       "Pressure",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2349,6 +2491,7 @@
       "Thick Fat",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2366,6 +2509,7 @@
       "Snow Warning",
       "Snow Cloak"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2382,6 +2526,7 @@
       "Pressure",
       "Static"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2398,6 +2543,7 @@
       "Pressure",
       "Flame Body"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2414,6 +2560,7 @@
       "Marvel Scale",
       "Marvel Scale"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2430,6 +2577,7 @@
       "Marvel Scale",
       "Marvel Scale"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2447,6 +2595,7 @@
       "Multiscale",
       "Multiscale"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2462,6 +2611,7 @@
       "Pressure",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2476,6 +2626,7 @@
     "abilities": [
       "Synchronize"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2492,6 +2643,7 @@
       "Overgrow",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2509,6 +2661,7 @@
       "Overgrow",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2526,6 +2679,7 @@
       "Overgrow",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2542,6 +2696,7 @@
       "Blaze",
       "Flash Fire"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2558,6 +2713,7 @@
       "Blaze",
       "Flash Fire"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2574,6 +2730,7 @@
       "Blaze",
       "Flash Fire"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2590,6 +2747,7 @@
       "Torrent",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2606,6 +2764,7 @@
       "Torrent",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2622,6 +2781,7 @@
       "Torrent",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2638,6 +2798,7 @@
       "Keen Eye",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2654,6 +2815,7 @@
       "Hustle",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2671,6 +2833,7 @@
       "Insomnia",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2688,6 +2851,7 @@
       "Insomnia",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2705,6 +2869,7 @@
       "Iron Fist",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2722,6 +2887,7 @@
       "Iron Fist",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2739,6 +2905,7 @@
       "Insomnia",
       "Sniper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2756,6 +2923,7 @@
       "Insomnia",
       "Sniper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2773,6 +2941,7 @@
       "Infiltrator",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2790,6 +2959,7 @@
       "Water Absorb",
       "Illuminate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2807,6 +2977,7 @@
       "Water Absorb",
       "Illuminate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2823,6 +2994,7 @@
       "Lightning Rod",
       "Lightning Rod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2839,6 +3011,7 @@
       "Magic Guard",
       "Friend Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -2856,6 +3029,7 @@
       "Friend Guard",
       "Friend Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2872,6 +3046,7 @@
       "Serene Grace",
       "Super Luck"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2889,6 +3064,7 @@
       "Serene Grace",
       "Super Luck"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2906,6 +3082,7 @@
       "Magic Bounce",
       "Magic Bounce"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -2923,6 +3100,7 @@
       "Magic Bounce",
       "Magic Bounce"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2939,6 +3117,7 @@
       "Overcoat",
       "Plus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2955,6 +3134,7 @@
       "Overcoat",
       "Plus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2972,6 +3152,7 @@
       "Overcoat",
       "Plus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -2988,6 +3169,7 @@
       "Cloud Nine",
       "Healer"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3005,6 +3187,7 @@
       "Thick Fat",
       "Sap Sipper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3022,6 +3205,7 @@
       "Thick Fat",
       "Sap Sipper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3038,6 +3222,7 @@
       "Rock Head",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -3054,6 +3239,7 @@
       "Drizzle",
       "Drizzle"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3071,6 +3257,7 @@
       "Leaf Guard",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3088,6 +3275,7 @@
       "Leaf Guard",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3105,6 +3293,7 @@
       "Leaf Guard",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3121,6 +3310,7 @@
       "Technician",
       "Pick Up"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3137,6 +3327,7 @@
       "Solar Power",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3153,6 +3344,7 @@
       "Solar Power",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3170,6 +3362,7 @@
       "Compound Eyes",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3187,6 +3380,7 @@
       "Unaware",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3204,6 +3398,7 @@
       "Unaware",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3220,6 +3415,7 @@
       "Magic Bounce",
       "Magic Bounce"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3236,6 +3432,7 @@
       "Poison Touch",
       "Poison Touch"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3253,6 +3450,7 @@
       "Super Luck",
       "Prankster"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3270,6 +3468,7 @@
       "Own Tempo",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3287,6 +3486,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3301,6 +3501,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -3317,6 +3518,7 @@
       "Telepathy",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3334,6 +3536,7 @@
       "Rattled",
       "Sap Sipper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3350,6 +3553,7 @@
       "Overcoat",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3367,6 +3571,7 @@
       "Overcoat",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3383,6 +3588,7 @@
       "Run Away",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -3400,6 +3606,7 @@
       "Immunity",
       "Immunity"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3417,6 +3624,7 @@
       "Sturdy",
       "Rock Head"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3434,6 +3642,7 @@
       "Run Away",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3451,6 +3660,7 @@
       "Quick Feet",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3468,6 +3678,7 @@
       "Swift Swim",
       "Poison Point"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3485,6 +3696,7 @@
       "Technician",
       "Light Metal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3502,6 +3714,7 @@
       "Contrary",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3519,6 +3732,7 @@
       "Skill Link",
       "Guts"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3536,6 +3750,7 @@
       "Keen Eye",
       "Pickpocket"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3553,6 +3768,7 @@
       "Quick Feet",
       "Honey Gather"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3570,6 +3786,7 @@
       "Quick Feet",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3587,6 +3804,7 @@
       "Flame Body",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -3604,6 +3822,7 @@
       "Flame Body",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3621,6 +3840,7 @@
       "Snow Cloak",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3638,6 +3858,7 @@
       "Snow Cloak",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3655,6 +3876,7 @@
       "Natural Cure",
       "Hustle"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3671,6 +3893,7 @@
       "Sniper",
       "Moody"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3687,6 +3910,7 @@
       "Sniper",
       "Suction Cups"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3704,6 +3928,7 @@
       "Sheer Force",
       "Insomnia"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3721,6 +3946,7 @@
       "Water Absorb",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3738,6 +3964,7 @@
       "Sturdy",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3755,6 +3982,7 @@
       "Intimidate",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3772,6 +4000,7 @@
       "Intimidate",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3789,6 +4018,7 @@
       "Sniper",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3804,6 +4034,7 @@
       "Pickup",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3819,6 +4050,7 @@
       "Sturdy",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3835,6 +4067,7 @@
       "Download",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3851,6 +4084,7 @@
       "Frisk",
       "Intimidate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3867,6 +4101,7 @@
       "Technician",
       "Moody"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3883,6 +4118,7 @@
       "Steadfast",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3899,6 +4135,7 @@
       "Technician",
       "Steadfast"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3916,6 +4153,7 @@
       "Forewarn",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -3932,6 +4170,7 @@
       "Vital Spirit",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3948,6 +4187,7 @@
       "Vital Spirit",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -3964,6 +4204,7 @@
       "Scrappy",
       "Sap Sipper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3980,6 +4221,7 @@
       "Serene Grace",
       "Healer"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -3995,6 +4237,7 @@
       "Pressure",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4010,6 +4253,7 @@
       "Pressure",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4025,6 +4269,7 @@
       "Pressure",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4042,6 +4287,7 @@
       "Hustle",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4059,6 +4305,7 @@
       "Shell Armor",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4076,6 +4323,7 @@
       "Battle Armor",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4092,6 +4340,7 @@
       "Pressure",
       "Multiscale"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4108,6 +4357,7 @@
       "Pressure",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4123,6 +4373,7 @@
     "abilities": [
       "Natural Cure"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4139,6 +4390,7 @@
       "Overgrow",
       "Unburden"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4155,6 +4407,7 @@
       "Overgrow",
       "Unburden"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4172,6 +4425,7 @@
       "Overgrow",
       "Unburden"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4188,6 +4442,7 @@
       "Blaze",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4205,6 +4460,7 @@
       "Blaze",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4222,6 +4478,7 @@
       "Blaze",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4238,6 +4495,7 @@
       "Torrent",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4255,6 +4513,7 @@
       "Torrent",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4272,6 +4531,7 @@
       "Torrent",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4288,6 +4548,7 @@
       "Run Away",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4304,6 +4565,7 @@
       "Moxie",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4320,6 +4582,7 @@
       "Gluttony",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -4336,6 +4599,7 @@
       "Gluttony",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -4352,6 +4616,7 @@
       "Run Away",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4368,6 +4633,7 @@
       "Shed Skin",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4385,6 +4651,7 @@
       "Swarm",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4401,6 +4668,7 @@
       "Shed Skin",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4418,6 +4686,7 @@
       "Shield Dust",
       "Compound Eyes"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4435,6 +4704,7 @@
       "Rain Dish",
       "Own Tempo"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4452,6 +4722,7 @@
       "Rain Dish",
       "Own Tempo"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4469,6 +4740,7 @@
       "Rain Dish",
       "Own Tempo"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4485,6 +4757,7 @@
       "Rattled",
       "Early Bird"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4502,6 +4775,7 @@
       "Rattled",
       "Early Bird"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4519,6 +4793,7 @@
       "Rattled",
       "Early Bird"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4536,6 +4811,7 @@
       "Scrappy",
       "Scrappy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4553,6 +4829,7 @@
       "Scrappy",
       "Scrappy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4570,6 +4847,7 @@
       "Rain Dish",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4587,6 +4865,7 @@
       "Rain Dish",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4604,6 +4883,7 @@
       "Trace",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -4621,6 +4901,7 @@
       "Trace",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -4638,6 +4919,7 @@
       "Trace",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4655,6 +4937,7 @@
       "Rain Dish",
       "Rain Dish"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4671,6 +4954,7 @@
       "Intimidate",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -4687,6 +4971,7 @@
       "Poison Heal",
       "Quick Feet"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4704,6 +4989,7 @@
       "Poison Heal",
       "Technician"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4720,6 +5006,7 @@
       "Slow Start",
       "Truant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4736,6 +5023,7 @@
       "Sheer Force",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4752,6 +5040,7 @@
       "Slow Start",
       "Truant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4769,6 +5058,7 @@
       "Run Away",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4786,6 +5076,7 @@
       "Infiltrator",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4801,6 +5092,7 @@
     "abilities": [
       "Wonder Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4817,6 +5109,7 @@
       "Scrappy",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4833,6 +5126,7 @@
       "Scrappy",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -4849,6 +5143,7 @@
       "Scrappy",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4865,6 +5160,7 @@
       "Guts",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -4881,6 +5177,7 @@
       "Guts",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -4898,6 +5195,7 @@
       "Thick Fat",
       "Sap Sipper"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4914,6 +5212,7 @@
       "Sand Force",
       "Magnet Pull"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4930,6 +5229,7 @@
       "Normalize",
       "Wonder Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4946,6 +5246,7 @@
       "Normalize",
       "Wonder Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4963,6 +5264,7 @@
       "Stall",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4980,6 +5282,7 @@
       "Intimidate",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -4997,6 +5300,7 @@
       "Rock Head",
       "Sturdy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5014,6 +5318,7 @@
       "Rock Head",
       "Sturdy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5031,6 +5336,7 @@
       "Rock Head",
       "Sturdy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5047,6 +5353,7 @@
       "Pure Power",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5063,6 +5370,7 @@
       "Pure Power",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5079,6 +5387,7 @@
       "Static",
       "Lightningrod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5095,6 +5404,7 @@
       "Static",
       "Lightningrod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5111,6 +5421,7 @@
       "Lightning Rod",
       "Lightning Rod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5127,6 +5438,7 @@
       "Volt Absorb",
       "Volt Absorb"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5144,6 +5456,7 @@
       "Tinted Lens",
       "Illuminate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5161,6 +5474,7 @@
       "Tinted Lens",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5178,6 +5492,7 @@
       "Poison Point",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5194,6 +5509,7 @@
       "Sticky Hold",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5210,6 +5526,7 @@
       "Sticky Hold",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5227,6 +5544,7 @@
       "Speed Boost",
       "Speed Boost"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5244,6 +5562,7 @@
       "Speed Boost",
       "Speed Boost"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5260,6 +5579,7 @@
       "Pressure",
       "Pressure"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5276,6 +5596,7 @@
       "Pressure",
       "Pressure"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5293,6 +5614,7 @@
       "Simple",
       "Own Tempo"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5310,6 +5632,7 @@
       "Simple",
       "Anger Point"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5326,6 +5649,7 @@
       "Shell Armor",
       "White Smoke"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5342,6 +5666,7 @@
       "Own Tempo",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5358,6 +5683,7 @@
       "Own Tempo",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5374,6 +5700,7 @@
       "Tangled Feet",
       "Contrary"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5391,6 +5718,7 @@
       "Sheer Force",
       "Arena Trap"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5406,6 +5734,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5421,6 +5750,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5438,6 +5768,7 @@
       "Water Absorb",
       "Water Absorb"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5455,6 +5786,7 @@
       "Water Absorb",
       "Water Absorb"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5472,6 +5804,7 @@
       "Cloud Nine",
       "Cloud Nine"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5489,6 +5822,7 @@
       "Cloud Nine",
       "Cloud Nine"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5505,6 +5839,7 @@
       "Toxic Boost",
       "Toxic Boost"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5521,6 +5856,7 @@
       "Infiltrator",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5536,6 +5872,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5551,6 +5888,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5568,6 +5906,7 @@
       "Anticipation",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5585,6 +5924,7 @@
       "Anticipation",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5601,6 +5941,7 @@
       "Hyper Cutter",
       "Adaptability"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5618,6 +5959,7 @@
       "Hyper Cutter",
       "Adaptability"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5633,6 +5975,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5648,6 +5991,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5665,6 +6009,7 @@
       "Storm Drain",
       "Storm Drain"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5682,6 +6027,7 @@
       "Storm Drain",
       "Storm Drain"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5699,6 +6045,7 @@
       "Swift Swim",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5716,6 +6063,7 @@
       "Swift Swim",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5732,6 +6080,7 @@
       "Oblivious",
       "Adaptability"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5748,6 +6097,7 @@
       "Competitive",
       "Cute Charm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5762,6 +6112,7 @@
     "abilities": [
       "Forecast"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5778,6 +6129,7 @@
       "Adaptability",
       "Adaptability"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5794,6 +6146,7 @@
       "Frisk",
       "Cursed Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5811,6 +6164,7 @@
       "Frisk",
       "Cursed Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5826,6 +6180,7 @@
       "Levitate",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5841,6 +6196,7 @@
       "Pressure",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5858,6 +6214,7 @@
       "Solar Power",
       "Harvest"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5872,6 +6229,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -5888,6 +6246,7 @@
       "Super Luck",
       "Pressure"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5904,6 +6263,7 @@
       "Telepathy",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -5920,6 +6280,7 @@
       "Ice Body",
       "Moody"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5937,6 +6298,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -5954,6 +6316,7 @@
       "Ice Body",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5971,6 +6334,7 @@
       "Ice Body",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -5988,6 +6352,7 @@
       "Ice Body",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6003,6 +6368,7 @@
       "Shell Armor",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6018,6 +6384,7 @@
       "Swift Swim",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6033,6 +6400,7 @@
       "Swift Swim",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6050,6 +6418,7 @@
       "Rock Head",
       "Sturdy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6067,6 +6436,7 @@
       "Hydration",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6083,6 +6453,7 @@
       "Sheer Force",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6099,6 +6470,7 @@
       "Overcoat",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6116,6 +6488,7 @@
       "Moxie",
       "Moxie"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6133,6 +6506,7 @@
       "Rock Head",
       "Heavy Metal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6150,6 +6524,7 @@
       "Iron Fist",
       "Heavy Metal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6167,6 +6542,7 @@
       "Iron Fist",
       "Heavy Metal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6183,6 +6559,7 @@
       "Sturdy",
       "Clear Body"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6199,6 +6576,7 @@
       "Ice Body",
       "Clear Body"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6215,6 +6593,7 @@
       "Clear Body",
       "Light Metal"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6230,6 +6609,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6245,6 +6625,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6259,6 +6640,7 @@
     "abilities": [
       "Drizzle"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6273,6 +6655,7 @@
     "abilities": [
       "Drought"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6288,6 +6671,7 @@
     "abilities": [
       "Air Lock"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6303,6 +6687,7 @@
     "abilities": [
       "Serene Grace"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6315,6 +6700,7 @@
       "Psychic"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6331,6 +6717,7 @@
       "Overgrow",
       "Shell Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6347,6 +6734,7 @@
       "Overgrow",
       "Shell Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6364,6 +6752,7 @@
       "Overgrow",
       "Shell Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6380,6 +6769,7 @@
       "Blaze",
       "Iron Fist"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6397,6 +6787,7 @@
       "Blaze",
       "Iron Fist"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6414,6 +6805,7 @@
       "Blaze",
       "Iron Fist"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6430,6 +6822,7 @@
       "Torrent",
       "Defiant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6446,6 +6839,7 @@
       "Torrent",
       "Defiant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6463,6 +6857,7 @@
       "Torrent",
       "Defiant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6480,6 +6875,7 @@
       "Keen Eye",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6497,6 +6893,7 @@
       "Intimidate",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6514,6 +6911,7 @@
       "Intimidate",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6530,6 +6928,7 @@
       "Unaware",
       "Moody"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6547,6 +6946,7 @@
       "Unaware",
       "Moody"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -6563,6 +6963,7 @@
       "Run Away",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6579,6 +6980,7 @@
       "Soundproof",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6595,6 +6997,7 @@
       "Intimidate",
       "Guts"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6611,6 +7014,7 @@
       "Intimidate",
       "Guts"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6628,6 +7032,7 @@
       "Intimidate",
       "Guts"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6645,6 +7050,7 @@
       "Poison Point",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6662,6 +7068,7 @@
       "Poison Point",
       "Technician"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6678,6 +7085,7 @@
       "Sheer Force",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6694,6 +7102,7 @@
       "Sheer Force",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6711,6 +7120,7 @@
       "Soundproof",
       "Soundproof"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6728,6 +7138,7 @@
       "Soundproof",
       "Soundproof"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6744,6 +7155,7 @@
       "Overcoat",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6757,6 +7169,7 @@
       "Grass"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6774,6 +7187,7 @@
       "Tinted Lens",
       "Tinted Lens"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6791,6 +7205,7 @@
       "Hustle",
       "Hustle"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6808,6 +7223,7 @@
       "Pressure",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6824,6 +7240,7 @@
       "Pickup",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6840,6 +7257,7 @@
       "Water Veil",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6856,6 +7274,7 @@
       "Water Veil",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6870,6 +7289,7 @@
     "abilities": [
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -6884,6 +7304,7 @@
     "abilities": [
       "Flower Gift"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -6900,6 +7321,7 @@
       "Storm Drain",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6917,6 +7339,7 @@
       "Storm Drain",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -6933,6 +7356,7 @@
       "Technician",
       "Pick Up"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -6950,6 +7374,7 @@
       "Unburden",
       "Aftermath"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6967,6 +7392,7 @@
       "Unburden",
       "Aftermath"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -6983,6 +7409,7 @@
       "Limber",
       "Klutz"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7000,6 +7427,7 @@
       "Scrappy",
       "Limber"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7017,6 +7445,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7034,6 +7463,7 @@
       "Super Luck",
       "Moxie"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7050,6 +7480,7 @@
       "Own Tempo",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7066,6 +7497,7 @@
       "Defiant",
       "Defiant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7080,6 +7512,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7097,6 +7530,7 @@
       "Aftermath",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7114,6 +7548,7 @@
       "Aftermath",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7131,6 +7566,7 @@
       "Heatproof",
       "Heavy Metal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7148,6 +7584,7 @@
       "Heatproof",
       "Heavy Metal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7164,6 +7601,7 @@
       "Rock Head",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7181,6 +7619,7 @@
       "Filter",
       "Soundproof"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7197,6 +7636,7 @@
       "Serene Grace",
       "Friend Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7214,6 +7654,7 @@
       "Tangled Feet",
       "Big Pecks"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7231,6 +7672,7 @@
       "Infiltrator",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7248,6 +7690,7 @@
       "Rough Skin",
       "Rough Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7265,6 +7708,7 @@
       "Rough Skin",
       "Rough Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7282,6 +7726,7 @@
       "Rough Skin",
       "Rough Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7298,6 +7743,7 @@
       "Thick Fat",
       "Gluttony"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7314,6 +7760,7 @@
       "Steadfast",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7331,6 +7778,7 @@
       "Steadfast",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7347,6 +7795,7 @@
       "Sand Force",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7363,6 +7812,7 @@
       "Sand Force",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7380,6 +7830,7 @@
       "Sniper",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7397,6 +7848,7 @@
       "Sniper",
       "Keen Eye"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7414,6 +7866,7 @@
       "Dry Skin",
       "Poison Touch"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7431,6 +7884,7 @@
       "Dry Skin",
       "Poison Touch"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7445,6 +7899,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7461,6 +7916,7 @@
       "Storm Drain",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7477,6 +7933,7 @@
       "Storm Drain",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -7494,6 +7951,7 @@
       "Water Absorb",
       "Water Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7511,6 +7969,7 @@
       "Soundproof",
       "Soundproof"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7528,6 +7987,7 @@
       "Soundproof",
       "Soundproof"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7544,6 +8004,7 @@
       "Pressure",
       "Pickpocket"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7561,6 +8022,7 @@
       "Sturdy",
       "Magnet Pull"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7577,6 +8039,7 @@
       "Gluttony",
       "Cloud Nine"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7594,6 +8057,7 @@
       "Solid Rock",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7610,6 +8074,7 @@
       "Leaf Guard",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7627,6 +8092,7 @@
       "Vital Spirit",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7643,6 +8109,7 @@
       "Vital Spirit",
       "Vital Spirit"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7660,6 +8127,7 @@
       "Serene Grace",
       "Super Luck"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7677,6 +8145,7 @@
       "Tinted Lens",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7693,6 +8162,7 @@
       "Chlorophyll",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7709,6 +8179,7 @@
       "Poison Heal",
       "Poison Heal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7726,6 +8197,7 @@
       "Sand Veil",
       "Poison Heal"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7743,6 +8215,7 @@
       "Snow Cloak",
       "Oblivious"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7759,6 +8232,7 @@
       "Download",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7776,6 +8250,7 @@
       "Hyper Cutter",
       "Justified"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7793,6 +8268,7 @@
       "Clear Body",
       "Magnet Pull"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7809,6 +8285,7 @@
       "Cursed Body",
       "Pressure"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7826,6 +8303,7 @@
       "Cursed Body",
       "Cursed Body"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -7841,6 +8319,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7856,6 +8335,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7871,6 +8351,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7886,6 +8367,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7902,6 +8384,7 @@
       "Pressure",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7918,6 +8401,7 @@
       "Pressure",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7934,6 +8418,7 @@
       "Flash Fire",
       "Flame Body"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7950,6 +8435,7 @@
       "Defeatist",
       "Slow Start"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -7963,6 +8449,7 @@
       "Dragon"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7977,6 +8464,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -7991,6 +8479,7 @@
     "abilities": [
       "Hydration"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8005,6 +8494,7 @@
     "abilities": [
       "Hydration"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8019,6 +8509,7 @@
     "abilities": [
       "Bad Dreams"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8031,6 +8522,7 @@
       "Grass"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8045,6 +8537,7 @@
     "abilities": [
       "Multitype"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8060,6 +8553,7 @@
     "abilities": [
       "Victory Star"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8076,6 +8570,7 @@
       "Overgrow",
       "Contrary"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8093,6 +8588,7 @@
       "Overgrow",
       "Contrary"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8110,6 +8606,7 @@
       "Overgrow",
       "Contrary"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8126,6 +8623,7 @@
       "Blaze",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8143,6 +8641,7 @@
       "Blaze",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8160,6 +8659,7 @@
       "Blaze",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8176,6 +8676,7 @@
       "Torrent",
       "Shell Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8193,6 +8694,7 @@
       "Torrent",
       "Shell Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8210,6 +8712,7 @@
       "Torrent",
       "Shell Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8226,6 +8729,7 @@
       "Keen Eye",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8242,6 +8746,7 @@
       "Keen Eye",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8258,6 +8763,7 @@
       "Pickup",
       "Run Away"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8274,6 +8780,7 @@
       "Sand Rush",
       "Scrappy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8290,6 +8797,7 @@
       "Sand Rush",
       "Scrappy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -8306,6 +8814,7 @@
       "Unburden",
       "Prankster"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8322,6 +8831,7 @@
       "Unburden",
       "Prankster"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8338,6 +8848,7 @@
       "Overgrow",
       "Overgrow"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8354,6 +8865,7 @@
       "Overgrow",
       "Overgrow"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8370,6 +8882,7 @@
       "Blaze",
       "Blaze"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8386,6 +8899,7 @@
       "Blaze",
       "Blaze"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8402,6 +8916,7 @@
       "Torrent",
       "Torrent"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8418,6 +8933,7 @@
       "Torrent",
       "Torrent"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8435,6 +8951,7 @@
       "Synchronise",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8452,6 +8969,7 @@
       "Synchronise",
       "Telepathy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8469,6 +8987,7 @@
       "Super Luck",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8486,6 +9005,7 @@
       "Super Luck",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8503,6 +9023,7 @@
       "Super Luck",
       "Rivalry"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8519,6 +9040,7 @@
       "Sap Sipper",
       "Lightning Rod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8535,6 +9057,7 @@
       "Sap Sipper",
       "Lightning Rod"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8551,6 +9074,7 @@
       "Weak Armor",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8567,6 +9091,7 @@
       "Weak Armor",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8583,6 +9108,7 @@
       "Sand Stream",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8600,6 +9126,7 @@
       "Simple",
       "Simple"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8617,6 +9144,7 @@
       "Simple",
       "Simple"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -8633,6 +9161,7 @@
       "Mold Breaker",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8650,6 +9179,7 @@
       "Mold Breaker",
       "Sand Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8667,6 +9197,7 @@
       "Regenerator",
       "Klutz"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8683,6 +9214,7 @@
       "Iron Fist",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8699,6 +9231,7 @@
       "Iron Fist",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8715,6 +9248,7 @@
       "Iron Fist",
       "Sheer Force"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8731,6 +9265,7 @@
       "Hydration",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8748,6 +9283,7 @@
       "Hydration",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8765,6 +9301,7 @@
       "Poison Touch",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8781,6 +9318,7 @@
       "Mold Breaker",
       "Mold Breaker"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8797,6 +9335,7 @@
       "Mold Breaker",
       "Mold Breaker"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8814,6 +9353,7 @@
       "Chlorophyll",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8831,6 +9371,7 @@
       "Chlorophyll",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -8848,6 +9389,7 @@
       "Chlorophyll",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8865,6 +9407,7 @@
       "Poison Point",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8882,6 +9425,7 @@
       "Poison Point",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8899,6 +9443,7 @@
       "Poison Point",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -8916,6 +9461,7 @@
       "Infiltrator",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8933,6 +9479,7 @@
       "Infiltrator",
       "Chlorophyll"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8949,6 +9496,7 @@
       "Own Tempo",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8965,6 +9513,7 @@
       "Own Tempo",
       "Leaf Guard"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -8977,6 +9526,7 @@
       "Water"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -8994,6 +9544,7 @@
       "Moxie",
       "Anger Point"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9011,6 +9562,7 @@
       "Moxie",
       "Anger Point"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9028,6 +9580,7 @@
       "Moxie",
       "Anger Point"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9044,6 +9597,7 @@
       "Sheer Force",
       "Inner Focus"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9056,6 +9610,7 @@
       "Fire"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9072,6 +9627,7 @@
       "Storm Drain",
       "Storm Drain"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -9089,6 +9645,7 @@
       "Shell Armor",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9106,6 +9663,7 @@
       "Shell Armor",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9123,6 +9681,7 @@
       "Moxie",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9140,6 +9699,7 @@
       "Moxie",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9157,6 +9717,7 @@
       "Magic Guard",
       "Wonder Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9171,6 +9732,7 @@
     "abilities": [
       "Mummy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9185,6 +9747,7 @@
     "abilities": [
       "Mummy"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -9202,6 +9765,7 @@
       "Sturdy",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9219,6 +9783,7 @@
       "Sturdy",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9234,6 +9799,7 @@
     "abilities": [
       "Defeatist"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9249,6 +9815,7 @@
     "abilities": [
       "Defeatist"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9265,6 +9832,7 @@
       "Stench",
       "Sticky Hold"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -9281,6 +9849,7 @@
       "Stench",
       "Sticky Hold"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -9295,6 +9864,7 @@
     "abilities": [
       "Illusion"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9309,6 +9879,7 @@
     "abilities": [
       "Illusion"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9325,6 +9896,7 @@
       "Technician",
       "Cute Charm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9341,6 +9913,7 @@
       "Technician",
       "Cute Charm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -9358,6 +9931,7 @@
       "Frisk",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9375,6 +9949,7 @@
       "Frisk",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9392,6 +9967,7 @@
       "Frisk",
       "Frisk"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9408,6 +9984,7 @@
       "Magic Guard",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9424,6 +10001,7 @@
       "Magic Guard",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9440,6 +10018,7 @@
       "Magic Guard",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9457,6 +10036,7 @@
       "Big Pecks",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9474,6 +10054,7 @@
       "Big Pecks",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -9490,6 +10071,7 @@
       "Snow Cloak",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9506,6 +10088,7 @@
       "Snow Cloak",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9523,6 +10106,7 @@
       "Snow Warning",
       "Weak Armor"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9540,6 +10124,7 @@
       "Sap Sipper",
       "Serene Grace"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9557,6 +10142,7 @@
       "Sap Sipper",
       "Serene Grace"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -9574,6 +10160,7 @@
       "Motor Drive",
       "Motor Drive"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -9590,6 +10177,7 @@
       "No Guard",
       "Shed Skin"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9607,6 +10195,7 @@
       "No Guard",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9624,6 +10213,7 @@
       "Regenerator",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9641,6 +10231,7 @@
       "Regenerator",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9658,6 +10249,7 @@
       "Cursed Body",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9675,6 +10267,7 @@
       "Cursed Body",
       "Damp"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9691,6 +10284,7 @@
       "Hydration",
       "Regenerator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9708,6 +10302,7 @@
       "Unnerve",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9725,6 +10320,7 @@
       "Unnerve",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": false
@@ -9740,6 +10336,7 @@
     "abilities": [
       "Iron Barbs"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9756,6 +10353,7 @@
       "Iron Barbs",
       "Anticipation"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9772,6 +10370,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9788,6 +10387,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9804,6 +10404,7 @@
       "-",
       "-"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9818,6 +10419,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9832,6 +10434,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9846,6 +10449,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9862,6 +10466,7 @@
       "Synchronise",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9878,6 +10483,7 @@
       "Synchronise",
       "Analytic"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9895,6 +10501,7 @@
       "Flame Body",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9912,6 +10519,7 @@
       "Flame Body",
       "Infiltrator"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9929,6 +10537,7 @@
       "Flame Body",
       "Shadow Tag"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -9945,6 +10554,7 @@
       "Mold Breaker",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9961,6 +10571,7 @@
       "Mold Breaker",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9977,6 +10588,7 @@
       "Mold Breaker",
       "Unnerve"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -9993,6 +10605,7 @@
       "Rattled",
       "Rattled"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10010,6 +10623,7 @@
       "Sheer Force",
       "Swift Swim"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": true,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -10024,6 +10638,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10040,6 +10655,7 @@
       "Shell Armor",
       "Hydration"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10056,6 +10672,7 @@
       "Unburden",
       "Sticky Hold"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10073,6 +10690,7 @@
       "Lightning Rod",
       "Sand Veil"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -10089,6 +10707,7 @@
       "Regenerator",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10105,6 +10724,7 @@
       "Regenerator",
       "Reckless"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10121,6 +10741,7 @@
       "Sheer Force",
       "Mold Breaker"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10138,6 +10759,7 @@
       "No Guard",
       "Klutz"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10155,6 +10777,7 @@
       "No Guard",
       "Klutz"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": true,
     "hasAbilityChanges": true
@@ -10172,6 +10795,7 @@
       "Inner Focus",
       "Pressure"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10189,6 +10813,7 @@
       "Inner Focus",
       "Pressure"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10205,6 +10830,7 @@
       "Sap Sipper",
       "Soundproof"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10222,6 +10848,7 @@
       "Sheer Force",
       "Hustle"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10239,6 +10866,7 @@
       "Sheer Force",
       "Defiant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10256,6 +10884,7 @@
       "Weak Armor",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10273,6 +10902,7 @@
       "Weak Armor",
       "Overcoat"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10289,6 +10919,7 @@
       "Flash Fire",
       "White Smoke"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10306,6 +10937,7 @@
       "Hustle",
       "Truant"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10321,6 +10953,7 @@
     "abilities": [
       "Hustle"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10336,6 +10969,7 @@
     "abilities": [
       "Hustle"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10351,6 +10985,7 @@
     "abilities": [
       "Levitate"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10368,6 +11003,7 @@
       "Swarm",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10385,6 +11021,7 @@
       "Swarm",
       "Swarm"
     ],
+    "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": true
@@ -10400,6 +11037,7 @@
     "abilities": [
       "Justified"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10415,6 +11053,7 @@
     "abilities": [
       "Justified"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10430,6 +11069,7 @@
     "abilities": [
       "Justified"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10442,6 +11082,7 @@
       "Flying"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10455,6 +11096,7 @@
       "Flying"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10470,6 +11112,7 @@
     "abilities": [
       "Turboblaze"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10485,6 +11128,7 @@
     "abilities": [
       "Teravolt"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10498,6 +11142,7 @@
       "Flying"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10513,6 +11158,7 @@
     "abilities": [
       "Pressure"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10526,6 +11172,7 @@
       "Fighting"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10539,6 +11186,7 @@
       "Psychic"
     ],
     "abilities": [],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": true,
     "hasStatChanges": false,
     "hasAbilityChanges": false
@@ -10554,6 +11202,7 @@
     "abilities": [
       "Download"
     ],
+    "isLegendaryOrUnique": true,
     "hasTypeChanges": false,
     "hasStatChanges": false,
     "hasAbilityChanges": false

@@ -74,6 +74,7 @@ export function useDexScreenModel(
       hasTypeChanges?: boolean;
       hasStatChanges?: boolean;
       hasAbilityChanges?: boolean;
+      isLegendaryOrUnique?: boolean;
     }>;
   },
 ) {
@@ -152,6 +153,7 @@ export function useDexScreenModel(
         hasTypeChanges: pokemon.hasTypeChanges ?? false,
         hasStatChanges: pokemon.hasStatChanges ?? false,
         hasAbilityChanges: pokemon.hasAbilityChanges ?? false,
+        isLegendaryOrUnique: pokemon.isLegendaryOrUnique ?? false,
       });
     });
     return [...deduped.values()];
@@ -226,6 +228,13 @@ export function useDexScreenModel(
   const filteredPokemon = useMemo(() => {
     if (tab !== "pokemon") return [];
     return pokemonEntries.filter((pokemon) => {
+      const hasTeamBuilderFilter =
+        pokemonFilterState.typeChangesOnly === "1" ||
+        pokemonFilterState.statChangesOnly === "1" ||
+        pokemonFilterState.abilityChangesOnly === "1" ||
+        pokemonFilterState.addsNewTeamTypeOnly === "1" ||
+        pokemonFilterState.allTypesNewToTeamOnly === "1";
+      if (hasTeamBuilderFilter && pokemon.isLegendaryOrUnique) return false;
       if (!matchesDexMode(pokemon.dex, pokemonFilterState.pokemonMode)) return false;
       if (pokemonFilterState.typeChangesOnly === "1" && !pokemon.hasTypeChanges) return false;
       if (pokemonFilterState.statChangesOnly === "1" && !pokemon.hasStatChanges) return false;

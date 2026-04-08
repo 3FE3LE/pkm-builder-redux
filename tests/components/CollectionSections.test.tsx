@@ -63,6 +63,7 @@ vi.mock("@/components/ui/Input", () => ({
 }));
 
 vi.mock("@/lib/domain/names", () => ({
+  normalizeName: (value: string) => value.trim().toLowerCase().replace(/\s+/g, "-"),
   buildSpriteUrls: (species: string, dex?: number, options?: { shiny?: boolean }) => ({
     spriteUrl: `${species}-${dex ?? "na"}-${options?.shiny ? "shiny" : "normal"}.png`,
     animatedSpriteUrl: `${species}-${dex ?? "na"}-${options?.shiny ? "shiny" : "normal"}.gif`,

@@ -259,6 +259,17 @@ const dexListData = {
       hasStatChanges: true,
       hasAbilityChanges: false,
     },
+    {
+      name: "Uxie",
+      slug: "uxie",
+      dex: 480,
+      types: ["Psychic", "Fairy"],
+      abilities: ["Levitate"],
+      hasTypeChanges: true,
+      hasStatChanges: false,
+      hasAbilityChanges: false,
+      isLegendaryOrUnique: true,
+    },
   ],
   docs: {
     gifts: [{ name: "Mareep", location: "Floccesy Ranch", level: "10", notes: [] }],
@@ -389,6 +400,7 @@ describe("DexScreen", () => {
 
     expect(screen.queryByText("Mareep")).toBeNull();
     expect(screen.getAllByText("Charizard").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Uxie")).toBeNull();
     expect(screen.getByText(/1 filtro activo/i)).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: /Limpiar filtros/i }));
@@ -410,6 +422,18 @@ describe("DexScreen", () => {
 
     expect(screen.queryByText("Mareep")).toBeNull();
     expect(screen.queryByText("Charizard")).toBeNull();
+  });
+
+  it("excludes legendary or unique pokemon from redux and synergy filters", async () => {
+    const user = userEvent.setup();
+
+    render(<DexScreen data={dexListData} />);
+
+    expect(screen.getAllByText("Uxie").length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole("button", { name: "Tipos" }));
+
+    expect(screen.queryByText("Uxie")).toBeNull();
   });
 
   it("matches a single type filter against any type slot", () => {

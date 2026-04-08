@@ -16,6 +16,7 @@ type DexList = Array<{
   slug: string;
   types: string[];
   abilities: string[];
+  isLegendaryOrUnique?: boolean;
   hasTypeChanges: boolean;
   hasStatChanges: boolean;
   hasAbilityChanges: boolean;

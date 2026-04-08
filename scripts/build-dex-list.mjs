@@ -17,6 +17,59 @@ function normalize(value) {
     .replace(/^-+|-+$/g, "");
 }
 
+const LEGENDARY_OR_UNIQUE_SPECIES = new Set(
+  [
+    "Articuno",
+    "Zapdos",
+    "Moltres",
+    "Mewtwo",
+    "Raikou",
+    "Entei",
+    "Suicune",
+    "Lugia",
+    "Ho-Oh",
+    "Regirock",
+    "Regice",
+    "Registeel",
+    "Latias",
+    "Latios",
+    "Kyogre",
+    "Groudon",
+    "Rayquaza",
+    "Uxie",
+    "Mesprit",
+    "Azelf",
+    "Dialga",
+    "Palkia",
+    "Heatran",
+    "Regigigas",
+    "Giratina",
+    "Cresselia",
+    "Cobalion",
+    "Terrakion",
+    "Virizion",
+    "Tornadus",
+    "Thundurus",
+    "Reshiram",
+    "Zekrom",
+    "Landorus",
+    "Kyurem",
+    "Mew",
+    "Celebi",
+    "Jirachi",
+    "Deoxys",
+    "Phione",
+    "Manaphy",
+    "Darkrai",
+    "Shaymin",
+    "Arceus",
+    "Victini",
+    "Keldeo",
+    "Meloetta",
+    "Genesect",
+  ].map(normalize),
+);
+
 function mergeMachines(canonical = [], redux = []) {
   return Array.from(
     new Map(
@@ -105,6 +158,7 @@ async function main() {
         slug: species.slug,
         types,
         abilities,
+        isLegendaryOrUnique: LEGENDARY_OR_UNIQUE_SPECIES.has(species.slug) || LEGENDARY_OR_UNIQUE_SPECIES.has(normalize(species.name)),
         hasTypeChanges:
           JSON.stringify(types.map(normalize)) !==
           JSON.stringify((canonicalEntry?.types ?? []).map(normalize)),
