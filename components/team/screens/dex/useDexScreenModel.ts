@@ -1,15 +1,15 @@
 "use client";
 
-import { useDeferredValue, useLayoutEffect, useMemo } from "react";
+import { startTransition, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
 import useSWR from "swr";
 
 import { useBuilderStore } from "@/lib/builderStore";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import {
-  extractEncounterSpecies,
-  extractGiftSpecies,
+  buildAcquisitionIndex,
   parseItemLocationDetail,
+  shopDetailMatchesItem,
 } from "@/lib/domain/sourceData";
 import { getBaseSpeciesName } from "@/lib/forms";
 import type { getDexListPageData } from "@/lib/builderPageData";
@@ -85,11 +85,42 @@ export function useDexScreenModel(
   const [allTypesNewToTeamOnly, setAllTypesNewToTeamOnly] = useQueryState("allTypesNewToTeam", parseAsStringEnum(["0", "1"]).withDefault("0"));
   const [primaryTypeFilter, setPrimaryTypeFilter] = useQueryState("type1", parseAsString.withDefault(""));
   const [secondaryTypeFilter, setSecondaryTypeFilter] = useQueryState("type2", parseAsString.withDefault(""));
+  const [pokemonModeState, setPokemonModeState] = useState<DexPokemonMode>("national");
+  const [typeChangesOnlyState, setTypeChangesOnlyState] = useState<"0" | "1">("0");
+  const [statChangesOnlyState, setStatChangesOnlyState] = useState<"0" | "1">("0");
+  const [abilityChangesOnlyState, setAbilityChangesOnlyState] = useState<"0" | "1">("0");
+  const [addsNewTeamTypeOnlyState, setAddsNewTeamTypeOnlyState] = useState<"0" | "1">("0");
+  const [allTypesNewToTeamOnlyState, setAllTypesNewToTeamOnlyState] = useState<"0" | "1">("0");
+  const [primaryTypeFilterState, setPrimaryTypeFilterState] = useState("");
+  const [secondaryTypeFilterState, setSecondaryTypeFilterState] = useState("");
 
   const resolvedPokemonMode = DEX_POKEMON_MODES.includes(pokemonMode as DexPokemonMode)
     ? (pokemonMode as DexPokemonMode)
     : "national";
-  const deferredQuery = useDeferredValue(query);
+  useEffect(() => {
+    setPokemonModeState(resolvedPokemonMode);
+  }, [resolvedPokemonMode]);
+  useEffect(() => {
+    setTypeChangesOnlyState(typeChangesOnly === "1" ? "1" : "0");
+  }, [typeChangesOnly]);
+  useEffect(() => {
+    setStatChangesOnlyState(statChangesOnly === "1" ? "1" : "0");
+  }, [statChangesOnly]);
+  useEffect(() => {
+    setAbilityChangesOnlyState(abilityChangesOnly === "1" ? "1" : "0");
+  }, [abilityChangesOnly]);
+  useEffect(() => {
+    setAddsNewTeamTypeOnlyState(addsNewTeamTypeOnly === "1" ? "1" : "0");
+  }, [addsNewTeamTypeOnly]);
+  useEffect(() => {
+    setAllTypesNewToTeamOnlyState(allTypesNewToTeamOnly === "1" ? "1" : "0");
+  }, [allTypesNewToTeamOnly]);
+  useEffect(() => {
+    setPrimaryTypeFilterState(primaryTypeFilter);
+  }, [primaryTypeFilter]);
+  useEffect(() => {
+    setSecondaryTypeFilterState(secondaryTypeFilter);
+  }, [secondaryTypeFilter]);
   const currentTeam = useBuilderStore((state) => state.run.roster.currentTeam);
   const { data: movesPayload } = useSWR<DexMovesPayload>(tab === "moves" ? "/api/dex?movesList=1" : null, fetcher);
   const { data: abilitiesPayload } = useSWR<DexAbilitiesPayload>(tab === "abilities" ? "/api/dex?abilitiesList=1" : null, fetcher);
@@ -158,31 +189,7 @@ export function useDexScreenModel(
     if (tab !== "pokemon") {
       return { wildBySpecies: new Map(), giftsBySpecies: new Map(), tradesBySpecies: new Map() };
     }
-    const wildBySpecies = new Map<string, { area: string; method: string }[]>();
-    const giftsBySpecies = new Map<string, { location: string; level: string }[]>();
-    const tradesBySpecies = new Map<string, { location: string; requested: string }[]>();
-    data.docs.wildAreas.forEach((area) => {
-      area.methods.forEach((method) => {
-        method.encounters.forEach((entry) => {
-          extractEncounterSpecies(entry.species, pokemonNames).forEach((species) => {
-            const key = normalizeName(species);
-            wildBySpecies.set(key, [...(wildBySpecies.get(key) ?? []), { area: area.area, method: method.method }]);
-          });
-        });
-      });
-    });
-    data.docs.gifts.forEach((gift) => {
-      extractGiftSpecies(gift.name, gift.notes ?? [], pokemonNames).forEach((species) => {
-        const key = normalizeName(species);
-        giftsBySpecies.set(key, [...(giftsBySpecies.get(key) ?? []), { location: gift.location, level: gift.level }]);
-      });
-    });
-    data.docs.trades.forEach((trade) => {
-      const key = normalizeName(trade.received);
-      if (!key) return;
-      tradesBySpecies.set(key, [...(tradesBySpecies.get(key) ?? []), { location: trade.location, requested: trade.requested }]);
-    });
-    return { wildBySpecies, giftsBySpecies, tradesBySpecies };
+    return buildAcquisitionIndex(data.docs.wildAreas, data.docs.gifts, data.docs.trades, pokemonNames);
   }, [data.docs.gifts, data.docs.trades, data.docs.wildAreas, pokemonNames, tab]);
 
   const pokemonSearchIndex = useMemo(() => {
@@ -191,9 +198,9 @@ export function useDexScreenModel(
       pokemonEntries.map((pokemon) => {
         const key = normalizeName(pokemon.name);
         const acquisitionTerms = [
-          ...(acquisitionBySpecies.wildBySpecies.get(key) ?? []).map((entry: { area: string; method: string }) => `${entry.area} ${entry.method}`),
-          ...(acquisitionBySpecies.giftsBySpecies.get(key) ?? []).map((entry: { location: string }) => entry.location),
-          ...(acquisitionBySpecies.tradesBySpecies.get(key) ?? []).flatMap((entry: { location: string; requested: string }) => [entry.location, entry.requested]),
+          ...(acquisitionBySpecies.wildBySpecies.get(key) ?? []).flatMap((entry: any) => [entry.area, entry.method, entry.rate ?? ""]),
+          ...(acquisitionBySpecies.giftsBySpecies.get(key) ?? []).map((entry: any) => entry.location),
+          ...(acquisitionBySpecies.tradesBySpecies.get(key) ?? []).flatMap((entry: any) => [entry.location, entry.requested]),
         ];
         return [key, normalizeName([pokemon.name, ...pokemon.types, ...pokemon.abilities, ...acquisitionTerms].join(" "))] as const;
       }),
@@ -219,45 +226,100 @@ export function useDexScreenModel(
     return next;
   }, [data.docs.itemLocations, itemEntries, tab]);
 
-  const normalizedQuery = normalizeName(deferredQuery);
-  const normalizedPrimaryTypeFilter = normalizeName(primaryTypeFilter);
-  const normalizedSecondaryTypeFilter = normalizeName(secondaryTypeFilter);
+  const shopsByItem = useMemo(() => {
+    if (tab !== "items") return new Map<string, { area: string; detail: string }[]>();
+    const next = new Map<string, { area: string; detail: string }[]>();
+    (data.docs.itemShops ?? []).forEach((shop) => {
+      shop.details.forEach((detail) => {
+        itemEntries.forEach((item) => {
+          const itemKey = normalizeName(item.name);
+          if (!itemKey || !shopDetailMatchesItem(detail, item.name)) return;
+          next.set(itemKey, [...(next.get(itemKey) ?? []), { area: shop.area, detail }]);
+        });
+      });
+    });
+    return next;
+  }, [data.docs.itemShops, itemEntries, tab]);
+
+  const normalizedQuery = normalizeName(query);
+  const normalizedPrimaryTypeFilter = normalizeName(primaryTypeFilterState);
+  const normalizedSecondaryTypeFilter = normalizeName(secondaryTypeFilterState);
   const activePokemonFilterCount =
-    (typeChangesOnly === "1" ? 1 : 0) +
-    (statChangesOnly === "1" ? 1 : 0) +
-    (abilityChangesOnly === "1" ? 1 : 0) +
-    (addsNewTeamTypeOnly === "1" ? 1 : 0) +
-    (allTypesNewToTeamOnly === "1" ? 1 : 0) +
-    (primaryTypeFilter ? 1 : 0) +
-    (secondaryTypeFilter ? 1 : 0);
+    (typeChangesOnlyState === "1" ? 1 : 0) +
+    (statChangesOnlyState === "1" ? 1 : 0) +
+    (abilityChangesOnlyState === "1" ? 1 : 0) +
+    (addsNewTeamTypeOnlyState === "1" ? 1 : 0) +
+    (allTypesNewToTeamOnlyState === "1" ? 1 : 0) +
+    (primaryTypeFilterState ? 1 : 0) +
+    (secondaryTypeFilterState ? 1 : 0);
 
   const filteredPokemon = useMemo(() => {
     if (tab !== "pokemon") return [];
     return pokemonEntries.filter((pokemon) => {
-      if (!matchesDexMode(pokemon.dex, resolvedPokemonMode)) return false;
-      if (typeChangesOnly === "1" && !pokemon.hasTypeChanges) return false;
-      if (statChangesOnly === "1" && !pokemon.hasStatChanges) return false;
-      if (abilityChangesOnly === "1" && !pokemon.hasAbilityChanges) return false;
+      if (!matchesDexMode(pokemon.dex, pokemonModeState)) return false;
+      if (typeChangesOnlyState === "1" && !pokemon.hasTypeChanges) return false;
+      if (statChangesOnlyState === "1" && !pokemon.hasStatChanges) return false;
+      if (abilityChangesOnlyState === "1" && !pokemon.hasAbilityChanges) return false;
       if (!matchesTypeSlotFilters(pokemon.types, normalizedPrimaryTypeFilter, normalizedSecondaryTypeFilter)) return false;
-      if (addsNewTeamTypeOnly === "1" && !pokemon.types.some((type: string) => !currentTeamTypes.has(normalizeName(type)))) return false;
-      if (allTypesNewToTeamOnly === "1" && !pokemon.types.every((type: string) => !currentTeamTypes.has(normalizeName(type)))) return false;
+      if (addsNewTeamTypeOnlyState === "1" && !pokemon.types.some((type: string) => !currentTeamTypes.has(normalizeName(type)))) return false;
+      if (allTypesNewToTeamOnlyState === "1" && !pokemon.types.every((type: string) => !currentTeamTypes.has(normalizeName(type)))) return false;
       if (!normalizedQuery) return true;
       return (pokemonSearchIndex.get(normalizeName(pokemon.name)) ?? "").includes(normalizedQuery);
     });
-  }, [abilityChangesOnly, addsNewTeamTypeOnly, allTypesNewToTeamOnly, currentTeamTypes, normalizedPrimaryTypeFilter, normalizedQuery, normalizedSecondaryTypeFilter, pokemonEntries, pokemonSearchIndex, resolvedPokemonMode, statChangesOnly, tab, typeChangesOnly]);
+  }, [abilityChangesOnlyState, addsNewTeamTypeOnlyState, allTypesNewToTeamOnlyState, currentTeamTypes, normalizedPrimaryTypeFilter, normalizedQuery, normalizedSecondaryTypeFilter, pokemonEntries, pokemonModeState, pokemonSearchIndex, statChangesOnlyState, tab, typeChangesOnlyState]);
 
   const dexQuery = useMemo(() => buildDexStateQuery({
     tab,
     query,
-    pokemonMode: resolvedPokemonMode,
-    typeChangesOnly: typeChangesOnly === "1",
-    statChangesOnly: statChangesOnly === "1",
-    abilityChangesOnly: abilityChangesOnly === "1",
-    addsNewTeamTypeOnly: addsNewTeamTypeOnly === "1",
-    allTypesNewToTeamOnly: allTypesNewToTeamOnly === "1",
-    primaryTypeFilter,
-    secondaryTypeFilter,
-  }), [abilityChangesOnly, addsNewTeamTypeOnly, allTypesNewToTeamOnly, primaryTypeFilter, query, resolvedPokemonMode, secondaryTypeFilter, statChangesOnly, tab, typeChangesOnly]);
+    pokemonMode: pokemonModeState,
+    typeChangesOnly: typeChangesOnlyState === "1",
+    statChangesOnly: statChangesOnlyState === "1",
+    abilityChangesOnly: abilityChangesOnlyState === "1",
+    addsNewTeamTypeOnly: addsNewTeamTypeOnlyState === "1",
+    allTypesNewToTeamOnly: allTypesNewToTeamOnlyState === "1",
+    primaryTypeFilter: primaryTypeFilterState,
+    secondaryTypeFilter: secondaryTypeFilterState,
+  }), [abilityChangesOnlyState, addsNewTeamTypeOnlyState, allTypesNewToTeamOnlyState, pokemonModeState, primaryTypeFilterState, query, secondaryTypeFilterState, statChangesOnlyState, tab, typeChangesOnlyState]);
+
+  function updatePokemonMode(next: DexPokemonMode) {
+    startTransition(() => setPokemonModeState(next));
+    void setPokemonMode(next);
+  }
+
+  function updateTypeChangesOnly(next: "0" | "1") {
+    startTransition(() => setTypeChangesOnlyState(next));
+    void setTypeChangesOnly(next);
+  }
+
+  function updateStatChangesOnly(next: "0" | "1") {
+    startTransition(() => setStatChangesOnlyState(next));
+    void setStatChangesOnly(next);
+  }
+
+  function updateAbilityChangesOnly(next: "0" | "1") {
+    startTransition(() => setAbilityChangesOnlyState(next));
+    void setAbilityChangesOnly(next);
+  }
+
+  function updateAddsNewTeamTypeOnly(next: "0" | "1") {
+    startTransition(() => setAddsNewTeamTypeOnlyState(next));
+    void setAddsNewTeamTypeOnly(next);
+  }
+
+  function updateAllTypesNewToTeamOnly(next: "0" | "1") {
+    startTransition(() => setAllTypesNewToTeamOnlyState(next));
+    void setAllTypesNewToTeamOnly(next);
+  }
+
+  function updatePrimaryTypeFilter(next: string) {
+    startTransition(() => setPrimaryTypeFilterState(next));
+    void setPrimaryTypeFilter(next);
+  }
+
+  function updateSecondaryTypeFilter(next: string) {
+    startTransition(() => setSecondaryTypeFilterState(next));
+    void setSecondaryTypeFilter(next);
+  }
 
   const filteredMoves = useMemo(() => (tab !== "moves" ? [] : moveEntries.filter((move) => !normalizedQuery || normalizeName(move.name).includes(normalizedQuery) || normalizeName(move.description ?? "").includes(normalizedQuery))), [moveEntries, normalizedQuery, tab]);
   const filteredAbilities = useMemo(() => (tab !== "abilities" ? [] : abilityEntries.filter((ability) => !normalizedQuery || normalizeName(ability.name).includes(normalizedQuery) || normalizeName(ability.effect ?? "").includes(normalizedQuery))), [abilityEntries, normalizedQuery, tab]);
@@ -285,22 +347,22 @@ export function useDexScreenModel(
     setTab,
     query,
     setQuery,
-    resolvedPokemonMode,
-    setPokemonMode,
-    typeChangesOnly,
-    setTypeChangesOnly,
-    statChangesOnly,
-    setStatChangesOnly,
-    abilityChangesOnly,
-    setAbilityChangesOnly,
-    addsNewTeamTypeOnly,
-    setAddsNewTeamTypeOnly,
-    allTypesNewToTeamOnly,
-    setAllTypesNewToTeamOnly,
-    primaryTypeFilter,
-    setPrimaryTypeFilter,
-    secondaryTypeFilter,
-    setSecondaryTypeFilter,
+    resolvedPokemonMode: pokemonModeState,
+    setPokemonMode: updatePokemonMode,
+    typeChangesOnly: typeChangesOnlyState,
+    setTypeChangesOnly: updateTypeChangesOnly,
+    statChangesOnly: statChangesOnlyState,
+    setStatChangesOnly: updateStatChangesOnly,
+    abilityChangesOnly: abilityChangesOnlyState,
+    setAbilityChangesOnly: updateAbilityChangesOnly,
+    addsNewTeamTypeOnly: addsNewTeamTypeOnlyState,
+    setAddsNewTeamTypeOnly: updateAddsNewTeamTypeOnly,
+    allTypesNewToTeamOnly: allTypesNewToTeamOnlyState,
+    setAllTypesNewToTeamOnly: updateAllTypesNewToTeamOnly,
+    primaryTypeFilter: primaryTypeFilterState,
+    setPrimaryTypeFilter: updatePrimaryTypeFilter,
+    secondaryTypeFilter: secondaryTypeFilterState,
+    setSecondaryTypeFilter: updateSecondaryTypeFilter,
     activePokemonFilterCount,
     dexBySpecies,
     acquisitionBySpecies,
@@ -309,6 +371,7 @@ export function useDexScreenModel(
     ownersByMove,
     ownersByAbility,
     locationsByItem,
+    shopsByItem,
     filteredPokemon,
     filteredMoves,
     filteredAbilities,

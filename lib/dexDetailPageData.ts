@@ -2,79 +2,30 @@ import { cache } from "react";
 
 import { buildDexStateQuery, matchesDexMode, matchesTypeSlotFilters } from "@/components/team/screens/dex/utils";
 import { getDexPageData } from "@/lib/builderPageData";
-import { extractEncounterSpecies, extractGiftSpecies } from "@/lib/domain/sourceData";
+import {
+  buildAcquisitionIndex,
+  type GiftAcquisition,
+  type TradeAcquisition,
+  type WildAcquisition,
+} from "@/lib/domain/sourceData";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { getAvailableFormsForSpecies } from "@/lib/forms";
-import { getPokemonAbilitySlots, type PokemonAbilitySlots } from "@/lib/localDex";
+import { getLocalDexDataVersion, getPokemonAbilitySlots, type PokemonAbilitySlots } from "@/lib/localDex";
 
 type SearchParamsInput = Record<string, string | string[] | undefined>;
 
 type DexSpeciesEntry = ReturnType<typeof getDexPageData>["speciesCatalog"][number];
 type DexPokemonEntry = NonNullable<ReturnType<typeof getDexPageData>["pokemonIndex"][string]>;
-const DEX_PAGE_DATA = getDexPageData();
-const DEX_SPECIES_LOOKUP = getSpeciesLookup(DEX_PAGE_DATA.speciesCatalog);
-const DEX_ACQUISITIONS = buildDexAcquisitions(
-  DEX_PAGE_DATA.docs.wildAreas,
-  DEX_PAGE_DATA.docs.gifts,
-  DEX_PAGE_DATA.docs.trades,
-  DEX_SPECIES_LOOKUP.names,
-);
-const DEX_FORMS_BY_SLUG = new Map(
-  DEX_PAGE_DATA.speciesCatalog.map((species) => [
-    species.slug,
-    buildForms(DEX_PAGE_DATA.pokemonIndex, species),
-  ]),
-);
-const DEX_EVOLUTIONS_BY_SLUG = new Map(
-  DEX_PAGE_DATA.speciesCatalog.map((species) => [
-    species.slug,
-    buildEvolutionChains(DEX_PAGE_DATA.speciesCatalog, DEX_PAGE_DATA.pokemonIndex, species.slug),
-  ]),
-);
-const DEX_DETAIL_BASE_BY_SLUG = new Map(
-  DEX_PAGE_DATA.speciesCatalog.map((species) => {
-    const normalizedSpeciesName = normalizeName(species.name);
-    const pokemon =
-      DEX_PAGE_DATA.pokemonIndex[species.slug] ??
-      DEX_PAGE_DATA.pokemonIndex[normalizedSpeciesName];
-    const canonicalPokemon =
-      DEX_PAGE_DATA.canonicalPokemonIndex[species.slug] ??
-      DEX_PAGE_DATA.canonicalPokemonIndex[normalizedSpeciesName];
-    const sprites = buildSpriteUrls(species.name, species.dex);
+type DexRuntimeData = {
+  pageData: ReturnType<typeof getDexPageData>;
+  speciesLookup: ReturnType<typeof getSpeciesLookup>;
+  formsBySlug: Map<string, Array<any>>;
+  evolutionsBySlug: Map<string, Array<Array<any>>>;
+  detailBaseBySlug: Map<string, any>;
+};
 
-    return [
-      species.slug,
-      {
-        pokemon: {
-          dex: species.dex,
-          name: species.name,
-          slug: species.slug,
-          types: species.types ?? [],
-          spriteUrl: sprites.spriteUrl,
-          animatedSpriteUrl: sprites.animatedSpriteUrl,
-          stats: pokemon?.stats,
-          generation: pokemon?.generation,
-          category: pokemon?.category,
-          height: pokemon?.height,
-          weight: pokemon?.weight,
-          flavorText: pokemon?.flavorText ?? undefined,
-          canonicalStats: canonicalPokemon?.stats,
-          abilities: pokemon?.abilities ?? [],
-          abilitySlots: getPokemonAbilitySlots(species.slug),
-          nextEvolutions: pokemon?.nextEvolutions ?? [],
-          evolutionDetails: pokemon?.evolutionDetails ?? [],
-          learnsets: pokemon?.learnsets,
-        },
-        forms: DEX_FORMS_BY_SLUG.get(species.slug) ?? [],
-        evolutions: DEX_EVOLUTIONS_BY_SLUG.get(species.slug) ?? [],
-        wildEncounters: DEX_ACQUISITIONS.wildBySpecies.get(normalizedSpeciesName) ?? [],
-        gifts: DEX_ACQUISITIONS.giftsBySpecies.get(normalizedSpeciesName) ?? [],
-        trades: DEX_ACQUISITIONS.tradesBySpecies.get(normalizedSpeciesName) ?? [],
-        moveDetailsByName: buildMoveDetailsByName(DEX_PAGE_DATA.moveIndex, pokemon?.learnsets),
-      },
-    ] as const;
-  }),
-);
+let dexRuntimeCache: DexRuntimeData | null = null;
+let dexRuntimeCacheVersion: string | null = null;
 
 export type DexDetailPageData = {
   pokemon: {
@@ -121,9 +72,9 @@ export type DexDetailPageData = {
       current?: boolean;
     }>
   >;
-  wildEncounters: { area: string; method: string }[];
-  gifts: { location: string; level: string }[];
-  trades: { location: string; requested: string }[];
+  wildEncounters: WildAcquisition[];
+  gifts: GiftAcquisition[];
+  trades: TradeAcquisition[];
   moveDetailsByName: Record<string, ReturnType<typeof getDexPageData>["moveIndex"][string]>;
 };
 
@@ -135,17 +86,19 @@ export function getDexPokemonDetailPageData(
 }
 
 export function getDexSpeciesRouteEntry(slug: string) {
+  const runtime = getDexRuntimeData();
   const resolvedSlug = normalizeValue(slug);
-  return DEX_SPECIES_LOOKUP.bySlug.get(resolvedSlug) ?? DEX_SPECIES_LOOKUP.byNormalizedName.get(resolvedSlug) ?? null;
+  return runtime.speciesLookup.bySlug.get(resolvedSlug) ?? runtime.speciesLookup.byNormalizedName.get(resolvedSlug) ?? null;
 }
 
 const getDexPokemonDetailPageDataCached = cache(
   (slug: string, serializedSearchParams: string): DexDetailPageData | null => {
+    const runtime = getDexRuntimeData();
     const searchParams = deserializeSearchParams(serializedSearchParams);
     const resolvedSlug = normalizeValue(slug);
     const species =
-      DEX_SPECIES_LOOKUP.bySlug.get(resolvedSlug) ??
-      DEX_SPECIES_LOOKUP.byNormalizedName.get(resolvedSlug);
+      runtime.speciesLookup.bySlug.get(resolvedSlug) ??
+      runtime.speciesLookup.byNormalizedName.get(resolvedSlug);
 
     if (!species) {
       return null;
@@ -172,7 +125,7 @@ const getDexPokemonDetailPageDataCached = cache(
       currentIndex >= 0 && currentIndex < orderedSpecies.length - 1
         ? toNavEntry(orderedSpecies[currentIndex + 1])
         : null;
-    const baseDetail = DEX_DETAIL_BASE_BY_SLUG.get(species.slug);
+    const baseDetail = runtime.detailBaseBySlug.get(species.slug);
     if (!baseDetail) {
       return null;
     }
@@ -212,15 +165,16 @@ const getFilteredOrderedSpecies = cache(
     primaryTypeFilter: string,
     secondaryTypeFilter: string,
   ) => {
-    return DEX_PAGE_DATA.speciesCatalog
+    const runtime = getDexRuntimeData();
+    return runtime.pageData.speciesCatalog
       .filter((entry) => {
         const normalizedName = normalizeName(entry.name);
         const canonicalPokemon =
-          DEX_PAGE_DATA.canonicalPokemonIndex[entry.slug] ??
-          DEX_PAGE_DATA.canonicalPokemonIndex[normalizedName];
+          runtime.pageData.canonicalPokemonIndex[entry.slug] ??
+          runtime.pageData.canonicalPokemonIndex[normalizedName];
         const currentPokemon =
-          DEX_PAGE_DATA.pokemonIndex[entry.slug] ??
-          DEX_PAGE_DATA.pokemonIndex[normalizedName];
+          runtime.pageData.pokemonIndex[entry.slug] ??
+          runtime.pageData.pokemonIndex[normalizedName];
         const hasTypeChanges = !sameStringList(entry.types ?? [], canonicalPokemon?.types ?? []);
         const hasStatChanges = !sameStats(currentPokemon?.stats, canonicalPokemon?.stats);
         const hasAbilityChanges = !sameStringList(currentPokemon?.abilities ?? [], canonicalPokemon?.abilities ?? []);
@@ -234,6 +188,90 @@ const getFilteredOrderedSpecies = cache(
       .sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name));
   },
 );
+
+function getDexRuntimeData(): DexRuntimeData {
+  const version = getLocalDexDataVersion();
+  if (dexRuntimeCache && dexRuntimeCacheVersion === version) {
+    return dexRuntimeCache;
+  }
+
+  const pageData = getDexPageData();
+  const speciesLookup = getSpeciesLookup(pageData.speciesCatalog);
+  const acquisitions = buildDexAcquisitions(
+    pageData.docs.wildAreas,
+    pageData.docs.gifts,
+    pageData.docs.trades,
+    speciesLookup.names,
+  );
+  const formsBySlug = new Map(
+    pageData.speciesCatalog.map((species) => [
+      species.slug,
+      buildForms(pageData.pokemonIndex, species),
+    ]),
+  );
+  const evolutionsBySlug = new Map(
+    pageData.speciesCatalog.map((species) => [
+      species.slug,
+      buildEvolutionChains(pageData.speciesCatalog, pageData.pokemonIndex, species.slug),
+    ]),
+  );
+  const detailBaseBySlug = new Map(
+    pageData.speciesCatalog.map((species) => {
+      const normalizedSpeciesName = normalizeName(species.name);
+      const pokemon =
+        pageData.pokemonIndex[species.slug] ??
+        pageData.pokemonIndex[normalizedSpeciesName];
+      const canonicalPokemon =
+        pageData.canonicalPokemonIndex[species.slug] ??
+        pageData.canonicalPokemonIndex[normalizedSpeciesName];
+      const sprites = buildSpriteUrls(species.name, species.dex);
+
+      return [
+        species.slug,
+        {
+          pokemon: {
+            dex: species.dex,
+            name: species.name,
+            slug: species.slug,
+            types: species.types ?? [],
+            spriteUrl: sprites.spriteUrl,
+            animatedSpriteUrl: sprites.animatedSpriteUrl,
+            stats: pokemon?.stats,
+            generation: pokemon?.generation,
+            category: pokemon?.category,
+            height: pokemon?.height,
+            weight: pokemon?.weight,
+            flavorText: pokemon?.flavorText ?? undefined,
+            canonicalStats: canonicalPokemon?.stats,
+            abilities: pokemon?.abilities ?? [],
+            abilitySlots: getPokemonAbilitySlots(species.slug),
+            nextEvolutions: pokemon?.nextEvolutions ?? [],
+            evolutionDetails: pokemon?.evolutionDetails ?? [],
+            learnsets: pokemon?.learnsets,
+          },
+          forms: formsBySlug.get(species.slug) ?? [],
+          evolutions: evolutionsBySlug.get(species.slug) ?? [],
+          wildEncounters: acquisitions.wildBySpecies.get(normalizedSpeciesName) ?? [],
+          gifts: acquisitions.giftsBySpecies.get(normalizedSpeciesName) ?? [],
+          trades: acquisitions.tradesBySpecies.get(normalizedSpeciesName) ?? [],
+          moveDetailsByName: buildMoveDetailsByName(pageData.moveIndex, pokemon?.learnsets),
+        },
+      ] as const;
+    }),
+  );
+
+  const runtime = {
+    pageData,
+    speciesLookup,
+    formsBySlug,
+    evolutionsBySlug,
+    detailBaseBySlug,
+  };
+
+  dexRuntimeCache = runtime;
+  dexRuntimeCacheVersion = version;
+  return runtime;
+}
 
 function getDexMode(rawValue?: string | string[]) {
   const value = normalizeValue(rawValue);
@@ -269,34 +307,7 @@ function buildDexAcquisitions(
   trades: ReturnType<typeof getDexPageData>["docs"]["trades"],
   pokemonNames: string[],
 ) {
-  const wildBySpecies = new Map<string, { area: string; method: string }[]>();
-  const giftsBySpecies = new Map<string, { location: string; level: string }[]>();
-  const tradesBySpecies = new Map<string, { location: string; requested: string }[]>();
-
-  wildAreas.forEach((area) => {
-    area.methods.forEach((method) => {
-      method.encounters.forEach((encounter) => {
-        extractEncounterSpecies(encounter.species, pokemonNames).forEach((name) => {
-          const key = normalizeName(name);
-          wildBySpecies.set(key, [...(wildBySpecies.get(key) ?? []), { area: area.area, method: method.method }]);
-        });
-      });
-    });
-  });
-
-  gifts.forEach((gift) => {
-    extractGiftSpecies(gift.name, gift.notes ?? [], pokemonNames).forEach((name) => {
-      const key = normalizeName(name);
-      giftsBySpecies.set(key, [...(giftsBySpecies.get(key) ?? []), { location: gift.location, level: gift.level }]);
-    });
-  });
-
-  trades.forEach((trade) => {
-    const key = normalizeName(trade.received);
-    tradesBySpecies.set(key, [...(tradesBySpecies.get(key) ?? []), { location: trade.location, requested: trade.requested }]);
-  });
-
-  return { wildBySpecies, giftsBySpecies, tradesBySpecies };
+  return buildAcquisitionIndex(wildAreas, gifts, trades, pokemonNames);
 }
 
 function serializeSearchParams(searchParams: SearchParamsInput) {

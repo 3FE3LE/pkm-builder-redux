@@ -1,6 +1,6 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
-import type { GiftPokemon, ItemLocation, TradePokemon, WildArea } from "@/lib/docsSchema";
+import type { GiftPokemon, ItemLocation, ItemShop, TradePokemon, WildArea } from "@/lib/docsSchema";
 
 const DATA_DIR = path.join(process.cwd(), "data", "local-dex");
 const REFERENCE_DIR = path.join(process.cwd(), "data", "reference");
@@ -25,6 +25,7 @@ type DexDocs = {
   gifts: GiftPokemon[];
   trades: TradePokemon[];
   itemLocations: ItemLocation[];
+  itemShops?: ItemShop[];
 };
 export type PokemonAbilitySlots = {
   regular: string[];
@@ -42,6 +43,62 @@ let dexListCache: DexList | null = null;
 let dexDocsCache: DexDocs | null = null;
 let reduxOverridesCache: Record<string, any> | null = null;
 let pokemonAbilitySlotsCache: Map<string, PokemonAbilitySlots> | null = null;
+let localDexDataVersionCache: string | null = null;
+
+const LOCAL_DEX_VERSION_FILES = [
+  path.join(DATA_DIR, "pokemon-index.json"),
+  path.join(DATA_DIR, "species-list.json"),
+  path.join(DATA_DIR, "dex-list.json"),
+  path.join(DATA_DIR, "dex-docs.json"),
+  path.join(DATA_DIR, "move-index.json"),
+  path.join(DATA_DIR, "item-index.json"),
+  path.join(DATA_DIR, "ability-index.json"),
+  path.join(REFERENCE_DIR, "pokemon-canonical-gen5.json"),
+  path.join(REFERENCE_DIR, "pokemon-redux-overrides-gen5.json"),
+  path.join(REFERENCE_DIR, "pokemon-canonical-learnsets-gen5.json"),
+  path.join(REFERENCE_DIR, "moves-canonical.json"),
+  path.join(REFERENCE_DIR, "items-canonical.json"),
+  path.join(REFERENCE_DIR, "item-redux-overrides.json"),
+  path.join(REFERENCE_DIR, "abilities-canonical.json"),
+  path.join(REFERENCE_DIR, "ability-redux-overrides.json"),
+] as const;
+
+function getFileVersionPart(filePath: string) {
+  if (!existsSync(filePath)) {
+    return `${filePath}:missing`;
+  }
+
+  const stats = statSync(filePath);
+  return `${filePath}:${stats.mtimeMs}:${stats.size}`;
+}
+
+export function getLocalDexDataVersion() {
+  return LOCAL_DEX_VERSION_FILES.map(getFileVersionPart).join("|");
+}
+
+function resetLocalDexCaches() {
+  pokemonIndexCache = null;
+  canonicalPokemonIndexCache = null;
+  canonicalPokemonReferenceCache = null;
+  moveIndexCache = null;
+  itemIndexCache = null;
+  abilityIndexCache = null;
+  speciesListCache = null;
+  dexListCache = null;
+  dexDocsCache = null;
+  reduxOverridesCache = null;
+  pokemonAbilitySlotsCache = null;
+}
+
+function ensureLocalDexCachesFresh() {
+  const nextVersion = getLocalDexDataVersion();
+  if (localDexDataVersionCache === nextVersion) {
+    return;
+  }
+
+  localDexDataVersionCache = nextVersion;
+  resetLocalDexCaches();
+}
 
 function sortSpeciesList(list: SpeciesList) {
   return [...list].sort((left, right) => left.dex - right.dex || left.name.localeCompare(right.name));
@@ -177,10 +234,12 @@ function mergePokemonIndexes(
       ? {
           ...fallbackEntry,
           ...localEntry,
-          types: localEntry.types ?? fallbackEntry.types ?? [],
+          // Core dex/battle data must come from the fallback index because it is
+          // rebuilt from canonical data plus Redux overrides. Local JSON can lag behind.
+          types: fallbackEntry.types ?? localEntry.types ?? [],
           abilities: localEntry.abilities ?? fallbackEntry.abilities ?? [],
-          stats: localEntry.stats ?? fallbackEntry.stats ?? null,
-          learnsets: localEntry.learnsets ?? fallbackEntry.learnsets ?? null,
+          stats: fallbackEntry.stats ?? localEntry.stats ?? null,
+          learnsets: fallbackEntry.learnsets ?? localEntry.learnsets ?? null,
           nextEvolutions: localEntry.nextEvolutions ?? fallbackEntry.nextEvolutions ?? [],
           evolutionDetails: localEntry.evolutionDetails ?? fallbackEntry.evolutionDetails ?? [],
         }
@@ -498,6 +557,7 @@ const BASE_FORM_SUFFIXES = [
 ] as const;
 
 export function getLocalPokemonIndex(): PokemonIndex {
+  ensureLocalDexCachesFresh();
   if (!pokemonIndexCache) {
     const localIndex = readJson("pokemon-index.json");
     const canonical = getCanonicalPokemonReference();
@@ -514,6 +574,7 @@ export function getLocalPokemonIndex(): PokemonIndex {
 }
 
 export function getCanonicalPokemonIndex(): PokemonIndex {
+  ensureLocalDexCachesFresh();
   if (!canonicalPokemonIndexCache) {
     const canonical = getCanonicalPokemonReference();
     const canonicalLearnsets =
@@ -524,6 +585,7 @@ export function getCanonicalPokemonIndex(): PokemonIndex {
 }
 
 export function getLocalMoveIndex(): MoveIndex {
+  ensureLocalDexCachesFresh();
   if (!moveIndexCache) {
     const localIndex = readJson("move-index.json");
     const canonicalIndex = (readReferenceJson("moves-canonical.json") as MoveIndex | null) ?? {};
@@ -538,6 +600,7 @@ export function getLocalMoveIndex(): MoveIndex {
 }
 
 export function getLocalItemIndex(): ItemIndex {
+  ensureLocalDexCachesFresh();
   if (!itemIndexCache) {
     const localIndex = readJson("item-index.json");
     if (Object.keys(localIndex).length) {
@@ -566,6 +629,7 @@ export function getLocalItemIndex(): ItemIndex {
 }
 
 export function getLocalAbilityIndex(): AbilityIndex {
+  ensureLocalDexCachesFresh();
   if (!abilityIndexCache) {
     const localIndex = readJson("ability-index.json");
     if (Object.keys(localIndex).length) {
@@ -594,6 +658,7 @@ export function getLocalAbilityIndex(): AbilityIndex {
 }
 
 export function getLocalSpeciesList(): SpeciesList {
+  ensureLocalDexCachesFresh();
   if (!speciesListCache) {
     const localList = readJson("species-list.json");
     const hasCompleteShape =
@@ -663,6 +728,7 @@ export function getLocalSpeciesList(): SpeciesList {
 }
 
 export function getLocalDexDocs(): DexDocs {
+  ensureLocalDexCachesFresh();
   if (!dexDocsCache) {
     const localDocs = readJson("dex-docs.json") as Partial<DexDocs>;
     dexDocsCache = {
@@ -670,6 +736,7 @@ export function getLocalDexDocs(): DexDocs {
       gifts: Array.isArray(localDocs?.gifts) ? localDocs.gifts : [],
       trades: Array.isArray(localDocs?.trades) ? localDocs.trades : [],
       itemLocations: Array.isArray(localDocs?.itemLocations) ? localDocs.itemLocations : [],
+      itemShops: Array.isArray(localDocs?.itemShops) ? localDocs.itemShops : [],
     };
   }
 
@@ -677,7 +744,24 @@ export function getLocalDexDocs(): DexDocs {
 }
 
 export function getLocalDexList(): DexList {
+  ensureLocalDexCachesFresh();
   if (!dexListCache) {
+    const localDexList = readJson("dex-list.json");
+    if (
+      Array.isArray(localDexList) &&
+      localDexList.every(
+        (entry) =>
+          entry &&
+          typeof entry === "object" &&
+          typeof entry.name === "string" &&
+          typeof entry.slug === "string" &&
+          typeof entry.dex === "number",
+      )
+    ) {
+      dexListCache = localDexList as DexList;
+      return dexListCache;
+    }
+
     const speciesList = getLocalSpeciesList();
     const localPokemonIndex = getLocalPokemonIndex() as Record<string, any>;
     const canonical = getCanonicalPokemonReference();
@@ -728,6 +812,7 @@ export function getLocalDexList(): DexList {
 }
 
 export function getPokemonAbilitySlots(speciesOrSlug: string): PokemonAbilitySlots {
+  ensureLocalDexCachesFresh();
   const normalizedKey = normalize(speciesOrSlug);
   if (!pokemonAbilitySlotsCache) {
     pokemonAbilitySlotsCache = new Map();

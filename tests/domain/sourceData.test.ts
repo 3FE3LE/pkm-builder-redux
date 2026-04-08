@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildAcquisitionIndex,
   entryMatchesSpecies,
   extractEncounterSpecies,
   extractGiftSpecies,
+  formatWildAcquisition,
   giftMatchesSpecies,
+  parseEncounterRate,
   parseItemLocationDetail,
+  shopDetailMatchesItem,
 } from "@/lib/domain/sourceData";
 
 const POKEMON_NAMES = [
@@ -50,5 +54,65 @@ describe("sourceData", () => {
       replacement: "Ice Stone",
       display: "Reemplaza Sun Stone",
     });
+  });
+
+  it("matches item shop notes against explicit and grouped mart inventory", () => {
+    expect(
+      shopDetailMatchesItem(
+        "Secondary Mart now sells Luxury Balls and Net Balls, as well as Aspear, Oran and Rawst Berries.",
+        "Net Ball",
+      ),
+    ).toBe(true);
+    expect(
+      shopDetailMatchesItem(
+        "Plasma Grunt now sells evolutionary stones, instead of incense.",
+        "Fire Stone",
+      ),
+    ).toBe(true);
+    expect(
+      shopDetailMatchesItem(
+        "Now sells: All evolutionary items.",
+        "Electirizer",
+      ),
+    ).toBe(true);
+  });
+
+  it("parses encounter rates and keeps them in acquisition indexes", () => {
+    const acquisitions = buildAcquisitionIndex(
+      [
+        {
+          area: "Route 1",
+          methods: [
+            {
+              method: "Grass",
+              encounters: [{ species: "Bulbasaur", level: "4-5", rate: "20%" }],
+            },
+          ],
+        },
+      ],
+      [],
+      [],
+      POKEMON_NAMES,
+    );
+
+    expect(parseEncounterRate("20%")).toBe(20);
+    expect(acquisitions.wildBySpecies.get("bulbasaur")).toEqual([
+      {
+        area: "Route 1",
+        method: "Grass",
+        level: "4-5",
+        rate: "20%",
+        rateValue: 20,
+      },
+    ]);
+    expect(
+      formatWildAcquisition({
+        area: "Route 1",
+        method: "Grass",
+        level: "4-5",
+        rate: "20%",
+        rateValue: 20,
+      }),
+    ).toBe("Route 1 · Grass · 20% · Lv 4-5");
   });
 });

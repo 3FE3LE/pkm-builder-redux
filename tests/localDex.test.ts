@@ -23,6 +23,7 @@ describe("localDex", () => {
 
     expect(pokemonIndex.bulbasaur.types).toEqual(["Grass", "Poison"]);
     expect(pokemonIndex.bulbasaur.abilities).toEqual([
+      "Solar Power",
       "Overgrow",
       "Chlorophyll",
     ]);
@@ -398,6 +399,171 @@ describe("localDex", () => {
       expect(slots).toEqual({
         regular: ["Contrary", "Overgrow"],
         hidden: ["Contrary"],
+      });
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("prefers the generated dex-list artifact when it exists", async () => {
+    const originalCwd = process.cwd();
+    const tempRoot = mkdtempSync(path.join(os.tmpdir(), "pkm-local-dex-generated-list-"));
+    const referenceDir = path.join(tempRoot, "data", "reference");
+    const localDexDir = path.join(tempRoot, "data", "local-dex");
+
+    mkdirSync(referenceDir, { recursive: true });
+    mkdirSync(localDexDir, { recursive: true });
+
+    writeFileSync(
+      path.join(referenceDir, "pokemon-canonical-gen5.json"),
+      JSON.stringify({
+        "006": {
+          id: 6,
+          dex: 6,
+          slug: "charizard",
+          name: "Charizard",
+          types: ["Fire", "Flying"],
+          abilities: ["Blaze", "Solar Power"],
+          stats: { hp: 78, atk: 84, def: 78, spa: 109, spd: 85, spe: 100, bst: 534 },
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(localDexDir, "species-list.json"),
+      JSON.stringify([{ name: "Charizard", slug: "charizard", dex: 6, types: ["Fire", "Dragon"] }]),
+    );
+    writeFileSync(
+      path.join(localDexDir, "pokemon-index.json"),
+      JSON.stringify({
+        charizard: {
+          name: "Charizard",
+          slug: "charizard",
+          dex: 6,
+          types: ["Fire", "Flying"],
+          abilities: ["Blaze", "Solar Power"],
+          stats: { hp: 78, atk: 84, def: 78, spa: 109, spd: 85, spe: 100, bst: 534 },
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(localDexDir, "dex-list.json"),
+      JSON.stringify([
+        {
+          dex: 6,
+          name: "Charizard",
+          slug: "charizard",
+          types: ["Fire", "Dragon"],
+          abilities: ["Blaze", "Tough Claws"],
+          hasTypeChanges: true,
+          hasStatChanges: true,
+          hasAbilityChanges: true,
+        },
+      ]),
+    );
+
+    try {
+      process.chdir(tempRoot);
+
+      const module = await import("../lib/localDex");
+      const dexList = module.getLocalDexList();
+
+      expect(dexList).toEqual([
+        {
+          dex: 6,
+          name: "Charizard",
+          slug: "charizard",
+          types: ["Fire", "Dragon"],
+          abilities: ["Blaze", "Tough Claws"],
+          hasTypeChanges: true,
+          hasStatChanges: true,
+          hasAbilityChanges: true,
+        },
+      ]);
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("keeps redux-overridden battle data when local pokemon-index is stale", async () => {
+    const originalCwd = process.cwd();
+    const tempRoot = mkdtempSync(path.join(os.tmpdir(), "pkm-local-dex-stale-pokemon-index-"));
+    const referenceDir = path.join(tempRoot, "data", "reference");
+    const localDexDir = path.join(tempRoot, "data", "local-dex");
+
+    mkdirSync(referenceDir, { recursive: true });
+    mkdirSync(localDexDir, { recursive: true });
+
+    writeFileSync(
+      path.join(referenceDir, "pokemon-canonical-gen5.json"),
+      JSON.stringify({
+        "362": {
+          id: 362,
+          dex: 362,
+          slug: "glalie",
+          name: "Glalie",
+          types: ["Ice"],
+          abilities: ["Inner Focus", "Ice Body", "Moody"],
+          stats: { hp: 80, atk: 80, def: 80, spa: 80, spd: 80, spe: 80, bst: 480 },
+          nextEvolutions: [],
+          evolutionDetails: [],
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(referenceDir, "pokemon-redux-overrides-gen5.json"),
+      JSON.stringify({
+        glalie: {
+          complete: {
+            types: ["Ice", "Rock"],
+            abilities: ["Levitate", "-", "-"],
+            stats: { hp: 80, atk: 110, def: 110, spa: 60, spd: 60, spe: 80, bst: 500 },
+          },
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(referenceDir, "pokemon-canonical-learnsets-gen5.json"),
+      JSON.stringify({
+        glalie: {
+          levelUp: [{ level: 1, move: "Powder Snow" }],
+          machines: [],
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(localDexDir, "pokemon-index.json"),
+      JSON.stringify({
+        glalie: {
+          id: 362,
+          dex: 362,
+          slug: "glalie",
+          name: "Glalie",
+          types: ["Ice"],
+          abilities: ["Inner Focus", "Ice Body", "Moody"],
+          stats: { hp: 80, atk: 80, def: 80, spa: 80, spd: 80, spe: 80, bst: 480 },
+          nextEvolutions: [],
+          evolutionDetails: [],
+        },
+      }),
+    );
+
+    try {
+      process.chdir(tempRoot);
+
+      const module = await import("../lib/localDex");
+      const pokemonIndex = module.getLocalPokemonIndex() as Record<string, any>;
+
+      expect(pokemonIndex.glalie.types).toEqual(["Ice", "Rock"]);
+      expect(pokemonIndex.glalie.stats).toEqual({
+        hp: 80,
+        atk: 110,
+        def: 110,
+        spa: 60,
+        spd: 60,
+        spe: 80,
+        bst: 500,
       });
     } finally {
       process.chdir(originalCwd);

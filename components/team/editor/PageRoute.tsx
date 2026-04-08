@@ -18,6 +18,8 @@ import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
 import { starters } from "@/lib/builder";
 import { createId } from "@/lib/createId";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
+import { getBaseSpeciesName } from "@/lib/forms";
+import { normalizeName } from "@/lib/domain/names";
 
 export function EditorPageRoute() {
   const params = useParams<{ memberId?: string }>();
@@ -47,6 +49,30 @@ export function EditorPageRoute() {
     () => team.resolvedTeam.find((entry) => entry.key === memberId),
     [memberId, team.resolvedTeam],
   );
+  const dexSpeciesEntry = useMemo(() => {
+    const candidates = [
+      resolved?.species,
+      member?.species,
+      member ? getBaseSpeciesName(member.species) : "",
+    ]
+      .map((value) => String(value ?? "").trim())
+      .filter(Boolean);
+
+    for (const candidate of candidates) {
+      const normalizedCandidate = normalizeName(candidate);
+      const directMatch = catalogs.speciesCatalog.find(
+        (entry) =>
+          entry.slug === normalizedCandidate ||
+          normalizeName(entry.name) === normalizedCandidate,
+      );
+      if (directMatch) {
+        return directMatch;
+      }
+    }
+
+    return null;
+  }, [catalogs.speciesCatalog, member, resolved]);
+  const dexDetailHref = dexSpeciesEntry ? `/team/dex/pokemon/${dexSpeciesEntry.slug}` : undefined;
   const editorEvolutionEligibility = useMemo(
     () =>
       buildEvolutionEligibility(
@@ -80,6 +106,14 @@ export function EditorPageRoute() {
     const label = member.nickname?.trim() || member.species?.trim() || "Team Member";
     document.title = `Edit ${label}`;
   }, [member]);
+
+  useEffect(() => {
+    if (!dexDetailHref) {
+      return;
+    }
+
+    router.prefetch(dexDetailHref);
+  }, [dexDetailHref, router]);
 
   if (!session.hydrated) {
     return <LoadingState variant="editor" />;
@@ -158,6 +192,8 @@ export function EditorPageRoute() {
       onCloseMovePicker={movePicker.actions.close}
       onPickMove={movePicker.actions.pickMove}
       getMoveSurfaceStyle={movePicker.getSurfaceStyle}
+      dexDetailHref={dexDetailHref}
+      dexSpeciesSlug={dexSpeciesEntry?.slug}
       evolutionState={evolution.state}
       onSelectEvolution={evolution.actions.select}
       onCloseEvolution={evolution.actions.close}

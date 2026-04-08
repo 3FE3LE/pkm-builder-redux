@@ -18,6 +18,7 @@ vi.mock("@/lib/worldData", () => ({
 }));
 
 vi.mock("@/lib/localDex", () => ({
+  getLocalDexDataVersion: vi.fn(() => "test-version"),
   getLocalSpeciesList: vi.fn(() => speciesListFixture),
   getLocalMoveIndex: vi.fn(() => moveIndexFixture),
   getCanonicalPokemonIndex: vi.fn(() => canonicalPokemonIndexFixture),

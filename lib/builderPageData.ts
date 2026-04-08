@@ -1,9 +1,8 @@
-import { cache } from "react";
-
 import { parseDocumentation } from "@/lib/docs";
 import {
   getCanonicalPokemonIndex,
   getLocalAbilityIndex,
+  getLocalDexDataVersion,
   getLocalDexDocs,
   getLocalDexList,
   getLocalItemIndex,
@@ -35,7 +34,10 @@ function logDexServerPerf(
   });
 }
 
-export const getBuilderPageData = cache(function getBuilderPageData() {
+let builderPageDataCache: { version: string; data: ReturnType<typeof buildBuilderPageData> } | null = null;
+let dexPageDataCache: { version: string; data: ReturnType<typeof buildDexPageData> } | null = null;
+
+function buildBuilderPageData() {
   const docs = parseDocumentation() as ReturnType<typeof parseDocumentation> & {
     worldData: ReturnType<typeof getWorldData>;
   };
@@ -76,9 +78,21 @@ export const getBuilderPageData = cache(function getBuilderPageData() {
     abilityCatalog,
     itemCatalog,
   };
-});
+}
 
-export const getDexPageData = cache(function getDexPageData() {
+export function getBuilderPageData() {
+  const version = getLocalDexDataVersion();
+  if (!builderPageDataCache || builderPageDataCache.version !== version) {
+    builderPageDataCache = {
+      version,
+      data: buildBuilderPageData(),
+    };
+  }
+
+  return builderPageDataCache.data;
+}
+
+function buildDexPageData() {
   const dexDocs = getLocalDexDocs();
   const docs = {
     moveReplacements: [],
@@ -87,6 +101,7 @@ export const getDexPageData = cache(function getDexPageData() {
     moveDetails: [],
     typeChanges: [],
     itemLocations: dexDocs.itemLocations,
+    itemShops: dexDocs.itemShops ?? [],
     itemHighlights: [],
     gifts: dexDocs.gifts,
     trades: dexDocs.trades,
@@ -129,9 +144,21 @@ export const getDexPageData = cache(function getDexPageData() {
     abilityCatalog,
     itemCatalog,
   };
-});
+}
 
-export const getDexListPageData = cache(function getDexListPageData(perfDebug = false) {
+export function getDexPageData() {
+  const version = getLocalDexDataVersion();
+  if (!dexPageDataCache || dexPageDataCache.version !== version) {
+    dexPageDataCache = {
+      version,
+      data: buildDexPageData(),
+    };
+  }
+
+  return dexPageDataCache.data;
+}
+
+export function getDexListPageData(perfDebug = false) {
   const timings: Record<string, number> = {};
   const mark = (name: string) => {
     if (!perfDebug) {
@@ -154,6 +181,7 @@ export const getDexListPageData = cache(function getDexListPageData(perfDebug = 
     moveDetails: [],
     typeChanges: [],
     itemLocations: dexDocs.itemLocations,
+    itemShops: dexDocs.itemShops ?? [],
     itemHighlights: [],
     gifts: dexDocs.gifts,
     trades: dexDocs.trades,
@@ -181,4 +209,4 @@ export const getDexListPageData = cache(function getDexListPageData(perfDebug = 
   }
 
   return payload;
-});
+}

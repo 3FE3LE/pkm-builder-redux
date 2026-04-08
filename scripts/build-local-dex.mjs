@@ -5,6 +5,7 @@ const ROOT = process.cwd();
 const DOC_PATH = path.join(ROOT, "Documentation", "Pokemon Changes.txt");
 const OUTPUT_DIR = path.join(ROOT, "data", "local-dex");
 const CANONICAL_POKEMON_PATH = path.join(ROOT, "data", "reference", "pokemon-canonical-gen5.json");
+const REDUX_OVERRIDES_PATH = path.join(ROOT, "data", "reference", "pokemon-redux-overrides-gen5.json");
 let moveCatalogPromise = null;
 const MOVE_ALIASES = {
   "acid-armour": "acid-armor",
@@ -252,6 +253,20 @@ async function buildPokemonEntry(entry, canonicalDexBySlug) {
   ];
 }
 
+function applyReduxCoreOverrides(entry, reduxOverrides) {
+  const override = reduxOverrides?.[entry.slug]?.complete;
+  if (!override) {
+    return entry;
+  }
+
+  return {
+    ...entry,
+    types: override.types ?? entry.types,
+    stats: override.stats ?? entry.stats,
+    abilities: override.abilities ?? entry.abilities,
+  };
+}
+
 async function buildMoveEntry(moveName) {
   let slug = normalizeMoveSlug(moveName);
   let payload;
@@ -306,6 +321,7 @@ async function mapWithConcurrency(items, limit, mapper) {
 async function main() {
   const source = await readFile(DOC_PATH, "utf8");
   const canonical = JSON.parse(await readFile(CANONICAL_POKEMON_PATH, "utf8"));
+  const reduxOverrides = JSON.parse(await readFile(REDUX_OVERRIDES_PATH, "utf8"));
   const canonicalDexBySlug = buildCanonicalDexBySlug(canonical);
   const pokemonEntries = parsePokemonChanges(source);
   const uniqueMoves = Array.from(
@@ -320,7 +336,9 @@ async function main() {
   console.log(`Generating local dex for ${pokemonEntries.length} Pokemon and ${uniqueMoves.length} moves...`);
 
   const pokemonIndex = Object.fromEntries(
-    await mapWithConcurrency(pokemonEntries, 8, (entry) => buildPokemonEntry(entry, canonicalDexBySlug))
+    (
+      await mapWithConcurrency(pokemonEntries, 8, (entry) => buildPokemonEntry(entry, canonicalDexBySlug))
+    ).map(([slug, builtEntry]) => [slug, applyReduxCoreOverrides(builtEntry, reduxOverrides)])
   );
   const moveIndex = Object.fromEntries(
     await mapWithConcurrency(uniqueMoves, 12, (move) => buildMoveEntry(move))

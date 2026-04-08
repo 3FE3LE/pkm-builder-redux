@@ -1,5 +1,5 @@
 {
-  "itemLocations": [
+  "locations": [
     {
       "area": "Aspertia City",
       "items": [
@@ -1004,26 +1004,26 @@
         "Iron",
         "PP Max",
         "PP Max (Hidden)",
-        "Prism Scale (Hidden)",
-        "Modified Marts",
-        "Several Pokémarts now sell different items. These are listed below."
+        "Prism Scale (Hidden)"
       ]
-    },
+    }
+  ],
+  "shops": [
     {
       "area": "Virbank City",
-      "items": [
+      "details": [
         "Secondary Mart now sells Luxury Balls and Net Balls, as well as Aspear, Oran and Rawst Berries."
       ]
     },
     {
       "area": "Castelia City",
-      "items": [
+      "details": [
         "Secondary Mart now sells EV decreasing berries, as well as Pecha and Chesto Berries."
       ]
     },
     {
       "area": "Driftveil City",
-      "items": [
+      "details": [
         "Secondary Mart now sells:",
         "- Red Shards",
         "- Blue Shards",
@@ -1040,13 +1040,13 @@
     },
     {
       "area": "Driftveil Market",
-      "items": [
+      "details": [
         "Plasma Grunt now sells evolutionary stones, instead of incense."
       ]
     },
     {
       "area": "Route 9 Shopping Mall",
-      "items": [
+      "details": [
         "Now sells:",
         "- Incense Items.",
         "- All evolutionary items.",
@@ -1059,7 +1059,7 @@
     },
     {
       "area": "Humilau City",
-      "items": [
+      "details": [
         "Secondary Mart now sells Sitrus and Perism berries.",
         "Modified TMs + Locations",
         "A '*' means the location has changed from the original Black 2 and White 2.",

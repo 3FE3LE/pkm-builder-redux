@@ -75,8 +75,11 @@ function parseTradePokemon(text) {
 function parseItemChanges(text) {
   const lines = text.split("\n").map(cleanLine);
   const locations = [];
+  const shops = [];
   let currentArea = null;
+  let currentShop = null;
   let inLocations = false;
+  let inShops = false;
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
@@ -88,23 +91,40 @@ function parseItemChanges(text) {
     }
     if (line === "Item Locations") {
       inLocations = true;
+      inShops = false;
+      currentShop = null;
       continue;
     }
-    if (!inLocations) {
+    if (line === "Modified Marts") {
+      inLocations = false;
+      inShops = true;
+      currentArea = null;
+      continue;
+    }
+    if (!inLocations && !inShops) {
       continue;
     }
     const areaMatch = line.match(/^~{5,}\s+(.+?)\s+~{5,}$/);
     if (areaMatch) {
-      currentArea = { area: areaMatch[1].trim(), items: [] };
-      locations.push(currentArea);
+      if (inLocations) {
+        currentArea = { area: areaMatch[1].trim(), items: [] };
+        locations.push(currentArea);
+      }
+      if (inShops) {
+        currentShop = { area: areaMatch[1].trim(), details: [] };
+        shops.push(currentShop);
+      }
       continue;
     }
-    if (currentArea) {
+    if (inLocations && currentArea) {
       currentArea.items.push(line);
+    }
+    if (inShops && currentShop) {
+      currentShop.details.push(line);
     }
   }
 
-  return locations;
+  return { locations, shops };
 }
 
 function parseWildAreas(text) {
@@ -201,7 +221,7 @@ async function main() {
   ]);
 
   const dexDocs = {
-    itemLocations: parseItemChanges(itemChanges),
+    ...parseItemChanges(itemChanges),
     gifts: parseGiftPokemon(gifts),
     trades: parseTradePokemon(trades),
     wildAreas: parseWildAreas(wildAreas),

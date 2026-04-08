@@ -33,7 +33,7 @@ async function readJson(baseDir, fileName) {
   return JSON.parse(raw);
 }
 
-function buildCanonicalPokemonIndex(canonical, reduxOverrides, canonicalLearnsets) {
+function buildPokemonIndex(canonical, reduxOverrides, canonicalLearnsets, { applyOverrides }) {
   const index = {};
 
   for (const entry of Object.values(canonical)) {
@@ -49,9 +49,9 @@ function buildCanonicalPokemonIndex(canonical, reduxOverrides, canonicalLearnset
 
     index[key] = {
       ...entry,
-      types: reduxOverrides?.[key]?.complete?.types ?? entry.types,
-      stats: reduxOverrides?.[key]?.complete?.stats ?? entry.stats,
-      abilities: reduxOverrides?.[key]?.complete?.abilities ?? entry.abilities,
+      types: applyOverrides ? reduxOverrides?.[key]?.complete?.types ?? entry.types : entry.types,
+      stats: applyOverrides ? reduxOverrides?.[key]?.complete?.stats ?? entry.stats : entry.stats,
+      abilities: applyOverrides ? reduxOverrides?.[key]?.complete?.abilities ?? entry.abilities : entry.abilities,
       learnsets: {
         levelUp:
           reduxLearnsets.levelUp?.length > 0
@@ -69,28 +69,35 @@ function buildCanonicalPokemonIndex(canonical, reduxOverrides, canonicalLearnset
 }
 
 async function main() {
-  const pokemonIndex = await readJson(LOCAL_DEX_DIR, "pokemon-index.json");
   const speciesList = await readJson(LOCAL_DEX_DIR, "species-list.json");
   const canonicalPokemon = await readJson(REFERENCE_DIR, "pokemon-canonical-gen5.json");
   const reduxOverrides = await readJson(REFERENCE_DIR, "pokemon-redux-overrides-gen5.json");
   const canonicalLearnsets = await readJson(REFERENCE_DIR, "pokemon-canonical-learnsets-gen5.json");
-  const canonicalPokemonIndex = buildCanonicalPokemonIndex(
+  const currentPokemonIndex = buildPokemonIndex(
     canonicalPokemon,
     reduxOverrides,
     canonicalLearnsets,
+    { applyOverrides: true },
+  );
+  const canonicalPokemonIndex = buildPokemonIndex(
+    canonicalPokemon,
+    reduxOverrides,
+    canonicalLearnsets,
+    { applyOverrides: false },
   );
 
   const dexList = speciesList
     .map((species) => {
-      const localEntry =
-        pokemonIndex[species.slug] ??
-        pokemonIndex[normalize(species.name)];
       const canonicalEntry =
         canonicalPokemonIndex[species.slug] ??
         canonicalPokemonIndex[normalize(species.name)];
-      const resolvedEntry = localEntry ?? canonicalEntry ?? null;
-      const types = resolvedEntry?.types ?? species.types ?? [];
-      const abilities = resolvedEntry?.abilities ?? [];
+      const currentEntry =
+        currentPokemonIndex[species.slug] ??
+        currentPokemonIndex[normalize(species.name)] ??
+        canonicalEntry ??
+        null;
+      const types = currentEntry?.types ?? species.types ?? [];
+      const abilities = currentEntry?.abilities ?? [];
 
       return {
         dex: species.dex,
@@ -102,7 +109,7 @@ async function main() {
           JSON.stringify(types.map(normalize)) !==
           JSON.stringify((canonicalEntry?.types ?? []).map(normalize)),
         hasStatChanges:
-          JSON.stringify(resolvedEntry?.stats ?? null) !== JSON.stringify(canonicalEntry?.stats ?? null),
+          JSON.stringify(currentEntry?.stats ?? null) !== JSON.stringify(canonicalEntry?.stats ?? null),
         hasAbilityChanges:
           JSON.stringify(abilities.map(normalize)) !==
           JSON.stringify((canonicalEntry?.abilities ?? []).map(normalize)),

@@ -214,8 +214,11 @@ function parseItemChanges(text: string) {
   const lines = text.split("\n").map(cleanLine);
   const highlights: string[] = [];
   const locations: ItemLocation[] = [];
+  const shops: { area: string; details: string[] }[] = [];
   let currentArea: ItemLocation | null = null;
+  let currentShop: { area: string; details: string[] } | null = null;
   let inLocations = false;
+  let inShops = false;
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
@@ -227,9 +230,17 @@ function parseItemChanges(text: string) {
     }
     if (line === "Item Locations") {
       inLocations = true;
+      inShops = false;
+      currentShop = null;
       continue;
     }
-    if (!inLocations) {
+    if (line === "Modified Marts") {
+      inLocations = false;
+      inShops = true;
+      currentArea = null;
+      continue;
+    }
+    if (!inLocations && !inShops) {
       if (line.startsWith("- ")) {
         highlights.push(line.replace(/^- /, ""));
       }
@@ -237,16 +248,25 @@ function parseItemChanges(text: string) {
     }
     const areaMatch = line.match(/^~{5,}\s+(.+?)\s+~{5,}$/);
     if (areaMatch) {
-      currentArea = { area: areaMatch[1].trim(), items: [] };
-      locations.push(currentArea);
+      if (inLocations) {
+        currentArea = { area: areaMatch[1].trim(), items: [] };
+        locations.push(currentArea);
+      }
+      if (inShops) {
+        currentShop = { area: areaMatch[1].trim(), details: [] };
+        shops.push(currentShop);
+      }
       continue;
     }
-    if (currentArea) {
+    if (inLocations && currentArea) {
       currentArea.items.push(line);
+    }
+    if (inShops && currentShop) {
+      currentShop.details.push(line);
     }
   }
 
-  return { highlights, locations };
+  return { highlights, locations, shops };
 }
 
 function parseWildAreas(text: string) {
@@ -514,6 +534,7 @@ export function parseDocumentation(): ParsedDocs {
     moveDetails: moveChanges.details,
     typeChanges,
     itemLocations: itemChanges.locations,
+    itemShops: itemChanges.shops,
     itemHighlights: itemChanges.highlights,
     gifts,
     trades,
@@ -536,6 +557,7 @@ export function parseDexDocumentation(): ParsedDocs {
     moveDetails: [],
     typeChanges: [],
     itemLocations: itemChanges.locations,
+    itemShops: itemChanges.shops,
     itemHighlights: [],
     gifts,
     trades,

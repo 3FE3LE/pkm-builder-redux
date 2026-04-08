@@ -77,6 +77,8 @@ type EditorPageProps = {
   onCloseMovePicker: () => void;
   onPickMove: (moveName: string) => void;
   getMoveSurfaceStyle: (type?: string | null) => React.CSSProperties | undefined;
+  dexDetailHref?: string;
+  dexSpeciesSlug?: string;
   evolutionState: {
     currentSpecies: string;
     currentSpriteUrl?: string;
@@ -134,6 +136,8 @@ export function EditorPage({
   onCloseMovePicker,
   onPickMove,
   getMoveSurfaceStyle,
+  dexDetailHref,
+  dexSpeciesSlug,
   evolutionState,
   onSelectEvolution,
   onCloseEvolution,
@@ -391,6 +395,8 @@ export function EditorPage({
               updateEditorMember={updateEditorMember}
               onRequestEvolution={onRequestEvolution}
               transitionMemberId={member.id}
+              dexDetailHref={dexDetailHref}
+              dexSpeciesSlug={dexSpeciesSlug}
             />
 
             <div className="space-y-4 px-4 pb-8 sm:space-y-5 sm:px-5 sm:pb-10">

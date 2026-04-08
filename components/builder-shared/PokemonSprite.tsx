@@ -46,7 +46,7 @@ export function PokemonSprite({
   spriteUrl?: string;
   animatedSpriteUrl?: string;
   isEvolving?: boolean;
-  size?: "tiny" | "small" | "default" | "large";
+  size?: "tiny" | "small" | "default" | "large" | "fill";
   chrome?: "framed" | "plain";
   eager?: boolean;
   allowCoarsePointerAnimation?: boolean;
@@ -64,7 +64,7 @@ export function PokemonSprite({
       ? animatedSpriteUrl
       : spriteUrl;
   const imageSize =
-    size === "large" ? 140 : size === "small" ? 64 : size === "tiny" ? 40 : 112;
+    size === "large" ? 140 : size === "small" ? 64 : size === "tiny" ? 40 : size === "fill" ? 192 : 112;
 
   return (
     <div
@@ -75,6 +75,8 @@ export function PokemonSprite({
             ? "sprite-frame h-9 w-9 rounded-[0.55rem]"
             : size === "small"
               ? "sprite-frame h-14 w-14 rounded-[0.75rem]"
+              : size === "fill"
+                ? "sprite-frame h-full w-full rounded-[inherit]"
               : "sprite-frame h-24 w-24 rounded-[0.875rem]"
           : size === "large"
             ? "h-36 w-36 rounded-[1rem] bg-transparent"
@@ -82,6 +84,8 @@ export function PokemonSprite({
               ? "h-9 w-9 rounded-[0.55rem] bg-transparent"
               : size === "small"
                 ? "h-14 w-14 rounded-[0.75rem] bg-transparent"
+              : size === "fill"
+                ? "h-full w-full rounded-[inherit] bg-transparent"
               : "h-24 w-24 rounded-[0.875rem] bg-transparent",
         isEvolving && "animate-[pulse_1.4s_ease-in-out_infinite]",
       )}

@@ -4,13 +4,20 @@ import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocked = vi.hoisted(() => ({
-  tab: "pokemon",
-  setTab: vi.fn((value: string) => {
-    mocked.tab = value;
-  }),
-  query: "",
-  setQuery: vi.fn((value: string) => {
-    mocked.query = value;
+  values: {
+    tab: "pokemon",
+    q: "",
+    dexMode: "national",
+    typeChanges: "0",
+    statChanges: "0",
+    abilityChanges: "0",
+    addsNewTeamType: "0",
+    allTypesNewToTeam: "0",
+    type1: "",
+    type2: "",
+  } as Record<string, string>,
+  setValue: vi.fn((key: string, value: string) => {
+    mocked.values[key] = value;
   }),
   parseAsStringEnum: {
     withDefault: (_defaultValue: string) => "pokemon",
@@ -154,16 +161,10 @@ vi.mock("nuqs", () => ({
   parseAsString: mocked.parseAsString,
   useQueryState: (key: string) => {
     const React = require("react") as typeof import("react");
-    const [value, setValue] = React.useState(key === "tab" ? mocked.tab : mocked.query);
+    const [value, setValue] = React.useState(mocked.values[key] ?? "");
 
     const wrappedSetter = (next: string) => {
-      if (key === "tab") {
-        mocked.tab = next;
-        mocked.setTab(next);
-      } else {
-        mocked.query = next;
-        mocked.setQuery(next);
-      }
+      mocked.setValue(key, next);
       setValue(next);
     };
 
@@ -185,7 +186,7 @@ vi.mock("@/components/ui/tabs", () => ({
     value: string;
     onValueChange: (value: string) => void;
   }) => {
-    mocked.tab = value;
+    mocked.values.tab = value;
 
     return (
       <div data-value={value}>
@@ -210,7 +211,7 @@ vi.mock("@/components/ui/tabs", () => ({
   }: {
     children: ReactNode;
     value: string;
-  }) => (mocked.tab === value ? <section>{children}</section> : null),
+  }) => (mocked.values.tab === value ? <section>{children}</section> : null),
 }));
 
 import {
@@ -221,6 +222,7 @@ import {
 const dexListData = {
   speciesCatalog: [
     { name: "Mareep", slug: "mareep", dex: 179, types: ["Electric"] },
+    { name: "Charizard", slug: "charizard", dex: 6, types: ["Fire", "Flying"] },
   ],
   pokemonList: [
     {
@@ -231,6 +233,16 @@ const dexListData = {
       abilities: ["Static"],
       hasTypeChanges: false,
       hasStatChanges: false,
+      hasAbilityChanges: false,
+    },
+    {
+      name: "Charizard",
+      slug: "charizard",
+      dex: 6,
+      types: ["Fire", "Flying"],
+      abilities: ["Blaze"],
+      hasTypeChanges: false,
+      hasStatChanges: true,
       hasAbilityChanges: false,
     },
   ],
@@ -253,8 +265,18 @@ const dexListData = {
 describe("DexScreen", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mocked.tab = "pokemon";
-    mocked.query = "";
+    mocked.values = {
+      tab: "pokemon",
+      q: "",
+      dexMode: "national",
+      typeChanges: "0",
+      statChanges: "0",
+      abilityChanges: "0",
+      addsNewTeamType: "0",
+      allTypesNewToTeam: "0",
+      type1: "",
+      type2: "",
+    };
     Object.defineProperty(globalThis, "CSS", {
       writable: true,
       configurable: true,
@@ -286,10 +308,12 @@ describe("DexScreen", () => {
     expect(screen.getByText("Redux Dex")).toBeTruthy();
     expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Electric").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Charizard").length).toBeGreaterThan(0);
     expect(screen.queryByText("Ver")).toBeNull();
 
-    await user.type(screen.getByPlaceholderText("Buscar Pokemon, tipo, habilidad o area"), "fire");
+    await user.type(screen.getByRole("textbox"), "fire");
     expect(screen.queryAllByText("Mareep")).toHaveLength(0);
+    expect(screen.getAllByText("Charizard").length).toBeGreaterThan(0);
   });
 
   it("places the search input above the tabs and clears it with the clear button", async () => {
@@ -297,7 +321,7 @@ describe("DexScreen", () => {
 
     render(<DexScreen data={dexListData} />);
 
-    const searchInput = screen.getByPlaceholderText("Buscar Pokemon, tipo, habilidad o area");
+    const searchInput = screen.getByRole("textbox");
     const pokemonTab = screen.getByRole("button", { name: "Pokemon" });
 
     expect(
@@ -336,6 +360,41 @@ describe("DexScreen", () => {
 
     const detailLink = screen.getByRole("link", { name: /mareep/i });
     expect(detailLink.getAttribute("href")).toBe("/team/dex/pokemon/mareep");
+  });
+
+  it("applies pokemon filters to the rendered list", async () => {
+    const user = userEvent.setup();
+
+    render(<DexScreen data={dexListData} />);
+
+    expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Charizard").length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole("button", { name: "Stats" }));
+
+    expect(screen.queryByText("Mareep")).toBeNull();
+    expect(screen.getAllByText("Charizard").length).toBeGreaterThan(0);
+    expect(screen.getByText(/1 filtro activo/i)).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: /Limpiar filtros/i }));
+
+    expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Charizard").length).toBeGreaterThan(0);
+  });
+
+  it("keeps the current pokemon query applied when toggling redux change filters", async () => {
+    const user = userEvent.setup();
+
+    render(<DexScreen data={dexListData} />);
+
+    await user.type(screen.getByRole("textbox"), "mareep");
+    expect(screen.getAllByText("Mareep").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Charizard")).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: "Stats" }));
+
+    expect(screen.queryByText("Mareep")).toBeNull();
+    expect(screen.queryByText("Charizard")).toBeNull();
   });
 
   it("matches a single type filter against any type slot", () => {

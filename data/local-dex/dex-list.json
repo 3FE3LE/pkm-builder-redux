@@ -8,6 +8,7 @@
       "Poison"
     ],
     "abilities": [
+      "Solar Power",
       "Overgrow",
       "Chlorophyll"
     ],
@@ -24,6 +25,7 @@
       "Poison"
     ],
     "abilities": [
+      "Solar Power",
       "Overgrow",
       "Chlorophyll"
     ],
@@ -40,6 +42,7 @@
       "Poison"
     ],
     "abilities": [
+      "Solar Power",
       "Overgrow",
       "Chlorophyll"
     ],
@@ -55,6 +58,7 @@
       "Fire"
     ],
     "abilities": [
+      "Defiant",
       "Blaze",
       "Solar Power"
     ],
@@ -67,9 +71,11 @@
     "name": "Charmeleon",
     "slug": "charmeleon",
     "types": [
-      "Fire"
+      "Fire",
+      "Dragon"
     ],
     "abilities": [
+      "Defiant",
       "Blaze",
       "Solar Power"
     ],
@@ -83,9 +89,10 @@
     "slug": "charizard",
     "types": [
       "Fire",
-      "Flying"
+      "Dragon"
     ],
     "abilities": [
+      "Defiant",
       "Blaze",
       "Solar Power"
     ],
@@ -101,6 +108,7 @@
       "Water"
     ],
     "abilities": [
+      "Shell Armor",
       "Torrent",
       "Rain Dish"
     ],
@@ -116,6 +124,7 @@
       "Water"
     ],
     "abilities": [
+      "Shell Armor",
       "Torrent",
       "Rain Dish"
     ],
@@ -131,6 +140,7 @@
       "Water"
     ],
     "abilities": [
+      "Shell Armor",
       "Torrent",
       "Rain Dish"
     ],
@@ -147,6 +157,7 @@
     ],
     "abilities": [
       "Shield Dust",
+      "Run Away",
       "Run Away"
     ],
     "hasTypeChanges": false,
@@ -161,6 +172,8 @@
       "Bug"
     ],
     "abilities": [
+      "Shed Skin",
+      "Battle Armor",
       "Shed Skin"
     ],
     "hasTypeChanges": false,
@@ -177,6 +190,7 @@
     ],
     "abilities": [
       "Compound Eyes",
+      "Tinted Lens",
       "Tinted Lens"
     ],
     "hasTypeChanges": false,
@@ -193,6 +207,7 @@
     ],
     "abilities": [
       "Shield Dust",
+      "Run Away",
       "Run Away"
     ],
     "hasTypeChanges": false,
@@ -208,6 +223,8 @@
       "Poison"
     ],
     "abilities": [
+      "Shed Skin",
+      "Battle Armor",
       "Shed Skin"
     ],
     "hasTypeChanges": false,
@@ -223,8 +240,9 @@
       "Poison"
     ],
     "abilities": [
-      "Swarm",
-      "Sniper"
+      "Adaptability",
+      "Sniper",
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -239,9 +257,9 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Big Pecks",
       "Tangled Feet",
-      "Big Pecks"
+      "Keen Eye"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -256,9 +274,9 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "No Guard",
       "Tangled Feet",
-      "Big Pecks"
+      "Keen Eye"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -289,9 +307,9 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
+      "Hustle",
       "Guts",
-      "Hustle"
+      "Run Away"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -305,9 +323,9 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
+      "Hustle",
       "Guts",
-      "Hustle"
+      "Run Away"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -318,11 +336,11 @@
     "name": "Spearow",
     "slug": "spearow",
     "types": [
-      "Normal",
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Intimidate",
+      "Sniper",
       "Sniper"
     ],
     "hasTypeChanges": true,
@@ -334,11 +352,11 @@
     "name": "Fearow",
     "slug": "fearow",
     "types": [
-      "Normal",
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Intimidate",
+      "Sniper",
       "Sniper"
     ],
     "hasTypeChanges": true,
@@ -386,6 +404,7 @@
     ],
     "abilities": [
       "Static",
+      "Lightning Rod",
       "Lightning Rod"
     ],
     "hasTypeChanges": false,
@@ -401,6 +420,7 @@
     ],
     "abilities": [
       "Static",
+      "Lightning Rod",
       "Lightning Rod"
     ],
     "hasTypeChanges": false,
@@ -415,7 +435,8 @@
       "Ground"
     ],
     "abilities": [
-      "Sand Veil",
+      "Rough Skin",
+      "Sand Rush",
       "Sand Rush"
     ],
     "hasTypeChanges": false,
@@ -430,7 +451,8 @@
       "Ground"
     ],
     "abilities": [
-      "Sand Veil",
+      "Rough Skin",
+      "Sand Rush",
       "Sand Rush"
     ],
     "hasTypeChanges": false,
@@ -445,9 +467,9 @@
       "Poison"
     ],
     "abilities": [
+      "Hustle",
       "Poison Point",
-      "Rivalry",
-      "Hustle"
+      "Rivalry"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -461,9 +483,9 @@
       "Poison"
     ],
     "abilities": [
+      "Hustle",
       "Poison Point",
-      "Rivalry",
-      "Hustle"
+      "Rivalry"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -478,9 +500,9 @@
       "Ground"
     ],
     "abilities": [
+      "Sheer Force",
       "Poison Point",
-      "Rivalry",
-      "Sheer Force"
+      "Rivalry"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -494,9 +516,9 @@
       "Poison"
     ],
     "abilities": [
+      "Hustle",
       "Poison Point",
-      "Rivalry",
-      "Hustle"
+      "Rivalry"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -510,9 +532,9 @@
       "Poison"
     ],
     "abilities": [
+      "Hustle",
       "Poison Point",
-      "Rivalry",
-      "Hustle"
+      "Rivalry"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -527,9 +549,9 @@
       "Ground"
     ],
     "abilities": [
+      "Sheer Force",
       "Poison Point",
-      "Rivalry",
-      "Sheer Force"
+      "Rivalry"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -559,7 +581,7 @@
       "Fairy"
     ],
     "abilities": [
-      "Cute Charm",
+      "Unaware",
       "Magic Guard",
       "Unaware"
     ],
@@ -575,6 +597,7 @@
       "Fire"
     ],
     "abilities": [
+      "Drought",
       "Flash Fire",
       "Drought"
     ],
@@ -587,9 +610,11 @@
     "name": "Ninetales",
     "slug": "ninetales",
     "types": [
-      "Fire"
+      "Fire",
+      "Fairy"
     ],
     "abilities": [
+      "Drought",
       "Flash Fire",
       "Drought"
     ],
@@ -607,7 +632,7 @@
     ],
     "abilities": [
       "Cute Charm",
-      "Competitive",
+      "Friend Guard",
       "Friend Guard"
     ],
     "hasTypeChanges": false,
@@ -623,8 +648,8 @@
       "Fairy"
     ],
     "abilities": [
-      "Cute Charm",
-      "Competitive",
+      "Huge Power",
+      "Friend Guard",
       "Frisk"
     ],
     "hasTypeChanges": false,
@@ -641,6 +666,7 @@
     ],
     "abilities": [
       "Inner Focus",
+      "Infiltrator",
       "Infiltrator"
     ],
     "hasTypeChanges": false,
@@ -657,6 +683,7 @@
     ],
     "abilities": [
       "Inner Focus",
+      "Infiltrator",
       "Infiltrator"
     ],
     "hasTypeChanges": false,
@@ -673,6 +700,7 @@
     ],
     "abilities": [
       "Chlorophyll",
+      "Run Away",
       "Run Away"
     ],
     "hasTypeChanges": false,
@@ -689,6 +717,7 @@
     ],
     "abilities": [
       "Chlorophyll",
+      "Stench",
       "Stench"
     ],
     "hasTypeChanges": false,
@@ -704,7 +733,8 @@
       "Poison"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Thick Fat",
+      "Effect Spore",
       "Effect Spore"
     ],
     "hasTypeChanges": false,
@@ -771,9 +801,9 @@
       "Poison"
     ],
     "abilities": [
-      "Shield Dust",
+      "Wonder Skin",
       "Tinted Lens",
-      "Wonder Skin"
+      "Shield Dust"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -787,7 +817,7 @@
       "Ground"
     ],
     "abilities": [
-      "Sand Veil",
+      "Sand Force",
       "Arena Trap",
       "Sand Force"
     ],
@@ -803,7 +833,7 @@
       "Ground"
     ],
     "abilities": [
-      "Sand Veil",
+      "Sand Force",
       "Arena Trap",
       "Sand Force"
     ],
@@ -819,9 +849,9 @@
       "Normal"
     ],
     "abilities": [
-      "Pickup",
+      "Unnerve",
       "Technician",
-      "Unnerve"
+      "Pick Up"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -835,9 +865,9 @@
       "Normal"
     ],
     "abilities": [
-      "Limber",
+      "Unnerve",
       "Technician",
-      "Unnerve"
+      "Pick Up"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -851,9 +881,9 @@
       "Water"
     ],
     "abilities": [
-      "Damp",
       "Cloud Nine",
-      "Swift Swim"
+      "Swift Swim",
+      "Damp"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -864,12 +894,13 @@
     "name": "Golduck",
     "slug": "golduck",
     "types": [
-      "Water"
+      "Water",
+      "Psychic"
     ],
     "abilities": [
-      "Damp",
       "Cloud Nine",
-      "Swift Swim"
+      "Swift Swim",
+      "Damp"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": false,
@@ -883,9 +914,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Vital Spirit",
+      "Defiant",
       "Anger Point",
-      "Defiant"
+      "Vital Spirit"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -899,9 +930,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Vital Spirit",
+      "Defiant",
       "Anger Point",
-      "Defiant"
+      "Vital Spirit"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -948,8 +979,8 @@
     ],
     "abilities": [
       "Water Absorb",
-      "Damp",
-      "Swift Swim"
+      "Swift Swim",
+      "Damp"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -964,8 +995,8 @@
     ],
     "abilities": [
       "Water Absorb",
-      "Damp",
-      "Swift Swim"
+      "Swift Swim",
+      "Damp"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -981,8 +1012,8 @@
     ],
     "abilities": [
       "Water Absorb",
-      "Damp",
-      "Swift Swim"
+      "Swift Swim",
+      "Damp"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -996,9 +1027,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Synchronize",
-      "Inner Focus",
-      "Magic Guard"
+      "Synchronise",
+      "Magic Guard",
+      "Inner Focus"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1012,9 +1043,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Synchronize",
-      "Inner Focus",
-      "Magic Guard"
+      "Synchronise",
+      "Magic Guard",
+      "Inner Focus"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1028,9 +1059,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Synchronize",
-      "Inner Focus",
-      "Magic Guard"
+      "Synchronise",
+      "Magic Guard",
+      "Inner Focus"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1044,7 +1075,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Guts",
+      "Steadfast",
       "No Guard",
       "Steadfast"
     ],
@@ -1060,7 +1091,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Guts",
+      "Steadfast",
       "No Guard",
       "Steadfast"
     ],
@@ -1094,7 +1125,8 @@
     ],
     "abilities": [
       "Chlorophyll",
-      "Gluttony"
+      "Gluttony",
+      "Chlorophyll"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1110,7 +1142,8 @@
     ],
     "abilities": [
       "Chlorophyll",
-      "Gluttony"
+      "Gluttony",
+      "Chlorophyll"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1126,7 +1159,8 @@
     ],
     "abilities": [
       "Chlorophyll",
-      "Gluttony"
+      "Gluttony",
+      "Chlorophyll"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1142,8 +1176,8 @@
     ],
     "abilities": [
       "Clear Body",
-      "Liquid Ooze",
-      "Rain Dish"
+      "Rain Dish",
+      "Liquid Ooze"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1159,8 +1193,8 @@
     ],
     "abilities": [
       "Clear Body",
-      "Liquid Ooze",
-      "Rain Dish"
+      "Rain Dish",
+      "Liquid Ooze"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1225,8 +1259,8 @@
       "Fire"
     ],
     "abilities": [
-      "Run Away",
-      "Flash Fire",
+      "Flame Body",
+      "-",
       "Flame Body"
     ],
     "hasTypeChanges": false,
@@ -1238,11 +1272,12 @@
     "name": "Rapidash",
     "slug": "rapidash",
     "types": [
-      "Fire"
+      "Fire",
+      "Fairy"
     ],
     "abilities": [
-      "Run Away",
-      "Flash Fire",
+      "Flame Body",
+      "-",
       "Flame Body"
     ],
     "hasTypeChanges": true,
@@ -1258,7 +1293,7 @@
       "Psychic"
     ],
     "abilities": [
-      "Oblivious",
+      "Regenerator",
       "Own Tempo",
       "Regenerator"
     ],
@@ -1275,7 +1310,7 @@
       "Psychic"
     ],
     "abilities": [
-      "Oblivious",
+      "Regenerator",
       "Own Tempo",
       "Regenerator"
     ],
@@ -1292,9 +1327,9 @@
       "Steel"
     ],
     "abilities": [
-      "Magnet Pull",
+      "Analytic",
       "Sturdy",
-      "Analytic"
+      "Magnet Pull"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1309,9 +1344,9 @@
       "Steel"
     ],
     "abilities": [
-      "Magnet Pull",
+      "Analytic",
       "Sturdy",
-      "Analytic"
+      "Magnet Pull"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1322,13 +1357,13 @@
     "name": "Farfetchd",
     "slug": "farfetchd",
     "types": [
-      "Normal",
+      "Fighting",
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
-      "Inner Focus",
-      "Defiant"
+      "Defeatist",
+      "-",
+      "-"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -1343,7 +1378,7 @@
       "Flying"
     ],
     "abilities": [
-      "Run Away",
+      "Tangled Feet",
       "Early Bird",
       "Tangled Feet"
     ],
@@ -1360,7 +1395,7 @@
       "Flying"
     ],
     "abilities": [
-      "Run Away",
+      "Anger Point",
       "Early Bird",
       "Tangled Feet"
     ],
@@ -1409,8 +1444,8 @@
       "Poison"
     ],
     "abilities": [
+      "Poison Touch",
       "Stench",
-      "Sticky Hold",
       "Poison Touch"
     ],
     "hasTypeChanges": false,
@@ -1425,8 +1460,8 @@
       "Poison"
     ],
     "abilities": [
+      "Poison Touch",
       "Stench",
-      "Sticky Hold",
       "Poison Touch"
     ],
     "hasTypeChanges": false,
@@ -1438,7 +1473,8 @@
     "name": "Shellder",
     "slug": "shellder",
     "types": [
-      "Water"
+      "Water",
+      "Ice"
     ],
     "abilities": [
       "Shell Armor",
@@ -1475,6 +1511,8 @@
       "Poison"
     ],
     "abilities": [
+      "Levitate",
+      "Cursed Body",
       "Levitate"
     ],
     "hasTypeChanges": false,
@@ -1490,6 +1528,8 @@
       "Poison"
     ],
     "abilities": [
+      "Levitate",
+      "Cursed Body",
       "Levitate"
     ],
     "hasTypeChanges": false,
@@ -1505,7 +1545,9 @@
       "Poison"
     ],
     "abilities": [
-      "Cursed Body"
+      "Levitate",
+      "Cursed Body",
+      "Levitate"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1520,9 +1562,9 @@
       "Ground"
     ],
     "abilities": [
-      "Rock Head",
+      "Weak Armor",
       "Sturdy",
-      "Weak Armor"
+      "Rock Head"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -1536,9 +1578,9 @@
       "Psychic"
     ],
     "abilities": [
+      "Bad Dreams",
       "Insomnia",
-      "Forewarn",
-      "Inner Focus"
+      "Forewarn"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -1552,9 +1594,9 @@
       "Psychic"
     ],
     "abilities": [
+      "Bad Dreams",
       "Insomnia",
-      "Forewarn",
-      "Inner Focus"
+      "Forewarn"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -1568,7 +1610,7 @@
       "Water"
     ],
     "abilities": [
-      "Hyper Cutter",
+      "Sheer Force",
       "Shell Armor",
       "Sheer Force"
     ],
@@ -1584,7 +1626,7 @@
       "Water"
     ],
     "abilities": [
-      "Hyper Cutter",
+      "Sheer Force",
       "Shell Armor",
       "Sheer Force"
     ],
@@ -1634,6 +1676,7 @@
     ],
     "abilities": [
       "Chlorophyll",
+      "Harvest",
       "Harvest"
     ],
     "hasTypeChanges": false,
@@ -1650,6 +1693,7 @@
     ],
     "abilities": [
       "Chlorophyll",
+      "Harvest",
       "Harvest"
     ],
     "hasTypeChanges": false,
@@ -1664,9 +1708,9 @@
       "Ground"
     ],
     "abilities": [
-      "Rock Head",
+      "Battle Armor",
       "Lightning Rod",
-      "Battle Armor"
+      "Rock Head"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1680,9 +1724,9 @@
       "Ground"
     ],
     "abilities": [
-      "Rock Head",
+      "Battle Armor",
       "Lightning Rod",
-      "Battle Armor"
+      "Rock Head"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1696,9 +1740,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Limber",
+      "Unburden",
       "Reckless",
-      "Unburden"
+      "Limber"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -1712,8 +1756,8 @@
       "Fighting"
     ],
     "abilities": [
-      "Keen Eye",
       "Iron Fist",
+      "Keen Eye",
       "Inner Focus"
     ],
     "hasTypeChanges": false,
@@ -1728,8 +1772,8 @@
       "Normal"
     ],
     "abilities": [
-      "Own Tempo",
-      "Oblivious",
+      "Cloud Nine",
+      "Gluttony",
       "Cloud Nine"
     ],
     "hasTypeChanges": false,
@@ -1826,7 +1870,7 @@
       "Grass"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Regenerator",
       "Leaf Guard",
       "Regenerator"
     ],
@@ -1890,9 +1934,9 @@
       "Water"
     ],
     "abilities": [
+      "Lightning Rod",
       "Swift Swim",
-      "Water Veil",
-      "Lightning Rod"
+      "Water Veil"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -1906,9 +1950,9 @@
       "Water"
     ],
     "abilities": [
+      "Lightning Rod",
       "Swift Swim",
-      "Water Veil",
-      "Lightning Rod"
+      "Water Veil"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -1922,7 +1966,7 @@
       "Water"
     ],
     "abilities": [
-      "Illuminate",
+      "Regenerator",
       "Natural Cure",
       "Analytic"
     ],
@@ -1939,7 +1983,7 @@
       "Psychic"
     ],
     "abilities": [
-      "Illuminate",
+      "Analytic",
       "Natural Cure",
       "Analytic"
     ],
@@ -1956,7 +2000,7 @@
       "Fairy"
     ],
     "abilities": [
-      "Soundproof",
+      "Technician",
       "Filter",
       "Technician"
     ],
@@ -1990,8 +2034,8 @@
       "Psychic"
     ],
     "abilities": [
-      "Oblivious",
-      "Forewarn",
+      "Trace",
+      "Dry Skin",
       "Dry Skin"
     ],
     "hasTypeChanges": false,
@@ -2007,6 +2051,7 @@
     ],
     "abilities": [
       "Static",
+      "Vital Spirit",
       "Vital Spirit"
     ],
     "hasTypeChanges": false,
@@ -2022,6 +2067,7 @@
     ],
     "abilities": [
       "Flame Body",
+      "Vital Spirit",
       "Vital Spirit"
     ],
     "hasTypeChanges": false,
@@ -2036,7 +2082,7 @@
       "Bug"
     ],
     "abilities": [
-      "Hyper Cutter",
+      "Moxie",
       "Mold Breaker",
       "Moxie"
     ],
@@ -2053,8 +2099,8 @@
     ],
     "abilities": [
       "Intimidate",
-      "Anger Point",
-      "Sheer Force"
+      "Sheer Force",
+      "Anger Point"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -2069,6 +2115,7 @@
     ],
     "abilities": [
       "Swift Swim",
+      "Rattled",
       "Rattled"
     ],
     "hasTypeChanges": false,
@@ -2085,6 +2132,7 @@
     ],
     "abilities": [
       "Intimidate",
+      "Moxie",
       "Moxie"
     ],
     "hasTypeChanges": false,
@@ -2116,8 +2164,9 @@
       "Normal"
     ],
     "abilities": [
-      "Limber",
-      "Imposter"
+      "Imposter",
+      "-",
+      "-"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -2131,8 +2180,8 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
       "Adaptability",
+      "Run Away",
       "Anticipation"
     ],
     "hasTypeChanges": false,
@@ -2148,6 +2197,7 @@
     ],
     "abilities": [
       "Water Absorb",
+      "Hydration",
       "Hydration"
     ],
     "hasTypeChanges": false,
@@ -2163,6 +2213,7 @@
     ],
     "abilities": [
       "Volt Absorb",
+      "Quick Feet",
       "Quick Feet"
     ],
     "hasTypeChanges": false,
@@ -2178,6 +2229,7 @@
     ],
     "abilities": [
       "Flash Fire",
+      "Guts",
       "Guts"
     ],
     "hasTypeChanges": false,
@@ -2311,6 +2363,7 @@
     ],
     "abilities": [
       "Pressure",
+      "Snow Warning",
       "Snow Cloak"
     ],
     "hasTypeChanges": false,
@@ -2358,6 +2411,7 @@
     ],
     "abilities": [
       "Shed Skin",
+      "Marvel Scale",
       "Marvel Scale"
     ],
     "hasTypeChanges": false,
@@ -2373,6 +2427,7 @@
     ],
     "abilities": [
       "Shed Skin",
+      "Marvel Scale",
       "Marvel Scale"
     ],
     "hasTypeChanges": false,
@@ -2389,6 +2444,7 @@
     ],
     "abilities": [
       "Inner Focus",
+      "Multiscale",
       "Multiscale"
     ],
     "hasTypeChanges": false,
@@ -2432,6 +2488,7 @@
       "Grass"
     ],
     "abilities": [
+      "Serene Grace",
       "Overgrow",
       "Leaf Guard"
     ],
@@ -2444,9 +2501,11 @@
     "name": "Bayleef",
     "slug": "bayleef",
     "types": [
-      "Grass"
+      "Grass",
+      "Fairy"
     ],
     "abilities": [
+      "Serene Grace",
       "Overgrow",
       "Leaf Guard"
     ],
@@ -2459,9 +2518,11 @@
     "name": "Meganium",
     "slug": "meganium",
     "types": [
-      "Grass"
+      "Grass",
+      "Fairy"
     ],
     "abilities": [
+      "Serene Grace",
       "Overgrow",
       "Leaf Guard"
     ],
@@ -2477,6 +2538,7 @@
       "Fire"
     ],
     "abilities": [
+      "Flash Fire",
       "Blaze",
       "Flash Fire"
     ],
@@ -2492,6 +2554,7 @@
       "Fire"
     ],
     "abilities": [
+      "Flash Fire",
       "Blaze",
       "Flash Fire"
     ],
@@ -2507,6 +2570,7 @@
       "Fire"
     ],
     "abilities": [
+      "Flash Fire",
       "Blaze",
       "Flash Fire"
     ],
@@ -2522,6 +2586,7 @@
       "Water"
     ],
     "abilities": [
+      "Sheer Force",
       "Torrent",
       "Sheer Force"
     ],
@@ -2537,6 +2602,7 @@
       "Water"
     ],
     "abilities": [
+      "Sheer Force",
       "Torrent",
       "Sheer Force"
     ],
@@ -2552,6 +2618,7 @@
       "Water"
     ],
     "abilities": [
+      "Sheer Force",
       "Torrent",
       "Sheer Force"
     ],
@@ -2567,9 +2634,9 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
+      "Quick Feet",
       "Keen Eye",
-      "Frisk"
+      "Run Away"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -2583,9 +2650,9 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
-      "Keen Eye",
-      "Frisk"
+      "Quick Feet",
+      "Hustle",
+      "Run Away"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -2600,9 +2667,9 @@
       "Flying"
     ],
     "abilities": [
+      "Tinted Lens",
       "Insomnia",
-      "Keen Eye",
-      "Tinted Lens"
+      "Keen Eye"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -2613,13 +2680,13 @@
     "name": "Noctowl",
     "slug": "noctowl",
     "types": [
-      "Normal",
+      "Psychic",
       "Flying"
     ],
     "abilities": [
+      "Tinted Lens",
       "Insomnia",
-      "Keen Eye",
-      "Tinted Lens"
+      "Keen Eye"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -2634,9 +2701,9 @@
       "Flying"
     ],
     "abilities": [
-      "Swarm",
-      "Early Bird",
-      "Rattled"
+      "Rattled",
+      "Iron Fist",
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -2651,9 +2718,9 @@
       "Flying"
     ],
     "abilities": [
-      "Swarm",
-      "Early Bird",
-      "Iron Fist"
+      "Rattled",
+      "Iron Fist",
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -2668,7 +2735,7 @@
       "Poison"
     ],
     "abilities": [
-      "Swarm",
+      "Sniper",
       "Insomnia",
       "Sniper"
     ],
@@ -2685,7 +2752,7 @@
       "Poison"
     ],
     "abilities": [
-      "Swarm",
+      "Sniper",
       "Insomnia",
       "Sniper"
     ],
@@ -2703,6 +2770,7 @@
     ],
     "abilities": [
       "Inner Focus",
+      "Infiltrator",
       "Infiltrator"
     ],
     "hasTypeChanges": false,
@@ -2719,8 +2787,8 @@
     ],
     "abilities": [
       "Volt Absorb",
-      "Illuminate",
-      "Water Absorb"
+      "Water Absorb",
+      "Illuminate"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -2736,8 +2804,8 @@
     ],
     "abilities": [
       "Volt Absorb",
-      "Illuminate",
-      "Water Absorb"
+      "Water Absorb",
+      "Illuminate"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -2752,6 +2820,7 @@
     ],
     "abilities": [
       "Static",
+      "Lightning Rod",
       "Lightning Rod"
     ],
     "hasTypeChanges": false,
@@ -2784,7 +2853,7 @@
     ],
     "abilities": [
       "Cute Charm",
-      "Competitive",
+      "Friend Guard",
       "Friend Guard"
     ],
     "hasTypeChanges": false,
@@ -2799,7 +2868,7 @@
       "Fairy"
     ],
     "abilities": [
-      "Hustle",
+      "Super Luck",
       "Serene Grace",
       "Super Luck"
     ],
@@ -2816,7 +2885,7 @@
       "Flying"
     ],
     "abilities": [
-      "Hustle",
+      "Super Luck",
       "Serene Grace",
       "Super Luck"
     ],
@@ -2833,8 +2902,8 @@
       "Flying"
     ],
     "abilities": [
-      "Synchronize",
-      "Early Bird",
+      "Synchronise",
+      "Magic Bounce",
       "Magic Bounce"
     ],
     "hasTypeChanges": false,
@@ -2850,8 +2919,8 @@
       "Flying"
     ],
     "abilities": [
-      "Synchronize",
-      "Early Bird",
+      "Synchronise",
+      "Magic Bounce",
       "Magic Bounce"
     ],
     "hasTypeChanges": false,
@@ -2867,6 +2936,7 @@
     ],
     "abilities": [
       "Static",
+      "Overcoat",
       "Plus"
     ],
     "hasTypeChanges": false,
@@ -2882,6 +2952,7 @@
     ],
     "abilities": [
       "Static",
+      "Overcoat",
       "Plus"
     ],
     "hasTypeChanges": false,
@@ -2893,10 +2964,12 @@
     "name": "Ampharos",
     "slug": "ampharos",
     "types": [
-      "Electric"
+      "Electric",
+      "Dragon"
     ],
     "abilities": [
       "Static",
+      "Overcoat",
       "Plus"
     ],
     "hasTypeChanges": true,
@@ -2912,6 +2985,7 @@
     ],
     "abilities": [
       "Chlorophyll",
+      "Cloud Nine",
       "Healer"
     ],
     "hasTypeChanges": false,
@@ -2927,8 +3001,8 @@
       "Fairy"
     ],
     "abilities": [
-      "Thick Fat",
       "Huge Power",
+      "Thick Fat",
       "Sap Sipper"
     ],
     "hasTypeChanges": false,
@@ -2944,8 +3018,8 @@
       "Fairy"
     ],
     "abilities": [
-      "Thick Fat",
       "Huge Power",
+      "Thick Fat",
       "Sap Sipper"
     ],
     "hasTypeChanges": false,
@@ -2977,7 +3051,7 @@
     ],
     "abilities": [
       "Water Absorb",
-      "Damp",
+      "Drizzle",
       "Drizzle"
     ],
     "hasTypeChanges": false,
@@ -2993,7 +3067,7 @@
       "Flying"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Prankster",
       "Leaf Guard",
       "Infiltrator"
     ],
@@ -3010,7 +3084,7 @@
       "Flying"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Prankster",
       "Leaf Guard",
       "Infiltrator"
     ],
@@ -3027,7 +3101,7 @@
       "Flying"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Prankster",
       "Leaf Guard",
       "Infiltrator"
     ],
@@ -3043,9 +3117,9 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
-      "Pickup",
-      "Skill Link"
+      "Skill Link",
+      "Technician",
+      "Pick Up"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -3061,7 +3135,7 @@
     "abilities": [
       "Chlorophyll",
       "Solar Power",
-      "Early Bird"
+      "Chlorophyll"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3075,9 +3149,9 @@
       "Grass"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Drought",
       "Solar Power",
-      "Early Bird"
+      "Chlorophyll"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3109,9 +3183,9 @@
       "Ground"
     ],
     "abilities": [
-      "Damp",
       "Water Absorb",
-      "Unaware"
+      "Unaware",
+      "Damp"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3126,9 +3200,9 @@
       "Ground"
     ],
     "abilities": [
-      "Damp",
       "Water Absorb",
-      "Unaware"
+      "Unaware",
+      "Damp"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3142,7 +3216,8 @@
       "Psychic"
     ],
     "abilities": [
-      "Synchronize",
+      "Synchronise",
+      "Magic Bounce",
       "Magic Bounce"
     ],
     "hasTypeChanges": false,
@@ -3157,8 +3232,9 @@
       "Dark"
     ],
     "abilities": [
-      "Synchronize",
-      "Inner Focus"
+      "Synchronise",
+      "Poison Touch",
+      "Poison Touch"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -3173,7 +3249,7 @@
       "Flying"
     ],
     "abilities": [
-      "Insomnia",
+      "Prankster",
       "Super Luck",
       "Prankster"
     ],
@@ -3190,7 +3266,7 @@
       "Psychic"
     ],
     "abilities": [
-      "Oblivious",
+      "Regenerator",
       "Own Tempo",
       "Regenerator"
     ],
@@ -3203,10 +3279,13 @@
     "name": "Misdreavus",
     "slug": "misdreavus",
     "types": [
-      "Ghost"
+      "Ghost",
+      "Fairy"
     ],
     "abilities": [
-      "Levitate"
+      "Infiltrator",
+      "-",
+      "-"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": false,
@@ -3235,6 +3314,7 @@
     ],
     "abilities": [
       "Shadow Tag",
+      "Telepathy",
       "Telepathy"
     ],
     "hasTypeChanges": false,
@@ -3250,8 +3330,8 @@
       "Psychic"
     ],
     "abilities": [
-      "Inner Focus",
-      "Early Bird",
+      "Sap Sipper",
+      "Rattled",
       "Sap Sipper"
     ],
     "hasTypeChanges": false,
@@ -3267,6 +3347,7 @@
     ],
     "abilities": [
       "Sturdy",
+      "Overcoat",
       "Overcoat"
     ],
     "hasTypeChanges": false,
@@ -3283,6 +3364,7 @@
     ],
     "abilities": [
       "Sturdy",
+      "Overcoat",
       "Overcoat"
     ],
     "hasTypeChanges": false,
@@ -3315,7 +3397,7 @@
     ],
     "abilities": [
       "Hyper Cutter",
-      "Sand Veil",
+      "Immunity",
       "Immunity"
     ],
     "hasTypeChanges": false,
@@ -3331,9 +3413,9 @@
       "Ground"
     ],
     "abilities": [
-      "Rock Head",
+      "Sheer Force",
       "Sturdy",
-      "Sheer Force"
+      "Rock Head"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3344,6 +3426,7 @@
     "name": "Snubbull",
     "slug": "snubbull",
     "types": [
+      "Fighting",
       "Fairy"
     ],
     "abilities": [
@@ -3360,6 +3443,7 @@
     "name": "Granbull",
     "slug": "granbull",
     "types": [
+      "Fighting",
       "Fairy"
     ],
     "abilities": [
@@ -3380,9 +3464,9 @@
       "Poison"
     ],
     "abilities": [
-      "Poison Point",
+      "Intimidate",
       "Swift Swim",
-      "Intimidate"
+      "Poison Point"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3415,8 +3499,8 @@
     ],
     "abilities": [
       "Sturdy",
-      "Gluttony",
-      "Contrary"
+      "Contrary",
+      "Gluttony"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -3431,9 +3515,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Swarm",
-      "Guts",
-      "Moxie"
+      "Moxie",
+      "Skill Link",
+      "Guts"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -3461,7 +3545,8 @@
     "name": "Teddiursa",
     "slug": "teddiursa",
     "types": [
-      "Normal"
+      "Normal",
+      "Ground"
     ],
     "abilities": [
       "Pickup",
@@ -3477,7 +3562,8 @@
     "name": "Ursaring",
     "slug": "ursaring",
     "types": [
-      "Normal"
+      "Normal",
+      "Ground"
     ],
     "abilities": [
       "Guts",
@@ -3493,7 +3579,8 @@
     "name": "Slugma",
     "slug": "slugma",
     "types": [
-      "Fire"
+      "Fire",
+      "Rock"
     ],
     "abilities": [
       "Magma Armor",
@@ -3513,7 +3600,7 @@
       "Rock"
     ],
     "abilities": [
-      "Magma Armor",
+      "Solid Rock",
       "Flame Body",
       "Weak Armor"
     ],
@@ -3530,9 +3617,9 @@
       "Ground"
     ],
     "abilities": [
-      "Oblivious",
+      "Thick Fat",
       "Snow Cloak",
-      "Thick Fat"
+      "Oblivious"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -3547,9 +3634,9 @@
       "Ground"
     ],
     "abilities": [
-      "Oblivious",
+      "Thick Fat",
       "Snow Cloak",
-      "Thick Fat"
+      "Oblivious"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -3564,9 +3651,9 @@
       "Rock"
     ],
     "abilities": [
-      "Hustle",
+      "Regenerator",
       "Natural Cure",
-      "Regenerator"
+      "Hustle"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3596,9 +3683,9 @@
       "Water"
     ],
     "abilities": [
-      "Suction Cups",
+      "Mold Breaker",
       "Sniper",
-      "Moody"
+      "Suction Cups"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3613,8 +3700,8 @@
       "Flying"
     ],
     "abilities": [
-      "Vital Spirit",
-      "Hustle",
+      "Technician",
+      "Sheer Force",
       "Insomnia"
     ],
     "hasTypeChanges": false,
@@ -3664,8 +3751,8 @@
       "Fire"
     ],
     "abilities": [
-      "Early Bird",
       "Flash Fire",
+      "Intimidate",
       "Unnerve"
     ],
     "hasTypeChanges": false,
@@ -3681,8 +3768,8 @@
       "Fire"
     ],
     "abilities": [
-      "Early Bird",
       "Flash Fire",
+      "Intimidate",
       "Unnerve"
     ],
     "hasTypeChanges": false,
@@ -3760,9 +3847,9 @@
       "Normal"
     ],
     "abilities": [
-      "Intimidate",
+      "Sap Sipper",
       "Frisk",
-      "Sap Sipper"
+      "Intimidate"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3825,9 +3912,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Oblivious",
+      "Dry Skin",
       "Forewarn",
-      "Hydration"
+      "Oblivious"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -3842,6 +3929,7 @@
     ],
     "abilities": [
       "Static",
+      "Vital Spirit",
       "Vital Spirit"
     ],
     "hasTypeChanges": false,
@@ -3857,6 +3945,7 @@
     ],
     "abilities": [
       "Flame Body",
+      "Vital Spirit",
       "Vital Spirit"
     ],
     "hasTypeChanges": false,
@@ -3950,6 +4039,7 @@
     ],
     "abilities": [
       "Guts",
+      "Hustle",
       "Sand Veil"
     ],
     "hasTypeChanges": false,
@@ -3965,6 +4055,8 @@
       "Ground"
     ],
     "abilities": [
+      "Shed Skin",
+      "Shell Armor",
       "Shed Skin"
     ],
     "hasTypeChanges": false,
@@ -3981,6 +4073,7 @@
     ],
     "abilities": [
       "Sand Stream",
+      "Battle Armor",
       "Unnerve"
     ],
     "hasTypeChanges": false,
@@ -4042,6 +4135,7 @@
       "Grass"
     ],
     "abilities": [
+      "Unburden",
       "Overgrow",
       "Unburden"
     ],
@@ -4057,6 +4151,7 @@
       "Grass"
     ],
     "abilities": [
+      "Unburden",
       "Overgrow",
       "Unburden"
     ],
@@ -4069,9 +4164,11 @@
     "name": "Sceptile",
     "slug": "sceptile",
     "types": [
-      "Grass"
+      "Grass",
+      "Dragon"
     ],
     "abilities": [
+      "Unburden",
       "Overgrow",
       "Unburden"
     ],
@@ -4087,8 +4184,9 @@
       "Fire"
     ],
     "abilities": [
+      "Quick Feet",
       "Blaze",
-      "Speed Boost"
+      "Quick Feet"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4103,8 +4201,9 @@
       "Fighting"
     ],
     "abilities": [
+      "Quick Feet",
       "Blaze",
-      "Speed Boost"
+      "Quick Feet"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4119,8 +4218,9 @@
       "Fighting"
     ],
     "abilities": [
+      "Reckless",
       "Blaze",
-      "Speed Boost"
+      "Reckless"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4134,6 +4234,7 @@
       "Water"
     ],
     "abilities": [
+      "Water Veil",
       "Torrent",
       "Damp"
     ],
@@ -4150,6 +4251,7 @@
       "Ground"
     ],
     "abilities": [
+      "Water Veil",
       "Torrent",
       "Damp"
     ],
@@ -4166,6 +4268,7 @@
       "Ground"
     ],
     "abilities": [
+      "Water Veil",
       "Torrent",
       "Damp"
     ],
@@ -4181,9 +4284,9 @@
       "Dark"
     ],
     "abilities": [
+      "Rattled",
       "Run Away",
-      "Quick Feet",
-      "Rattled"
+      "Quick Feet"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4198,8 +4301,8 @@
     ],
     "abilities": [
       "Intimidate",
-      "Quick Feet",
-      "Moxie"
+      "Moxie",
+      "Quick Feet"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4246,6 +4349,7 @@
     ],
     "abilities": [
       "Shield Dust",
+      "Run Away",
       "Run Away"
     ],
     "hasTypeChanges": false,
@@ -4260,6 +4364,8 @@
       "Bug"
     ],
     "abilities": [
+      "Shell Armor",
+      "Shed Skin",
       "Shed Skin"
     ],
     "hasTypeChanges": false,
@@ -4275,6 +4381,7 @@
       "Flying"
     ],
     "abilities": [
+      "Rivalry",
       "Swarm",
       "Rivalry"
     ],
@@ -4290,6 +4397,8 @@
       "Bug"
     ],
     "abilities": [
+      "Shell Armor",
+      "Shed Skin",
       "Shed Skin"
     ],
     "hasTypeChanges": false,
@@ -4305,6 +4414,7 @@
       "Poison"
     ],
     "abilities": [
+      "Compound Eyes",
       "Shield Dust",
       "Compound Eyes"
     ],
@@ -4372,8 +4482,8 @@
     ],
     "abilities": [
       "Chlorophyll",
-      "Early Bird",
-      "Pickpocket"
+      "Rattled",
+      "Early Bird"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4389,8 +4499,8 @@
     ],
     "abilities": [
       "Chlorophyll",
-      "Early Bird",
-      "Pickpocket"
+      "Rattled",
+      "Early Bird"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4406,8 +4516,8 @@
     ],
     "abilities": [
       "Chlorophyll",
-      "Wind Rider",
-      "Pickpocket"
+      "Rattled",
+      "Early Bird"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4422,7 +4532,8 @@
       "Flying"
     ],
     "abilities": [
-      "Guts",
+      "Early Bird",
+      "Scrappy",
       "Scrappy"
     ],
     "hasTypeChanges": false,
@@ -4439,6 +4550,7 @@
     ],
     "abilities": [
       "Guts",
+      "Scrappy",
       "Scrappy"
     ],
     "hasTypeChanges": false,
@@ -4454,9 +4566,9 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
       "Hydration",
-      "Rain Dish"
+      "Rain Dish",
+      "Keen Eye"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4471,9 +4583,9 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
       "Drizzle",
-      "Rain Dish"
+      "Rain Dish",
+      "Keen Eye"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4540,6 +4652,7 @@
     ],
     "abilities": [
       "Swift Swim",
+      "Rain Dish",
       "Rain Dish"
     ],
     "hasTypeChanges": false,
@@ -4552,7 +4665,7 @@
     "slug": "masquerain",
     "types": [
       "Bug",
-      "Flying"
+      "Water"
     ],
     "abilities": [
       "Intimidate",
@@ -4587,7 +4700,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Effect Spore",
+      "Technician",
       "Poison Heal",
       "Technician"
     ],
@@ -4603,6 +4716,8 @@
       "Normal"
     ],
     "abilities": [
+      "Truant",
+      "Slow Start",
       "Truant"
     ],
     "hasTypeChanges": false,
@@ -4617,6 +4732,8 @@
       "Normal"
     ],
     "abilities": [
+      "Vital Spirit",
+      "Sheer Force",
       "Vital Spirit"
     ],
     "hasTypeChanges": false,
@@ -4631,6 +4748,8 @@
       "Normal"
     ],
     "abilities": [
+      "Truant",
+      "Slow Start",
       "Truant"
     ],
     "hasTypeChanges": false,
@@ -4647,6 +4766,7 @@
     ],
     "abilities": [
       "Compound Eyes",
+      "Run Away",
       "Run Away"
     ],
     "hasTypeChanges": false,
@@ -4663,6 +4783,7 @@
     ],
     "abilities": [
       "Speed Boost",
+      "Infiltrator",
       "Infiltrator"
     ],
     "hasTypeChanges": false,
@@ -4693,6 +4814,7 @@
     ],
     "abilities": [
       "Soundproof",
+      "Scrappy",
       "Rattled"
     ],
     "hasTypeChanges": false,
@@ -4708,7 +4830,8 @@
     ],
     "abilities": [
       "Soundproof",
-      "Scrappy"
+      "Scrappy",
+      "Rattled"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4723,7 +4846,8 @@
     ],
     "abilities": [
       "Soundproof",
-      "Scrappy"
+      "Scrappy",
+      "Rattled"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4770,8 +4894,8 @@
       "Fairy"
     ],
     "abilities": [
-      "Thick Fat",
       "Huge Power",
+      "Thick Fat",
       "Sap Sipper"
     ],
     "hasTypeChanges": false,
@@ -4787,8 +4911,8 @@
     ],
     "abilities": [
       "Sturdy",
-      "Magnet Pull",
-      "Sand Force"
+      "Sand Force",
+      "Magnet Pull"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4802,7 +4926,7 @@
       "Normal"
     ],
     "abilities": [
-      "Cute Charm",
+      "Wonder Skin",
       "Normalize",
       "Wonder Skin"
     ],
@@ -4818,7 +4942,7 @@
       "Normal"
     ],
     "abilities": [
-      "Cute Charm",
+      "Wonder Skin",
       "Normalize",
       "Wonder Skin"
     ],
@@ -4835,9 +4959,9 @@
       "Ghost"
     ],
     "abilities": [
-      "Keen Eye",
+      "Prankster",
       "Stall",
-      "Prankster"
+      "Keen Eye"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4852,7 +4976,7 @@
       "Fairy"
     ],
     "abilities": [
-      "Hyper Cutter",
+      "Huge Power",
       "Intimidate",
       "Sheer Force"
     ],
@@ -4869,9 +4993,9 @@
       "Rock"
     ],
     "abilities": [
-      "Sturdy",
+      "Filter",
       "Rock Head",
-      "Heavy Metal"
+      "Sturdy"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4886,9 +5010,9 @@
       "Rock"
     ],
     "abilities": [
-      "Sturdy",
+      "Filter",
       "Rock Head",
-      "Heavy Metal"
+      "Sturdy"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4903,9 +5027,9 @@
       "Rock"
     ],
     "abilities": [
-      "Sturdy",
+      "Filter",
       "Rock Head",
-      "Heavy Metal"
+      "Sturdy"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -4951,9 +5075,9 @@
       "Electric"
     ],
     "abilities": [
+      "Intimidate",
       "Static",
-      "Lightning Rod",
-      "Minus"
+      "Lightningrod"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4967,9 +5091,9 @@
       "Electric"
     ],
     "abilities": [
+      "Intimidate",
       "Static",
-      "Lightning Rod",
-      "Minus"
+      "Lightningrod"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -4984,6 +5108,7 @@
     ],
     "abilities": [
       "Plus",
+      "Lightning Rod",
       "Lightning Rod"
     ],
     "hasTypeChanges": false,
@@ -4999,6 +5124,7 @@
     ],
     "abilities": [
       "Minus",
+      "Volt Absorb",
       "Volt Absorb"
     ],
     "hasTypeChanges": false,
@@ -5010,12 +5136,13 @@
     "name": "Volbeat",
     "slug": "volbeat",
     "types": [
-      "Bug"
+      "Bug",
+      "Electric"
     ],
     "abilities": [
-      "Illuminate",
-      "Swarm",
-      "Prankster"
+      "Prankster",
+      "Tinted Lens",
+      "Illuminate"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -5026,12 +5153,13 @@
     "name": "Illumise",
     "slug": "illumise",
     "types": [
-      "Bug"
+      "Bug",
+      "Fairy"
     ],
     "abilities": [
-      "Oblivious",
+      "Prankster",
       "Tinted Lens",
-      "Prankster"
+      "Oblivious"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -5096,6 +5224,7 @@
     ],
     "abilities": [
       "Rough Skin",
+      "Speed Boost",
       "Speed Boost"
     ],
     "hasTypeChanges": false,
@@ -5112,6 +5241,7 @@
     ],
     "abilities": [
       "Rough Skin",
+      "Speed Boost",
       "Speed Boost"
     ],
     "hasTypeChanges": false,
@@ -5127,7 +5257,7 @@
     ],
     "abilities": [
       "Water Veil",
-      "Oblivious",
+      "Pressure",
       "Pressure"
     ],
     "hasTypeChanges": false,
@@ -5143,7 +5273,7 @@
     ],
     "abilities": [
       "Water Veil",
-      "Oblivious",
+      "Pressure",
       "Pressure"
     ],
     "hasTypeChanges": false,
@@ -5176,8 +5306,8 @@
       "Ground"
     ],
     "abilities": [
-      "Magma Armor",
       "Solid Rock",
+      "Simple",
       "Anger Point"
     ],
     "hasTypeChanges": false,
@@ -5192,9 +5322,9 @@
       "Fire"
     ],
     "abilities": [
-      "White Smoke",
       "Drought",
-      "Shell Armor"
+      "Shell Armor",
+      "White Smoke"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -5240,7 +5370,7 @@
       "Normal"
     ],
     "abilities": [
-      "Own Tempo",
+      "Contrary",
       "Tangled Feet",
       "Contrary"
     ],
@@ -5253,12 +5383,13 @@
     "name": "Trapinch",
     "slug": "trapinch",
     "types": [
+      "Bug",
       "Ground"
     ],
     "abilities": [
       "Hyper Cutter",
-      "Arena Trap",
-      "Sheer Force"
+      "Sheer Force",
+      "Arena Trap"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -5269,7 +5400,7 @@
     "name": "Vibrava",
     "slug": "vibrava",
     "types": [
-      "Ground",
+      "Bug",
       "Dragon"
     ],
     "abilities": [
@@ -5284,7 +5415,7 @@
     "name": "Flygon",
     "slug": "flygon",
     "types": [
-      "Ground",
+      "Bug",
       "Dragon"
     ],
     "abilities": [
@@ -5299,10 +5430,12 @@
     "name": "Cacnea",
     "slug": "cacnea",
     "types": [
-      "Grass"
+      "Grass",
+      "Dark"
     ],
     "abilities": [
-      "Sand Veil",
+      "Unnerve",
+      "Water Absorb",
       "Water Absorb"
     ],
     "hasTypeChanges": true,
@@ -5318,7 +5451,8 @@
       "Dark"
     ],
     "abilities": [
-      "Sand Veil",
+      "Unnerve",
+      "Water Absorb",
       "Water Absorb"
     ],
     "hasTypeChanges": false,
@@ -5330,11 +5464,12 @@
     "name": "Swablu",
     "slug": "swablu",
     "types": [
-      "Normal",
+      "Fairy",
       "Flying"
     ],
     "abilities": [
       "Natural Cure",
+      "Cloud Nine",
       "Cloud Nine"
     ],
     "hasTypeChanges": true,
@@ -5347,10 +5482,11 @@
     "slug": "altaria",
     "types": [
       "Dragon",
-      "Flying"
+      "Fairy"
     ],
     "abilities": [
       "Natural Cure",
+      "Cloud Nine",
       "Cloud Nine"
     ],
     "hasTypeChanges": true,
@@ -5366,6 +5502,7 @@
     ],
     "abilities": [
       "Immunity",
+      "Toxic Boost",
       "Toxic Boost"
     ],
     "hasTypeChanges": false,
@@ -5381,6 +5518,7 @@
     ],
     "abilities": [
       "Shed Skin",
+      "Infiltrator",
       "Infiltrator"
     ],
     "hasTypeChanges": false,
@@ -5426,7 +5564,7 @@
       "Ground"
     ],
     "abilities": [
-      "Oblivious",
+      "Simple",
       "Anticipation",
       "Hydration"
     ],
@@ -5443,7 +5581,7 @@
       "Ground"
     ],
     "abilities": [
-      "Oblivious",
+      "Simple",
       "Anticipation",
       "Hydration"
     ],
@@ -5459,8 +5597,8 @@
       "Water"
     ],
     "abilities": [
+      "Adaptability",
       "Hyper Cutter",
-      "Shell Armor",
       "Adaptability"
     ],
     "hasTypeChanges": false,
@@ -5476,8 +5614,8 @@
       "Dark"
     ],
     "abilities": [
+      "Adaptability",
       "Hyper Cutter",
-      "Shell Armor",
       "Adaptability"
     ],
     "hasTypeChanges": false,
@@ -5524,6 +5662,7 @@
     ],
     "abilities": [
       "Suction Cups",
+      "Storm Drain",
       "Storm Drain"
     ],
     "hasTypeChanges": false,
@@ -5540,6 +5679,7 @@
     ],
     "abilities": [
       "Suction Cups",
+      "Storm Drain",
       "Storm Drain"
     ],
     "hasTypeChanges": false,
@@ -5556,6 +5696,7 @@
     ],
     "abilities": [
       "Battle Armor",
+      "Swift Swim",
       "Swift Swim"
     ],
     "hasTypeChanges": false,
@@ -5572,6 +5713,7 @@
     ],
     "abilities": [
       "Battle Armor",
+      "Swift Swim",
       "Swift Swim"
     ],
     "hasTypeChanges": false,
@@ -5633,7 +5775,8 @@
     ],
     "abilities": [
       "Color Change",
-      "Protean"
+      "Adaptability",
+      "Adaptability"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -5647,7 +5790,7 @@
       "Ghost"
     ],
     "abilities": [
-      "Insomnia",
+      "Cursed Body",
       "Frisk",
       "Cursed Body"
     ],
@@ -5660,10 +5803,11 @@
     "name": "Banette",
     "slug": "banette",
     "types": [
-      "Ghost"
+      "Ghost",
+      "Normal"
     ],
     "abilities": [
-      "Insomnia",
+      "Cursed Body",
       "Frisk",
       "Cursed Body"
     ],
@@ -5740,9 +5884,9 @@
       "Dark"
     ],
     "abilities": [
-      "Pressure",
+      "Justified",
       "Super Luck",
-      "Justified"
+      "Pressure"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -5757,6 +5901,7 @@
     ],
     "abilities": [
       "Shadow Tag",
+      "Telepathy",
       "Telepathy"
     ],
     "hasTypeChanges": false,
@@ -5784,12 +5929,13 @@
     "name": "Glalie",
     "slug": "glalie",
     "types": [
-      "Ice"
+      "Ice",
+      "Rock"
     ],
     "abilities": [
-      "Inner Focus",
-      "Ice Body",
-      "Moody"
+      "Levitate",
+      "-",
+      "-"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -5900,7 +6046,7 @@
       "Rock"
     ],
     "abilities": [
-      "Swift Swim",
+      "Sturdy",
       "Rock Head",
       "Sturdy"
     ],
@@ -5913,10 +6059,12 @@
     "name": "Luvdisc",
     "slug": "luvdisc",
     "types": [
-      "Water"
+      "Water",
+      "Fairy"
     ],
     "abilities": [
       "Swift Swim",
+      "Hydration",
       "Hydration"
     ],
     "hasTypeChanges": true,
@@ -5932,6 +6080,7 @@
     ],
     "abilities": [
       "Rock Head",
+      "Sheer Force",
       "Sheer Force"
     ],
     "hasTypeChanges": false,
@@ -5947,6 +6096,7 @@
     ],
     "abilities": [
       "Rock Head",
+      "Overcoat",
       "Overcoat"
     ],
     "hasTypeChanges": false,
@@ -5963,6 +6113,7 @@
     ],
     "abilities": [
       "Intimidate",
+      "Moxie",
       "Moxie"
     ],
     "hasTypeChanges": false,
@@ -5979,7 +6130,8 @@
     ],
     "abilities": [
       "Clear Body",
-      "Light Metal"
+      "Rock Head",
+      "Heavy Metal"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -5995,7 +6147,8 @@
     ],
     "abilities": [
       "Clear Body",
-      "Light Metal"
+      "Iron Fist",
+      "Heavy Metal"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6011,7 +6164,8 @@
     ],
     "abilities": [
       "Clear Body",
-      "Light Metal"
+      "Iron Fist",
+      "Heavy Metal"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6025,8 +6179,9 @@
       "Rock"
     ],
     "abilities": [
-      "Clear Body",
-      "Sturdy"
+      "Solid Rock",
+      "Sturdy",
+      "Clear Body"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6040,8 +6195,9 @@
       "Ice"
     ],
     "abilities": [
-      "Clear Body",
-      "Ice Body"
+      "Filter",
+      "Ice Body",
+      "Clear Body"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6055,6 +6211,7 @@
       "Steel"
     ],
     "abilities": [
+      "Heatproof",
       "Clear Body",
       "Light Metal"
     ],
@@ -6157,12 +6314,10 @@
     "types": [
       "Psychic"
     ],
-    "abilities": [
-      "Pressure"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 387,
@@ -6172,6 +6327,7 @@
       "Grass"
     ],
     "abilities": [
+      "Shell Armor",
       "Overgrow",
       "Shell Armor"
     ],
@@ -6187,6 +6343,7 @@
       "Grass"
     ],
     "abilities": [
+      "Rock Head",
       "Overgrow",
       "Shell Armor"
     ],
@@ -6203,6 +6360,7 @@
       "Ground"
     ],
     "abilities": [
+      "Rock Head",
       "Overgrow",
       "Shell Armor"
     ],
@@ -6218,6 +6376,7 @@
       "Fire"
     ],
     "abilities": [
+      "Iron Fist",
       "Blaze",
       "Iron Fist"
     ],
@@ -6234,6 +6393,7 @@
       "Fighting"
     ],
     "abilities": [
+      "Iron Fist",
       "Blaze",
       "Iron Fist"
     ],
@@ -6250,6 +6410,7 @@
       "Fighting"
     ],
     "abilities": [
+      "Iron Fist",
       "Blaze",
       "Iron Fist"
     ],
@@ -6265,8 +6426,9 @@
       "Water"
     ],
     "abilities": [
+      "Defiant",
       "Torrent",
-      "Competitive"
+      "Defiant"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6280,8 +6442,9 @@
       "Water"
     ],
     "abilities": [
+      "Defiant",
       "Torrent",
-      "Competitive"
+      "Defiant"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6296,8 +6459,9 @@
       "Steel"
     ],
     "abilities": [
+      "Defiant",
       "Torrent",
-      "Competitive"
+      "Defiant"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -6312,6 +6476,7 @@
       "Flying"
     ],
     "abilities": [
+      "Reckless",
       "Keen Eye",
       "Reckless"
     ],
@@ -6328,6 +6493,7 @@
       "Flying"
     ],
     "abilities": [
+      "Reckless",
       "Intimidate",
       "Reckless"
     ],
@@ -6344,6 +6510,7 @@
       "Flying"
     ],
     "abilities": [
+      "Reckless",
       "Intimidate",
       "Reckless"
     ],
@@ -6393,7 +6560,8 @@
     ],
     "abilities": [
       "Shed Skin",
-      "Run Away"
+      "Run Away",
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -6407,8 +6575,9 @@
       "Bug"
     ],
     "abilities": [
-      "Swarm",
-      "Technician"
+      "Technician",
+      "Soundproof",
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -6451,10 +6620,11 @@
     "name": "Luxray",
     "slug": "luxray",
     "types": [
-      "Electric"
+      "Electric",
+      "Dark"
     ],
     "abilities": [
-      "Rivalry",
+      "Guts",
       "Intimidate",
       "Guts"
     ],
@@ -6505,6 +6675,7 @@
     ],
     "abilities": [
       "Mold Breaker",
+      "Sheer Force",
       "Sheer Force"
     ],
     "hasTypeChanges": false,
@@ -6520,6 +6691,7 @@
     ],
     "abilities": [
       "Mold Breaker",
+      "Sheer Force",
       "Sheer Force"
     ],
     "hasTypeChanges": false,
@@ -6536,6 +6708,7 @@
     ],
     "abilities": [
       "Sturdy",
+      "Soundproof",
       "Soundproof"
     ],
     "hasTypeChanges": false,
@@ -6552,6 +6725,7 @@
     ],
     "abilities": [
       "Sturdy",
+      "Soundproof",
       "Soundproof"
     ],
     "hasTypeChanges": false,
@@ -6567,6 +6741,7 @@
     ],
     "abilities": [
       "Shed Skin",
+      "Overcoat",
       "Overcoat"
     ],
     "hasTypeChanges": false,
@@ -6581,13 +6756,10 @@
       "Bug",
       "Grass"
     ],
-    "abilities": [
-      "Anticipation",
-      "Overcoat"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 414,
@@ -6599,6 +6771,7 @@
     ],
     "abilities": [
       "Swarm",
+      "Tinted Lens",
       "Tinted Lens"
     ],
     "hasTypeChanges": false,
@@ -6615,6 +6788,7 @@
     ],
     "abilities": [
       "Honey Gather",
+      "Hustle",
       "Hustle"
     ],
     "hasTypeChanges": false,
@@ -6630,6 +6804,7 @@
       "Flying"
     ],
     "abilities": [
+      "Intimidate",
       "Pressure",
       "Unnerve"
     ],
@@ -6645,9 +6820,9 @@
       "Electric"
     ],
     "abilities": [
-      "Run Away",
+      "Volt Absorb",
       "Pickup",
-      "Volt Absorb"
+      "Run Away"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -6662,6 +6837,7 @@
     ],
     "abilities": [
       "Swift Swim",
+      "Water Veil",
       "Water Veil"
     ],
     "hasTypeChanges": false,
@@ -6677,6 +6853,7 @@
     ],
     "abilities": [
       "Swift Swim",
+      "Water Veil",
       "Water Veil"
     ],
     "hasTypeChanges": false,
@@ -6752,9 +6929,9 @@
       "Normal"
     ],
     "abilities": [
+      "Skill Link",
       "Technician",
-      "Pickup",
-      "Skill Link"
+      "Pick Up"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -6769,9 +6946,9 @@
       "Flying"
     ],
     "abilities": [
-      "Aftermath",
+      "Flare Boost",
       "Unburden",
-      "Flare Boost"
+      "Aftermath"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6786,9 +6963,9 @@
       "Flying"
     ],
     "abilities": [
-      "Aftermath",
+      "Flare Boost",
       "Unburden",
-      "Flare Boost"
+      "Aftermath"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6803,8 +6980,8 @@
     ],
     "abilities": [
       "Run Away",
-      "Klutz",
-      "Limber"
+      "Limber",
+      "Klutz"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -6815,11 +6992,12 @@
     "name": "Lopunny",
     "slug": "lopunny",
     "types": [
-      "Normal"
+      "Normal",
+      "Fighting"
     ],
     "abilities": [
-      "Cute Charm",
-      "Klutz",
+      "Scrappy",
+      "Scrappy",
       "Limber"
     ],
     "hasTypeChanges": true,
@@ -6831,10 +7009,13 @@
     "name": "Mismagius",
     "slug": "mismagius",
     "types": [
-      "Ghost"
+      "Ghost",
+      "Fairy"
     ],
     "abilities": [
-      "Levitate"
+      "Infiltrator",
+      "-",
+      "-"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -6849,7 +7030,7 @@
       "Flying"
     ],
     "abilities": [
-      "Insomnia",
+      "Moxie",
       "Super Luck",
       "Moxie"
     ],
@@ -6882,7 +7063,7 @@
     ],
     "abilities": [
       "Thick Fat",
-      "Own Tempo",
+      "Defiant",
       "Defiant"
     ],
     "hasTypeChanges": false,
@@ -6996,9 +7177,9 @@
       "Fairy"
     ],
     "abilities": [
-      "Soundproof",
+      "Technician",
       "Filter",
-      "Technician"
+      "Soundproof"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -7029,7 +7210,7 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Soundproof",
       "Tangled Feet",
       "Big Pecks"
     ],
@@ -7047,6 +7228,7 @@
     ],
     "abilities": [
       "Pressure",
+      "Infiltrator",
       "Infiltrator"
     ],
     "hasTypeChanges": false,
@@ -7063,6 +7245,7 @@
     ],
     "abilities": [
       "Sand Veil",
+      "Rough Skin",
       "Rough Skin"
     ],
     "hasTypeChanges": false,
@@ -7079,6 +7262,7 @@
     ],
     "abilities": [
       "Sand Veil",
+      "Rough Skin",
       "Rough Skin"
     ],
     "hasTypeChanges": false,
@@ -7095,6 +7279,7 @@
     ],
     "abilities": [
       "Sand Veil",
+      "Rough Skin",
       "Rough Skin"
     ],
     "hasTypeChanges": false,
@@ -7125,9 +7310,9 @@
       "Fighting"
     ],
     "abilities": [
+      "Prankster",
       "Steadfast",
-      "Inner Focus",
-      "Prankster"
+      "Inner Focus"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -7142,9 +7327,9 @@
       "Steel"
     ],
     "abilities": [
+      "Justified",
       "Steadfast",
-      "Inner Focus",
-      "Justified"
+      "Inner Focus"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -7159,6 +7344,7 @@
     ],
     "abilities": [
       "Sand Stream",
+      "Sand Force",
       "Sand Force"
     ],
     "hasTypeChanges": false,
@@ -7174,6 +7360,7 @@
     ],
     "abilities": [
       "Sand Stream",
+      "Sand Force",
       "Sand Force"
     ],
     "hasTypeChanges": false,
@@ -7223,7 +7410,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Anticipation",
+      "Poison Touch",
       "Dry Skin",
       "Poison Touch"
     ],
@@ -7240,7 +7427,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Anticipation",
+      "Poison Touch",
       "Dry Skin",
       "Poison Touch"
     ],
@@ -7321,6 +7508,7 @@
     ],
     "abilities": [
       "Snow Warning",
+      "Soundproof",
       "Soundproof"
     ],
     "hasTypeChanges": false,
@@ -7337,6 +7525,7 @@
     ],
     "abilities": [
       "Snow Warning",
+      "Soundproof",
       "Soundproof"
     ],
     "hasTypeChanges": false,
@@ -7368,9 +7557,9 @@
       "Steel"
     ],
     "abilities": [
-      "Magnet Pull",
+      "Analytic",
       "Sturdy",
-      "Analytic"
+      "Magnet Pull"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -7384,8 +7573,8 @@
       "Normal"
     ],
     "abilities": [
-      "Own Tempo",
-      "Oblivious",
+      "Cloud Nine",
+      "Gluttony",
       "Cloud Nine"
     ],
     "hasTypeChanges": false,
@@ -7417,7 +7606,7 @@
       "Grass"
     ],
     "abilities": [
-      "Chlorophyll",
+      "Regenerator",
       "Leaf Guard",
       "Regenerator"
     ],
@@ -7430,10 +7619,12 @@
     "name": "Electivire",
     "slug": "electivire",
     "types": [
-      "Electric"
+      "Electric",
+      "Fighting"
     ],
     "abilities": [
       "Motor Drive",
+      "Vital Spirit",
       "Vital Spirit"
     ],
     "hasTypeChanges": true,
@@ -7449,6 +7640,7 @@
     ],
     "abilities": [
       "Flame Body",
+      "Vital Spirit",
       "Vital Spirit"
     ],
     "hasTypeChanges": false,
@@ -7464,7 +7656,7 @@
       "Flying"
     ],
     "abilities": [
-      "Hustle",
+      "Super Luck",
       "Serene Grace",
       "Super Luck"
     ],
@@ -7497,7 +7689,8 @@
       "Grass"
     ],
     "abilities": [
-      "Leaf Guard",
+      "Super Luck",
+      "Chlorophyll",
       "Chlorophyll"
     ],
     "hasTypeChanges": false,
@@ -7512,8 +7705,9 @@
       "Ice"
     ],
     "abilities": [
-      "Snow Cloak",
-      "Ice Body"
+      "Hyper Cutter",
+      "Poison Heal",
+      "Poison Heal"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -7545,9 +7739,9 @@
       "Ground"
     ],
     "abilities": [
-      "Oblivious",
+      "Thick Fat",
       "Snow Cloak",
-      "Thick Fat"
+      "Oblivious"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -7578,8 +7772,8 @@
       "Fighting"
     ],
     "abilities": [
-      "Steadfast",
-      "Sharpness",
+      "Justified",
+      "Hyper Cutter",
       "Justified"
     ],
     "hasTypeChanges": false,
@@ -7592,12 +7786,12 @@
     "slug": "probopass",
     "types": [
       "Rock",
-      "Steel"
+      "Electric"
     ],
     "abilities": [
       "Sturdy",
-      "Magnet Pull",
-      "Sand Force"
+      "Clear Body",
+      "Magnet Pull"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": true,
@@ -7611,8 +7805,9 @@
       "Ghost"
     ],
     "abilities": [
-      "Pressure",
-      "Frisk"
+      "Iron Fist",
+      "Cursed Body",
+      "Pressure"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -7628,6 +7823,7 @@
     ],
     "abilities": [
       "Snow Cloak",
+      "Cursed Body",
       "Cursed Body"
     ],
     "hasTypeChanges": false,
@@ -7654,7 +7850,8 @@
     "name": "Uxie",
     "slug": "uxie",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ],
     "abilities": [
       "Levitate"
@@ -7668,7 +7865,8 @@
     "name": "Mesprit",
     "slug": "mesprit",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ],
     "abilities": [
       "Levitate"
@@ -7682,7 +7880,8 @@
     "name": "Azelf",
     "slug": "azelf",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ],
     "abilities": [
       "Levitate"
@@ -7747,6 +7946,8 @@
       "Normal"
     ],
     "abilities": [
+      "Slow Start",
+      "Defeatist",
       "Slow Start"
     ],
     "hasTypeChanges": false,
@@ -7761,13 +7962,10 @@
       "Ghost",
       "Dragon"
     ],
-    "abilities": [
-      "Pressure",
-      "Telepathy"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 488,
@@ -7832,12 +8030,10 @@
     "types": [
       "Grass"
     ],
-    "abilities": [
-      "Natural Cure"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 493,
@@ -7876,6 +8072,7 @@
       "Grass"
     ],
     "abilities": [
+      "Contrary",
       "Overgrow",
       "Contrary"
     ],
@@ -7888,9 +8085,11 @@
     "name": "Servine",
     "slug": "servine",
     "types": [
-      "Grass"
+      "Grass",
+      "Dragon"
     ],
     "abilities": [
+      "Contrary",
       "Overgrow",
       "Contrary"
     ],
@@ -7903,9 +8102,11 @@
     "name": "Serperior",
     "slug": "serperior",
     "types": [
-      "Grass"
+      "Grass",
+      "Dragon"
     ],
     "abilities": [
+      "Contrary",
       "Overgrow",
       "Contrary"
     ],
@@ -7921,8 +8122,9 @@
       "Fire"
     ],
     "abilities": [
+      "Sheer Force",
       "Blaze",
-      "Thick Fat"
+      "Sheer Force"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -7934,11 +8136,12 @@
     "slug": "pignite",
     "types": [
       "Fire",
-      "Fighting"
+      "Ground"
     ],
     "abilities": [
+      "Sheer Force",
       "Blaze",
-      "Thick Fat"
+      "Sheer Force"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": false,
@@ -7950,9 +8153,10 @@
     "slug": "emboar",
     "types": [
       "Fire",
-      "Fighting"
+      "Ground"
     ],
     "abilities": [
+      "Mold Breaker",
       "Blaze",
       "Reckless"
     ],
@@ -7968,6 +8172,7 @@
       "Water"
     ],
     "abilities": [
+      "Shell Armor",
       "Torrent",
       "Shell Armor"
     ],
@@ -7980,9 +8185,11 @@
     "name": "Dewott",
     "slug": "dewott",
     "types": [
-      "Water"
+      "Water",
+      "Fighting"
     ],
     "abilities": [
+      "Shell Armor",
       "Torrent",
       "Shell Armor"
     ],
@@ -7995,9 +8202,11 @@
     "name": "Samurott",
     "slug": "samurott",
     "types": [
-      "Water"
+      "Water",
+      "Fighting"
     ],
     "abilities": [
+      "Shell Armor",
       "Torrent",
       "Shell Armor"
     ],
@@ -8013,7 +8222,7 @@
       "Normal"
     ],
     "abilities": [
-      "Run Away",
+      "Analytic",
       "Keen Eye",
       "Analytic"
     ],
@@ -8029,7 +8238,7 @@
       "Normal"
     ],
     "abilities": [
-      "Illuminate",
+      "Analytic",
       "Keen Eye",
       "Analytic"
     ],
@@ -8093,7 +8302,7 @@
       "Dark"
     ],
     "abilities": [
-      "Limber",
+      "Prankster",
       "Unburden",
       "Prankster"
     ],
@@ -8109,7 +8318,7 @@
       "Dark"
     ],
     "abilities": [
-      "Limber",
+      "Prankster",
       "Unburden",
       "Prankster"
     ],
@@ -8126,6 +8335,7 @@
     ],
     "abilities": [
       "Gluttony",
+      "Overgrow",
       "Overgrow"
     ],
     "hasTypeChanges": false,
@@ -8141,6 +8351,7 @@
     ],
     "abilities": [
       "Gluttony",
+      "Overgrow",
       "Overgrow"
     ],
     "hasTypeChanges": false,
@@ -8156,6 +8367,7 @@
     ],
     "abilities": [
       "Gluttony",
+      "Blaze",
       "Blaze"
     ],
     "hasTypeChanges": false,
@@ -8171,6 +8383,7 @@
     ],
     "abilities": [
       "Gluttony",
+      "Blaze",
       "Blaze"
     ],
     "hasTypeChanges": false,
@@ -8186,6 +8399,7 @@
     ],
     "abilities": [
       "Gluttony",
+      "Torrent",
       "Torrent"
     ],
     "hasTypeChanges": false,
@@ -8201,6 +8415,7 @@
     ],
     "abilities": [
       "Gluttony",
+      "Torrent",
       "Torrent"
     ],
     "hasTypeChanges": false,
@@ -8212,11 +8427,12 @@
     "name": "Munna",
     "slug": "munna",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ],
     "abilities": [
-      "Forewarn",
-      "Synchronize",
+      "Analytic",
+      "Synchronise",
       "Telepathy"
     ],
     "hasTypeChanges": true,
@@ -8228,11 +8444,12 @@
     "name": "Musharna",
     "slug": "musharna",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Fairy"
     ],
     "abilities": [
-      "Forewarn",
-      "Synchronize",
+      "Analytic",
+      "Synchronise",
       "Telepathy"
     ],
     "hasTypeChanges": true,
@@ -8248,7 +8465,7 @@
       "Flying"
     ],
     "abilities": [
-      "Big Pecks",
+      "Unaware",
       "Super Luck",
       "Rivalry"
     ],
@@ -8265,7 +8482,7 @@
       "Flying"
     ],
     "abilities": [
-      "Big Pecks",
+      "Unaware",
       "Super Luck",
       "Rivalry"
     ],
@@ -8282,7 +8499,7 @@
       "Flying"
     ],
     "abilities": [
-      "Big Pecks",
+      "Unaware",
       "Super Luck",
       "Rivalry"
     ],
@@ -8298,9 +8515,9 @@
       "Electric"
     ],
     "abilities": [
-      "Lightning Rod",
       "Motor Drive",
-      "Sap Sipper"
+      "Sap Sipper",
+      "Lightning Rod"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8314,9 +8531,9 @@
       "Electric"
     ],
     "abilities": [
-      "Lightning Rod",
       "Motor Drive",
-      "Sap Sipper"
+      "Sap Sipper",
+      "Lightning Rod"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8380,7 +8597,7 @@
     ],
     "abilities": [
       "Unaware",
-      "Klutz",
+      "Simple",
       "Simple"
     ],
     "hasTypeChanges": false,
@@ -8397,7 +8614,7 @@
     ],
     "abilities": [
       "Unaware",
-      "Klutz",
+      "Simple",
       "Simple"
     ],
     "hasTypeChanges": false,
@@ -8413,8 +8630,8 @@
     ],
     "abilities": [
       "Sand Rush",
-      "Sand Force",
-      "Mold Breaker"
+      "Mold Breaker",
+      "Sand Force"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8430,8 +8647,8 @@
     ],
     "abilities": [
       "Sand Rush",
-      "Sand Force",
-      "Mold Breaker"
+      "Mold Breaker",
+      "Sand Force"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8442,10 +8659,11 @@
     "name": "Audino",
     "slug": "audino",
     "types": [
-      "Normal"
+      "Normal",
+      "Fairy"
     ],
     "abilities": [
-      "Healer",
+      "Natural Cure",
       "Regenerator",
       "Klutz"
     ],
@@ -8461,9 +8679,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Guts",
       "Sheer Force",
-      "Iron Fist"
+      "Iron Fist",
+      "Sheer Force"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8477,9 +8695,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Guts",
       "Sheer Force",
-      "Iron Fist"
+      "Iron Fist",
+      "Sheer Force"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8494,8 +8712,8 @@
     ],
     "abilities": [
       "Guts",
-      "Sheer Force",
-      "Iron Fist"
+      "Iron Fist",
+      "Sheer Force"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8509,9 +8727,9 @@
       "Water"
     ],
     "abilities": [
-      "Swift Swim",
+      "Water Absorb",
       "Hydration",
-      "Water Absorb"
+      "Swift Swim"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8526,9 +8744,9 @@
       "Ground"
     ],
     "abilities": [
-      "Swift Swim",
+      "Water Absorb",
       "Hydration",
-      "Water Absorb"
+      "Swift Swim"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8543,9 +8761,9 @@
       "Ground"
     ],
     "abilities": [
-      "Swift Swim",
+      "Water Absorb",
       "Poison Touch",
-      "Water Absorb"
+      "Swift Swim"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8560,7 +8778,7 @@
     ],
     "abilities": [
       "Guts",
-      "Inner Focus",
+      "Mold Breaker",
       "Mold Breaker"
     ],
     "hasTypeChanges": false,
@@ -8576,7 +8794,7 @@
     ],
     "abilities": [
       "Sturdy",
-      "Inner Focus",
+      "Mold Breaker",
       "Mold Breaker"
     ],
     "hasTypeChanges": false,
@@ -8643,9 +8861,9 @@
       "Poison"
     ],
     "abilities": [
+      "Quick Feet",
       "Poison Point",
-      "Swarm",
-      "Speed Boost"
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8660,9 +8878,9 @@
       "Poison"
     ],
     "abilities": [
+      "Speed Boost",
       "Poison Point",
-      "Swarm",
-      "Speed Boost"
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8677,9 +8895,9 @@
       "Poison"
     ],
     "abilities": [
+      "Speed Boost",
       "Poison Point",
-      "Swarm",
-      "Speed Boost"
+      "Swarm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8758,14 +8976,10 @@
     "types": [
       "Water"
     ],
-    "abilities": [
-      "Reckless",
-      "Adaptability",
-      "Mold Breaker"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 551,
@@ -8826,7 +9040,8 @@
       "Fire"
     ],
     "abilities": [
-      "Hustle",
+      "Sheer Force",
+      "Sheer Force",
       "Inner Focus"
     ],
     "hasTypeChanges": false,
@@ -8840,13 +9055,10 @@
     "types": [
       "Fire"
     ],
-    "abilities": [
-      "Sheer Force",
-      "Zen Mode"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 556,
@@ -8857,7 +9069,7 @@
     ],
     "abilities": [
       "Water Absorb",
-      "Chlorophyll",
+      "Storm Drain",
       "Storm Drain"
     ],
     "hasTypeChanges": false,
@@ -8907,9 +9119,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Shed Skin",
+      "Intimidate",
       "Moxie",
-      "Intimidate"
+      "Shed Skin"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8924,9 +9136,9 @@
       "Fighting"
     ],
     "abilities": [
-      "Shed Skin",
+      "Intimidate",
       "Moxie",
-      "Intimidate"
+      "Shed Skin"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -8941,9 +9153,9 @@
       "Flying"
     ],
     "abilities": [
-      "Wonder Skin",
+      "Tinted Lens",
       "Magic Guard",
-      "Tinted Lens"
+      "Wonder Skin"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9049,9 +9261,9 @@
       "Poison"
     ],
     "abilities": [
+      "Aftermath",
       "Stench",
-      "Sticky Hold",
-      "Aftermath"
+      "Sticky Hold"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -9065,9 +9277,9 @@
       "Poison"
     ],
     "abilities": [
+      "Aftermath",
       "Stench",
-      "Weak Armor",
-      "Aftermath"
+      "Sticky Hold"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -9109,9 +9321,9 @@
       "Normal"
     ],
     "abilities": [
-      "Cute Charm",
+      "Skill Link",
       "Technician",
-      "Skill Link"
+      "Cute Charm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9125,9 +9337,9 @@
       "Normal"
     ],
     "abilities": [
-      "Cute Charm",
+      "Skill Link",
       "Technician",
-      "Skill Link"
+      "Cute Charm"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -9138,12 +9350,13 @@
     "name": "Gothita",
     "slug": "gothita",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Dark"
     ],
     "abilities": [
+      "Shadow Tag",
       "Frisk",
-      "Competitive",
-      "Shadow Tag"
+      "Frisk"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": false,
@@ -9154,12 +9367,13 @@
     "name": "Gothorita",
     "slug": "gothorita",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Dark"
     ],
     "abilities": [
+      "Shadow Tag",
       "Frisk",
-      "Competitive",
-      "Shadow Tag"
+      "Frisk"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": false,
@@ -9170,12 +9384,13 @@
     "name": "Gothitelle",
     "slug": "gothitelle",
     "types": [
-      "Psychic"
+      "Psychic",
+      "Dark"
     ],
     "abilities": [
+      "Shadow Tag",
       "Frisk",
-      "Competitive",
-      "Shadow Tag"
+      "Frisk"
     ],
     "hasTypeChanges": true,
     "hasStatChanges": false,
@@ -9189,9 +9404,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Overcoat",
+      "Regenerator",
       "Magic Guard",
-      "Regenerator"
+      "Overcoat"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9205,9 +9420,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Overcoat",
+      "Regenerator",
       "Magic Guard",
-      "Regenerator"
+      "Overcoat"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9221,9 +9436,9 @@
       "Psychic"
     ],
     "abilities": [
-      "Overcoat",
+      "Regenerator",
       "Magic Guard",
-      "Regenerator"
+      "Overcoat"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9238,7 +9453,7 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Friend Guard",
       "Big Pecks",
       "Hydration"
     ],
@@ -9255,7 +9470,7 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Friend Guard",
       "Big Pecks",
       "Hydration"
     ],
@@ -9300,7 +9515,8 @@
     "name": "Vanilluxe",
     "slug": "vanilluxe",
     "types": [
-      "Ice"
+      "Ice",
+      "Fairy"
     ],
     "abilities": [
       "Ice Body",
@@ -9355,6 +9571,7 @@
     ],
     "abilities": [
       "Static",
+      "Motor Drive",
       "Motor Drive"
     ],
     "hasTypeChanges": false,
@@ -9370,8 +9587,8 @@
     ],
     "abilities": [
       "Swarm",
-      "Shed Skin",
-      "No Guard"
+      "No Guard",
+      "Shed Skin"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9386,8 +9603,8 @@
       "Steel"
     ],
     "abilities": [
-      "Swarm",
       "Shell Armor",
+      "No Guard",
       "Overcoat"
     ],
     "hasTypeChanges": false,
@@ -9404,6 +9621,7 @@
     ],
     "abilities": [
       "Effect Spore",
+      "Regenerator",
       "Regenerator"
     ],
     "hasTypeChanges": false,
@@ -9420,6 +9638,7 @@
     ],
     "abilities": [
       "Effect Spore",
+      "Regenerator",
       "Regenerator"
     ],
     "hasTypeChanges": false,
@@ -9468,7 +9687,7 @@
       "Water"
     ],
     "abilities": [
-      "Healer",
+      "Regenerator",
       "Hydration",
       "Regenerator"
     ],
@@ -9549,9 +9768,9 @@
       "Steel"
     ],
     "abilities": [
-      "Plus",
-      "Minus",
-      "Clear Body"
+      "Levitate",
+      "-",
+      "-"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9565,9 +9784,9 @@
       "Steel"
     ],
     "abilities": [
-      "Plus",
-      "Minus",
-      "Clear Body"
+      "Levitate",
+      "-",
+      "-"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9581,9 +9800,9 @@
       "Steel"
     ],
     "abilities": [
-      "Plus",
-      "Minus",
-      "Clear Body"
+      "Levitate",
+      "-",
+      "-"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9639,8 +9858,8 @@
       "Psychic"
     ],
     "abilities": [
-      "Telepathy",
-      "Synchronize",
+      "Analytic",
+      "Synchronise",
       "Analytic"
     ],
     "hasTypeChanges": false,
@@ -9655,8 +9874,8 @@
       "Psychic"
     ],
     "abilities": [
-      "Telepathy",
-      "Synchronize",
+      "Analytic",
+      "Synchronise",
       "Analytic"
     ],
     "hasTypeChanges": false,
@@ -9708,7 +9927,7 @@
     "abilities": [
       "Flash Fire",
       "Flame Body",
-      "Infiltrator"
+      "Shadow Tag"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9771,7 +9990,7 @@
     ],
     "abilities": [
       "Snow Cloak",
-      "Slush Rush",
+      "Rattled",
       "Rattled"
     ],
     "hasTypeChanges": false,
@@ -9783,11 +10002,12 @@
     "name": "Beartic",
     "slug": "beartic",
     "types": [
-      "Ice"
+      "Ice",
+      "Fighting"
     ],
     "abilities": [
       "Snow Cloak",
-      "Slush Rush",
+      "Sheer Force",
       "Swift Swim"
     ],
     "hasTypeChanges": true,
@@ -9816,9 +10036,9 @@
       "Bug"
     ],
     "abilities": [
-      "Hydration",
+      "Overcoat",
       "Shell Armor",
-      "Overcoat"
+      "Hydration"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9832,9 +10052,9 @@
       "Bug"
     ],
     "abilities": [
-      "Hydration",
-      "Sticky Hold",
-      "Unburden"
+      "Infiltrator",
+      "Unburden",
+      "Sticky Hold"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9850,7 +10070,7 @@
     ],
     "abilities": [
       "Static",
-      "Limber",
+      "Lightning Rod",
       "Sand Veil"
     ],
     "hasTypeChanges": false,
@@ -9865,7 +10085,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Inner Focus",
+      "Reckless",
       "Regenerator",
       "Reckless"
     ],
@@ -9881,7 +10101,7 @@
       "Fighting"
     ],
     "abilities": [
-      "Inner Focus",
+      "Reckless",
       "Regenerator",
       "Reckless"
     ],
@@ -9915,8 +10135,8 @@
     ],
     "abilities": [
       "Iron Fist",
-      "Klutz",
-      "No Guard"
+      "No Guard",
+      "Klutz"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -9932,8 +10152,8 @@
     ],
     "abilities": [
       "Iron Fist",
-      "Klutz",
-      "No Guard"
+      "No Guard",
+      "Klutz"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": true,
@@ -9998,7 +10218,7 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Hustle",
       "Sheer Force",
       "Hustle"
     ],
@@ -10015,7 +10235,7 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "Defiant",
       "Sheer Force",
       "Defiant"
     ],
@@ -10032,9 +10252,9 @@
       "Flying"
     ],
     "abilities": [
-      "Big Pecks",
       "Overcoat",
-      "Weak Armor"
+      "Weak Armor",
+      "Overcoat"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -10049,9 +10269,9 @@
       "Flying"
     ],
     "abilities": [
-      "Big Pecks",
       "Overcoat",
-      "Weak Armor"
+      "Weak Armor",
+      "Overcoat"
     ],
     "hasTypeChanges": false,
     "hasStatChanges": false,
@@ -10065,7 +10285,7 @@
       "Fire"
     ],
     "abilities": [
-      "Gluttony",
+      "Mold Breaker",
       "Flash Fire",
       "White Smoke"
     ],
@@ -10082,7 +10302,7 @@
       "Steel"
     ],
     "abilities": [
-      "Swarm",
+      "Heatproof",
       "Hustle",
       "Truant"
     ],
@@ -10145,6 +10365,7 @@
     ],
     "abilities": [
       "Flame Body",
+      "Swarm",
       "Swarm"
     ],
     "hasTypeChanges": false,
@@ -10161,6 +10382,7 @@
     ],
     "abilities": [
       "Flame Body",
+      "Swarm",
       "Swarm"
     ],
     "hasTypeChanges": false,
@@ -10219,13 +10441,10 @@
     "types": [
       "Flying"
     ],
-    "abilities": [
-      "Prankster",
-      "Defiant"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 642,
@@ -10235,13 +10454,10 @@
       "Electric",
       "Flying"
     ],
-    "abilities": [
-      "Prankster",
-      "Defiant"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 643,
@@ -10281,13 +10497,10 @@
       "Ground",
       "Flying"
     ],
-    "abilities": [
-      "Sand Force",
-      "Sheer Force"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 646,
@@ -10312,12 +10525,10 @@
       "Water",
       "Fighting"
     ],
-    "abilities": [
-      "Justified"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 648,
@@ -10327,12 +10538,10 @@
       "Normal",
       "Psychic"
     ],
-    "abilities": [
-      "Serene Grace"
-    ],
+    "abilities": [],
     "hasTypeChanges": true,
-    "hasStatChanges": true,
-    "hasAbilityChanges": true
+    "hasStatChanges": false,
+    "hasAbilityChanges": false
   },
   {
     "dex": 649,

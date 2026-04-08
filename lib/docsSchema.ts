@@ -65,6 +65,11 @@ export type ItemLocation = {
   items: string[];
 };
 
+export type ItemShop = {
+  area: string;
+  details: string[];
+};
+
 export type BaseStats = {
   hp: number;
   atk: number;
@@ -98,6 +103,7 @@ export type ParsedDocs = {
   moveDetails: MoveDetail[];
   typeChanges: PokemonTypeChange[];
   itemLocations: ItemLocation[];
+  itemShops?: ItemShop[];
   itemHighlights: string[];
   gifts: GiftPokemon[];
   trades: TradePokemon[];

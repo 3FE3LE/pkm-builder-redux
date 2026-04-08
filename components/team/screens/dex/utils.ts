@@ -23,22 +23,22 @@ export const DEX_MODE_LABELS: Record<DexPokemonMode, string> = {
   gen5: "Gen 5",
 };
 
+export const DEX_MODE_SHORT_LABELS: Record<DexPokemonMode, string> = {
+  national: "★",
+  gen1: "I",
+  gen2: "II",
+  gen3: "III",
+  gen4: "IV",
+  gen5: "V",
+};
+
 export const RESULT_LIMIT = 80;
 export const INITIAL_RESULTS = 10;
 export const RESULT_BATCH_SIZE = 10;
 export const DEX_SCROLL_RESTORE_KEY = "dex-scroll-restore";
 
 export function getSearchPlaceholder(tab: DexTab) {
-  if (tab === "pokemon") {
-    return "Buscar Pokemon, tipo, habilidad o area";
-  }
-  if (tab === "moves") {
-    return "Buscar movimiento o efecto";
-  }
-  if (tab === "abilities") {
-    return "Buscar habilidad o efecto";
-  }
-  return "Buscar objeto, categoria o efecto";
+  return "";
 }
 
 export function matchesDexMode(dex: number, mode: DexPokemonMode) {

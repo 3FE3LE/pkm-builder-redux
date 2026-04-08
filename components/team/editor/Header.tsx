@@ -1,6 +1,7 @@
 "use client";
 
 import { ViewTransition, useState } from "react";
+import Link from "next/link";
 import clsx from 'clsx';
 import {
   CircleArrowUp,
@@ -14,8 +15,11 @@ import { PokemonSprite, TypeBadge } from '@/components/BuilderShared';
 import { MiniPill, SpreadInput } from '@/components/team/UI';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { getDexTransitionName } from "@/components/team/screens/dex/utils";
+import { markNavigationStart } from "@/lib/perf";
 import { supportsPokemonGender } from '@/lib/teamAnalysis';
 import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
+import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
@@ -32,7 +36,6 @@ function LevelControls({
   evolutionBlockReason,
   updateEditorMember,
   onRequestEvolution,
-  transitionMemberId,
 }: {
   currentLevel: number;
   getIssue: IssueGetter;
@@ -40,7 +43,6 @@ function LevelControls({
   evolutionBlockReason?: string;
   updateEditorMember: Update;
   onRequestEvolution: () => void;
-  transitionMemberId?: string;
 }) {
   return (
     <>
@@ -124,6 +126,8 @@ export function Header({
   updateEditorMember,
   onRequestEvolution,
   transitionMemberId,
+  dexDetailHref,
+  dexSpeciesSlug,
 }: {
   member: EditableMember;
   resolved?: ResolvedTeamMember;
@@ -137,37 +141,63 @@ export function Header({
   updateEditorMember: Update;
   onRequestEvolution: () => void;
   transitionMemberId?: string;
+  dexDetailHref?: string;
+  dexSpeciesSlug?: string;
 }) {
   const [nicknameEditable, setNicknameEditable] = useState(false);
+  const dexForwardTransition = useSafeTransitionTypes(["dex-forward"]);
   const supportsGender =
     resolved?.supportsGender ?? supportsPokemonGender(currentSpecies);
   const nicknamePlaceholder = currentSpecies || "Pokemon pendiente";
   const nicknameDisplayValue = member.nickname || nicknamePlaceholder;
+  const spriteNode = transitionMemberId ? (
+    <ViewTransition name={getTeamEditorTransitionName("sprite", transitionMemberId)}>
+      <PokemonSprite
+        species={resolved?.species ?? currentSpecies ?? "Pokemon"}
+        spriteUrl={resolved?.spriteUrl}
+        animatedSpriteUrl={resolved?.animatedSpriteUrl}
+        size="large"
+        chrome="plain"
+        eager
+      />
+    </ViewTransition>
+  ) : (
+    <PokemonSprite
+      species={resolved?.species ?? currentSpecies ?? "Pokemon"}
+      spriteUrl={resolved?.spriteUrl}
+      animatedSpriteUrl={resolved?.animatedSpriteUrl}
+      size="large"
+      chrome="plain"
+      eager
+    />
+  );
+  const dexSpriteNode = dexSpeciesSlug ? (
+    <ViewTransition name={getDexTransitionName("sprite", dexSpeciesSlug)} share="dex-sprite-share">
+      {spriteNode}
+    </ViewTransition>
+  ) : (
+    spriteNode
+  );
 
   return (
     <div className="px-4 py-4 sm:px-5 sm:py-5">
       <div className="flex items-start gap-3 sm:gap-4">
         <div className="flex shrink-0 flex-col items-center gap-2.5">
-          {transitionMemberId ? (
-            <ViewTransition name={getTeamEditorTransitionName("sprite", transitionMemberId)}>
-              <PokemonSprite
-                species={resolved?.species ?? currentSpecies ?? "Pokemon"}
-                spriteUrl={resolved?.spriteUrl}
-                animatedSpriteUrl={resolved?.animatedSpriteUrl}
-                size="large"
-                chrome="plain"
-                eager
-              />
-            </ViewTransition>
+          {dexDetailHref ? (
+            <Link
+              href={dexDetailHref}
+              prefetch
+              transitionTypes={dexForwardTransition}
+              aria-label="Abrir ficha en la dex"
+              title="Abrir ficha en la dex"
+              className="inline-flex rounded-[0.9rem] transition-transform hover:scale-[1.02] active:scale-[0.99]"
+              onPointerDown={() => markNavigationStart("editor-to-dex-detail", dexDetailHref)}
+              onClick={() => markNavigationStart("editor-to-dex-detail", dexDetailHref)}
+            >
+              {dexSpriteNode}
+            </Link>
           ) : (
-            <PokemonSprite
-              species={resolved?.species ?? currentSpecies ?? "Pokemon"}
-              spriteUrl={resolved?.spriteUrl}
-              animatedSpriteUrl={resolved?.animatedSpriteUrl}
-              size="large"
-              chrome="plain"
-              eager
-            />
+            dexSpriteNode
           )}
           <div className="flex items-center gap-2">
             <button

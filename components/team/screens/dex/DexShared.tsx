@@ -17,25 +17,16 @@ import { INITIAL_RESULTS, RESULT_BATCH_SIZE } from "@/components/team/screens/de
 
 export function DexSectionHeader({
   count,
-  limit,
   emptyLabel,
 }: {
   count: number;
-  limit: number;
   emptyLabel: string;
 }) {
   if (!count) {
     return <p className="mb-3 text-sm text-muted">{emptyLabel}</p>;
   }
 
-  return (
-    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-      <p className="text-sm text-muted">
-        {count > limit ? `Mostrando ${limit} de ${count} resultados.` : `${count} resultados.`}
-      </p>
-      <p className="text-xs text-text-faint">Busca por nombre o efecto.</p>
-    </div>
-  );
+  return null;
 }
 
 export function DexCollectionLoadingSkeleton() {
@@ -65,11 +56,13 @@ export function DexIncrementalGrid<T>({
   emptyLabel,
   loadingLabel,
   renderItem,
+  gridClassName,
 }: {
   items: T[];
   emptyLabel: string;
   loadingLabel: string;
   renderItem: (item: T, index: number) => React.ReactNode;
+  gridClassName?: string;
 }) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_RESULTS);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -101,8 +94,8 @@ export function DexIncrementalGrid<T>({
 
   return (
     <>
-      <DexSectionHeader count={items.length} limit={visibleCount} emptyLabel={emptyLabel} />
-      <div className="grid gap-3 xl:grid-cols-2">{visibleItems.map((item, index) => renderItem(item, index))}</div>
+      <DexSectionHeader count={items.length} emptyLabel={emptyLabel} />
+      <div className={clsx("grid gap-3 xl:grid-cols-2", gridClassName)}>{visibleItems.map((item, index) => renderItem(item, index))}</div>
       {visibleCount < items.length ? (
         <div ref={setSentinelRef} className="mt-4 flex justify-center" aria-hidden="true">
           <span className="rounded-full border border-line-soft bg-surface-3 px-3 py-1 text-xs text-text-faint">
@@ -223,21 +216,26 @@ export function DexFilterToggle({
   onClick,
   tone = "accent",
   compact = false,
+  className,
+  title,
   children,
 }: {
   active: boolean;
   onClick: () => void;
   tone?: "warning" | "accent" | "info" | "primary";
   compact?: boolean;
+  className?: string;
+  title?: string;
   children: React.ReactNode;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      title={title}
       className={clsx(
         "inline-flex items-center rounded-full border text-xs transition",
-        compact ? "px-2.5 py-1.5" : "px-3 py-2",
+        compact ? "px-2 py-1 text-[11px] sm:px-2.5 sm:py-1.5 sm:text-xs" : "px-3 py-2",
         active
           ? {
               warning: "border-warning-line bg-warning-fill text-[hsl(39_100%_82%)]",
@@ -246,6 +244,7 @@ export function DexFilterToggle({
               primary: "border-primary-line bg-primary-fill text-primary-soft",
             }[tone]
           : "border-line-soft bg-surface-3 text-muted hover:border-line hover:text-text",
+        className,
       )}
     >
       {children}
