@@ -12,7 +12,7 @@ export function InfoBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[0.8rem] border border-line-soft bg-surface-2/85 px-2.5 py-2.5">
+    <div className="px-0 py-0">
       <p className="micro-label text-text-faint">{label}</p>
       <div className="mt-1.5">{children}</div>
     </div>

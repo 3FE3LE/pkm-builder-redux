@@ -107,7 +107,13 @@ export function PokemonDexCard({
       <div className="pointer-events-none absolute inset-0" style={cardShellStyle} />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.12))]" />
       <div className={clsx("relative", !expanded && "flex h-full items-center justify-center")}>
-        <div className={clsx("flex items-start", !expanded && "w-full flex-col items-center justify-center gap-0", expanded && "gap-4")}>
+        <div
+          className={clsx(
+            "flex",
+            !expanded && "w-full flex-col items-center justify-center gap-0",
+            expanded && "flex-col items-center gap-3 text-center lg:flex-row lg:items-start lg:gap-4 lg:text-left",
+          )}
+        >
           <ViewTransition name={spriteTransitionName} share="dex-sprite-share">
             <div
               className={clsx(
@@ -136,12 +142,12 @@ export function PokemonDexCard({
               )}
             </div>
           </ViewTransition>
-          <div className={clsx("min-w-0 flex-1", !expanded && "w-full text-center")}>
-            <div className={clsx("flex flex-wrap items-center gap-1.5", !expanded && "justify-center")}>
+          <div className={clsx("min-w-0 flex-1", !expanded && "w-full text-center", expanded && "w-full lg:text-left")}>
+            <div className={clsx("flex flex-wrap items-center gap-1.5", !expanded && "justify-center", expanded && "justify-center lg:justify-start")}>
               <span className="pixel-face text-[10px] text-text-faint md:text-[11px]">#{String(pokemon.dex).padStart(3, "0")}</span>
               <h2 className={clsx("display-face text-sm text-text md:text-[13px]", expanded && "text-base")}>{pokemon.name}</h2>
             </div>
-            <div className={clsx("mt-2 flex flex-row gap-1", !expanded && "justify-center")}>
+            <div className={clsx("mt-2 flex flex-row gap-1", !expanded && "justify-center", expanded && "justify-center lg:justify-start")}>
               {pokemon.types.map((type: string, index: number) => (
                 <TypeBadge
                   key={`${pokemon.slug}-${type}-${index}`}
@@ -160,14 +166,14 @@ export function PokemonDexCard({
             {expanded ? (
               <>
                 {(pokemon.generation || pokemon.category || pokemon.height || pokemon.weight) ? (
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <div className="mt-2 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
                     {pokemon.generation ? <StatChip label={pokemon.generation} /> : null}
                     {pokemon.category ? <StatChip label={pokemon.category} /> : null}
                     {typeof pokemon.height === "number" ? <StatChip label={`Height ${pokemon.height.toFixed(1)} m`} /> : null}
                     {typeof pokemon.weight === "number" ? <StatChip label={`Weight ${pokemon.weight.toFixed(1)} kg`} /> : null}
                   </div>
                 ) : null}
-                <div className="mt-2 flex flex-wrap items-center gap-2">
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
                   <StatChip label={formatBstLabel(pokemon.stats?.bst, pokemon.canonicalStats?.bst)} />
                 </div>
                 {pokemon.flavorText ? <p className="mt-2 text-sm leading-6 text-muted">{pokemon.flavorText}</p> : null}

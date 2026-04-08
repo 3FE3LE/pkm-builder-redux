@@ -53,7 +53,7 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
   };
 
   return (
-    <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
+    <main className="relative overflow-visible px-4 pb-5 pt-2 sm:px-6 sm:pt-3 lg:px-8">
       {detail.previousSpecies ? (
         <Link
           href={`/team/dex/pokemon/${detail.previousSpecies.slug}${detail.dexQuery}`}
@@ -82,12 +82,12 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
           <ChevronRight className="h-4 w-4" />
         </Link>
       ) : null}
-      <section className="mx-auto max-w-6xl">
-        <div className="mb-3 flex justify-end">
+      <section className="relative mx-auto max-w-6xl">
+        <div className="pointer-events-none absolute right-0 top-0 z-20 flex justify-end">
           <button
             type="button"
             aria-label="Cerrar ficha"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-surface-2/80 text-text transition-[transform,color,background-color,border-color] hover:border-warning-line hover:bg-surface-3 active:scale-95"
+            className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-surface-2/80 text-text transition-[transform,color,background-color,border-color] hover:border-warning-line hover:bg-surface-3 active:scale-95"
             onPointerDown={() => {
               router.prefetch(detail.closeHref);
             }}
