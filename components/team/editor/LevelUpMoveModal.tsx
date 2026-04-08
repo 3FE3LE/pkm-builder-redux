@@ -80,7 +80,7 @@ export function LevelUpMoveModal({
   const priority = activeMove.details?.priority ?? 0;
 
   return (
-    <div className="modal-backdrop-strong fixed inset-0 z-[170] flex items-center justify-center px-4 py-6 backdrop-blur-md">
+    <div className="modal-backdrop-strong fixed inset-0 z-170 flex items-center justify-center px-4 py-6 backdrop-blur-md">
       <div className="panel-strong relative w-full max-w-2xl overflow-hidden rounded-[1rem] p-6">
         <div className="sheet-highlight absolute inset-x-0 top-0 h-24" />
         <div className="relative flex items-start justify-between gap-4">
@@ -122,17 +122,17 @@ export function LevelUpMoveModal({
                     />
                     <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
                       {movePreview.accuracy ? (
-                        <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                        <span className="rounded-2xl border border-line px-2 py-1">
                           Acc {movePreview.accuracy}%
                         </span>
                       ) : null}
                       {movePreview.pp ? (
-                        <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                        <span className="rounded-2xl border border-line px-2 py-1">
                           PP {movePreview.pp}
                         </span>
                       ) : null}
                       {priority !== 0 ? (
-                        <span className="rounded-[0.45rem] border border-warning-line px-2 py-1 text-warning-strong">
+                        <span className="rounded-2xl border border-warning-line px-2 py-1 text-warning-strong">
                           Pri {priority > 0 ? `+${priority}` : priority}
                         </span>
                       ) : null}

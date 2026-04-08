@@ -370,7 +370,7 @@ function SourceSprite({
   spriteUrl?: string;
 }) {
   return (
-    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-[4px]">
+    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg">
       {spriteUrl ? (
         <img src={spriteUrl} alt={species} className="h-7 w-7 object-contain pixelated" />
       ) : (

@@ -29,7 +29,7 @@ export function MapPanel({
           <p className="display-face text-sm text-accent">Locations</p>
         </div>
       </div>
-      <div className="scrollbar-thin mt-3 max-h-[34rem] space-y-2.5 overflow-y-auto overflow-x-hidden">
+      <div className="scrollbar-thin mt-3 max-h-136 space-y-2.5 overflow-y-auto overflow-x-hidden">
         {visibleSources.length ? (
           visibleSources.map((source) => (
             <AreaSourceCard

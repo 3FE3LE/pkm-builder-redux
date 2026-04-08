@@ -137,7 +137,7 @@ function DexModeSegmentedControl({
             title={DEX_MODE_LABELS[mode]}
             onClick={() => onChange(mode)}
             className={clsx(
-              "pixel-face inline-flex min-w-0 items-center justify-center rounded-[0.65rem] px-1.5 py-1.5 text-[11px] transition sm:text-xs",
+              "pixel-face inline-flex min-w-0 items-center justify-center rounded-4xl px-1.5 py-1.5 text-[11px] transition sm:text-xs",
               active
                 ? "bg-warning-fill text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                 : "text-muted hover:bg-surface-2 hover:text-text",
@@ -164,26 +164,26 @@ export function DexSecondaryPanels({ model }: { model: any }) {
           <DexMoveEntryCard move={move} compact />
           <InfoBlock label="Detalles">
             <div className="flex flex-wrap gap-2 text-xs text-muted">
-              <span className="rounded-[0.45rem] border border-line px-2 py-1">
+              <span className="rounded-2xl border border-line px-2 py-1">
                 {move.damageClass || "Status"}
               </span>
               {move.power ? (
-                <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                <span className="rounded-2xl border border-line px-2 py-1">
                   Pot {move.power}
                 </span>
               ) : null}
               {move.accuracy ? (
-                <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                <span className="rounded-2xl border border-line px-2 py-1">
                   Acc {move.accuracy}%
                 </span>
               ) : null}
               {move.pp ? (
-                <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                <span className="rounded-2xl border border-line px-2 py-1">
                   PP {move.pp}
                 </span>
               ) : null}
               {move.priority ? (
-                <span className="rounded-[0.45rem] border border-warning-line px-2 py-1 text-warning-strong">
+                <span className="rounded-2xl border border-warning-line px-2 py-1 text-warning-strong">
                   Pri {move.priority > 0 ? `+${move.priority}` : move.priority}
                 </span>
               ) : null}

@@ -179,7 +179,7 @@ export function SpeciesCombobox({
 
   const panelContent = open ? (
     isMobile ? (
-      <div className="fixed inset-0 z-[1000]">
+      <div className="fixed inset-0 z-1000">
         <button
           type="button"
           aria-label="Cerrar selector de Pokemon"
@@ -212,7 +212,7 @@ export function SpeciesCombobox({
         ref={panelRef}
         style={panelStyle}
         className={clsx(
-          "status-popover absolute left-0 z-[120] mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
+          "status-popover absolute left-0 z-120 mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
           panelClassName,
         )}
       >
@@ -222,7 +222,7 @@ export function SpeciesCombobox({
   ) : null;
 
   return (
-    <div ref={rootRef} className={clsx("relative w-full", open && !portal && "z-[140]")}>
+    <div ref={rootRef} className={clsx("relative w-full", open && !portal && "z-140")}>
       <button
         type="button"
         autoFocus={autoFocus}

@@ -72,7 +72,7 @@ export function MovesSection({
             resetDragState();
           }}
           className={clsx(
-            "inline-flex h-9 w-9 items-center justify-center rounded-[999px] border transition",
+            "inline-flex h-9 w-9 items-center justify-center rounded-full border transition",
             isTrashOver
               ? "border-danger-line-strong bg-danger-fill-hover text-danger"
               : "border-danger-line-faint bg-danger-fill text-danger",
@@ -169,17 +169,17 @@ export function MovesSection({
               </div>
               <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted">
                 {selectedMove.accuracy ? (
-                  <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                  <span className="rounded-2xl border border-line px-2 py-1">
                     Acc {selectedMove.accuracy}%
                   </span>
                 ) : null}
                 {selectedMove.pp ? (
-                  <span className="rounded-[0.45rem] border border-line px-2 py-1">
+                  <span className="rounded-2xl border border-line px-2 py-1">
                     PP {selectedMove.pp}
                   </span>
                 ) : null}
                 {selectedMove.hasStab ? (
-                  <span className="rounded-[0.45rem] border border-warning-line px-2 py-1 text-warning-strong">
+                  <span className="rounded-2xl border border-warning-line px-2 py-1 text-warning-strong">
                     STAB
                   </span>
                 ) : null}

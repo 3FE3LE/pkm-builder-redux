@@ -131,7 +131,7 @@ export function MoveSlotSurface({
           "fit-offense-surface rounded-[0.625rem_0.375rem_0.625rem_0.375rem]",
         fit?.kind === "defense" &&
           "fit-defense-surface rounded-[0.375rem_0.625rem_0.375rem_0.625rem]",
-        !fit && "rounded-[4px]",
+        !fit && "rounded-lg",
         move.hasStab && "move-stab-surface",
         className,
       )}

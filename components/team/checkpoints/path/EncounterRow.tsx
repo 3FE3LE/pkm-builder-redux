@@ -136,7 +136,7 @@ export function EncounterRow({
                   </span>
                   <span
                     className={clsx(
-                      "inline-flex h-6 w-6 items-center justify-center rounded-[0.45rem] border transition",
+                      "inline-flex h-6 w-6 items-center justify-center rounded-2xl border transition",
                       isCompleted
                         ? "border-primary-line-emphasis bg-primary-fill-hover text-primary-soft"
                         : "border-line bg-surface-3 text-transparent",

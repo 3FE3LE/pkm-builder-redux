@@ -27,7 +27,7 @@ export function IntelligencePanel({
             {swapOpportunities.slice(0, 4).map((opportunity) => (
               <div
                 key={`${opportunity.replacedSpecies}-${opportunity.candidateSpecies}`}
-                className="rounded-[0.65rem] px-2 py-2"
+                className="rounded-4xl px-2 py-2"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
@@ -84,7 +84,7 @@ export function IntelligencePanel({
           {checkpointRisk.roleSnapshot.members.map((member) => (
             <div
               key={`role-${member.species}`}
-              className="rounded-[0.65rem] px-2 py-2"
+              className="rounded-4xl px-2 py-2"
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="display-face text-xs text-accent">{member.species}</span>
@@ -158,7 +158,7 @@ function SectionBlock({
 
 function RoleBucket({ label, values }: { label: string; values: string[] }) {
   return (
-    <div className="rounded-[0.65rem] px-1.5 py-2">
+    <div className="rounded-4xl px-1.5 py-2">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face micro-copy text-accent">{label}</span>
       </div>

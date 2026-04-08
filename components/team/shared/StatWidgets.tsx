@@ -105,7 +105,7 @@ export function StatBar({
         ) : null}
         {baselineWidth !== null && delta ? (
           <span
-            className="absolute inset-y-[-2px] w-[2px] -translate-x-1/2 rounded-full bg-white/75 shadow-[0_0_0_1px_rgba(0,0,0,0.15)]"
+            className="absolute -inset-y-0.5 w-0.5 -translate-x-1/2 rounded-full bg-white/75 shadow-[0_0_0_1px_rgba(0,0,0,0.15)]"
             style={{ left: `${baselineWidth}%` }}
             aria-hidden="true"
           />
@@ -321,7 +321,7 @@ export function SpreadInput({
             }}
             className={clsx(
               "h-8 min-w-0 w-full rounded-none border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
-              isResponsive && "lg:h-8 lg:w-[3.25rem] lg:flex-none lg:border-y lg:border-x-0",
+              isResponsive && "lg:h-8 lg:w-13 lg:flex-none lg:border-y lg:border-x-0",
             )}
             aria-invalid={Boolean(error)}
           />
@@ -366,7 +366,7 @@ export function SpreadInput({
               const parsedValue = parseInt(event.target.value, 10);
               onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
             }}
-            className="h-8 min-w-[3rem] w-[3.25rem] flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
+            className="h-8 min-w-[3rem] w-13 flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
             aria-invalid={Boolean(error)}
           />
           <button

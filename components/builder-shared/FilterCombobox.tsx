@@ -99,7 +99,7 @@ export function FilterCombobox({
 
   const panelContent = open ? (
     isMobile ? (
-      <div className="fixed inset-0 z-[1000]">
+      <div className="fixed inset-0 z-1000">
         <button
           type="button"
           aria-label="Cerrar combobox"
@@ -132,7 +132,7 @@ export function FilterCombobox({
         ref={panelRef}
         style={panelStyle}
         className={clsx(
-          "status-popover absolute left-0 z-[1000] mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
+          "status-popover absolute left-0 z-1000 mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
           panelClassName,
         )}
       >

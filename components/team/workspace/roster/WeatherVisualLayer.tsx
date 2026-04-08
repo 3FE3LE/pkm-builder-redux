@@ -80,7 +80,7 @@ export function WeatherVisualLayer({ weather }: { weather: BattleWeather }) {
           {RAIN_STREAKS.map((streak) => (
             <motion.div
               key={`rain-${streak.left}`}
-              className="absolute top-[-18%] h-[58%] w-[2px] rounded-full"
+              className="absolute top-[-18%] h-[58%] w-0.5 rounded-full"
               style={{
                 left: streak.left,
                 background:

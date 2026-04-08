@@ -75,7 +75,7 @@ export function EvolutionModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="modal-backdrop-strong fixed inset-0 z-[160] flex items-start justify-center overflow-y-auto px-3 py-4 backdrop-blur-md sm:px-4 sm:py-6 sm:items-center"
+      className="modal-backdrop-strong fixed inset-0 z-160 flex items-start justify-center overflow-y-auto px-3 py-4 backdrop-blur-md sm:px-4 sm:py-6 sm:items-center"
     >
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.98 }}

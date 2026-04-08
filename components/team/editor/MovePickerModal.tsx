@@ -84,7 +84,7 @@ export function MovePickerModal({
             type="button"
             onClick={() => onTabChange("levelUp")}
             className={clsx(
-              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
+              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-widest",
               tab === "levelUp"
                 ? "border-[rgba(94,240,203,0.5)] bg-[rgba(94,240,203,0.12)] text-accent"
                 : "border-line text-muted",
@@ -96,7 +96,7 @@ export function MovePickerModal({
             type="button"
             onClick={() => onTabChange("machines")}
             className={clsx(
-              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-[0.12em]",
+              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-widest",
               tab === "machines"
                 ? "border-[rgba(94,240,203,0.5)] bg-[rgba(94,240,203,0.12)] text-accent"
                 : "border-line text-muted",
@@ -107,14 +107,14 @@ export function MovePickerModal({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-7 w-7 touch-manipulation items-center justify-center rounded-[0.45rem] border border-line text-muted transition hover:bg-surface-4"
+            className="inline-flex h-7 w-7 touch-manipulation items-center justify-center rounded-2xl border border-line text-muted transition hover:bg-surface-4"
             aria-label="Close move picker"
           >
             <X className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
-      <div className="scrollbar-thin grid max-h-[18rem] gap-1 overflow-auto pr-1 sm:grid-cols-2">
+      <div className="scrollbar-thin grid max-h-72 gap-1 overflow-auto pr-1 sm:grid-cols-2">
         {items.length ? (
           items.map((item) => {
             const previewMove = {
@@ -184,7 +184,7 @@ export function MovePickerModal({
                     <span className="display-face shrink-0 text-[9px] text-current/80">
                       {item.label}
                     </span>
-                    <span className="pixel-face min-w-0 truncate text-[12px] leading-none tracking-[0.1em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
+                    <span className="pixel-face min-w-0 truncate text-[12px] leading-none tracking-widest font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
                       {item.move}
                     </span>
                     <MoveCueIcons
@@ -199,7 +199,7 @@ export function MovePickerModal({
                   adjustedPower={adjustedPower}
                 />
                 {isCurrentMove ? (
-                  <span className="display-face shrink-0 text-[9px] uppercase tracking-[0.1em] text-primary-soft">
+                  <span className="display-face shrink-0 text-[9px] uppercase tracking-widest text-primary-soft">
                     {isCurrentSlotMove ? "current" : "picked"}
                   </span>
                 ) : null}
@@ -218,7 +218,7 @@ export function MovePickerModal({
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-[1000]">
+    <div className="fixed inset-0 z-1000">
       <button
         type="button"
         aria-label="Cerrar lista de movimientos"

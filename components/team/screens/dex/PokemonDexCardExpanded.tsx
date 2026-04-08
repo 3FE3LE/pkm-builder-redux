@@ -97,7 +97,7 @@ export function PokemonDexCardExpanded({
                   ) : null}
                   {node.current ? (
                     <div className="flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-[hsl(39_100%_78%)]">
-                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-[0.65rem] border border-white/10 bg-surface-1">
+                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-4xl border border-white/10 bg-surface-1">
                         <PokemonSprite species={node.name} spriteUrl={node.spriteUrl} animatedSpriteUrl={undefined} size="small" chrome="plain" />
                       </div>
                       <span className="display-face text-[10px] leading-3 text-current">{node.name}</span>
@@ -108,7 +108,7 @@ export function PokemonDexCardExpanded({
                       transitionTypes={evolutionForwardTransition}
                       className="group flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-text transition-colors hover:text-[hsl(39_100%_78%)]"
                     >
-                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-[0.65rem] border border-white/10 bg-surface-1">
+                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-4xl border border-white/10 bg-surface-1">
                         <ViewTransition name={getDexTransitionName("evo-sprite", node.slug)}>
                           <PokemonSprite species={node.name} spriteUrl={node.spriteUrl} animatedSpriteUrl={undefined} size="small" chrome="plain" />
                         </ViewTransition>
