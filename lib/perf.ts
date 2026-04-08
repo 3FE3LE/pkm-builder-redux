@@ -17,11 +17,11 @@ export function isPerfDebugEnabled() {
     return false;
   }
 
-  return (
-    process.env.NODE_ENV !== "production" ||
-    window.location.search.includes("perf=1") ||
-    window.localStorage.getItem("perf-debug") === "1"
-  );
+  if (process.env.NODE_ENV === "production") {
+    return false;
+  }
+
+  return true;
 }
 
 export function markNavigationStart(label: string, href: string) {
