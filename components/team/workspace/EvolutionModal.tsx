@@ -75,28 +75,16 @@ export function EvolutionModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="modal-backdrop-strong fixed inset-0 z-[160] flex items-center justify-center px-4 py-6 backdrop-blur-md"
+      className="modal-backdrop-strong fixed inset-0 z-[160] flex items-start justify-center overflow-y-auto px-3 py-4 backdrop-blur-md sm:px-4 sm:py-6 sm:items-center"
     >
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 10, scale: 0.98 }}
-        className="panel-strong relative w-full max-w-3xl overflow-hidden rounded-[1rem] p-6"
+        className="panel-strong relative my-auto max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-[1rem] p-4 sm:max-h-[calc(100dvh-3rem)] sm:p-5"
       >
         <div className="sheet-highlight absolute inset-x-0 top-0 h-28" />
-        <div className="relative flex items-start justify-between gap-4">
-          <div>
-            <p className="display-face text-sm text-accent">Evolution</p>
-            <h2 className="pixel-face mt-2 text-2xl">
-              {phase === "confirm" ? "Confirmar evolución" : "Evolucionando..."}
-            </h2>
-            <p className="mt-2 text-sm text-muted">
-              {phase === "confirm"
-                ? "Elige la siguiente forma y arranca la secuencia ceremonial."
-                : "La evolución avanza sola y puedes saltarla cuando quieras."}
-            </p>
-          </div>
-          <div className="flex gap-2">
+        <div className="relative flex justify-end gap-1.5">
             {phase === "animating" ? (
               <Button
                 type="button"
@@ -116,13 +104,12 @@ export function EvolutionModal({
             <Button type="button" variant="ghost" size="icon-sm" onClick={handleClose}>
               <X className="h-4 w-4" />
             </Button>
-          </div>
         </div>
 
         {phase === "confirm" ? (
-          <div className="relative mt-6 space-y-5">
+          <div className="relative space-y-4">
             {nextOptions.length > 1 ? (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {nextOptions.map((option) => (
                   <Button
                     key={`evolution-option-${option.species}`}
@@ -145,39 +132,32 @@ export function EvolutionModal({
               </div>
             ) : null}
 
-            <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
+            <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
               <EvolutionPreviewCard
-                title="Forma actual"
                 species={currentSpecies}
                 spriteUrl={currentSpriteUrl}
                 animatedSpriteUrl={currentAnimatedSpriteUrl}
               />
               <div className="flex justify-center">
-                <div className="primary-badge rounded-full p-3 text-accent">
-                  <span className="block text-3xl leading-none">→</span>
+                <div className="primary-badge flex h-11 w-11 items-center justify-center rounded-full text-accent sm:h-12 sm:w-12">
+                  <span className="block text-2xl leading-none sm:text-3xl">→</span>
                 </div>
               </div>
               {nextSelection ? (
                 <EvolutionPreviewCard
-                  title="Siguiente forma"
                   species={nextSelection.species}
                   spriteUrl={nextSelection.spriteUrl}
                   animatedSpriteUrl={nextSelection.animatedSpriteUrl}
                   highlight
                 />
               ) : (
-                <div className="space-y-3">
-                  <p className="display-face text-xs uppercase tracking-[0.18em] text-muted">
-                    Siguiente forma
-                  </p>
-                  <div className="rounded-[0.9rem] border border-line px-4 py-6 text-center text-sm text-muted">
+                <div className="flex min-h-36 items-center justify-center rounded-[0.9rem] border border-line px-4 py-5 text-center text-sm text-muted sm:min-h-44">
                     No hay evolución disponible.
-                  </div>
                 </div>
               )}
             </div>
 
-            <div className="flex flex-wrap justify-end gap-3 pt-2">
+            <div className="flex flex-wrap justify-end gap-2 pt-1">
               <Button type="button" variant="ghost" onClick={handleClose}>
                 Cancelar
               </Button>
@@ -192,7 +172,7 @@ export function EvolutionModal({
             </div>
           </div>
         ) : (
-          <div className="relative mt-8">
+          <div className="relative mt-5">
             <EvolutionSequenceStage
               currentSpecies={currentSpecies}
               currentSpriteUrl={currentSpriteUrl}
@@ -209,7 +189,7 @@ export function EvolutionModal({
                 handleComplete(selectedNext);
               }}
             />
-            <p className="mt-6 text-center text-sm text-muted">
+            <p className="mt-4 text-center text-sm text-muted">
               {animationStage === "charge"
                 ? `What? ${currentSpecies} is evolving!`
                 : animationStage === "flare"
@@ -226,37 +206,30 @@ export function EvolutionModal({
 }
 
 function EvolutionPreviewCard({
-  title,
   species,
   spriteUrl,
   animatedSpriteUrl,
   highlight = false,
 }: {
-  title: string;
   species: string;
   spriteUrl?: string;
   animatedSpriteUrl?: string;
   highlight?: boolean;
 }) {
   return (
-    <div className="space-y-3">
-      <p className="display-face text-xs uppercase tracking-[0.18em] text-muted">{title}</p>
-      <div
-        className={clsx(
-          "flex flex-col items-center rounded-[0.9rem] border p-5 text-center",
-          highlight
-            ? "evolution-preview-highlight border-primary-line-soft"
-            : "border-line bg-surface-2",
-        )}
-      >
+    <div
+      className={clsx(
+        "flex flex-col items-center justify-center px-2 py-2 text-center sm:px-3 sm:py-3",
+        highlight && "evolution-preview-highlight rounded-[0.9rem]",
+      )}
+    >
         <PokemonSprite
           species={species}
           spriteUrl={spriteUrl}
           animatedSpriteUrl={animatedSpriteUrl}
           size="large"
         />
-        <p className="pixel-face mt-4 text-xl">{species}</p>
-      </div>
+        <p className="pixel-face mt-3 text-lg sm:text-xl">{species}</p>
     </div>
   );
 }
@@ -298,7 +271,7 @@ function EvolutionSequenceStage({
           onAdvanceStage("morph");
         }
       }}
-      className="relative mx-auto flex min-h-[22rem] w-full max-w-[24rem] flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-6"
+      className="relative mx-auto flex min-h-[18rem] w-full max-w-[22rem] flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-5 sm:min-h-[20rem] sm:max-w-[24rem] sm:py-6"
     >
       <div
         className={clsx(
@@ -335,7 +308,7 @@ function EvolutionSequenceStage({
           stage === "reveal" && "evo-flash-reveal",
         )}
       />
-      <div className="relative h-44 w-44">
+      <div className="relative h-36 w-36 sm:h-44 sm:w-44">
         <div
           className={clsx(
             "absolute inset-0 transition-all duration-500",
@@ -383,7 +356,7 @@ function EvolutionSequenceStage({
           />
         </div>
       </div>
-      <div className="relative mt-3 flex flex-col items-center gap-2 text-accent">
+      <div className="relative mt-2.5 flex flex-col items-center gap-1.5 text-accent">
         <div className="evolution-divider h-px w-24" />
         <div className="display-face text-sm text-primary-soft">
           {stage === "charge"

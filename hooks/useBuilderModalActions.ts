@@ -4,7 +4,7 @@ import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { reconcileAbilitySelection } from "@/lib/domain/abilities";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import { applyMoveSelection } from "@/lib/domain/moveSelection";
-import { resolvePokemonProfile } from "@/lib/teamAnalysis";
+import { resolvePokemonProfile, type ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { BuilderActionDeps } from "@/hooks/actionTypes";
 
 export function useBuilderModalActions({
@@ -75,6 +75,16 @@ export function useBuilderModalActions({
       (derived.editorResolved?.key === memberId ? derived.editorResolved : undefined) ??
       (derived.activeModalMember?.key === memberId ? derived.activeModalMember : undefined) ??
       derived.resolvedTeam.find((entry) => entry.key === memberId);
+    if (!memberResolved) {
+      return;
+    }
+    requestEvolutionForResolvedMember(memberId, memberResolved);
+  }
+
+  function requestEvolutionForResolvedMember(
+    memberId: string,
+    memberResolved: ResolvedTeamMember,
+  ) {
     if (!memberResolved?.nextEvolutions?.length) {
       return;
     }
@@ -175,6 +185,7 @@ export function useBuilderModalActions({
     pickMove,
     requestEvolution,
     requestEvolutionForMember,
+    requestEvolutionForResolvedMember,
     selectEvolution,
     cancelEvolution,
     confirmEvolution,

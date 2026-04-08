@@ -297,9 +297,16 @@ export function useBuilderController({
         select: actions.selectEvolution,
         close: actions.cancelEvolution,
         confirm: actions.confirmEvolution,
+        openProjected: actions.requestEvolutionForResolvedMember,
       },
     }),
-    [ui.evolutionState, actions.selectEvolution, actions.cancelEvolution, actions.confirmEvolution],
+    [
+      ui.evolutionState,
+      actions.selectEvolution,
+      actions.cancelEvolution,
+      actions.confirmEvolution,
+      actions.requestEvolutionForResolvedMember,
+    ],
   );
 
   return {

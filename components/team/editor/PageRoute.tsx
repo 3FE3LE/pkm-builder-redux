@@ -125,6 +125,7 @@ export function EditorPageRoute() {
       abilityCatalog={catalogs.abilityCatalog}
       itemCatalog={catalogs.itemCatalog}
       pokemonIndex={catalogs.pokemonIndex as Record<string, { name?: string; nextEvolutions?: string[] }>}
+      resolvedTeam={team.resolvedTeam}
       onChange={(next) => team.actions.updateMember(next.id, next)}
       onImportToPc={team.actions.saveMemberToPc}
       onOpenMoveModal={(slotIndex) => movePicker.actions.open(member.id, slotIndex)}
@@ -172,6 +173,11 @@ export function EditorPageRoute() {
       dexDetailHref={dexDetailHref}
       dexSpeciesSlug={dexSpeciesEntry?.slug}
       evolutionState={evolution.state}
+      localTime={team.localTime}
+      evolutionConstraints={session.evolutionConstraints}
+      onAutoRequestEvolution={(projectedResolved) =>
+        evolution.actions.openProjected(member.id, projectedResolved)
+      }
       onSelectEvolution={evolution.actions.select}
       onCloseEvolution={evolution.actions.close}
       onConfirmEvolution={evolution.actions.confirm}

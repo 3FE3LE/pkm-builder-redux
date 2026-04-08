@@ -106,14 +106,10 @@ describe("EvolutionModal", () => {
 
     render(<EvolutionModal {...props} />);
 
-    expect(screen.getByText("Confirmar evolución")).toBeTruthy();
-    expect(
-      screen.getByText("Elige la siguiente forma y arranca la secuencia ceremonial."),
-    ).toBeTruthy();
-    expect(screen.getByText("Forma actual")).toBeTruthy();
-    expect(screen.getByText("Siguiente forma")).toBeTruthy();
     expect(screen.getByText("sprite-Pignite-/pignite.png-large-idle")).toBeTruthy();
     expect(screen.getByText("sprite-Emboar-/emboar.png-large-idle")).toBeTruthy();
+    expect(screen.getByText("Pignite")).toBeTruthy();
+    expect(screen.getAllByText("Emboar").length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: "Emboar" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Tepig" }).getAttribute("title")).toBe(
       "Trade locked · Friendship missing",
@@ -150,10 +146,6 @@ describe("EvolutionModal", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Iniciar evolución" }));
 
-    expect(screen.getByText("Evolucionando...")).toBeTruthy();
-    expect(
-      screen.getByText("La evolución avanza sola y puedes saltarla cuando quieras."),
-    ).toBeTruthy();
     expect(screen.getByText("Skip")).toBeTruthy();
 
     act(() => {
