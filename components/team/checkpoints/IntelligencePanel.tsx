@@ -8,6 +8,14 @@ import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 type CheckpointRisk = ReturnType<typeof import("@/lib/domain/checkpointScoring").buildCheckpointRiskSnapshot>;
 type SwapOpportunity = ReturnType<typeof import("@/lib/domain/swapOpportunities").buildSwapOpportunities>[number];
 
+const intelligenceSectionTitleClassName = "display-face text-sm text-accent";
+const intelligenceSectionEyebrowClassName = "display-face text-xs text-accent";
+const intelligenceHeaderRowClassName = "flex flex-wrap items-center justify-between gap-3";
+const intelligenceTokenPillClassName = "token-card px-3 py-1 text-xs text-muted";
+const intelligenceCompactGridClassName = "mt-3 grid gap-2 sm:grid-cols-2";
+const intelligenceSectionShellClassName = "mt-3 px-1 py-1";
+const intelligenceSectionTopRowClassName = "flex items-start justify-between gap-3";
+
 export function IntelligencePanel({
   teamSize,
   supportsContextualSwaps,
@@ -29,9 +37,9 @@ export function IntelligencePanel({
                 key={`${opportunity.replacedSpecies}-${opportunity.candidateSpecies}`}
                 className="rounded-4xl px-2 py-2"
               >
-                <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className={intelligenceHeaderRowClassName}>
                   <div>
-                    <p className="display-face text-xs text-accent">{opportunity.replacedSpecies}</p>
+                    <p className={intelligenceSectionEyebrowClassName}>{opportunity.replacedSpecies}</p>
                     <p className="mt-1 text-xs text-muted">
                       {opportunity.candidateSpecies} entra mejor ahora desde {opportunity.area}.
                     </p>
@@ -50,13 +58,13 @@ export function IntelligencePanel({
                   </span>
                 </div>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  <span className="token-card px-3 py-1 text-xs text-muted">
+                  <span className={intelligenceTokenPillClassName}>
                     role {opportunity.candidateRole}
                   </span>
-                  <span className="token-card px-3 py-1 text-xs text-muted">
+                  <span className={intelligenceTokenPillClassName}>
                     risk -{opportunity.riskDelta.toFixed(1)}
                   </span>
-                  <span className="token-card px-3 py-1 text-xs text-muted">
+                  <span className={intelligenceTokenPillClassName}>
                     score +{opportunity.scoreDelta.toFixed(1)}
                   </span>
                 </div>
@@ -80,14 +88,14 @@ export function IntelligencePanel({
         <p className="text-xs text-muted">
           Cada slot recibe un rol sugerido según stats, naturaleza, habilidad y moves.
         </p>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className={intelligenceCompactGridClassName}>
           {checkpointRisk.roleSnapshot.members.map((member) => (
             <div
               key={`role-${member.species}`}
               className="rounded-4xl px-2 py-2"
             >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="display-face text-xs text-accent">{member.species}</span>
+              <div className={intelligenceHeaderRowClassName}>
+                <span className={intelligenceSectionEyebrowClassName}>{member.species}</span>
                 <div className="flex flex-wrap gap-1.5">
                   <span className="micro-label token-card px-2 py-1 uppercase text-muted">
                     natural {ROLE_LABELS[member.naturalRole]}
@@ -111,7 +119,7 @@ export function IntelligencePanel({
             </div>
           ))}
         </div>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className={intelligenceCompactGridClassName}>
           <RoleBucket
             label="Cubiertos"
             values={checkpointRisk.roleSnapshot.coveredRoles.map((role) => ROLE_LABELS[role])}
@@ -146,9 +154,9 @@ function SectionBlock({
   aside?: ReactNode;
 }) {
   return (
-    <section className="mt-3 px-1 py-1">
-      <div className="flex items-start justify-between gap-3">
-        <p className="display-face text-sm text-accent">{title}</p>
+    <section className={intelligenceSectionShellClassName}>
+      <div className={intelligenceSectionTopRowClassName}>
+        <p className={intelligenceSectionTitleClassName}>{title}</p>
         {aside ?? null}
       </div>
       <div className="mt-2">{children}</div>

@@ -12,6 +12,11 @@ import type { RemotePokemon } from "@/lib/teamAnalysis";
 
 import type { AddFeedback } from "@/components/team/tools/iv-calculator/types";
 
+const ivPanelEyebrowClassName = "display-face micro-label text-muted";
+const ivPanelBaseStatLabelClassName = "display-face text-[9px] text-muted";
+const ivPanelActionButtonClassName = "h-11 rounded-lg";
+const ivPanelFeedbackClassName = "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm";
+
 type SpeciesCatalogEntry = {
   name: string;
   slug: string;
@@ -80,7 +85,7 @@ export function SelectedPokemonPanel({
         />
       </div>
       <div className="mt-4">
-        <p className="display-face text-[10px] text-muted">Base stats</p>
+        <p className={ivPanelEyebrowClassName}>Base stats</p>
         <div className="mt-2 grid grid-cols-3 gap-2">
           {[
             ["HP", resolvedPokemon.stats.hp],
@@ -94,7 +99,7 @@ export function SelectedPokemonPanel({
               key={`base-stat-${label}`}
               className="token-card px-2 py-2 text-center"
             >
-              <p className="display-face text-[9px] text-muted">{label}</p>
+              <p className={ivPanelBaseStatLabelClassName}>{label}</p>
               <p className="mono-face mt-1 text-sm text-text">{value}</p>
             </div>
           ))}
@@ -110,7 +115,7 @@ export function SelectedPokemonPanel({
           <p className="display-face text-xs text-accent">Add to team</p>
           <div className="mt-3 grid gap-3">
             <label className="block">
-              <span className="display-face text-[10px] text-muted">Nickname optional</span>
+              <span className={ivPanelEyebrowClassName}>Nickname optional</span>
               <Input
                 value={nickname}
                 onChange={(event) => setNickname(event.target.value)}
@@ -119,7 +124,7 @@ export function SelectedPokemonPanel({
               />
             </label>
             <div>
-              <p className="display-face text-[10px] text-muted">Gender optional</p>
+              <p className={ivPanelEyebrowClassName}>Gender optional</p>
               <div className="mt-1.5 flex gap-2">
                 {[
                   { key: "male" as const, icon: Mars, className: "text-info-soft" },
@@ -157,7 +162,7 @@ export function SelectedPokemonPanel({
               </div>
             </div>
             <div className="px-1 py-1">
-              <p className="display-face text-[10px] text-muted">Moves learned by level</p>
+              <p className={ivPanelEyebrowClassName}>Moves learned by level</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {suggestedMoves.length ? suggestedMoves.map((move) => (
                   <span key={`capture-move-${move}`} className="token-card px-2.5 py-1 text-xs text-text">
@@ -172,7 +177,7 @@ export function SelectedPokemonPanel({
               type="button"
               disabled={!canAddToTeam}
               onClick={onAddToTeam}
-              className="h-11 rounded-[0.8rem]"
+              className={ivPanelActionButtonClassName}
             >
               <Plus className="h-4 w-4" />
               Add Capture To Team
@@ -185,7 +190,7 @@ export function SelectedPokemonPanel({
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -4, scale: 0.98 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className={`flex items-center gap-2 rounded-[0.8rem] border px-3 py-2 text-sm ${
+                  className={`${ivPanelFeedbackClassName} ${
                     addFeedback.tone === "success"
                       ? "border-primary-line-active bg-primary-fill text-primary-soft"
                       : "border-danger-line bg-danger-fill text-danger-soft"

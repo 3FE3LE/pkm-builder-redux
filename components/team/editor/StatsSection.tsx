@@ -32,6 +32,11 @@ import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
 
+const editorSectionTitleClassName = "display-face text-sm text-accent";
+const editorSectionHeaderRowClassName = "flex flex-wrap items-center justify-between gap-3";
+const editorSpreadRowClassName =
+  "mt-3 flex flex-nowrap items-center justify-between gap-1 lg:flex-col lg:gap-2";
+
 function clampEvValue(
   currentEvs: EditableMember["evs"],
   key: (typeof statKeys)[number],
@@ -146,16 +151,16 @@ export function StatsSection({
   }, [previewNatureEffect, previewStatModifiers, resolved?.resolvedStats]);
   return (
     <section className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="display-face text-sm text-accent">Perfil del slot</p>
+      <div className={editorSectionHeaderRowClassName}>
+        <p className={editorSectionTitleClassName}>Perfil del slot</p>
         {resolved?.resolvedStats ? (
           <MiniPill>BST {resolved.resolvedStats.bst}</MiniPill>
         ) : null}
       </div>
       <div className="grid gap-3 lg:grid-cols-4 lg:items-start">
         <div className="lg:self-center">
-          <p className="display-face text-sm text-accent">IV 0-31</p>
-          <div className="mt-3 flex flex-nowrap items-center justify-between gap-1 lg:flex-col lg:gap-2">
+          <p className={editorSectionTitleClassName}>IV 0-31</p>
+          <div className={editorSpreadRowClassName}>
             {statKeys.map((key) => (
               <SpreadInput
                 key={`iv-${key}`}
@@ -206,11 +211,11 @@ export function StatsSection({
           ) : null}
         </div>
         <div className="lg:self-center">
-          <p className="display-face text-sm text-accent">EV {totalEvs}/510</p>
+          <p className={editorSectionTitleClassName}>EV {totalEvs}/510</p>
           {evError ? (
             <p className="mt-3 text-sm text-danger">{evError}</p>
           ) : null}
-          <div className="mt-3 flex flex-nowrap items-center justify-between gap-1 lg:flex-col lg:gap-2">
+          <div className={editorSpreadRowClassName}>
             {statKeys.map((key) => (
               <SpreadInput
                 key={`ev-${key}`}

@@ -3,6 +3,16 @@
 import clsx from "clsx";
 
 import { MoveSlotSurface } from "@/components/team/UI";
+import {
+  dexSectionCaptionClassName,
+  dexStatChipClassName,
+} from "@/components/team/screens/dex/DexShared";
+
+const dexInfoCardClassName = "border border-line-soft bg-surface-3 p-3";
+const dexInfoWarningPillClassName =
+  "rounded-2xl border border-warning-line px-2 py-1 text-warning-strong";
+const dexInfoAcquisitionEntryClassName =
+  "rounded-[0.7rem] border border-line-soft bg-surface-3 px-2.5 py-1.5 text-xs leading-5 text-text";
 
 export function InfoBlock({
   label,
@@ -38,7 +48,7 @@ export function DexMoveEntryCard({
   compact?: boolean;
 }) {
   return (
-    <div className={clsx("rounded-[0.7rem]", compact ? "" : "border border-line-soft bg-surface-3 p-3")}>
+    <div className={clsx("rounded-[0.7rem]", compact ? "" : dexInfoCardClassName)}>
       {eyebrow ? <p className="mb-1 micro-label text-text-faint">{eyebrow}</p> : null}
       <MoveSlotSurface
         move={{
@@ -55,17 +65,17 @@ export function DexMoveEntryCard({
         <>
           <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
             {move.accuracy ? (
-              <span className="rounded-2xl border border-line px-2 py-1">
+              <span className={dexStatChipClassName}>
                 Acc {move.accuracy}%
               </span>
             ) : null}
             {move.pp ? (
-              <span className="rounded-2xl border border-line px-2 py-1">
+              <span className={dexStatChipClassName}>
                 PP {move.pp}
               </span>
             ) : null}
             {move.priority ? (
-              <span className="rounded-2xl border border-warning-line px-2 py-1 text-warning-strong">
+              <span className={dexInfoWarningPillClassName}>
                 Pri {move.priority > 0 ? `+${move.priority}` : move.priority}
               </span>
             ) : null}
@@ -90,13 +100,13 @@ export function AcquisitionList({
 
   return (
     <div>
-      <p className="display-face text-[10px] text-text-faint">{title}</p>
+      <p className={dexSectionCaptionClassName}>{title}</p>
       {sliced.length ? (
         <div className="mt-1 flex flex-col gap-1.5">
           {sliced.map((value, index) => (
             <div
               key={`${title}-${value}-${index}`}
-              className="rounded-[0.7rem] border border-line-soft bg-surface-3 px-2.5 py-1.5 text-xs leading-5 text-text"
+              className={dexInfoAcquisitionEntryClassName}
             >
               {value}
             </div>

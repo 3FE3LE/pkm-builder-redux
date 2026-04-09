@@ -7,6 +7,11 @@ import { Pencil, Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
+const compositionSectionHeaderClassName = "flex flex-wrap items-center justify-between gap-3";
+const compositionCardClassName = "rounded-xl border px-3 py-3 text-left transition";
+const compositionCardIdleClassName = "border-line bg-surface-3 hover:bg-surface-4";
+const compositionCardActiveClassName = "border-primary-line-emphasis bg-primary-fill";
+
 type Composition = {
   id: string;
   name: string;
@@ -40,7 +45,7 @@ export function CompositionsSection({
 
   return (
     <section className="space-y-2">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={compositionSectionHeaderClassName}>
         <div>
           <p className="display-face text-sm text-accent">Compositions</p>
           <p className="text-xs text-muted">Reutiliza tus Pokemon entre equipos.</p>
@@ -75,10 +80,8 @@ export function CompositionsSection({
                 }
               }}
               className={clsx(
-                "rounded-[0.9rem] border px-3 py-3 text-left transition",
-                isActive
-                  ? "border-primary-line-emphasis bg-primary-fill"
-                  : "border-line bg-surface-3 hover:bg-surface-4",
+                compositionCardClassName,
+                isActive ? compositionCardActiveClassName : compositionCardIdleClassName,
               )}
             >
               <div className="flex items-start justify-between gap-2">

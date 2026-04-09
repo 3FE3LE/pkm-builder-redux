@@ -15,6 +15,17 @@ import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { getBaseSpeciesName } from "@/lib/forms";
 import { INITIAL_RESULTS, RESULT_BATCH_SIZE } from "@/components/team/screens/dex/utils";
 
+export const dexPanelCardClassName = "panel-strong panel-frame rounded-2xl p-4";
+export const dexCollapsedCaretClassName =
+  "text-xs text-text-faint transition-transform data-panel-open:rotate-180";
+export const dexSectionCaptionClassName = "display-face text-[10px] text-text-faint";
+export const dexOwnerChipClassName =
+  "inline-flex rounded-[0.6rem] border border-line-soft bg-surface-2 p-1";
+export const dexLoadMoreChipClassName =
+  "rounded-full border border-line-soft bg-surface-3 px-3 py-1 text-xs text-text-faint";
+export const dexStatChipClassName =
+  "rounded-full border border-line-soft bg-surface-3 px-2.5 py-1 text-xs text-text-faint";
+
 export function DexSectionHeader({
   count,
   emptyLabel,
@@ -35,7 +46,7 @@ export function DexCollectionLoadingSkeleton() {
       {Array.from({ length: 6 }).map((_, index) => (
         <article
           key={`dex-loading-card-${index}`}
-          className="panel-strong panel-frame rounded-2xl p-4"
+          className={dexPanelCardClassName}
         >
           <div className="space-y-3">
             <Skeleton className="h-5 w-32" />
@@ -98,7 +109,7 @@ export function DexIncrementalGrid<T>({
       <div className={clsx("grid gap-3 xl:grid-cols-2", gridClassName)}>{visibleItems.map((item, index) => renderItem(item, index))}</div>
       {visibleCount < items.length ? (
         <div ref={setSentinelRef} className="mt-4 flex justify-center" aria-hidden="true">
-          <span className="rounded-full border border-line-soft bg-surface-3 px-3 py-1 text-xs text-text-faint">
+          <span className={dexLoadMoreChipClassName}>
             {loadingLabel}
           </span>
         </div>
@@ -134,12 +145,12 @@ export function SegmentedOwnerCollapsible({
               <p className="display-face text-[11px] text-text">{closedLabel}</p>
               <p className="mt-1 text-xs text-muted">{count} Pokemon</p>
             </div>
-            <span className="text-xs text-text-faint transition-transform data-panel-open:rotate-180">⌄</span>
+            <span className={dexCollapsedCaretClassName}>⌄</span>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-2 space-y-2">
             {nonEmptySections.map((section) => (
               <div key={`${label}-${section.title}`} className="space-y-1">
-                <p className="display-face text-[10px] text-text-faint">{section.title}</p>
+                <p className={dexSectionCaptionClassName}>{section.title}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {section.values.map((value, index) => (
                     <OwnerSpriteChip key={`${section.title}-${value}-${index}`} species={value} dexBySpecies={dexBySpecies} />
@@ -169,7 +180,7 @@ function OwnerSpriteChip({
   const sprites = buildSpriteUrls(species, dex);
 
   return (
-    <span className="inline-flex rounded-[0.6rem] border border-line-soft bg-surface-2 p-1" title={species} aria-label={species}>
+    <span className={dexOwnerChipClassName} title={species} aria-label={species}>
       <PokemonSprite species={species} spriteUrl={sprites.spriteUrl} animatedSpriteUrl={sprites.animatedSpriteUrl} size="tiny" chrome="plain" />
     </span>
   );
@@ -177,7 +188,7 @@ function OwnerSpriteChip({
 
 export function StatChip({ label }: { label: string }) {
   return (
-    <span className={clsx("rounded-full border border-line-soft bg-surface-3 px-2.5 py-1 text-xs text-text-faint")}>
+    <span className={clsx(dexStatChipClassName)}>
       {label}
     </span>
   );

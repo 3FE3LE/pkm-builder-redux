@@ -7,6 +7,10 @@ import { statKeys } from "@/lib/builderForm";
 
 import type { IvInferenceByStat, IvObservedState } from "@/components/team/tools/iv-calculator/types";
 
+const ivObservedErrorClassName = "micro-copy text-danger";
+const ivObservedEstimateLabelClassName = "display-face micro-label text-muted";
+const ivObservedEstimateSeedClassName = "mt-1 hidden micro-label text-muted sm:block";
+
 export function ObservedStatsPanel({
   observedStats,
   inferenceByStat,
@@ -44,16 +48,16 @@ export function ObservedStatsPanel({
                   className="token-card mt-2 bg-surface-2/60 px-2.5 py-2"
                 >
                   {!inferenceByStat[stat] || !inferenceByStat[stat]?.candidates.length ? (
-                    <p className="text-[11px] text-danger">No cuadra con EV 0</p>
+                    <p className={ivObservedErrorClassName}>No cuadra con EV 0</p>
                   ) : (
                     <>
-                      <p className="display-face text-[9px] tracking-[0.12em] text-muted">EST. IV</p>
+                      <p className={ivObservedEstimateLabelClassName}>EST. IV</p>
                       <p className="pixel-face mt-1 text-sm text-accent">
                         {inferenceByStat[stat]?.exactIv !== null
                           ? String(inferenceByStat[stat]?.exactIv)
                           : `${inferenceByStat[stat]?.minIv}-${inferenceByStat[stat]?.maxIv}`}
                       </p>
-                      <p className="mt-1 hidden text-[10px] text-muted sm:block">
+                      <p className={ivObservedEstimateSeedClassName}>
                         {`seed ${inferenceByStat[stat]?.iv0Value} -> 31 ${inferenceByStat[stat]?.iv31Value}`}
                       </p>
                     </>

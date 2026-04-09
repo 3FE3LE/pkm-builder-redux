@@ -11,7 +11,15 @@ import {
   MoveSlotSurface,
 } from "@/components/team/UI";
 import { TypeBadge } from "@/components/BuilderShared";
+import { dexStatChipClassName } from "@/components/team/screens/dex/DexShared";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
+
+const moveActionButtonClassName =
+  "inline-flex h-9 w-9 items-center justify-center rounded-full border transition";
+const movePrimaryActionButtonClassName =
+  "inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-primary-line bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover";
+const moveDangerActionButtonClassName =
+  "inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-danger-line-soft bg-danger-fill text-danger transition hover:bg-danger-fill-hover";
 
 export function MovesSection({
   currentMoves,
@@ -72,7 +80,7 @@ export function MovesSection({
             resetDragState();
           }}
           className={clsx(
-            "inline-flex h-9 w-9 items-center justify-center rounded-full border transition",
+            moveActionButtonClassName,
             isTrashOver
               ? "border-danger-line-strong bg-danger-fill-hover text-danger"
               : "border-danger-line-faint bg-danger-fill text-danger",
@@ -169,12 +177,12 @@ export function MovesSection({
               </div>
               <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted">
                 {selectedMove.accuracy ? (
-                  <span className="rounded-2xl border border-line px-2 py-1">
+                  <span className={dexStatChipClassName}>
                     Acc {selectedMove.accuracy}%
                   </span>
                 ) : null}
                 {selectedMove.pp ? (
-                  <span className="rounded-2xl border border-line px-2 py-1">
+                  <span className={dexStatChipClassName}>
                     PP {selectedMove.pp}
                   </span>
                 ) : null}
@@ -195,7 +203,7 @@ export function MovesSection({
                 type="button"
                 aria-label="Replace move"
                 onClick={() => onOpenMoveModal(selectedMoveIndex)}
-                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-primary-line bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover"
+                className={movePrimaryActionButtonClassName}
               >
                 <RefreshCcw className="h-3.5 w-3.5" />
               </button>
@@ -206,7 +214,7 @@ export function MovesSection({
                   onRemoveMoveAt(selectedMoveIndex);
                   onSelectMoveIndex(null);
                 }}
-                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-danger-line-soft bg-danger-fill text-danger transition hover:bg-danger-fill-hover"
+                className={moveDangerActionButtonClassName}
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </button>

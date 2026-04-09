@@ -5,9 +5,9 @@ import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export const segmentedControlListClassName =
-  "flex flex-wrap items-center gap-1 rounded-[0.8rem] border border-line-soft bg-surface-2 p-1";
+  "flex flex-wrap items-center gap-1 rounded-lg border border-line-soft bg-surface-2 p-1";
 export const segmentedControlItemClassName =
-  "pixel-face inline-flex h-auto items-center justify-center gap-0 rounded-[0.6rem] border border-transparent bg-transparent px-3 py-1.5 text-xs leading-none whitespace-nowrap transition";
+  "pixel-face inline-flex h-auto items-center justify-center gap-0 rounded-md border border-transparent bg-transparent px-3 py-1.5 text-xs leading-none whitespace-nowrap transition";
 export const segmentedControlItemInactiveClassName =
   "text-text-soft hover:bg-surface-4 hover:text-text";
 export const segmentedControlItemActiveClassName =

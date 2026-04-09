@@ -22,6 +22,15 @@ import { isHeldItem } from "@/lib/domain/items";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { EditableMember } from "@/lib/builderStore";
 
+const profileSectionTitleClassName = "display-face text-sm text-accent";
+const profileTopRowClassName = "mb-3 flex flex-wrap items-start justify-between gap-3";
+const profileLockButtonClassName =
+  "inline-flex items-center gap-2 rounded-md border border-line bg-surface-3 px-3 py-1.5 text-xs text-muted";
+const profileOptionRowClassName = "flex w-full items-center justify-between gap-3";
+const profileCheckIconClassName = "h-4 w-4 text-accent";
+const profileEffectTextClassName = "mt-1 line-clamp-2 text-xs text-muted";
+const profileTrailingCheckIconClassName = "mt-1 h-4 w-4 shrink-0 text-accent";
+
 export function ProfileSection({
   member,
   resolved,
@@ -101,8 +110,8 @@ export function ProfileSection({
 
   return (
     <section className="px-0 py-0">
-      <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
-        <p className="display-face text-sm text-accent">Perfil base</p>
+      <div className={profileTopRowClassName}>
+        <p className={profileSectionTitleClassName}>Perfil base</p>
         <div className="flex items-center gap-2">
           <TransferActions member={member.species.trim() ? member : undefined} />
           <button
@@ -113,7 +122,7 @@ export function ProfileSection({
                 locked: !current.locked,
               }))
             }
-            className="inline-flex items-center gap-2 rounded-md border border-line bg-surface-3 px-3 py-1.5 text-xs text-muted"
+            className={profileLockButtonClassName}
           >
             {member.locked ? <Lock className="h-3.5 w-3.5" /> : <LockOpen className="h-3.5 w-3.5" />}
           </button>
@@ -155,7 +164,7 @@ export function ProfileSection({
                 const up = effect.up ? effect.up.toUpperCase() : null;
                 const down = effect.down ? effect.down.toUpperCase() : null;
                 return (
-                  <div className="flex w-full items-center justify-between gap-3">
+                  <div className={profileOptionRowClassName}>
                     <div className="flex items-center gap-3">
                       <span>{nature}</span>
                       {up || down ? (
@@ -168,7 +177,7 @@ export function ProfileSection({
                         <span className="text-xs text-muted">neutral</span>
                       )}
                     </div>
-                    {selected ? <Check className="h-4 w-4 text-accent" /> : null}
+                    {selected ? <Check className={profileCheckIconClassName} /> : null}
                   </div>
                 );
               }}
@@ -196,13 +205,13 @@ export function ProfileSection({
                     <div className="min-w-0 flex-1">
                       <div className="text-sm text-text">{itemName}</div>
                       {details?.effect ? (
-                        <div className="mt-1 line-clamp-2 text-xs text-muted">
+                        <div className={profileEffectTextClassName}>
                           {details.effect}
                         </div>
                       ) : null}
                     </div>
                     {selected ? (
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-accent" />
+                      <Check className={profileTrailingCheckIconClassName} />
                     ) : null}
                   </div>
                 );

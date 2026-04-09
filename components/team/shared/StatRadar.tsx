@@ -19,6 +19,8 @@ const RADAR_MIN_STAT = 5;
 const RADAR_MAX_STAT = 500;
 const RADAR_MIN_VISIBLE_RATIO = 0.08;
 const RADAR_SCALE_PIVOT = 110;
+const statRadarLabelClassName = "micro-label font-medium";
+const statRadarLegendClassName = "mt-3 flex flex-wrap items-center justify-center gap-3 micro-copy text-muted";
 
 export function buildSummaryStats(
   baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>,
@@ -249,7 +251,7 @@ export function EffectiveStatsRadar({
             textAnchor="middle"
             dominantBaseline="middle"
             className={clsx(
-              "text-[10px] font-medium",
+              statRadarLabelClassName,
               point.key === "hp" || point.key === "spe"
                 ? "leading-[1.1]"
                 : "leading-[1.45]",
@@ -272,7 +274,7 @@ export function EffectiveStatsRadar({
             textAnchor="middle"
             dominantBaseline="middle"
             className={clsx(
-              "text-[10px] font-medium",
+              statRadarLabelClassName,
               point.key === "hp" || point.key === "spe"
                 ? "leading-[1.05]"
                 : "leading-[1.35]",
@@ -283,7 +285,7 @@ export function EffectiveStatsRadar({
           </text>
         ))}
       </svg>
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-[11px] text-muted">
+      <div className={statRadarLegendClassName}>
         <span className="inline-flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[rgba(255,255,255,0.65)]" />
           base

@@ -12,6 +12,10 @@ import {
 
 import type { StarterKey } from "@/lib/builder";
 
+const encounterRowCardClassName =
+  "w-full rounded-lg border px-3 py-2.5 text-left transition";
+const encounterOrderLabelClassName = "display-face micro-label text-muted";
+
 export function EncounterRow({
   encounter,
   index,
@@ -113,7 +117,7 @@ export function EncounterRow({
             : undefined
         }
         className={clsx(
-          "w-full rounded-[0.8rem] border px-3 py-2.5 text-left transition",
+          encounterRowCardClassName,
           isLocked && "cursor-not-allowed opacity-60 grayscale",
           isNext &&
             !isCompleted &&
@@ -208,9 +212,7 @@ export function EncounterRow({
 function EncounterHeader({ encounter }: { encounter: RunEncounterDefinition }) {
   return (
     <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
-      <span className="display-face text-[10px] text-muted">
-        #{encounter.order}
-      </span>
+      <span className={encounterOrderLabelClassName}>#{encounter.order}</span>
       <span className="display-face truncate text-sm">{encounter.label}</span>
     </div>
   );

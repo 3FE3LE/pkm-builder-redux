@@ -18,6 +18,23 @@ import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import type { EditableMember } from "@/lib/builderStore";
 import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
 
+const rosterCardShellClassName =
+  "panel relative min-w-0 cursor-grab rounded-xl p-2.5 transition-[border-color,box-shadow,background,transform,opacity,filter] duration-200 ease-out active:cursor-grabbing sm:p-3";
+const rosterCardDraggingClassName =
+  "drag-surface scale-[0.94] border-accent opacity-45 saturate-[0.82] blur-[1px]";
+const rosterSpeciesCaptionClassName =
+  "pixel-face micro-copy leading-none tracking-[0.08em] text-text-faint";
+const rosterMetaPillClassName =
+  "micro-copy flex w-full min-w-0 items-center justify-between gap-2 px-2.5 py-1.5 text-text";
+const rosterMetaLabelClassName =
+  "display-face shrink-0 text-[9px] tracking-[0.12em] text-text-faint";
+const rosterMetaValueClassName =
+  "pixel-face micro-copy min-w-0 flex-1 truncate leading-none tracking-[0.06em] text-text";
+const rosterMetaHintClassName =
+  "status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 group-hover:block group-focus:block";
+const rosterEmptyTypePillClassName =
+  "micro-label flex w-full items-center justify-center px-2 py-1 sm:text-xs";
+
 function getRosterCardStyle(types: string[]) {
   return getTypedSurfaceStyle(types, {
     primaryGlowMix: 20,
@@ -150,9 +167,8 @@ export function SortableMemberCard({
         ...cardStyle,
       }}
       className={clsx(
-        "panel relative min-w-0 cursor-grab rounded-[0.9rem] p-2.5 transition-[border-color,box-shadow,background,transform,opacity,filter] duration-200 ease-out active:cursor-grabbing sm:p-3",
-        isDragging &&
-          "drag-surface scale-[0.94] border-accent opacity-45 saturate-[0.82] blur-[1px]",
+        rosterCardShellClassName,
+        isDragging && rosterCardDraggingClassName,
         isSelected &&
           "roster-card-selected selection-tint selection-shadow border-primary-line-active",
         hasActiveSelection &&
@@ -178,7 +194,7 @@ export function SortableMemberCard({
           <div className="mt-2 flex items-start gap-4">
             <div className="min-w-0 flex-1">
               {member.nickname && resolved?.species && member.nickname !== resolved.species ? (
-                <p className="pixel-face micro-copy leading-none tracking-[0.08em] text-text-faint">
+                <p className={rosterSpeciesCaptionClassName}>
                   {resolved.species}
                 </p>
               ) : null}
@@ -206,14 +222,14 @@ export function SortableMemberCard({
                       aria-describedby={entry.hint ? hintId : undefined}
                     >
                       <MiniPill
-                        className="micro-copy flex w-full min-w-0 items-center justify-between gap-2 px-2.5 py-1.5 text-text"
+                        className={rosterMetaPillClassName}
                       >
                         {entry.label ? (
-                          <span className="display-face shrink-0 text-[9px] tracking-[0.12em] text-text-faint">
+                          <span className={rosterMetaLabelClassName}>
                             {entry.label}
                           </span>
                         ) : null}
-                        <span className="pixel-face micro-copy min-w-0 flex-1 truncate leading-none tracking-[0.06em] text-text">
+                        <span className={rosterMetaValueClassName}>
                           {entry.value}
                         </span>
                       </MiniPill>
@@ -221,7 +237,7 @@ export function SortableMemberCard({
                         <span
                           id={hintId}
                           role="tooltip"
-                          className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.5rem)] z-20 hidden w-72 -translate-x-1/2 group-hover:block group-focus:block"
+                          className={rosterMetaHintClassName}
                         >
                           {entry.hint}
                         </span>
@@ -285,7 +301,7 @@ export function SortableMemberCard({
                   ))
                 ) : (
                   <div className="min-w-0">
-                    <MiniPill className="micro-label flex w-full items-center justify-center px-2 py-1 sm:text-xs">
+                    <MiniPill className={rosterEmptyTypePillClassName}>
                       tipo pendiente
                     </MiniPill>
                   </div>

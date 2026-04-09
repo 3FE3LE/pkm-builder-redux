@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { X } from "lucide-react";
 import { useId } from "react";
 import useSWR from "swr";
@@ -10,6 +11,17 @@ import { Button } from "@/components/ui/Button";
 import { buildMemberLens } from "@/lib/domain/memberLens";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
+
+const selectedInsightSurfaceClassName =
+  "max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-2xl border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md";
+const selectedInsightStickyHeaderClassName =
+  "sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md";
+const selectedInsightCloseButtonClassName =
+  "h-8 w-8 rounded-lg border border-line bg-surface-4 text-muted hover:bg-surface-6";
+const selectedInsightCardClassName = "rounded-lg border border-line bg-surface-3 px-3 py-2";
+const selectedInsightCardMutedClassName = "rounded-lg border border-line bg-surface-3 px-3 py-3 text-sm text-muted";
+const selectedInsightCardSoftClassName = "rounded-lg border border-line bg-surface-3/60 px-3 py-3";
+const selectedInsightEyebrowClassName = "display-face micro-label text-accent";
 
 type MoveRecommendation = ReturnType<
   typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations
@@ -63,8 +75,8 @@ export function SelectedMemberInsightCard({
   const normalizedDexDetails = dexDetails ?? null;
 
   return (
-    <div className="max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-2xl border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
-      <div className="sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md">
+    <div className={selectedInsightSurfaceClassName}>
+      <div className={selectedInsightStickyHeaderClassName}>
         <div>
           <p className="display-face text-sm text-accent">Info del slot</p>
           <p className="mt-1 text-sm text-muted">
@@ -77,7 +89,7 @@ export function SelectedMemberInsightCard({
           size="icon-sm"
           onClick={onClose}
           aria-label="Cerrar info del slot"
-          className="h-8 w-8 rounded-[0.8rem] border border-line bg-surface-4 text-muted hover:bg-surface-6"
+          className={selectedInsightCloseButtonClassName}
         >
           <X className="h-4 w-4" />
         </Button>
@@ -98,7 +110,7 @@ export function SelectedMemberInsightCard({
             {normalizedDexDetails?.weight ? <StarterLensCard label="Peso" value={`${normalizedDexDetails.weight.toFixed(1)} kg`} /> : null}
           </div>
           {normalizedDexDetails?.flavorText ? (
-            <p className="mt-3 rounded-[0.7rem] border border-line bg-surface-3 px-3 py-3 text-sm text-muted">
+            <p className={clsx("mt-3", selectedInsightCardMutedClassName)}>
               {normalizedDexDetails.flavorText}
             </p>
           ) : null}
@@ -141,10 +153,10 @@ export function SelectedMemberInsightCard({
             moveRecommendations.slice(0, 4).map((entry) => (
               <div
                 key={`${entry.source}-${entry.move}`}
-                className="rounded-[0.7rem] border border-line bg-surface-3/60 px-3 py-3"
+                className={selectedInsightCardSoftClassName}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="display-face text-[10px] text-accent">{entry.source}</span>
+                  <span className={selectedInsightEyebrowClassName}>{entry.source}</span>
                   <span className="pixel-face text-xs text-text">{entry.move}</span>
                   {entry.type ? <TypeBadge key={`${entry.move}-${entry.type}`} type={entry.type} /> : null}
                 </div>
@@ -170,8 +182,8 @@ function StarterLensCard({
   value: string;
 }) {
   return (
-    <div className="rounded-[0.7rem] border border-line bg-surface-3 px-3 py-2">
-      <p className="display-face text-[10px] text-accent">{label}</p>
+    <div className={selectedInsightCardClassName}>
+      <p className={selectedInsightEyebrowClassName}>{label}</p>
       <p className="mt-1 text-sm text-muted">{value}</p>
     </div>
   );

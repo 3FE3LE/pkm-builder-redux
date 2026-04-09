@@ -8,6 +8,16 @@ import { TypeBadge } from "@/components/BuilderShared";
 import { Input } from "@/components/ui/Input";
 import { type MultiplierBucket } from "@/lib/domain/typeChart";
 
+const statWidgetDeltaLabelClassName = "micro-copy";
+const statWidgetLegendClassName = "mt-1 flex items-center gap-3 micro-label text-muted";
+const spreadInputLabelClassName = "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted";
+const spreadInputLabelResponsiveClassName = "lg:text-center lg:text-[9px]";
+const spreadInputStepButtonClassName =
+  "flex h-6 w-full items-center justify-center border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6";
+const spreadInputHorizontalStepButtonClassName =
+  "flex h-8 w-7 shrink-0 items-center justify-center border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6";
+const spreadInputErrorClassName = "mt-2 block micro-copy text-danger";
+
 export function CoverageBadge({
   label: _label,
   type,
@@ -69,7 +79,7 @@ export function StatBar({
           {delta ? (
             <span
               className={clsx(
-                "text-[11px]",
+                statWidgetDeltaLabelClassName,
                 delta > 0 ? "text-[hsl(161_84%_67%)]" : "text-[hsl(9_90%_70%)]",
               )}
             >
@@ -137,7 +147,7 @@ export function StatBar({
           style={{ width: `${width}%` }}
         />
       </div>
-      <div className="mt-1 flex items-center gap-3 text-[10px] text-muted">
+      <div className={statWidgetLegendClassName}>
         <span className="inline-flex items-center gap-1">
           <span className="h-2 w-px bg-warning-mark-strong" />
           60 malo
@@ -276,9 +286,9 @@ export function SpreadInput({
     >
       {hideLabel ? null : (
         <span
-          className={clsx(
-            "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted",
-            isResponsive && "lg:text-center lg:text-[9px]",
+            className={clsx(
+            spreadInputLabelClassName,
+            isResponsive && spreadInputLabelResponsiveClassName,
           )}
         >
           {label}
@@ -301,7 +311,7 @@ export function SpreadInput({
               );
             }}
             className={clsx(
-              "flex h-6 w-full items-center justify-center rounded-t-[6px] border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6",
+              `${spreadInputStepButtonClassName} rounded-t-[6px]`,
               isResponsive &&
                 "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-b-none lg:rounded-l-[6px] lg:rounded-r-none",
             )}
@@ -334,7 +344,7 @@ export function SpreadInput({
               );
             }}
             className={clsx(
-              "flex h-6 w-full items-center justify-center rounded-b-[6px] border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6",
+              `${spreadInputStepButtonClassName} rounded-b-[6px]`,
               isResponsive &&
                 "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-t-none lg:rounded-l-none lg:rounded-r-[6px]",
             )}
@@ -351,7 +361,7 @@ export function SpreadInput({
               event.preventDefault();
               startHold(() => Math.max(0, valueRef.current - 1));
             }}
-            className="flex h-8 w-7 shrink-0 items-center justify-center rounded-l-[6px] border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6"
+            className={`${spreadInputHorizontalStepButtonClassName} rounded-l-[6px]`}
             aria-label={`Bajar ${label}`}
           >
             -
@@ -375,7 +385,7 @@ export function SpreadInput({
               event.preventDefault();
               startHold(() => Math.min(max, valueRef.current + 1));
             }}
-            className="flex h-8 w-7 shrink-0 items-center justify-center rounded-r-[6px] border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6"
+            className={`${spreadInputHorizontalStepButtonClassName} rounded-r-[6px]`}
             aria-label={`Subir ${label}`}
           >
             +
@@ -383,7 +393,7 @@ export function SpreadInput({
         </div>
       )}
       {error ? (
-        <span className="mt-2 block text-[11px] text-danger">{error}</span>
+        <span className={spreadInputErrorClassName}>{error}</span>
       ) : null}
     </label>
   );

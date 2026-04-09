@@ -22,6 +22,8 @@ import {
   ZERO_SPREAD,
 } from "@/components/team/tools/iv-calculator/types";
 
+const ivSectionFieldLabelClassName = "display-face micro-copy text-muted";
+
 type SpeciesCatalogEntry = {
   name: string;
   slug: string;
@@ -220,7 +222,7 @@ export function IvCalculatorSection({
           <div className="space-y-3">
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_10rem_12rem]">
               <div>
-                <p className="display-face text-[11px] text-muted">Species</p>
+                <p className={ivSectionFieldLabelClassName}>Species</p>
                 <div className="mt-1.5">
                   <SpeciesCombobox
                     value={species}
@@ -244,7 +246,7 @@ export function IvCalculatorSection({
                 />
               </div>
               <div>
-                <p className="display-face text-[11px] text-muted">Nature</p>
+                <p className={ivSectionFieldLabelClassName}>Nature</p>
                 <div className="mt-1.5">
                   <FilterCombobox
                     value={nature}

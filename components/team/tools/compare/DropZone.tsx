@@ -5,6 +5,10 @@ import { type ReactNode } from "react";
 import { motion } from "motion/react";
 import { useDroppable } from "@dnd-kit/core";
 
+const compareDropZoneShellClassName =
+  "min-w-0 space-y-1.5 rounded-2xl border border-dashed border-transparent p-0.5 transition-all sm:p-2";
+const compareDropZoneHeaderClassName = "flex items-center justify-between gap-2 px-1 micro-copy text-muted";
+
 export function CompareDropZone({
   slot,
   pulseToken,
@@ -26,12 +30,12 @@ export function CompareDropZone({
     <div
       ref={setNodeRef}
       className={clsx(
-        "min-w-0 space-y-1.5 rounded-2xl border border-dashed border-transparent p-0.5 transition-all sm:p-2",
+        compareDropZoneShellClassName,
         isOver &&
           "border-primary-line-emphasis bg-primary-fill primary-outline-shadow",
       )}
     >
-      <div className="flex items-center justify-between gap-2 px-1 text-[11px] text-muted">
+      <div className={compareDropZoneHeaderClassName}>
         <span className="display-face text-accent">slot {slot + 1}</span>
         {hasSpecies ? (
           <>

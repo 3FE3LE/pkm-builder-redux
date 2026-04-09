@@ -5,6 +5,8 @@ import { MiniPill } from "@/components/team/UI";
 
 import type { RankedRoster } from "@/components/team/tools/type-tiers/types";
 
+const rosterTypingEntryCardClassName = "rounded-xl border border-line bg-surface-3 p-3";
+
 export function RosterTypingCard({
   rankedRoster,
 }: {
@@ -24,7 +26,7 @@ export function RosterTypingCard({
       <div className="mt-4 space-y-2">
         {rankedRoster.length ? (
           rankedRoster.map((member, index) => (
-            <div key={member.memberId} className="rounded-[0.8rem] border border-line bg-surface-3 p-3">
+            <div key={member.memberId} className={rosterTypingEntryCardClassName}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="display-face text-xs text-accent">

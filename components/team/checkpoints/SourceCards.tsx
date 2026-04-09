@@ -7,6 +7,19 @@ import { useMemo } from "react";
 import { ItemSprite } from "@/components/BuilderShared";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { parseItemLocationDetail } from "@/lib/domain/sourceData";
+
+const sourceCardClassName = "min-w-0 rounded-xl border border-line px-3 py-3";
+const sourceAccentChipClassName = "accent-chip rounded-md px-3 py-1 micro-copy";
+const sourceTokenChipClassName = "token-card px-3 py-1";
+const sourceDeltaTokenChipClassName = "token-card px-2.5 py-1 micro-copy";
+const sourceCountChipClassName = "display-face token-card px-3 py-1 micro-label-wide text-muted";
+const sourceInlineSectionTitleClassName = "display-face micro-copy text-accent";
+const sourceInlineEntryClassName = "inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted";
+const sourceInlineEntryHighlightClassName = "text-primary-soft";
+const sourceItemTooltipClassName =
+  "status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.45rem)] z-20 hidden w-64 -translate-x-1/2 group-hover:block";
+const sourceSpriteFallbackClassName = "text-[9px] text-muted";
+
 type DecisionDelta = ReturnType<typeof import("@/lib/domain/decisionDelta").buildDecisionDeltas>[number];
 
 type RecommendedMember = {
@@ -48,7 +61,7 @@ export function RecommendedCard({
           <p className="display-face text-lg">{member.species}</p>
           <p className="mt-1 text-sm text-muted">{member.reason}</p>
         </div>
-        <span className="accent-chip rounded-md px-3 py-1 text-[11px] uppercase tracking-[0.18em]">
+        <span className={sourceAccentChipClassName}>
           {member.source}
         </span>
       </div>
@@ -56,9 +69,9 @@ export function RecommendedCard({
         <span className="token-card border-accent-line bg-accent-fill px-3 py-1 text-accent-soft">
           {member.roleLabel}
         </span>
-        <span className="token-card px-3 py-1">{member.role}</span>
+        <span className={sourceTokenChipClassName}>{member.role}</span>
         {member.area ? (
-          <span className="token-card px-3 py-1">
+          <span className={sourceTokenChipClassName}>
             {member.area}
           </span>
         ) : null}
@@ -128,7 +141,7 @@ function formatSigned(value: number) {
 
 function deltaChipClass(value: number) {
   return clsx(
-    "token-card px-2.5 py-1 text-[11px]",
+    sourceDeltaTokenChipClassName,
     value >= 4
       ? "border-accent-line bg-accent-fill-strong text-accent-soft"
       : value <= -4
@@ -149,7 +162,7 @@ function SourceCount({
   return (
     <span
       className={clsx(
-        "display-face token-card px-3 py-1 text-[10px] tracking-[0.14em]",
+        sourceCountChipClassName,
         tone === "accent"
           ? "border-accent-line-strong bg-accent-fill-strong text-accent-soft"
           : "border-line bg-surface-3 text-muted",
@@ -193,7 +206,7 @@ export function AreaSourceCard({
   ].filter((group) => group.entries.length);
 
   return (
-    <article className="min-w-0 rounded-[0.85rem] border border-line px-3 py-3">
+    <article className={sourceCardClassName}>
       <div className="flex flex-wrap items-start justify-between gap-2.5">
         <div>
           <p className="display-face text-sm text-accent">{source.area}</p>
@@ -239,7 +252,7 @@ function InlineSourceRow({
   return (
     <div className="min-w-0">
       <div className="mb-1.5 flex items-center justify-between gap-3">
-        <p className="display-face text-[11px] text-accent">{title}</p>
+        <p className={sourceInlineSectionTitleClassName}>{title}</p>
         {title === "Item" ? null : <SourceCount label="count" count={entries.length} />}
       </div>
       <div className="flex min-w-0 flex-wrap gap-2">
@@ -288,10 +301,8 @@ function PokemonEntryChip({
   return (
     <span
       className={clsx(
-        "inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs",
-        highlighted
-          ? "text-primary-soft"
-          : "text-muted",
+        sourceInlineEntryClassName,
+        highlighted ? sourceInlineEntryHighlightClassName : "text-muted",
       )}
     >
       <SourceSprite species={species} spriteUrl={sprites.spriteUrl} />
@@ -315,7 +326,7 @@ function TradeEntryChip({
   const sprites = buildSpriteUrls(received, dex);
 
   return (
-    <span className="inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
+    <span className={sourceInlineEntryClassName}>
       <SourceSprite species={received} spriteUrl={sprites.spriteUrl} />
       <span className="min-w-0 wrap-break-word">{entry}</span>
       {reference ? (
@@ -343,7 +354,8 @@ function ItemEntryChip({
   const details = itemByName[normalizeName(itemName)];
 
   return (
-    <span className="group relative inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
+    <span className="group relative">
+      <span className={sourceInlineEntryClassName}>
       <ItemSprite name={itemName} sprite={details?.sprite} chrome="plain" />
       <span className="min-w-0 wrap-break-word">{parsed.display}</span>
       {parsed.original ? (
@@ -353,8 +365,9 @@ function ItemEntryChip({
           itemByName={itemByName}
         />
       ) : null}
+      </span>
       {details?.effect ? (
-        <span className="status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.45rem)] z-20 hidden w-64 -translate-x-1/2 group-hover:block">
+        <span className={sourceItemTooltipClassName}>
           {details.effect}
         </span>
       ) : null}
@@ -374,7 +387,7 @@ function SourceSprite({
       {spriteUrl ? (
         <img src={spriteUrl} alt={species} className="h-7 w-7 object-contain pixelated" />
       ) : (
-        <span className="text-[9px] text-muted">{species.slice(0, 3)}</span>
+        <span className={sourceSpriteFallbackClassName}>{species.slice(0, 3)}</span>
       )}
     </span>
   );

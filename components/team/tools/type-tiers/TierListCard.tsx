@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/Button";
 import { MetricToggle } from "@/components/team/tools/type-tiers/MetricToggle";
 import type { SpeciesCatalogEntry, TypeTierMetric } from "@/components/team/tools/type-tiers/types";
 
+const typeTierCardClassName = "rounded-xl border border-line bg-surface-3 p-3";
+
 type TierEntry = ReturnType<typeof import("@/lib/domain/typeTierList").buildOffensiveTypeTierList>[number];
 
 export function TierListCard({
@@ -46,7 +48,7 @@ export function TierListCard({
         {visibleTierList.map((entry) => {
           const suggestedSpecies = findSpeciesForTypes(speciesCatalog, entry.combo.types);
           return (
-            <div key={`${metric}-${entry.combo.id}`} className="rounded-[0.8rem] border border-line bg-surface-3 p-3">
+            <div key={`${metric}-${entry.combo.id}`} className={typeTierCardClassName}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="display-face text-xs text-accent">

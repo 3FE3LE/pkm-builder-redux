@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/Input";
 
 import type { EditableMember } from "@/lib/builderStore";
 
+const addMemberSectionMetaClassName = "micro-copy text-muted";
+
 export function AddMemberSheet({
   open,
   libraryMembers,
@@ -73,7 +75,7 @@ export function AddMemberSheet({
         <section className="mt-4 space-y-2">
           <div className="flex items-center justify-between gap-2">
             <p className="display-face text-xs text-accent">Dex</p>
-            <p className="text-[11px] text-muted">Crear nuevo</p>
+            <p className={addMemberSectionMetaClassName}>Crear nuevo</p>
           </div>
           <div className="space-y-3">
             <SpeciesCombobox
@@ -108,7 +110,7 @@ export function AddMemberSheet({
           <section className="space-y-2">
             <div className="flex items-center justify-between gap-2">
               <p className="display-face text-xs text-accent">Tus Pokemon</p>
-              <p className="text-[11px] text-muted">{filteredLibrary.length} disponibles</p>
+              <p className={addMemberSectionMetaClassName}>{filteredLibrary.length} disponibles</p>
             </div>
             <div className="max-h-96 space-y-2 overflow-auto pr-1">
               {filteredLibrary.length ? (

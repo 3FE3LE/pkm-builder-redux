@@ -4,6 +4,15 @@ import { TypeBadge } from "@/components/BuilderShared";
 import { CoverageBadge, StatBar } from "@/components/team/UI";
 import clsx from "clsx";
 
+const analysisPanelShellClassName = "rounded-2xl p-3 sm:p-4";
+const analysisPanelTitleClassName = "display-face text-sm text-accent";
+const analysisPanelDescriptionClassName = "mt-1 text-sm text-muted";
+const analysisPillClassName = "rounded-xl border border-line bg-surface-2 px-3 py-2";
+const analysisPillEyebrowClassName = "display-face micro-label text-muted";
+const analysisPillAccentEyebrowClassName = "display-face micro-label text-accent";
+const analysisScoreCardClassName = "rounded-lg border border-accent-line px-3 py-2 text-right";
+const analysisScoreStateClassName = "display-face micro-label-wide text-muted";
+
 type CoverageEntry = {
   defenseType: string;
   bucket: "x0" | "x0.25" | "x0.5" | "x1" | "x2" | "x4";
@@ -18,9 +27,9 @@ export function TeamAverageStatsPanel({
   averageStats: ReturnType<typeof import("@/lib/teamAnalysis").buildAverageStats> | null;
 }) {
   return (
-    <div className="rounded-2xl p-3 sm:p-4">
+    <div className={analysisPanelShellClassName}>
       <div className="flex items-center justify-between gap-3">
-        <p className="display-face text-sm text-accent">Promedio del equipo</p>
+        <p className={analysisPanelTitleClassName}>Promedio del equipo</p>
         {averageStats ? (
           <span className="display-face text-xs text-muted">
             BST promedio <span className="mono-face ml-2 text-accent">{averageStats.bst}</span>
@@ -55,9 +64,9 @@ export function CoveragePanel({
   uncoveredCoverage: CoverageEntry[];
 }) {
   return (
-    <div className="rounded-2xl p-3 sm:p-4">
-      <p className="display-face text-sm text-accent">Cobertura ofensiva</p>
-      <p className="mt-1 text-sm text-muted">
+    <div className={analysisPanelShellClassName}>
+      <p className={analysisPanelTitleClassName}>Cobertura ofensiva</p>
+      <p className={analysisPanelDescriptionClassName}>
         El label se calcula con el mejor multiplicador que tu moveset actual consigue contra cada tipo.
       </p>
       <div className="mt-3 space-y-3">
@@ -100,9 +109,9 @@ export function DefensiveThreatsPanel({
   const immuneItems = defensiveSections.netImmune;
 
   return (
-    <div className="rounded-2xl p-3 sm:p-4">
-      <p className="display-face text-sm text-accent">Amenazas defensivas</p>
-      <p className="mt-1 text-sm text-muted">
+    <div className={analysisPanelShellClassName}>
+      <p className={analysisPanelTitleClassName}>Amenazas defensivas</p>
+      <p className={analysisPanelDescriptionClassName}>
         Balance neto por tipo: resistencias menos debilidades. Si el resultado queda en cero, ese tipo se omite por estar compensado.
       </p>
       <div className="mt-3 space-y-3">
@@ -160,17 +169,17 @@ export function TeamRosterReadingPanel({
         : "friccion baja";
 
   return (
-    <div className="rounded-2xl p-3 sm:p-4">
+    <div className={analysisPanelShellClassName}>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="display-face text-sm text-accent">Lectura del roster</p>
-          <p className="mt-1 text-sm text-muted">
+          <p className={analysisPanelTitleClassName}>Lectura del roster</p>
+          <p className={analysisPanelDescriptionClassName}>
             Resumen estructural del equipo actual, sin mezclarlo con decisiones concretas del siguiente checkpoint.
           </p>
         </div>
-        <div className="rounded-[0.7rem] border border-accent-line px-3 py-2 text-right">
+        <div className={analysisScoreCardClassName}>
           <p className="mono-face text-lg text-accent-soft">{checkpointRisk.totalRisk.toFixed(1)} / 10</p>
-          <p className="text-[10px] uppercase tracking-[0.16em] text-muted">{riskState}</p>
+          <p className={analysisScoreStateClassName}>{riskState}</p>
         </div>
       </div>
       <p className="mt-3 text-xs text-muted">
@@ -206,12 +215,12 @@ function StatMicroCard({
   return (
     <div
       className={clsx(
-        "rounded-xl border border-line bg-surface-2 px-3 py-2",
+        analysisPillClassName,
         wide && "sm:col-span-2 xl:col-span-3"
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="display-face text-[10px] text-muted">{label}</span>
+        <span className={analysisPillEyebrowClassName}>{label}</span>
         <span className="mono-face text-base text-accent">{value}</span>
       </div>
     </div>
@@ -229,7 +238,7 @@ function CompactBadgeRow({
 }) {
   return (
     <div>
-      <p className="display-face mb-2 text-[11px] text-accent">{title}</p>
+      <p className={clsx("mb-2", analysisPillAccentEyebrowClassName)}>{title}</p>
       <div className="grid grid-cols-4 gap-2 sm:flex sm:flex-wrap">
         {items.length ? items : <span className="col-span-4 text-sm text-muted">{emptyLabel}</span>}
       </div>
@@ -250,9 +259,9 @@ function ReadingPill({
     value >= 8 ? "text-accent-soft" : value >= 6 ? "text-info-soft" : value >= 4 ? "text-warning-soft" : "text-danger-soft";
 
   return (
-    <div className="rounded-xl border border-line bg-surface-2 px-3 py-2">
+    <div className={analysisPillClassName}>
       <div className="flex items-center justify-between gap-3">
-        <span className="display-face text-[11px] text-accent">{label}</span>
+        <span className={analysisPillAccentEyebrowClassName}>{label}</span>
         <span className={clsx("mono-face text-sm", tone)}>{value.toFixed(1)}</span>
       </div>
       <p className="mt-1 text-xs text-muted">{summary}</p>

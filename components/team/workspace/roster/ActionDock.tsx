@@ -9,6 +9,15 @@ import type { EditableMember } from "@/lib/builderStore";
 import { markNavigationStart } from "@/lib/perf";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
+const actionDockLinkBaseClassName = "inline-flex items-center justify-center";
+const actionDockButtonDesktopClassName = "size-9 rounded-xl border bg-surface-4 hover:bg-surface-8";
+const actionDockButtonMobileClassName = "size-11 rounded-xl border bg-surface-4 hover:bg-surface-8";
+const actionDockDangerClassName = "border-danger-line text-danger hover:bg-danger-fill";
+const actionDockDangerSoftClassName = "border-danger-line-soft text-danger hover:bg-danger-fill";
+const actionDockMutedClassName = "border-line text-muted";
+const actionDockInfoActiveClassName = "border-info-line bg-info-fill text-info-soft";
+const actionDockWarningClassName = "border-warning-line text-warning-strong";
+
 export function ActionDock({
   mode = "full",
   buttonSize,
@@ -56,8 +65,8 @@ export function ActionDock({
   const isDesktop = buttonSize === "desktop";
   const showCloseDockAction = !isDesktop && editorOpen;
   const buttonClass = isDesktop
-    ? "size-9 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8"
-    : "size-11 rounded-[0.9rem] border bg-surface-4 hover:bg-surface-8";
+    ? actionDockButtonDesktopClassName
+    : actionDockButtonMobileClassName;
   const iconClass = isDesktop ? "h-4 w-4" : "h-5 w-5";
   const editLabel = editAriaLabel ?? "Editar slot seleccionado";
   const editNode = editIcon === "back" ? <ChevronLeft className={iconClass} /> : <Pencil className={iconClass} />;
@@ -73,9 +82,9 @@ export function ActionDock({
           transitionTypes={backTransition}
           aria-label="Volver al team"
           className={clsx(
-            "inline-flex items-center justify-center",
+            actionDockLinkBaseClassName,
             buttonClass,
-            "border-danger-line text-danger hover:bg-danger-fill",
+            actionDockDangerClassName,
           )}
         >
           <X className={iconClass} />
@@ -90,7 +99,7 @@ export function ActionDock({
         size={isDesktop ? "icon-sm" : "icon-lg"}
         onClick={onCloseEditor}
         aria-label="Volver al team"
-        className={clsx(buttonClass, "border-danger-line text-danger hover:bg-danger-fill")}
+        className={clsx(buttonClass, actionDockDangerClassName)}
       >
         <X className={iconClass} />
       </Button>
@@ -108,9 +117,7 @@ export function ActionDock({
           aria-label={detailsOpen ? "Ocultar info del slot seleccionado" : "Mostrar info del slot seleccionado"}
           className={clsx(
             buttonClass,
-            detailsOpen
-              ? "border-info-line bg-info-fill text-info-soft"
-              : "border-line text-muted",
+            detailsOpen ? actionDockInfoActiveClassName : actionDockMutedClassName,
           )}
         >
           <Info className={iconClass} />
@@ -122,7 +129,7 @@ export function ActionDock({
         size={isDesktop ? "icon-sm" : "icon-lg"}
         onClick={onOpenReset}
         aria-label="Resetear slot seleccionado"
-        className={clsx(buttonClass, "border-danger-line-soft text-danger hover:bg-danger-fill")}
+        className={clsx(buttonClass, actionDockDangerSoftClassName)}
       >
         <RotateCcw className={iconClass} />
       </Button>
@@ -134,9 +141,9 @@ export function ActionDock({
             transitionTypes={forwardTransition}
             aria-label={editLabel}
             className={clsx(
-              "inline-flex items-center justify-center",
+              actionDockLinkBaseClassName,
               buttonClass,
-              "border-line text-muted",
+              actionDockMutedClassName,
             )}
             onClick={() => markNavigationStart("roster-to-editor", editHref)}
           >
@@ -149,7 +156,7 @@ export function ActionDock({
             size={isDesktop ? "icon-sm" : "icon-lg"}
             disabled
             aria-label={editLabel}
-            className={clsx(buttonClass, "border-line text-muted")}
+            className={clsx(buttonClass, actionDockMutedClassName)}
           >
             {editNode}
           </Button>
@@ -165,8 +172,8 @@ export function ActionDock({
           className={clsx(
             buttonClass,
             selectedMember.locked
-              ? "border-warning-line text-warning-strong"
-              : "border-line text-muted",
+              ? actionDockWarningClassName
+              : actionDockMutedClassName,
           )}
         >
           {selectedMember.locked ? <Lock className={iconClass} /> : <LockOpen className={iconClass} />}
@@ -178,7 +185,7 @@ export function ActionDock({
         size={isDesktop ? "icon-sm" : "icon-lg"}
         onClick={onAssignToCompare}
         aria-label="Comparar slot seleccionado"
-        className={clsx(buttonClass, "border-line text-muted")}
+        className={clsx(buttonClass, actionDockMutedClassName)}
       >
         <GitCompareArrows className={iconClass} />
       </Button>
@@ -188,9 +195,9 @@ export function ActionDock({
           transitionTypes={backTransition}
           aria-label="Volver al team"
           className={clsx(
-            "inline-flex items-center justify-center",
+            actionDockLinkBaseClassName,
             buttonClass,
-            "border-danger-line text-danger hover:bg-danger-fill",
+            actionDockDangerClassName,
           )}
         >
           <X className={iconClass} />
@@ -208,7 +215,7 @@ export function ActionDock({
             onOpenDelete();
           }}
           aria-label={showCloseDockAction ? "Volver al team" : "Mandar Pokemon seleccionado a caja"}
-          className={clsx(buttonClass, "border-danger-line text-danger hover:bg-danger-fill")}
+          className={clsx(buttonClass, actionDockDangerClassName)}
         >
           <X className={iconClass} />
         </Button>

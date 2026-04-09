@@ -22,6 +22,12 @@ import type { EditableMember } from "@/lib/builderStore";
 import { reconcileAbilitySelection, type State } from "./state";
 import type { ItemCatalogEntry, SpeciesCatalogEntry } from "./types";
 
+const compareMemberPanelShellClassName = "rounded-xl px-0.5 py-0.5 sm:px-1 sm:py-1";
+const compareMemberTypeBadgeClassName =
+  "w-full min-w-0 px-1! py-0.5! text-[9px]! tracking-[0.04em]! sm:w-auto sm:px-2! sm:py-1! sm:text-[11px]!";
+const compareMemberSpriteMobileScaleClassName = "scale-[0.82]";
+const compareMemberRadarShellClassName = "mt-3 hidden rounded-xl px-1 py-1 sm:block";
+
 export function MemberPanel({
   index,
   state,
@@ -64,7 +70,7 @@ export function MemberPanel({
   }
 
   return (
-    <div className="rounded-[0.9rem] px-0.5 py-0.5 sm:px-1 sm:py-1">
+    <div className={compareMemberPanelShellClassName}>
       <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="order-2 min-w-0 flex-1 sm:order-1">
           <div>
@@ -120,14 +126,14 @@ export function MemberPanel({
               <TypeBadge
                 key={`compare-${index}-${type}`}
                 type={type}
-                className="w-full min-w-0 px-1! py-0.5! text-[9px]! tracking-[0.04em]! sm:w-auto sm:px-2! sm:py-1! sm:text-[11px]!"
+                className={compareMemberTypeBadgeClassName}
               />
             ))}
           </div>
         </div>
         <div className="order-1 flex justify-center sm:order-2 sm:justify-end">
           <div className="sm:hidden">
-            <div className="scale-[0.82]">
+            <div className={compareMemberSpriteMobileScaleClassName}>
               <PokemonSprite
                 species={resolved?.species ?? member.species ?? "Pokemon"}
                 spriteUrl={resolved?.spriteUrl}
@@ -234,7 +240,7 @@ export function MemberPanel({
       </div>
 
       {effectiveStats && resolved?.resolvedStats ? (
-        <div className="mt-3 hidden rounded-xl px-1 py-1 sm:block">
+        <div className={compareMemberRadarShellClassName}>
           <EffectiveStatsRadar
             effectiveStats={effectiveStats}
             baseStats={resolved.resolvedStats}

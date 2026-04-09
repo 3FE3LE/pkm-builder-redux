@@ -5,6 +5,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import type { EditableMember } from "@/lib/builderStore";
 
+const slotModalSurfaceClassName = "panel-strong panel-frame w-full p-5";
+const slotModalBulkActionClassName =
+  "display-face micro-copy text-accent transition hover:text-text";
+const slotModalCheckboxRowClassName =
+  "flex items-center gap-3 rounded-xl border border-line bg-surface-3 px-3 py-2 text-sm";
+
 export type ResetFields = {
   evolutionLine: boolean;
   nickname: boolean;
@@ -73,7 +79,7 @@ export function SlotModals({
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="panel-strong panel-frame w-full max-w-lg p-5"
+              className={`${slotModalSurfaceClassName} max-w-lg`}
             >
               <p className="display-face text-sm text-accent">Reset del slot</p>
               <p className="mt-2 text-sm text-muted">
@@ -83,7 +89,7 @@ export function SlotModals({
                 <button
                   type="button"
                   onClick={() => onToggleAllResetFields(shouldMarkAll)}
-                  className="display-face text-xs uppercase tracking-[0.14em] text-accent transition hover:text-text"
+                  className={slotModalBulkActionClassName}
                 >
                   {shouldMarkAll ? "Marcar todo" : "Desmarcar todos"}
                 </button>
@@ -92,7 +98,7 @@ export function SlotModals({
                 {Object.entries(resetFields).map(([key, checked]) => (
                   <label
                     key={key}
-                    className="flex items-center gap-3 rounded-xl border border-line bg-surface-3 px-3 py-2 text-sm"
+                    className={slotModalCheckboxRowClassName}
                   >
                     <input
                       type="checkbox"
@@ -130,7 +136,7 @@ export function SlotModals({
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
-              className="panel-strong panel-frame w-full max-w-md p-5"
+              className={`${slotModalSurfaceClassName} max-w-md`}
             >
               <p className="display-face text-sm text-danger">Mandar a caja</p>
               <p className="mt-2 text-sm text-muted">

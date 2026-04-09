@@ -8,7 +8,14 @@ import { FilterCombobox } from "@/components/builder-shared/FilterCombobox";
 import { ItemSprite } from "@/components/builder-shared/ItemSprite";
 import { TypeBadge } from "@/components/builder-shared/TypeBadge";
 import { PokemonDexCard } from "@/components/team/screens/dex/PokemonDexCard";
-import { DexCollectionLoadingSkeleton, DexFilterToggle, DexIncrementalGrid, SegmentedOwnerCollapsible } from "@/components/team/screens/dex/DexShared";
+import {
+  DexCollectionLoadingSkeleton,
+  DexFilterToggle,
+  DexIncrementalGrid,
+  SegmentedOwnerCollapsible,
+  dexPanelCardClassName,
+  dexStatChipClassName,
+} from "@/components/team/screens/dex/DexShared";
 import { DexMoveEntryCard, InfoBlock } from "@/components/team/screens/dex/DexInfoBlocks";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { DEX_MODE_LABELS, DEX_MODE_SHORT_LABELS, DEX_POKEMON_MODES } from "@/components/team/screens/dex/utils";
@@ -155,7 +162,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
   if (model.tab === "moves") {
     if (!model.movesPayload) return <DexCollectionLoadingSkeleton />;
     return <DexIncrementalGrid key={`moves:${model.query}`} items={model.filteredMoves} emptyLabel="No encontré movimientos con ese filtro." loadingLabel="Cargando mas movimientos..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(move: any) => (
-      <article key={move.name} className="panel-strong panel-frame rounded-2xl p-4">
+      <article key={move.name} className={dexPanelCardClassName}>
         <div className="space-y-3">
           <div>
             <p className="micro-label text-text-faint">Movimiento</p>
@@ -164,21 +171,21 @@ export function DexSecondaryPanels({ model }: { model: any }) {
           <DexMoveEntryCard move={move} compact />
           <InfoBlock label="Detalles">
             <div className="flex flex-wrap gap-2 text-xs text-muted">
-              <span className="rounded-2xl border border-line px-2 py-1">
+              <span className={dexStatChipClassName}>
                 {move.damageClass || "Status"}
               </span>
               {move.power ? (
-                <span className="rounded-2xl border border-line px-2 py-1">
+                <span className={dexStatChipClassName}>
                   Pot {move.power}
                 </span>
               ) : null}
               {move.accuracy ? (
-                <span className="rounded-2xl border border-line px-2 py-1">
+                <span className={dexStatChipClassName}>
                   Acc {move.accuracy}%
                 </span>
               ) : null}
               {move.pp ? (
-                <span className="rounded-2xl border border-line px-2 py-1">
+                <span className={dexStatChipClassName}>
                   PP {move.pp}
                 </span>
               ) : null}
@@ -201,7 +208,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
   if (model.tab === "abilities") {
     if (!model.abilitiesPayload) return <DexCollectionLoadingSkeleton />;
     return <DexIncrementalGrid key={`abilities:${model.query}`} items={model.filteredAbilities} emptyLabel="No encontré habilidades con ese filtro." loadingLabel="Cargando mas habilidades..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(ability: any) => (
-      <article key={ability.name} className="panel-strong panel-frame rounded-2xl p-4">
+      <article key={ability.name} className={dexPanelCardClassName}>
         <div className="space-y-3">
           <div>
             <p className="micro-label text-text-faint">Habilidad</p>
@@ -221,7 +228,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
     const locations = item.sources?.locations ?? [];
     const shopLocations = item.sources?.shops ?? [];
     return (
-      <article key={item.name} className="panel-strong panel-frame rounded-2xl p-4">
+      <article key={item.name} className={dexPanelCardClassName}>
         <div className="space-y-3">
           <div className="flex items-start gap-3">
             <ItemSprite name={item.name} sprite={item.sprite} />

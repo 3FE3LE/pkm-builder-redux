@@ -26,6 +26,14 @@ import type {
   RecommendationFilterState,
 } from "@/lib/runState";
 
+const preferenceManualChipClassName =
+  "rounded-full border px-2.5 py-1 display-face micro-copy transition";
+const preferenceWeatherButtonClassName =
+  "inline-flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition";
+const preferenceWeatherLabelClassName = "display-face micro-copy text-inherit";
+const preferenceSwitchRowClassName = "flex items-start justify-between gap-4 rounded-lg px-1 py-2";
+const preferenceSwitchLabelClassName = "display-face micro-copy text-text";
+
 export function PreferencesSection({
   evolutionConstraints,
   recommendationFilters,
@@ -83,7 +91,7 @@ export function PreferencesSection({
 
             <span
               className={clsx(
-                "rounded-full border px-2.5 py-1 text-[11px] uppercase tracking-[0.14em] transition",
+                preferenceManualChipClassName,
                 autoThemeActive
                   ? "border-primary-line bg-primary-fill text-primary-soft"
                   : "border-line-soft bg-surface-3 text-text-faint",
@@ -115,14 +123,14 @@ export function PreferencesSection({
                   title={`${option.label}: ${option.description}`}
                   onClick={() => onSetBattleWeather(option.key)}
                   className={clsx(
-                    "inline-flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition",
+                    preferenceWeatherButtonClassName,
                     active
                       ? "border-primary-line bg-primary-fill text-text"
                       : "border-line-soft bg-surface-2 text-muted hover:border-line hover:bg-surface-3 hover:text-text",
                   )}
                 >
                   <Icon className={clsx("h-4 w-4", active ? "text-primary-soft" : "text-accent")} />
-                  <span className="display-face text-[11px] text-inherit">{option.label}</span>
+                  <span className={preferenceWeatherLabelClassName}>{option.label}</span>
                 </button>
               );
             })}
@@ -266,9 +274,9 @@ function PreferenceSwitchRow({
   onCheckedChange: (checked: boolean) => void;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 rounded-[0.8rem] px-1 py-2">
+    <div className={preferenceSwitchRowClassName}>
       <div className="min-w-0">
-        <p className="display-face text-xs tracking-[0.14em] text-text">{label}</p>
+        <p className={preferenceSwitchLabelClassName}>{label}</p>
         <p className="mt-1 text-sm text-muted">{description}</p>
       </div>
       <Switch checked={checked} onCheckedChange={onCheckedChange} aria-label={label} />

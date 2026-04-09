@@ -11,6 +11,15 @@ import type { CaptureRecommendation } from "@/lib/domain/contextualRecommendatio
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 
+const recommendationSectionEyebrowClassName = "display-face px-1 text-xs text-accent";
+const recommendationTokenPillClassName = "token-card px-2.5 py-1.5 text-xs text-muted";
+const recommendationEmptyStateClassName = "rounded-xl px-2 py-2 text-sm text-muted";
+const recommendationSwapHeaderRowClassName = "flex flex-wrap items-start justify-between gap-3";
+const recommendationSwapSummaryClassName = "token-card px-3 py-2 text-right";
+const recommendationScoreDeltaClassName = "display-face micro-label-wide text-muted";
+const recommendationSwapSideTitleClassName = "display-face micro-copy text-muted";
+const recommendationCompactStatLabelClassName = "display-face micro-label text-muted";
+
 export function RecommendationsPanel({
   teamSize,
   captureRecommendations,
@@ -47,7 +56,7 @@ export function RecommendationsPanel({
       <div className="space-y-4">
         {shouldShowCaptures ? (
           <section className="space-y-2">
-            <p className="display-face px-1 text-xs text-accent">Capturas nuevas</p>
+            <p className={recommendationSectionEyebrowClassName}>Capturas nuevas</p>
             {captureRecommendations.length ? (
               <motion.div layout className="grid grid-cols-2 gap-3 xl:grid-cols-4">
                 <AnimatePresence mode="popLayout">
@@ -62,7 +71,7 @@ export function RecommendationsPanel({
                 </AnimatePresence>
               </motion.div>
             ) : (
-              <p className="rounded-xl px-2 py-2 text-sm text-muted">
+              <p className={recommendationEmptyStateClassName}>
                 {nextEncounter
                   ? `No hay una captura nueva claramente mejor para ${nextEncounter.label} con las fuentes activas.`
                   : "No hay capturas nuevas relevantes en este punto del run."}
@@ -73,7 +82,7 @@ export function RecommendationsPanel({
 
         {shouldShowSwaps ? (
           <section className="space-y-2">
-            <p className="display-face px-1 text-xs text-accent">Swaps del tramo</p>
+            <p className={recommendationSectionEyebrowClassName}>Swaps del tramo</p>
             {supportsContextualSwaps && swapOpportunities.length ? (
               <AnimatePresence mode="popLayout">
                 {swapOpportunities.map((opportunity) => (
@@ -81,7 +90,7 @@ export function RecommendationsPanel({
                 ))}
               </AnimatePresence>
             ) : (
-              <p className="rounded-xl px-2 py-2 text-sm text-muted">
+              <p className={recommendationEmptyStateClassName}>
                 No hay un swap claro para este checkpoint con las fuentes disponibles del tramo.
               </p>
             )}
@@ -135,7 +144,7 @@ function CaptureCard({
         </div>
 
         <div className="grid grid-cols-2 gap-2">
-          <span className="token-card px-2.5 py-1.5 text-xs text-muted">
+          <span className={recommendationTokenPillClassName}>
             rol {recommendation.role}
           </span>
           <span
@@ -148,10 +157,10 @@ function CaptureCard({
           >
             risk -{recommendation.delta.riskDelta.toFixed(1)}
           </span>
-          <span className="token-card px-2.5 py-1.5 text-xs text-muted">
+          <span className={recommendationTokenPillClassName}>
             score +{recommendation.delta.scoreDelta.toFixed(1)}
           </span>
-          <span className="token-card px-2.5 py-1.5 text-xs text-muted">
+          <span className={recommendationTokenPillClassName}>
             bst {recommendation.candidateMember.resolvedStats?.bst ?? "?"}
           </span>
         </div>
@@ -193,7 +202,7 @@ function SuggestedSwapCard({ opportunity }: { opportunity: SwapOpportunity }) {
       exit={{ opacity: 0, y: -12 }}
       className="panel-card"
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
+      <div className={recommendationSwapHeaderRowClassName}>
         <div>
           <p className="display-face text-sm text-accent">
             {opportunity.replacedSpecies} to {opportunity.candidateSpecies}
@@ -202,9 +211,9 @@ function SuggestedSwapCard({ opportunity }: { opportunity: SwapOpportunity }) {
             {opportunity.source} {opportunity.area ? `· ${opportunity.area}` : ""}
           </p>
         </div>
-        <div className="token-card px-3 py-2 text-right">
+        <div className={recommendationSwapSummaryClassName}>
           <p className="display-face text-sm text-accent-soft">-{opportunity.riskDelta.toFixed(1)} risk</p>
-          <p className="text-[10px] uppercase tracking-[0.14em] text-muted">score +{opportunity.scoreDelta.toFixed(1)}</p>
+          <p className={recommendationScoreDeltaClassName}>score +{opportunity.scoreDelta.toFixed(1)}</p>
         </div>
       </div>
 
@@ -265,7 +274,7 @@ function SwapSide({
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="display-face text-[11px] tracking-[0.14em] text-muted">{title}</p>
+          <p className={recommendationSwapSideTitleClassName}>{title}</p>
           <p className="display-face mt-1 text-sm">{species}</p>
           {role ? (
             <p className="mt-1 text-xs text-muted">{role}</p>
@@ -289,7 +298,7 @@ function SwapSide({
 function CompactStat({ label, value }: { label: string; value?: number }) {
   return (
     <div className="token-card px-3 py-2">
-      <p className="display-face text-[10px] tracking-[0.12em] text-muted">{label}</p>
+      <p className={recommendationCompactStatLabelClassName}>{label}</p>
       <p className="display-face mt-1 text-sm text-text">{value ?? "-"}</p>
     </div>
   );

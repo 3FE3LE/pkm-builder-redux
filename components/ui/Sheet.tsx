@@ -7,6 +7,27 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/Button"
 import { XIcon } from "lucide-react"
 
+const sheetOverlayBaseClassName =
+  "modal-backdrop fixed inset-0 z-50 transition-opacity duration-200 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-md";
+
+const sheetPopupBaseClassName =
+  "sheet-surface fixed z-50 flex flex-col gap-4 overflow-hidden border border-line-strong bg-clip-padding text-sm text-text transition duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0";
+
+const sheetPopupBottomClassName =
+  "data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=bottom]:data-ending-style:translate-y-10 data-[side=bottom]:data-starting-style:translate-y-10";
+
+const sheetPopupLeftClassName =
+  "data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=left]:data-ending-style:-translate-x-10 data-[side=left]:data-starting-style:-translate-x-10 data-[side=left]:sm:max-w-sm";
+
+const sheetPopupRightClassName =
+  "data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=right]:data-ending-style:translate-x-10 data-[side=right]:data-starting-style:translate-x-10 data-[side=right]:sm:max-w-xl";
+
+const sheetPopupTopClassName =
+  "data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=top]:data-ending-style:-translate-y-10 data-[side=top]:data-starting-style:-translate-y-10";
+
+const sheetCloseButtonClassName =
+  "absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8";
+
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
 }
@@ -19,10 +40,7 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
   return (
     <SheetPrimitive.Backdrop
       data-slot="sheet-overlay"
-      className={cn(
-        "modal-backdrop fixed inset-0 z-50 transition-opacity duration-200 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-md",
-        className
-      )}
+      className={cn(sheetOverlayBaseClassName, className)}
       {...props}
     />
   )
@@ -49,7 +67,11 @@ function SheetContent({
         data-slot="sheet-content"
         data-side={side}
         className={cn(
-          "sheet-surface fixed z-50 flex flex-col gap-4 overflow-hidden border border-line-strong bg-clip-padding text-sm text-text transition duration-200 ease-out data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=bottom]:data-ending-style:translate-y-10 data-[side=bottom]:data-starting-style:translate-y-10 data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=left]:data-ending-style:-translate-x-10 data-[side=left]:data-starting-style:-translate-x-10 data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=right]:data-ending-style:translate-x-10 data-[side=right]:data-starting-style:translate-x-10 data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=top]:data-ending-style:-translate-y-10 data-[side=top]:data-starting-style:-translate-y-10 data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-xl",
+          sheetPopupBaseClassName,
+          sheetPopupBottomClassName,
+          sheetPopupLeftClassName,
+          sheetPopupRightClassName,
+          sheetPopupTopClassName,
           className
         )}
         {...props}
@@ -63,7 +85,7 @@ function SheetContent({
             data-slot="sheet-close"
             variant="ghost"
             className={cn(
-              "absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8",
+              sheetCloseButtonClassName,
               hideCloseButtonOnMobile && "hidden sm:inline-flex",
             )}
             size="icon-sm"

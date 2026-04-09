@@ -8,6 +8,26 @@ import { useState } from "react";
 import { PokemonSprite } from "@/components/BuilderShared";
 import { Button } from "@/components/ui/Button";
 
+const evolutionModalBackdropClassName =
+  "modal-backdrop-strong fixed inset-0 z-160 flex items-start justify-center overflow-y-auto px-3 py-4 backdrop-blur-md sm:items-center sm:px-4 sm:py-6";
+const evolutionModalSurfaceClassName =
+  "panel-strong relative my-auto w-full max-w-3xl overflow-y-auto rounded-2xl p-4 sm:p-5";
+const evolutionModalSurfaceMaxHeightClassName =
+  "max-h-[calc(100dvh-2rem)] sm:max-h-[calc(100dvh-3rem)]";
+const evolutionOptionGroupClassName = "flex flex-wrap gap-1.5";
+const evolutionOptionButtonClassName = "border-line bg-surface-4";
+const evolutionOptionButtonActiveClassName =
+  "border-primary-line-strong bg-primary-fill-strong text-primary-soft";
+const evolutionPreviewGridClassName =
+  "grid gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center";
+const evolutionEmptyStateClassName =
+  "flex min-h-36 items-center justify-center rounded-xl border border-line px-4 py-5 text-center text-sm text-muted sm:min-h-44";
+const evolutionPreviewCardClassName =
+  "flex flex-col items-center justify-center px-2 py-2 text-center sm:px-3 sm:py-3";
+const evolutionPreviewHighlightClassName = "evolution-preview-highlight rounded-xl";
+const evolutionSequenceShellClassName =
+  "relative mx-auto flex min-h-72 w-full max-w-88 flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-5 sm:min-h-80 sm:max-w-96 sm:py-6";
+
 export function EvolutionModal({
   open,
   currentSpecies,
@@ -75,13 +95,16 @@ export function EvolutionModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="modal-backdrop-strong fixed inset-0 z-160 flex items-start justify-center overflow-y-auto px-3 py-4 backdrop-blur-md sm:px-4 sm:py-6 sm:items-center"
+      className={evolutionModalBackdropClassName}
     >
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 10, scale: 0.98 }}
-        className="panel-strong relative my-auto max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-2xl p-4 sm:max-h-[calc(100dvh-3rem)] sm:p-5"
+        className={clsx(
+          evolutionModalSurfaceClassName,
+          evolutionModalSurfaceMaxHeightClassName,
+        )}
       >
         <div className="sheet-highlight absolute inset-x-0 top-0 h-28" />
         <div className="relative flex justify-end gap-1.5">
@@ -109,7 +132,7 @@ export function EvolutionModal({
         {phase === "confirm" ? (
           <div className="relative space-y-4">
             {nextOptions.length > 1 ? (
-              <div className="flex flex-wrap gap-1.5">
+              <div className={evolutionOptionGroupClassName}>
                 {nextOptions.map((option) => (
                   <Button
                     key={`evolution-option-${option.species}`}
@@ -120,10 +143,9 @@ export function EvolutionModal({
                     onClick={() => onSelectNext(option.species)}
                     title={option.eligible === false ? option.reasons?.join(" · ") : undefined}
                     className={clsx(
-                      "border-line bg-surface-4",
+                      evolutionOptionButtonClassName,
                       option.eligible === false && "opacity-45",
-                      selectedNext === option.species &&
-                        "border-primary-line-strong bg-primary-fill-strong text-primary-soft",
+                      selectedNext === option.species && evolutionOptionButtonActiveClassName,
                     )}
                   >
                     {option.species}
@@ -132,7 +154,7 @@ export function EvolutionModal({
               </div>
             ) : null}
 
-            <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
+            <div className={evolutionPreviewGridClassName}>
               <EvolutionPreviewCard
                 species={currentSpecies}
                 spriteUrl={currentSpriteUrl}
@@ -151,7 +173,7 @@ export function EvolutionModal({
                   highlight
                 />
               ) : (
-                <div className="flex min-h-36 items-center justify-center rounded-[0.9rem] border border-line px-4 py-5 text-center text-sm text-muted sm:min-h-44">
+                <div className={evolutionEmptyStateClassName}>
                     No hay evolución disponible.
                 </div>
               )}
@@ -219,8 +241,8 @@ function EvolutionPreviewCard({
   return (
     <div
       className={clsx(
-        "flex flex-col items-center justify-center px-2 py-2 text-center sm:px-3 sm:py-3",
-        highlight && "evolution-preview-highlight rounded-[0.9rem]",
+        evolutionPreviewCardClassName,
+        highlight && evolutionPreviewHighlightClassName,
       )}
     >
         <PokemonSprite
@@ -271,7 +293,7 @@ function EvolutionSequenceStage({
           onAdvanceStage("morph");
         }
       }}
-      className="relative mx-auto flex min-h-72 w-full max-w-88 flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-5 sm:min-h-80 sm:max-w-96 sm:py-6"
+      className={evolutionSequenceShellClassName}
     >
       <div
         className={clsx(

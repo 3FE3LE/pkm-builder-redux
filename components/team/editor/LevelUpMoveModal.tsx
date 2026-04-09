@@ -4,11 +4,15 @@ import { X } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { MoveSlotSurface } from "@/components/team/UI";
+import { dexStatChipClassName } from "@/components/team/screens/dex/DexShared";
 import { Button } from "@/components/ui/Button";
 import { applyMovePowerModifiers, getMovePowerModifiers, getWeatherAdjustedMove } from "@/lib/domain/moves";
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { LevelUpMoveEntry } from "@/lib/domain/levelUpMoves";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
+
+const levelUpMovePriorityPillClassName =
+  "rounded-2xl border border-warning-line px-2 py-1 text-warning-strong";
 
 export function LevelUpMoveModal({
   open,
@@ -122,17 +126,17 @@ export function LevelUpMoveModal({
                     />
                     <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
                       {movePreview.accuracy ? (
-                        <span className="rounded-2xl border border-line px-2 py-1">
+                        <span className={dexStatChipClassName}>
                           Acc {movePreview.accuracy}%
                         </span>
                       ) : null}
                       {movePreview.pp ? (
-                        <span className="rounded-2xl border border-line px-2 py-1">
+                        <span className={dexStatChipClassName}>
                           PP {movePreview.pp}
                         </span>
                       ) : null}
                       {priority !== 0 ? (
-                        <span className="rounded-2xl border border-warning-line px-2 py-1 text-warning-strong">
+                        <span className={levelUpMovePriorityPillClassName}>
                           Pri {priority > 0 ? `+${priority}` : priority}
                         </span>
                       ) : null}

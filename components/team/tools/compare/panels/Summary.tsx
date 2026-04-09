@@ -7,6 +7,11 @@ import { CoverageBadge } from "@/components/team/UI";
 
 import type { State } from "./state";
 
+const compareSummaryShellClassName = "rounded-xl px-1 py-1";
+const compareSummaryBucketClassName = "rounded-md px-1 py-1.5";
+const compareSummaryDiffCardClassName = "rounded-md px-2 py-1.5";
+const compareSummaryDiffLabelClassName = "display-face micro-label text-muted";
+
 export function Summary({
   left,
   right,
@@ -29,7 +34,7 @@ export function Summary({
   ];
 
   return (
-    <div className="rounded-[0.9rem] px-1 py-1">
+    <div className={compareSummaryShellClassName}>
       <div className="flex items-center justify-center gap-2">
         <ArrowLeftRight className="h-5 w-5 text-accent" />
         <p className="display-face text-sm text-accent">Vs</p>
@@ -83,9 +88,9 @@ export function Summary({
           return (
             <div
               key={`compare-diff-${entry.label}`}
-              className="rounded-[0.625rem] px-2 py-1.5"
+              className={compareSummaryDiffCardClassName}
             >
-              <div className="display-face text-[10px] text-muted sm:text-[11px]">
+              <div className={compareSummaryDiffLabelClassName}>
                 {entry.label}
               </div>
               <div className="mt-1 flex items-center justify-between gap-1.5 text-xs sm:gap-2 sm:text-sm">
@@ -142,7 +147,7 @@ function ComparisonBucket({
   ) => "x4" | "x2" | "x0" | "x0.25" | "x0.5";
 }) {
   return (
-    <div className="rounded-[0.625rem] px-1 py-1.5">
+    <div className={compareSummaryBucketClassName}>
       <div className="flex flex-wrap gap-1.5 sm:gap-2">
         {entries.length ? (
           entries.map((entry) => (

@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/Button";
 
 import type { TypeTierMetric } from "@/components/team/tools/type-tiers/types";
 
+const metricToggleShellClassName =
+  "inline-flex items-center gap-1 rounded-lg border border-line bg-surface-3 p-1";
+
 export function MetricToggle({
   metric,
   onChange,
@@ -14,7 +17,7 @@ export function MetricToggle({
   onChange: (next: TypeTierMetric) => void;
 }) {
   return (
-    <div className="inline-flex items-center gap-1 rounded-[0.8rem] border border-line bg-surface-3 p-1">
+    <div className={metricToggleShellClassName}>
       <Button
         type="button"
         variant={metric === "offense" ? "default" : "ghost"}
