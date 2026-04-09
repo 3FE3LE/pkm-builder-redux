@@ -252,7 +252,7 @@ export function EffectiveStatsRadar({
               "text-[10px] font-medium",
               point.key === "hp" || point.key === "spe"
                 ? "leading-[1.1]"
-                : "[line-height:1.45]",
+                : "leading-[1.45]",
               getNatureTone(point.key, natureEffect),
             )}
           >
@@ -274,7 +274,7 @@ export function EffectiveStatsRadar({
             className={clsx(
               "text-[10px] font-medium",
               point.key === "hp" || point.key === "spe"
-                ? "[line-height:1.05]"
+                ? "leading-[1.05]"
                 : "leading-[1.35]",
               getNatureTone(point.key, natureEffect, "fill-text"),
             )}

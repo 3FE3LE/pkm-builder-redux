@@ -67,7 +67,7 @@ export function SlotModals({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="modal-scrim z-[120]"
+            className="modal-scrim z-120"
           >
             <motion.div
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -92,7 +92,7 @@ export function SlotModals({
                 {Object.entries(resetFields).map(([key, checked]) => (
                   <label
                     key={key}
-                    className="flex items-center gap-3 rounded-[0.75rem] border border-line bg-surface-3 px-3 py-2 text-sm"
+                    className="flex items-center gap-3 rounded-xl border border-line bg-surface-3 px-3 py-2 text-sm"
                   >
                     <input
                       type="checkbox"
@@ -124,7 +124,7 @@ export function SlotModals({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="modal-scrim z-[120]"
+            className="modal-scrim z-120"
           >
             <motion.div
               initial={{ opacity: 0, y: 16, scale: 0.98 }}

@@ -72,7 +72,7 @@ function OnboardingStarterCard({ starterKey }: { starterKey: StarterKey }) {
       />
       <motion.div
         className={clsx(
-          "pointer-events-none absolute inset-[12%] rounded-[0.75rem] border border-white/0",
+          "pointer-events-none absolute inset-[12%] rounded-xl border border-white/0",
           isSelecting && "border-white/35",
         )}
         animate={

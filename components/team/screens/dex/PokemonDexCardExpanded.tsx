@@ -207,7 +207,7 @@ export function PokemonDexCardExpanded({
           </div>
           <span className="text-xs text-text-faint transition-transform data-[panel-open]:rotate-180">⌄</span>
         </CollapsibleTrigger>
-        <CollapsibleContent className="mt-2 max-h-[26rem] space-y-2 overflow-y-auto pr-1">
+        <CollapsibleContent className="mt-2 max-h-104 space-y-2 overflow-y-auto pr-1">
           {(pokemon.learnsets?.levelUp?.length ?? 0) ? (
             <LearnsetSection
               title="Level up"

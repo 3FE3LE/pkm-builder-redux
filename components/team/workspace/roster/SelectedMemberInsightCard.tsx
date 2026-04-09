@@ -63,7 +63,7 @@ export function SelectedMemberInsightCard({
   const normalizedDexDetails = dexDetails ?? null;
 
   return (
-    <div className="max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-[1rem] border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
+    <div className="max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-2xl border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md">
       <div className="sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md">
         <div>
           <p className="display-face text-sm text-accent">Info del slot</p>
@@ -113,7 +113,7 @@ export function SelectedMemberInsightCard({
             {starterLens.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-[6px] border border-line bg-surface-3 px-3 py-1 text-xs text-muted"
+                className="rounded-md border border-line bg-surface-3 px-3 py-1 text-xs text-muted"
               >
                 {tag}
               </span>
@@ -145,7 +145,7 @@ export function SelectedMemberInsightCard({
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="display-face text-[10px] text-accent">{entry.source}</span>
-                  <span className="pixel-face text-[12px] text-text">{entry.move}</span>
+                  <span className="pixel-face text-xs text-text">{entry.move}</span>
                   {entry.type ? <TypeBadge key={`${entry.move}-${entry.type}`} type={entry.type} /> : null}
                 </div>
                 {entry.reasons.length ? (

@@ -144,7 +144,7 @@ export function MoveSlotSurface({
             : undefined)
       }
     >
-      <span className="pixel-face min-w-0 flex-1 truncate text-[12px] leading-none tracking-[0.12em] font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
+      <span className="pixel-face min-w-0 flex-1 truncate text-xs leading-none tracking-[0.12em] font-normal sm:text-[13px] md:text-sm lg:text-base">
         {move.name}
       </span>
       <MovePowerBadge

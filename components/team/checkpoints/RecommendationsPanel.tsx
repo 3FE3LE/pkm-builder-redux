@@ -43,7 +43,7 @@ export function RecommendationsPanel({
   );
 
   return (
-    <div className="rounded-[1rem] px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
+    <div className="rounded-2xl px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
       <div className="space-y-4">
         {shouldShowCaptures ? (
           <section className="space-y-2">
@@ -62,7 +62,7 @@ export function RecommendationsPanel({
                 </AnimatePresence>
               </motion.div>
             ) : (
-              <p className="rounded-[0.75rem] px-2 py-2 text-sm text-muted">
+              <p className="rounded-xl px-2 py-2 text-sm text-muted">
                 {nextEncounter
                   ? `No hay una captura nueva claramente mejor para ${nextEncounter.label} con las fuentes activas.`
                   : "No hay capturas nuevas relevantes en este punto del run."}
@@ -81,7 +81,7 @@ export function RecommendationsPanel({
                 ))}
               </AnimatePresence>
             ) : (
-              <p className="rounded-[0.75rem] px-2 py-2 text-sm text-muted">
+              <p className="rounded-xl px-2 py-2 text-sm text-muted">
                 No hay un swap claro para este checkpoint con las fuentes disponibles del tramo.
               </p>
             )}

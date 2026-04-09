@@ -208,7 +208,7 @@ export function WeatherVisualLayer({ weather }: { weather: BattleWeather }) {
           {HAIL_FLAKES.map((flake) => (
             <motion.div
               key={`hail-${flake.left}-${flake.top}`}
-              className="absolute rounded-[2px]"
+              className="absolute rounded-xs"
               style={{
                 left: flake.left,
                 top: flake.top,

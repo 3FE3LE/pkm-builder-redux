@@ -35,7 +35,7 @@ export function Summary({
         <p className="display-face text-sm text-accent">Vs</p>
       </div>
       <div className="mt-3 grid gap-2 sm:space-y-0">
-        <article className="rounded-[0.75rem] px-1 py-1">
+        <article className="rounded-xl px-1 py-1">
           <p className="display-face text-center text-xs text-danger">Debilidades</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <ComparisonBucket entries={left.weaknesses} fallback="Sin debilidades" />
@@ -43,7 +43,7 @@ export function Summary({
           </div>
         </article>
 
-        <article className="rounded-[0.75rem] px-1 py-1">
+        <article className="rounded-xl px-1 py-1">
           <p className="display-face text-center text-xs text-info">Resistencias</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <ComparisonBucket

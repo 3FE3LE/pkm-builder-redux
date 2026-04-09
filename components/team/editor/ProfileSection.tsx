@@ -113,7 +113,7 @@ export function ProfileSection({
                 locked: !current.locked,
               }))
             }
-            className="inline-flex items-center gap-2 rounded-[6px] border border-line bg-surface-3 px-3 py-1.5 text-xs text-muted"
+            className="inline-flex items-center gap-2 rounded-md border border-line bg-surface-3 px-3 py-1.5 text-xs text-muted"
           >
             {member.locked ? <Lock className="h-3.5 w-3.5" /> : <LockOpen className="h-3.5 w-3.5" />}
           </button>

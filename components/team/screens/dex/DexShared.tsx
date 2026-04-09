@@ -35,7 +35,7 @@ export function DexCollectionLoadingSkeleton() {
       {Array.from({ length: 6 }).map((_, index) => (
         <article
           key={`dex-loading-card-${index}`}
-          className="panel-strong panel-frame rounded-[1rem] p-4"
+          className="panel-strong panel-frame rounded-2xl p-4"
         >
           <div className="space-y-3">
             <Skeleton className="h-5 w-32" />
@@ -199,7 +199,7 @@ export function DexModeButton({
       type="button"
       onClick={onClick}
       className={clsx(
-        "flex min-h-24 flex-col items-start justify-between rounded-[1rem] border px-3 py-3 text-left transition",
+        "flex min-h-24 flex-col items-start justify-between rounded-2xl border px-3 py-3 text-left transition",
         active
           ? "border-warning-line bg-[rgba(255,199,107,0.12)] text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
           : "border-line-soft bg-[rgba(255,255,255,0.025)] text-text-soft hover:border-line hover:text-text",

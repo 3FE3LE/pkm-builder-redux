@@ -58,7 +58,7 @@ export function DefenseSection({
   return (
     <section className="rounded-[0_1rem_1rem_1rem] p-0">
       <div className="space-y-3 rounded-[0.9rem] px-1 py-1">
-        <article className="rounded-[0.75rem] px-1 py-1">
+        <article className="rounded-xl px-1 py-1">
           <p className="display-face text-xs text-danger">Debilidades</p>
           <div className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
             {weaknesses.length ? (
@@ -76,7 +76,7 @@ export function DefenseSection({
           </div>
         </article>
 
-        <article className="rounded-[0.75rem] px-1 py-1">
+        <article className="rounded-xl px-1 py-1">
           <p className="display-face text-xs text-info">Resistencias</p>
           <div className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
             {resistances.length ? (
@@ -100,7 +100,7 @@ export function DefenseSection({
           </div>
         </article>
 
-        <article className="rounded-[0.75rem] px-1 py-1">
+        <article className="rounded-xl px-1 py-1">
           <p className="display-face text-xs text-info">Inmunidades</p>
           <div className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
             {immunities.length ? (
@@ -118,7 +118,7 @@ export function DefenseSection({
           </div>
         </article>
 
-        <article className="rounded-[0.75rem] px-1 py-1">
+        <article className="rounded-xl px-1 py-1">
           <p className="display-face text-xs text-accent">STAB</p>
           <div className="mt-2 space-y-3">
             {stabCoverage.map((stab) => (

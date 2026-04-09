@@ -81,7 +81,7 @@ export function LevelUpMoveModal({
 
   return (
     <div className="modal-backdrop-strong fixed inset-0 z-170 flex items-center justify-center px-4 py-6 backdrop-blur-md">
-      <div className="panel-strong relative w-full max-w-2xl overflow-hidden rounded-[1rem] p-6">
+      <div className="panel-strong relative w-full max-w-2xl overflow-hidden rounded-2xl p-6">
         <div className="sheet-highlight absolute inset-x-0 top-0 h-24" />
         <div className="relative flex items-start justify-between gap-4">
           <div className="min-w-0">
@@ -118,7 +118,7 @@ export function LevelUpMoveModal({
                         adjustedPower: movePreview.adjustedPower,
                       }}
                       member={member}
-                      className="flex w-full rounded-[0.75rem] px-3 py-2.5"
+                      className="flex w-full rounded-xl px-3 py-2.5"
                     />
                     <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
                       {movePreview.accuracy ? (
@@ -150,7 +150,7 @@ export function LevelUpMoveModal({
             </div>
 
             {alreadyKnown ? (
-              <p className="rounded-[0.75rem] border border-warning-line bg-warning-fill px-3 py-2 text-sm text-warning-strong">
+              <p className="rounded-xl border border-warning-line bg-warning-fill px-3 py-2 text-sm text-warning-strong">
                 Ya conoce este movimiento.
               </p>
             ) : null}
@@ -194,11 +194,11 @@ export function LevelUpMoveModal({
                       <MoveSlotSurface
                         move={currentMove}
                         member={member}
-                        className="flex w-full rounded-[0.75rem] hover:border-primary-line-emphasis hover:brightness-110"
+                        className="flex w-full rounded-xl hover:border-primary-line-emphasis hover:brightness-110"
                         title={`Olvidar ${moveName}`}
                       />
                     ) : (
-                      <span className="flex h-[42px] items-center rounded-[0.625rem] border border-line bg-surface-2 px-3 text-sm text-text">
+                      <span className="flex h-10.5 items-center rounded-[0.625rem] border border-line bg-surface-2 px-3 text-sm text-text">
                         {moveName}
                       </span>
                     )}

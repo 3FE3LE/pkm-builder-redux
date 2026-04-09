@@ -184,7 +184,7 @@ export function MovePickerModal({
                     <span className="display-face shrink-0 text-[9px] text-current/80">
                       {item.label}
                     </span>
-                    <span className="pixel-face min-w-0 truncate text-[12px] leading-none tracking-widest font-normal sm:text-[13px] md:text-[14px] lg:text-[16px]">
+                    <span className="pixel-face min-w-0 truncate text-xs leading-none tracking-widest font-normal sm:text-[13px] md:text-sm lg:text-base">
                       {item.move}
                     </span>
                     <MoveCueIcons
@@ -234,7 +234,7 @@ export function MovePickerModal({
         }}
       />
       <div className="absolute inset-x-0 top-0 px-3 pt-[max(env(safe-area-inset-top),1rem)]">
-        <div className="status-popover rounded-[12px] border border-line p-3 shadow-2xl backdrop-blur-md">
+        <div className="status-popover rounded-xl border border-line p-3 shadow-2xl backdrop-blur-md">
           {content}
         </div>
       </div>

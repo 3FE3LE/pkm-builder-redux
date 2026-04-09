@@ -81,7 +81,7 @@ export function PcBoxSection({
                   setSelectedMemberId(member.id);
                 }}
                 className={clsx(
-                  "flex aspect-square items-center justify-center rounded-[0.75rem] transition",
+                  "flex aspect-square items-center justify-center rounded-xl transition",
                   selectedMemberId === member.id
                     ? "ring-2 ring-primary-line-emphasis"
                     : "opacity-90 hover:opacity-100",
@@ -128,7 +128,7 @@ export function PcBoxSection({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="modal-scrim z-[120]"
+            className="modal-scrim z-120"
             onClick={() => {
               setManualTargetCompositionName(null);
               setSelectedMemberId(null);

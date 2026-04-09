@@ -22,7 +22,7 @@ export function AppNav() {
   }
 
   return (
-    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 border-t border-line-soft bg-[var(--dock-surface-bg)] px-3 pb-[max(env(safe-area-inset-bottom),0px)] backdrop-blur-[16px] lg:sticky lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b lg:border-line-soft lg:bg-[var(--dock-surface-bg)] lg:px-0 lg:pb-0">
+    <header className="fixed inset-x-0 bottom-[max(env(safe-area-inset-bottom),0px)] z-40 border-t border-line-soft bg-[var(--dock-surface-bg)] px-3 pb-[max(env(safe-area-inset-bottom),0px)] backdrop-blur-lg lg:sticky lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b lg:border-line-soft lg:bg-[var(--dock-surface-bg)] lg:px-0 lg:pb-0">
       <div className="mx-auto flex max-w-7xl items-center justify-center bg-transparent px-0 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-3 lg:px-10 lg:py-3">
         <Link
           href="/"
@@ -39,7 +39,7 @@ export function AppNav() {
             unoptimized={false}
           />
         </Link>
-        <nav className="grid w-full max-w-2xl grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[var(--dock-surface-bg)] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),var(--glass-shadow)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto_auto] lg:rounded-[1rem] lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
+        <nav className="grid w-full max-w-2xl grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-[var(--dock-surface-bg)] p-1 shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24),var(--glass-shadow)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto_auto] lg:rounded-2xl lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
           <Link
             href="/"
             aria-label="Home"

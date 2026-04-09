@@ -131,7 +131,7 @@ export function ImportPanel({
       {importOpen ? (
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
           <Input
-            className="min-w-[16rem] flex-1"
+            className="min-w-64 flex-1"
             value={importValue}
             onChange={(event) => setImportValue(event.target.value)}
             placeholder="Pega el token o link del Pokémon"

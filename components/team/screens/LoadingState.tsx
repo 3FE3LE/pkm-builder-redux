@@ -31,12 +31,12 @@ export function LoadingState({
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="space-y-4">
-              <Skeleton className="h-12 w-full rounded-[1rem]" />
+              <Skeleton className="h-12 w-full rounded-2xl" />
               <Skeleton className="h-28 w-full rounded-[1.25rem]" />
             </div>
             <div className="space-y-4">
-              <Skeleton className="h-20 w-full rounded-[1rem]" />
-              <Skeleton className="h-20 w-full rounded-[1rem]" />
+              <Skeleton className="h-20 w-full rounded-2xl" />
+              <Skeleton className="h-20 w-full rounded-2xl" />
             </div>
           </div>
         </div>
@@ -99,18 +99,18 @@ function WorkspaceLoadingState() {
                 <Skeleton className="h-10 w-28 rounded-full" />
               </div>
               <div className="space-y-3">
-                <Skeleton className="h-24 w-full rounded-[1rem]" />
-                <Skeleton className="h-28 w-full rounded-[1rem]" />
-                <Skeleton className="h-24 w-full rounded-[1rem]" />
+                <Skeleton className="h-24 w-full rounded-2xl" />
+                <Skeleton className="h-28 w-full rounded-2xl" />
+                <Skeleton className="h-24 w-full rounded-2xl" />
               </div>
             </div>
 
             <div className="panel panel-frame px-4 py-4 sm:px-5">
               <div className="grid grid-cols-2 gap-3">
-                <Skeleton className="h-24 w-full rounded-[1rem]" />
-                <Skeleton className="h-24 w-full rounded-[1rem]" />
-                <Skeleton className="h-24 w-full rounded-[1rem]" />
-                <Skeleton className="h-24 w-full rounded-[1rem]" />
+                <Skeleton className="h-24 w-full rounded-2xl" />
+                <Skeleton className="h-24 w-full rounded-2xl" />
+                <Skeleton className="h-24 w-full rounded-2xl" />
+                <Skeleton className="h-24 w-full rounded-2xl" />
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ function EditorLoadingState() {
         <section className="panel panel-frame overflow-hidden">
           <div className="border-b border-line-soft px-4 py-5 sm:px-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-              <Skeleton className="h-28 w-28 rounded-[1.5rem]" />
+              <Skeleton className="h-28 w-28 rounded-3xl" />
               <div className="min-w-0 flex-1 space-y-3">
                 <Skeleton className="h-7 w-44" />
                 <Skeleton className="h-5 w-24" />
@@ -136,7 +136,7 @@ function EditorLoadingState() {
                   <Skeleton className="h-6 w-16 rounded-full" />
                   <Skeleton className="h-6 w-20 rounded-full" />
                 </div>
-                <Skeleton className="h-10 w-full max-w-md rounded-[1rem]" />
+                <Skeleton className="h-10 w-full max-w-md rounded-2xl" />
               </div>
             </div>
           </div>

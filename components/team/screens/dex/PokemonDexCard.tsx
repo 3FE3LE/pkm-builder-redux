@@ -99,7 +99,7 @@ export function PokemonDexCard({
       id={!expanded ? anchorId : undefined}
       className={clsx(
         "relative overflow-hidden transition-[transform,border-color,background-color] duration-200",
-        expanded ? "p-4 sm:p-5" : "panel-strong panel-frame aspect-square rounded-[1rem] p-3",
+        expanded ? "p-4 sm:p-5" : "panel-strong panel-frame aspect-square rounded-2xl p-3",
         !expanded && "scroll-mt-24",
         href && "group hover:border-warning-line hover:bg-surface-2/90",
       )}
@@ -118,7 +118,7 @@ export function PokemonDexCard({
             <div
               className={clsx(
                 "relative flex items-center justify-center self-center overflow-hidden bg-transparent shadow-none",
-                expanded ? "h-36 w-36 rounded-[1rem]" : "h-24 w-24 rounded-[1rem]",
+                expanded ? "h-36 w-36 rounded-2xl" : "h-24 w-24 rounded-2xl",
               )}
             >
               {expanded ? (
@@ -156,8 +156,8 @@ export function PokemonDexCard({
                   className={
                     !expanded
                       ? pokemon.types.length === 1
-                        ? "max-md:min-w-[4.75rem] max-md:gap-1 max-md:px-1.5 max-md:py-1 max-md:text-[12px] max-md:tracking-[0.06em]"
-                        : "max-md:min-w-[3.5rem] max-md:gap-1 max-md:px-1.5 max-md:py-0.5 max-md:text-[10px] max-md:tracking-[0.05em]"
+                        ? "max-md:min-w-19 max-md:gap-1 max-md:px-1.5 max-md:py-1 max-md:text-xs max-md:tracking-[0.06em]"
+                        : "max-md:min-w-14 max-md:gap-1 max-md:px-1.5 max-md:py-0.5 max-md:text-[10px] max-md:tracking-[0.05em]"
                       : undefined
                   }
                 />

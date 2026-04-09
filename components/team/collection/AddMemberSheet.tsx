@@ -58,7 +58,7 @@ export function AddMemberSheet({
   }
 
   return (
-    <div className="modal-scrim z-[125] items-end px-3 py-4 sm:items-center">
+    <div className="modal-scrim z-125 items-end px-3 py-4 sm:items-center">
       <div className="panel-strong panel-frame w-full max-w-3xl p-4">
         <div className="flex items-center justify-between gap-3">
           <div>
@@ -110,7 +110,7 @@ export function AddMemberSheet({
               <p className="display-face text-xs text-accent">Tus Pokemon</p>
               <p className="text-[11px] text-muted">{filteredLibrary.length} disponibles</p>
             </div>
-            <div className="max-h-[24rem] space-y-2 overflow-auto pr-1">
+            <div className="max-h-96 space-y-2 overflow-auto pr-1">
               {filteredLibrary.length ? (
                 filteredLibrary.map((member) => (
                   <button

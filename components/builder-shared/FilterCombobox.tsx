@@ -78,7 +78,7 @@ export function FilterCombobox({
                 setQuery(option);
                 setOpen(false);
               }}
-              className="control-surface-hover flex w-full items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm text-text transition"
+              className="control-surface-hover flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm text-text transition"
             >
               {renderOption ? (
                 renderOption(option, option === safeValue)
@@ -119,7 +119,7 @@ export function FilterCombobox({
             ref={panelRef}
             style={panelStyle}
             className={clsx(
-              "status-popover box-border w-full rounded-[12px] border border-line p-2 shadow-2xl backdrop-blur-md",
+              "status-popover box-border w-full rounded-xl border border-line p-2 shadow-2xl backdrop-blur-md",
               panelClassName,
             )}
           >
@@ -132,7 +132,7 @@ export function FilterCombobox({
         ref={panelRef}
         style={panelStyle}
         className={clsx(
-          "status-popover absolute left-0 z-1000 mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
+          "status-popover absolute left-0 z-1000 mt-2 box-border w-72 rounded-lg border border-line p-2 backdrop-blur-md",
           panelClassName,
         )}
       >

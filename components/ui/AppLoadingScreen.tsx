@@ -31,7 +31,7 @@ export function AppLoadingScreen({
         transition={{ duration: 0.48, ease: "easeOut", delay: 0.06 }}
         className={clsx(
           "relative mx-auto flex max-w-7xl items-center justify-center",
-          fullscreen ? "min-h-[calc(100svh-3rem)]" : "min-h-[16rem]",
+          fullscreen ? "min-h-[calc(100svh-3rem)]" : "min-h-64",
         )}
       >
         <div className="flex flex-col items-center gap-5 text-center">
@@ -48,7 +48,7 @@ export function AppLoadingScreen({
                 width={84}
                 height={84}
                 loading="eager"
-                className="h-[4.75rem] w-[4.75rem] object-contain pixelated drop-shadow-[0_14px_28px_rgba(0,0,0,0.28)]"
+                className="h-19 w-19 object-contain pixelated drop-shadow-[0_14px_28px_rgba(0,0,0,0.28)]"
               />
             </motion.div>
           </div>

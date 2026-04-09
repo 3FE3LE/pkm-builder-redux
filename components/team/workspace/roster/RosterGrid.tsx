@@ -143,7 +143,7 @@ export function RosterGrid({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.97 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
-                          className="absolute bottom-full left-1/2 z-20 mb-3 w-full max-w-[28rem] -translate-x-1/2 px-3"
+                          className="absolute bottom-full left-1/2 z-20 mb-3 w-full max-w-112 -translate-x-1/2 px-3"
                         >
                           <SelectedMemberInsightCard
                             member={selectedResolved}
@@ -197,7 +197,7 @@ function AddMemberSlot({
     <button
       type="button"
       onClick={onAddMember}
-      className="panel-tint-faint group flex min-h-40 flex-col items-center justify-center rounded-[1rem] border border-dashed border-line-emphasis p-5 text-center transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill"
+      className="panel-tint-faint group flex min-h-40 flex-col items-center justify-center rounded-2xl border border-dashed border-line-emphasis p-5 text-center transition duration-200 hover:border-primary-line-emphasis hover:bg-primary-fill"
     >
       <div className="flex h-20 w-20 items-center justify-center rounded-[0.875rem] border border-line-soft bg-surface-3 transition group-hover:scale-[1.03] group-hover:border-primary-line-emphasis">
         <Plus className="h-9 w-9 text-accent" />

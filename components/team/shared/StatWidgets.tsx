@@ -83,10 +83,10 @@ export function StatBar({
           ) : null}
         </span>
       </div>
-      <div className="relative h-3 rounded-[6px] bg-surface-6">
+      <div className="relative h-3 rounded-md bg-surface-6">
         {baselineWidth !== null && delta ? (
           <span
-            className="absolute inset-y-0 left-0 rounded-[6px] border border-dashed border-white/20 bg-white/5"
+            className="absolute inset-y-0 left-0 rounded-md border border-dashed border-white/20 bg-white/5"
             style={{ width: `${baselineWidth}%` }}
             aria-hidden="true"
           />
@@ -94,7 +94,7 @@ export function StatBar({
         {deltaSegment ? (
           <span
             className={clsx(
-              "absolute inset-y-0 rounded-[6px]",
+              "absolute inset-y-0 rounded-md",
               (delta ?? 0) > 0
                 ? "bg-[rgba(94,240,203,0.38)]"
                 : "bg-[rgba(255,122,92,0.42)]",
@@ -126,7 +126,7 @@ export function StatBar({
           aria-hidden="true"
         />
         <motion.div
-          className={`h-full rounded-[6px] ${fillClass}`}
+          className={`h-full rounded-md ${fillClass}`}
           initial={reduceMotion ? false : { width: 0 }}
           animate={{ width: `${width}%` }}
           transition={
@@ -366,7 +366,7 @@ export function SpreadInput({
               const parsedValue = parseInt(event.target.value, 10);
               onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
             }}
-            className="h-8 min-w-[3rem] w-13 flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
+            className="h-8 min-w-12 w-13 flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
             aria-invalid={Boolean(error)}
           />
           <button
@@ -391,7 +391,7 @@ export function SpreadInput({
 
 export function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <article className="rounded-[0.75rem] border border-line bg-surface-3 p-4">
+    <article className="rounded-xl border border-line bg-surface-3 p-4">
       <p className="display-face text-xs text-muted">{label}</p>
       <p className="mono-face mt-3 text-3xl text-accent">{value}</p>
     </article>

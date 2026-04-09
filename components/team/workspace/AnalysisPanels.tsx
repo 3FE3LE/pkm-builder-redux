@@ -18,7 +18,7 @@ export function TeamAverageStatsPanel({
   averageStats: ReturnType<typeof import("@/lib/teamAnalysis").buildAverageStats> | null;
 }) {
   return (
-    <div className="rounded-[1rem] p-3 sm:p-4">
+    <div className="rounded-2xl p-3 sm:p-4">
       <div className="flex items-center justify-between gap-3">
         <p className="display-face text-sm text-accent">Promedio del equipo</p>
         {averageStats ? (
@@ -55,7 +55,7 @@ export function CoveragePanel({
   uncoveredCoverage: CoverageEntry[];
 }) {
   return (
-    <div className="rounded-[1rem] p-3 sm:p-4">
+    <div className="rounded-2xl p-3 sm:p-4">
       <p className="display-face text-sm text-accent">Cobertura ofensiva</p>
       <p className="mt-1 text-sm text-muted">
         El label se calcula con el mejor multiplicador que tu moveset actual consigue contra cada tipo.
@@ -100,7 +100,7 @@ export function DefensiveThreatsPanel({
   const immuneItems = defensiveSections.netImmune;
 
   return (
-    <div className="rounded-[1rem] p-3 sm:p-4">
+    <div className="rounded-2xl p-3 sm:p-4">
       <p className="display-face text-sm text-accent">Amenazas defensivas</p>
       <p className="mt-1 text-sm text-muted">
         Balance neto por tipo: resistencias menos debilidades. Si el resultado queda en cero, ese tipo se omite por estar compensado.
@@ -160,7 +160,7 @@ export function TeamRosterReadingPanel({
         : "friccion baja";
 
   return (
-    <div className="rounded-[1rem] p-3 sm:p-4">
+    <div className="rounded-2xl p-3 sm:p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="display-face text-sm text-accent">Lectura del roster</p>
@@ -206,7 +206,7 @@ function StatMicroCard({
   return (
     <div
       className={clsx(
-        "rounded-[0.75rem] border border-line bg-surface-2 px-3 py-2",
+        "rounded-xl border border-line bg-surface-2 px-3 py-2",
         wide && "sm:col-span-2 xl:col-span-3"
       )}
     >
@@ -250,7 +250,7 @@ function ReadingPill({
     value >= 8 ? "text-accent-soft" : value >= 6 ? "text-info-soft" : value >= 4 ? "text-warning-soft" : "text-danger-soft";
 
   return (
-    <div className="rounded-[0.75rem] border border-line bg-surface-2 px-3 py-2">
+    <div className="rounded-xl border border-line bg-surface-2 px-3 py-2">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face text-[11px] text-accent">{label}</span>
         <span className={clsx("mono-face text-sm", tone)}>{value.toFixed(1)}</span>

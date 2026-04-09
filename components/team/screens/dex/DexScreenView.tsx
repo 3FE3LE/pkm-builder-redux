@@ -41,7 +41,7 @@ export function DexScreenView({
                 value={model.query}
                 onChange={(event) => model.setQuery(event.target.value)}
                 placeholder={getSearchPlaceholder(model.tab)}
-                className="h-10 rounded-[0.9rem] border-line-emphasis bg-surface-3 pl-12 text-sm shadow-[0_18px_40px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.05)] focus-visible:bg-surface-4 sm:h-12 sm:rounded-[1rem] sm:text-base"
+                className="h-10 rounded-[0.9rem] border-line-emphasis bg-surface-3 pl-12 text-sm shadow-[0_18px_40px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.05)] focus-visible:bg-surface-4 sm:h-12 sm:rounded-2xl sm:text-base"
               />
               {model.query ? (
                 <button

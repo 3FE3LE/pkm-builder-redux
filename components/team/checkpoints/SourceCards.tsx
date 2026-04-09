@@ -48,7 +48,7 @@ export function RecommendedCard({
           <p className="display-face text-lg">{member.species}</p>
           <p className="mt-1 text-sm text-muted">{member.reason}</p>
         </div>
-        <span className="accent-chip rounded-[6px] px-3 py-1 text-[11px] uppercase tracking-[0.18em]">
+        <span className="accent-chip rounded-md px-3 py-1 text-[11px] uppercase tracking-[0.18em]">
           {member.source}
         </span>
       </div>

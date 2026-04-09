@@ -155,7 +155,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
   if (model.tab === "moves") {
     if (!model.movesPayload) return <DexCollectionLoadingSkeleton />;
     return <DexIncrementalGrid key={`moves:${model.query}`} items={model.filteredMoves} emptyLabel="No encontré movimientos con ese filtro." loadingLabel="Cargando mas movimientos..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(move: any) => (
-      <article key={move.name} className="panel-strong panel-frame rounded-[1rem] p-4">
+      <article key={move.name} className="panel-strong panel-frame rounded-2xl p-4">
         <div className="space-y-3">
           <div>
             <p className="micro-label text-text-faint">Movimiento</p>
@@ -201,7 +201,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
   if (model.tab === "abilities") {
     if (!model.abilitiesPayload) return <DexCollectionLoadingSkeleton />;
     return <DexIncrementalGrid key={`abilities:${model.query}`} items={model.filteredAbilities} emptyLabel="No encontré habilidades con ese filtro." loadingLabel="Cargando mas habilidades..." gridClassName="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" renderItem={(ability: any) => (
-      <article key={ability.name} className="panel-strong panel-frame rounded-[1rem] p-4">
+      <article key={ability.name} className="panel-strong panel-frame rounded-2xl p-4">
         <div className="space-y-3">
           <div>
             <p className="micro-label text-text-faint">Habilidad</p>
@@ -221,7 +221,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
     const locations = item.sources?.locations ?? [];
     const shopLocations = item.sources?.shops ?? [];
     return (
-      <article key={item.name} className="panel-strong panel-frame rounded-[1rem] p-4">
+      <article key={item.name} className="panel-strong panel-frame rounded-2xl p-4">
         <div className="space-y-3">
           <div className="flex items-start gap-3">
             <ItemSprite name={item.name} sprite={item.sprite} />

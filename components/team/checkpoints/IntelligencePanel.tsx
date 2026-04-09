@@ -20,7 +20,7 @@ export function IntelligencePanel({
   swapOpportunities: SwapOpportunity[];
 }) {
   return (
-    <div className="min-w-0 overflow-x-hidden rounded-[1rem] px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
+    <div className="min-w-0 overflow-x-hidden rounded-2xl px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
       {teamSize >= 5 && supportsContextualSwaps && swapOpportunities.length ? (
         <SectionBlock title="Swaps del tramo">
           <div className="mt-2 space-y-2">
@@ -38,7 +38,7 @@ export function IntelligencePanel({
                   </div>
                   <span
                     className={clsx(
-                      "micro-label-wide rounded-[6px] border px-3 py-1 uppercase",
+                      "micro-label-wide rounded-md border px-3 py-1 uppercase",
                       opportunity.riskDelta >= 1.5
                         ? "border-danger-line bg-danger-fill text-danger-soft"
                         : opportunity.riskDelta >= 0.7

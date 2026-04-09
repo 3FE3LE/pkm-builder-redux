@@ -234,7 +234,7 @@ export function MemberPanel({
       </div>
 
       {effectiveStats && resolved?.resolvedStats ? (
-        <div className="mt-3 hidden rounded-[0.75rem] px-1 py-1 sm:block">
+        <div className="mt-3 hidden rounded-xl px-1 py-1 sm:block">
           <EffectiveStatsRadar
             effectiveStats={effectiveStats}
             baseStats={resolved.resolvedStats}

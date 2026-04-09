@@ -24,7 +24,7 @@ export function TierListCard({
   speciesCatalog: SpeciesCatalogEntry[];
 }) {
   return (
-    <div className="rounded-[1rem] border border-line bg-surface-2 p-4">
+    <div className="rounded-2xl border border-line bg-surface-2 p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="display-face text-sm text-accent">Tier list de typings</p>

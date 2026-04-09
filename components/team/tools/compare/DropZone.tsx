@@ -26,7 +26,7 @@ export function CompareDropZone({
     <div
       ref={setNodeRef}
       className={clsx(
-        "min-w-0 space-y-1.5 rounded-[1rem] border border-dashed border-transparent p-0.5 transition-all sm:p-2",
+        "min-w-0 space-y-1.5 rounded-2xl border border-dashed border-transparent p-0.5 transition-all sm:p-2",
         isOver &&
           "border-primary-line-emphasis bg-primary-fill primary-outline-shadow",
       )}

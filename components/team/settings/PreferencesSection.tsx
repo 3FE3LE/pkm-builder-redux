@@ -115,7 +115,7 @@ export function PreferencesSection({
                   title={`${option.label}: ${option.description}`}
                   onClick={() => onSetBattleWeather(option.key)}
                   className={clsx(
-                    "inline-flex items-center gap-2 rounded-[0.75rem] border px-2.5 py-2 text-left transition",
+                    "inline-flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition",
                     active
                       ? "border-primary-line bg-primary-fill text-text"
                       : "border-line-soft bg-surface-2 text-muted hover:border-line hover:bg-surface-3 hover:text-text",
@@ -167,7 +167,7 @@ export function PreferencesSection({
           <button
             type="button"
             onClick={onResetRun}
-            className="danger-outline mt-3 rounded-[0.75rem] border px-4 py-2 text-sm text-danger"
+            className="danger-outline mt-3 rounded-xl border px-4 py-2 text-sm text-danger"
           >
             Limpiar datos persistidos
           </button>

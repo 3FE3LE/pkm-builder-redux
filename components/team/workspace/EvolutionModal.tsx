@@ -81,7 +81,7 @@ export function EvolutionModal({
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 10, scale: 0.98 }}
-        className="panel-strong relative my-auto max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-[1rem] p-4 sm:max-h-[calc(100dvh-3rem)] sm:p-5"
+        className="panel-strong relative my-auto max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-2xl p-4 sm:max-h-[calc(100dvh-3rem)] sm:p-5"
       >
         <div className="sheet-highlight absolute inset-x-0 top-0 h-28" />
         <div className="relative flex justify-end gap-1.5">
@@ -271,7 +271,7 @@ function EvolutionSequenceStage({
           onAdvanceStage("morph");
         }
       }}
-      className="relative mx-auto flex min-h-[18rem] w-full max-w-[22rem] flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-5 sm:min-h-[20rem] sm:max-w-[24rem] sm:py-6"
+      className="relative mx-auto flex min-h-72 w-full max-w-88 flex-col items-center justify-center overflow-hidden rounded-[1.2rem] border border-primary-line-emphasis bg-surface-2 px-4 py-5 sm:min-h-80 sm:max-w-96 sm:py-6"
     >
       <div
         className={clsx(

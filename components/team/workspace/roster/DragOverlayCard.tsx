@@ -17,7 +17,7 @@ export function DragOverlayCard({
   const types = resolved?.resolvedTypes ?? [];
 
   return (
-    <div className="w-[17rem] rounded-[1rem] border border-primary-line-emphasis bg-[var(--sheet-surface-bg)] p-3 shadow-[0_22px_65px_rgba(0,0,0,0.36)]">
+    <div className="w-68 rounded-2xl border border-primary-line-emphasis bg-[var(--sheet-surface-bg)] p-3 shadow-[0_22px_65px_rgba(0,0,0,0.36)]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <p className="display-face truncate text-base text-text">

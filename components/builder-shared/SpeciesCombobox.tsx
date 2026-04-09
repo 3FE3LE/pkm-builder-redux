@@ -138,10 +138,10 @@ export function SpeciesCombobox({
                   setOpen(false);
                 }}
                 style={{ top: (startIndex + index) * SPECIES_ROW_HEIGHT }}
-                className="control-surface-hover absolute left-0 right-0 flex h-[66px] items-center justify-between rounded-[6px] px-3 py-2 text-left text-sm transition"
+                className="control-surface-hover absolute left-0 right-0 flex h-16.5 items-center justify-between rounded-md px-3 py-2 text-left text-sm transition"
               >
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[8px] border border-line bg-surface-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-line bg-surface-4">
                     {spriteBySlug[entry.slug] ? (
                       <Image
                         src={spriteBySlug[entry.slug]!}
@@ -199,7 +199,7 @@ export function SpeciesCombobox({
             ref={panelRef}
             style={panelStyle}
             className={clsx(
-              "status-popover box-border w-full rounded-[12px] border border-line p-2 shadow-2xl backdrop-blur-md",
+              "status-popover box-border w-full rounded-xl border border-line p-2 shadow-2xl backdrop-blur-md",
               panelClassName,
             )}
           >
@@ -212,7 +212,7 @@ export function SpeciesCombobox({
         ref={panelRef}
         style={panelStyle}
         className={clsx(
-          "status-popover absolute left-0 z-120 mt-2 box-border w-72 rounded-[8px] border border-line p-2 backdrop-blur-md",
+          "status-popover absolute left-0 z-120 mt-2 box-border w-72 rounded-lg border border-line p-2 backdrop-blur-md",
           panelClassName,
         )}
       >
@@ -270,12 +270,12 @@ function TypeFilterSelect({
         onClick={() => setOpen((current) => !current)}
         className="control-surface control-surface-hover flex w-full items-center justify-between px-2.5 py-2 transition-[border-color,background-color]"
       >
-        {value ? <TypeBadge type={value} /> : <span className="pixel-face text-[12px] text-muted">Any</span>}
+        {value ? <TypeBadge type={value} /> : <span className="pixel-face text-xs text-muted">Any</span>}
         <ChevronsUpDown className="h-4 w-4 text-muted" />
       </button>
 
       {open ? (
-        <div className="status-popover absolute z-20 mt-2 w-full rounded-[8px] border border-line p-2 backdrop-blur-md">
+        <div className="status-popover absolute z-20 mt-2 w-full rounded-lg border border-line p-2 backdrop-blur-md">
           <div className="max-h-56 overflow-auto">
             <button
               type="button"
@@ -283,9 +283,9 @@ function TypeFilterSelect({
                 onChange(null);
                 setOpen(false);
               }}
-              className="control-surface-hover mb-1 flex w-full items-center justify-between rounded-[6px] px-2 py-2 text-left transition"
+              className="control-surface-hover mb-1 flex w-full items-center justify-between rounded-md px-2 py-2 text-left transition"
             >
-              <span className="pixel-face text-[12px] text-muted">Any</span>
+              <span className="pixel-face text-xs text-muted">Any</span>
               {!value ? <Check className="h-4 w-4 text-accent" /> : null}
             </button>
             <div className="flex flex-wrap gap-1.5">

@@ -374,7 +374,7 @@ export function EditorPage({
           href={previousMemberHref}
           transitionTypes={backTransition}
           aria-label={previousMemberLabel ?? "Pokemon anterior"}
-          className="fixed left-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-[16px] transition-colors hover:border-warning-line hover:bg-surface-3 sm:left-2"
+          className="fixed left-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-lg transition-colors hover:border-warning-line hover:bg-surface-3 sm:left-2"
           style={{ left: "max(0.375rem, env(safe-area-inset-left))" }}
         >
           <ChevronLeft className="h-4 w-4" />
@@ -385,7 +385,7 @@ export function EditorPage({
           href={nextMemberHref}
           transitionTypes={backTransition}
           aria-label={nextMemberLabel ?? "Pokemon siguiente"}
-          className="fixed right-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-[16px] transition-colors hover:border-warning-line hover:bg-surface-3 sm:right-2"
+          className="fixed right-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%_/_0.24)] backdrop-blur-lg transition-colors hover:border-warning-line hover:bg-surface-3 sm:right-2"
           style={{ right: "max(0.375rem, env(safe-area-inset-right))" }}
         >
           <ChevronRight className="h-4 w-4" />
