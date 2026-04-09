@@ -5,6 +5,7 @@ import { parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
 import useSWR from "swr";
 
 import { useBuilderStore } from "@/lib/builderStore";
+import { useDexRunMarkers } from "@/components/team/screens/dex/useDexRunMarkers";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import {
   buildAcquisitionIndex,
@@ -124,6 +125,7 @@ export function useDexScreenModel(
     }),
   );
   const currentTeam = useBuilderStore((state) => state.run.roster.currentTeam);
+  const { capturedSpecies, suggestedSpecies } = useDexRunMarkers();
   const { data: movesPayload } = useSWR<DexMovesPayload>(tab === "moves" ? "/api/dex?movesList=1" : null, fetcher);
   const { data: abilitiesPayload } = useSWR<DexAbilitiesPayload>(tab === "abilities" ? "/api/dex?abilitiesList=1" : null, fetcher);
   const { data: itemsPayload } = useSWR<DexItemsPayload>(tab === "items" ? "/api/dex?itemsList=1" : null, fetcher);
@@ -354,6 +356,8 @@ export function useDexScreenModel(
     filteredAbilities,
     filteredItems,
     dexQuery,
+    capturedSpecies,
+    suggestedSpecies,
     movesPayload,
     abilitiesPayload,
     itemsPayload,

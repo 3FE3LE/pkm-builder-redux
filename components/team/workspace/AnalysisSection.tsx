@@ -7,6 +7,7 @@ import {
   TeamRosterReadingPanel,
 } from "@/components/team/workspace/AnalysisPanels";
 import { RecommendationsPanel } from "@/components/team/checkpoints";
+import { buildIvCalcHref } from "@/lib/ivCalc";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 
 type CheckpointRisk = ReturnType<
@@ -59,6 +60,7 @@ export function AnalysisSection({
         speciesCatalog={speciesCatalog}
         showSwaps={false}
         onSendToIvCalc={onSendCaptureToIvCalc}
+        ivCalcHrefBuilder={buildIvCalcHref}
       />
       <div className="grid gap-3 xl:grid-cols-2">
         <CoveragePanel

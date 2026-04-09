@@ -117,6 +117,8 @@ export function DexPokemonPanel({ model }: { model: any }) {
               wildEncounters={model.acquisitionBySpecies.wildBySpecies.get(speciesKey) ?? []}
               gifts={model.acquisitionBySpecies.giftsBySpecies.get(speciesKey) ?? []}
               trades={model.acquisitionBySpecies.tradesBySpecies.get(speciesKey) ?? []}
+              captured={model.capturedSpecies.has(speciesKey)}
+              suggested={model.suggestedSpecies.has(speciesKey)}
               href={`/team/dex/pokemon/${pokemon.slug}${model.dexQuery}`}
             />
           );

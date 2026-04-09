@@ -8,6 +8,7 @@ import {
   PathPanel,
   RecommendationsPanel,
 } from "@/components/team/checkpoints";
+import { buildIvCalcHref } from "@/lib/ivCalc";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 import type { StarterKey } from "@/lib/builder";
@@ -119,6 +120,7 @@ export function CopilotSection({
             speciesCatalog={speciesCatalog}
             showCaptures={false}
             onSendToIvCalc={onSendCaptureToIvCalc}
+            ivCalcHrefBuilder={buildIvCalcHref}
           />
         </div>
         <aside className="hidden xl:block">

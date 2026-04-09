@@ -4,8 +4,10 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ViewTransition } from "react";
+import { Star } from "lucide-react";
 
 import { PokemonSprite } from "@/components/builder-shared/PokemonSprite";
+import { PokeballMark } from "@/components/team/shared/PokeballMark";
 import { TypeBadge } from "@/components/builder-shared/TypeBadge";
 import { PokemonDexCardExpanded } from "@/components/team/screens/dex/PokemonDexCardExpanded";
 import { StatChip } from "@/components/team/screens/dex/DexShared";
@@ -42,6 +44,8 @@ export function PokemonDexCard({
   dexQuery = "",
   pokemonHrefBuilder,
   sharedTransitionEnabled = true,
+  captured = false,
+  suggested = false,
 }: {
   pokemon: any;
   abilityEffects: Map<string, string>;
@@ -58,6 +62,8 @@ export function PokemonDexCard({
   dexQuery?: string;
   pokemonHrefBuilder?: (slug: string) => string;
   sharedTransitionEnabled?: boolean;
+  captured?: boolean;
+  suggested?: boolean;
 }) {
   const router = useRouter();
   const cardForwardTransition = useSafeTransitionTypes(transitionTypes ?? ["dex-forward"]);
@@ -106,6 +112,30 @@ export function PokemonDexCard({
     >
       <div className="pointer-events-none absolute inset-0" style={cardShellStyle} />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.12))]" />
+      {suggested ? (
+        <div
+          className={clsx(
+            "pointer-events-none absolute z-10",
+            expanded ? "left-3 top-3" : "left-2 top-2",
+          )}
+        >
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-warning-line bg-warning-fill shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <Star className="h-4 w-4 fill-warning-strong text-warning-strong" />
+          </span>
+        </div>
+      ) : null}
+      {captured ? (
+        <div
+          className={clsx(
+            "pointer-events-none absolute z-10",
+            expanded ? "right-3 top-3" : "right-2 top-2",
+          )}
+        >
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary-line bg-primary-fill shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <PokeballMark className="h-4 w-4 shadow-none" centerClassName="h-1.5 w-1.5" />
+          </span>
+        </div>
+      ) : null}
       <div className={clsx("relative", !expanded && "flex h-full items-center justify-center")}>
         <div
           className={clsx(

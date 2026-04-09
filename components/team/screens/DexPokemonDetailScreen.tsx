@@ -6,7 +6,11 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useMemo } from "react";
 
 import { PokemonDexCard } from "@/components/team/screens/DexScreen";
+import { PokeballMark } from "@/components/team/shared/PokeballMark";
+import { useDexRunMarkers } from "@/components/team/screens/dex/useDexRunMarkers";
 import type { DexDetailPageData } from "@/lib/dexDetailPageData";
+import { normalizeName } from "@/lib/domain/names";
+import { buildIvCalcHref } from "@/lib/ivCalc";
 import { markNavigationStart } from "@/lib/perf";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
@@ -14,11 +18,17 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
   const router = useRouter();
   const backTransition = useSafeTransitionTypes(["dex-back"]);
   const forwardTransition = useSafeTransitionTypes(["dex-forward"]);
+  const toolForwardTransition = useSafeTransitionTypes(["tool-forward"]);
+  const { capturedSpecies, suggestedSpecies } = useDexRunMarkers();
   const moveDetailsByName = useMemo(
     () => new Map(Object.entries(detail.moveDetailsByName)),
     [detail.moveDetailsByName],
   );
   const emptyAbilityEffects = useMemo(() => new Map<string, string>(), []);
+  const speciesKey = normalizeName(detail.pokemon.name);
+  const captureHref = buildIvCalcHref(detail.pokemon.name);
+  const isCaptured = capturedSpecies.has(speciesKey);
+  const isSuggested = suggestedSpecies.has(speciesKey);
 
   const prepareRoute = (href: string, label: string) => {
     router.prefetch(href);
@@ -56,7 +66,18 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
         </Link>
       ) : null}
       <section className="relative mx-auto max-w-6xl">
-        <div className="pointer-events-none absolute right-0 top-0 z-20 flex justify-end">
+        <div className="pointer-events-none absolute right-0 top-0 z-20 flex justify-end gap-2">
+          <Link
+            href={captureHref}
+            prefetch
+            transitionTypes={toolForwardTransition}
+            aria-label={`Preparar captura de ${detail.pokemon.name} en IV Calc`}
+            className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary-line bg-primary-fill text-primary-soft transition-[transform,color,background-color,border-color] hover:border-primary-line-active hover:bg-primary-fill-hover active:scale-95"
+            onPointerDown={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
+            onClick={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
+          >
+            <PokeballMark className="h-4 w-4 shadow-none" centerClassName="h-1.5 w-1.5" />
+          </Link>
           <Link
             href={detail.closeHref}
             prefetch
@@ -77,6 +98,8 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
           wildEncounters={detail.wildEncounters}
           gifts={detail.gifts}
           trades={detail.trades}
+          captured={isCaptured}
+          suggested={isSuggested}
           forms={detail.forms.length > 1 ? detail.forms : undefined}
           evolutions={detail.evolutions.length ? detail.evolutions : undefined}
           dexQuery={detail.dexQuery}

@@ -1,15 +1,19 @@
 "use client";
 
 import clsx from "clsx";
+import Link from "next/link";
 import { ArrowRightLeft, Sparkles } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo } from "react";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { PokeballMark } from "@/components/team/shared/PokeballMark";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import type { CaptureRecommendation } from "@/lib/domain/contextualRecommendations";
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
+import { markNavigationStart } from "@/lib/perf";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
+import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 const recommendationSectionEyebrowClassName = "display-face px-1 micro-copy text-accent";
 const recommendationTokenPillClassName = "token-card px-2.5 py-1.5 text-xs text-muted";
@@ -33,6 +37,7 @@ export function RecommendationsPanel({
   showCaptures = true,
   showSwaps = true,
   onSendToIvCalc,
+  ivCalcHrefBuilder,
 }: {
   teamSize: number;
   captureRecommendations: CaptureRecommendation[];
@@ -43,6 +48,7 @@ export function RecommendationsPanel({
   showCaptures?: boolean;
   showSwaps?: boolean;
   onSendToIvCalc?: (species: string) => void;
+  ivCalcHrefBuilder?: (species: string) => string;
 }) {
   const shouldShowCaptures = showCaptures && teamSize < 6;
   const shouldShowSwaps = showSwaps && teamSize >= 5;
@@ -69,6 +75,7 @@ export function RecommendationsPanel({
                       recommendation={recommendation}
                       dexNumber={dexByName[normalizeName(recommendation.species)]}
                       onSendToIvCalc={onSendToIvCalc}
+                      ivCalcHrefBuilder={ivCalcHrefBuilder}
                     />
                   ))}
                 </AnimatePresence>
@@ -108,12 +115,16 @@ function CaptureCard({
   recommendation,
   dexNumber,
   onSendToIvCalc,
+  ivCalcHrefBuilder,
 }: {
   recommendation: CaptureRecommendation;
   dexNumber?: number;
   onSendToIvCalc?: (species: string) => void;
+  ivCalcHrefBuilder?: (species: string) => string;
 }) {
   const sprites = buildSpriteUrls(recommendation.species, dexNumber);
+  const ivCalcHref = ivCalcHrefBuilder?.(recommendation.species);
+  const toolForwardTransition = useSafeTransitionTypes(["tool-forward"]);
 
   return (
     <motion.article
@@ -174,7 +185,25 @@ function CaptureCard({
           ))}
         </div>
 
-        {onSendToIvCalc ? (
+        {ivCalcHref ? (
+          <div className="flex justify-end">
+            <Link
+              href={ivCalcHref}
+              prefetch
+              transitionTypes={toolForwardTransition}
+              aria-label={`Mandar ${recommendation.species} al IV Calc`}
+              className="action-tile group inline-flex h-9 w-9 items-center justify-center rounded-full hover:border-primary-line-emphasis"
+              onPointerDown={() =>
+                markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref)
+              }
+              onClick={() =>
+                markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref)
+              }
+            >
+              <PokeballMark />
+            </Link>
+          </div>
+        ) : onSendToIvCalc ? (
           <div className="flex justify-end">
             <button
               type="button"
@@ -182,9 +211,7 @@ function CaptureCard({
               aria-label={`Mandar ${recommendation.species} al IV Calc`}
               className="action-tile group inline-flex h-9 w-9 items-center justify-center rounded-full hover:border-primary-line-emphasis"
             >
-              <span className="relative block h-5 w-5 rounded-full border border-[rgba(255,255,255,0.14)] bg-[linear-gradient(180deg,#d44b52_0%,#d44b52_46%,#1d2328_46%,#1d2328_54%,#f5f7fa_54%,#f5f7fa_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.22)]">
-                <span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(17,24,28,0.75)] bg-white" />
-              </span>
+              <PokeballMark />
             </button>
           </div>
         ) : null}
