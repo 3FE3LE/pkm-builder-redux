@@ -2038,16 +2038,16 @@
     "weight": 30,
     "flavorText": "Very protective of its sprawling territorial area, this POKéMON will fiercely peck at any intruder.",
     "stats": {
-      "hp": 83,
-      "atk": 60,
-      "def": 70,
-      "spa": 115,
-      "spd": 70,
-      "spe": 101,
-      "bst": 499
+      "hp": 63,
+      "atk": 50,
+      "def": 50,
+      "spa": 65,
+      "spd": 50,
+      "spe": 71,
+      "bst": 349
     },
     "abilities": [
-      "No Guard",
+      "Big Pecks",
       "Tangled Feet",
       "Keen Eye"
     ],
@@ -2174,7 +2174,54 @@
         {
           "level": 55,
           "move": "Sky Attack"
+        }
+      ],
+      "machines": [
+        {
+          "source": "TM49",
+          "move": "Echoed Voice",
+          "tab": "tm"
         },
+        {
+          "source": "TM58",
+          "move": "Hurricane",
+          "tab": "tm"
+        }
+      ]
+    }
+  },
+  "pidgeot": {
+    "id": 18,
+    "dex": 18,
+    "name": "Pidgeot",
+    "slug": "pidgeot",
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "generation": "GENERATION I",
+    "category": "Bird Pokémon",
+    "height": 1.5,
+    "weight": 39.5,
+    "flavorText": "When hunting, it skims the surface of water at high speed to pick off unwary prey such as MAGIKARP.",
+    "stats": {
+      "hp": 83,
+      "atk": 60,
+      "def": 70,
+      "spa": 115,
+      "spd": 70,
+      "spe": 101,
+      "bst": 499
+    },
+    "abilities": [
+      "No Guard",
+      "Tangled Feet",
+      "Keen Eye"
+    ],
+    "nextEvolutions": [],
+    "evolutionDetails": [],
+    "learnsets": {
+      "levelUp": [
         {
           "level": 1,
           "move": "Foresight"
@@ -2277,16 +2324,6 @@
         }
       ],
       "machines": [
-        {
-          "source": "TM49",
-          "move": "Echoed Voice",
-          "tab": "tm"
-        },
-        {
-          "source": "TM58",
-          "move": "Hurricane",
-          "tab": "tm"
-        },
         {
           "source": "TM49",
           "move": "Echoed Voice",
@@ -38386,7 +38423,7 @@
     "category": "Water Bird Pokémon",
     "height": 1.2,
     "weight": 28,
-    "flavorText": "It is a messenger of the skies, carrying small Pokémon and eggs to safety in its bill.",
+    "flavorText": "PELIPPER is a flying transporter that carries small POKéMON and eggs inside its massive bill. This POKéMON builds its nest on steep cliffs facing the sea.",
     "stats": {
       "hp": 60,
       "atk": 50,
@@ -41005,7 +41042,7 @@
     "category": "Arm Thrust Pokémon",
     "height": 2.3,
     "weight": 253.8,
-    "flavorText": "It has the habit of challenging others without hesitation to tests of strength. It’s been known to stand on train tracks and stop trains using forearm thrusts.",
+    "flavorText": "HARIYAMA practices its straight-arm slaps in any number of locations. One hit of this POKéMON’s powerful, openhanded, straight-arm punches could snap a telephone pole in two.",
     "stats": {
       "hp": 144,
       "atk": 120,
@@ -41131,7 +41168,7 @@
     "category": "Polka Dot Pokémon",
     "height": 0.2,
     "weight": 2,
-    "flavorText": "A Pokémon that lives by water. It moves quickly on land by bouncing on its big tail.",
+    "flavorText": "AZURILL spins its tail as if it were a lasso, then hurls it far. The momentum of the throw sends its body flying, too. Using this unique action, one of these POKéMON managed to hurl itself a record 33 feet.",
     "stats": {
       "hp": 50,
       "atk": 20,
@@ -43304,7 +43341,7 @@
     "category": "Firefly Pokémon",
     "height": 0.6,
     "weight": 17.7,
-    "flavorText": "With its sweet aroma, it guides Volbeat to draw signs with light in the night sky.",
+    "flavorText": "ILLUMISE attracts a swarm of VOLBEAT using a sweet fragrance. Once the VOLBEAT have gathered, this POKéMON leads the lit-up swarm in drawing geometric designs on the canvas of the night sky.",
     "stats": {
       "hp": 70,
       "atk": 33,
@@ -46681,7 +46718,7 @@
     "category": "Meteorite Pokémon",
     "height": 1.2,
     "weight": 154,
-    "flavorText": "Solar energy is the source of its power, so it is strong during the daytime. When it spins, its body shines.",
+    "flavorText": "SOLROCK is a new species of POKéMON that is said to have fallen from space. It floats in air and moves silently. In battle, this POKéMON releases intensely bright light.",
     "stats": {
       "hp": 90,
       "atk": 115,
@@ -48255,7 +48292,7 @@
     "category": "Tender Pokémon",
     "height": 6.2,
     "weight": 162,
-    "flavorText": "Its lovely scales are described as rainbow colored. They change color depending on the viewing angle.",
+    "flavorText": "MILOTIC is said to be the most beautiful of all the POKéMON. It has the power to becalm such emotions as anger and hostility to quell bitter feuding.",
     "stats": {
       "hp": 95,
       "atk": 60,
@@ -61215,7 +61252,43 @@
         {
           "level": 48,
           "move": "Cross Poison"
-        },
+        }
+      ],
+      "machines": []
+    }
+  },
+  "drapion": {
+    "id": 452,
+    "dex": 452,
+    "name": "Drapion",
+    "slug": "drapion",
+    "types": [
+      "Poison",
+      "Dark"
+    ],
+    "generation": "GENERATION IV",
+    "category": "Ogre Scorpion Pokémon",
+    "height": 1.3,
+    "weight": 61.5,
+    "flavorText": "It has the power in its clawed arms to make scrap of a car. The tips of its claws release poison.",
+    "stats": {
+      "hp": 70,
+      "atk": 90,
+      "def": 110,
+      "spa": 60,
+      "spd": 75,
+      "spe": 95,
+      "bst": 500
+    },
+    "abilities": [
+      "Battle Armor",
+      "Sniper",
+      "Keen Eye"
+    ],
+    "nextEvolutions": [],
+    "evolutionDetails": [],
+    "learnsets": {
+      "levelUp": [
         {
           "level": 1,
           "move": "Thunder Fang"
@@ -63784,9 +63857,9 @@
       "bst": 525
     },
     "abilities": [
-      "Hyper Cutter",
-      "Poison Heal",
-      "Poison Heal"
+      "Snow Cloak",
+      "Serene Grace",
+      "Serene Grace"
     ],
     "nextEvolutions": [],
     "evolutionDetails": [],
@@ -63891,7 +63964,59 @@
         {
           "level": 65,
           "move": "Last Resort"
+        }
+      ],
+      "machines": [
+        {
+          "source": "TM20",
+          "move": "Tri Attack",
+          "tab": "tm"
         },
+        {
+          "source": "TM32",
+          "move": "Dazzling Gleam",
+          "tab": "tm"
+        },
+        {
+          "source": "TM86",
+          "move": "Grass Knot",
+          "tab": "tm"
+        }
+      ]
+    }
+  },
+  "gliscor": {
+    "id": 472,
+    "dex": 472,
+    "name": "Gliscor",
+    "slug": "gliscor",
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "generation": "GENERATION IV",
+    "category": "Fang Scorpion Pokémon",
+    "height": 2,
+    "weight": 42.5,
+    "flavorText": "It observes prey while hanging inverted from branches. When the chance presents itself, it swoops!",
+    "stats": {
+      "hp": 75,
+      "atk": 95,
+      "def": 125,
+      "spa": 45,
+      "spd": 75,
+      "spe": 95,
+      "bst": 510
+    },
+    "abilities": [
+      "Hyper Cutter",
+      "Poison Heal",
+      "Poison Heal"
+    ],
+    "nextEvolutions": [],
+    "evolutionDetails": [],
+    "learnsets": {
+      "levelUp": [
         {
           "level": 1,
           "move": "Fire Fang"
@@ -63994,21 +64119,6 @@
         }
       ],
       "machines": [
-        {
-          "source": "TM20",
-          "move": "Tri Attack",
-          "tab": "tm"
-        },
-        {
-          "source": "TM32",
-          "move": "Dazzling Gleam",
-          "tab": "tm"
-        },
-        {
-          "source": "TM86",
-          "move": "Grass Knot",
-          "tab": "tm"
-        },
         {
           "source": "TM76",
           "move": "Bug Buzz",

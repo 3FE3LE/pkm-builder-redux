@@ -70,7 +70,7 @@ function pickEnglishFlavorText(speciesPayload) {
 function parsePokemonChanges(text) {
   const blocks = text
     .replace(/\r/g, "")
-    .split(/(?=^===================\n\d{3} - .+\n===================$)/m)
+    .split(/(?=^=+\s*\n\d{3} - .+\n=+\s*$)/m)
     .map((block) => block.trim())
     .filter((block) => /^\d{3} - /m.test(block));
 

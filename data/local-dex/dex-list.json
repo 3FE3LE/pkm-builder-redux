@@ -290,7 +290,7 @@
       "Flying"
     ],
     "abilities": [
-      "No Guard",
+      "Big Pecks",
       "Tangled Feet",
       "Keen Eye"
     ],
@@ -308,14 +308,14 @@
       "Flying"
     ],
     "abilities": [
-      "Keen Eye",
+      "No Guard",
       "Tangled Feet",
-      "Big Pecks"
+      "Keen Eye"
     ],
     "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
-    "hasStatChanges": false,
-    "hasAbilityChanges": false
+    "hasStatChanges": true,
+    "hasAbilityChanges": true
   },
   {
     "dex": 19,
@@ -8175,9 +8175,9 @@
       "Ice"
     ],
     "abilities": [
-      "Hyper Cutter",
-      "Poison Heal",
-      "Poison Heal"
+      "Snow Cloak",
+      "Serene Grace",
+      "Serene Grace"
     ],
     "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
@@ -8194,13 +8194,13 @@
     ],
     "abilities": [
       "Hyper Cutter",
-      "Sand Veil",
+      "Poison Heal",
       "Poison Heal"
     ],
     "isLegendaryOrUnique": false,
     "hasTypeChanges": false,
     "hasStatChanges": false,
-    "hasAbilityChanges": false
+    "hasAbilityChanges": true
   },
   {
     "dex": 473,

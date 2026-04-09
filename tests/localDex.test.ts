@@ -78,6 +78,42 @@ describe("localDex", () => {
     });
   });
 
+  it("parses adjacent species blocks even when the documentation separators include trailing spaces", async () => {
+    const { getLocalPokemonIndex } = await loadActualLocalDex();
+
+    const pokemonIndex = getLocalPokemonIndex() as Record<string, any>;
+
+    expect(pokemonIndex.pidgeotto).toMatchObject({
+      dex: 17,
+      slug: "pidgeotto",
+      stats: {
+        hp: 63,
+        atk: 50,
+        def: 50,
+        spa: 65,
+        spd: 50,
+        spe: 71,
+        bst: 349,
+      },
+      abilities: ["Big Pecks", "Tangled Feet", "Keen Eye"],
+    });
+
+    expect(pokemonIndex.pidgeot).toMatchObject({
+      dex: 18,
+      slug: "pidgeot",
+      stats: {
+        hp: 83,
+        atk: 60,
+        def: 70,
+        spa: 115,
+        spd: 70,
+        spe: 101,
+        bst: 499,
+      },
+      abilities: ["No Guard", "Tangled Feet", "Keen Eye"],
+    });
+  });
+
   it("falls back to canonical indexes and sorts the derived species list", async () => {
     const {
       getLocalAbilityIndex,
@@ -352,7 +388,7 @@ describe("localDex", () => {
     }
   });
 
-  it("uses normalized local pokemon abilities in the dex list instead of raw override triples", async () => {
+  it("prefers fallback pokemon abilities in the dex list while normalizing derived slots", async () => {
     const originalCwd = process.cwd();
     const tempRoot = mkdtempSync(path.join(os.tmpdir(), "pkm-local-dex-list-"));
     const referenceDir = path.join(tempRoot, "data", "reference");
@@ -413,8 +449,8 @@ describe("localDex", () => {
       expect(dexList).toEqual([
         expect.objectContaining({
           name: "Snivy",
-          abilities: ["Overgrow", "Contrary"],
-          hasAbilityChanges: false,
+          abilities: ["Contrary", "Overgrow", "Contrary"],
+          hasAbilityChanges: true,
         }),
       ]);
       expect(slots).toEqual({

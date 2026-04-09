@@ -238,7 +238,7 @@ function mergePokemonIndexes(
           // Core dex/battle data must come from the fallback index because it is
           // rebuilt from canonical data plus Redux overrides. Local JSON can lag behind.
           types: fallbackEntry.types ?? localEntry.types ?? [],
-          abilities: localEntry.abilities ?? fallbackEntry.abilities ?? [],
+          abilities: fallbackEntry.abilities ?? localEntry.abilities ?? [],
           stats: fallbackEntry.stats ?? localEntry.stats ?? null,
           learnsets: fallbackEntry.learnsets ?? localEntry.learnsets ?? null,
           nextEvolutions: localEntry.nextEvolutions ?? fallbackEntry.nextEvolutions ?? [],
