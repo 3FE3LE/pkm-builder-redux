@@ -120,7 +120,7 @@ export function MemberPanel({
               <TypeBadge
                 key={`compare-${index}-${type}`}
                 type={type}
-                className="w-full min-w-0 !px-1 !py-0.5 !text-[9px] !tracking-[0.04em] sm:w-auto sm:!px-2 sm:!py-1 sm:!text-[11px]"
+                className="w-full min-w-0 px-1! py-0.5! text-[9px]! tracking-[0.04em]! sm:w-auto sm:px-2! sm:py-1! sm:text-[11px]!"
               />
             ))}
           </div>

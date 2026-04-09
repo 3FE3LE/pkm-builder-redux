@@ -302,7 +302,7 @@ export function Header({
               onClick={() => setNicknameEditable((current) => !current)}
               aria-label={nicknameEditable ? "Bloquear nickname" : "Editar nickname"}
               className={clsx(
-                "absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[0.55rem] border transition",
+                "absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-3xl border transition",
                 nicknameEditable
                   ? "border-primary-line-strong bg-primary-fill text-primary-soft"
                   : "border-line bg-surface-4 text-muted hover:bg-surface-6",

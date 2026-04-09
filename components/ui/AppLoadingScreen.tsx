@@ -20,7 +20,7 @@ export function AppLoadingScreen({
       transition={{ duration: 0.38, ease: "easeOut" }}
       className={clsx(
         "relative overflow-hidden px-4 py-6 sm:px-6 lg:px-10",
-        fullscreen && "min-h-[100svh]",
+        fullscreen && "min-h-svh",
       )}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,208,94,0.08),transparent_34%),radial-gradient(circle_at_70%_20%,rgba(94,240,203,0.08),transparent_28%)]" />

@@ -72,7 +72,7 @@ export function PokemonSprite({
         "relative flex shrink-0 items-center justify-center overflow-hidden",
         chrome === "framed"
           ? size === "tiny"
-            ? "sprite-frame h-9 w-9 rounded-[0.55rem]"
+            ? "sprite-frame h-9 w-9 rounded-3xl"
             : size === "small"
               ? "sprite-frame h-14 w-14 rounded-xl"
               : size === "fill"
@@ -81,7 +81,7 @@ export function PokemonSprite({
           : size === "large"
             ? "h-36 w-36 rounded-2xl bg-transparent"
             : size === "tiny"
-              ? "h-9 w-9 rounded-[0.55rem] bg-transparent"
+              ? "h-9 w-9 rounded-3xl bg-transparent"
               : size === "small"
                 ? "h-14 w-14 rounded-xl bg-transparent"
               : size === "fill"

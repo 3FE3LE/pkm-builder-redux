@@ -295,7 +295,7 @@ function PokemonEntryChip({
       )}
     >
       <SourceSprite species={species} spriteUrl={sprites.spriteUrl} />
-      <span className="min-w-0 break-words">{entry}</span>
+      <span className="min-w-0 wrap-break-word">{entry}</span>
     </span>
   );
 }
@@ -317,7 +317,7 @@ function TradeEntryChip({
   return (
     <span className="inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
       <SourceSprite species={received} spriteUrl={sprites.spriteUrl} />
-      <span className="min-w-0 break-words">{entry}</span>
+      <span className="min-w-0 wrap-break-word">{entry}</span>
       {reference ? (
         <ReferencedThingSprite
           label={reference}
@@ -345,7 +345,7 @@ function ItemEntryChip({
   return (
     <span className="group relative inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted">
       <ItemSprite name={itemName} sprite={details?.sprite} chrome="plain" />
-      <span className="min-w-0 break-words">{parsed.display}</span>
+      <span className="min-w-0 wrap-break-word">{parsed.display}</span>
       {parsed.original ? (
         <ReferencedThingSprite
           label={parsed.original}

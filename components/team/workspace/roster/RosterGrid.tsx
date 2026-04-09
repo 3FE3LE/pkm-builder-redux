@@ -143,7 +143,7 @@ export function RosterGrid({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.97 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
-                          className="absolute bottom-full left-1/2 z-20 mb-3 w-full max-w-112 -translate-x-1/2 px-3"
+                          className="absolute bottom-full left-1/2 z-20 mb-3 w-full max-w-md -translate-x-1/2 px-3"
                         >
                           <SelectedMemberInsightCard
                             member={selectedResolved}

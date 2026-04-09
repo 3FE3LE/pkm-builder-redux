@@ -205,7 +205,7 @@ export function PokemonDexCardExpanded({
             <p className="display-face text-[11px] text-text">Ver movimientos</p>
             <p className="mt-1 text-xs text-muted">{pokemon.learnsets?.levelUp?.length ?? 0} level up · {pokemon.learnsets?.machines?.length ?? 0} machines</p>
           </div>
-          <span className="text-xs text-text-faint transition-transform data-[panel-open]:rotate-180">⌄</span>
+          <span className="text-xs text-text-faint transition-transform data-panel-open:rotate-180">⌄</span>
         </CollapsibleTrigger>
         <CollapsibleContent className="mt-2 max-h-104 space-y-2 overflow-y-auto pr-1">
           {(pokemon.learnsets?.levelUp?.length ?? 0) ? (

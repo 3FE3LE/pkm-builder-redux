@@ -82,7 +82,7 @@ export function EncounterRow({
             )}
           />
           {isNext ? (
-            <span className="absolute inset-[-4px] rounded-full border border-primary-line-emphasis/70" />
+            <span className="absolute -inset-1 rounded-full border border-primary-line-emphasis/70" />
           ) : null}
         </span>
         <span

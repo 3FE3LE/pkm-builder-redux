@@ -134,7 +134,7 @@ export function SegmentedOwnerCollapsible({
               <p className="display-face text-[11px] text-text">{closedLabel}</p>
               <p className="mt-1 text-xs text-muted">{count} Pokemon</p>
             </div>
-            <span className="text-xs text-text-faint transition-transform data-[panel-open]:rotate-180">⌄</span>
+            <span className="text-xs text-text-faint transition-transform data-panel-open:rotate-180">⌄</span>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-2 space-y-2">
             {nonEmptySections.map((section) => (

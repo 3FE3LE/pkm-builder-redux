@@ -195,7 +195,7 @@ export function MovesSection({
                 type="button"
                 aria-label="Replace move"
                 onClick={() => onOpenMoveModal(selectedMoveIndex)}
-                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-[0.55rem] border border-primary-line bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover"
+                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-primary-line bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover"
               >
                 <RefreshCcw className="h-3.5 w-3.5" />
               </button>
@@ -206,7 +206,7 @@ export function MovesSection({
                   onRemoveMoveAt(selectedMoveIndex);
                   onSelectMoveIndex(null);
                 }}
-                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-[0.55rem] border border-danger-line-soft bg-danger-fill text-danger transition hover:bg-danger-fill-hover"
+                className="inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-danger-line-soft bg-danger-fill text-danger transition hover:bg-danger-fill-hover"
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </button>
