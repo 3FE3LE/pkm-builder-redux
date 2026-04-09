@@ -79,6 +79,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
+      suppressHydrationWarning
       className={cn(
         "font-sans",
         GeistSans.variable,
