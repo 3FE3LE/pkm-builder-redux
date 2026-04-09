@@ -167,14 +167,14 @@ export function PokemonDexCardExpanded({
     <InfoBlock label="Formas">
       <div className="space-y-1.5">
         {forms.map((form) => (
-          <div key={form.slug} className="flex items-start gap-2.5 rounded-[0.7rem] border border-line-soft bg-surface-3 px-2.5 py-2">
-            <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-[0.7rem] border border-white/10 bg-surface-2">
+          <div key={form.slug} className="app-soft-panel flex items-start gap-2.5 rounded-[0.7rem] px-2.5 py-2">
+            <div className="app-soft-panel relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-[0.7rem] border-white/10 bg-surface-2">
               <PokemonSprite species={form.name} spriteUrl={form.spriteUrl} animatedSpriteUrl={undefined} size="small" chrome="plain" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="display-face text-[11px] text-text">{form.name}</p>
-                {getBaseSpeciesName(form.name) === form.name ? <span className="rounded-full border border-line-soft bg-surface-2 px-2 py-0.5 text-[10px] text-text-faint">Base</span> : null}
+                {getBaseSpeciesName(form.name) === form.name ? <span className="app-soft-chip px-2 py-0.5 text-[10px]">Base</span> : null}
               </div>
               <div className="mt-1 flex flex-wrap gap-1">
                 {form.types.map((type: string) => <TypeBadge key={`${form.slug}-${type}`} type={type} />)}
@@ -199,7 +199,7 @@ export function PokemonDexCardExpanded({
   ) : null;
   const learnsetBlock = pokemon.learnsets?.levelUp?.length || pokemon.learnsets?.machines?.length ? (
     <InfoBlock label="Learnset">
-      <Collapsible className="rounded-[0.7rem] border border-line-soft bg-surface-3 px-2 py-1.5">
+      <Collapsible className="app-soft-panel rounded-[0.7rem] px-2 py-1.5">
         <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between gap-2 text-left">
           <div>
             <p className="display-face text-[11px] text-text">Ver movimientos</p>
@@ -286,7 +286,7 @@ function AbilityGroup({
               "display-face rounded-full border px-2.5 py-1.5 text-[11px] transition-colors",
               tone === "hidden"
                 ? "border-accent-line-faint bg-accent-fill-soft text-accent-soft hover:border-warning-line hover:text-[hsl(39_100%_78%)]"
-                : "border-line-soft bg-surface-3 text-text hover:border-warning-line hover:text-[hsl(39_100%_78%)]",
+                : "app-soft-chip text-text hover:border-warning-line hover:text-[hsl(39_100%_78%)]",
             ].join(" ")}
           >
             {ability}
@@ -316,7 +316,7 @@ function FormAbilityGroup({
             className={
               tone === "hidden"
                 ? "rounded-full border border-accent-line-faint bg-accent-fill-soft px-2.5 py-1 text-[11px] text-accent-soft"
-                : "rounded-full border border-line-soft bg-surface-2 px-2.5 py-1 text-[11px] text-text-faint"
+                : "app-soft-chip px-2.5 py-1 text-[11px]"
             }
           >
             {ability}

@@ -350,7 +350,6 @@ describe("Team Sections", () => {
       />,
     );
 
-    expect(screen.getByText("Preferences")).toBeTruthy();
     expect(screen.getByText("Tema de la interfaz")).toBeTruthy();
     expect(screen.getByText("Clima de combate")).toBeTruthy();
     expect(screen.getByText("Filtros de recomendaciones")).toBeTruthy();

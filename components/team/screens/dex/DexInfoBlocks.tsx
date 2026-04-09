@@ -8,11 +8,11 @@ import {
   dexStatChipClassName,
 } from "@/components/team/screens/dex/DexShared";
 
-const dexInfoCardClassName = "border border-line-soft bg-surface-3 p-3";
+const dexInfoCardClassName = "app-soft-panel p-3";
 const dexInfoWarningPillClassName =
   "rounded-2xl border border-warning-line px-2 py-1 text-warning-strong";
 const dexInfoAcquisitionEntryClassName =
-  "rounded-[0.7rem] border border-line-soft bg-surface-3 px-2.5 py-1.5 text-xs leading-5 text-text";
+  "app-soft-panel rounded-[0.7rem] px-2.5 py-1.5 text-xs leading-5 text-text";
 
 export function InfoBlock({
   label,

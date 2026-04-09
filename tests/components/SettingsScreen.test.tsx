@@ -92,7 +92,7 @@ describe("SettingsScreen", () => {
 
     render(<SettingsScreen />);
 
-    expect(screen.getByText("Preferencias del builder")).toBeTruthy();
+    expect(screen.getByText("Settings")).toBeTruthy();
     expect(screen.getByText("prefs-rain")).toBeTruthy();
     expect(screen.getByText("theme-dark")).toBeTruthy();
 

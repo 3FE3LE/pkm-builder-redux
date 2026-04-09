@@ -3,6 +3,7 @@
 import { redirect, useRouter } from "next/navigation";
 
 import { LoadingState } from "@/components/team/screens/LoadingState";
+import { TeamScreenHeader, TeamScreenShell } from "@/components/team/screens/ScreenShell";
 import { PreferencesSection } from "@/components/team/settings/PreferencesSection";
 import { useTeamRoster, useTeamSession } from "@/components/BuilderProvider";
 
@@ -20,27 +21,22 @@ export function SettingsScreen() {
   }
 
   return (
-    <main className="relative overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
-      <section className="mx-auto max-w-4xl">
-        <div className="mb-4">
-          <p className="display-face text-sm text-accent">Settings</p>
-          <h1 className="mt-2 text-2xl text-text">Preferencias del builder</h1>
-        </div>
-        <PreferencesSection
-          evolutionConstraints={session.evolutionConstraints}
-          recommendationFilters={session.recommendationFilters}
-          battleWeather={session.battleWeather}
-          theme={session.theme}
-          onToggleEvolutionConstraint={session.actions.setEvolutionConstraint}
-          onToggleRecommendationFilter={session.actions.setRecommendationFilter}
-          onSetBattleWeather={session.actions.setBattleWeather}
-          onSetTheme={session.actions.setTheme}
-          onResetRun={() => {
-            team.actions.resetRun();
-            router.replace("/onboarding");
-          }}
-        />
-      </section>
-    </main>
+    <TeamScreenShell width="narrow">
+      <TeamScreenHeader title="Settings" />
+      <PreferencesSection
+        evolutionConstraints={session.evolutionConstraints}
+        recommendationFilters={session.recommendationFilters}
+        battleWeather={session.battleWeather}
+        theme={session.theme}
+        onToggleEvolutionConstraint={session.actions.setEvolutionConstraint}
+        onToggleRecommendationFilter={session.actions.setRecommendationFilter}
+        onSetBattleWeather={session.actions.setBattleWeather}
+        onSetTheme={session.actions.setTheme}
+        onResetRun={() => {
+          team.actions.resetRun();
+          router.replace("/onboarding");
+        }}
+      />
+    </TeamScreenShell>
   );
 }

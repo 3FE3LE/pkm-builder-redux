@@ -43,7 +43,7 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
           prefetch
           transitionTypes={backTransition}
           aria-label={`Pokemon anterior: ${detail.previousSpecies.name}`}
-          className="fixed left-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%/0.24)] backdrop-blur-lg transition-[transform,color,background-color,border-color] hover:border-warning-line hover:bg-surface-3 active:scale-95 sm:left-2"
+          className="app-icon-button app-floating-icon-button fixed left-1.5 top-1/2 z-30 h-11 w-11 -translate-y-1/2 hover:border-warning-line hover:bg-surface-3 active:scale-95 sm:left-2"
           style={{ left: "max(0.375rem, env(safe-area-inset-left))" }}
           onPointerDown={() => prepareRoute(`/team/dex/pokemon/${detail.previousSpecies?.slug}${detail.dexQuery}`, "dex-detail-to-previous")}
           onClick={() => prepareRoute(`/team/dex/pokemon/${detail.previousSpecies?.slug}${detail.dexQuery}`, "dex-detail-to-previous")}
@@ -57,7 +57,7 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
           prefetch
           transitionTypes={forwardTransition}
           aria-label={`Pokemon siguiente: ${detail.nextSpecies.name}`}
-          className="fixed right-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%/0.24)] backdrop-blur-lg transition-[transform,color,background-color,border-color] hover:border-warning-line hover:bg-surface-3 active:scale-95 sm:right-2"
+          className="app-icon-button app-floating-icon-button fixed right-1.5 top-1/2 z-30 h-11 w-11 -translate-y-1/2 hover:border-warning-line hover:bg-surface-3 active:scale-95 sm:right-2"
           style={{ right: "max(0.375rem, env(safe-area-inset-right))" }}
           onPointerDown={() => prepareRoute(`/team/dex/pokemon/${detail.nextSpecies?.slug}${detail.dexQuery}`, "dex-detail-to-next")}
           onClick={() => prepareRoute(`/team/dex/pokemon/${detail.nextSpecies?.slug}${detail.dexQuery}`, "dex-detail-to-next")}
@@ -72,7 +72,7 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
             prefetch
             transitionTypes={toolForwardTransition}
             aria-label={`Preparar captura de ${detail.pokemon.name} en IV Calc`}
-            className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary-line bg-primary-fill text-primary-soft transition-[transform,color,background-color,border-color] hover:border-primary-line-active hover:bg-primary-fill-hover active:scale-95"
+            className="app-icon-button pointer-events-auto h-11 w-11 rounded-full border-primary-line bg-primary-fill text-primary-soft hover:border-primary-line-active hover:bg-primary-fill-hover active:scale-95"
             onPointerDown={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
             onClick={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
           >
@@ -84,7 +84,7 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
             scroll={false}
             transitionTypes={backTransition}
             aria-label="Cerrar ficha"
-            className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-surface-2/80 text-text transition-[transform,color,background-color,border-color] hover:border-warning-line hover:bg-surface-3 active:scale-95"
+            className="app-icon-button app-floating-icon-button pointer-events-auto h-11 w-11 hover:border-warning-line hover:bg-surface-3 active:scale-95"
             onPointerDown={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
             onClick={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
           >

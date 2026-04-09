@@ -374,7 +374,7 @@ export function EditorPage({
           href={previousMemberHref}
           transitionTypes={backTransition}
           aria-label={previousMemberLabel ?? "Pokemon anterior"}
-          className="fixed left-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%/0.24)] backdrop-blur-lg transition-colors hover:border-warning-line hover:bg-surface-3 sm:left-2"
+          className="app-icon-button app-floating-icon-button fixed left-1.5 top-1/2 z-30 h-11 w-11 -translate-y-1/2 hover:border-warning-line hover:bg-surface-3 sm:left-2"
           style={{ left: "max(0.375rem, env(safe-area-inset-left))" }}
         >
           <ChevronLeft className="h-4 w-4" />
@@ -385,7 +385,7 @@ export function EditorPage({
           href={nextMemberHref}
           transitionTypes={backTransition}
           aria-label={nextMemberLabel ?? "Pokemon siguiente"}
-          className="fixed right-1.5 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-line-soft bg-surface-2/88 text-text shadow-[0_18px_42px_hsl(0_0%_0%/0.24)] backdrop-blur-lg transition-colors hover:border-warning-line hover:bg-surface-3 sm:right-2"
+          className="app-icon-button app-floating-icon-button fixed right-1.5 top-1/2 z-30 h-11 w-11 -translate-y-1/2 hover:border-warning-line hover:bg-surface-3 sm:right-2"
           style={{ right: "max(0.375rem, env(safe-area-inset-right))" }}
         >
           <ChevronRight className="h-4 w-4" />
@@ -396,12 +396,12 @@ export function EditorPage({
           <Link
             href="/team"
             transitionTypes={backTransition}
-            className="hidden items-center gap-2 rounded-full border border-line-soft bg-surface-2/80 px-3 py-2 text-sm text-text transition-colors hover:border-warning-line hover:bg-surface-3 md:inline-flex"
+            className="app-icon-button app-floating-icon-button hidden gap-2 px-3 py-2 text-sm hover:border-warning-line hover:bg-surface-3 lg:inline-flex"
           >
             <ChevronLeft className="h-4 w-4" />
             Volver al team
           </Link>
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             <Button
               type="button"
               variant="ghost"

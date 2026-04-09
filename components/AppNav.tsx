@@ -17,22 +17,22 @@ const appNavHomeButtonClassName =
   "nav-action group hidden items-center justify-center border border-line-strong bg-(--panel-tint-soft) text-accent shadow-[var(--glass-shadow),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex";
 
 const appNavMobileHomeClassName =
-  "nav-action inline-flex items-center justify-center border border-transparent text-accent transition-[background,border-color,transform] duration-200 hover:border-line hover:bg-surface-3/80 lg:hidden";
+  "app-dock-button nav-action inline-flex items-center justify-center border-transparent text-accent hover:border-line hover:bg-surface-3/80 lg:hidden";
 
 const appNavDockClassName =
-  "grid w-full max-w-2xl grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] border border-line-strong bg-(--dock-surface-bg) p-1 shadow-[0_18px_42px_hsl(0_0%_0%/0.24),var(--glass-shadow)] backdrop-blur-[18px] lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto_auto] lg:rounded-2xl lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0";
+  "app-dock-shell grid w-full max-w-2xl grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-1 rounded-[1.15rem] p-1 lg:w-auto lg:max-w-none lg:grid-cols-[auto_auto_auto_auto] lg:rounded-2xl lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0";
 
 const appNavPrimaryItemBaseClassName =
-  "inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-[0.95rem] px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200";
+  "app-dock-button inline-flex h-11 min-w-0 items-center justify-center gap-2 px-3 text-sm";
 
 const appNavPrimaryItemDesktopClassName =
   "lg:h-10 lg:rounded-[0.8rem] lg:justify-start lg:px-3.5";
 
 const appNavPrimaryItemSharedClassName =
-  "nav-action min-w-0 gap-2 px-3 text-sm transition-[background,border-color,color,box-shadow,transform] duration-200 lg:justify-start lg:px-3.5";
+  "nav-action min-w-0 gap-2 px-3 text-sm lg:justify-start lg:px-3.5";
 
 const appNavSettingsBaseClassName =
-  "nav-action inline-flex items-center justify-center border transition-[background,border-color,color,box-shadow,transform] duration-200 lg:w-10";
+  "app-dock-button nav-action inline-flex items-center justify-center border lg:w-10";
 
 const appNavLabelClassName = "hidden truncate text-[0.72rem] uppercase tracking-[0.12em] lg:inline";
 const appNavTeamLabelClassName = "hidden text-[0.72rem] uppercase tracking-[0.12em] lg:inline";

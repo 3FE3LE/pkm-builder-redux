@@ -11,7 +11,7 @@ import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 const actionDockLinkBaseClassName = "inline-flex items-center justify-center";
 const actionDockButtonBaseClassName =
-  "rounded-xl border border-line-strong bg-surface-3 text-text transition hover:bg-surface-6";
+  "app-dock-button border border-line-strong bg-surface-3 text-text hover:bg-surface-6";
 const actionDockButtonDesktopClassName = `${actionDockButtonBaseClassName} size-9`;
 const actionDockButtonMobileClassName = `${actionDockButtonBaseClassName} size-11`;
 const actionDockDangerClassName = "border-danger-line text-danger hover:bg-danger-fill";

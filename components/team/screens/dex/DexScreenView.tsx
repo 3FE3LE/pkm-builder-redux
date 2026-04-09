@@ -2,6 +2,7 @@
 
 import { Search, X } from "lucide-react";
 
+import { TeamScreenHeader, TeamScreenShell } from "@/components/team/screens/ScreenShell";
 import { Input } from "@/components/ui/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DexPokemonPanel, DexResultSummary, DexSecondaryPanels } from "@/components/team/screens/dex/DexPanels";
@@ -28,11 +29,8 @@ export function DexScreenView({
   const model = useDexScreenModel(data);
 
   return (
-    <main className="relative overflow-visible px-4 py-3 sm:px-6 sm:py-5 lg:px-8">
-      <section className="mx-auto max-w-7xl">
-        <div className="mb-2 sm:mb-4">
-          <h1 className="pixel-face text-xl text-text sm:text-[2rem]">Redux Dex</h1>
-        </div>
+    <TeamScreenShell overflow="visible" density="compact">
+        <TeamScreenHeader title="Redux Dex" className="mb-2 sm:mb-4" titleClassName="text-xl sm:text-[2rem]" />
         <Tabs value={model.tab} onValueChange={(value) => model.setTab(value as any)} className="gap-3 sm:gap-4">
           <div className="mb-3 sm:mb-6">
             <div className="relative">
@@ -79,7 +77,6 @@ export function DexScreenView({
             {model.tab === "items" ? <DexSecondaryPanels model={model} /> : null}
           </TabsContent>
         </Tabs>
-      </section>
-    </main>
+    </TeamScreenShell>
   );
 }

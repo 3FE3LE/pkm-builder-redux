@@ -13,16 +13,16 @@ import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 const selectedInsightSurfaceClassName =
-  "max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-2xl border border-line-strong bg-[linear-gradient(180deg,rgba(12,32,40,0.96),rgba(8,21,25,0.96))] p-4 shadow-[0_22px_50px_rgba(0,0,0,0.34)] backdrop-blur-md";
+  "app-floating-panel max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-2xl p-4";
 const selectedInsightStickyHeaderClassName =
   "sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md";
 const selectedInsightCloseButtonClassName =
-  "h-8 w-8 rounded-lg border border-line bg-surface-4 text-muted hover:bg-surface-6";
-const selectedInsightCardClassName = "surface-card px-3 py-2";
-const selectedInsightCardMutedClassName = "surface-card px-3 py-3 text-sm text-muted";
-const selectedInsightCardSoftClassName = "surface-card px-3 py-3";
+  "app-icon-button h-8 w-8 text-muted";
+const selectedInsightCardClassName = "app-soft-panel rounded-xl px-3 py-2";
+const selectedInsightCardMutedClassName = "app-soft-panel rounded-xl px-3 py-3 text-sm text-muted";
+const selectedInsightCardSoftClassName = "app-soft-panel rounded-xl px-3 py-3";
 const selectedInsightEyebrowClassName = "display-face micro-label text-accent";
-const selectedInsightTagClassName = "surface-card rounded-md px-3 py-1 text-xs text-muted";
+const selectedInsightTagClassName = "app-soft-chip rounded-md px-3 py-1 text-xs text-muted";
 
 type MoveRecommendation = ReturnType<
   typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations

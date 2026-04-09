@@ -60,9 +60,6 @@ export function PreferencesSection({
 
   return (
     <section className="space-y-2">
-      <div className="px-1 py-1">
-        <p className="display-face text-sm text-accent">Preferences</p>
-      </div>
       <div className="space-y-5 px-1 py-1">
         <div>
           <p className="display-face text-sm text-accent">Tema de la interfaz</p>

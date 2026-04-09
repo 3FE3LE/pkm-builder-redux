@@ -4,6 +4,7 @@ import { redirect, useSearchParams } from "next/navigation";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { LoadingState } from "@/components/team/screens/LoadingState";
+import { TeamScreenHeader, TeamScreenShell } from "@/components/team/screens/ScreenShell";
 import { CompositionsSection } from "@/components/team/collection/CompositionsSection";
 import { WorkspaceSection } from "@/components/team/tools/compare/Section";
 import { IvCalculatorSection } from "@/components/team/tools/iv-calculator/Section";
@@ -45,97 +46,92 @@ export function ToolsScreen() {
   }
 
   return (
-    <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
-      <section className="mx-auto max-w-7xl">
-        <div className="mb-4">
-          <p className="display-face text-sm text-accent">Tools</p>
-          <h1 className="pixel-face mt-2 text-2xl text-text">Compare, IV Calc y Type Tiers</h1>
-        </div>
+    <TeamScreenShell overflow="visible">
+      <TeamScreenHeader title="Tools" />
 
-        <Tabs
-          value={toolTab}
-          onValueChange={(value) => setToolTab(value as ToolTab)}
-          className="gap-0"
-        >
-          <TabsList className="tab-strip scrollbar-thin">
-            <TabsTrigger
-              value="compare"
-              className="tab-trigger-soft"
-            >
-              Compare
-            </TabsTrigger>
-            <TabsTrigger
-              value="ivcalc"
-              className="tab-trigger-soft"
-            >
-              IV Calc
-            </TabsTrigger>
-            <TabsTrigger
-              value="types"
-              className="tab-trigger-soft"
-            >
-              Type Tiers
-            </TabsTrigger>
-            <TabsTrigger
-              value="compositions"
-              className="tab-trigger-soft"
-            >
-              Teams
-            </TabsTrigger>
-          </TabsList>
+      <Tabs
+        value={toolTab}
+        onValueChange={(value) => setToolTab(value as ToolTab)}
+        className="gap-0"
+      >
+        <TabsList className="tab-strip scrollbar-thin">
+          <TabsTrigger
+            value="compare"
+            className="tab-trigger-soft"
+          >
+            Compare
+          </TabsTrigger>
+          <TabsTrigger
+            value="ivcalc"
+            className="tab-trigger-soft"
+          >
+            IV Calc
+          </TabsTrigger>
+          <TabsTrigger
+            value="types"
+            className="tab-trigger-soft"
+          >
+            Type Tiers
+          </TabsTrigger>
+          <TabsTrigger
+            value="compositions"
+            className="tab-trigger-soft"
+          >
+            Teams
+          </TabsTrigger>
+        </TabsList>
 
-          <TabsContent value="compare" className="tab-panel">
-            {toolTab === "compare" ? (
-              <WorkspaceSection
-                members={compare.members}
-                resolvedMembers={compare.resolvedMembers}
-                speciesCatalog={catalogs.speciesCatalog}
-                abilityCatalog={catalogs.abilityCatalog}
-                itemCatalog={catalogs.itemCatalog}
-                battleWeather={session.battleWeather}
-                dropPulse={null}
-                onChangeMember={compare.actions.updateMember}
-                onClearMember={clearCompareMember}
-              />
-            ) : null}
-          </TabsContent>
+        <TabsContent value="compare" className="tab-panel">
+          {toolTab === "compare" ? (
+            <WorkspaceSection
+              members={compare.members}
+              resolvedMembers={compare.resolvedMembers}
+              speciesCatalog={catalogs.speciesCatalog}
+              abilityCatalog={catalogs.abilityCatalog}
+              itemCatalog={catalogs.itemCatalog}
+              battleWeather={session.battleWeather}
+              dropPulse={null}
+              onChangeMember={compare.actions.updateMember}
+              onClearMember={clearCompareMember}
+            />
+          ) : null}
+        </TabsContent>
 
-          <TabsContent value="ivcalc" className="tab-panel">
-            {toolTab === "ivcalc" ? (
-              <IvCalculatorSection
-                key={`ivcalc-${speciesPrefill || "none"}`}
-                speciesCatalog={catalogs.speciesCatalog}
-                pokemonIndex={catalogs.pokemonIndex}
-                prefillSpecies={speciesPrefill}
-                onAddPreparedMember={(member) => team.actions.addPreparedMember(member)}
-              />
-            ) : null}
-          </TabsContent>
+        <TabsContent value="ivcalc" className="tab-panel">
+          {toolTab === "ivcalc" ? (
+            <IvCalculatorSection
+              key={`ivcalc-${speciesPrefill || "none"}`}
+              speciesCatalog={catalogs.speciesCatalog}
+              pokemonIndex={catalogs.pokemonIndex}
+              prefillSpecies={speciesPrefill}
+              onAddPreparedMember={(member) => team.actions.addPreparedMember(member)}
+            />
+          ) : null}
+        </TabsContent>
 
-          <TabsContent value="types" className="tab-panel">
-            {toolTab === "types" ? (
-              <TypeTierListSection
-                resolvedTeam={team.resolvedTeam}
-                speciesCatalog={catalogs.speciesCatalog}
-              />
-            ) : null}
-          </TabsContent>
+        <TabsContent value="types" className="tab-panel">
+          {toolTab === "types" ? (
+            <TypeTierListSection
+              resolvedTeam={team.resolvedTeam}
+              speciesCatalog={catalogs.speciesCatalog}
+            />
+          ) : null}
+        </TabsContent>
 
-          <TabsContent value="compositions" className="tab-panel">
-            {toolTab === "compositions" ? (
-              <CompositionsSection
-                compositions={team.compositions}
-                activeCompositionId={team.activeCompositionId}
-                onCreateComposition={() => {
-                  team.actions.createComposition();
-                }}
-                onSelectComposition={team.actions.setActiveCompositionId}
-                onRenameComposition={team.actions.renameComposition}
-              />
-            ) : null}
-          </TabsContent>
-        </Tabs>
-      </section>
-    </main>
+        <TabsContent value="compositions" className="tab-panel">
+          {toolTab === "compositions" ? (
+            <CompositionsSection
+              compositions={team.compositions}
+              activeCompositionId={team.activeCompositionId}
+              onCreateComposition={() => {
+                team.actions.createComposition();
+              }}
+              onSelectComposition={team.actions.setActiveCompositionId}
+              onRenameComposition={team.actions.renameComposition}
+            />
+          ) : null}
+        </TabsContent>
+      </Tabs>
+    </TeamScreenShell>
   );
 }

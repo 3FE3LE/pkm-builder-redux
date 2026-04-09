@@ -20,11 +20,11 @@ export const dexCollapsedCaretClassName =
   "text-xs text-text-faint transition-transform data-panel-open:rotate-180";
 export const dexSectionCaptionClassName = "display-face text-[10px] text-text-faint";
 export const dexOwnerChipClassName =
-  "inline-flex rounded-[0.6rem] border border-line-soft bg-surface-2 p-1";
+  "app-soft-panel inline-flex rounded-[0.6rem] p-1";
 export const dexLoadMoreChipClassName =
-  "rounded-full border border-line-soft bg-surface-3 px-3 py-1 text-xs text-text-faint";
+  "app-soft-chip px-3 py-1 text-xs";
 export const dexStatChipClassName =
-  "rounded-full border border-line-soft bg-surface-3 px-2.5 py-1 text-xs text-text-faint";
+  "app-soft-chip px-2.5 py-1 text-xs";
 
 export function DexSectionHeader({
   count,
@@ -139,7 +139,7 @@ export function SegmentedOwnerCollapsible({
     <div className="mt-4 border-t border-line-soft pt-3">
       <p className="micro-label text-text-faint">{label}</p>
       {count ? (
-        <Collapsible className="mt-2 rounded-[0.7rem] border border-line-soft bg-surface-3 px-2 py-1.5">
+        <Collapsible className="app-soft-panel mt-2 rounded-[0.7rem] px-2 py-1.5">
           <CollapsibleTrigger className="flex w-full items-center justify-between gap-2 text-left">
             <div>
               <p className="display-face text-[11px] text-text">{closedLabel}</p>
@@ -213,7 +213,7 @@ export function DexModeButton({
         "flex min-h-24 flex-col items-start justify-between rounded-2xl border px-3 py-3 text-left transition",
         active
           ? "border-warning-line bg-[rgba(255,199,107,0.12)] text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-          : "border-line-soft bg-[rgba(255,255,255,0.025)] text-text-soft hover:border-line hover:text-text",
+          : "app-soft-panel text-text-soft hover:border-line hover:text-text",
       )}
     >
       <span className="display-face text-sm">{title}</span>
@@ -254,7 +254,7 @@ export function DexFilterToggle({
               info: "border-info-line bg-info-fill text-info-soft",
               primary: "border-primary-line bg-primary-fill text-primary-soft",
             }[tone]
-          : "border-line-soft bg-surface-3 text-muted hover:border-line hover:text-text",
+          : "app-soft-chip text-muted hover:border-line hover:text-text",
         className,
       )}
     >

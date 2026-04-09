@@ -1,14 +1,21 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
+
+import { useBuilderStore } from "@/lib/builderStore";
 
 const BACK_TO_TOP_SCROLL_THRESHOLD = 640;
 
 export function BackToTopButton() {
+  const pathname = usePathname() ?? "";
+  const editorMemberId = useBuilderStore((state) => state.run.roster.editorMemberId);
   const showBackToTop = useScrollThreshold(BACK_TO_TOP_SCROLL_THRESHOLD);
+  const hideOnEditorRoute = pathname.startsWith("/team/pokemon/");
+  const hideWhileEditorOpen = Boolean(editorMemberId);
 
-  if (!showBackToTop) {
+  if (!showBackToTop || hideOnEditorRoute || hideWhileEditorOpen) {
     return null;
   }
 

@@ -194,7 +194,7 @@ describe("ToolsScreen", () => {
 
     render(<ToolsScreen />);
 
-    expect(screen.getByText("Compare, IV Calc y Type Tiers")).toBeTruthy();
+    expect(screen.getByText("Tools")).toBeTruthy();
     expect(screen.getByText("compare-workspace")).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "clear-compare" }));

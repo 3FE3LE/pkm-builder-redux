@@ -15,6 +15,7 @@ import { parseAsStringEnum, useQueryState } from "nuqs";
 
 import { AddMemberSheet } from "@/components/team/collection/AddMemberSheet";
 import { PcBoxSection } from "@/components/team/collection/PcBoxSection";
+import { TeamScreenShell } from "@/components/team/screens/ScreenShell";
 import { WorkspacePanels, type WorkspaceTab } from "@/components/team/screens/WorkspacePanels";
 import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
 import { BuilderHeader } from "@/components/team/workspace/BuilderHeader";
@@ -158,8 +159,7 @@ export function WorkspaceScreen() {
   }
 
   return (
-    <main className="relative overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
-      <section className="mx-auto max-w-7xl">
+    <TeamScreenShell>
         <BuilderHeader
           milestoneId={analysis.contextualMilestoneId}
           milestones={milestones}
@@ -320,7 +320,6 @@ export function WorkspaceScreen() {
             />
           ) : null}
         </AnimatePresence>
-      </section>
-    </main>
+    </TeamScreenShell>
   );
 }
