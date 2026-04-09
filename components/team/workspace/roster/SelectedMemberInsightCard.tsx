@@ -17,7 +17,7 @@ const selectedInsightSurfaceClassName =
 const selectedInsightStickyHeaderClassName =
   "sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md";
 const selectedInsightCloseButtonClassName =
-  "app-icon-button h-8 w-8 text-muted";
+  "app-icon-button inline-flex items-center justify-center h-8 w-8 text-muted";
 const selectedInsightCardClassName = "app-soft-panel rounded-xl px-3 py-2";
 const selectedInsightCardMutedClassName = "app-soft-panel rounded-xl px-3 py-3 text-sm text-muted";
 const selectedInsightCardSoftClassName = "app-soft-panel rounded-xl px-3 py-3";
