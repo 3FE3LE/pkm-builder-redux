@@ -1,9 +1,10 @@
 "use client";
 
-import { ViewTransition, useState } from "react";
+import { ViewTransition, useRef, useState } from "react";
 import Link from "next/link";
 import clsx from 'clsx';
 import {
+  Check,
   CircleArrowUp,
   Mars,
   PencilLine,
@@ -145,6 +146,7 @@ export function Header({
   dexSpeciesSlug?: string;
 }) {
   const [nicknameEditable, setNicknameEditable] = useState(false);
+  const nicknameInputRef = useRef<HTMLInputElement>(null);
   const dexForwardTransition = useSafeTransitionTypes(["dex-forward"]);
   const supportsGender =
     resolved?.supportsGender ?? supportsPokemonGender(currentSpecies);
@@ -267,49 +269,58 @@ export function Header({
           <div className="relative max-w-md">
             {transitionMemberId && !nicknameEditable ? (
               <ViewTransition name={getTeamEditorTransitionName("title", transitionMemberId)}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNicknameEditable(true);
+                    requestAnimationFrame(() => nicknameInputRef.current?.focus());
+                  }}
+                  className="display-face flex h-12 w-full cursor-text items-center gap-2 px-0 text-xl text-text"
+                >
+                  <span className="truncate">{nicknameDisplayValue}</span>
+                  <PencilLine className="h-3.5 w-3.5 shrink-0 text-muted" />
+                </button>
+              </ViewTransition>
+            ) : nicknameEditable ? (
+              <div className="flex items-center gap-1.5">
                 <Input
-                  value={nicknameDisplayValue}
-                  readOnly
-                  tabIndex={-1}
+                  ref={nicknameInputRef}
+                  value={member.nickname}
+                  onChange={(event) =>
+                    updateEditorMember((current) => ({
+                      ...current,
+                      nickname: event.target.value,
+                    }))
+                  }
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") setNicknameEditable(false);
+                  }}
                   placeholder={nicknamePlaceholder}
                   maxLength={24}
-                  className="display-face h-12 cursor-default border-transparent bg-transparent px-0 pr-11 text-xl text-text shadow-none focus-visible:border-transparent focus-visible:bg-transparent focus-visible:ring-0"
+                  className="display-face h-12 flex-1 text-xl"
                 />
-              </ViewTransition>
+                <button
+                  type="button"
+                  onClick={() => setNicknameEditable(false)}
+                  aria-label="Confirmar nickname"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-3xl border border-primary-line-strong bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover"
+                >
+                  <Check className="h-4 w-4" />
+                </button>
+              </div>
             ) : (
-              <Input
-                value={nicknameEditable ? member.nickname : nicknameDisplayValue}
-                readOnly={!nicknameEditable}
-                tabIndex={nicknameEditable ? 0 : -1}
-                onChange={(event) =>
-                  updateEditorMember((current) => ({
-                    ...current,
-                    nickname: event.target.value,
-                  }))
-                }
-                placeholder={nicknamePlaceholder}
-                maxLength={24}
-                className={clsx(
-                  "display-face h-12 pr-11 text-xl",
-                  nicknameEditable
-                    ? "border-line bg-surface-4"
-                    : "cursor-default border-transparent bg-transparent px-0 text-text shadow-none focus-visible:border-transparent focus-visible:bg-transparent focus-visible:ring-0",
-                )}
-              />
+              <button
+                type="button"
+                onClick={() => {
+                  setNicknameEditable(true);
+                  requestAnimationFrame(() => nicknameInputRef.current?.focus());
+                }}
+                className="display-face flex h-12 w-full cursor-text items-center gap-2 px-0 text-xl text-text"
+              >
+                <span className="truncate">{nicknameDisplayValue}</span>
+                <PencilLine className="h-3.5 w-3.5 shrink-0 text-muted" />
+              </button>
             )}
-            <button
-              type="button"
-              onClick={() => setNicknameEditable((current) => !current)}
-              aria-label={nicknameEditable ? "Bloquear nickname" : "Editar nickname"}
-              className={clsx(
-                "absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-3xl border transition",
-                nicknameEditable
-                  ? "border-primary-line-strong bg-primary-fill text-primary-soft"
-                  : "border-line bg-surface-4 text-muted hover:bg-surface-6",
-              )}
-            >
-              <PencilLine className="h-4 w-4" />
-            </button>
           </div>
           <p className="mt-2 text-sm text-muted">
             {resolved?.species || currentSpecies || "Pokemon pendiente"}

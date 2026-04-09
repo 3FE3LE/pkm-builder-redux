@@ -115,10 +115,10 @@ describe("EditorHeader", () => {
     updater = updateEditorMember.mock.calls.at(-1)?.[0];
     expect(updater(createMember())).toMatchObject({ gender: "female" });
 
-    await user.click(screen.getByRole("button", { name: /editar nickname/i }));
+    await user.click(screen.getByRole("button", { name: /Rio/ }));
     const nicknameInput = screen.getByDisplayValue("Rio");
-    expect(nicknameInput.getAttribute("tabindex")).toBe("0");
-    expect(screen.getByRole("button", { name: /bloquear nickname/i })).toBeTruthy();
+    expect(nicknameInput).toBeTruthy();
+    expect(screen.getByRole("button", { name: /confirmar nickname/i })).toBeTruthy();
 
     await user.click(screen.getAllByRole("button", { name: "LV" })[0]!);
     updater = updateEditorMember.mock.calls.at(-1)?.[0];
@@ -188,7 +188,7 @@ describe("EditorHeader", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: /editar nickname/i }));
+    await user.click(screen.getByRole("button", { name: /Riolu/ }));
     const nicknameInput = screen.getByDisplayValue("Riolu");
     fireEvent.change(nicknameInput, { target: { value: "Aura" } });
 
