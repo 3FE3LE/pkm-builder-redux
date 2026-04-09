@@ -9,12 +9,15 @@ type CheckpointRisk = ReturnType<typeof import("@/lib/domain/checkpointScoring")
 type SwapOpportunity = ReturnType<typeof import("@/lib/domain/swapOpportunities").buildSwapOpportunities>[number];
 
 const intelligenceSectionTitleClassName = "display-face text-sm text-accent";
-const intelligenceSectionEyebrowClassName = "display-face text-xs text-accent";
+const intelligenceSectionEyebrowClassName = "display-face micro-copy text-accent";
 const intelligenceHeaderRowClassName = "flex flex-wrap items-center justify-between gap-3";
-const intelligenceTokenPillClassName = "token-card px-3 py-1 text-xs text-muted";
+const intelligenceTokenPillClassName = "token-card px-3 py-1 micro-copy text-muted";
 const intelligenceCompactGridClassName = "mt-3 grid gap-2 sm:grid-cols-2";
 const intelligenceSectionShellClassName = "mt-3 px-1 py-1";
 const intelligenceSectionTopRowClassName = "flex items-start justify-between gap-3";
+const intelligenceCardClassName = "surface-card px-3 py-3";
+const intelligenceAlertTagClassName = "micro-label-wide rounded-md border px-3 py-1 uppercase";
+const intelligenceRoleTagClassName = "micro-label token-card px-2 py-1 uppercase";
 
 export function IntelligencePanel({
   teamSize,
@@ -35,7 +38,7 @@ export function IntelligencePanel({
             {swapOpportunities.slice(0, 4).map((opportunity) => (
               <div
                 key={`${opportunity.replacedSpecies}-${opportunity.candidateSpecies}`}
-                className="rounded-4xl px-2 py-2"
+                className={intelligenceCardClassName}
               >
                 <div className={intelligenceHeaderRowClassName}>
                   <div>
@@ -46,7 +49,7 @@ export function IntelligencePanel({
                   </div>
                   <span
                     className={clsx(
-                      "micro-label-wide rounded-md border px-3 py-1 uppercase",
+                      intelligenceAlertTagClassName,
                       opportunity.riskDelta >= 1.5
                         ? "border-danger-line bg-danger-fill text-danger-soft"
                         : opportunity.riskDelta >= 0.7
@@ -92,15 +95,20 @@ export function IntelligencePanel({
           {checkpointRisk.roleSnapshot.members.map((member) => (
             <div
               key={`role-${member.species}`}
-              className="rounded-4xl px-2 py-2"
+              className={intelligenceCardClassName}
             >
               <div className={intelligenceHeaderRowClassName}>
                 <span className={intelligenceSectionEyebrowClassName}>{member.species}</span>
                 <div className="flex flex-wrap gap-1.5">
-                  <span className="micro-label token-card px-2 py-1 uppercase text-muted">
+                  <span className={clsx(intelligenceRoleTagClassName, "text-muted")}>
                     natural {ROLE_LABELS[member.naturalRole]}
                   </span>
-                  <span className="micro-label token-card border-accent-line bg-accent-fill px-2 py-1 uppercase text-accent-soft">
+                  <span
+                    className={clsx(
+                      intelligenceRoleTagClassName,
+                      "border-accent-line bg-accent-fill text-accent-soft",
+                    )}
+                  >
                     team {ROLE_LABELS[member.recommendedRole]}
                   </span>
                 </div>
@@ -166,7 +174,7 @@ function SectionBlock({
 
 function RoleBucket({ label, values }: { label: string; values: string[] }) {
   return (
-    <div className="rounded-4xl px-1.5 py-2">
+    <div className="surface-card px-3 py-3">
       <div className="flex items-center justify-between gap-3">
         <span className="display-face micro-copy text-accent">{label}</span>
       </div>

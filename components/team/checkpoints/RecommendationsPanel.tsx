@@ -11,15 +11,17 @@ import type { CaptureRecommendation } from "@/lib/domain/contextualRecommendatio
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
 
-const recommendationSectionEyebrowClassName = "display-face px-1 text-xs text-accent";
+const recommendationSectionEyebrowClassName = "display-face px-1 micro-copy text-accent";
 const recommendationTokenPillClassName = "token-card px-2.5 py-1.5 text-xs text-muted";
-const recommendationEmptyStateClassName = "rounded-xl px-2 py-2 text-sm text-muted";
+const recommendationEmptyStateClassName = "soft-card-dashed px-3 py-4 text-sm text-muted";
 const recommendationSwapHeaderRowClassName = "flex flex-wrap items-start justify-between gap-3";
 const recommendationSwapSummaryClassName = "token-card px-3 py-2 text-right";
 const recommendationScoreDeltaClassName = "display-face micro-label-wide text-muted";
 const recommendationSwapSideTitleClassName = "display-face micro-copy text-muted";
 const recommendationCompactStatLabelClassName = "display-face micro-label text-muted";
 const recommendationSwapOutgoingCardClassName = "panel-card border-line bg-surface-2";
+const recommendationRiskPillClassName = "token-card px-2.5 py-1.5 text-xs";
+const recommendationStatCardClassName = "token-card px-3 py-2";
 
 export function RecommendationsPanel({
   teamSize,
@@ -150,7 +152,7 @@ function CaptureCard({
           </span>
           <span
             className={clsx(
-              "token-card px-2.5 py-1.5 text-xs",
+              recommendationRiskPillClassName,
               recommendation.delta.riskDelta >= 1.5
                 ? "border-accent-line bg-accent-fill-strong text-accent-soft"
                 : "border-info-line bg-info-fill text-info-soft",
@@ -298,7 +300,7 @@ function SwapSide({
 
 function CompactStat({ label, value }: { label: string; value?: number }) {
   return (
-    <div className="token-card px-3 py-2">
+    <div className={recommendationStatCardClassName}>
       <p className={recommendationCompactStatLabelClassName}>{label}</p>
       <p className="display-face mt-1 text-sm text-text">{value ?? "-"}</p>
     </div>

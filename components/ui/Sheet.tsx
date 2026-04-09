@@ -26,7 +26,7 @@ const sheetPopupTopClassName =
   "data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=top]:data-ending-style:-translate-y-10 data-[side=top]:data-starting-style:-translate-y-10";
 
 const sheetCloseButtonClassName =
-  "absolute top-3 right-3 z-10 border border-line bg-surface-4 text-text hover:bg-surface-8";
+  "icon-surface absolute top-3 right-3 z-10 text-text hover:bg-surface-8";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />

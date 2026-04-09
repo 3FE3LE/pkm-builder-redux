@@ -13,9 +13,11 @@ import type { RemotePokemon } from "@/lib/teamAnalysis";
 import type { AddFeedback } from "@/components/team/tools/iv-calculator/types";
 
 const ivPanelEyebrowClassName = "display-face micro-label text-muted";
-const ivPanelBaseStatLabelClassName = "display-face text-[9px] text-muted";
+const ivPanelBaseStatLabelClassName = "display-face micro-label text-muted";
 const ivPanelActionButtonClassName = "h-11 rounded-lg";
-const ivPanelFeedbackClassName = "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm";
+const ivPanelFeedbackClassName = "surface-card flex items-center gap-2 px-3 py-2 text-sm";
+const ivPanelBaseStatCardClassName = "token-card px-2 py-2 text-center";
+const ivPanelSuggestedMoveChipClassName = "token-card px-2.5 py-1 text-xs text-text";
 
 type SpeciesCatalogEntry = {
   name: string;
@@ -97,7 +99,7 @@ export function SelectedPokemonPanel({
           ].map(([label, value]) => (
             <div
               key={`base-stat-${label}`}
-              className="token-card px-2 py-2 text-center"
+              className={ivPanelBaseStatCardClassName}
             >
               <p className={ivPanelBaseStatLabelClassName}>{label}</p>
               <p className="mono-face mt-1 text-sm text-text">{value}</p>
@@ -165,7 +167,7 @@ export function SelectedPokemonPanel({
               <p className={ivPanelEyebrowClassName}>Moves learned by level</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {suggestedMoves.length ? suggestedMoves.map((move) => (
-                  <span key={`capture-move-${move}`} className="token-card px-2.5 py-1 text-xs text-text">
+                  <span key={`capture-move-${move}`} className={ivPanelSuggestedMoveChipClassName}>
                     {move}
                   </span>
                 )) : (

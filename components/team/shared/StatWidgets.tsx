@@ -13,9 +13,9 @@ const statWidgetLegendClassName = "mt-1 flex items-center gap-3 micro-label text
 const spreadInputLabelClassName = "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted";
 const spreadInputLabelResponsiveClassName = "lg:text-center lg:text-[9px]";
 const spreadInputStepButtonClassName =
-  "surface-card-muted flex h-6 w-full items-center justify-center border px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6";
+  "flex h-6 w-full items-center justify-center border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6";
 const spreadInputHorizontalStepButtonClassName =
-  "surface-card-muted flex h-8 w-7 shrink-0 items-center justify-center border text-xs text-muted transition hover:bg-surface-6";
+  "flex h-8 w-7 shrink-0 items-center justify-center border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6";
 const spreadInputErrorClassName = "mt-2 block micro-copy text-danger";
 
 export function CoverageBadge({
@@ -311,9 +311,9 @@ export function SpreadInput({
               );
             }}
             className={clsx(
-              `${spreadInputStepButtonClassName} rounded-t-[6px]`,
+              `${spreadInputStepButtonClassName} rounded-t-md`,
               isResponsive &&
-                "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-b-none lg:rounded-l-[6px] lg:rounded-r-none",
+                "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-b-none lg:rounded-l-md lg:rounded-r-none",
             )}
             aria-label={isResponsive ? `Bajar ${label}` : `Subir ${label}`}
           >
@@ -344,9 +344,9 @@ export function SpreadInput({
               );
             }}
             className={clsx(
-              `${spreadInputStepButtonClassName} rounded-b-[6px]`,
+              `${spreadInputStepButtonClassName} rounded-b-md`,
               isResponsive &&
-                "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-t-none lg:rounded-l-none lg:rounded-r-[6px]",
+                "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-t-none lg:rounded-l-none lg:rounded-r-md",
             )}
             aria-label={isResponsive ? `Subir ${label}` : `Bajar ${label}`}
           >
@@ -361,7 +361,7 @@ export function SpreadInput({
               event.preventDefault();
               startHold(() => Math.max(0, valueRef.current - 1));
             }}
-            className={`${spreadInputHorizontalStepButtonClassName} rounded-l-[6px]`}
+            className={`${spreadInputHorizontalStepButtonClassName} rounded-l-md`}
             aria-label={`Bajar ${label}`}
           >
             -
@@ -385,7 +385,7 @@ export function SpreadInput({
               event.preventDefault();
               startHold(() => Math.min(max, valueRef.current + 1));
             }}
-            className={`${spreadInputHorizontalStepButtonClassName} rounded-r-[6px]`}
+            className={`${spreadInputHorizontalStepButtonClassName} rounded-r-md`}
             aria-label={`Subir ${label}`}
           >
             +

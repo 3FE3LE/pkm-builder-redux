@@ -10,11 +10,14 @@ import { markNavigationStart } from "@/lib/perf";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 const actionDockLinkBaseClassName = "inline-flex items-center justify-center";
-const actionDockButtonDesktopClassName = "size-9 rounded-xl border bg-surface-4 hover:bg-surface-8";
-const actionDockButtonMobileClassName = "size-11 rounded-xl border bg-surface-4 hover:bg-surface-8";
+const actionDockButtonBaseClassName =
+  "rounded-xl border border-line-strong bg-surface-3 text-text transition hover:bg-surface-6";
+const actionDockButtonDesktopClassName = `${actionDockButtonBaseClassName} size-9`;
+const actionDockButtonMobileClassName = `${actionDockButtonBaseClassName} size-11`;
 const actionDockDangerClassName = "border-danger-line text-danger hover:bg-danger-fill";
 const actionDockDangerSoftClassName = "border-danger-line-soft text-danger hover:bg-danger-fill";
 const actionDockMutedClassName = "border-line text-muted";
+const actionDockPrimaryClassName = "border-line-strong text-text";
 const actionDockInfoActiveClassName = "border-info-line bg-info-fill text-info-soft";
 const actionDockWarningClassName = "border-warning-line text-warning-strong";
 
@@ -143,7 +146,7 @@ export function ActionDock({
             className={clsx(
               actionDockLinkBaseClassName,
               buttonClass,
-              actionDockMutedClassName,
+              actionDockPrimaryClassName,
             )}
             onClick={() => markNavigationStart("roster-to-editor", editHref)}
           >
@@ -156,7 +159,7 @@ export function ActionDock({
             size={isDesktop ? "icon-sm" : "icon-lg"}
             disabled
             aria-label={editLabel}
-            className={clsx(buttonClass, actionDockMutedClassName)}
+            className={clsx(buttonClass, actionDockPrimaryClassName)}
           >
             {editNode}
           </Button>
