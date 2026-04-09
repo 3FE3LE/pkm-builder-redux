@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import clsx from "clsx";
 
 export function ItemSprite({
@@ -32,14 +31,16 @@ export function ItemSprite({
         chrome === "framed" && "control-surface",
       )}
     >
-      <Image
+      <img
         src={sprite}
         alt={name}
         width={36}
         height={36}
+        loading="lazy"
+        decoding="async"
         className="h-9 w-9 object-contain pixelated"
         style={{ width: "auto", height: "auto" }}
-        unoptimized={false}
+        draggable={false}
       />
     </span>
   );

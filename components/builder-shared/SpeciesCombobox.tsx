@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   startTransition,
   type CSSProperties,
@@ -143,13 +142,15 @@ export function SpeciesCombobox({
                 <div className="flex min-w-0 items-center gap-3">
                   <span className="sprite-tile h-12 w-12 shrink-0">
                     {spriteBySlug[entry.slug] ? (
-                      <Image
+                      <img
                         src={spriteBySlug[entry.slug]!}
                         alt={entry.name}
                         width={40}
                         height={40}
+                        loading="lazy"
+                        decoding="async"
                         className="h-10 w-10 object-contain pixelated"
-                        unoptimized={false}
+                        draggable={false}
                       />
                     ) : (
                       <span className="micro-label text-muted">n/a</span>

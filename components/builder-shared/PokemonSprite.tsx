@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import Image from "next/image";
 import clsx from "clsx";
 
 function subscribeAnimationCapability(callback: () => void) {
@@ -91,17 +90,18 @@ export function PokemonSprite({
       )}
     >
       {source ? (
-        <Image
+        <img
           src={source}
           alt={species}
           width={imageSize}
           height={imageSize}
-          loading={eager ? "eager" : undefined}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
           className={clsx(
             "h-full w-full object-contain transition-[filter,transform] duration-300",
             isEvolving ? "scale-[1.08] brightness-125 saturate-150" : "brightness-100",
           )}
-          unoptimized={hasAnimated && useAnimated && canAnimateHere}
+          draggable={false}
           onError={() => {
             if (useAnimated && spriteUrl) {
               setUseAnimated(false);
