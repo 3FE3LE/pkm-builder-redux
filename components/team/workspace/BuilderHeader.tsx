@@ -28,10 +28,10 @@ export function BuilderHeader({
       <div className="inline-flex w-full min-w-0 items-center justify-center gap-2 px-1 py-1 sm:gap-3 lg:w-auto">
         <TimeIcon className="h-10 w-10 shrink-0 text-accent sm:h-14 sm:w-14" />
         <div className="min-w-0 text-center">
-          <div className="display-face text-xs uppercase tracking-[0.18em] text-accent">
+          <div className="display-face text-xs uppercase tracking-display-xwide text-accent">
             {localTime.period === "day" ? "Day Time" : "Night Time"}
           </div>
-          <div className="pixel-face text-[2.4rem] leading-none tracking-[0.14em] font-normal text-text sm:text-[3.4rem] lg:text-[4.2rem]">
+          <div className="pixel-face text-[2.4rem] leading-none tracking-display-wide font-normal text-text sm:text-[3.4rem] lg:text-[4.2rem]">
             {localTime.ready ? localTime.label : "SYNC..."}
           </div>
         </div>

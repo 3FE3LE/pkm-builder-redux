@@ -52,7 +52,7 @@ export function ToolsScreen() {
       <Tabs
         value={toolTab}
         onValueChange={(value) => setToolTab(value as ToolTab)}
-        className="gap-0"
+        className="screen-tab-stack"
       >
         <TabsList className="tab-strip scrollbar-thin">
           <TabsTrigger

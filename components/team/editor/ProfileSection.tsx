@@ -130,7 +130,7 @@ export function ProfileSection({
       </div>
       <div className="space-y-3">
         {getIssue("species") ? (
-          <span className="block text-[11px] text-danger">
+          <span className="block text-xs text-danger">
             {getIssue("species")}
           </span>
         ) : null}

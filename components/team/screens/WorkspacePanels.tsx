@@ -61,7 +61,7 @@ export function WorkspacePanels({
       <Tabs
         value={workspaceTab}
         onValueChange={(value) => setWorkspaceTab(value as WorkspaceTab)}
-        className="gap-0"
+        className="screen-tab-stack"
       >
         <TabsList className="tab-strip scrollbar-thin">
           <TabsTrigger

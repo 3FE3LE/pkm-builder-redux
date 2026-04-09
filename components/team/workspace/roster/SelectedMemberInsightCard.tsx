@@ -14,8 +14,9 @@ import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 const selectedInsightSurfaceClassName =
   "app-floating-panel max-h-[min(32rem,calc(100vh-8rem))] overflow-y-auto overscroll-contain rounded-2xl p-4";
+const selectedInsightStickyHeaderSurfaceClassName = "bg-(--floating-panel-bg)";
 const selectedInsightStickyHeaderClassName =
-  "sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md";
+  "sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 px-4 pb-3 pt-1 backdrop-blur-md";
 const selectedInsightCloseButtonClassName =
   "app-icon-button inline-flex items-center justify-center h-8 w-8 text-muted";
 const selectedInsightCardClassName = "app-soft-panel rounded-xl px-3 py-2";
@@ -77,7 +78,7 @@ export function SelectedMemberInsightCard({
 
   return (
     <div className={selectedInsightSurfaceClassName}>
-      <div className={selectedInsightStickyHeaderClassName}>
+      <div className={clsx(selectedInsightStickyHeaderClassName, selectedInsightStickyHeaderSurfaceClassName)}>
         <div>
           <p className="display-face text-sm text-accent">Info del slot</p>
           <p className="mt-1 text-sm text-muted">

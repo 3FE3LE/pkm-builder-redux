@@ -11,7 +11,7 @@ export const segmentedControlItemClassName =
 export const segmentedControlItemInactiveClassName =
   "text-text-soft hover:bg-surface-4 hover:text-text";
 export const segmentedControlItemActiveClassName =
-  "border-warning-line bg-warning-fill text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]";
+  "warning-badge soft-inset-shadow";
 
 export function SegmentedControl({
   className,

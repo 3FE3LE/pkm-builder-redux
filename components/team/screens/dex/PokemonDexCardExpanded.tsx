@@ -87,34 +87,34 @@ export function PokemonDexCardExpanded({
                 <div key={`${node.slug}-${nodeIndex}`} className="contents">
                   {nodeIndex > 0 ? (
                     <div className="flex flex-col items-center gap-0 text-center">
-                      <span className="text-[10px] text-text-faint">→</span>
+                      <span className="caption-dense text-text-faint">→</span>
                       {node.summaryFromPrevious ? (
-                        <span className="whitespace-pre-line text-[9px] leading-3 text-muted">
+                        <span className="whitespace-pre-line micro-text-8 leading-3 text-muted">
                           {formatEvolutionSummary(node.summaryFromPrevious)}
                         </span>
                       ) : null}
                     </div>
                   ) : null}
                   {node.current ? (
-                    <div className="flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-[hsl(39_100%_78%)]">
-                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-4xl border border-white/10 bg-surface-1">
+                    <div className="flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-warning-foreground">
+                      <div className="sprite-host-plain relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-4xl">
                         <PokemonSprite species={node.name} spriteUrl={node.spriteUrl} animatedSpriteUrl={undefined} size="small" chrome="plain" />
                       </div>
-                      <span className="display-face text-[10px] leading-3 text-current">{node.name}</span>
+                      <span className="display-face caption-dense leading-3 text-current">{node.name}</span>
                     </div>
                   ) : (
                     <Link
                       href={(pokemonHrefBuilder ?? ((slug) => `/team/dex/pokemon/${slug}${dexQuery}`))(node.slug)}
                       transitionTypes={evolutionForwardTransition}
-                      className="group flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-text transition-colors hover:text-[hsl(39_100%_78%)]"
+                      className="group flex w-14 shrink-0 flex-col items-center gap-0.5 text-center text-text transition-colors hover:text-warning-foreground"
                     >
-                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-4xl border border-white/10 bg-surface-1">
+                      <div className="sprite-host-plain relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-4xl">
                         <ViewTransition name={getDexTransitionName("evo-sprite", node.slug)}>
                           <PokemonSprite species={node.name} spriteUrl={node.spriteUrl} animatedSpriteUrl={undefined} size="small" chrome="plain" />
                         </ViewTransition>
                       </div>
                       <ViewTransition name={getDexTransitionName("evo-title", node.slug)}>
-                        <span className="display-face text-[10px] leading-3 text-current">{node.name}</span>
+                        <span className="display-face caption-dense leading-3 text-current">{node.name}</span>
                       </ViewTransition>
                     </Link>
                   )}
@@ -167,14 +167,14 @@ export function PokemonDexCardExpanded({
     <InfoBlock label="Formas">
       <div className="space-y-1.5">
         {forms.map((form) => (
-          <div key={form.slug} className="app-soft-panel flex items-start gap-2.5 rounded-[0.7rem] px-2.5 py-2">
-            <div className="app-soft-panel relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-[0.7rem] border-white/10 bg-surface-2">
+          <div key={form.slug} className="app-soft-panel radius-panel-sm flex items-start gap-2.5 px-2.5 py-2">
+            <div className="sprite-host-plain radius-panel-sm relative flex h-12 w-12 items-center justify-center overflow-hidden">
               <PokemonSprite species={form.name} spriteUrl={form.spriteUrl} animatedSpriteUrl={undefined} size="small" chrome="plain" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="display-face text-[11px] text-text">{form.name}</p>
-                {getBaseSpeciesName(form.name) === form.name ? <span className="app-soft-chip px-2 py-0.5 text-[10px]">Base</span> : null}
+                <p className="display-face text-xs text-text">{form.name}</p>
+                {getBaseSpeciesName(form.name) === form.name ? <span className="app-soft-chip caption-dense px-2 py-0.5">Base</span> : null}
               </div>
               <div className="mt-1 flex flex-wrap gap-1">
                 {form.types.map((type: string) => <TypeBadge key={`${form.slug}-${type}`} type={type} />)}
@@ -199,10 +199,10 @@ export function PokemonDexCardExpanded({
   ) : null;
   const learnsetBlock = pokemon.learnsets?.levelUp?.length || pokemon.learnsets?.machines?.length ? (
     <InfoBlock label="Learnset">
-      <Collapsible className="app-soft-panel rounded-[0.7rem] px-2 py-1.5">
+      <Collapsible className="app-soft-panel radius-panel-sm px-2 py-1.5">
         <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between gap-2 text-left">
           <div>
-            <p className="display-face text-[11px] text-text">Ver movimientos</p>
+            <p className="display-face text-xs text-text">Ver movimientos</p>
             <p className="mt-1 text-xs text-muted">{pokemon.learnsets?.levelUp?.length ?? 0} level up · {pokemon.learnsets?.machines?.length ?? 0} machines</p>
           </div>
           <span className="text-xs text-text-faint transition-transform data-panel-open:rotate-180">⌄</span>
@@ -276,17 +276,17 @@ function AbilityGroup({
 }) {
   return (
     <div className="space-y-1">
-      <p className="display-face text-[10px] uppercase tracking-[0.12em] text-text-faint">{label}</p>
+      <p className="display-face caption-dense uppercase tracking-ui-wide text-text-faint">{label}</p>
       <div className="flex flex-wrap gap-2">
         {abilities.map((ability, index) => (
           <Link
             key={`${pokemonSlug}-${label}-${ability}-${index}`}
             href={getDexSearchHref("abilities", ability)}
             className={[
-              "display-face rounded-full border px-2.5 py-1.5 text-[11px] transition-colors",
+              "display-face text-xs rounded-full border px-2.5 py-1.5 transition-colors",
               tone === "hidden"
-                ? "border-accent-line-faint bg-accent-fill-soft text-accent-soft hover:border-warning-line hover:text-[hsl(39_100%_78%)]"
-                : "app-soft-chip text-text hover:border-warning-line hover:text-[hsl(39_100%_78%)]",
+                ? "accent-chip-soft hover:border-warning-line hover:text-warning-foreground"
+                : "app-soft-chip text-text hover:border-warning-line hover:text-warning-foreground",
             ].join(" ")}
           >
             {ability}
@@ -308,15 +308,15 @@ function FormAbilityGroup({
 }) {
   return (
     <div className="space-y-1">
-      <p className="display-face text-[10px] uppercase tracking-[0.12em] text-text-faint">{label}</p>
+      <p className="display-face caption-dense uppercase tracking-ui-wide text-text-faint">{label}</p>
       <div className="flex flex-wrap gap-1">
         {abilities.map((ability, index) => (
           <span
             key={`${label}-${ability}-${index}`}
             className={
               tone === "hidden"
-                ? "rounded-full border border-accent-line-faint bg-accent-fill-soft px-2.5 py-1 text-[11px] text-accent-soft"
-                : "app-soft-chip px-2.5 py-1 text-[11px]"
+                ? "accent-chip-soft text-xs rounded-full px-2.5 py-1"
+                : "app-soft-chip text-xs px-2.5 py-1"
             }
           >
             {ability}
@@ -340,7 +340,7 @@ function LearnsetSection({
 }) {
   return (
     <div className="space-y-1">
-      <p className="display-face text-[10px] text-text-faint">{title}</p>
+      <p className="display-face caption-dense text-text-faint">{title}</p>
       <div className="space-y-1">
         {entries.map((entry, index) => (
           <Link key={`${title}-${entry.move}-${index}`} href={getDexSearchHref("moves", entry.move)} className="block">

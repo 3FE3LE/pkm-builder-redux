@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo } from "react";
 
 import { PokemonDexCard } from "@/components/team/screens/DexScreen";
@@ -35,6 +35,11 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
     markNavigationStart(label, href);
   };
 
+  const dexDockButtonClassName =
+    "app-dock-button inline-flex items-center justify-center border border-line-strong bg-surface-3 text-text transition hover:bg-surface-6";
+  const dexDockDesktopActionClassName = `${dexDockButtonClassName} h-9 gap-2 px-3 text-sm`;
+  const dexDockMobileActionClassName = `${dexDockButtonClassName} h-11 w-11`;
+
   return (
     <main className="relative overflow-visible px-4 pb-5 pt-2 sm:px-6 sm:pt-3 lg:px-8">
       {detail.previousSpecies ? (
@@ -66,13 +71,41 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
         </Link>
       ) : null}
       <section className="relative mx-auto max-w-6xl">
-        <div className="pointer-events-none absolute right-0 top-0 z-20 flex justify-end gap-2">
+        <div className="mb-4 hidden items-center justify-between gap-3 lg:flex">
+          <Link
+            href={detail.closeHref}
+            prefetch
+            scroll={false}
+            transitionTypes={backTransition}
+            className="app-icon-button app-floating-icon-button inline-flex items-center justify-center gap-2 px-3 py-2 text-sm hover:border-warning-line hover:bg-surface-3"
+            onPointerDown={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
+            onClick={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Volver a la dex
+          </Link>
+          <div className="inline-flex items-center gap-1">
+            <Link
+              href={captureHref}
+              prefetch
+              transitionTypes={toolForwardTransition}
+              aria-label={`Preparar captura de ${detail.pokemon.name} en IV Calc`}
+              className={`${dexDockDesktopActionClassName} primary-badge-strong`}
+              onPointerDown={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
+              onClick={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
+            >
+              <PokeballMark className="h-4 w-4 shadow-none" centerClassName="h-1.5 w-1.5" />
+              {isCaptured ? "Revisar captura" : "Atrapar"}
+            </Link>
+          </div>
+        </div>
+        <div className="mobile-roster-action-dock mobile-roster-action-dock-editor-open left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 md:hidden">
           <Link
             href={captureHref}
             prefetch
             transitionTypes={toolForwardTransition}
             aria-label={`Preparar captura de ${detail.pokemon.name} en IV Calc`}
-            className="app-icon-button inline-flex items-center justify-center pointer-events-auto h-11 w-11 rounded-full border-primary-line bg-primary-fill text-primary-soft hover:border-primary-line-active hover:bg-primary-fill-hover active:scale-95"
+            className={`${dexDockMobileActionClassName} primary-badge-strong`}
             onPointerDown={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
             onClick={() => prepareRoute(captureHref, "dex-detail-to-ivcalc")}
           >
@@ -83,12 +116,12 @@ export function DexPokemonDetailScreen({ detail }: { detail: DexDetailPageData }
             prefetch
             scroll={false}
             transitionTypes={backTransition}
-            aria-label="Cerrar ficha"
-            className="app-icon-button app-floating-icon-button inline-flex items-center justify-center pointer-events-auto h-11 w-11 hover:border-warning-line hover:bg-surface-3 active:scale-95"
+            aria-label="Volver a la dex"
+            className={dexDockMobileActionClassName}
             onPointerDown={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
             onClick={() => prepareRoute(detail.closeHref, "dex-detail-to-list")}
           >
-            <X className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4" />
           </Link>
         </div>
         <PokemonDexCard

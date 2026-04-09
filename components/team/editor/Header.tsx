@@ -100,7 +100,7 @@ function LevelControls({
           className={clsx(
             "h-8 w-8",
             hasEvolution
-              ? "border-primary-line-strong bg-primary-fill-strong text-primary-soft hover:bg-primary-fill-hover"
+              ? "primary-badge-strong hover:bg-primary-fill-hover"
               : "opacity-45",
           )}
         >
@@ -192,7 +192,7 @@ export function Header({
               transitionTypes={dexForwardTransition}
               aria-label="Abrir ficha en la dex"
               title="Abrir ficha en la dex"
-              className="inline-flex rounded-[0.9rem] transition-transform hover:scale-[1.02] active:scale-[0.99]"
+              className="radius-control-lg inline-flex transition-transform hover:scale-[1.02] active:scale-[0.99]"
               onPointerDown={() => markNavigationStart("editor-to-dex-detail", dexDetailHref)}
               onClick={() => markNavigationStart("editor-to-dex-detail", dexDetailHref)}
             >
@@ -215,7 +215,7 @@ export function Header({
               className={clsx(
                 "inline-flex h-9 w-9 items-center justify-center rounded-full border transition",
                 currentShiny
-                  ? "border-warning-line bg-[rgba(255,215,102,0.14)] text-warning-strong"
+                  ? "warning-badge-soft"
                   : "border-line bg-surface-4 text-muted hover:bg-surface-6",
               )}
             >

@@ -24,7 +24,7 @@ import type { ItemCatalogEntry, SpeciesCatalogEntry } from "./types";
 
 const compareMemberPanelShellClassName = "rounded-xl px-0.5 py-0.5 sm:px-1 sm:py-1";
 const compareMemberTypeBadgeClassName =
-  "w-full min-w-0 px-1! py-0.5! text-[9px]! tracking-[0.04em]! sm:w-auto sm:px-2! sm:py-1! sm:text-[11px]!";
+  "type-badge-compare w-full min-w-0 px-1! py-0.5! sm:w-auto sm:px-2! sm:py-1!";
 const compareMemberSpriteMobileScaleClassName = "scale-[0.82]";
 const compareMemberRadarShellClassName = "mt-3 hidden rounded-xl px-1 py-1 sm:block";
 

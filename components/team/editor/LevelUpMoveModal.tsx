@@ -105,8 +105,8 @@ export function LevelUpMoveModal({
 
         {!replacementStage ? (
           <div className="relative mt-6 space-y-5">
-            <div className="rounded-[0.9rem] border border-line bg-surface-2 p-4">
-              <p className="display-face text-xs uppercase tracking-[0.16em] text-muted">
+            <div className="radius-control-lg border border-line bg-surface-2 p-4">
+              <p className="display-face text-xs uppercase tracking-display-strong text-muted">
                 Quiere aprender
               </p>
               <div className="mt-3 flex items-center gap-3">
@@ -202,7 +202,7 @@ export function LevelUpMoveModal({
                         title={`Olvidar ${moveName}`}
                       />
                     ) : (
-                      <span className="flex h-10.5 items-center rounded-[0.625rem] border border-line bg-surface-2 px-3 text-sm text-text">
+                      <span className="flex h-10.5 items-center radius-control-md border border-line bg-surface-2 px-3 text-sm text-text">
                         {moveName}
                       </span>
                     )}

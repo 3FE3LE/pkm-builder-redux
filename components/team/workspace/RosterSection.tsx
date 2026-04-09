@@ -147,12 +147,15 @@ export function RosterSection({
   }
 
   return (
-    <section className="space-y-2">
+    <section className="space-y-3">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="display-face text-sm text-accent">
               {compositionName?.trim() || "Roster del equipo"}
+            </p>
+            <p className="mt-1 text-sm text-muted">
+              Selecciona un slot para editarlo, compararlo o revisar recomendaciones rápidas.
             </p>
           </div>
         </div>

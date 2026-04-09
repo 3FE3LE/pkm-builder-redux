@@ -48,12 +48,12 @@ export function AppLoadingScreen({
                 width={84}
                 height={84}
                 loading="eager"
-                className="h-19 w-19 object-contain pixelated drop-shadow-[0_14px_28px_rgba(0,0,0,0.28)]"
+                className="sprite-drop-shadow h-19 w-19 object-contain pixelated"
               />
             </motion.div>
           </div>
           <div className="space-y-2">
-            <p className="display-face text-sm text-[hsl(39_100%_78%)]">
+            <p className="display-face text-sm text-warning-foreground">
               {label}
             </p>
             <p className="max-w-md text-sm text-muted">{detail}</p>

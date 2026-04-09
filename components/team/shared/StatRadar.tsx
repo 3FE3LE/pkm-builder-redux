@@ -21,6 +21,19 @@ const RADAR_MIN_VISIBLE_RATIO = 0.08;
 const RADAR_SCALE_PIVOT = 110;
 const statRadarLabelClassName = "micro-label font-medium";
 const statRadarLegendClassName = "mt-3 flex flex-wrap items-center justify-center gap-3 micro-copy text-muted";
+const statRadarGridStroke = "rgba(255,255,255,0.08)";
+const statRadarBaseFill = "rgba(255,255,255,0.045)";
+const statRadarBaseStroke = "rgba(255,255,255,0.28)";
+const statRadarIvLayerFill = "rgba(99,144,240,0.18)";
+const statRadarEvLayerFill = "rgba(185,255,102,0.16)";
+const statRadarIvStroke = "rgba(99,144,240,0.82)";
+const statRadarEvStroke = "rgba(185,255,102,0.92)";
+const statRadarBasePointFill = "rgba(255,255,255,0.55)";
+const statRadarIvPointFill = "rgba(99,144,240,0.95)";
+const statRadarEvPointFill = "rgba(185,255,102,1)";
+const statRadarBaseLegendDotClassName = "bg-white/65";
+const statRadarIvLegendDotClassName = "bg-info";
+const statRadarEvLegendDotClassName = "bg-primary";
 
 export function buildSummaryStats(
   baseStats: NonNullable<ResolvedTeamMember["resolvedStats"]>,
@@ -172,7 +185,7 @@ export function EffectiveStatsRadar({
               key={`radar-level-${levelValue}`}
               points={ring}
               fill="none"
-              stroke="rgba(255,255,255,0.08)"
+              stroke={statRadarGridStroke}
               strokeWidth="1"
             />
           );
@@ -184,36 +197,36 @@ export function EffectiveStatsRadar({
             y1={center}
             x2={point.axisX}
             y2={point.axisY}
-            stroke="rgba(255,255,255,0.08)"
+            stroke={statRadarGridStroke}
             strokeWidth="1"
           />
         ))}
         <polygon
           points={basePolygon}
-          fill="rgba(255,255,255,0.045)"
-          stroke="rgba(255,255,255,0.28)"
+          fill={statRadarBaseFill}
+          stroke={statRadarBaseStroke}
           strokeWidth="1.25"
         />
         <path
           d={ivLayerPath}
-          fill="rgba(99,144,240,0.18)"
+          fill={statRadarIvLayerFill}
           fillRule="evenodd"
         />
         <path
           d={evLayerPath}
-          fill="rgba(185,255,102,0.16)"
+          fill={statRadarEvLayerFill}
           fillRule="evenodd"
         />
         <polygon
           points={ivPolygon}
           fill="none"
-          stroke="rgba(99,144,240,0.82)"
+          stroke={statRadarIvStroke}
           strokeWidth="1.5"
         />
         <polygon
           points={polygon}
           fill="none"
-          stroke="rgba(185,255,102,0.92)"
+          stroke={statRadarEvStroke}
           strokeWidth="2"
         />
         {basePoints.map((point) => (
@@ -222,7 +235,7 @@ export function EffectiveStatsRadar({
             cx={point.x}
             cy={point.y}
             r="2.2"
-            fill="rgba(255,255,255,0.55)"
+            fill={statRadarBasePointFill}
           />
         ))}
         {ivPoints.map((point) => (
@@ -231,7 +244,7 @@ export function EffectiveStatsRadar({
             cx={point.x}
             cy={point.y}
             r="2.7"
-            fill="rgba(99,144,240,0.95)"
+            fill={statRadarIvPointFill}
           />
         ))}
         {points.map((point) => (
@@ -240,7 +253,7 @@ export function EffectiveStatsRadar({
             cx={point.x}
             cy={point.y}
             r="3.5"
-            fill="rgba(185,255,102,1)"
+            fill={statRadarEvPointFill}
           />
         ))}
         {points.map((point) => (
@@ -287,15 +300,15 @@ export function EffectiveStatsRadar({
       </svg>
       <div className={statRadarLegendClassName}>
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-[rgba(255,255,255,0.65)]" />
+          <span className={clsx("h-2 w-2 rounded-full", statRadarBaseLegendDotClassName)} />
           base
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-[rgba(99,144,240,0.9)]" />
+          <span className={clsx("h-2 w-2 rounded-full", statRadarIvLegendDotClassName)} />
           + IV
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-[rgba(185,255,102,0.9)]" />
+          <span className={clsx("h-2 w-2 rounded-full", statRadarEvLegendDotClassName)} />
           + EV
         </span>
       </div>

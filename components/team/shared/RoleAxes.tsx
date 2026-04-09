@@ -34,6 +34,13 @@ const ROLE_AXIS_ORDER: RoleId[] = [
   "support",
   "defensiveGlue",
 ];
+const roleAxesRingStroke = "rgba(143,204,193,0.16)";
+const roleAxesAxisStroke = "rgba(143,204,193,0.18)";
+const roleAxesPolygonFill = "rgba(94,240,203,0.18)";
+const roleAxesPolygonStroke = "rgba(94,240,203,0.78)";
+const roleAxesPointFill = "rgba(185,255,102,0.95)";
+const roleAxesIconButtonClassName =
+  "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-line-soft bg-[rgba(7,20,24,0.9)] text-[rgba(220,247,242,0.82)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)]";
 
 export function RoleAxesCard({
   role,
@@ -70,7 +77,7 @@ export function RoleAxesCard({
             key={`ring-${ring}`}
             points={buildRing(ring, center, radius)}
             fill="none"
-            stroke="rgba(143,204,193,0.16)"
+            stroke={roleAxesRingStroke}
             strokeWidth="1"
           />
         ))}
@@ -81,14 +88,14 @@ export function RoleAxesCard({
             y1={center}
             x2={point.x}
             y2={point.y}
-            stroke="rgba(143,204,193,0.18)"
+            stroke={roleAxesAxisStroke}
             strokeWidth="1"
           />
         ))}
         <polygon
           points={polygon}
-          fill="rgba(94,240,203,0.18)"
-          stroke="rgba(94,240,203,0.78)"
+          fill={roleAxesPolygonFill}
+          stroke={roleAxesPolygonStroke}
           strokeWidth="2"
         />
         {ROLE_AXIS_ORDER.map((axis, index) => {
@@ -105,7 +112,7 @@ export function RoleAxesCard({
               cx={point.x}
               cy={point.y}
               r={compact ? 2.5 : 3.5}
-              fill="rgba(185,255,102,0.95)"
+              fill={roleAxesPointFill}
             />
           );
         })}
@@ -123,7 +130,7 @@ export function RoleAxesCard({
             <TooltipTrigger
               type="button"
               className={clsx(
-                "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-line-soft bg-[rgba(7,20,24,0.9)] text-[rgba(220,247,242,0.82)] shadow-[0_0_0_1px_rgba(255,255,255,0.03)]",
+                roleAxesIconButtonClassName,
                 compact ? "p-1" : "p-1.5",
               )}
               style={{ left: point.x, top: point.y }}

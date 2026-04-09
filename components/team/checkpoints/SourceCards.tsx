@@ -17,8 +17,8 @@ const sourceInlineSectionTitleClassName = "display-face micro-copy text-accent";
 const sourceInlineEntryClassName = "inline-flex max-w-full items-center gap-2 px-0 py-0 text-xs text-muted";
 const sourceInlineEntryHighlightClassName = "text-primary-soft";
 const sourceItemTooltipClassName =
-  "status-popover tooltip-card pointer-events-none absolute left-1/2 top-[calc(100%+0.45rem)] z-20 hidden w-64 -translate-x-1/2 group-hover:block";
-const sourceSpriteFallbackClassName = "text-[9px] text-muted";
+  "status-popover tooltip-card tooltip-offset-below-tight pointer-events-none absolute left-1/2 z-20 hidden w-64 -translate-x-1/2 group-hover:block";
+const sourceSpriteFallbackClassName = "micro-text-8 text-muted";
 
 type DecisionDelta = ReturnType<typeof import("@/lib/domain/decisionDelta").buildDecisionDeltas>[number];
 

@@ -25,7 +25,7 @@ export function Switch({
       className={cn(
         "relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border transition-colors outline-none",
         checked
-          ? "border-primary-line-emphasis bg-primary-fill-strong"
+          ? "primary-badge-strong border-primary-line-emphasis"
           : "border-line bg-surface-4",
         className,
       )}

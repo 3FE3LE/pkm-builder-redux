@@ -31,7 +31,10 @@ const preferenceManualChipClassName =
 const preferenceWeatherButtonClassName =
   "inline-flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition";
 const preferenceWeatherLabelClassName = "display-face micro-copy text-inherit";
-const preferenceSwitchRowClassName = "flex items-start justify-between gap-4 rounded-lg px-1 py-2";
+const preferenceSectionClassName = "panel panel-frame px-4 py-4 sm:px-5";
+const preferenceSectionTitleClassName = "display-face text-sm text-accent";
+const preferenceSectionDescriptionClassName = "mt-2 text-sm text-muted";
+const preferenceSwitchRowClassName = "app-soft-panel flex items-start justify-between gap-4 rounded-xl px-3 py-3";
 const preferenceSwitchLabelClassName = "display-face micro-copy text-text";
 
 export function PreferencesSection({
@@ -59,10 +62,10 @@ export function PreferencesSection({
   const currentAppliedTheme = resolveAppliedTheme(theme);
 
   return (
-    <section className="space-y-2">
-      <div className="space-y-5 px-1 py-1">
+    <section className="space-y-4">
+      <div className={preferenceSectionClassName}>
         <div>
-          <p className="display-face text-sm text-accent">Tema de la interfaz</p>
+          <p className={preferenceSectionTitleClassName}>Tema de la interfaz</p>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <SegmentedControl className="w-fit">
               {THEME_OPTIONS.map((option) => {
@@ -90,7 +93,7 @@ export function PreferencesSection({
               className={clsx(
                 preferenceManualChipClassName,
                 autoThemeActive
-                  ? "border-primary-line bg-primary-fill text-primary-soft"
+                  ? "primary-badge"
                   : "border-line-soft bg-surface-3 text-text-faint",
               )}
             >
@@ -99,15 +102,17 @@ export function PreferencesSection({
                 : "Manual"}
             </span>
           </div>
-          <p className="mt-2 text-sm text-muted">
+          <p className={preferenceSectionDescriptionClassName}>
             {autoThemeActive
               ? "Autodetect usa la hora local del navegador para alternar entre claro y oscuro."
               : "Elige un tema fijo o deja que la app siga la hora local."}
           </p>
         </div>
+      </div>
 
+      <div className={preferenceSectionClassName}>
         <div>
-          <p className="display-face text-sm text-accent">Clima de combate</p>
+          <p className={preferenceSectionTitleClassName}>Clima de combate</p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {BATTLE_WEATHER_OPTIONS.map((option) => {
               const Icon = option.icon;
@@ -122,7 +127,7 @@ export function PreferencesSection({
                   className={clsx(
                     preferenceWeatherButtonClassName,
                     active
-                      ? "border-primary-line bg-primary-fill text-text"
+                      ? "primary-badge text-text"
                       : "border-line-soft bg-surface-2 text-muted hover:border-line hover:bg-surface-3 hover:text-text",
                   )}
                 >
@@ -132,13 +137,15 @@ export function PreferencesSection({
               );
             })}
           </div>
-          <p className="mt-2 text-sm text-muted">
+          <p className={preferenceSectionDescriptionClassName}>
             Ajusta el contexto de clima para recomendaciones y comparativas.
           </p>
         </div>
+      </div>
 
+      <div className={preferenceSectionClassName}>
         <div>
-          <p className="display-face text-sm text-accent">Filtros de recomendaciones</p>
+          <p className={preferenceSectionTitleClassName}>Filtros de recomendaciones</p>
           <div className="mt-3 space-y-2">
             {RECOMMENDATION_FILTER_OPTIONS.map((option) => (
               <PreferenceSwitchRow
@@ -151,9 +158,11 @@ export function PreferencesSection({
             ))}
           </div>
         </div>
+      </div>
 
+      <div className={preferenceSectionClassName}>
         <div>
-          <p className="display-face text-sm text-accent">Reglas de evolucion</p>
+          <p className={preferenceSectionTitleClassName}>Reglas de evolucion</p>
           <div className="mt-3 space-y-2">
             {EVOLUTION_CONSTRAINT_OPTIONS.map((option) => (
               <PreferenceSwitchRow
@@ -166,9 +175,11 @@ export function PreferencesSection({
             ))}
           </div>
         </div>
+      </div>
 
-        <div className="pt-1">
-          <p className="display-face text-sm text-accent">Datos persistidos</p>
+      <div className={preferenceSectionClassName}>
+        <div>
+          <p className={preferenceSectionTitleClassName}>Datos persistidos</p>
           <button
             type="button"
             onClick={onResetRun}

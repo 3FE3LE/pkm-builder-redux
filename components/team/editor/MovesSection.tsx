@@ -148,7 +148,7 @@ export function MovesSection({
                   onSelectMoveIndex(null);
                   onOpenMoveModal(null);
                 }}
-                className="flex h-10.5 touch-manipulation items-center rounded-[0.625rem] border border-dashed border-line-soft bg-surface-1 px-3 text-sm text-muted transition hover:border-primary-line-emphasis hover:bg-primary-fill"
+                className="flex h-10.5 touch-manipulation items-center radius-control-md border border-dashed border-line-soft bg-surface-1 px-3 text-sm text-muted transition hover:border-primary-line-emphasis hover:bg-primary-fill"
               >
                 empty move slot
               </button>
@@ -161,7 +161,7 @@ export function MovesSection({
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="pixel-face min-w-0 text-xs leading-none tracking-[0.12em] font-normal sm:text-[13px] md:text-sm lg:text-base">
+                <p className="pixel-face min-w-0 text-xs leading-none tracking-ui-wide font-normal sm:text-xs md:text-sm lg:text-base">
                   {selectedMove.name}
                 </p>
                 {selectedMove.type ? <TypeBadge type={selectedMove.type} /> : null}

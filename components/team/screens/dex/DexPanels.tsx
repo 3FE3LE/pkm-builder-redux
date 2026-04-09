@@ -13,6 +13,8 @@ import {
   DexFilterToggle,
   DexIncrementalGrid,
   SegmentedOwnerCollapsible,
+  dexFilterLabelClassName,
+  dexInfoListCardClassName,
   dexPanelCardClassName,
   dexStatChipClassName,
 } from "@/components/team/screens/dex/DexShared";
@@ -52,17 +54,17 @@ export function DexPokemonPanel({ model }: { model: any }) {
             <CollapsibleContent className="pt-2">
               <div className="grid gap-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[11px] text-text-faint">Dex:</span>
+                  <span className={dexFilterLabelClassName}>Dex:</span>
                   <DexModeSegmentedControl value={model.resolvedPokemonMode} onChange={model.setPokemonMode} />
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="text-[11px] text-text-faint">Cambios:</span>
+                  <span className={dexFilterLabelClassName}>Cambios:</span>
                   <DexFilterToggle active={model.typeChangesOnly === "1"} onClick={() => model.setTypeChangesOnly(model.typeChangesOnly === "1" ? "0" : "1")} tone="warning" compact>Tipos</DexFilterToggle>
                   <DexFilterToggle active={model.statChangesOnly === "1"} onClick={() => model.setStatChangesOnly(model.statChangesOnly === "1" ? "0" : "1")} tone="info" compact>Stats</DexFilterToggle>
                   <DexFilterToggle active={model.abilityChangesOnly === "1"} onClick={() => model.setAbilityChangesOnly(model.abilityChangesOnly === "1" ? "0" : "1")} tone="accent" compact>Habs</DexFilterToggle>
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="text-[11px] text-text-faint">Sinergia:</span>
+                  <span className={dexFilterLabelClassName}>Sinergia:</span>
                   <DexFilterToggle active={model.addsNewTeamTypeOnly === "1"} onClick={() => model.setAddsNewTeamTypeOnly(model.addsNewTeamTypeOnly === "1" ? "0" : "1")} tone="primary" compact>+Tipo</DexFilterToggle>
                   <DexFilterToggle active={model.allTypesNewToTeamOnly === "1"} onClick={() => model.setAllTypesNewToTeamOnly(model.allTypesNewToTeamOnly === "1" ? "0" : "1")} tone="accent" compact>Nuevo</DexFilterToggle>
                 </div>
@@ -72,29 +74,29 @@ export function DexPokemonPanel({ model }: { model: any }) {
         </div>
         <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-text-faint">Dex:</span>
+            <span className={dexFilterLabelClassName}>Dex:</span>
             <DexModeSegmentedControl value={model.resolvedPokemonMode} onChange={model.setPokemonMode} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-text-faint">Tipo 1:</span>
+            <span className={dexFilterLabelClassName}>Tipo 1:</span>
             <div className="w-36">
               <FilterCombobox value={model.primaryTypeFilter} options={["", ...TYPE_ORDER]} placeholder="Cualquiera" searchable={false} coordinationGroup="dex-type-filters" onChange={model.setPrimaryTypeFilter} renderOption={(option) => option ? <TypeBadge type={option} /> : <span className="text-sm text-text-faint">Cualquiera</span>} />
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-text-faint">Tipo 2:</span>
+            <span className={dexFilterLabelClassName}>Tipo 2:</span>
             <div className="w-36">
               <FilterCombobox value={model.secondaryTypeFilter} options={["", ...TYPE_ORDER]} placeholder="Cualquiera" searchable={false} coordinationGroup="dex-type-filters" onChange={model.setSecondaryTypeFilter} renderOption={(option) => option ? <TypeBadge type={option} /> : <span className="text-sm text-text-faint">Cualquiera</span>} />
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-text-faint">Cambios:</span>
+            <span className={dexFilterLabelClassName}>Cambios:</span>
             <DexFilterToggle active={model.typeChangesOnly === "1"} onClick={() => model.setTypeChangesOnly(model.typeChangesOnly === "1" ? "0" : "1")} tone="warning" compact>Tipos</DexFilterToggle>
             <DexFilterToggle active={model.statChangesOnly === "1"} onClick={() => model.setStatChangesOnly(model.statChangesOnly === "1" ? "0" : "1")} tone="info" compact>Stats</DexFilterToggle>
             <DexFilterToggle active={model.abilityChangesOnly === "1"} onClick={() => model.setAbilityChangesOnly(model.abilityChangesOnly === "1" ? "0" : "1")} tone="accent" compact>Habs</DexFilterToggle>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-text-faint">Sinergia:</span>
+            <span className={dexFilterLabelClassName}>Sinergia:</span>
             <DexFilterToggle active={model.addsNewTeamTypeOnly === "1"} onClick={() => model.setAddsNewTeamTypeOnly(model.addsNewTeamTypeOnly === "1" ? "0" : "1")} tone="primary" compact>+Tipo</DexFilterToggle>
             <DexFilterToggle active={model.allTypesNewToTeamOnly === "1"} onClick={() => model.setAllTypesNewToTeamOnly(model.allTypesNewToTeamOnly === "1" ? "0" : "1")} tone="accent" compact>Nuevo</DexFilterToggle>
           </div>
@@ -136,7 +138,7 @@ function DexModeSegmentedControl({
   onChange: (mode: (typeof DEX_POKEMON_MODES)[number]) => void;
 }) {
   return (
-    <div className="app-control-surface grid w-full max-w-72 grid-cols-6 rounded-[0.9rem] p-1 sm:w-auto">
+    <div className="app-control-surface radius-control-lg grid w-full max-w-72 grid-cols-6 p-1 sm:w-auto">
       {DEX_POKEMON_MODES.map((mode) => {
         const active = value === mode;
         return (
@@ -146,9 +148,9 @@ function DexModeSegmentedControl({
             title={DEX_MODE_LABELS[mode]}
             onClick={() => onChange(mode)}
             className={clsx(
-              "pixel-face inline-flex min-w-0 items-center justify-center rounded-4xl px-1.5 py-1.5 text-[11px] transition sm:text-xs",
+              "pixel-face text-xs inline-flex min-w-0 items-center justify-center rounded-4xl px-1.5 py-1.5 transition",
               active
-                ? "bg-warning-fill text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                ? "warning-badge soft-inset-shadow"
                 : "text-muted hover:bg-surface-2 hover:text-text",
             )}
           >
@@ -237,7 +239,7 @@ export function DexSecondaryPanels({ model }: { model: any }) {
             <div className="min-w-0">
               <p className="micro-label text-text-faint">Objeto</p>
               <h2 className="mt-1 display-face text-sm text-text">{item.name}</h2>
-              {item.category ? <p className="mt-1 text-xs uppercase tracking-[0.14em] text-text-faint">{item.category}</p> : null}
+              {item.category ? <p className="mt-1 text-xs uppercase tracking-display-wide text-text-faint">{item.category}</p> : null}
             </div>
           </div>
           <InfoBlock label="Efecto">
@@ -248,14 +250,14 @@ export function DexSecondaryPanels({ model }: { model: any }) {
               <div className="flex flex-col gap-3">
                 {locations.length ? (
                   <div className="flex flex-col gap-2">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-text-faint">Mapa</p>
-                    {locations.slice(0, 6).map((location: any) => <div key={`${item.name}-${location.area}-${location.detail}`} className="app-soft-panel rounded-[0.8rem] px-3 py-2"><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
+                    <p className={dexFilterLabelClassName}>Mapa</p>
+                    {locations.slice(0, 6).map((location: any) => <div key={`${item.name}-${location.area}-${location.detail}`} className={dexInfoListCardClassName}><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
                   </div>
                 ) : null}
                 {shopLocations.length ? (
                   <div className="flex flex-col gap-2">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-text-faint">Tiendas</p>
-                    {shopLocations.slice(0, 6).map((location: any) => <div key={`${item.name}-shop-${location.area}-${location.detail}`} className="app-soft-panel rounded-[0.8rem] px-3 py-2"><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
+                    <p className={dexFilterLabelClassName}>Tiendas</p>
+                    {shopLocations.slice(0, 6).map((location: any) => <div key={`${item.name}-shop-${location.area}-${location.detail}`} className={dexInfoListCardClassName}><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
                   </div>
                 ) : null}
               </div>
@@ -285,7 +287,7 @@ export function DexResultSummary({ model }: { model: any }) {
       {model.tab === "pokemon" && model.activePokemonFilterCount > 0 ? (
         <>
           <span className="text-line-strong">|</span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-line-faint bg-accent-fill-soft px-3 py-1 text-xs text-accent-soft">
+          <span className="accent-chip-soft inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs">
             <SlidersHorizontal className="h-3 w-3" />
             {model.activePokemonFilterCount} filtro{model.activePokemonFilterCount > 1 ? "s" : ""} activo{model.activePokemonFilterCount > 1 ? "s" : ""}
           </span>

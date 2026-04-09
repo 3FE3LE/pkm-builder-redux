@@ -48,7 +48,7 @@ export function DefenseSection({
   if (!resolvedTypes.length) {
     return (
       <div className="rounded-[0_1rem_1rem_1rem] p-0">
-        <div className="rounded-[0.9rem] px-1 py-1 text-sm text-muted">
+        <div className="radius-control-lg px-1 py-1 text-sm text-muted">
           Selecciona una especie válida para revisar debilidades y resistencias.
         </div>
       </div>
@@ -57,7 +57,7 @@ export function DefenseSection({
 
   return (
     <section className="rounded-[0_1rem_1rem_1rem] p-0">
-      <div className="space-y-3 rounded-[0.9rem] px-1 py-1">
+      <div className="space-y-3 radius-control-lg px-1 py-1">
         <article className="rounded-xl px-1 py-1">
           <p className="display-face text-xs text-danger">Debilidades</p>
           <div className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
@@ -122,11 +122,11 @@ export function DefenseSection({
           <p className="display-face text-xs text-accent">STAB</p>
           <div className="mt-2 space-y-3">
             {stabCoverage.map((stab) => (
-              <div key={`editor-stab-${stab.attackType}`} className="rounded-[0.7rem] border border-line bg-surface-3 px-3 py-3">
-                <p className="display-face text-[11px] text-text">{stab.attackType}</p>
+              <div key={`editor-stab-${stab.attackType}`} className="radius-panel-sm border border-line bg-surface-3 px-3 py-3">
+                <p className="display-face text-xs text-text">{stab.attackType}</p>
 
                 <div className="mt-2">
-                  <p className="display-face text-[10px] text-primary-soft">Efectivo</p>
+                  <p className="display-face caption-dense text-primary-soft">Efectivo</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5 sm:gap-2">
                     {stab.effective.length ? (
                       stab.effective.map((defenseType) => (
@@ -144,7 +144,7 @@ export function DefenseSection({
                 </div>
 
                 <div className="mt-3">
-                  <p className="display-face text-[10px] text-warning-strong">Poco efectivo</p>
+                  <p className="display-face caption-dense text-warning-strong">Poco efectivo</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5 sm:gap-2">
                     {stab.resisted.length ? (
                       stab.resisted.map((defenseType) => (
@@ -162,7 +162,7 @@ export function DefenseSection({
                 </div>
 
                 <div className="mt-3">
-                  <p className="display-face text-[10px] text-info-soft">Daño nulo</p>
+                  <p className="display-face caption-dense text-info-soft">Daño nulo</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5 sm:gap-2">
                     {stab.noDamage.length ? (
                       stab.noDamage.map((defenseType) => (

@@ -408,7 +408,7 @@ export function EditorPage({
               size="icon-sm"
               onClick={() => setResetOpen(true)}
               aria-label="Resetear slot seleccionado"
-              className="size-9 rounded-[0.9rem] border border-danger-line-soft bg-surface-4 text-danger hover:bg-danger-fill"
+              className="size-9 radius-control-lg border border-danger-line-soft bg-surface-4 text-danger hover:bg-danger-fill"
             >
               <RotateCcw className="h-4 w-4" />
             </Button>
@@ -418,7 +418,7 @@ export function EditorPage({
               size="icon-sm"
               onClick={onAssignToCompare}
               aria-label="Comparar slot seleccionado"
-              className="size-9 rounded-[0.9rem] border border-line bg-surface-4 text-muted hover:bg-surface-8"
+              className="size-9 radius-control-lg border border-line bg-surface-4 text-muted hover:bg-surface-8"
             >
               <GitCompareArrows className="h-4 w-4" />
             </Button>
@@ -462,7 +462,7 @@ export function EditorPage({
               <Tabs
                 value={editorTab}
                 onValueChange={(value) => setEditorTab(value as "stats" | "moves" | "typing")}
-                className="gap-0"
+                className="screen-tab-stack"
               >
                 <TabsList className="tab-strip scrollbar-thin">
                   <TabsTrigger value="stats" className="tab-trigger-soft">Stats</TabsTrigger>

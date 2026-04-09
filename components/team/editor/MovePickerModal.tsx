@@ -73,9 +73,9 @@ export function MovePickerModal({
   const replaceMoveName = slotIndex !== null ? currentMoves[slotIndex] ?? null : null;
   const content = (
     <section className="space-y-2">
-      <div className={clsx("flex flex-wrap items-center justify-between gap-3", !isMobile && "border-t border-[rgba(255,255,255,0.08)] pt-3")}>
+      <div className={clsx("flex flex-wrap items-center justify-between gap-3", !isMobile && "border-t border-line-soft pt-3")}>
         <div className="min-w-0">
-          <p className="display-face text-[11px] text-accent">
+          <p className="micro-label text-accent">
             {isReplaceMode ? `replace ${replaceMoveName ?? "move"}` : "add move"}
           </p>
         </div>
@@ -84,9 +84,9 @@ export function MovePickerModal({
             type="button"
             onClick={() => onTabChange("levelUp")}
             className={clsx(
-              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-widest",
+              "touch-manipulation radius-control-sm border px-2 py-0.5 caption-dense uppercase tracking-widest",
               tab === "levelUp"
-                ? "border-[rgba(94,240,203,0.5)] bg-[rgba(94,240,203,0.12)] text-accent"
+                ? "accent-badge-soft"
                 : "border-line text-muted",
             )}
           >
@@ -96,9 +96,9 @@ export function MovePickerModal({
             type="button"
             onClick={() => onTabChange("machines")}
             className={clsx(
-              "touch-manipulation rounded-[0.5rem] border px-2 py-0.5 text-[10px] uppercase tracking-widest",
+              "touch-manipulation radius-control-sm border px-2 py-0.5 caption-dense uppercase tracking-widest",
               tab === "machines"
-                ? "border-[rgba(94,240,203,0.5)] bg-[rgba(94,240,203,0.12)] text-accent"
+                ? "accent-badge-soft"
                 : "border-line text-muted",
             )}
           >
@@ -107,7 +107,7 @@ export function MovePickerModal({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-7 w-7 touch-manipulation items-center justify-center rounded-2xl border border-line text-muted transition hover:bg-surface-4"
+            className="app-icon-button inline-flex h-7 w-7 touch-manipulation items-center justify-center rounded-2xl text-muted"
             aria-label="Close move picker"
           >
             <X className="h-3.5 w-3.5" />
@@ -172,7 +172,7 @@ export function MovePickerModal({
                 aria-pressed={isCurrentSlotMove}
                 title={item.details?.description ?? item.move}
                 className={clsx(
-                  "flex w-full touch-manipulation items-center gap-2 rounded-[0.5rem] border px-2 py-1.5 text-left transition",
+                  "flex w-full touch-manipulation items-center gap-2 radius-control-sm border px-2 py-1.5 text-left transition",
                   getMoveSurfaceClass(weatherAdjustedMove.type, hasStab),
                   hasStab && "move-stab-surface",
                   !canClickAction && "opacity-55",
@@ -181,10 +181,10 @@ export function MovePickerModal({
               >
                 <span className="min-w-0 flex-1">
                   <span className="flex min-w-0 items-center gap-1.5">
-                    <span className="display-face shrink-0 text-[9px] text-current/80">
+                    <span className="display-face shrink-0 micro-text-8 text-current/80">
                       {item.label}
                     </span>
-                    <span className="pixel-face min-w-0 truncate text-xs leading-none tracking-widest font-normal sm:text-[13px] md:text-sm lg:text-base">
+                    <span className="pixel-face min-w-0 truncate text-xs leading-none tracking-widest font-normal sm:text-xs md:text-sm lg:text-base">
                       {item.move}
                     </span>
                     <MoveCueIcons
@@ -199,7 +199,7 @@ export function MovePickerModal({
                   adjustedPower={adjustedPower}
                 />
                 {isCurrentMove ? (
-                  <span className="display-face shrink-0 text-[9px] uppercase tracking-widest text-primary-soft">
+                  <span className="display-face shrink-0 micro-text-8 uppercase tracking-widest text-primary-soft">
                     {isCurrentSlotMove ? "current" : "picked"}
                   </span>
                 ) : null}

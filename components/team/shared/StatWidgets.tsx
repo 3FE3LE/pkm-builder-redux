@@ -10,13 +10,21 @@ import { type MultiplierBucket } from "@/lib/domain/typeChart";
 
 const statWidgetDeltaLabelClassName = "micro-copy";
 const statWidgetLegendClassName = "mt-1 flex items-center gap-3 micro-label text-muted";
-const spreadInputLabelClassName = "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted";
-const spreadInputLabelResponsiveClassName = "lg:text-center lg:text-[9px]";
+const spreadInputLabelClassName = "display-face micro-text-8 block text-center leading-none tracking-ui-relaxed text-muted";
+const spreadInputLabelResponsiveClassName = "lg:text-center micro-text-8-lg";
 const spreadInputStepButtonClassName =
-  "flex h-6 w-full items-center justify-center border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6";
+  "flex h-6 w-full items-center justify-center border border-line bg-surface-2 px-0 text-xs leading-none text-muted transition hover:bg-surface-6";
 const spreadInputHorizontalStepButtonClassName =
   "flex h-8 w-7 shrink-0 items-center justify-center border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6";
 const spreadInputErrorClassName = "mt-2 block micro-copy text-danger";
+const statWidgetDeltaPositiveClassName = "text-accent-soft";
+const statWidgetDeltaNegativeClassName = "text-danger-soft";
+const statWidgetDeltaPositiveSurfaceClassName = "bg-accent-fill-hover";
+const statWidgetDeltaNegativeSurfaceClassName = "bg-danger-fill-hover";
+const statWidgetRegularMarkerClassName = "bg-info-line";
+const statWidgetGoodMarkerClassName = "bg-accent-line-strong";
+const statWidgetRegularLegendMarkerClassName = "bg-info";
+const statWidgetGoodLegendMarkerClassName = "bg-accent";
 
 export function CoverageBadge({
   label: _label,
@@ -80,7 +88,9 @@ export function StatBar({
             <span
               className={clsx(
                 statWidgetDeltaLabelClassName,
-                delta > 0 ? "text-[hsl(161_84%_67%)]" : "text-[hsl(9_90%_70%)]",
+                delta > 0
+                  ? statWidgetDeltaPositiveClassName
+                  : statWidgetDeltaNegativeClassName,
               )}
             >
               {delta > 0 ? `+${delta}` : delta}
@@ -106,8 +116,8 @@ export function StatBar({
             className={clsx(
               "absolute inset-y-0 rounded-md",
               (delta ?? 0) > 0
-                ? "bg-[rgba(94,240,203,0.38)]"
-                : "bg-[rgba(255,122,92,0.42)]",
+                ? statWidgetDeltaPositiveSurfaceClassName
+                : statWidgetDeltaNegativeSurfaceClassName,
             )}
             style={deltaSegment}
             aria-hidden="true"
@@ -126,12 +136,12 @@ export function StatBar({
           aria-hidden="true"
         />
         <span
-          className="absolute -inset-y-0.75 w-px bg-[rgba(111,184,255,0.55)]"
+          className={clsx("absolute -inset-y-0.75 w-px", statWidgetRegularMarkerClassName)}
           style={{ left: `${regularMarker}%` }}
           aria-hidden="true"
         />
         <span
-          className="absolute -inset-y-0.75 w-px bg-[rgba(94,240,203,0.6)]"
+          className={clsx("absolute -inset-y-0.75 w-px", statWidgetGoodMarkerClassName)}
           style={{ left: `${goodMarker}%` }}
           aria-hidden="true"
         />
@@ -153,11 +163,11 @@ export function StatBar({
           60 malo
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="h-2 w-px bg-[rgba(111,184,255,0.75)]" />
+          <span className={clsx("h-2 w-px", statWidgetRegularLegendMarkerClassName)} />
           80 regular
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="h-2 w-px bg-[rgba(94,240,203,0.8)]" />
+          <span className={clsx("h-2 w-px", statWidgetGoodLegendMarkerClassName)} />
           100 bueno
         </span>
       </div>
@@ -330,7 +340,7 @@ export function SpreadInput({
               onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
             }}
             className={clsx(
-              "h-8 min-w-0 w-full rounded-none border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
+              "input-joined h-8 min-w-0 w-full border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
               isResponsive && "lg:h-8 lg:w-13 lg:flex-none lg:border-y lg:border-x-0",
             )}
             aria-invalid={Boolean(error)}
@@ -376,7 +386,7 @@ export function SpreadInput({
               const parsedValue = parseInt(event.target.value, 10);
               onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
             }}
-            className="h-8 min-w-12 w-13 flex-1 rounded-none border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
+            className="input-joined h-8 min-w-12 w-13 flex-1 border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
             aria-invalid={Boolean(error)}
           />
           <button

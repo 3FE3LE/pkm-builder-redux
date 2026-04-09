@@ -18,13 +18,15 @@ import { INITIAL_RESULTS, RESULT_BATCH_SIZE } from "@/components/team/screens/de
 export const dexPanelCardClassName = "panel-strong panel-frame rounded-2xl p-4";
 export const dexCollapsedCaretClassName =
   "text-xs text-text-faint transition-transform data-panel-open:rotate-180";
-export const dexSectionCaptionClassName = "display-face text-[10px] text-text-faint";
+export const dexSectionCaptionClassName = "display-face caption-dense text-text-faint";
 export const dexOwnerChipClassName =
   "app-soft-panel inline-flex rounded-[0.6rem] p-1";
 export const dexLoadMoreChipClassName =
   "app-soft-chip px-3 py-1 text-xs";
 export const dexStatChipClassName =
   "app-soft-chip px-2.5 py-1 text-xs";
+export const dexFilterLabelClassName = "micro-label text-text-faint";
+export const dexInfoListCardClassName = "app-soft-panel radius-panel-md px-3 py-2";
 
 export function DexSectionHeader({
   count,
@@ -53,8 +55,8 @@ export function DexCollectionLoadingSkeleton() {
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-[88%]" />
-            <Skeleton className="h-10 w-full rounded-[0.9rem]" />
-            <Skeleton className="h-20 w-full rounded-[0.9rem]" />
+            <Skeleton className="h-10 w-full radius-control-lg" />
+            <Skeleton className="h-20 w-full radius-control-lg" />
           </div>
         </article>
       ))}
@@ -139,10 +141,10 @@ export function SegmentedOwnerCollapsible({
     <div className="mt-4 border-t border-line-soft pt-3">
       <p className="micro-label text-text-faint">{label}</p>
       {count ? (
-        <Collapsible className="app-soft-panel mt-2 rounded-[0.7rem] px-2 py-1.5">
+        <Collapsible className="app-soft-panel radius-panel-sm mt-2 px-2 py-1.5">
           <CollapsibleTrigger className="flex w-full items-center justify-between gap-2 text-left">
             <div>
-              <p className="display-face text-[11px] text-text">{closedLabel}</p>
+              <p className="display-face text-xs text-text">{closedLabel}</p>
               <p className="mt-1 text-xs text-muted">{count} Pokemon</p>
             </div>
             <span className={dexCollapsedCaretClassName}>⌄</span>
@@ -212,7 +214,7 @@ export function DexModeButton({
       className={clsx(
         "flex min-h-24 flex-col items-start justify-between rounded-2xl border px-3 py-3 text-left transition",
         active
-          ? "border-warning-line bg-[rgba(255,199,107,0.12)] text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+          ? "warning-badge soft-inset-shadow"
           : "app-soft-panel text-text-soft hover:border-line hover:text-text",
       )}
     >
@@ -246,10 +248,10 @@ export function DexFilterToggle({
       title={title}
       className={clsx(
         "inline-flex items-center rounded-full border text-xs transition",
-        compact ? "px-2 py-1 text-[11px] sm:px-2.5 sm:py-1.5 sm:text-xs" : "px-3 py-2",
+        compact ? "px-2 py-1 text-xs sm:px-2.5 sm:py-1.5" : "px-3 py-2",
         active
           ? {
-              warning: "border-warning-line bg-warning-fill text-[hsl(39_100%_82%)]",
+              warning: "warning-badge",
               accent: "border-accent-line bg-accent-fill text-accent-soft",
               info: "border-info-line bg-info-fill text-info-soft",
               primary: "border-primary-line bg-primary-fill text-primary-soft",

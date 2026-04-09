@@ -312,7 +312,7 @@ function MiniEncounterPokemon({
           className="h-full w-full scale-110 object-contain pixelated"
         />
       ) : (
-        <span className="text-[9px] text-muted">{species.slice(0, 3)}</span>
+        <span className="micro-text-8 text-muted">{species.slice(0, 3)}</span>
       )}
     </span>
   );

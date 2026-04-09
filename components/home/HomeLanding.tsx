@@ -56,7 +56,7 @@ export function HomeLanding() {
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_22rem]">
           <article className="relative overflow-hidden rounded-[1.4rem] px-5 py-6 sm:px-7 sm:py-8">
             <div className="top-accent-rule absolute inset-x-0 top-0 h-px" />
-            <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-accent">
+            <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.18em] text-accent">
               <span className="primary-badge pill-round px-3 py-1">
                 Redux v1.4.1
               </span>

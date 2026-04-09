@@ -154,7 +154,7 @@ export function SelectedPokemonPanel({
                   onClick={() => setShiny(!shiny)}
                   className={`action-tile inline-flex h-10 items-center gap-2 px-3 ${
                     shiny
-                      ? "border-warning-line bg-[rgba(255,215,102,0.14)] text-warning-strong"
+                      ? "warning-badge-soft"
                       : "text-muted"
                   }`}
                 >

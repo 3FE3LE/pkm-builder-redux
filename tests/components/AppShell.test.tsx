@@ -62,24 +62,24 @@ describe("App shell", () => {
     render(<AppNav />);
 
     expect(screen.getAllByRole("link", { name: "Home" }).length).toBe(2);
-    expect(screen.getByRole("link", { name: /Team/ }).className).toContain("border-primary-line-strong");
-    expect(screen.getByRole("link", { name: /Tools/ }).className).not.toContain("border-accent-line-strong");
-    expect(screen.getByRole("link", { name: /Dex/ }).className).not.toContain("border-warning-line");
-    expect(screen.getByRole("link", { name: "Settings" }).className).not.toContain("border-info-line");
+    expect(screen.getByRole("link", { name: /Team/ }).className).toContain("nav-action-active-primary");
+    expect(screen.getByRole("link", { name: /Tools/ }).className).not.toContain("nav-action-active-accent");
+    expect(screen.getByRole("link", { name: /Dex/ }).className).not.toContain("nav-action-active-warning");
+    expect(screen.getByRole("link", { name: "Settings" }).className).not.toContain("nav-action-active-info");
     expect(screen.getAllByAltText("Snivy").length).toBe(2);
   });
 
   it("marks tools and settings routes independently", () => {
     mockedUsePathname.mockReturnValue("/team/tools");
     const { rerender } = render(<AppNav />);
-    expect(screen.getByRole("link", { name: /Tools/ }).className).toContain("border-accent-line-strong");
+    expect(screen.getByRole("link", { name: /Tools/ }).className).toContain("nav-action-active-accent");
 
     mockedUsePathname.mockReturnValue("/team/settings");
     rerender(<AppNav />);
-    expect(screen.getByRole("link", { name: "Settings" }).className).toContain("border-info-line");
+    expect(screen.getByRole("link", { name: "Settings" }).className).toContain("nav-action-active-info");
 
     mockedUsePathname.mockReturnValue("/team/dex/pokemon/mareep");
     rerender(<AppNav />);
-    expect(screen.getByRole("link", { name: /Dex/ }).className).toContain("border-warning-line");
+    expect(screen.queryByRole("link", { name: /Dex/ })).toBeNull();
   });
 });

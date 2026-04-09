@@ -12,7 +12,7 @@ const dexInfoCardClassName = "app-soft-panel p-3";
 const dexInfoWarningPillClassName =
   "rounded-2xl border border-warning-line px-2 py-1 text-warning-strong";
 const dexInfoAcquisitionEntryClassName =
-  "app-soft-panel rounded-[0.7rem] px-2.5 py-1.5 text-xs leading-5 text-text";
+  "app-soft-panel radius-panel-sm px-2.5 py-1.5 text-xs leading-5 text-text";
 
 export function InfoBlock({
   label,
@@ -48,7 +48,7 @@ export function DexMoveEntryCard({
   compact?: boolean;
 }) {
   return (
-    <div className={clsx("rounded-[0.7rem]", compact ? "" : dexInfoCardClassName)}>
+    <div className={clsx("radius-panel-sm", compact ? "" : dexInfoCardClassName)}>
       {eyebrow ? <p className="mb-1 micro-label text-text-faint">{eyebrow}</p> : null}
       <MoveSlotSurface
         move={{

@@ -105,7 +105,7 @@ export function PokemonDexCard({
       id={!expanded ? anchorId : undefined}
       className={clsx(
         "relative overflow-hidden transition-[transform,border-color,background-color] duration-200",
-        expanded ? "p-4 sm:p-5" : "panel-strong panel-frame aspect-square rounded-2xl p-3",
+        expanded ? "panel panel-frame overflow-hidden p-4 sm:p-5" : "panel-strong panel-frame aspect-square rounded-2xl p-3",
         !expanded && "scroll-mt-24",
         href && "group hover:border-warning-line hover:bg-surface-2/90",
       )}
@@ -119,19 +119,19 @@ export function PokemonDexCard({
             expanded ? "left-3 top-3" : "left-2 top-2",
           )}
         >
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-warning-line bg-warning-fill shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <span className="inset-sheen-shadow inline-flex h-8 w-8 items-center justify-center rounded-full border border-warning-line bg-warning-fill">
             <Star className="h-4 w-4 fill-warning-strong text-warning-strong" />
           </span>
         </div>
       ) : null}
-      {captured ? (
+      {captured && !expanded ? (
         <div
           className={clsx(
             "pointer-events-none absolute z-10",
             expanded ? "right-3 top-3" : "right-2 top-2",
           )}
         >
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary-line bg-primary-fill shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <span className="inset-sheen-shadow inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary-line bg-primary-fill">
             <PokeballMark className="h-4 w-4 shadow-none" centerClassName="h-1.5 w-1.5" />
           </span>
         </div>
@@ -174,8 +174,8 @@ export function PokemonDexCard({
           </ViewTransition>
           <div className={clsx("min-w-0 flex-1", !expanded && "w-full text-center", expanded && "w-full lg:text-left")}>
             <div className={clsx("flex flex-wrap items-center gap-1.5", !expanded && "justify-center", expanded && "justify-center lg:justify-start")}>
-              <span className="pixel-face text-[10px] text-text-faint md:text-[11px]">#{String(pokemon.dex).padStart(3, "0")}</span>
-              <h2 className={clsx("display-face text-sm text-text md:text-[13px]", expanded && "text-base")}>{pokemon.name}</h2>
+              <span className="pixel-face caption-dense text-text-faint md:text-xs">#{String(pokemon.dex).padStart(3, "0")}</span>
+              <h2 className={clsx("display-face text-sm text-text md:text-xs", expanded && "text-base")}>{pokemon.name}</h2>
             </div>
             <div className={clsx("mt-2 flex flex-row gap-1", !expanded && "justify-center", expanded && "justify-center lg:justify-start")}>
               {pokemon.types.map((type: string, index: number) => (
@@ -186,8 +186,8 @@ export function PokemonDexCard({
                   className={
                     !expanded
                       ? pokemon.types.length === 1
-                        ? "max-md:min-w-19 max-md:gap-1 max-md:px-1.5 max-md:py-1 max-md:text-xs max-md:tracking-[0.06em]"
-                        : "max-md:min-w-14 max-md:gap-1 max-md:px-1.5 max-md:py-0.5 max-md:text-[10px] max-md:tracking-[0.05em]"
+                        ? "max-md:min-w-19 max-md:gap-1 max-md:px-1.5 max-md:py-1 max-md:text-xs max-md:tracking-ui"
+                        : "type-badge-compact-mobile"
                       : undefined
                   }
                 />

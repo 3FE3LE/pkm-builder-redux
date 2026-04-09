@@ -22,7 +22,11 @@ export function SettingsScreen() {
 
   return (
     <TeamScreenShell width="narrow">
-      <TeamScreenHeader title="Settings" />
+      <TeamScreenHeader title="Settings">
+        <p className="max-w-2xl text-sm text-muted">
+          Ajusta tema, clima base y reglas que afectan recomendaciones y evolución.
+        </p>
+      </TeamScreenHeader>
       <PreferencesSection
         evolutionConstraints={session.evolutionConstraints}
         recommendationFilters={session.recommendationFilters}

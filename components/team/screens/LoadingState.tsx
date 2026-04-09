@@ -26,7 +26,7 @@ export function LoadingState({
       <section className="mx-auto max-w-7xl">
         <div className="panel panel-frame overflow-hidden px-5 py-5 sm:px-6">
           <div className="space-y-3">
-            <p className="display-face text-sm text-[hsl(39_100%_78%)]">{label}</p>
+            <p className="display-face text-sm text-warning-foreground">{label}</p>
             <p className="max-w-2xl text-sm text-muted">{detail}</p>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">

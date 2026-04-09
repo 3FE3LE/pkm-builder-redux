@@ -14,7 +14,7 @@ const appNavInnerClassName =
   "mx-auto flex max-w-7xl items-center justify-center bg-transparent px-0 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-3 lg:px-10 lg:py-3";
 
 const appNavHomeButtonClassName =
-  "nav-action group hidden items-center justify-center border border-line-strong bg-(--panel-tint-soft) text-accent shadow-[var(--glass-shadow),0_12px_30px_rgba(0,0,0,0.18)] transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex";
+  "nav-action group hidden items-center justify-center border border-line-strong bg-(--panel-tint-soft) text-accent glass-shadow elevation-shadow-md transition-[background,border-color,transform] duration-200 hover:border-accent-line hover:bg-surface-3/80 lg:inline-flex";
 
 const appNavMobileHomeClassName =
   "app-dock-button nav-action inline-flex items-center justify-center border-transparent text-accent hover:border-line hover:bg-surface-3/80 lg:hidden";
@@ -34,27 +34,29 @@ const appNavPrimaryItemSharedClassName =
 const appNavSettingsBaseClassName =
   "app-dock-button nav-action inline-flex items-center justify-center border lg:w-10";
 
-const appNavLabelClassName = "hidden truncate text-[0.72rem] uppercase tracking-[0.12em] lg:inline";
-const appNavTeamLabelClassName = "hidden text-[0.72rem] uppercase tracking-[0.12em] lg:inline";
+const appNavLabelClassName = "hidden truncate text-xs uppercase tracking-ui-wide lg:inline";
+const appNavTeamLabelClassName = "hidden text-xs uppercase tracking-ui-wide lg:inline";
 
 const appNavTeamActiveClassName =
-  "border border-primary-line-strong bg-[linear-gradient(180deg,rgba(190,255,120,0.16),rgba(190,255,120,0.06))] text-text shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(190,255,120,0.08)]";
+  "nav-action-active nav-action-active-primary";
 
 const appNavToolsActiveClassName =
-  "border border-accent-line-strong bg-[linear-gradient(180deg,rgba(81,255,204,0.16),rgba(81,255,204,0.05))] text-accent shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(81,255,204,0.08)]";
+  "nav-action-active nav-action-active-accent";
 
 const appNavDexActiveClassName =
-  "border border-warning-line bg-[linear-gradient(180deg,rgba(255,199,107,0.18),rgba(255,199,107,0.06))] text-[hsl(39_100%_82%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(255,199,107,0.08)]";
+  "nav-action-active nav-action-active-warning";
 
 const appNavSettingsActiveClassName =
-  "border border-info-line bg-[linear-gradient(180deg,rgba(112,199,255,0.18),rgba(112,199,255,0.06))] text-[hsl(203_100%_87%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(112,199,255,0.08)]";
+  "nav-action-active nav-action-active-info";
 
 const appNavIdleClassName =
   "border border-transparent text-muted hover:border-line hover:bg-surface-3 hover:text-text";
 
 export function AppNav() {
   const pathname = usePathname();
-  const hideNav = pathname.startsWith("/team/pokemon/");
+  const hideNav =
+    pathname.startsWith("/team/pokemon/") ||
+    pathname.startsWith("/team/dex/pokemon/");
   const settingsActive = pathname === "/team/settings";
   const toolsActive = pathname === "/team/tools";
   const dexActive = pathname === "/team/dex" || pathname.startsWith("/team/dex/");

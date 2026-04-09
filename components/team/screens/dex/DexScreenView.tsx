@@ -31,7 +31,7 @@ export function DexScreenView({
   return (
     <TeamScreenShell overflow="visible" density="compact">
         <TeamScreenHeader title="Redux Dex" className="mb-2 sm:mb-4" titleClassName="text-xl sm:text-[2rem]" />
-        <Tabs value={model.tab} onValueChange={(value) => model.setTab(value as any)} className="gap-3 sm:gap-4">
+        <Tabs value={model.tab} onValueChange={(value) => model.setTab(value as any)} className="screen-tab-stack">
           <div className="mb-3 sm:mb-6">
             <div className="relative">
               <Search className="pointer-events-none absolute left-4 top-1/2 z-10 h-5 w-5 -translate-y-1/2 text-text-faint" />
@@ -39,7 +39,7 @@ export function DexScreenView({
                 value={model.query}
                 onChange={(event) => model.setQuery(event.target.value)}
                 placeholder={getSearchPlaceholder(model.tab)}
-                className="h-10 rounded-[0.9rem] border-line-emphasis bg-surface-3 pl-12 text-sm shadow-[0_18px_40px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.05)] focus-visible:bg-surface-4 sm:h-12 sm:rounded-2xl sm:text-base"
+                className="app-search-field radius-control-lg h-10 pl-12 text-sm focus-visible:bg-surface-4 sm:h-12 sm:rounded-2xl sm:text-base"
               />
               {model.query ? (
                 <button
