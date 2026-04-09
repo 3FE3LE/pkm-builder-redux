@@ -81,7 +81,7 @@ export function PcBoxSection({
                   setSelectedMemberId(member.id);
                 }}
                 className={clsx(
-                  "flex aspect-square items-center justify-center rounded-xl transition",
+                  "flex aspect-square items-center justify-center rounded-lg transition",
                   selectedMemberId === member.id
                     ? "ring-2 ring-primary-line-emphasis"
                     : "opacity-90 hover:opacity-100",

@@ -5,7 +5,8 @@ import { MiniPill } from "@/components/team/UI";
 
 import type { RankedRoster } from "@/components/team/tools/type-tiers/types";
 
-const rosterTypingEntryCardClassName = "rounded-xl border border-line bg-surface-3 p-3";
+const rosterTypingPanelClassName = "rounded-2xl border border-line bg-surface-2 p-4";
+const rosterTypingEntryCardClassName = "surface-card p-3";
 
 export function RosterTypingCard({
   rankedRoster,
@@ -13,7 +14,7 @@ export function RosterTypingCard({
   rankedRoster: RankedRoster;
 }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface-2 p-4">
+    <div className={rosterTypingPanelClassName}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="display-face text-sm text-accent">Ranking del roster</p>

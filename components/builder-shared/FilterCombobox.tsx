@@ -119,7 +119,7 @@ export function FilterCombobox({
             ref={panelRef}
             style={panelStyle}
             className={clsx(
-              "status-popover box-border w-full rounded-xl border border-line p-2 shadow-2xl backdrop-blur-md",
+              "status-popover popover-panel popover-panel-floating box-border w-full",
               panelClassName,
             )}
           >
@@ -132,7 +132,7 @@ export function FilterCombobox({
         ref={panelRef}
         style={panelStyle}
         className={clsx(
-          "status-popover absolute left-0 z-1000 mt-2 box-border w-72 rounded-lg border border-line p-2 backdrop-blur-md",
+          "status-popover popover-panel absolute left-0 z-1000 mt-2 box-border w-72",
           panelClassName,
         )}
       >

@@ -19,6 +19,7 @@ const recommendationSwapSummaryClassName = "token-card px-3 py-2 text-right";
 const recommendationScoreDeltaClassName = "display-face micro-label-wide text-muted";
 const recommendationSwapSideTitleClassName = "display-face micro-copy text-muted";
 const recommendationCompactStatLabelClassName = "display-face micro-label text-muted";
+const recommendationSwapOutgoingCardClassName = "panel-card border-line bg-surface-2";
 
 export function RecommendationsPanel({
   teamSize,
@@ -269,7 +270,7 @@ function SwapSide({
         "panel-card",
         tone === "incoming"
           ? "incoming-panel"
-          : "border-line bg-surface-2",
+          : recommendationSwapOutgoingCardClassName,
       )}
     >
       <div className="flex items-start justify-between gap-3">

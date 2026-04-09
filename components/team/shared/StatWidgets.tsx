@@ -13,9 +13,9 @@ const statWidgetLegendClassName = "mt-1 flex items-center gap-3 micro-label text
 const spreadInputLabelClassName = "display-face block text-center text-[8px] leading-none tracking-[0.08em] text-muted";
 const spreadInputLabelResponsiveClassName = "lg:text-center lg:text-[9px]";
 const spreadInputStepButtonClassName =
-  "flex h-6 w-full items-center justify-center border border-line bg-surface-2 px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6";
+  "surface-card-muted flex h-6 w-full items-center justify-center border px-0 text-[11px] leading-none text-muted transition hover:bg-surface-6";
 const spreadInputHorizontalStepButtonClassName =
-  "flex h-8 w-7 shrink-0 items-center justify-center border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6";
+  "surface-card-muted flex h-8 w-7 shrink-0 items-center justify-center border text-xs text-muted transition hover:bg-surface-6";
 const spreadInputErrorClassName = "mt-2 block micro-copy text-danger";
 
 export function CoverageBadge({

@@ -23,7 +23,7 @@ export function MovePowerBadge({
   adjustedPower?: number | null;
 }) {
   return (
-    <span className="inline-flex shrink-0 items-center gap-1 text-[11px] text-current/80">
+    <span className="inline-flex shrink-0 items-center gap-1 micro-copy text-current/80">
       {damageClass === "physical" ? (
         <Sword className="h-3.5 w-3.5" />
       ) : damageClass === "special" ? (
@@ -144,7 +144,7 @@ export function MoveSlotSurface({
             : undefined)
       }
     >
-      <span className="pixel-face min-w-0 flex-1 truncate text-xs leading-none tracking-[0.12em] font-normal sm:text-[13px] md:text-sm lg:text-base">
+      <span className="pixel-face min-w-0 flex-1 truncate text-xs leading-none tracking-[0.12em] font-normal sm:text-sm md:text-sm lg:text-base">
         {move.name}
       </span>
       <MovePowerBadge

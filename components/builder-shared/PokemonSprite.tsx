@@ -77,16 +77,16 @@ export function PokemonSprite({
               ? "sprite-frame h-14 w-14 rounded-xl"
               : size === "fill"
                 ? "sprite-frame h-full w-full rounded-[inherit]"
-              : "sprite-frame h-24 w-24 rounded-[0.875rem]"
+              : "sprite-frame h-24 w-24 rounded-xl"
           : size === "large"
             ? "h-36 w-36 rounded-2xl bg-transparent"
             : size === "tiny"
               ? "h-9 w-9 rounded-3xl bg-transparent"
-              : size === "small"
-                ? "h-14 w-14 rounded-xl bg-transparent"
-              : size === "fill"
+            : size === "small"
+              ? "h-14 w-14 rounded-xl bg-transparent"
+            : size === "fill"
                 ? "h-full w-full rounded-[inherit] bg-transparent"
-              : "h-24 w-24 rounded-[0.875rem] bg-transparent",
+              : "h-24 w-24 rounded-xl bg-transparent",
         isEvolving && "animate-[pulse_1.4s_ease-in-out_infinite]",
       )}
     >

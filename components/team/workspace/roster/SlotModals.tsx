@@ -9,7 +9,7 @@ const slotModalSurfaceClassName = "panel-strong panel-frame w-full p-5";
 const slotModalBulkActionClassName =
   "display-face micro-copy text-accent transition hover:text-text";
 const slotModalCheckboxRowClassName =
-  "flex items-center gap-3 rounded-xl border border-line bg-surface-3 px-3 py-2 text-sm";
+  "surface-card flex items-center gap-3 px-3 py-2 text-sm";
 
 export type ResetFields = {
   evolutionLine: boolean;

@@ -18,10 +18,11 @@ const selectedInsightStickyHeaderClassName =
   "sticky top-0 z-10 -mx-4 flex items-start justify-between gap-3 border-b border-line/60 bg-[linear-gradient(180deg,rgba(12,32,40,0.98),rgba(8,21,25,0.94))] px-4 pb-3 pt-1 backdrop-blur-md";
 const selectedInsightCloseButtonClassName =
   "h-8 w-8 rounded-lg border border-line bg-surface-4 text-muted hover:bg-surface-6";
-const selectedInsightCardClassName = "rounded-lg border border-line bg-surface-3 px-3 py-2";
-const selectedInsightCardMutedClassName = "rounded-lg border border-line bg-surface-3 px-3 py-3 text-sm text-muted";
-const selectedInsightCardSoftClassName = "rounded-lg border border-line bg-surface-3/60 px-3 py-3";
+const selectedInsightCardClassName = "surface-card px-3 py-2";
+const selectedInsightCardMutedClassName = "surface-card px-3 py-3 text-sm text-muted";
+const selectedInsightCardSoftClassName = "surface-card px-3 py-3";
 const selectedInsightEyebrowClassName = "display-face micro-label text-accent";
+const selectedInsightTagClassName = "surface-card rounded-md px-3 py-1 text-xs text-muted";
 
 type MoveRecommendation = ReturnType<
   typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations
@@ -125,7 +126,7 @@ export function SelectedMemberInsightCard({
             {starterLens.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md border border-line bg-surface-3 px-3 py-1 text-xs text-muted"
+                className={selectedInsightTagClassName}
               >
                 {tag}
               </span>

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/Button";
 import { MetricToggle } from "@/components/team/tools/type-tiers/MetricToggle";
 import type { SpeciesCatalogEntry, TypeTierMetric } from "@/components/team/tools/type-tiers/types";
 
-const typeTierCardClassName = "rounded-xl border border-line bg-surface-3 p-3";
+const typeTierPanelClassName = "rounded-2xl border border-line bg-surface-2 p-4";
+const typeTierCardClassName = "surface-card p-3";
 
 type TierEntry = ReturnType<typeof import("@/lib/domain/typeTierList").buildOffensiveTypeTierList>[number];
 
@@ -26,7 +27,7 @@ export function TierListCard({
   speciesCatalog: SpeciesCatalogEntry[];
 }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface-2 p-4">
+    <div className={typeTierPanelClassName}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="display-face text-sm text-accent">Tier list de typings</p>
