@@ -29,7 +29,7 @@ export function BackToTopButton() {
 
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
-      className="fixed bottom-20 right-4 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-line-soft bg-surface-2/95 text-text shadow-[0_10px_30px_rgba(0,0,0,0.28)] backdrop-blur transition hover:border-primary-line-emphasis hover:text-accent sm:bottom-6 sm:right-6"
+      className="app-icon-button app-floating-icon-button fixed bottom-20 right-4 z-30 inline-flex items-center justify-center h-11 w-11 hover:border-primary-line-emphasis hover:text-accent sm:bottom-6 sm:right-6"
       aria-label="Volver arriba"
       title="Volver arriba"
     >

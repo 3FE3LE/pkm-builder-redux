@@ -45,7 +45,7 @@ export function DexPokemonPanel({ model }: { model: any }) {
                   <p className="mt-1 text-xs text-muted">{model.activePokemonFilterCount} activos</p>
                 ) : null}
               </div>
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line-soft bg-surface-2 text-text-faint">
+              <span className="app-icon-button inline-flex items-center justify-center h-8 w-8 rounded-full text-text-faint">
                 <ChevronDown className={`h-4 w-4 transition-transform ${filtersOpen ? "rotate-180" : ""}`} />
               </span>
             </CollapsibleTrigger>
@@ -136,7 +136,7 @@ function DexModeSegmentedControl({
   onChange: (mode: (typeof DEX_POKEMON_MODES)[number]) => void;
 }) {
   return (
-    <div className="grid w-full max-w-72 grid-cols-6 rounded-[0.9rem] border border-line-soft bg-surface-3 p-1 sm:w-auto">
+    <div className="app-control-surface grid w-full max-w-72 grid-cols-6 rounded-[0.9rem] p-1 sm:w-auto">
       {DEX_POKEMON_MODES.map((mode) => {
         const active = value === mode;
         return (
@@ -249,13 +249,13 @@ export function DexSecondaryPanels({ model }: { model: any }) {
                 {locations.length ? (
                   <div className="flex flex-col gap-2">
                     <p className="text-[11px] uppercase tracking-[0.14em] text-text-faint">Mapa</p>
-                    {locations.slice(0, 6).map((location: any) => <div key={`${item.name}-${location.area}-${location.detail}`} className="rounded-[0.8rem] border border-line-soft bg-surface-3 px-3 py-2"><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
+                    {locations.slice(0, 6).map((location: any) => <div key={`${item.name}-${location.area}-${location.detail}`} className="app-soft-panel rounded-[0.8rem] px-3 py-2"><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
                   </div>
                 ) : null}
                 {shopLocations.length ? (
                   <div className="flex flex-col gap-2">
                     <p className="text-[11px] uppercase tracking-[0.14em] text-text-faint">Tiendas</p>
-                    {shopLocations.slice(0, 6).map((location: any) => <div key={`${item.name}-shop-${location.area}-${location.detail}`} className="rounded-[0.8rem] border border-line-soft bg-surface-3 px-3 py-2"><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
+                    {shopLocations.slice(0, 6).map((location: any) => <div key={`${item.name}-shop-${location.area}-${location.detail}`} className="app-soft-panel rounded-[0.8rem] px-3 py-2"><p className="text-sm text-text">{location.area}</p><p className="mt-1 text-xs leading-5 text-muted">{location.detail}</p></div>)}
                   </div>
                 ) : null}
               </div>

@@ -70,7 +70,7 @@ function WorkspaceLoadingState() {
               {Array.from({ length: 6 }).map((_, index) => (
                 <div
                   key={`workspace-skeleton-card-${index}`}
-                  className="rounded-[1.25rem] border border-line-soft bg-surface-3/70 p-4"
+                  className="app-soft-panel rounded-[1.25rem] p-4"
                 >
                   <div className="flex items-start gap-3">
                     <Skeleton className="h-14 w-14 rounded-xl" />
