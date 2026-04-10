@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 let docsFixture: any;
 let worldDataFixture: any;
 let speciesListFixture: any[];
+let dexListFixture: any[];
 let moveIndexFixture: Record<string, any>;
 let canonicalPokemonIndexFixture: Record<string, any>;
 let pokemonIndexFixture: Record<string, any>;
@@ -20,6 +21,7 @@ vi.mock("@/lib/worldData", () => ({
 vi.mock("@/lib/localDex", () => ({
   getLocalDexDataVersion: vi.fn(() => "test-version"),
   getLocalSpeciesList: vi.fn(() => speciesListFixture),
+  getLocalDexList: vi.fn(() => dexListFixture),
   getLocalMoveIndex: vi.fn(() => moveIndexFixture),
   getCanonicalPokemonIndex: vi.fn(() => canonicalPokemonIndexFixture),
   getLocalPokemonIndex: vi.fn(() => pokemonIndexFixture),
@@ -65,6 +67,28 @@ describe("builderPageData", () => {
     speciesListFixture = [
       { name: "Bulbasaur", slug: "bulbasaur", dex: 1, types: ["Grass", "Poison"] },
       { name: "Charmander", slug: "charmander", dex: 4, types: ["Fire"] },
+    ];
+    dexListFixture = [
+      {
+        dex: 1,
+        name: "Bulbasaur",
+        slug: "bulbasaur",
+        types: ["Grass", "Poison"],
+        abilities: ["Overgrow", "Chlorophyll"],
+        hasTypeChanges: false,
+        hasStatChanges: false,
+        hasAbilityChanges: false,
+      },
+      {
+        dex: 4,
+        name: "Charmander",
+        slug: "charmander",
+        types: ["Fire"],
+        abilities: ["Blaze", "Solar Power"],
+        hasTypeChanges: true,
+        hasStatChanges: false,
+        hasAbilityChanges: true,
+      },
     ];
     moveIndexFixture = {
       tackle: { name: "Tackle", type: "Normal" },
@@ -128,6 +152,11 @@ describe("builderPageData", () => {
       "Potion",
       "Rare Candy",
     ]);
+    expect(data.reduxBySpecies.charmander).toEqual({
+      hasTypeChanges: true,
+      hasAbilityChanges: true,
+      hasStatChanges: false,
+    });
   });
 
 });

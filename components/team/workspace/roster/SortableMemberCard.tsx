@@ -1,23 +1,26 @@
 "use client";
 
+import clsx from "clsx";
+import { Mars, Venus } from "lucide-react";
 import { useCallback, useRef, ViewTransition } from "react";
-import clsx from 'clsx';
-import { Mars, Venus } from 'lucide-react';
 import { useMediaQuery } from "usehooks-ts";
 
-import { ItemSprite, PokemonSprite, TypeBadge } from '@/components/BuilderShared';
-import { MiniPill } from '@/components/team/UI';
+import {
+  ItemSprite,
+  PokemonSprite,
+  TypeBadge,
+} from "@/components/BuilderShared";
+import { MiniPill } from "@/components/team/UI";
 import { WeatherVisualLayer } from "@/components/team/workspace/roster/WeatherVisualLayer";
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
+import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 import type { BattleWeather } from "@/lib/domain/battle";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
-import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import type { EditableMember } from "@/lib/builderStore";
-import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
-
 const rosterCardShellClassName =
   "panel relative min-w-0 cursor-grab rounded-xl p-2.5 transition-[border-color,box-shadow,background,transform,opacity,filter] duration-200 ease-out active:cursor-grabbing sm:p-3";
 const rosterCardDraggingClassName =
@@ -53,11 +56,15 @@ function renderGenderIcon(
   }
 
   if (gender === "male") {
-    return <Mars className="h-3.5 w-3.5 shrink-0 text-info-soft sm:h-4 sm:w-4" />;
+    return (
+      <Mars className="h-3.5 w-3.5 shrink-0 text-info-soft sm:h-4 sm:w-4" />
+    );
   }
 
   if (gender === "female") {
-    return <Venus className="h-3.5 w-3.5 shrink-0 text-danger-soft sm:h-4 sm:w-4" />;
+    return (
+      <Venus className="h-3.5 w-3.5 shrink-0 text-danger-soft sm:h-4 sm:w-4" />
+    );
   }
 
   return null;
@@ -126,24 +133,32 @@ export function SortableMemberCard({
     initializeWithValue: false,
   });
   const visibilityObserverRef = useRef<IntersectionObserver | null>(null);
-  const setCardRef = useCallback((node: HTMLElement | null) => {
-    setNodeRef(node);
-    visibilityObserverRef.current?.disconnect();
-    visibilityObserverRef.current = null;
+  const setCardRef = useCallback(
+    (node: HTMLElement | null) => {
+      setNodeRef(node);
+      visibilityObserverRef.current?.disconnect();
+      visibilityObserverRef.current = null;
 
-    if (!node || !isSelected || !onExitViewport || typeof IntersectionObserver === "undefined") {
-      return;
-    }
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry?.isIntersecting) {
-        onExitViewport();
+      if (
+        !node ||
+        !isSelected ||
+        !onExitViewport ||
+        typeof IntersectionObserver === "undefined"
+      ) {
+        return;
       }
-    });
 
-    observer.observe(node);
-    visibilityObserverRef.current = observer;
-  }, [isSelected, onExitViewport, setNodeRef]);
+      const observer = new IntersectionObserver(([entry]) => {
+        if (!entry?.isIntersecting) {
+          onExitViewport();
+        }
+      });
+
+      observer.observe(node);
+      visibilityObserverRef.current = observer;
+    },
+    [isSelected, onExitViewport, setNodeRef],
+  );
   const desktopMetaEntries = [
     {
       key: "ability",
@@ -179,160 +194,188 @@ export function SortableMemberCard({
   return (
     <ViewTransition name={getTeamEditorTransitionName("card", member.id)}>
       <article
-      ref={setCardRef}
-      {...attributes}
-      {...listeners}
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition,
-        ...cardStyle,
-      }}
-      className={clsx(
-        rosterCardShellClassName,
-        isDragging && rosterCardDraggingClassName,
-        isSelected &&
-          "roster-card-selected selection-tint selection-shadow border-primary-line-active",
-        hasActiveSelection &&
-          !isSelected &&
-          "roster-card-unselected",
-      )}
-      onClick={onSelect}
+        ref={setCardRef}
+        {...attributes}
+        {...listeners}
+        style={{
+          transform: CSS.Transform.toString(transform),
+          transition,
+          ...cardStyle,
+        }}
+        className={clsx(
+          rosterCardShellClassName,
+          isDragging && rosterCardDraggingClassName,
+          isSelected &&
+            "roster-card-selected selection-tint selection-shadow border-primary-line-active",
+          hasActiveSelection && !isSelected && "roster-card-unselected",
+        )}
+        onClick={onSelect}
       >
-      <WeatherVisualLayer weather={weather} />
-      <div className="min-w-0">
-        <div className="flex min-w-0 items-start gap-2">
-          <p className="roster-name-face mt-0.5 min-w-0 flex-1 truncate">
-            <span className="inline-flex max-w-full items-center gap-1.5">
-              <ViewTransition name={getTeamEditorTransitionName("title", member.id)}>
-                <span className="truncate">{displayName}</span>
-              </ViewTransition>
-              {genderIcon}
-            </span>
-          </p>
-        </div>
+        <WeatherVisualLayer weather={weather} />
+        <div className="min-w-0">
+          <div className="flex min-w-0 items-start gap-2">
+            <p className="roster-name-face mt-0.5 min-w-0 flex-1 truncate">
+              <span className="inline-flex max-w-full items-center gap-1.5">
+                <ViewTransition
+                  name={getTeamEditorTransitionName("title", member.id)}
+                >
+                  <span className="truncate">{displayName}</span>
+                </ViewTransition>
+                {genderIcon}
+              </span>
+            </p>
+          </div>
 
-        {isDesktop ? (
-          <div className="mt-2 flex items-start gap-4">
-            <div className="min-w-0 flex-1">
-              {member.nickname && resolved?.species && member.nickname !== resolved.species ? (
-                <p className={rosterSpeciesCaptionClassName}>
-                  {resolved.species}
-                </p>
-              ) : null}
+          {isDesktop ? (
+            <div className="mt-2 flex items-start gap-4">
+              <div className="min-w-0 flex-1">
+                {member.nickname &&
+                resolved?.species &&
+                member.nickname !== resolved.species ? (
+                  <p className={rosterSpeciesCaptionClassName}>
+                    {resolved.species}
+                  </p>
+                ) : null}
 
-              <ViewTransition name={getTeamEditorTransitionName("types", member.id)}>
-                <div className="mt-2 flex flex-wrap gap-1.5">
+                <ViewTransition
+                  name={getTeamEditorTransitionName("types", member.id)}
+                >
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {resolved?.resolvedTypes.length ? (
+                      resolved.resolvedTypes.map((type) => (
+                        <TypeBadge
+                          key={`${member.id}-${type}-desktop`}
+                          type={type}
+                        />
+                      ))
+                    ) : (
+                      <MiniPill className="micro-copy px-2.5 py-1">
+                        tipo pendiente
+                      </MiniPill>
+                    )}
+                  </div>
+                </ViewTransition>
+
+                <div className="mt-3 grid grid-cols-2 gap-1.5">
+                  {desktopMetaEntries.map((entry) => {
+                    const hintId = `entry-hint-${member.id}-${entry.key}`;
+                    return (
+                      <span
+                        key={`${member.id}-${entry.key}`}
+                        className="group relative min-w-0"
+                        tabIndex={entry.hint ? 0 : undefined}
+                        aria-describedby={entry.hint ? hintId : undefined}
+                      >
+                        <MiniPill className={rosterMetaPillClassName}>
+                          {entry.label ? (
+                            <span className={rosterMetaLabelClassName}>
+                              {entry.label}
+                            </span>
+                          ) : null}
+                          <span className={rosterMetaValueClassName}>
+                            {entry.value}
+                          </span>
+                        </MiniPill>
+                        {entry.hint ? (
+                          <span
+                            id={hintId}
+                            role="tooltip"
+                            className={rosterMetaHintClassName}
+                          >
+                            {entry.hint}
+                          </span>
+                        ) : null}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex shrink-0 justify-center">
+                <div className="relative">
+                  <ViewTransition
+                    name={getTeamEditorTransitionName("sprite", member.id)}
+                  >
+                    <PokemonSprite
+                      species={
+                        resolved?.species ??
+                        member.species ??
+                        `Slot ${index + 1}`
+                      }
+                      spriteUrl={resolved?.spriteUrl}
+                      animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                      allowCoarsePointerAnimation
+                      isEvolving={isEvolving}
+                      size="large"
+                      chrome="plain"
+                    />
+                  </ViewTransition>
+                  {currentItem ? (
+                    <div className="absolute bottom-1 right-1">
+                      <ItemSprite
+                        name={currentItem}
+                        sprite={resolved?.itemDetails?.sprite}
+                        chrome="plain"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-2">
+              <div className="flex justify-center">
+                <div className="relative">
+                  <ViewTransition
+                    name={getTeamEditorTransitionName("sprite", member.id)}
+                  >
+                    <PokemonSprite
+                      species={
+                        resolved?.species ??
+                        member.species ??
+                        `Slot ${index + 1}`
+                      }
+                      spriteUrl={resolved?.spriteUrl}
+                      animatedSpriteUrl={resolved?.animatedSpriteUrl}
+                      allowCoarsePointerAnimation
+                      isEvolving={isEvolving}
+                      size="default"
+                      chrome="plain"
+                    />
+                  </ViewTransition>
+                  {currentItem ? (
+                    <div className="absolute bottom-0 right-0">
+                      <ItemSprite
+                        name={currentItem}
+                        sprite={resolved?.itemDetails?.sprite}
+                        chrome="plain"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+              <ViewTransition
+                name={getTeamEditorTransitionName("types", member.id)}
+              >
+                <div className="mt-2 grid grid-cols-2 gap-1 sm:gap-1.5">
                   {resolved?.resolvedTypes.length ? (
                     resolved.resolvedTypes.map((type) => (
-                      <TypeBadge key={`${member.id}-${type}-desktop`} type={type} />
+                      <div key={`${member.id}-${type}`} className="min-w-0">
+                        <TypeBadge type={type} className="w-full" />
+                      </div>
                     ))
                   ) : (
-                    <MiniPill className="micro-copy px-2.5 py-1">tipo pendiente</MiniPill>
+                    <div className="min-w-0">
+                      <MiniPill className={rosterEmptyTypePillClassName}>
+                        tipo pendiente
+                      </MiniPill>
+                    </div>
                   )}
                 </div>
               </ViewTransition>
-
-              <div className="mt-3 grid grid-cols-2 gap-1.5">
-                {desktopMetaEntries.map((entry) => {
-                  const hintId = `entry-hint-${member.id}-${entry.key}`;
-                  return (
-                    <span
-                      key={`${member.id}-${entry.key}`}
-                      className="group relative min-w-0"
-                      tabIndex={entry.hint ? 0 : undefined}
-                      aria-describedby={entry.hint ? hintId : undefined}
-                    >
-                      <MiniPill
-                        className={rosterMetaPillClassName}
-                      >
-                        {entry.label ? (
-                          <span className={rosterMetaLabelClassName}>
-                            {entry.label}
-                          </span>
-                        ) : null}
-                        <span className={rosterMetaValueClassName}>
-                          {entry.value}
-                        </span>
-                      </MiniPill>
-                      {entry.hint ? (
-                        <span
-                          id={hintId}
-                          role="tooltip"
-                          className={rosterMetaHintClassName}
-                        >
-                          {entry.hint}
-                        </span>
-                      ) : null}
-                    </span>
-                  );
-                })}
-              </div>
             </div>
-
-            <div className="flex shrink-0 justify-center">
-              <div className="relative">
-                <ViewTransition name={getTeamEditorTransitionName("sprite", member.id)}>
-                  <PokemonSprite
-                    species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
-                    spriteUrl={resolved?.spriteUrl}
-                    animatedSpriteUrl={resolved?.animatedSpriteUrl}
-                    allowCoarsePointerAnimation
-                    isEvolving={isEvolving}
-                    size="large"
-                    chrome="plain"
-                  />
-                </ViewTransition>
-                {currentItem ? (
-                  <div className="absolute bottom-1 right-1">
-                    <ItemSprite name={currentItem} sprite={resolved?.itemDetails?.sprite} chrome="plain" />
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="mt-2">
-            <div className="flex justify-center">
-              <div className="relative">
-                <ViewTransition name={getTeamEditorTransitionName("sprite", member.id)}>
-                  <PokemonSprite
-                    species={resolved?.species ?? member.species ?? `Slot ${index + 1}`}
-                    spriteUrl={resolved?.spriteUrl}
-                    animatedSpriteUrl={resolved?.animatedSpriteUrl}
-                    allowCoarsePointerAnimation
-                    isEvolving={isEvolving}
-                    size="default"
-                    chrome="plain"
-                  />
-                </ViewTransition>
-                {currentItem ? (
-                  <div className="absolute bottom-0 right-0">
-                    <ItemSprite name={currentItem} sprite={resolved?.itemDetails?.sprite} chrome="plain" />
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            <ViewTransition name={getTeamEditorTransitionName("types", member.id)}>
-              <div className="mt-2 grid grid-cols-2 gap-1 sm:gap-1.5">
-                {resolved?.resolvedTypes.length ? (
-                  resolved.resolvedTypes.map((type) => (
-                    <div key={`${member.id}-${type}`} className="min-w-0">
-                      <TypeBadge type={type} className="w-full" />
-                    </div>
-                  ))
-                ) : (
-                  <div className="min-w-0">
-                    <MiniPill className={rosterEmptyTypePillClassName}>
-                      tipo pendiente
-                    </MiniPill>
-                  </div>
-                )}
-              </div>
-            </ViewTransition>
-          </div>
-        )}
-
-      </div>
+          )}
+        </div>
       </article>
     </ViewTransition>
   );
