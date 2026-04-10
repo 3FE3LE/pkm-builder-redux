@@ -60,12 +60,17 @@ export function AddMemberSheet({
   }
 
   return (
-    <div className="modal-scrim z-125 items-end px-3 py-4 sm:items-center">
-      <div className="panel-strong panel-frame w-full max-w-3xl p-4">
+    <div
+      className="modal-scrim z-125 items-end px-3 py-4 sm:items-center"
+      onClick={closeSheet}
+    >
+      <div
+        className="panel-strong panel-frame w-full max-w-3xl p-4"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="display-face text-sm text-accent">Agregar Pokemon</p>
-            <p className="text-sm text-muted">Tus Pokemon primero, luego la dex.</p>
           </div>
           <Button type="button" variant="ghost" size="sm" onClick={closeSheet}>
             Cerrar
@@ -95,56 +100,60 @@ export function AddMemberSheet({
           </div>
         </section>
 
-        <div className="mt-4 relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
-          <Input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Busca en tu libreria por nickname o especie"
-            className="pl-9"
-            autoFocus
-          />
-        </div>
+        {availableMembers.length ? (
+          <>
+            <div className="mt-4 relative">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+              <Input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Busca en tu libreria por nickname o especie"
+                className="pl-9"
+                autoFocus
+              />
+            </div>
 
-        <div className="mt-4">
-          <section className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <p className="display-face text-xs text-accent">Tus Pokemon</p>
-              <p className={addMemberSectionMetaClassName}>{filteredLibrary.length} disponibles</p>
-            </div>
-            <div className="max-h-96 space-y-2 overflow-auto pr-1">
-              {filteredLibrary.length ? (
-                filteredLibrary.map((member) => (
-                  <button
-                    key={member.id}
-                    type="button"
-                    onClick={() => {
-                      setQuery("");
-                      onPickLibraryMember(member.id);
-                    }}
-                    className="soft-card flex w-full items-center gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
-                  >
-                    <PokemonSprite species={member.species} size="small" chrome="plain" />
-                    <div className="min-w-0 flex-1">
-                      <p className="display-face truncate text-sm text-text">
-                        {member.nickname || member.species}
-                      </p>
-                      <p className="truncate text-xs text-muted">
-                        {member.species} · Lv. {member.level}
-                        {member.item ? ` · ${member.item}` : ""}
-                      </p>
-                    </div>
-                    <Check className="h-4 w-4 text-accent" />
-                  </button>
-                ))
-              ) : (
-                <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
-                  No hay coincidencias en tu libreria.
+            <div className="mt-4">
+              <section className="space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="display-face text-xs text-accent">Tus Pokemon</p>
+                  <p className={addMemberSectionMetaClassName}>{filteredLibrary.length} disponibles</p>
                 </div>
-              )}
+                <div className="max-h-96 space-y-2 overflow-auto pr-1">
+                  {filteredLibrary.length ? (
+                    filteredLibrary.map((member) => (
+                      <button
+                        key={member.id}
+                        type="button"
+                        onClick={() => {
+                          setQuery("");
+                          onPickLibraryMember(member.id);
+                        }}
+                        className="soft-card flex w-full items-center gap-3 px-3 py-2 text-left transition hover:bg-surface-4"
+                      >
+                        <PokemonSprite species={member.species} size="small" chrome="plain" />
+                        <div className="min-w-0 flex-1">
+                          <p className="display-face truncate text-sm text-text">
+                            {member.nickname || member.species}
+                          </p>
+                          <p className="truncate text-xs text-muted">
+                            {member.species} · Lv. {member.level}
+                            {member.item ? ` · ${member.item}` : ""}
+                          </p>
+                        </div>
+                        <Check className="h-4 w-4 text-accent" />
+                      </button>
+                    ))
+                  ) : (
+                    <div className="soft-card-dashed px-3 py-4 text-sm text-muted">
+                      No hay coincidencias en tu libreria.
+                    </div>
+                  )}
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

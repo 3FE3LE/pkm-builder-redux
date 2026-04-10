@@ -127,22 +127,25 @@ describe("RecommendationsPanel", () => {
     expect(screen.getByText("Capturas nuevas")).toBeTruthy();
     expect(screen.getByText("Mareep")).toBeTruthy();
     expect(screen.getByText("Gift · Virbank")).toBeTruthy();
-    expect(screen.getAllByText("Captura sugerida")).toHaveLength(2);
-    expect(screen.getByText("bulkyPivot")).toBeTruthy();
+    expect(screen.queryByText("Captura sugerida")).toBeNull();
+    expect(screen.queryByText("bulkyPivot")).toBeNull();
     const mareepCard = screen.getByText("Mareep").closest("article");
     expect(mareepCard).toBeTruthy();
     const mareepScope = within(mareepCard as HTMLElement);
-    expect(mareepScope.getAllByText("Score").length).toBeGreaterThan(0);
+    expect(mareepScope.getAllByLabelText("Score").length).toBeGreaterThan(0);
+    expect(mareepScope.getAllByText("Veredicto").length).toBeGreaterThan(0);
     expect(mareepScope.getAllByText("62").length).toBeGreaterThan(0);
-    expect(mareepScope.getByText("Piso")).toBeTruthy();
+    expect(mareepScope.getAllByLabelText("Piso").length).toBeGreaterThan(0);
     expect(mareepScope.getByText("5.5")).toBeTruthy();
-    expect(mareepScope.getByText("Techo")).toBeTruthy();
+    expect(mareepScope.getAllByLabelText("Techo").length).toBeGreaterThan(0);
     expect(mareepScope.getByText("7.0")).toBeTruthy();
     expect(screen.getByText("Electric")).toBeTruthy();
     expect(screen.getByText("Dark")).toBeTruthy();
     expect(screen.getByText("sprite-Mareep-https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/179.png")).toBeTruthy();
 
-    await user.click(screen.getByRole("button", { name: "Mandar Mareep al IV Calc" }));
+    await user.click(mareepCard as HTMLElement);
+    expect(screen.getByText("Motivos de la recomendación")).toBeTruthy();
+    await user.click(screen.getByRole("button", { name: "Mandar al IV Calc" }));
     expect(onSendToIvCalc).toHaveBeenCalledWith("Mareep");
   });
 
