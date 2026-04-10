@@ -165,6 +165,27 @@ function buildDexPageData() {
       { name: string; category?: string; effect?: string; sprite?: string | null }
     >,
   ).sort((left, right) => left.name.localeCompare(right.name));
+  const reduxBySpecies = Object.fromEntries(
+    getLocalDexList().flatMap((entry) => {
+      const value = {
+        hasTypeChanges: entry.hasTypeChanges,
+        hasAbilityChanges: entry.hasAbilityChanges,
+        hasStatChanges: entry.hasStatChanges,
+      };
+
+      return [
+        [normalizeSpeciesKey(entry.name), value],
+        [normalizeSpeciesKey(entry.slug), value],
+      ];
+    }),
+  ) as Record<
+    string,
+    {
+      hasTypeChanges: boolean;
+      hasAbilityChanges: boolean;
+      hasStatChanges: boolean;
+    }
+  >;
 
   return {
     docs,
@@ -175,6 +196,7 @@ function buildDexPageData() {
     pokemonIndex,
     abilityCatalog,
     itemCatalog,
+    reduxBySpecies,
   };
 }
 

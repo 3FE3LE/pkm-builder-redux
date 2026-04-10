@@ -255,6 +255,7 @@ export function useBuilderDerivedData(
         : [],
     [
       docs,
+      data.reduxBySpecies,
       moveIndex,
       needsCopilotAnalysis,
       contextualMilestoneId,

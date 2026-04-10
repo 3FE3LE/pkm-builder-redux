@@ -81,6 +81,7 @@ export function buildSwapOpportunities({
   milestoneId,
   pokemonByName,
   moveIndex,
+  reduxBySpecies: _reduxBySpecies,
   starter,
   filters,
 }: {
@@ -90,6 +91,14 @@ export function buildSwapOpportunities({
   milestoneId?: string;
   pokemonByName: Record<string, RemotePokemon | null | undefined>;
   moveIndex: Record<string, RemoteMove | null | undefined>;
+  reduxBySpecies?: Record<
+    string,
+    {
+      hasTypeChanges: boolean;
+      hasAbilityChanges: boolean;
+      hasStatChanges: boolean;
+    }
+  >;
   starter: StarterKey;
   filters: RecommendationFilters;
 }): SwapOpportunity[] {
