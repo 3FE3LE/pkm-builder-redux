@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocked = vi.hoisted(() => ({
   reducedMotion: false,
+  intersectionObserverCallback: null as null | IntersectionObserverCallback,
   sortable: {
     attributes: { "data-sortable": "true" },
     listeners: {},
@@ -96,6 +97,20 @@ beforeEach(() => {
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
   })) as never;
+  globalThis.IntersectionObserver = class {
+    root = null;
+    rootMargin = "";
+    thresholds = [];
+
+    constructor(callback: IntersectionObserverCallback) {
+      mocked.intersectionObserverCallback = callback;
+    }
+
+    observe = vi.fn();
+    disconnect = vi.fn();
+    unobserve = vi.fn();
+    takeRecords = vi.fn(() => []);
+  } as never;
 });
 
 function createMember(overrides: Record<string, unknown> = {}) {
@@ -315,5 +330,32 @@ describe("SortableMemberCard", () => {
     );
 
     expect(container.querySelectorAll(".pointer-events-none.absolute.inset-0 div").length).toBeGreaterThan(2);
+  });
+
+  it("clears the selected card when it leaves the viewport", () => {
+    const onExitViewport = vi.fn();
+
+    render(
+      <SortableMemberCard
+        member={createMember()}
+        index={0}
+        resolved={createResolved()}
+        weather="clear"
+        isEvolving={false}
+        isSelected
+        hasActiveSelection
+        onSelect={vi.fn()}
+        onExitViewport={onExitViewport}
+      />,
+    );
+
+    expect(mocked.intersectionObserverCallback).toBeTruthy();
+
+    mocked.intersectionObserverCallback?.(
+      [{ isIntersecting: false } as IntersectionObserverEntry],
+      {} as IntersectionObserver,
+    );
+
+    expect(onExitViewport).toHaveBeenCalledTimes(1);
   });
 });

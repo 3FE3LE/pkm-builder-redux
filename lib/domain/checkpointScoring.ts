@@ -4,6 +4,7 @@ import {
 } from "./battle";
 import { ROLE_LABELS } from "./roleLabels";
 import { buildTeamRoleSnapshot } from "./roleAnalysis";
+import { buildSignatureCeiling } from "./signatureCeiling";
 import { getTypeEffectiveness } from "./typeChart";
 
 type CheckpointMember = {
@@ -16,6 +17,7 @@ type CheckpointMember = {
     down?: "atk" | "def" | "spa" | "spd" | "spe";
   };
   ability?: string;
+  abilities?: string[];
   abilityDetails?: {
     effect?: string;
   } | null;
@@ -75,6 +77,7 @@ export type CheckpointRiskSnapshot = {
   roles: ScoreBreakdown;
   roleSnapshot: ReturnType<typeof buildTeamRoleSnapshot>;
   consistency: ScoreBreakdown;
+  ceiling: ScoreBreakdown;
   notes: string[];
 };
 
@@ -190,6 +193,11 @@ export function buildCheckpointRiskSnapshot({
         summary: "Consistencia sin evaluar",
         signals: ["No se pueden medir dependencias con el roster vacio."],
       },
+      ceiling: {
+        score: 0,
+        summary: "Sin lectura de ceiling",
+        signals: ["No hay sinergias de habilidad o combo que evaluar todavia."],
+      },
       notes: [
         `El tramo ${profile.label} todavia no tiene roster suficiente para generar una lectura util.`,
       ],
@@ -202,13 +210,15 @@ export function buildCheckpointRiskSnapshot({
   const roleSnapshot = buildTeamRoleSnapshot(activeTeam);
   const roles = scoreRoles(roleSnapshot);
   const consistency = scoreConsistency(activeTeam);
+  const ceiling = scoreCeiling(activeTeam);
 
   const totalScore = clamp(
-    offense.score * 0.22 +
-      defense.score * 0.28 +
-      speed.score * 0.2 +
-      roles.score * 0.15 +
-      consistency.score * 0.15,
+    offense.score * 0.2 +
+      defense.score * 0.26 +
+      speed.score * 0.18 +
+      roles.score * 0.14 +
+      consistency.score * 0.08 +
+      ceiling.score * 0.14,
     0,
     100,
   );
@@ -216,7 +226,7 @@ export function buildCheckpointRiskSnapshot({
 
   const notes = [
     buildRiskHeadline(totalRisk, profile.label),
-    ...collectTopSignals([offense, defense, speed, roles, consistency], 4),
+    ...collectTopSignals([offense, defense, speed, roles, consistency, ceiling], 4),
   ];
 
   return {
@@ -229,6 +239,7 @@ export function buildCheckpointRiskSnapshot({
     roles,
     roleSnapshot,
     consistency,
+    ceiling,
     notes,
   };
 }
@@ -399,7 +410,7 @@ function scoreConsistency(team: CheckpointMember[]): ScoreBreakdown {
   const itemReliantSlots = team.filter((member) => Boolean(member.item) && member.statModifiers?.length).length;
 
   const score = clamp(
-    82 - setupCount * 8 - shakyAccuracyCount * 6 - incompleteSlots * 12 - itemReliantSlots * 4,
+    84 - setupCount * 4 - shakyAccuracyCount * 4 - incompleteSlots * 12 - itemReliantSlots * 3,
     0,
     100,
   );
@@ -409,12 +420,42 @@ function scoreConsistency(team: CheckpointMember[]): ScoreBreakdown {
     summary: `${setupCount} slots dependen de setup; ${shakyAccuracyCount} ataques por debajo de 90% accuracy.`,
     signals: [
       setupCount >= 2
-        ? "La run depende bastante de encontrar turnos gratis para setup."
+        ? "Hay varias líneas de setup, así que la ejecución importa más que una lectura plana de riesgo."
         : "La wincon no descansa demasiado en setup forzado.",
       incompleteSlots > 0
         ? `${incompleteSlots} slots siguen incompletos y recortan consistencia real.`
         : "Los slots cargados ya tienen una base razonable de execution.",
     ],
+  };
+}
+
+function scoreCeiling(team: CheckpointMember[]): ScoreBreakdown {
+  const signatures = team
+    .map((member) => ({
+      species: member.species,
+      ...buildSignatureCeiling({
+        ability: member.ability,
+        abilities: member.abilities,
+        moves: member.moves,
+      }),
+    }))
+    .filter((entry) => entry.score > 0);
+
+  const totalSignatureValue = signatures.reduce((sum, entry) => sum + entry.score, 0);
+  const score = clamp(18 + totalSignatureValue * 10, 0, 100);
+
+  return {
+    score: round(score, 1),
+    summary: `${signatures.length} slots con ceiling alto por habilidad o combo; valor total ${round(totalSignatureValue, 1)}.`,
+    signals: signatures.length
+      ? signatures
+          .flatMap((entry) =>
+            entry.notes.length
+              ? [`${entry.species}: ${entry.notes[0]}`]
+              : [`${entry.species}: su perfil tiene más techo real que el sugerido por sus stats.`],
+          )
+          .slice(0, 2)
+      : ["No se detectan picos claros de power por habilidad o combo en el equipo actual."],
   };
 }
 

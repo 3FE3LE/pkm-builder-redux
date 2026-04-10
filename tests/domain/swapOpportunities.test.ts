@@ -29,6 +29,7 @@ const BASE_FILTERS: RecommendationFilters = {
   excludeUniquePokemon: false,
   excludeOtherStarters: false,
   excludeExactTypeDuplicates: false,
+  preferReduxUpgrades: false,
 };
 
 const NEXT_ENCOUNTER: RunEncounterDefinition = {
@@ -461,7 +462,7 @@ describe("buildSwapOpportunities", () => {
         checkpointId: "castelia",
         candidates: [
           expect.objectContaining({
-            id: "trade-route4-mareep",
+            id: "trade-route-4-mareep",
             species: "Mareep",
             source: "Trade",
           }),
@@ -549,7 +550,7 @@ describe("buildSwapOpportunities", () => {
     }));
     mocked.buildDecisionDeltas.mockReturnValue([
       {
-        id: "gift-floccesyranch-missing",
+        id: "gift-floccesy-ranch-missing",
         species: "Mareep",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -840,7 +841,7 @@ describe("buildSwapOpportunities", () => {
 
     mocked.buildDecisionDeltas.mockReturnValue([
       {
-        id: "gift-floccesyranch-audino",
+        id: "gift-floccesy-ranch-audino",
         species: "Audino",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -866,7 +867,7 @@ describe("buildSwapOpportunities", () => {
         duplicatePenalty: 0,
       },
       {
-        id: "gift-floccesyranch-mareep",
+        id: "gift-floccesy-ranch-mareep",
         species: "Mareep",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -892,7 +893,7 @@ describe("buildSwapOpportunities", () => {
         duplicatePenalty: 0,
       },
       {
-        id: "gift-floccesyranch-audino",
+        id: "gift-floccesy-ranch-audino",
         species: "Audino",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -918,7 +919,7 @@ describe("buildSwapOpportunities", () => {
         duplicatePenalty: 0,
       },
       {
-        id: "gift-floccesyranch-mareep",
+        id: "gift-floccesy-ranch-mareep",
         species: "Mareep",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -984,12 +985,12 @@ describe("buildSwapOpportunities", () => {
         checkpointId: "floccesy",
         candidates: expect.arrayContaining([
           expect.objectContaining({
-            id: "gift-floccesyranch-mareep",
+            id: "gift-floccesy-ranch-mareep",
             species: "Mareep",
             source: "Gift",
           }),
           expect.objectContaining({
-            id: "gift-floccesyranch-audino",
+            id: "gift-floccesy-ranch-audino",
             species: "Audino",
             source: "Gift",
           }),
@@ -1039,7 +1040,7 @@ describe("buildSwapOpportunities", () => {
 
     mocked.buildDecisionDeltas.mockReturnValue([
       {
-        id: "gift-floccesyranch-mareep",
+        id: "gift-floccesy-ranch-mareep",
         species: "Mareep",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -1118,7 +1119,7 @@ describe("buildSwapOpportunities", () => {
 
     mocked.buildDecisionDeltas.mockReturnValue([
       {
-        id: "gift-floccesyranch-mareep",
+        id: "gift-floccesy-ranch-mareep",
         species: "Mareep",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -1144,7 +1145,7 @@ describe("buildSwapOpportunities", () => {
         duplicatePenalty: 0,
       },
       {
-        id: "gift-floccesyranch-audino",
+        id: "gift-floccesy-ranch-audino",
         species: "Audino",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -1206,7 +1207,7 @@ describe("buildSwapOpportunities", () => {
     }));
     mocked.buildDecisionDeltas.mockReturnValue([
       {
-        id: "gift-floccesyranch-ivydrake",
+        id: "gift-floccesy-ranch-ivydrake",
         species: "Ivydrake",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",
@@ -1310,7 +1311,7 @@ describe("buildSwapOpportunities", () => {
     }));
     mocked.buildDecisionDeltas.mockReturnValue([
       {
-        id: "gift-floccesyranch-mareep",
+        id: "gift-floccesy-ranch-mareep",
         species: "Mareep",
         source: "Gift",
         reason: "Gift disponible en Floccesy Ranch",

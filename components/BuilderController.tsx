@@ -29,6 +29,7 @@ export function useBuilderController({
   pokemonIndex,
   abilityCatalog,
   itemCatalog,
+  reduxBySpecies,
 }: BuilderDataProps) {
   const data = {
     docs,
@@ -39,6 +40,7 @@ export function useBuilderController({
     pokemonIndex,
     abilityCatalog,
     itemCatalog,
+    reduxBySpecies,
   };
 
   const store = useBuilderStoreState();
@@ -97,6 +99,7 @@ export function useBuilderController({
       pokemonIndex,
       abilityCatalog,
       itemCatalog,
+      reduxBySpecies,
       encounterCatalog: getRunEncounterCatalog(store.run.progress.mode),
     }),
     [
@@ -108,6 +111,7 @@ export function useBuilderController({
       pokemonIndex,
       abilityCatalog,
       itemCatalog,
+      reduxBySpecies,
       store.run.progress.mode,
     ],
   );

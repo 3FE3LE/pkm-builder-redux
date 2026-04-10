@@ -45,6 +45,7 @@ export function RosterGrid({
   onAssignToCompareSelected,
   onOpenDelete,
   onCloseEditor,
+  onClearSelection,
 }: {
   filledTeam: EditableMember[];
   resolvedTeam: ResolvedTeamMember[];
@@ -70,6 +71,7 @@ export function RosterGrid({
   onAssignToCompareSelected: () => void;
   onOpenDelete: () => void;
   onCloseEditor: () => void;
+  onClearSelection: () => void;
 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)", {
     defaultValue: false,
@@ -91,6 +93,7 @@ export function RosterGrid({
         isSelected={activeMemberKey === member.id}
         hasActiveSelection={hasActiveSelection}
         onSelect={() => onSelectMember(member.id)}
+        onExitViewport={activeMemberKey === member.id ? onClearSelection : undefined}
       />
     );
   }

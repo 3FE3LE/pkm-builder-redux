@@ -17,6 +17,16 @@ function stripPokemonDexNotes(entry: RemotePokemon): RemotePokemon {
   return entry;
 }
 
+function normalizeSpeciesKey(input: string) {
+  return input
+    .trim()
+    .toLowerCase()
+    .replace(/♀/g, "-f")
+    .replace(/♂/g, "-m")
+    .replace(/['’.:]/g, "")
+    .replace(/\s+/g, "-");
+}
+
 function estimateJsonBytes(value: unknown) {
   return Buffer.byteLength(JSON.stringify(value), "utf8");
 }
@@ -67,6 +77,27 @@ function buildBuilderPageData() {
       { name: string; category?: string; effect?: string; sprite?: string | null }
     >,
   ).sort((left, right) => left.name.localeCompare(right.name));
+  const reduxBySpecies = Object.fromEntries(
+    getLocalDexList().flatMap((entry) => {
+      const value = {
+        hasTypeChanges: entry.hasTypeChanges,
+        hasAbilityChanges: entry.hasAbilityChanges,
+        hasStatChanges: entry.hasStatChanges,
+      };
+
+      return [
+        [normalizeSpeciesKey(entry.name), value],
+        [normalizeSpeciesKey(entry.slug), value],
+      ];
+    }),
+  ) as Record<
+    string,
+    {
+      hasTypeChanges: boolean;
+      hasAbilityChanges: boolean;
+      hasStatChanges: boolean;
+    }
+  >;
 
   return {
     docs,
@@ -77,6 +108,7 @@ function buildBuilderPageData() {
     pokemonIndex,
     abilityCatalog,
     itemCatalog,
+    reduxBySpecies,
   };
 }
 

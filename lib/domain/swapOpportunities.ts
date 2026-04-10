@@ -8,6 +8,7 @@ import {
 } from "@/lib/builder";
 import { buildCoverageSummary } from "@/lib/domain/battle";
 import { extractEncounterSpecies, extractGiftSpecies, sanitizeSpeciesName } from "@/lib/domain/sourceData";
+import { normalizeName as normalizeSpeciesLookupName } from "@/lib/domain/names";
 import { buildTeamRoleSnapshot } from "@/lib/domain/roleAnalysis";
 import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 import { getTypeEffectiveness } from "@/lib/domain/typeChart";
@@ -600,5 +601,5 @@ function normalizeWords(input: string) {
 }
 
 function normalizeKey(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return normalizeSpeciesLookupName(input);
 }

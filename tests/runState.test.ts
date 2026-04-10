@@ -27,6 +27,7 @@ describe("runState", () => {
           excludeUniquePokemon: false,
           excludeOtherStarters: false,
           excludeExactTypeDuplicates: false,
+          preferReduxUpgrades: false,
         },
         battleWeather: "clear",
         theme: "dark",

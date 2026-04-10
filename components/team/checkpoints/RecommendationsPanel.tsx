@@ -4,15 +4,18 @@ import clsx from "clsx";
 import Link from "next/link";
 import { ArrowRightLeft, Sparkles } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
 import { PokeballMark } from "@/components/team/shared/PokeballMark";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/Sheet";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
-import type { CaptureRecommendation } from "@/lib/domain/contextualRecommendations";
+import type { EnrichedCaptureRecommendation } from "@/lib/domain/scoring/enrichRecommendations";
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
+import type { DimensionScore } from "@/lib/domain/profiles/types";
 import { markNavigationStart } from "@/lib/perf";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
+import { getTypedSurfaceStyle } from "@/lib/ui/typeSurface";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
 
 const recommendationSectionEyebrowClassName = "display-face px-1 micro-copy text-accent";
@@ -26,6 +29,26 @@ const recommendationCompactStatLabelClassName = "display-face micro-label text-m
 const recommendationSwapOutgoingCardClassName = "panel-card border-line bg-surface-2";
 const recommendationRiskPillClassName = "token-card px-2.5 py-1.5 text-xs";
 const recommendationStatCardClassName = "token-card px-3 py-2";
+const recommendationCaptureCardClassName =
+  "relative overflow-hidden rounded-[1.4rem] border border-line-soft/80 px-3 py-3 shadow-[0_18px_40px_hsl(0_0%_0%_/_0.18)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary-line-emphasis hover:shadow-[0_24px_54px_hsl(0_0%_0%_/_0.24)]";
+const recommendationCaptureHeaderClassName = "flex flex-col items-start gap-2 md:flex-row md:items-start md:justify-between md:gap-3";
+const recommendationCaptureSourceClassName = "micro-label text-text-faint";
+const recommendationCaptureSpriteShellClassName =
+  "relative flex h-24 items-center justify-center overflow-hidden rounded-[1.15rem] border border-white/8 bg-[linear-gradient(180deg,hsl(0_0%_100%_/_0.06),transparent_65%)]";
+const recommendationCaptureBandClassName =
+  "grid grid-cols-3 gap-1.5 rounded-[1rem] border border-white/8 bg-[hsl(0_0%_100%_/_0.04)] p-1.5";
+const recommendationCaptureMetricClassName =
+  "rounded-[0.8rem] border border-white/8 bg-[hsl(0_0%_0%_/_0.12)] px-2 py-2 text-center";
+const recommendationCaptureMetricLabelClassName = "display-face micro-text-8 tracking-ui-wide text-text-faint";
+const recommendationCaptureMetricValueClassName = "pixel-face mt-1 text-xs text-text";
+const recommendationCaptureRolePillClassName =
+  "inline-flex max-w-full items-center rounded-full border border-white/10 bg-[hsl(0_0%_100%_/_0.05)] px-2.5 py-1 micro-copy text-text-soft";
+const recommendationCaptureActionClassName =
+  "group inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[hsl(0_0%_0%_/_0.18)] text-accent transition hover:border-primary-line-emphasis hover:bg-primary-fill hover:text-primary-soft";
+const recommendationCaptureMobileMetricClassName =
+  "rounded-[0.9rem] border border-white/8 bg-[hsl(0_0%_0%_/_0.12)] px-2.5 py-2";
+const recommendationCaptureSheetCardClassName =
+  "app-soft-panel rounded-xl px-3 py-3";
 
 export function RecommendationsPanel({
   teamSize,
@@ -40,7 +63,7 @@ export function RecommendationsPanel({
   ivCalcHrefBuilder,
 }: {
   teamSize: number;
-  captureRecommendations: CaptureRecommendation[];
+  captureRecommendations: EnrichedCaptureRecommendation[];
   swapOpportunities: SwapOpportunity[];
   supportsContextualSwaps: boolean;
   nextEncounter: RunEncounterDefinition | null;
@@ -52,6 +75,7 @@ export function RecommendationsPanel({
 }) {
   const shouldShowCaptures = showCaptures && teamSize < 6;
   const shouldShowSwaps = showSwaps && teamSize >= 5;
+  const [activeCaptureId, setActiveCaptureId] = useState<string | null>(null);
   const dexByName = useMemo(
     () =>
       Object.fromEntries(
@@ -59,8 +83,10 @@ export function RecommendationsPanel({
       ) as Record<string, number>,
     [speciesCatalog],
   );
+  const activeCapture = captureRecommendations.find((entry) => entry.id === activeCaptureId) ?? null;
 
   return (
+    <>
     <div className="rounded-2xl px-2 py-3 sm:px-3 sm:py-4 lg:px-4 lg:py-5">
       <div className="space-y-4">
         {shouldShowCaptures ? (
@@ -76,6 +102,7 @@ export function RecommendationsPanel({
                       dexNumber={dexByName[normalizeName(recommendation.species)]}
                       onSendToIvCalc={onSendToIvCalc}
                       ivCalcHrefBuilder={ivCalcHrefBuilder}
+                      onOpenDetails={() => setActiveCaptureId(recommendation.id)}
                     />
                   ))}
                 </AnimatePresence>
@@ -108,6 +135,19 @@ export function RecommendationsPanel({
         ) : null}
       </div>
     </div>
+    <CaptureDetailSheet
+      recommendation={activeCapture}
+      dexNumber={activeCapture ? dexByName[normalizeName(activeCapture.species)] : undefined}
+      open={Boolean(activeCapture)}
+      onOpenChange={(open) => {
+        if (!open) {
+          setActiveCaptureId(null);
+        }
+      }}
+      onSendToIvCalc={onSendToIvCalc}
+      ivCalcHrefBuilder={ivCalcHrefBuilder}
+    />
+    </>
   );
 }
 
@@ -116,15 +156,42 @@ function CaptureCard({
   dexNumber,
   onSendToIvCalc,
   ivCalcHrefBuilder,
+  onOpenDetails,
 }: {
-  recommendation: CaptureRecommendation;
+  recommendation: EnrichedCaptureRecommendation;
   dexNumber?: number;
   onSendToIvCalc?: (species: string) => void;
   ivCalcHrefBuilder?: (species: string) => string;
+  onOpenDetails: () => void;
 }) {
   const sprites = buildSpriteUrls(recommendation.species, dexNumber);
   const ivCalcHref = ivCalcHrefBuilder?.(recommendation.species);
   const toolForwardTransition = useSafeTransitionTypes(["tool-forward"]);
+  const redux = recommendation.redux ?? {
+    score: 0,
+    sortBonus: 0,
+    hasTypeChanges: false,
+    hasAbilityChanges: false,
+    hasStatChanges: false,
+    labels: [],
+  };
+  const lateGame = recommendation.lateGame ?? {
+    finalSpecies: recommendation.species,
+    finalTypes: recommendation.candidateMember.resolvedTypes ?? [],
+    finalBst: recommendation.candidateMember.resolvedStats?.bst,
+    score: 0,
+    notes: [],
+  };
+  const cardStyle = getTypedSurfaceStyle(recommendation.candidateMember.resolvedTypes ?? [], {
+    primaryGlowMix: 16,
+    secondaryGlowMix: 14,
+    primaryBodyMix: 7,
+    secondaryBodyMix: 6,
+  });
+  const v2 = recommendation.v2Score;
+  const scoreLabel = v2.finalScore.toFixed(0);
+  const floorLabel = recommendation.v2Profile.floorScore.toFixed(1);
+  const ceilingLabel = recommendation.v2Profile.ceilingScore.toFixed(1);
 
   return (
     <motion.article
@@ -132,91 +199,300 @@ function CaptureCard({
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
-      className="panel-card"
+      className={recommendationCaptureCardClassName}
+      style={cardStyle}
     >
-      <div className="flex flex-col gap-3">
-        <div className="flex items-start gap-2">
-          <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,hsl(0_0%_100%_/_0.08),transparent)]" />
+      <div className="relative flex flex-col gap-3">
+        <div className={recommendationCaptureHeaderClassName}>
           <div className="min-w-0 flex-1">
-            <p className="display-face truncate text-sm text-accent">{recommendation.species}</p>
+            <p className={recommendationCaptureSourceClassName}>Captura sugerida</p>
+            <p className="display-face mt-1 truncate text-base text-text">{recommendation.species}</p>
             <p className="mt-1 text-xs text-muted">
               {recommendation.source} · {recommendation.area}
             </p>
           </div>
+          <span className={recommendationCaptureRolePillClassName}>
+            <Sparkles className="mr-1.5 h-3.5 w-3.5 text-accent" />
+            {recommendation.role}
+          </span>
         </div>
 
-        <div className="flex justify-center">
-          <div className="scale-[0.86] lg:scale-[1.02]">
+        <div className={recommendationCaptureSpriteShellClassName}>
+          <div className="absolute inset-x-6 bottom-3 h-6 rounded-full bg-[hsl(0_0%_0%_/_0.18)] blur-xl" />
+          <div className="relative h-full w-full">
             <PokemonSprite
               species={recommendation.species}
               spriteUrl={sprites.spriteUrl}
               animatedSpriteUrl={sprites.animatedSpriteUrl}
-              size="default"
+              size="fill"
               chrome="plain"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          <span className={recommendationTokenPillClassName}>
-            rol {recommendation.role}
-          </span>
-          <span
-            className={clsx(
-              recommendationRiskPillClassName,
-              recommendation.delta.riskDelta >= 1.5
-                ? "border-accent-line bg-accent-fill-strong text-accent-soft"
-                : "border-info-line bg-info-fill text-info-soft",
-            )}
-          >
-            risk -{recommendation.delta.riskDelta.toFixed(1)}
-          </span>
-          <span className={recommendationTokenPillClassName}>
-            score +{recommendation.delta.scoreDelta.toFixed(1)}
-          </span>
-          <span className={recommendationTokenPillClassName}>
-            bst {recommendation.candidateMember.resolvedStats?.bst ?? "?"}
-          </span>
+        <div className={clsx(recommendationCaptureBandClassName, "hidden md:grid")}>
+          <div className={recommendationCaptureMetricClassName}>
+            <p className={recommendationCaptureMetricLabelClassName}>Score</p>
+            <p
+              className={clsx(
+                recommendationCaptureMetricValueClassName,
+                v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
+              )}
+            >
+              {scoreLabel}
+            </p>
+          </div>
+          <div className={recommendationCaptureMetricClassName}>
+            <p className={recommendationCaptureMetricLabelClassName}>Piso</p>
+            <p className={clsx(recommendationCaptureMetricValueClassName, "text-info-soft")}>
+              {floorLabel}
+            </p>
+          </div>
+          <div className={recommendationCaptureMetricClassName}>
+            <p className={recommendationCaptureMetricLabelClassName}>Techo</p>
+            <p className={clsx(recommendationCaptureMetricValueClassName, "text-primary-soft")}>
+              {ceilingLabel}
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-2 gap-2 md:hidden">
+          <div className={recommendationCaptureMobileMetricClassName}>
+            <p className={recommendationCaptureMetricLabelClassName}>Score</p>
+            <p className={clsx(
+              recommendationCaptureMetricValueClassName,
+              v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
+            )}>
+              {scoreLabel}
+            </p>
+          </div>
+          <div className={recommendationCaptureMobileMetricClassName}>
+            <p className={recommendationCaptureMetricLabelClassName}>Veredicto</p>
+            <p className={clsx(
+              recommendationCaptureMetricValueClassName,
+              v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-text-faint",
+            )}>
+              {v2.verdict === "strong" ? "Excelente" : v2.verdict === "solid" ? "Sólido" : v2.verdict === "situational" ? "Situacional" : "Limitado"}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
           {recommendation.candidateMember.resolvedTypes.map((type) => (
             <TypeBadge key={`${recommendation.id}-${type}`} type={type} />
           ))}
+          <button
+            type="button"
+            onClick={onOpenDetails}
+            className="app-soft-chip app-chip-xs ml-auto text-text hover:border-primary-line-emphasis hover:text-primary-soft md:hidden"
+          >
+            Motivos
+          </button>
+          <div className="ml-auto">
+            {ivCalcHref ? (
+              <Link
+                href={ivCalcHref}
+                prefetch
+                transitionTypes={toolForwardTransition}
+                aria-label={`Mandar ${recommendation.species} al IV Calc`}
+                className={clsx(recommendationCaptureActionClassName, "hidden md:inline-flex")}
+                onPointerDown={() =>
+                  markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref)
+                }
+                onClick={() =>
+                  markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref)
+                }
+              >
+                <PokeballMark />
+              </Link>
+            ) : onSendToIvCalc ? (
+              <button
+                type="button"
+                onClick={() => onSendToIvCalc(recommendation.species)}
+                aria-label={`Mandar ${recommendation.species} al IV Calc`}
+                className={clsx(recommendationCaptureActionClassName, "hidden md:inline-flex")}
+              >
+                <PokeballMark />
+              </button>
+            ) : null}
+          </div>
         </div>
+      </div>
+    </motion.article>
+  );
+}
 
-        {ivCalcHref ? (
-          <div className="flex justify-end">
+function CaptureDetailSheet({
+  recommendation,
+  dexNumber,
+  open,
+  onOpenChange,
+  onSendToIvCalc,
+  ivCalcHrefBuilder,
+}: {
+  recommendation: EnrichedCaptureRecommendation | null;
+  dexNumber?: number;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSendToIvCalc?: (species: string) => void;
+  ivCalcHrefBuilder?: (species: string) => string;
+}) {
+  const toolForwardTransition = useSafeTransitionTypes(["tool-forward"]);
+
+  if (!recommendation) {
+    return null;
+  }
+
+  const sprites = buildSpriteUrls(recommendation.species, dexNumber);
+  const ivCalcHref = ivCalcHrefBuilder?.(recommendation.species);
+  const v2 = recommendation.v2Score;
+  const profile = recommendation.v2Profile;
+  const { breakdown } = v2;
+
+  const dimensionRows: { key: string; label: string; dim: DimensionScore }[] = [
+    { key: "team", label: "Team Impact", dim: breakdown.teamImpact },
+    { key: "ctx", label: "Contexto", dim: breakdown.contextAdvantage },
+    { key: "floor", label: "Piso", dim: breakdown.stabilityFloor },
+    { key: "ceil", label: "Techo", dim: breakdown.powerCeiling },
+    { key: "pref", label: "Afinidad", dim: breakdown.preferenceAffinity },
+    { key: "redux", label: "Redux", dim: breakdown.reduxValue },
+  ];
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="bottom" onRequestClose={() => onOpenChange(false)} className="max-h-[85vh] rounded-t-[1.6rem] px-4 pb-5 pt-0 md:hidden">
+        <SheetHeader className="px-0 pt-4 pb-0">
+          <p className="micro-label text-text-faint">Motivos de la recomendación</p>
+          <SheetTitle className="display-face mt-1 text-lg text-text">{recommendation.species}</SheetTitle>
+          <p className="mt-1 text-sm text-muted">
+            {recommendation.source} · {recommendation.area}
+          </p>
+        </SheetHeader>
+
+        <div className="space-y-3 overflow-y-auto pb-2">
+          <div className={recommendationCaptureSheetCardClassName}>
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className={recommendationCaptureMetricLabelClassName}>Score unificado</p>
+                <p className={clsx(
+                  "display-face mt-1 text-xl",
+                  v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
+                )}>
+                  {v2.finalScore.toFixed(0)}
+                </p>
+                <p className="mt-1 text-xs text-muted">
+                  {v2.verdict === "strong" ? "Excelente opción" : v2.verdict === "solid" ? "Opción sólida" : v2.verdict === "situational" ? "Opción situacional" : "Opción limitada"}
+                </p>
+              </div>
+              <PokemonSprite
+                species={recommendation.species}
+                spriteUrl={sprites.spriteUrl}
+                animatedSpriteUrl={sprites.animatedSpriteUrl}
+                size="default"
+                chrome="plain"
+              />
+            </div>
+            <div className="mt-3 grid grid-cols-3 gap-2">
+              <CompactReasonMetric label="Piso" value={profile.floorScore.toFixed(1)} />
+              <CompactReasonMetric label="Techo" value={profile.ceilingScore.toFixed(1)} />
+              <CompactReasonMetric label="Volat." value={profile.volatility.toFixed(1)} />
+            </div>
+          </div>
+
+          <div className={recommendationCaptureSheetCardClassName}>
+            <p className="display-face micro-copy text-accent">Desglose</p>
+            <div className="mt-3 space-y-2.5">
+              {dimensionRows.map(({ key, label, dim }) => (
+                <DimensionBar key={key} label={label} raw={dim.raw} weighted={dim.weighted} recId={recommendation.id} dimKey={key} />
+              ))}
+            </div>
+          </div>
+
+          {v2.topSignals.length ? (
+            <div className={recommendationCaptureSheetCardClassName}>
+              <p className="display-face micro-copy text-accent">Por qué entra</p>
+              <div className="mt-3 space-y-2">
+                {v2.topSignals.map((signal, index) => (
+                  <p key={`${recommendation.id}-signal-${index}`} className="text-sm leading-6 text-text-soft">
+                    {signal}
+                  </p>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {v2.synergyTags.length ? (
+            <div className={recommendationCaptureSheetCardClassName}>
+              <p className="display-face micro-copy text-accent">Sinergias</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {v2.synergyTags.map((tag) => (
+                  <span key={`${recommendation.id}-tag-${tag}`} className="app-soft-chip app-chip-xs text-text-soft">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {recommendation.projectedMoves.length ? (
+            <div className={recommendationCaptureSheetCardClassName}>
+              <p className="display-face micro-copy text-accent">Moves proyectados</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {recommendation.projectedMoves.map((move) => (
+                  <span key={`${recommendation.id}-${move}`} className="app-soft-chip app-chip-xs text-text-soft">
+                    {move}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          <div className={recommendationCaptureSheetCardClassName}>
+            <div className="flex flex-wrap gap-2">
+              {recommendation.candidateMember.resolvedTypes.map((type) => (
+                <TypeBadge key={`${recommendation.id}-sheet-${type}`} type={type} />
+              ))}
+            </div>
+          </div>
+
+          {ivCalcHref ? (
             <Link
               href={ivCalcHref}
               prefetch
               transitionTypes={toolForwardTransition}
-              aria-label={`Mandar ${recommendation.species} al IV Calc`}
-              className="action-tile group inline-flex h-9 w-9 items-center justify-center rounded-full hover:border-primary-line-emphasis"
-              onPointerDown={() =>
-                markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref)
-              }
-              onClick={() =>
-                markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref)
-              }
+              className="primary-badge flex h-11 items-center justify-center rounded-xl"
+              onClick={() => {
+                markNavigationStart("capture-recommendation-to-ivcalc", ivCalcHref);
+                onOpenChange(false);
+              }}
             >
-              <PokeballMark />
+              Mandar al IV Calc
             </Link>
-          </div>
-        ) : onSendToIvCalc ? (
-          <div className="flex justify-end">
+          ) : onSendToIvCalc ? (
             <button
               type="button"
-              onClick={() => onSendToIvCalc(recommendation.species)}
-              aria-label={`Mandar ${recommendation.species} al IV Calc`}
-              className="action-tile group inline-flex h-9 w-9 items-center justify-center rounded-full hover:border-primary-line-emphasis"
+              onClick={() => {
+                onSendToIvCalc(recommendation.species);
+                onOpenChange(false);
+              }}
+              className="primary-badge flex h-11 w-full items-center justify-center rounded-xl"
             >
-              <PokeballMark />
+              Mandar al IV Calc
             </button>
-          </div>
-        ) : null}
-      </div>
-    </motion.article>
+          ) : null}
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+function CompactReasonMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-line-soft bg-surface-3 px-2 py-2 text-center">
+      <p className={recommendationCaptureMetricLabelClassName}>{label}</p>
+      <p className="display-face mt-1 text-sm text-text">{value}</p>
+    </div>
   );
 }
 
@@ -330,6 +606,39 @@ function CompactStat({ label, value }: { label: string; value?: number }) {
     <div className={recommendationStatCardClassName}>
       <p className={recommendationCompactStatLabelClassName}>{label}</p>
       <p className="display-face mt-1 text-sm text-text">{value ?? "-"}</p>
+    </div>
+  );
+}
+
+function DimensionBar({
+  label,
+  raw,
+  weighted,
+  recId,
+  dimKey,
+}: {
+  label: string;
+  raw: number;
+  weighted: number;
+  recId: string;
+  dimKey: string;
+}) {
+  const pct = Math.min(Math.max(raw, 0), 100);
+  return (
+    <div key={`${recId}-dim-${dimKey}`}>
+      <div className="flex items-center justify-between gap-2">
+        <p className="micro-label text-text-faint">{label}</p>
+        <p className="display-face micro-label text-text-soft">{raw.toFixed(0)}<span className="text-text-faint">/{weighted.toFixed(1)}</span></p>
+      </div>
+      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-surface-3">
+        <div
+          className={clsx(
+            "h-full rounded-full transition-all",
+            pct >= 70 ? "bg-accent" : pct >= 40 ? "bg-primary" : "bg-info",
+          )}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
     </div>
   );
 }

@@ -22,9 +22,9 @@ export const dexSectionCaptionClassName = "display-face caption-dense text-text-
 export const dexOwnerChipClassName =
   "app-soft-panel inline-flex rounded-[0.6rem] p-1";
 export const dexLoadMoreChipClassName =
-  "app-soft-chip px-3 py-1 text-xs";
+  "app-soft-chip app-chip-xs px-3";
 export const dexStatChipClassName =
-  "app-soft-chip px-2.5 py-1 text-xs";
+  "app-soft-chip app-chip-xs";
 export const dexFilterLabelClassName = "micro-label text-text-faint";
 export const dexInfoListCardClassName = "app-soft-panel radius-panel-md px-3 py-2";
 

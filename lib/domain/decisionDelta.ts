@@ -1,6 +1,7 @@
 import type { RoleId } from "./roleAnalysis";
 import { calculateEffectiveStats, buildCoverageSummary } from "./battle";
 import { buildCheckpointRiskSnapshot } from "./checkpointScoring";
+import { normalizeName as normalizeSpeciesLookupName } from "./names";
 import { getTypeEffectiveness } from "./typeChart";
 
 type CandidateSuggestion = {
@@ -51,6 +52,8 @@ type CandidateMove = {
 export type DecisionDeltaTeamMember = {
   species: string;
   locked?: boolean;
+  ability?: string;
+  abilities?: string[];
   resolvedTypes: string[];
   resolvedStats?: {
     hp: number;
@@ -308,7 +311,7 @@ export function projectCandidateMember({
   pokemonByName: Record<string, CandidatePokemon | null | undefined>;
   moveIndex: Record<string, CandidateMove | null | undefined>;
 }): DecisionDeltaTeamMember | null {
-  const normalizedSpecies = normalize(species);
+  const normalizedSpecies = normalizeSpeciesLookupName(species);
   const candidate = pokemonByName[normalizedSpecies];
   if (!candidate?.stats) {
     return null;
@@ -325,6 +328,7 @@ export function projectCandidateMember({
 
   return {
     species: candidate.name ?? species,
+    abilities: candidate.abilities ?? [],
     resolvedTypes: candidate.types ?? [],
     resolvedStats: candidate.stats,
     summaryStats: effectiveStats,

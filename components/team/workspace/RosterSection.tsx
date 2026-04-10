@@ -187,6 +187,7 @@ export function RosterSection({
         onAssignToCompareSelected={() => selectedMember && onAssignToCompare(selectedMember.id)}
         onOpenDelete={() => setDeleteOpen(true)}
         onCloseEditor={onCloseEditor}
+        onClearSelection={onClearSelection}
       />
       {selectedEditorHref ? (
         <Link

@@ -105,6 +105,7 @@ function createStore() {
       excludeUniquePokemon: false,
       excludeOtherStarters: false,
       excludeExactTypeDuplicates: false,
+      preferReduxUpgrades: false,
     },
     evolutionConstraints: { level: true, gender: true, timeOfDay: true },
   } as any;
@@ -128,6 +129,7 @@ function createData() {
     abilityCatalog: [],
     itemCatalog: [],
     moveIndex: {},
+    reduxBySpecies: {},
   } as any;
 }
 

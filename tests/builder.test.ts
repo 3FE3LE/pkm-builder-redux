@@ -102,6 +102,7 @@ function createFilters(overrides: Partial<RecommendationFilters> = {}): Recommen
     excludeUniquePokemon: false,
     excludeOtherStarters: false,
     excludeExactTypeDuplicates: false,
+    preferReduxUpgrades: false,
     ...overrides,
   };
 }

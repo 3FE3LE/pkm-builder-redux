@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
@@ -44,6 +44,29 @@ vi.mock("@/components/BuilderShared", () => ({
 
 import { RecommendationsPanel } from "@/components/team/checkpoints/RecommendationsPanel";
 
+function fakeV2Score(finalScore: number) {
+  const dim = { raw: finalScore, weighted: finalScore * 0.2, signals: [] };
+  return {
+    finalScore,
+    rank: 1,
+    breakdown: {
+      teamImpact: dim,
+      contextAdvantage: dim,
+      stabilityFloor: dim,
+      powerCeiling: dim,
+      preferenceAffinity: dim,
+      reduxValue: dim,
+    },
+    topSignals: [],
+    synergyTags: [],
+    verdict: finalScore >= 70 ? "strong" : finalScore >= 50 ? "solid" : "situational",
+  };
+}
+
+function fakeV2Profile(floor: number, ceiling: number) {
+  return { floorScore: floor, ceilingScore: ceiling, volatility: ceiling - floor };
+}
+
 describe("RecommendationsPanel", () => {
   it("renders capture recommendations and sends a species to IV calc", async () => {
     const user = userEvent.setup();
@@ -68,6 +91,8 @@ describe("RecommendationsPanel", () => {
               resolvedStats: { bst: 365 },
               resolvedTypes: ["Electric"],
             },
+            v2Score: fakeV2Score(62),
+            v2Profile: fakeV2Profile(5.5, 7.0),
           } as never,
           {
             id: "cap-2",
@@ -84,6 +109,8 @@ describe("RecommendationsPanel", () => {
               resolvedStats: { bst: 330 },
               resolvedTypes: ["Dark"],
             },
+            v2Score: fakeV2Score(48),
+            v2Profile: fakeV2Profile(4.0, 5.5),
           } as never,
         ]}
         swapOpportunities={[]}
@@ -100,9 +127,17 @@ describe("RecommendationsPanel", () => {
     expect(screen.getByText("Capturas nuevas")).toBeTruthy();
     expect(screen.getByText("Mareep")).toBeTruthy();
     expect(screen.getByText("Gift · Virbank")).toBeTruthy();
-    expect(screen.getByText("risk -1.8")).toBeTruthy();
-    expect(screen.getByText("score +4.4")).toBeTruthy();
-    expect(screen.getByText("bst 365")).toBeTruthy();
+    expect(screen.getAllByText("Captura sugerida")).toHaveLength(2);
+    expect(screen.getByText("bulkyPivot")).toBeTruthy();
+    const mareepCard = screen.getByText("Mareep").closest("article");
+    expect(mareepCard).toBeTruthy();
+    const mareepScope = within(mareepCard as HTMLElement);
+    expect(mareepScope.getAllByText("Score").length).toBeGreaterThan(0);
+    expect(mareepScope.getAllByText("62").length).toBeGreaterThan(0);
+    expect(mareepScope.getByText("Piso")).toBeTruthy();
+    expect(mareepScope.getByText("5.5")).toBeTruthy();
+    expect(mareepScope.getByText("Techo")).toBeTruthy();
+    expect(mareepScope.getByText("7.0")).toBeTruthy();
     expect(screen.getByText("Electric")).toBeTruthy();
     expect(screen.getByText("Dark")).toBeTruthy();
     expect(screen.getByText("sprite-Mareep-https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/179.png")).toBeTruthy();
@@ -220,6 +255,8 @@ describe("RecommendationsPanel", () => {
               resolvedStats: { bst: 308 },
               resolvedTypes: ["Grass"],
             },
+            v2Score: fakeV2Score(40),
+            v2Profile: fakeV2Profile(4, 5),
           } as never,
         ]}
         swapOpportunities={[

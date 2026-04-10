@@ -14,7 +14,7 @@ type CheckpointRisk = ReturnType<
   typeof import("@/lib/domain/checkpointScoring").buildCheckpointRiskSnapshot
 >;
 type CaptureRecommendation = ReturnType<
-  typeof import("@/lib/domain/contextualRecommendations").buildCaptureRecommendations
+  typeof import("@/lib/domain/scoring/enrichRecommendations").enrichCaptureRecommendations
 >[number];
 type DefensiveSections = ReturnType<typeof import("@/lib/teamAnalysis").buildDefensiveSections>;
 

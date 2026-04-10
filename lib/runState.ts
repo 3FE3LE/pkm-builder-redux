@@ -28,7 +28,8 @@ export type RecommendationFilterKey =
   | "excludePseudoLegendaries"
   | "excludeUniquePokemon"
   | "excludeOtherStarters"
-  | "excludeExactTypeDuplicates";
+  | "excludeExactTypeDuplicates"
+  | "preferReduxUpgrades";
 export type RecommendationFilterState = Record<RecommendationFilterKey, boolean>;
 export type BuilderTheme = "dark" | "light" | "auto";
 
@@ -92,6 +93,7 @@ export function createEmptyRunState(): RunState {
         excludeUniquePokemon: false,
         excludeOtherStarters: false,
         excludeExactTypeDuplicates: false,
+        preferReduxUpgrades: false,
       },
       battleWeather: "clear",
       theme: "dark",
@@ -143,6 +145,7 @@ export function createStartedRunState(
         excludeUniquePokemon: false,
         excludeOtherStarters: false,
         excludeExactTypeDuplicates: false,
+        preferReduxUpgrades: false,
       },
       battleWeather: "clear",
       theme: "dark",

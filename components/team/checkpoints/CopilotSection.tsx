@@ -20,7 +20,7 @@ type SwapOpportunity = ReturnType<
   typeof import("@/lib/domain/swapOpportunities").buildSwapOpportunities
 >[number];
 type CaptureRecommendation = ReturnType<
-  typeof import("@/lib/domain/contextualRecommendations").buildCaptureRecommendations
+  typeof import("@/lib/domain/scoring/enrichRecommendations").enrichCaptureRecommendations
 >[number];
 type MoveRecommendation = ReturnType<
   typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations

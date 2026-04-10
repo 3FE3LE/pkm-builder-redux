@@ -57,6 +57,7 @@ export type RecommendationFilters = {
   excludeUniquePokemon: boolean;
   excludeOtherStarters: boolean;
   excludeExactTypeDuplicates: boolean;
+  preferReduxUpgrades: boolean;
 };
 
 const DEFAULT_RECOMMENDATION_FILTERS: RecommendationFilters = {
@@ -65,6 +66,7 @@ const DEFAULT_RECOMMENDATION_FILTERS: RecommendationFilters = {
   excludeUniquePokemon: false,
   excludeOtherStarters: false,
   excludeExactTypeDuplicates: false,
+  preferReduxUpgrades: false,
 };
 
 export const starters: Record<

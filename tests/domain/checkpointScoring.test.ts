@@ -18,6 +18,21 @@ describe("checkpointScoring", () => {
     expect(snapshot.speed.summary).toContain("speed tier 105");
     expect(snapshot.speed.summary).toContain("2 slots");
   });
+
+  it("recognizes high-ceiling ability and move combos like Contrary plus Leaf Storm", () => {
+    const snapshot = buildCheckpointRiskSnapshot({
+      checkpointId: "league",
+      team: [
+        buildMember("Serperior", ["Grass", "Dragon"], 113, ["leaf storm"], "Contrary"),
+        buildMember("Lucario", ["Fighting", "Steel"], 90),
+      ],
+    });
+
+    expect(snapshot.ceiling.score).toBeGreaterThan(0);
+    expect(snapshot.ceiling.summary).toContain("slots con ceiling alto");
+    expect(snapshot.ceiling.signals.some((note) => note.includes("Contrary"))).toBe(true);
+    expect(snapshot.totalScore).toBeGreaterThan(20);
+  });
 });
 
 function buildMember(
@@ -25,9 +40,11 @@ function buildMember(
   resolvedTypes: string[],
   speed: number,
   moves: string[] = [],
+  ability?: string,
 ) {
   return {
     species,
+    ability,
     resolvedTypes,
     resolvedStats: {
       hp: 80,
@@ -58,7 +75,8 @@ function buildMember(
     },
     moves: moves.map((name) => ({
       name,
-      damageClass: "status",
+      damageClass: name === "leaf storm" ? "special" : "status",
+      power: name === "leaf storm" ? 130 : undefined,
     })),
   };
 }

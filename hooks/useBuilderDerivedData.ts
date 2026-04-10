@@ -13,6 +13,7 @@ import { buildCheckpointRiskSnapshot } from "@/lib/domain/checkpointScoring";
 import { buildCaptureRecommendations } from "@/lib/domain/contextualRecommendations";
 import { getMoveRecommendations } from "@/lib/domain/moveRecommendations";
 import { buildSwapOpportunities } from "@/lib/domain/swapOpportunities";
+import { enrichCaptureRecommendations } from "@/lib/domain/scoring/enrichRecommendations";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import {
   getFurthestMilestoneId,
@@ -247,6 +248,7 @@ export function useBuilderDerivedData(
             milestoneId: contextualMilestoneId,
             pokemonByName: pokemonIndex,
             moveIndex,
+            reduxBySpecies: data.reduxBySpecies,
             starter: store.starter,
             filters: store.recommendationFilters,
           })
@@ -290,6 +292,24 @@ export function useBuilderDerivedData(
     ],
   );
 
+  const enrichedCaptureRecommendations = useMemo(
+    () =>
+      enrichCaptureRecommendations({
+        recommendations: captureRecommendations,
+        team: resolvedTeam,
+        nextEncounter,
+        milestoneId: contextualMilestoneId,
+        pokemonByName: pokemonIndex,
+        filters: {
+          preferReduxUpgrades: store.recommendationFilters.preferReduxUpgrades,
+          excludeExactTypeDuplicates: store.recommendationFilters.excludeExactTypeDuplicates,
+          excludeLegendaries: store.recommendationFilters.excludeLegendaries,
+          excludePseudoLegendaries: store.recommendationFilters.excludePseudoLegendaries,
+        },
+      }),
+    [captureRecommendations, contextualMilestoneId, nextEncounter, pokemonIndex, resolvedTeam, store.recommendationFilters],
+  );
+
   return {
     resolverContext,
     resolvedTeam,
@@ -311,6 +331,6 @@ export function useBuilderDerivedData(
     activeMember,
     moveRecommendations,
     swapOpportunities,
-    captureRecommendations,
+    captureRecommendations: enrichedCaptureRecommendations,
   };
 }

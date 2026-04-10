@@ -23,6 +23,14 @@ export type BuilderDataProps = {
     effect?: string;
     sprite?: string | null;
   }[];
+  reduxBySpecies: Record<
+    string,
+    {
+      hasTypeChanges: boolean;
+      hasAbilityChanges: boolean;
+      hasStatChanges: boolean;
+    }
+  >;
 };
 
 export type MoveModalTab = "levelUp" | "machines";

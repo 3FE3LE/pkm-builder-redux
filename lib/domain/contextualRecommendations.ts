@@ -1,4 +1,6 @@
 import { findArea, findGift, findTrade, type ParsedDocs } from "../docsSchema";
+import { normalizeName as normalizeSpeciesLookupName } from "./names";
+import { buildSignatureCeiling } from "./signatureCeiling";
 import {
   buildDecisionDeltas,
   inferProjectedLevel,
@@ -55,6 +57,22 @@ export type CaptureRecommendation = {
   projectedMoves: string[];
   delta: DecisionDelta;
   candidateMember: DecisionDeltaTeamMember;
+  recommendationScore: number;
+  redux: {
+    score: number;
+    sortBonus: number;
+    hasTypeChanges: boolean;
+    hasAbilityChanges: boolean;
+    hasStatChanges: boolean;
+    labels: string[];
+  };
+  lateGame: {
+    finalSpecies: string;
+    finalTypes: string[];
+    finalBst?: number;
+    score: number;
+    notes: string[];
+  };
 };
 
 export function buildCaptureRecommendations({
@@ -64,8 +82,10 @@ export function buildCaptureRecommendations({
   milestoneId,
   pokemonByName,
   moveIndex,
+  reduxBySpecies = {},
   starter,
   filters,
+  limit = 4,
 }: {
   docs: ParsedDocs;
   team: Array<ResolvedTeamMember & { locked?: boolean }>;
@@ -73,8 +93,17 @@ export function buildCaptureRecommendations({
   milestoneId?: string;
   pokemonByName: Record<string, RemotePokemon | null | undefined>;
   moveIndex: Record<string, RemoteMove | null | undefined>;
+  reduxBySpecies?: Record<
+    string,
+    {
+      hasTypeChanges: boolean;
+      hasAbilityChanges: boolean;
+      hasStatChanges: boolean;
+    }
+  >;
   starter: StarterKey;
   filters: RecommendationFilters;
+  limit?: number;
 }): CaptureRecommendation[] {
   const activeTeam = team.filter((member) => member.species.trim());
   if (!nextEncounter || activeTeam.length >= 6) {
@@ -208,6 +237,17 @@ export function buildCaptureRecommendations({
         return null;
       }
 
+      const reduxScoring = buildReduxScoring({
+        species: delta.species,
+        reduxBySpecies,
+        preferReduxUpgrades: filters.preferReduxUpgrades,
+      });
+      const lateGameScoring = buildLateGameScoring({
+        species: delta.species,
+        currentMember: candidateMember,
+        pokemonByName,
+      });
+
       return {
         id: delta.id,
         species: delta.species,
@@ -217,19 +257,170 @@ export function buildCaptureRecommendations({
         projectedMoves: delta.projectedMoves,
         delta,
         candidateMember,
+        recommendationScore: reduxScoring.recommendationScore,
+        redux: reduxScoring.redux,
+        lateGame: lateGameScoring,
         sortRisk: delta.riskDelta - duplicatePenalty,
         sortScore: delta.scoreDelta - duplicatePenalty * 1.4,
+        finalSortScore:
+          delta.scoreDelta -
+          duplicatePenalty * 1.4 +
+          reduxScoring.redux.sortBonus +
+          lateGameScoring.score,
       };
     })
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
     .sort(
       (left, right) =>
+        right.finalSortScore - left.finalSortScore ||
         right.sortRisk - left.sortRisk ||
         right.sortScore - left.sortScore ||
         left.species.localeCompare(right.species),
     )
-    .slice(0, 4)
-    .map(({ sortRisk: _sortRisk, sortScore: _sortScore, ...entry }) => entry);
+    .slice(0, limit)
+    .map(({ sortRisk: _sortRisk, sortScore: _sortScore, finalSortScore: _finalSortScore, ...entry }) => entry);
+}
+
+function buildLateGameScoring({
+  species,
+  currentMember,
+  pokemonByName,
+}: {
+  species: string;
+  currentMember: DecisionDeltaTeamMember;
+  pokemonByName: Record<string, RemotePokemon | null | undefined>;
+}) {
+  const terminalProfile = getTerminalLineProfile(species, pokemonByName);
+  if (!terminalProfile) {
+    return {
+      finalSpecies: species,
+      finalTypes: currentMember.resolvedTypes,
+      finalBst: currentMember.resolvedStats?.bst,
+      score: 0,
+      notes: [],
+    };
+  }
+
+  const currentBst = currentMember.resolvedStats?.bst ?? 0;
+  const terminalBst = terminalProfile.stats?.bst ?? currentBst;
+  const bstGrowth = Math.max(0, terminalBst - currentBst);
+  const bstBonus = Math.min(5, round(bstGrowth / 55, 1));
+  const currentTypeSignature = buildTypeSignature(currentMember.resolvedTypes);
+  const terminalTypeSignature = buildTypeSignature(terminalProfile.types ?? []);
+  const typingBonus = terminalTypeSignature && terminalTypeSignature !== currentTypeSignature ? 1.8 : 0;
+  const currentAbilitySignature = buildAbilitySignature(pokemonByName[normalizeKey(species)] ?? null);
+  const terminalAbilitySignature = buildAbilitySignature(terminalProfile);
+  const abilityBonus =
+    terminalAbilitySignature && terminalAbilitySignature !== currentAbilitySignature ? 1.2 : 0;
+  const signatureCeiling = buildSignatureCeiling({
+    abilities: terminalProfile.abilities ?? [],
+    moves: terminalProfile.learnsets?.levelUp?.map((entry) => entry.move) ?? [],
+  });
+  const notes = [
+    bstBonus > 0 ? `${terminalProfile.name} sube el techo de BST a ${terminalBst}.` : null,
+    typingBonus > 0 ? `${terminalProfile.name} cambia la proyección de typing a ${terminalProfile.types.join("/")}.` : null,
+    abilityBonus > 0 ? `${terminalProfile.name} abre habilidades finales distintas.` : null,
+    ...signatureCeiling.notes.map((note) => `${terminalProfile.name}: ${note}`),
+  ].filter((entry): entry is string => Boolean(entry));
+
+  return {
+    finalSpecies: terminalProfile.name ?? species,
+    finalTypes: terminalProfile.types ?? currentMember.resolvedTypes,
+    finalBst: terminalProfile.stats?.bst,
+    score: round(bstBonus + typingBonus + abilityBonus + signatureCeiling.score, 1),
+    notes,
+  };
+}
+
+function getTerminalLineProfile(
+  species: string,
+  pokemonByName: Record<string, RemotePokemon | null | undefined>,
+  visited = new Set<string>(),
+): RemotePokemon | null {
+  const key = normalizeKey(species);
+  if (!key || visited.has(key)) {
+    return null;
+  }
+  visited.add(key);
+
+  const pokemon = pokemonByName[key] ?? null;
+  if (!pokemon) {
+    return null;
+  }
+  if (!pokemon.nextEvolutions?.length) {
+    return pokemon;
+  }
+
+  const terminals = pokemon.nextEvolutions
+    .map((nextSpecies) => getTerminalLineProfile(nextSpecies, pokemonByName, new Set(visited)))
+    .filter((entry): entry is RemotePokemon => Boolean(entry));
+
+  if (!terminals.length) {
+    return pokemon;
+  }
+
+  return terminals.sort(
+    (left, right) =>
+      (right.stats?.bst ?? 0) - (left.stats?.bst ?? 0) ||
+      (right.types?.length ?? 0) - (left.types?.length ?? 0) ||
+      String(left.name ?? "").localeCompare(String(right.name ?? "")),
+  )[0] ?? pokemon;
+}
+
+function buildAbilitySignature(pokemon: RemotePokemon | null | undefined) {
+  return [...(pokemon?.abilities ?? [])]
+    .filter(Boolean)
+    .map((ability) => normalizeWords(ability))
+    .sort()
+    .join("|");
+}
+
+function buildReduxScoring({
+  species,
+  reduxBySpecies,
+  preferReduxUpgrades,
+}: {
+  species: string;
+  reduxBySpecies: Record<
+    string,
+    {
+      hasTypeChanges: boolean;
+      hasAbilityChanges: boolean;
+      hasStatChanges: boolean;
+    }
+  >;
+  preferReduxUpgrades: boolean;
+}) {
+  const reduxEntry =
+    reduxBySpecies[normalizeSpeciesLookupName(species)] ??
+    reduxBySpecies[normalizeWords(species)] ??
+    {
+      hasTypeChanges: false,
+      hasAbilityChanges: false,
+      hasStatChanges: false,
+    };
+  const reduxScore =
+    (reduxEntry.hasTypeChanges ? 3 : 0) +
+    (reduxEntry.hasAbilityChanges ? 2 : 0) +
+    (reduxEntry.hasStatChanges ? 1 : 0);
+  const labels = [
+    reduxEntry.hasTypeChanges ? "Typing Redux" : null,
+    reduxEntry.hasAbilityChanges ? "Habs Redux" : null,
+    reduxEntry.hasStatChanges ? "Stats Redux" : null,
+  ].filter((entry): entry is string => Boolean(entry));
+  const sortBonus = round(reduxScore * (preferReduxUpgrades ? 0.9 : 0.35), 1);
+
+  return {
+    recommendationScore: reduxScore,
+    redux: {
+      score: reduxScore,
+      sortBonus,
+      hasTypeChanges: reduxEntry.hasTypeChanges,
+      hasAbilityChanges: reduxEntry.hasAbilityChanges,
+      hasStatChanges: reduxEntry.hasStatChanges,
+      labels,
+    },
+  };
 }
 
 function getExactTypeDuplicatePenalty({
@@ -443,10 +634,15 @@ function sourcePriority(source: CandidateSource["source"]) {
   }[source];
 }
 
+function round(value: number, decimals = 1) {
+  const factor = 10 ** decimals;
+  return Math.round(value * factor) / factor;
+}
+
 function normalizeWords(input: string) {
   return input.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
 function normalizeKey(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return normalizeSpeciesLookupName(input);
 }

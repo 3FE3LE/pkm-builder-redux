@@ -5,13 +5,12 @@ import clsx from "clsx";
 
 import { getTypeSurfaceStyle } from "@/lib/domain/typeChart";
 
-const typeBadgeBaseClassName =
-  "type-badge-surface pixel-face inline-flex items-center justify-center rounded-[0.55rem_0.35rem_0.55rem_0.35rem] border border-white/12 text-center leading-none font-normal";
-const typeBadgeSmClassName = "min-w-14 gap-1 px-1.5 py-0.5 caption-dense tracking-ui-tight";
-const typeBadgeMdClassName = "min-w-19 gap-1 px-1.5 py-1 text-xs tracking-ui";
-const typeBadgeLgClassName = "min-w-34 gap-2 px-3 py-1 text-base tracking-ui-wide";
+const typeBadgeBaseClassName = "type-badge type-badge-surface pixel-face";
+const typeBadgeSmClassName = "type-badge-sm caption-dense tracking-ui-tight";
+const typeBadgeMdClassName = "type-badge-md text-xs tracking-ui";
+const typeBadgeLgClassName = "type-badge-lg text-base tracking-ui-wide";
 const typeBadgeResponsiveClassName =
-  "w-19 gap-1 px-1.5 py-1 text-xs tracking-ui sm:w-23 sm:px-2 sm:text-xs md:w-27 md:px-2.5 md:text-sm lg:w-34 lg:gap-2 lg:px-3 lg:py-1.5 lg:text-base lg:tracking-ui-wide";
+  "type-badge-responsive text-xs tracking-ui md:text-sm lg:text-base lg:tracking-ui-wide";
 
 export function TypeBadge({
   type,
@@ -30,7 +29,7 @@ export function TypeBadge({
     <span
       style={getTypeSurfaceStyle(type, "var(--line)")}
       className={clsx(
-        typeBadgeClass(type, size),
+        typeBadgeClass(size),
         className,
         emphasis === "danger" && "danger-glow-badge",
         emphasis === "positive" && "positive-glow-badge",
@@ -42,7 +41,7 @@ export function TypeBadge({
   );
 }
 
-function typeBadgeClass(_type: string, size?: "sm" | "md" | "lg") {
+function typeBadgeClass(size?: "sm" | "md" | "lg") {
   if (size === "sm") {
     return `${typeBadgeBaseClassName} ${typeBadgeSmClassName}`;
   }

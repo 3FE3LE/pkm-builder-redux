@@ -1,6 +1,7 @@
 import { test, assert, vi } from "vitest";
 
 import { buildAreaSources } from "../../lib/builder";
+import { getBuilderPageData } from "../../lib/builderPageData";
 import { buildCaptureRecommendations } from "../../lib/domain/contextualRecommendations";
 import type { ParsedDocs } from "../../lib/docsSchema";
 import type { RecommendationFilters } from "../../lib/builder";
@@ -14,6 +15,7 @@ const BASE_FILTERS: RecommendationFilters = {
   excludeUniquePokemon: false,
   excludeOtherStarters: false,
   excludeExactTypeDuplicates: false,
+  preferReduxUpgrades: false,
 };
 
 const NEXT_ENCOUNTER: RunEncounterDefinition = {
@@ -159,12 +161,36 @@ const POKEMON_INDEX: Record<string, RemotePokemon> = {
     name: "Mareep",
     types: ["Electric"],
     abilities: ["Static"],
-    nextEvolutions: [],
+    nextEvolutions: ["Flaaffy"],
     stats: { hp: 55, atk: 40, def: 40, spa: 65, spd: 45, spe: 35, bst: 280 },
     learnsets: {
       levelUp: [
         { level: 1, move: "Thunder Shock" },
       ],
+      machines: [],
+    },
+  },
+  flaaffy: {
+    id: 180,
+    name: "Flaaffy",
+    types: ["Electric"],
+    abilities: ["Static"],
+    nextEvolutions: ["Ampharos"],
+    stats: { hp: 70, atk: 55, def: 55, spa: 80, spd: 60, spe: 45, bst: 365 },
+    learnsets: {
+      levelUp: [{ level: 1, move: "Thunder Shock" }],
+      machines: [],
+    },
+  },
+  ampharos: {
+    id: 181,
+    name: "Ampharos",
+    types: ["Electric", "Dragon"],
+    abilities: ["Static", "Mold Breaker"],
+    nextEvolutions: [],
+    stats: { hp: 90, atk: 75, def: 85, spa: 115, spd: 90, spe: 55, bst: 510 },
+    learnsets: {
+      levelUp: [{ level: 1, move: "Dragon Pulse" }],
       machines: [],
     },
   },
@@ -297,7 +323,8 @@ test("blocks candidates that overlap with the locked starter line final types", 
   });
 
   assert.ok(!recommendations.some((entry) => entry.species === "Charmander"));
-  assert.ok(recommendations.some((entry) => entry.species === "Mareep"));
+  assert.ok(!recommendations.some((entry) => entry.species === "Mareep"));
+  assert.ok(recommendations.some((entry) => entry.species === "Beldum"));
 });
 
 test("excludes exact type duplicates when the filter is enabled", () => {
@@ -336,6 +363,131 @@ test("respects excludePseudoLegendaries for contextual captures", () => {
 
   assert.ok(!recommendations.some((entry) => entry.species === "Beldum"));
   assert.ok(recommendations.some((entry) => entry.species === "Mareep"));
+});
+
+test("prioritizes redux-upgraded captures when the preference is enabled", () => {
+  const docs: ParsedDocs = {
+    ...BASE_DOCS,
+    gifts: [
+      {
+        name: "Reduxmon",
+        location: "Floccesy Ranch",
+        level: "10",
+        notes: [],
+      },
+      {
+        name: "Plainmon",
+        location: "Floccesy Ranch",
+        level: "10",
+        notes: [],
+      },
+    ],
+  };
+  const pokemonByName = {
+    ...POKEMON_INDEX,
+    reduxmon: {
+      id: 9001,
+      name: "Reduxmon",
+      types: ["Normal"],
+      abilities: ["Run Away"],
+      nextEvolutions: [],
+      stats: { hp: 60, atk: 60, def: 60, spa: 60, spd: 60, spe: 60, bst: 360 },
+      learnsets: {
+        levelUp: [{ level: 1, move: "Tackle" }],
+        machines: [],
+      },
+    },
+    plainmon: {
+      id: 9002,
+      name: "Plainmon",
+      types: ["Normal"],
+      abilities: ["Run Away"],
+      nextEvolutions: [],
+      stats: { hp: 60, atk: 60, def: 60, spa: 60, spd: 60, spe: 60, bst: 360 },
+      learnsets: {
+        levelUp: [{ level: 1, move: "Tackle" }],
+        machines: [],
+      },
+    },
+  } satisfies Record<string, RemotePokemon>;
+
+  const neutral = buildCaptureRecommendations({
+    docs,
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName,
+    moveIndex: MOVE_INDEX,
+    reduxBySpecies: {
+      reduxmon: {
+        hasTypeChanges: true,
+        hasAbilityChanges: false,
+        hasStatChanges: false,
+      },
+    },
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+  const preferred = buildCaptureRecommendations({
+    docs,
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName,
+    moveIndex: MOVE_INDEX,
+    reduxBySpecies: {
+      reduxmon: {
+        hasTypeChanges: true,
+        hasAbilityChanges: false,
+        hasStatChanges: false,
+      },
+    },
+    starter: "snivy",
+    filters: {
+      ...BASE_FILTERS,
+      preferReduxUpgrades: true,
+    },
+  });
+
+  assert.equal(neutral.find((entry) => entry.species === "Reduxmon")?.redux.score, 3);
+  assert.equal(preferred[0]?.species, "Reduxmon");
+});
+
+test("captures expose late-game ceiling from the terminal evolution line", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: BASE_DOCS,
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: BASE_FILTERS,
+  });
+
+  const mareep = recommendations.find((entry) => entry.species === "Mareep");
+  assert.ok(mareep);
+  assert.equal(mareep.lateGame.finalSpecies, "Ampharos");
+  assert.equal(mareep.lateGame.finalBst, 510);
+  assert.ok(mareep.lateGame.score > 0);
+  assert.ok(mareep.lateGame.notes.some((note) => note.includes("Ampharos")));
+});
+
+test("late-game scoring picks up signature ability combos from the terminal evolution", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [{ name: "Snivy", location: "Floccesy Ranch", level: "10", notes: [] }],
+    },
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "tepig",
+    filters: BASE_FILTERS,
+  });
+
+  const snivy = recommendations.find((entry) => entry.species === "Snivy");
+  assert.ok(snivy);
+  assert.ok(snivy.lateGame.score > 8);
+  assert.ok(snivy.lateGame.notes.some((note) => note.includes("Contrary")));
 });
 
 test("excludes candidates that share any type with a locked member when duplicate-type filter is enabled", () => {
@@ -702,6 +854,55 @@ test("maps opening, virbank, and castelia checkpoints for contextual captures", 
   assert.ok(castelia.some((entry) => entry.species === "Mareep"));
 });
 
+test("resolves composed species like Mime Jr from the real dex index and keeps their redux score", () => {
+  const data = getBuilderPageData();
+  const oshawott = data.pokemonIndex.oshawott;
+  assert.ok(oshawott);
+
+  const recommendations = buildCaptureRecommendations({
+    docs: data.docs,
+    team: [
+      {
+        key: "oshawott-key",
+        species: "Oshawott",
+        supportsGender: true,
+        locked: true,
+        resolvedTypes: oshawott.types ?? [],
+        resolvedStats: oshawott.stats,
+        summaryStats: oshawott.stats,
+        effectiveStats: oshawott.stats,
+        abilities: oshawott.abilities ?? [],
+        moves: [],
+      },
+    ],
+    nextEncounter: {
+      id: "roxie-real",
+      order: 5,
+      label: "Roxie",
+      category: "unova",
+      affiliation: "gym",
+      team: [],
+      mode: "challenge",
+      mandatory: true,
+      levelCap: 18,
+      documentation: "documented",
+    },
+    milestoneId: "floccesy",
+    pokemonByName: data.pokemonIndex,
+    moveIndex: data.moveIndex,
+    reduxBySpecies: data.reduxBySpecies,
+    starter: "oshawott",
+    filters: BASE_FILTERS,
+    limit: 200,
+  });
+
+  const mimeJr = recommendations.find((entry) => entry.species === "Mime Jr");
+  assert.ok(mimeJr);
+  assert.equal(mimeJr?.area, "Route 20 - Spring");
+  assert.equal(mimeJr?.redux.score, 3);
+  assert.ok((mimeJr?.lateGame.score ?? 0) > 0);
+});
+
 test("skips sanitized empty species and ignores species already present after sanitizing", () => {
   const recommendations = buildCaptureRecommendations({
     docs: {
@@ -846,6 +1047,99 @@ test("drops add deltas that do not map back to a projected candidate member", as
     });
 
     assert.deepEqual(recommendations, []);
+  } finally {
+    vi.doUnmock("../../lib/domain/decisionDelta");
+    vi.resetModules();
+  }
+});
+
+test("orders captures by the composed final score before raw risk reduction", async () => {
+  vi.resetModules();
+  vi.doMock("../../lib/domain/decisionDelta", async () => {
+    const actual = await vi.importActual<typeof import("../../lib/domain/decisionDelta")>("../../lib/domain/decisionDelta");
+    return {
+      ...actual,
+      buildDecisionDeltas: () => [
+        {
+          id: "gift-floccesy-ranch-bellsprout",
+          species: "Bellsprout",
+          source: "Gift",
+          reason: "Gift disponible en Floccesy Ranch",
+          role: "support",
+          canonicalRole: "support",
+          roleLabel: "support",
+          teamFitNote: "fit",
+          roleReason: "reason",
+          area: "Floccesy Ranch",
+          action: "add",
+          scoreDelta: 4,
+          riskDelta: 5,
+          projectedRisk: 4,
+          offenseDelta: 1,
+          defenseDelta: 1,
+          speedDelta: 1,
+          rolesDelta: 1,
+          consistencyDelta: 1,
+          gains: [],
+          losses: [],
+          projectedMoves: ["Vine Whip"],
+        },
+        {
+          id: "gift-floccesy-ranch-mareep",
+          species: "Mareep",
+          source: "Gift",
+          reason: "Gift disponible en Floccesy Ranch",
+          role: "support",
+          canonicalRole: "support",
+          roleLabel: "support",
+          teamFitNote: "fit",
+          roleReason: "reason",
+          area: "Floccesy Ranch",
+          action: "add",
+          scoreDelta: 3,
+          riskDelta: 1,
+          projectedRisk: 4,
+          offenseDelta: 1,
+          defenseDelta: 1,
+          speedDelta: 1,
+          rolesDelta: 1,
+          consistencyDelta: 1,
+          gains: [],
+          losses: [],
+          projectedMoves: ["Thunder Shock"],
+        },
+      ],
+    };
+  });
+
+  try {
+    const { buildCaptureRecommendations: buildCaptureRecommendationsWithMock } = await import("../../lib/domain/contextualRecommendations");
+
+    const recommendations = buildCaptureRecommendationsWithMock({
+      docs: {
+        ...BASE_DOCS,
+        gifts: [
+          { name: "Bellsprout", location: "Floccesy Ranch", level: "10", notes: [] },
+          { name: "Mareep", location: "Floccesy Ranch", level: "10", notes: [] },
+        ],
+      },
+      team: [],
+      nextEncounter: NEXT_ENCOUNTER,
+      pokemonByName: POKEMON_INDEX,
+      moveIndex: MOVE_INDEX,
+      reduxBySpecies: {
+        mareep: {
+          hasTypeChanges: true,
+          hasAbilityChanges: false,
+          hasStatChanges: false,
+        },
+      },
+      starter: "snivy",
+      filters: BASE_FILTERS,
+    });
+
+    assert.equal(recommendations[0]?.species, "Mareep");
+    assert.equal(recommendations[1]?.species, "Bellsprout");
   } finally {
     vi.doUnmock("../../lib/domain/decisionDelta");
     vi.resetModules();

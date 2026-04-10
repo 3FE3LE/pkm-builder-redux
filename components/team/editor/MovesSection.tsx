@@ -20,6 +20,7 @@ const movePrimaryActionButtonClassName =
   "inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-primary-line bg-primary-fill text-primary-soft transition hover:bg-primary-fill-hover";
 const moveDangerActionButtonClassName =
   "inline-flex h-9 w-9 touch-manipulation items-center justify-center rounded-3xl border border-danger-line-soft bg-danger-fill text-danger transition hover:bg-danger-fill-hover";
+const movePriorityPillClassName = "app-warning-chip app-chip-xs";
 
 export function MovesSection({
   currentMoves,
@@ -187,7 +188,7 @@ export function MovesSection({
                   </span>
                 ) : null}
                 {selectedMove.hasStab ? (
-                  <span className="rounded-2xl border border-warning-line px-2 py-1 text-warning-strong">
+                  <span className={movePriorityPillClassName}>
                     STAB
                   </span>
                 ) : null}

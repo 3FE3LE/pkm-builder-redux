@@ -10,7 +10,7 @@ import {
 
 const dexInfoCardClassName = "app-soft-panel p-3";
 const dexInfoWarningPillClassName =
-  "rounded-2xl border border-warning-line px-2 py-1 text-warning-strong";
+  "app-warning-chip app-chip-xs";
 const dexInfoAcquisitionEntryClassName =
   "app-soft-panel radius-panel-sm px-2.5 py-1.5 text-xs leading-5 text-text";
 

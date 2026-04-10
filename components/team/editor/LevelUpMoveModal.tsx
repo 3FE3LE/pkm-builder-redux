@@ -12,7 +12,7 @@ import type { LevelUpMoveEntry } from "@/lib/domain/levelUpMoves";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 
 const levelUpMovePriorityPillClassName =
-  "rounded-2xl border border-warning-line px-2 py-1 text-warning-strong";
+  "app-warning-chip app-chip-xs";
 
 export function LevelUpMoveModal({
   open,

@@ -255,6 +255,11 @@ const RECOMMENDATION_FILTER_OPTIONS: {
     label: "Excluir typing exacto duplicado",
     description: "Evita recomendar Pokemon con exactamente la misma combinacion de tipos que otro miembro del equipo.",
   },
+  {
+    key: "preferReduxUpgrades",
+    label: "Priorizar upgrades Redux",
+    description: "Empuja un poco arriba a especies con cambios de tipo, habilidades o stats propios del hack.",
+  },
 ];
 
 const BATTLE_WEATHER_OPTIONS: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { ViewTransition } from "react";
+import { useCallback, useRef, ViewTransition } from "react";
 import clsx from 'clsx';
 import { Mars, Venus } from 'lucide-react';
 import { useMediaQuery } from "usehooks-ts";
@@ -88,6 +88,7 @@ export function SortableMemberCard({
   isSelected,
   hasActiveSelection,
   onSelect,
+  onExitViewport,
 }: {
   member: EditableMember;
   index: number;
@@ -98,6 +99,7 @@ export function SortableMemberCard({
   isSelected: boolean;
   hasActiveSelection: boolean;
   onSelect: () => void;
+  onExitViewport?: () => void;
 }) {
   const {
     attributes,
@@ -123,6 +125,25 @@ export function SortableMemberCard({
     defaultValue: false,
     initializeWithValue: false,
   });
+  const visibilityObserverRef = useRef<IntersectionObserver | null>(null);
+  const setCardRef = useCallback((node: HTMLElement | null) => {
+    setNodeRef(node);
+    visibilityObserverRef.current?.disconnect();
+    visibilityObserverRef.current = null;
+
+    if (!node || !isSelected || !onExitViewport || typeof IntersectionObserver === "undefined") {
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) {
+        onExitViewport();
+      }
+    });
+
+    observer.observe(node);
+    visibilityObserverRef.current = observer;
+  }, [isSelected, onExitViewport, setNodeRef]);
   const desktopMetaEntries = [
     {
       key: "ability",
@@ -158,7 +179,7 @@ export function SortableMemberCard({
   return (
     <ViewTransition name={getTeamEditorTransitionName("card", member.id)}>
       <article
-      ref={setNodeRef}
+      ref={setCardRef}
       {...attributes}
       {...listeners}
       style={{

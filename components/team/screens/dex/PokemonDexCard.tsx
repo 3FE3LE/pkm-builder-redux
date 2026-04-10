@@ -186,7 +186,7 @@ export function PokemonDexCard({
                   className={
                     !expanded
                       ? pokemon.types.length === 1
-                        ? "max-md:min-w-19 max-md:gap-1 max-md:px-1.5 max-md:py-1 max-md:text-xs max-md:tracking-ui"
+                        ? "type-badge-dex-single-mobile"
                         : "type-badge-compact-mobile"
                       : undefined
                   }
