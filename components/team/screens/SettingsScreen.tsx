@@ -17,7 +17,7 @@ export function SettingsScreen() {
   }
 
   if (!session.builderStarted) {
-    redirect("/onboarding");
+    redirect("/team");
   }
 
   return (
@@ -30,15 +30,20 @@ export function SettingsScreen() {
       <PreferencesSection
         evolutionConstraints={session.evolutionConstraints}
         recommendationFilters={session.recommendationFilters}
+        userPreferences={session.userPreferences}
         battleWeather={session.battleWeather}
         theme={session.theme}
         onToggleEvolutionConstraint={session.actions.setEvolutionConstraint}
         onToggleRecommendationFilter={session.actions.setRecommendationFilter}
+        onSetRecommendationPlaystyle={session.actions.setRecommendationPlaystyle}
+        onToggleFavoriteType={session.actions.toggleFavoriteType}
+        onToggleAvoidedType={session.actions.toggleAvoidedType}
+        onTogglePreferredRole={session.actions.togglePreferredRole}
         onSetBattleWeather={session.actions.setBattleWeather}
         onSetTheme={session.actions.setTheme}
         onResetRun={() => {
           team.actions.resetRun();
-          router.replace("/onboarding");
+          router.replace("/team");
         }}
       />
     </TeamScreenShell>

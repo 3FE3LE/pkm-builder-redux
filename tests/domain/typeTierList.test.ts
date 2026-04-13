@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  buildTypeCoverageSummary,
   buildDefensiveTypeTierList,
   buildOffensiveTypeTierList,
   rankRosterByTyping,
@@ -52,5 +53,13 @@ describe("typeTierList", () => {
     expect(ranked[0]!.offense.score).toBeLessThanOrEqual(100);
     expect(ranked[0]!.defense.score).toBeLessThanOrEqual(100);
     expect(ranked[0]!.overallScore).toBeGreaterThan(ranked[1]!.overallScore);
+  });
+
+  it("builds a coverage summary for a selected attacker and defender typing", () => {
+    const summary = buildTypeCoverageSummary("Electric", ["Water", "Flying"]);
+
+    expect(summary.multiplier).toBe(4);
+    expect(summary.superEffectiveTargets).toBeGreaterThan(0);
+    expect(summary.bestTargets.some((target) => target.label === "Water / Flying")).toBe(true);
   });
 });

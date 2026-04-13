@@ -25,6 +25,7 @@ test("finds an exact IV when the observed stat maps to a single value", () => {
 
   assert.equal(result.exactIv, 31);
   assert.deepEqual(result.candidates, [31]);
+  assert.equal(result.issue, null);
 });
 
 test("returns an IV range when multiple IVs collapse to the same observed stat", () => {
@@ -41,6 +42,7 @@ test("returns an IV range when multiple IVs collapse to the same observed stat",
   assert.ok((result.minIv ?? -1) <= 7);
   assert.ok((result.maxIv ?? -1) >= 7);
   assert.ok(result.candidates.length > 1);
+  assert.equal(result.issue, null);
 });
 
 test("returns no candidates when the observed value is outside the legal range", () => {
@@ -56,6 +58,19 @@ test("returns no candidates when the observed value is outside the legal range",
   assert.deepEqual(result.candidates, []);
   assert.equal(result.minIv, null);
   assert.equal(result.maxIv, null);
+  assert.equal(result.issue, "evs");
+});
+
+test("marks inconsistent ranges when the observed value is below the legal floor", () => {
+  const result = inferIvForObservedStat({
+    baseStats: MANTINE,
+    level: 5,
+    nature: "Serious",
+    stat: "spd",
+    observed: 1,
+  });
+
+  assert.equal(result.issue, "range");
 });
 
 test("returns an exact IV directly as the representative value", () => {

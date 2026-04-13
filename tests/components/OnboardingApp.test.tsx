@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocked = vi.hoisted(() => ({
@@ -76,13 +76,12 @@ describe("BuilderOnboarding", () => {
     });
   });
 
-  it("redirects to team when the builder already started", async () => {
+  it("shows loading when the builder already started and waits for the route transition", () => {
     mocked.builderStarted = true;
 
     render(<BuilderOnboarding docs={{} as never} speciesOptions={[]} speciesCatalog={[]} moveIndex={{}} abilityCatalog={[]} itemCatalog={[]} pokemonIndex={{}} canonicalPokemonIndex={{}} />);
 
-    await waitFor(() => {
-      expect(mocked.redirect).toHaveBeenCalledWith("/team");
-    });
+    expect(screen.getByText("loading-screen")).toBeTruthy();
+    expect(mocked.redirect).not.toHaveBeenCalled();
   });
 });

@@ -13,6 +13,7 @@ export function useBuilderStoreState() {
   const recommendationFilters = useBuilderStore(
     (state) => state.run.preferences.recommendationFilters,
   );
+  const userPreferences = useBuilderStore((state) => state.run.preferences.userPreferences);
   const battleWeather = useBuilderStore((state) => state.run.preferences.battleWeather);
   const theme = useBuilderStore((state) => state.run.preferences.theme);
   const milestoneId = useBuilderStore((state) => state.run.progress.milestoneId);
@@ -48,6 +49,10 @@ export function useBuilderStoreState() {
   const setEditorMemberId = useBuilderStore((state) => state.setEditorMemberId);
   const setEvolutionConstraint = useBuilderStore((state) => state.setEvolutionConstraint);
   const setRecommendationFilter = useBuilderStore((state) => state.setRecommendationFilter);
+  const setRecommendationPlaystyle = useBuilderStore((state) => state.setRecommendationPlaystyle);
+  const toggleFavoriteType = useBuilderStore((state) => state.toggleFavoriteType);
+  const toggleAvoidedType = useBuilderStore((state) => state.toggleAvoidedType);
+  const togglePreferredRole = useBuilderStore((state) => state.togglePreferredRole);
   const setBattleWeather = useBuilderStore((state) => state.setBattleWeather);
   const setTheme = useBuilderStore((state) => state.setTheme);
   const toggleEncounterCompleted = useBuilderStore((state) => state.toggleEncounterCompleted);
@@ -60,6 +65,7 @@ export function useBuilderStoreState() {
     starter,
     evolutionConstraints,
     recommendationFilters,
+    userPreferences,
     battleWeather,
     theme,
     milestoneId,
@@ -89,6 +95,10 @@ export function useBuilderStoreState() {
     setEditorMemberId,
     setEvolutionConstraint,
     setRecommendationFilter,
+    setRecommendationPlaystyle,
+    toggleFavoriteType,
+    toggleAvoidedType,
+    togglePreferredRole,
     setBattleWeather,
     setTheme,
     toggleEncounterCompleted,

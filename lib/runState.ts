@@ -2,6 +2,8 @@
 
 import type { StarterKey, SuggestionInput } from "@/lib/builder";
 import type { BattleWeather } from "@/lib/domain/battle";
+import type { TypeName } from "@/lib/domain/effects/types";
+import type { RoleKey } from "@/lib/domain/profiles/types";
 import type { StatSpread } from "@/lib/teamAnalysis";
 import type { RunMode } from "@/lib/runEncounters";
 import { createId } from "@/lib/createId";
@@ -32,6 +34,14 @@ export type RecommendationFilterKey =
   | "preferReduxUpgrades";
 export type RecommendationFilterState = Record<RecommendationFilterKey, boolean>;
 export type BuilderTheme = "dark" | "light" | "auto";
+export type RecommendationPlaystyle = "balanced" | "aggressive" | "defensive" | "technical";
+
+export type RecommendationUserPreferences = {
+  playstyle: RecommendationPlaystyle;
+  favoriteTypes: TypeName[];
+  avoidedTypes: TypeName[];
+  preferredRoles: RoleKey[];
+};
 
 export type ClaimedSourceBuckets = {
   encounters: string[];
@@ -66,6 +76,7 @@ export type RunState = {
   preferences: {
     evolutionConstraints: EvolutionConstraintState;
     recommendationFilters: RecommendationFilterState;
+    userPreferences: RecommendationUserPreferences;
     battleWeather: BattleWeather;
     theme: BuilderTheme;
   };
@@ -94,6 +105,12 @@ export function createEmptyRunState(): RunState {
         excludeOtherStarters: false,
         excludeExactTypeDuplicates: false,
         preferReduxUpgrades: false,
+      },
+      userPreferences: {
+        playstyle: "balanced",
+        favoriteTypes: [],
+        avoidedTypes: [],
+        preferredRoles: [],
       },
       battleWeather: "clear",
       theme: "dark",
@@ -146,6 +163,12 @@ export function createStartedRunState(
         excludeOtherStarters: false,
         excludeExactTypeDuplicates: false,
         preferReduxUpgrades: false,
+      },
+      userPreferences: {
+        playstyle: "balanced",
+        favoriteTypes: [],
+        avoidedTypes: [],
+        preferredRoles: [],
       },
       battleWeather: "clear",
       theme: "dark",

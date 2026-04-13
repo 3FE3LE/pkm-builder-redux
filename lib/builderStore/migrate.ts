@@ -53,6 +53,13 @@ export function migrateBuilderState(persistedState: unknown) {
                 ?.excludeUniqueEncounters ??
               createEmptyRunState().preferences.recommendationFilters.excludeUniquePokemon,
           },
+          userPreferences: {
+            ...createEmptyRunState().preferences.userPreferences,
+            ...legacyState.run.preferences?.userPreferences,
+            favoriteTypes: legacyState.run.preferences?.userPreferences?.favoriteTypes ?? [],
+            avoidedTypes: legacyState.run.preferences?.userPreferences?.avoidedTypes ?? [],
+            preferredRoles: legacyState.run.preferences?.userPreferences?.preferredRoles ?? [],
+          },
           battleWeather:
             legacyState.run.preferences?.battleWeather ??
             createEmptyRunState().preferences.battleWeather,

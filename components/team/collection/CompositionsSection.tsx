@@ -4,8 +4,10 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Pencil, Plus } from "lucide-react";
 
+import { PokemonSprite } from "@/components/BuilderShared";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 
 const compositionSectionHeaderClassName = "flex flex-wrap items-center justify-between gap-3";
 const compositionCardClassName = "rounded-xl border px-3 py-3 text-left transition";
@@ -18,14 +20,24 @@ type Composition = {
   memberIds: string[];
 };
 
+type CompositionMember = {
+  id: string;
+  species: string;
+  nickname?: string;
+};
+
 export function CompositionsSection({
   compositions,
+  members,
+  speciesCatalog,
   activeCompositionId,
   onCreateComposition,
   onSelectComposition,
   onRenameComposition,
 }: {
   compositions: Composition[];
+  members: CompositionMember[];
+  speciesCatalog: { name: string; dex: number }[];
   activeCompositionId: string | null;
   onCreateComposition: () => void;
   onSelectComposition: (compositionId: string) => void;
@@ -66,6 +78,9 @@ export function CompositionsSection({
         {compositions.map((composition, index) => {
           const isActive = composition.id === activeCompositionId;
           const isEditing = composition.id === editingCompositionId;
+          const compositionMembers = composition.memberIds
+            .map((memberId) => members.find((member) => member.id === memberId))
+            .filter((member): member is CompositionMember => Boolean(member));
 
           return (
             <div
@@ -111,6 +126,37 @@ export function CompositionsSection({
                       <p className="mt-1 text-xs text-muted">
                         {composition.memberIds.length}/6 Pokemon
                       </p>
+                      {compositionMembers.length ? (
+                        <div className="mt-3 space-y-2">
+                          <div className="flex flex-wrap gap-1.5">
+                            {compositionMembers.slice(0, 4).map((member) => (
+                              <div
+                                key={`${composition.id}-${member.id}-sprite`}
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line-soft bg-surface-2"
+                              >
+                                <PokemonSprite
+                                  species={member.species}
+                                  spriteUrl={getCompositionSpriteUrl(member.species, speciesCatalog)}
+                                  size="small"
+                                  chrome="plain"
+                                />
+                              </div>
+                            ))}
+                            {compositionMembers.length > 4 ? (
+                              <div className="inline-flex h-10 min-w-10 items-center justify-center rounded-xl border border-line-soft bg-surface-2 px-2 text-xs text-muted">
+                                +{compositionMembers.length - 4}
+                              </div>
+                            ) : null}
+                          </div>
+                          <p className="text-xs text-muted">
+                            {compositionMembers
+                              .slice(0, 3)
+                              .map((member) => member.nickname?.trim() || member.species)
+                              .join(", ")}
+                            {compositionMembers.length > 3 ? "..." : ""}
+                          </p>
+                        </div>
+                      ) : null}
                     </>
                   )}
                 </div>
@@ -134,4 +180,14 @@ export function CompositionsSection({
       </div>
     </section>
   );
+}
+
+function getCompositionSpriteUrl(
+  species: string,
+  speciesCatalog: { name: string; dex: number }[],
+) {
+  const dex = speciesCatalog.find(
+    (entry) => normalizeName(entry.name) === normalizeName(species),
+  )?.dex;
+  return buildSpriteUrls(species, dex).spriteUrl;
 }

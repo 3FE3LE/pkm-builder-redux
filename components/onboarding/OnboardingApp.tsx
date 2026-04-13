@@ -1,7 +1,5 @@
 "use client";
 
-import { redirect } from "next/navigation";
-
 import {
   OnboardingScreen,
 } from "@/components/onboarding/OnboardingScreen";
@@ -17,7 +15,7 @@ function BuilderOnboardingGate() {
   }
 
   if (session.builderStarted) {
-    redirect("/team");
+    return <LoadingState />;
   }
 
   return (

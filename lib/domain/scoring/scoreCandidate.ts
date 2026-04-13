@@ -299,9 +299,61 @@ function computePreferenceAffinity(
     signals.push("Preferencia por upgrades Redux activa.");
   }
 
-  if (preferences.preferredTypes?.some((t) => candidate.types.includes(t))) {
-    score += 15;
-    signals.push("Typing coincide con preferencias del jugador.");
+  if (preferences.favoriteTypes.some((t) => candidate.types.includes(t))) {
+    score += 14;
+    signals.push("Typing coincide con tipos favoritos del jugador.");
+  }
+
+  if (preferences.avoidedTypes.some((t) => candidate.types.includes(t))) {
+    score -= 18;
+    signals.push("Typing pisa tipos que el jugador quiere evitar.");
+  }
+
+  if (preferences.preferredRoles.includes(candidate.primaryRole)) {
+    score += 12;
+    signals.push(`Rol ${candidate.primaryRole} alineado con el estilo buscado.`);
+  }
+
+  if (preferences.playstyle === "aggressive") {
+    if (
+      candidate.primaryRole === "wallbreaker" ||
+      candidate.primaryRole === "cleaner" ||
+      candidate.primaryRole === "setupSweeper"
+    ) {
+      score += 10;
+      signals.push("Favorece un plan ofensivo.");
+    }
+  } else if (preferences.playstyle === "defensive") {
+    if (
+      candidate.primaryRole === "defensiveGlue" ||
+      candidate.primaryRole === "bulkyPivot" ||
+      candidate.primaryRole === "support"
+    ) {
+      score += 10;
+      signals.push("Favorece estabilidad defensiva.");
+    }
+  } else if (preferences.playstyle === "technical") {
+    if (
+      candidate.primaryRole === "support" ||
+      candidate.primaryRole === "speedControl" ||
+      candidate.moveEffects.some(
+        (effect) =>
+          effect.kind === "pivot" ||
+          effect.kind === "status" ||
+          effect.kind === "screen",
+      )
+    ) {
+      score += 10;
+      signals.push("Favorece utility y líneas técnicas.");
+    }
+  } else {
+    score += 3;
+  }
+
+  const seasonBoost = computeSeasonBoost(candidate, preferences.currentSeason);
+  if (seasonBoost > 0) {
+    score += seasonBoost;
+    signals.push(`Encaja especialmente bien en ${preferences.currentSeason}.`);
   }
 
   return { raw: clamp(score, 0, 100), weighted: 0, signals };
@@ -356,6 +408,28 @@ function classifyVerdict(
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
+}
+
+function computeSeasonBoost(
+  candidate: PokemonProfile,
+  season: ScoringPreferences["currentSeason"],
+): number {
+  if (!season) {
+    return 0;
+  }
+
+  const seasonalTypes: Record<NonNullable<ScoringPreferences["currentSeason"]>, TypeName[]> = {
+    spring: ["Grass", "Bug", "Fairy"],
+    summer: ["Fire", "Electric", "Flying"],
+    autumn: ["Ground", "Rock", "Dark"],
+    winter: ["Ice", "Water", "Steel"],
+  };
+
+  const matches = seasonalTypes[season].filter((type) =>
+    candidate.types.includes(type),
+  ).length;
+
+  return matches * 8;
 }
 
 function round(value: number, digits: number): number {

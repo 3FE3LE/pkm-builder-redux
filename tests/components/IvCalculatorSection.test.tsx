@@ -21,6 +21,13 @@ const mocked = vi.hoisted(() => ({
   })),
 }));
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    prefetch: vi.fn(),
+  }),
+}));
+
 vi.mock("motion/react", () => ({
   AnimatePresence: ({ children }: { children?: ReactNode }) => <>{children}</>,
   motion: {
@@ -95,7 +102,7 @@ vi.mock("@/components/team/UI", () => ({
           if (label === "LEVEL") onChange(12);
           if (label === "HP") onChange(999);
           if (label === "ATK") onChange(40);
-          if (label === "DEF") onChange(0);
+          if (label === "DEF") onChange(1);
         }}
       >
         {`set-${label}`}
@@ -195,7 +202,10 @@ describe("IvCalculatorSection", () => {
     expect(screen.queryByText("Thunder Shock")).toBeNull();
 
     await user.click(screen.getByRole("button", { name: "set-HP" }));
-    expect(screen.getByText("No cuadra con EV 0")).toBeTruthy();
+    expect(screen.getByText("Stats sugieren EVs invertidos")).toBeTruthy();
+
+    await user.click(screen.getByRole("button", { name: "set-DEF" }));
+    expect(screen.getByText("IV range inconsistente")).toBeTruthy();
 
     await user.click(screen.getByRole("button", { name: "set-ATK" }));
     expect(screen.getAllByText("EST. IV").length).toBeGreaterThan(0);

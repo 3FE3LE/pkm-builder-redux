@@ -1,8 +1,9 @@
 "use client";
 
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
+import { OnboardingScreen } from "@/components/onboarding/OnboardingScreen";
 import { LoadingState } from "@/components/team/screens/LoadingState";
 import { TeamScreenHeader, TeamScreenShell } from "@/components/team/screens/ScreenShell";
 import { CompositionsSection } from "@/components/team/collection/CompositionsSection";
@@ -38,7 +39,7 @@ export function ToolsScreen() {
   }
 
   if (!session.builderStarted) {
-    redirect("/onboarding");
+    return <OnboardingScreen />;
   }
 
   function clearCompareMember(slot: 0 | 1) {
@@ -122,6 +123,8 @@ export function ToolsScreen() {
           {toolTab === "compositions" ? (
             <CompositionsSection
               compositions={team.compositions}
+              members={team.pokemonLibrary}
+              speciesCatalog={catalogs.speciesCatalog}
               activeCompositionId={team.activeCompositionId}
               onCreateComposition={() => {
                 team.actions.createComposition();

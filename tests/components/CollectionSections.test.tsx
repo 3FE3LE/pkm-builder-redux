@@ -108,6 +108,8 @@ describe("CollectionSections", () => {
           { id: "a", name: "Alpha", memberIds: ["1"] },
           { id: "b", name: "", memberIds: [] },
         ]}
+        members={[createMember()]}
+        speciesCatalog={[{ name: "Riolu", dex: 447 }]}
         activeCompositionId="a"
         onCreateComposition={onCreateComposition}
         onSelectComposition={onSelectComposition}

@@ -173,5 +173,10 @@ export type ScoringPreferences = {
   excludeExactTypeDuplicates: boolean;
   excludeLegendaries: boolean;
   excludePseudoLegendaries: boolean;
+  playstyle: "balanced" | "aggressive" | "defensive" | "technical";
+  favoriteTypes: TypeName[];
+  avoidedTypes: TypeName[];
+  preferredRoles: RoleKey[];
   preferredTypes?: TypeName[];
+  currentSeason?: "spring" | "summer" | "autumn" | "winter";
 };

@@ -110,6 +110,6 @@ describe("SettingsScreen", () => {
 
     await user.click(screen.getByRole("button", { name: "reset-run" }));
     expect(mocked.resetRun).toHaveBeenCalled();
-    expect(mocked.routerReplace).toHaveBeenCalledWith("/onboarding");
+    expect(mocked.routerReplace).toHaveBeenCalledWith("/team");
   });
 });

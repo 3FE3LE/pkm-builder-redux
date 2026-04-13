@@ -212,6 +212,7 @@ describe("Team Sections", () => {
 
     expect(screen.getByText("Day Time")).toBeTruthy();
     expect(screen.getByText("13:45")).toBeTruthy();
+    expect(screen.getByText(/Season$/)).toBeTruthy();
 
     rerender(
       <BuilderHeader
@@ -223,6 +224,7 @@ describe("Team Sections", () => {
 
     expect(screen.getByText("Night Time")).toBeTruthy();
     expect(screen.getByText("SYNC...")).toBeTruthy();
+    expect(screen.getByText(/Season$/)).toBeTruthy();
   });
 
   it("composes the analysis section panels and forwards iv calc action", async () => {
@@ -339,11 +341,22 @@ describe("Team Sections", () => {
           excludeUniquePokemon: true,
           excludeOtherStarters: false,
           excludeExactTypeDuplicates: true,
+          preferReduxUpgrades: false,
+        }}
+        userPreferences={{
+          playstyle: "balanced",
+          favoriteTypes: [],
+          avoidedTypes: [],
+          preferredRoles: [],
         }}
         battleWeather="sun"
         theme="dark"
         onToggleEvolutionConstraint={onToggleEvolutionConstraint}
         onToggleRecommendationFilter={onToggleRecommendationFilter}
+        onSetRecommendationPlaystyle={vi.fn()}
+        onToggleFavoriteType={vi.fn()}
+        onToggleAvoidedType={vi.fn()}
+        onTogglePreferredRole={vi.fn()}
         onSetBattleWeather={onSetBattleWeather}
         onSetTheme={vi.fn()}
         onResetRun={onResetRun}

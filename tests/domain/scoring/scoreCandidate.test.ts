@@ -10,6 +10,10 @@ const PREFS: ScoringPreferences = {
   excludeExactTypeDuplicates: false,
   excludeLegendaries: false,
   excludePseudoLegendaries: false,
+  playstyle: "balanced",
+  favoriteTypes: [],
+  avoidedTypes: [],
+  preferredRoles: [],
 };
 
 const CASTELIA_CHECKPOINT: CheckpointProfile = {
@@ -223,6 +227,31 @@ describe("scoreCandidate", () => {
     const score = scoreCandidate(makeSerperiorProfile(), team, null, CASTELIA_CHECKPOINT, PREFS);
 
     expect(score.breakdown.reduxValue.raw).toBeGreaterThan(0);
+  });
+
+  it("changes preference affinity for favorite versus avoided types", () => {
+    const team = buildTeamSnapshot([makeLucarioProfile()]);
+    const liked = scoreCandidate(makeSerperiorProfile(), team, null, CASTELIA_CHECKPOINT, {
+      ...PREFS,
+      favoriteTypes: ["Grass"],
+    });
+    const avoided = scoreCandidate(makeSerperiorProfile(), team, null, CASTELIA_CHECKPOINT, {
+      ...PREFS,
+      avoidedTypes: ["Grass"],
+    });
+
+    expect(liked.breakdown.preferenceAffinity.raw).toBeGreaterThan(avoided.breakdown.preferenceAffinity.raw);
+  });
+
+  it("applies role and season boosts when they match the candidate", () => {
+    const team = buildTeamSnapshot([makeLucarioProfile()]);
+    const boosted = scoreCandidate(makeSerperiorProfile(), team, null, CASTELIA_CHECKPOINT, {
+      ...PREFS,
+      preferredRoles: ["support"],
+      currentSeason: "spring",
+    });
+
+    expect(boosted.breakdown.preferenceAffinity.raw).toBeGreaterThan(50);
   });
 });
 

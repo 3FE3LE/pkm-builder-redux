@@ -9,6 +9,7 @@ export type IvInferenceResult = {
   exactIv: number | null;
   minIv: number | null;
   maxIv: number | null;
+  issue: "evs" | "range" | null;
 };
 
 export function getRepresentativeIv(result: IvInferenceResult) {
@@ -64,5 +65,6 @@ export function inferIvForObservedStat({
     exactIv: candidates.length === 1 ? candidates[0] : null,
     minIv: candidates.length ? candidates[0] : null,
     maxIv: candidates.length ? candidates[candidates.length - 1] : null,
+    issue: observed > iv31Value ? "evs" : candidates.length ? null : "range",
   };
 }

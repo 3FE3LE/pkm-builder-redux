@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import {
   useTeamAnalysis,
@@ -12,6 +12,7 @@ import {
   useTeamRoster,
   useTeamSession,
 } from "@/components/BuilderProvider";
+import { OnboardingScreen } from "@/components/onboarding/OnboardingScreen";
 import { EditorPage } from "@/components/team/editor/Page";
 import { LoadingState } from "@/components/team/screens/LoadingState";
 import { RouteGuardScreen } from "@/components/team/screens/RouteGuardScreen";
@@ -97,7 +98,7 @@ export function EditorPageRoute() {
   }
 
   if (!session.builderStarted) {
-    redirect("/onboarding");
+    return <OnboardingScreen />;
   }
 
   if (!member) {

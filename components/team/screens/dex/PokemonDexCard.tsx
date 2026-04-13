@@ -175,7 +175,9 @@ export function PokemonDexCard({
           <div className={clsx("min-w-0 flex-1", !expanded && "w-full text-center", expanded && "w-full lg:text-left")}>
             <div className={clsx("flex flex-wrap items-center gap-1.5", !expanded && "justify-center", expanded && "justify-center lg:justify-start")}>
               <span className="pixel-face caption-dense text-text-faint md:text-xs">#{String(pokemon.dex).padStart(3, "0")}</span>
-              <h2 className={clsx("display-face text-sm text-text md:text-xs", expanded && "text-base")}>{pokemon.name}</h2>
+              <ViewTransition name={sharedTransitionEnabled ? getDexTransitionName("title", pokemon.slug) : undefined}>
+                <h2 className={clsx("display-face text-sm text-text md:text-xs", expanded && "text-base")}>{pokemon.name}</h2>
+              </ViewTransition>
             </div>
             <div className={clsx("mt-2 flex flex-row gap-1", !expanded && "justify-center", expanded && "justify-center lg:justify-start")}>
               {pokemon.types.map((type: string, index: number) => (

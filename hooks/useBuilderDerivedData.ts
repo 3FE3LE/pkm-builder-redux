@@ -14,6 +14,7 @@ import { buildCaptureRecommendations } from "@/lib/domain/contextualRecommendati
 import { getMoveRecommendations } from "@/lib/domain/moveRecommendations";
 import { buildSwapOpportunities } from "@/lib/domain/swapOpportunities";
 import { enrichCaptureRecommendations } from "@/lib/domain/scoring/enrichRecommendations";
+import { getSeasonFromMonth } from "@/lib/domain/scoring/season";
 import { buildEvolutionEligibility } from "@/lib/domain/evolutionEligibility";
 import {
   getFurthestMilestoneId,
@@ -294,8 +295,10 @@ export function useBuilderDerivedData(
   );
 
   const enrichedCaptureRecommendations = useMemo(
-    () =>
-      enrichCaptureRecommendations({
+    () => {
+      const currentSeason = getSeasonFromMonth(new Date().getMonth());
+
+      return enrichCaptureRecommendations({
         recommendations: captureRecommendations,
         team: resolvedTeam,
         nextEncounter,
@@ -306,9 +309,16 @@ export function useBuilderDerivedData(
           excludeExactTypeDuplicates: store.recommendationFilters.excludeExactTypeDuplicates,
           excludeLegendaries: store.recommendationFilters.excludeLegendaries,
           excludePseudoLegendaries: store.recommendationFilters.excludePseudoLegendaries,
+          playstyle: store.userPreferences.playstyle,
+          favoriteTypes: store.userPreferences.favoriteTypes,
+          avoidedTypes: store.userPreferences.avoidedTypes,
+          preferredRoles: store.userPreferences.preferredRoles,
+          preferredTypes: store.userPreferences.favoriteTypes,
+          currentSeason,
         },
-      }),
-    [captureRecommendations, contextualMilestoneId, nextEncounter, pokemonIndex, resolvedTeam, store.recommendationFilters],
+      });
+    },
+    [captureRecommendations, contextualMilestoneId, nextEncounter, pokemonIndex, resolvedTeam, store.recommendationFilters, store.userPreferences],
   );
 
   return {

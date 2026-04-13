@@ -264,6 +264,18 @@ describe("builderStore updateMember", () => {
     store.setRecommendationFilter("excludeLegendaries", true);
     expect(useBuilderStore.getState().run.preferences.recommendationFilters.excludeLegendaries).toBe(true);
 
+    store.setRecommendationPlaystyle("technical");
+    expect(useBuilderStore.getState().run.preferences.userPreferences.playstyle).toBe("technical");
+
+    store.toggleFavoriteType("Grass");
+    expect(useBuilderStore.getState().run.preferences.userPreferences.favoriteTypes).toContain("Grass");
+
+    store.toggleAvoidedType("Fire");
+    expect(useBuilderStore.getState().run.preferences.userPreferences.avoidedTypes).toContain("Fire");
+
+    store.togglePreferredRole("support");
+    expect(useBuilderStore.getState().run.preferences.userPreferences.preferredRoles).toContain("support");
+
     store.setBattleWeather("rain");
     expect(useBuilderStore.getState().run.preferences.battleWeather).toBe("rain");
   });

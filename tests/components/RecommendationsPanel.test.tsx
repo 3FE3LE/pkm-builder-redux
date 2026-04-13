@@ -44,7 +44,7 @@ vi.mock("@/components/BuilderShared", () => ({
 
 import { RecommendationsPanel } from "@/components/team/checkpoints/RecommendationsPanel";
 
-function fakeV2Score(finalScore: number) {
+function fakeScore(finalScore: number) {
   const dim = { raw: finalScore, weighted: finalScore * 0.2, signals: [] };
   return {
     finalScore,
@@ -63,7 +63,7 @@ function fakeV2Score(finalScore: number) {
   };
 }
 
-function fakeV2Profile(floor: number, ceiling: number) {
+function fakeProfile(floor: number, ceiling: number) {
   return { floorScore: floor, ceilingScore: ceiling, volatility: ceiling - floor };
 }
 
@@ -91,8 +91,8 @@ describe("RecommendationsPanel", () => {
               resolvedStats: { bst: 365 },
               resolvedTypes: ["Electric"],
             },
-            v2Score: fakeV2Score(62),
-            v2Profile: fakeV2Profile(5.5, 7.0),
+            score: fakeScore(62),
+            profile: fakeProfile(5.5, 7.0),
           } as never,
           {
             id: "cap-2",
@@ -109,8 +109,8 @@ describe("RecommendationsPanel", () => {
               resolvedStats: { bst: 330 },
               resolvedTypes: ["Dark"],
             },
-            v2Score: fakeV2Score(48),
-            v2Profile: fakeV2Profile(4.0, 5.5),
+            score: fakeScore(48),
+            profile: fakeProfile(4.0, 5.5),
           } as never,
         ]}
         swapOpportunities={[]}
@@ -258,8 +258,8 @@ describe("RecommendationsPanel", () => {
               resolvedStats: { bst: 308 },
               resolvedTypes: ["Grass"],
             },
-            v2Score: fakeV2Score(40),
-            v2Profile: fakeV2Profile(4, 5),
+            score: fakeScore(40),
+            profile: fakeProfile(4, 5),
           } as never,
         ]}
         swapOpportunities={[

@@ -215,8 +215,8 @@ function approximateTerminalStats(
 // ── Main enrichment function ──
 
 export type EnrichedCaptureRecommendation = CaptureRecommendation & {
-  v2Score: CandidateScore;
-  v2Profile: PokemonProfile;
+  score: CandidateScore;
+  profile: PokemonProfile;
 };
 
 export function enrichCaptureRecommendations({
@@ -255,13 +255,13 @@ export function enrichCaptureRecommendations({
   // Score each candidate
   return recommendations.map((rec) => {
     const profile = buildPokemonProfile(candidateToProfileInput(rec));
-    const v2Score = scoreCandidate(
+    const score = scoreCandidate(
       profile,
       teamSnapshot,
       encounterProfile,
       checkpoint,
       filters,
     );
-    return { ...rec, v2Score, v2Profile: profile };
+    return { ...rec, score, profile };
   });
 }

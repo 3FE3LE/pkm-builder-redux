@@ -17,6 +17,10 @@ import {
 } from "@/components/ui/segmented-control";
 import { Switch } from "@/components/ui/Switch";
 import type { BattleWeather } from "@/lib/domain/battle";
+import type { TypeName } from "@/lib/domain/effects/types";
+import type { RoleKey } from "@/lib/domain/profiles/types";
+import { ROLE_LABELS } from "@/lib/domain/roleLabels";
+import { TYPE_ORDER } from "@/lib/domain/typeChart";
 import { resolveAppliedTheme } from "@/lib/theme/applyTheme";
 import type {
   BuilderTheme,
@@ -24,6 +28,8 @@ import type {
   EvolutionConstraintState,
   RecommendationFilterKey,
   RecommendationFilterState,
+  RecommendationPlaystyle,
+  RecommendationUserPreferences,
 } from "@/lib/runState";
 
 const preferenceManualChipClassName =
@@ -36,24 +42,35 @@ const preferenceSectionTitleClassName = "display-face text-sm text-accent";
 const preferenceSectionDescriptionClassName = "mt-2 text-sm text-muted";
 const preferenceSwitchRowClassName = "app-soft-panel flex items-start justify-between gap-4 rounded-xl px-3 py-3";
 const preferenceSwitchLabelClassName = "display-face micro-copy text-text";
+const preferenceChipClassName = "rounded-full border px-3 py-1.5 text-xs transition";
 
 export function PreferencesSection({
   evolutionConstraints,
   recommendationFilters,
+  userPreferences,
   battleWeather,
   theme,
   onToggleEvolutionConstraint,
   onToggleRecommendationFilter,
+  onSetRecommendationPlaystyle,
+  onToggleFavoriteType,
+  onToggleAvoidedType,
+  onTogglePreferredRole,
   onSetBattleWeather,
   onSetTheme,
   onResetRun,
 }: {
   evolutionConstraints: EvolutionConstraintState;
   recommendationFilters: RecommendationFilterState;
+  userPreferences: RecommendationUserPreferences;
   battleWeather: BattleWeather;
   theme: BuilderTheme;
   onToggleEvolutionConstraint: (key: EvolutionConstraintKey, value: boolean) => void;
   onToggleRecommendationFilter: (key: RecommendationFilterKey, value: boolean) => void;
+  onSetRecommendationPlaystyle: (playstyle: RecommendationPlaystyle) => void;
+  onToggleFavoriteType: (type: TypeName) => void;
+  onToggleAvoidedType: (type: TypeName) => void;
+  onTogglePreferredRole: (role: RoleKey) => void;
   onSetBattleWeather: (weather: BattleWeather) => void;
   onSetTheme: (theme: BuilderTheme) => void;
   onResetRun: () => void;
@@ -107,6 +124,58 @@ export function PreferencesSection({
               ? "Autodetect usa la hora local del navegador para alternar entre claro y oscuro."
               : "Elige un tema fijo o deja que la app siga la hora local."}
           </p>
+        </div>
+      </div>
+
+      <div className={preferenceSectionClassName}>
+        <div>
+          <p className={preferenceSectionTitleClassName}>Perfil de recomendaciones</p>
+          <p className={preferenceSectionDescriptionClassName}>
+            Define estilo de juego, tipos y roles para mover el scoring hacia tus preferencias.
+          </p>
+
+          <div className="mt-3">
+            <SegmentedControl className="w-full flex-wrap">
+              {PLAYSTYLE_OPTIONS.map((option) => (
+                <SegmentedControlItem
+                  key={option.key}
+                  active={userPreferences.playstyle === option.key}
+                  onClick={() => onSetRecommendationPlaystyle(option.key)}
+                  className="px-3"
+                >
+                  {option.label}
+                </SegmentedControlItem>
+              ))}
+            </SegmentedControl>
+          </div>
+
+          <PreferenceChipGroup
+            title="Tipos favoritos"
+            description="Suben afinidad y prioridad."
+            options={TYPE_ORDER}
+            selected={userPreferences.favoriteTypes}
+            onToggle={(value) => onToggleFavoriteType(value as TypeName)}
+            tone="favorite"
+          />
+
+          <PreferenceChipGroup
+            title="Tipos evitados"
+            description="Aplican castigo al score si aparecen."
+            options={TYPE_ORDER}
+            selected={userPreferences.avoidedTypes}
+            onToggle={(value) => onToggleAvoidedType(value as TypeName)}
+            tone="avoided"
+          />
+
+          <PreferenceChipGroup
+            title="Roles preferidos"
+            description="Favorecen perfiles alineados con tu plan."
+            options={ROLE_OPTIONS}
+            selected={userPreferences.preferredRoles}
+            onToggle={(value) => onTogglePreferredRole(value as RoleKey)}
+            tone="role"
+            getLabel={(value) => ROLE_LABELS[value as RoleKey]}
+          />
         </div>
       </div>
 
@@ -215,6 +284,18 @@ const THEME_OPTIONS: {
   },
 ];
 
+const PLAYSTYLE_OPTIONS: {
+  key: RecommendationPlaystyle;
+  label: string;
+}[] = [
+  { key: "balanced", label: "Balance" },
+  { key: "aggressive", label: "Ofensivo" },
+  { key: "defensive", label: "Defensivo" },
+  { key: "technical", label: "Técnico" },
+];
+
+const ROLE_OPTIONS = Object.keys(ROLE_LABELS) as RoleKey[];
+
 const EVOLUTION_CONSTRAINT_OPTIONS: {
   key: EvolutionConstraintKey;
   label: string;
@@ -293,6 +374,55 @@ function PreferenceSwitchRow({
         <p className="mt-1 text-sm text-muted">{description}</p>
       </div>
       <Switch checked={checked} onCheckedChange={onCheckedChange} aria-label={label} />
+    </div>
+  );
+}
+
+function PreferenceChipGroup({
+  title,
+  description,
+  options,
+  selected,
+  onToggle,
+  tone,
+  getLabel,
+}: {
+  title: string;
+  description: string;
+  options: readonly string[];
+  selected: readonly string[];
+  onToggle: (value: string) => void;
+  tone: "favorite" | "avoided" | "role";
+  getLabel?: (value: string) => string;
+}) {
+  return (
+    <div className="mt-4">
+      <p className={preferenceSectionTitleClassName}>{title}</p>
+      <p className="mt-1 text-xs text-muted">{description}</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {options.map((value) => {
+          const active = selected.includes(value);
+          return (
+            <button
+              key={value}
+              type="button"
+              onClick={() => onToggle(value)}
+              className={clsx(
+                preferenceChipClassName,
+                active
+                  ? tone === "favorite"
+                    ? "border-primary-line-emphasis bg-primary-fill text-text"
+                    : tone === "avoided"
+                      ? "border-danger/50 bg-danger/12 text-danger"
+                      : "border-accent/40 bg-accent/12 text-accent-soft"
+                  : "border-line-soft bg-surface-2 text-muted hover:border-line hover:text-text",
+              )}
+            >
+              {getLabel?.(value) ?? value}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

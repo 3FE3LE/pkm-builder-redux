@@ -4,6 +4,23 @@ import { MoonStar, Sun, Sunrise, Sunset } from "lucide-react";
 
 import type { BuilderLocalTime } from "@/hooks/useBuilderUiState";
 import type { Milestone } from "@/lib/builder";
+import { getSeasonFromMonth, type RecommendationSeason } from "@/lib/domain/scoring/season";
+
+function getSeasonLabel(season: RecommendationSeason) {
+  if (season === "spring") {
+    return "Spring";
+  }
+
+  if (season === "summer") {
+    return "Summer";
+  }
+
+  if (season === "autumn") {
+    return "Autumn";
+  }
+
+  return "Winter";
+}
 
 export function BuilderHeader({
   milestoneId: _milestoneId,
@@ -14,6 +31,7 @@ export function BuilderHeader({
   milestones: Milestone[];
   localTime: BuilderLocalTime;
 }) {
+  const season = getSeasonFromMonth(new Date().getMonth());
   const TimeIcon =
     localTime.phase === "dawn"
       ? Sunrise
@@ -33,6 +51,9 @@ export function BuilderHeader({
           </div>
           <div className="pixel-face text-[2.4rem] leading-none tracking-display-wide font-normal text-text sm:text-[3.4rem] lg:text-[4.2rem]">
             {localTime.ready ? localTime.label : "SYNC..."}
+          </div>
+          <div className="mt-1 display-face text-[0.7rem] uppercase tracking-display-xwide text-muted sm:text-xs">
+            {getSeasonLabel(season)} Season
           </div>
         </div>
       </div>

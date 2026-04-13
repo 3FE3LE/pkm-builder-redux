@@ -29,6 +29,12 @@ describe("runState", () => {
           excludeExactTypeDuplicates: false,
           preferReduxUpgrades: false,
         },
+        userPreferences: {
+          playstyle: "balanced",
+          favoriteTypes: [],
+          avoidedTypes: [],
+          preferredRoles: [],
+        },
         battleWeather: "clear",
         theme: "dark",
       },

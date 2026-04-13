@@ -107,6 +107,12 @@ function createStore() {
       excludeExactTypeDuplicates: false,
       preferReduxUpgrades: false,
     },
+    userPreferences: {
+      playstyle: "balanced",
+      favoriteTypes: [],
+      avoidedTypes: [],
+      preferredRoles: [],
+    },
     evolutionConstraints: { level: true, gender: true, timeOfDay: true },
   } as any;
 }

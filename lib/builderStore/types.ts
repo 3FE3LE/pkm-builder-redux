@@ -5,8 +5,11 @@ import type {
   BuilderTheme,
   EvolutionConstraintKey,
   RecommendationFilterKey,
+  RecommendationPlaystyle,
   RunState,
 } from "@/lib/runState";
+import type { TypeName } from "@/lib/domain/effects/types";
+import type { RoleKey } from "@/lib/domain/profiles/types";
 
 export type EditableMember = SuggestionInput & {
   id: string;
@@ -38,6 +41,10 @@ export type BuilderStore = {
   setEditorMemberId: (editorMemberId: string | null) => void;
   setEvolutionConstraint: (key: EvolutionConstraintKey, value: boolean) => void;
   setRecommendationFilter: (key: RecommendationFilterKey, value: boolean) => void;
+  setRecommendationPlaystyle: (playstyle: RecommendationPlaystyle) => void;
+  toggleFavoriteType: (type: TypeName) => void;
+  toggleAvoidedType: (type: TypeName) => void;
+  togglePreferredRole: (role: RoleKey) => void;
   setBattleWeather: (weather: BattleWeather) => void;
   setTheme: (theme: BuilderTheme) => void;
   toggleEncounterCompleted: (encounterId: string) => void;

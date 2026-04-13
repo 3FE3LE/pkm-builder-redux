@@ -1,14 +1,19 @@
 "use client";
 
+import { ViewTransition } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Mars, Plus, Sparkles, Venus, X } from "lucide-react";
+import { Check, ExternalLink, Mars, Plus, Sparkles, Venus, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { getDexTransitionName } from "@/components/team/screens/dex/utils";
 import type { EditableMember } from "@/lib/builderStore";
+import { markNavigationStart } from "@/lib/perf";
 import type { RemotePokemon } from "@/lib/teamAnalysis";
+import { startViewTransition } from "@/lib/viewTransitions";
 
 import type { AddFeedback } from "@/components/team/tools/iv-calculator/types";
 
@@ -59,6 +64,8 @@ export function SelectedPokemonPanel({
   onAddToTeam: () => void;
   addFeedback: AddFeedback;
 }) {
+  const router = useRouter();
+
   if (!resolvedPokemon || !speciesMeta) {
     return (
       <p className="text-sm text-muted">
@@ -67,24 +74,47 @@ export function SelectedPokemonPanel({
     );
   }
 
+  const dexHref = `/team/dex/pokemon/${speciesMeta.slug}`;
+
   return (
     <>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="display-face truncate text-lg">{resolvedPokemon.name}</p>
+          <ViewTransition name={getDexTransitionName("title", speciesMeta.slug)}>
+            <p className="display-face truncate text-lg">{resolvedPokemon.name}</p>
+          </ViewTransition>
           <p className="mt-1 text-sm text-muted">Dex #{speciesMeta.dex} · Lv {numericLevel} · {nature}</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {speciesMeta.types.map((type) => (
               <TypeBadge key={`iv-type-${type}`} type={type} />
             ))}
           </div>
+          <button
+            type="button"
+            className="mt-3 inline-flex items-center gap-2 text-xs text-accent transition hover:text-accent-soft"
+            onPointerDown={() => {
+              router.prefetch(dexHref);
+              markNavigationStart("ivcalc-to-dex-detail", dexHref);
+            }}
+            onClick={() => {
+              markNavigationStart("ivcalc-to-dex-detail", dexHref);
+              startViewTransition(() => {
+                router.push(dexHref);
+              });
+            }}
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            Abrir en Dex
+          </button>
         </div>
-        <PokemonSprite
-          species={resolvedPokemon.name}
-          spriteUrl={spriteUrl}
-          size="default"
-          chrome="plain"
-        />
+        <ViewTransition name={getDexTransitionName("sprite", speciesMeta.slug)} share="dex-sprite-share">
+          <PokemonSprite
+            species={resolvedPokemon.name}
+            spriteUrl={spriteUrl}
+            size="default"
+            chrome="plain"
+          />
+        </ViewTransition>
       </div>
       <div className="mt-4">
         <p className={ivPanelEyebrowClassName}>Base stats</p>

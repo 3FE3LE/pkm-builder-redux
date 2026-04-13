@@ -4,6 +4,7 @@ import { type CSSProperties, type ReactNode, useId, useMemo, useRef, useState } 
 import { createPortal } from "react-dom";
 import clsx from "clsx";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Input } from "@/components/ui/Input";
@@ -96,50 +97,64 @@ export function FilterCombobox({
       </div>
     </>
   );
-
-  const panelContent = open ? (
-    isMobile ? (
-      <div className="fixed inset-0 z-1000">
-        <button
-          type="button"
-          aria-label="Cerrar combobox"
-          className="modal-backdrop absolute inset-0 supports-backdrop-filter:backdrop-blur-md"
-          onPointerDown={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-          }}
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            setOpen(false);
-          }}
-        />
-        <div className="absolute inset-x-0 top-0 px-3 pt-[max(env(safe-area-inset-top),1rem)]">
-          <div
-            ref={panelRef}
-            style={panelStyle}
-            className={clsx(
-              "status-popover popover-panel popover-panel-floating box-border w-full",
-              panelClassName,
-            )}
-          >
-            {panelBody}
+  const panelContent = isMobile ? (
+    <AnimatePresence>
+      {open ? (
+        <div className="fixed inset-0 z-1000">
+          <motion.button
+            type="button"
+            aria-label="Cerrar combobox"
+            className="modal-backdrop absolute inset-0 supports-backdrop-filter:backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              setOpen(false);
+            }}
+          />
+          <div className="absolute inset-x-0 top-0 px-3 pt-[max(env(safe-area-inset-top),1rem)]">
+            <motion.div
+              ref={panelRef}
+              style={panelStyle}
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.22, delay: 0.06, ease: "easeOut" }}
+              className={clsx(
+                "status-popover popover-panel popover-panel-floating box-border w-full origin-top",
+                panelClassName,
+              )}
+            >
+              {panelBody}
+            </motion.div>
           </div>
         </div>
-      </div>
-    ) : (
-      <div
-        ref={panelRef}
-        style={panelStyle}
-        className={clsx(
-          "status-popover popover-panel absolute left-0 z-1000 mt-2 box-border w-72",
-          panelClassName,
-        )}
-      >
-        {panelBody}
-      </div>
-    )
-  ) : null;
+      ) : null}
+    </AnimatePresence>
+  ) : (
+    <AnimatePresence>
+      {open ? (
+        <motion.div
+          ref={panelRef}
+          style={panelStyle}
+          initial={{ opacity: 0, y: -8, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.2, delay: 0.05, ease: "easeOut" }}
+          className={clsx(
+            "status-popover popover-panel absolute left-0 z-1000 mt-2 box-border w-72 origin-top",
+            panelClassName,
+          )}
+        >
+          {panelBody}
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
 
   return (
     <div ref={rootRef} className="relative">
@@ -164,7 +179,7 @@ export function FilterCombobox({
         <span className={clsx("truncate", !safeValue && "text-text-faint")}>{safeValue || placeholder}</span>
         <ChevronsUpDown className="h-4 w-4 text-muted" />
       </button>
-      {panelContent ? (isMobile ? createPortal(panelContent, document.body) : panelContent) : null}
+      {isMobile ? createPortal(panelContent, document.body) : panelContent}
     </div>
   );
 }

@@ -27,6 +27,17 @@ export type RankedRosterMember = {
   overallScore: number;
 };
 
+export type TypeCoverageSummary = {
+  attackerType: TypeName;
+  defenderTypes: TypeName[];
+  multiplier: number;
+  superEffectiveTargets: number;
+  neutralTargets: number;
+  resistedTargets: number;
+  immuneTargets: number;
+  bestTargets: Array<TypeCombo & { multiplier: number }>;
+};
+
 type RosterMember = {
   key?: string;
   species: string;
@@ -92,6 +103,31 @@ export function rankRosterByTyping(team: RosterMember[]) {
       };
     })
     .sort((left, right) => right.overallScore - left.overallScore || left.label.localeCompare(right.label));
+}
+
+export function buildTypeCoverageSummary(
+  attackerType: TypeName,
+  defenderTypes: TypeName[],
+): TypeCoverageSummary {
+  const multiplier = getTypeEffectiveness(attackerType, defenderTypes);
+  const matchups = DEFENDER_COMBOS.map((combo) => ({
+    ...combo,
+    multiplier: getTypeEffectiveness(attackerType, combo.types),
+  }));
+
+  return {
+    attackerType,
+    defenderTypes,
+    multiplier,
+    superEffectiveTargets: matchups.filter((entry) => entry.multiplier > 1).length,
+    neutralTargets: matchups.filter((entry) => entry.multiplier === 1).length,
+    resistedTargets: matchups.filter((entry) => entry.multiplier > 0 && entry.multiplier < 1).length,
+    immuneTargets: matchups.filter((entry) => entry.multiplier === 0).length,
+    bestTargets: matchups
+      .filter((entry) => entry.multiplier > 1)
+      .sort((left, right) => right.multiplier - left.multiplier || left.label.localeCompare(right.label))
+      .slice(0, 8),
+  };
 }
 
 function buildRankedTierList(

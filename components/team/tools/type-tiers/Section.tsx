@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { RosterTypingCard } from "@/components/team/tools/type-tiers/RosterTypingCard";
 import { TierListCard } from "@/components/team/tools/type-tiers/TierListCard";
+import { PlaygroundCard } from "@/components/team/tools/type-tiers/PlaygroundCard";
 import {
   buildDefensiveTypeTierList,
   buildOffensiveTypeTierList,
@@ -56,6 +57,8 @@ export function TypeTierListSection({
         />
         <RosterTypingCard rankedRoster={rankedRoster} />
       </div>
+
+      <PlaygroundCard />
     </section>
   );
 }

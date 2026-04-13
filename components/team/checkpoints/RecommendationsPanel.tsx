@@ -180,10 +180,10 @@ function CaptureCard({
     primaryBodyMix: 7,
     secondaryBodyMix: 6,
   });
-  const v2 = recommendation.v2Score;
-  const scoreLabel = v2.finalScore.toFixed(0);
-  const floorLabel = recommendation.v2Profile.floorScore.toFixed(1);
-  const ceilingLabel = recommendation.v2Profile.ceilingScore.toFixed(1);
+  const score = recommendation.score;
+  const scoreLabel = score.finalScore.toFixed(0);
+  const floorLabel = recommendation.profile.floorScore.toFixed(1);
+  const ceilingLabel = recommendation.profile.ceilingScore.toFixed(1);
   const captureAction = ivCalcHref ? (
     <Link
       href={ivCalcHref}
@@ -269,7 +269,7 @@ function CaptureCard({
             <p
               className={clsx(
                 recommendationCaptureMetricValueClassName,
-                v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
+                score.verdict === "strong" ? "text-accent-soft" : score.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
               )}
             >
               {scoreLabel}
@@ -281,14 +281,14 @@ function CaptureCard({
               className={clsx(
                 recommendationCaptureMetricValueClassName,
                 "whitespace-normal break-words text-[11px] leading-snug tracking-[0.03em]",
-                v2.verdict === "strong"
+                score.verdict === "strong"
                   ? "text-accent-soft"
-                  : v2.verdict === "solid"
+                  : score.verdict === "solid"
                     ? "text-primary-soft"
                     : "text-text-faint",
               )}
             >
-              {getCaptureVerdictLabel(v2.verdict)}
+              {getCaptureVerdictLabel(score.verdict)}
             </p>
           </div>
           <div className={recommendationCaptureMetricClassName}>
@@ -310,7 +310,7 @@ function CaptureCard({
             <CaptureMetricIcon kind="score" />
             <p className={clsx(
               recommendationCaptureMetricValueClassName,
-              v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
+              score.verdict === "strong" ? "text-accent-soft" : score.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
             )}>
               {scoreLabel}
             </p>
@@ -320,9 +320,9 @@ function CaptureCard({
             <p className={clsx(
               recommendationCaptureMetricValueClassName,
               "flex items-center justify-center",
-              v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-text-faint",
+              score.verdict === "strong" ? "text-accent-soft" : score.verdict === "solid" ? "text-primary-soft" : "text-text-faint",
             )}>
-              <CaptureVerdictIcon verdict={v2.verdict} />
+              <CaptureVerdictIcon verdict={score.verdict} />
             </p>
           </div>
         </div>
@@ -365,9 +365,9 @@ function CaptureDetailSheet({
 
   const sprites = buildSpriteUrls(recommendation.species, dexNumber);
   const ivCalcHref = ivCalcHrefBuilder?.(recommendation.species);
-  const v2 = recommendation.v2Score;
-  const profile = recommendation.v2Profile;
-  const { breakdown } = v2;
+  const score = recommendation.score;
+  const profile = recommendation.profile;
+  const { breakdown } = score;
 
   const dimensionRows: { key: string; label: string; dim: DimensionScore }[] = [
     { key: "team", label: "Team Impact", dim: breakdown.teamImpact },
@@ -396,12 +396,12 @@ function CaptureDetailSheet({
                 <p className={recommendationCaptureMetricLabelClassName}>Score unificado</p>
                 <p className={clsx(
                   "display-face mt-1 text-xl",
-                  v2.verdict === "strong" ? "text-accent-soft" : v2.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
+                  score.verdict === "strong" ? "text-accent-soft" : score.verdict === "solid" ? "text-primary-soft" : "text-info-soft",
                 )}>
-                  {v2.finalScore.toFixed(0)}
+                  {score.finalScore.toFixed(0)}
                 </p>
                 <p className="mt-1 text-xs text-muted">
-                  {v2.verdict === "strong" ? "Excelente opción" : v2.verdict === "solid" ? "Opción sólida" : v2.verdict === "situational" ? "Opción situacional" : "Opción limitada"}
+                  {score.verdict === "strong" ? "Excelente opción" : score.verdict === "solid" ? "Opción sólida" : score.verdict === "situational" ? "Opción situacional" : "Opción limitada"}
                 </p>
               </div>
               <PokemonSprite
@@ -428,11 +428,11 @@ function CaptureDetailSheet({
             </div>
           </div>
 
-          {v2.topSignals.length ? (
+          {score.topSignals.length ? (
             <div className={recommendationCaptureSheetCardClassName}>
               <p className="display-face micro-copy text-accent">Por qué entra</p>
               <div className="mt-3 space-y-2">
-                {v2.topSignals.map((signal, index) => (
+                {score.topSignals.map((signal, index) => (
                   <p key={`${recommendation.id}-signal-${index}`} className="text-sm leading-6 text-text-soft">
                     {signal}
                   </p>
@@ -441,11 +441,11 @@ function CaptureDetailSheet({
             </div>
           ) : null}
 
-          {v2.synergyTags.length ? (
+          {score.synergyTags.length ? (
             <div className={recommendationCaptureSheetCardClassName}>
               <p className="display-face micro-copy text-accent">Sinergias</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {v2.synergyTags.map((tag) => (
+                {score.synergyTags.map((tag) => (
                   <span key={`${recommendation.id}-tag-${tag}`} className="app-soft-chip app-chip-xs text-text-soft">
                     {tag}
                   </span>
@@ -545,7 +545,7 @@ function CaptureMetricIcon({
 function CaptureVerdictIcon({
   verdict,
 }: {
-  verdict: EnrichedCaptureRecommendation["v2Score"]["verdict"];
+  verdict: EnrichedCaptureRecommendation["score"]["verdict"];
 }) {
   if (verdict === "strong") {
     return (
@@ -595,7 +595,7 @@ function CaptureVerdictIcon({
 }
 
 function getCaptureVerdictLabel(
-  verdict: EnrichedCaptureRecommendation["v2Score"]["verdict"],
+  verdict: EnrichedCaptureRecommendation["score"]["verdict"],
 ) {
   if (verdict === "strong") {
     return "Excelente";

@@ -21,7 +21,7 @@ export const useBuilderStore = create<BuilderStore>()(
     }),
     {
       name: "pkm-builder-redux-state",
-      version: 7,
+      version: 8,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         run: state.run,
