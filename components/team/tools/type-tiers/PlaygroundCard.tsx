@@ -2,12 +2,15 @@
 
 import { useMemo, useState } from "react";
 
-import { TypeBadge } from "@/components/BuilderShared";
+import { FilterCombobox, TypeBadge } from "@/components/BuilderShared";
 import { TYPE_ORDER, getMultiplierBucket, getMultiplierLabel } from "@/lib/domain/typeChart";
 import { buildTypeCoverageSummary } from "@/lib/domain/typeTierList";
 
 const playgroundPanelClassName = "rounded-2xl border border-line bg-surface-2 p-4";
 const playgroundCardClassName = "surface-card p-3";
+const playgroundFieldClassName = "space-y-1.5";
+const playgroundFieldLabelClassName = "display-face text-xs text-muted";
+const playgroundMetricCardClassName = "token-card px-3 py-2";
 
 export function PlaygroundCard() {
   const [attackerType, setAttackerType] = useState<(typeof TYPE_ORDER)[number]>("Electric");
@@ -112,26 +115,35 @@ function TypeSelect({
   emptyLabel?: string;
 }) {
   return (
-    <label className="space-y-1.5">
-      <span className="display-face text-xs text-muted">{label}</span>
-      <select
+    <div className={playgroundFieldClassName}>
+      <p className={playgroundFieldLabelClassName}>{label}</p>
+      <FilterCombobox
         value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="control-surface control-surface-hover h-10 w-full rounded-xl px-3 text-sm text-text"
-      >
-        {options.map((option) => (
-          <option key={option || "empty"} value={option}>
-            {option || emptyLabel}
-          </option>
-        ))}
-      </select>
-    </label>
+        options={options}
+        searchable={false}
+        placeholder={emptyLabel}
+        onChange={onChange}
+        renderOption={(option, selected) =>
+          option ? (
+            <div className="flex w-full items-center justify-between gap-3">
+              <TypeBadge type={option} />
+              {selected ? <span className="display-face text-[0.65rem] uppercase tracking-ui-wide text-accent">Active</span> : null}
+            </div>
+          ) : (
+            <div className="flex w-full items-center justify-between gap-3">
+              <span className="text-sm text-text">{emptyLabel}</span>
+              {selected ? <span className="display-face text-[0.65rem] uppercase tracking-ui-wide text-accent">Active</span> : null}
+            </div>
+          )
+        }
+      />
+    </div>
   );
 }
 
 function CoverageStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-line-soft bg-surface-3 px-3 py-2">
+    <div className={playgroundMetricCardClassName}>
       <p className="display-face text-xs text-muted">{label}</p>
       <p className="mt-1 text-sm text-text">{value}</p>
     </div>

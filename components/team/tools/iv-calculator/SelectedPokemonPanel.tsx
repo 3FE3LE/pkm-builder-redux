@@ -7,21 +7,22 @@ import { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 
 import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
+import { StatBar } from "@/components/team/UI";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { getDexTransitionName } from "@/components/team/screens/dex/utils";
 import type { EditableMember } from "@/lib/builderStore";
+import { calculateEffectiveStats, getNatureEffect } from "@/lib/domain/battle";
 import { markNavigationStart } from "@/lib/perf";
 import type { RemotePokemon } from "@/lib/teamAnalysis";
 import { startViewTransition } from "@/lib/viewTransitions";
+import { ZERO_SPREAD } from "@/components/team/tools/iv-calculator/types";
 
 import type { AddFeedback } from "@/components/team/tools/iv-calculator/types";
 
 const ivPanelEyebrowClassName = "display-face micro-label text-muted";
-const ivPanelBaseStatLabelClassName = "display-face micro-label text-muted";
 const ivPanelActionButtonClassName = "h-11 rounded-lg";
 const ivPanelFeedbackClassName = "surface-card flex items-center gap-2 px-3 py-2 text-sm";
-const ivPanelBaseStatCardClassName = "token-card px-2 py-2 text-center";
 const ivPanelSuggestedMoveChipClassName = "token-card px-2.5 py-1 text-xs text-text";
 
 type SpeciesCatalogEntry = {
@@ -75,6 +76,29 @@ export function SelectedPokemonPanel({
   }
 
   const dexHref = `/team/dex/pokemon/${speciesMeta.slug}`;
+  const neutralStats = calculateEffectiveStats(
+    resolvedPokemon.stats,
+    numericLevel,
+    "Serious",
+    ZERO_SPREAD,
+    ZERO_SPREAD,
+  );
+  const previewStats = calculateEffectiveStats(
+    resolvedPokemon.stats,
+    numericLevel,
+    nature,
+    ZERO_SPREAD,
+    ZERO_SPREAD,
+  );
+  const natureEffect = getNatureEffect(nature);
+  const statRows = [
+    { key: "hp", label: "HP", value: previewStats.hp, baseline: neutralStats.hp },
+    { key: "atk", label: "Atk", value: previewStats.atk, baseline: neutralStats.atk },
+    { key: "def", label: "Def", value: previewStats.def, baseline: neutralStats.def },
+    { key: "spa", label: "SpA", value: previewStats.spa, baseline: neutralStats.spa },
+    { key: "spd", label: "SpD", value: previewStats.spd, baseline: neutralStats.spd },
+    { key: "spe", label: "Spe", value: previewStats.spe, baseline: neutralStats.spe },
+  ] as const;
 
   return (
     <>
@@ -117,23 +141,23 @@ export function SelectedPokemonPanel({
         </ViewTransition>
       </div>
       <div className="mt-4">
-        <p className={ivPanelEyebrowClassName}>Base stats</p>
-        <div className="mt-2 grid grid-cols-3 gap-2">
-          {[
-            ["HP", resolvedPokemon.stats.hp],
-            ["ATK", resolvedPokemon.stats.atk],
-            ["DEF", resolvedPokemon.stats.def],
-            ["SpA", resolvedPokemon.stats.spa],
-            ["SpD", resolvedPokemon.stats.spd],
-            ["SPE", resolvedPokemon.stats.spe],
-          ].map(([label, value]) => (
-            <div
-              key={`base-stat-${label}`}
-              className={ivPanelBaseStatCardClassName}
-            >
-              <p className={ivPanelBaseStatLabelClassName}>{label}</p>
-              <p className="mono-face mt-1 text-sm text-text">{value}</p>
-            </div>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className={ivPanelEyebrowClassName}>Stats preview</p>
+          <p className="text-xs text-muted">
+            {natureEffect.up || natureEffect.down
+              ? `${nature} ajusta ${natureEffect.up?.toUpperCase() ?? "-"} / ${natureEffect.down?.toUpperCase() ?? "-"}`
+              : `${nature} no cambia stats`}
+          </p>
+        </div>
+        <div className="mt-3 grid gap-2">
+          {statRows.map((stat) => (
+            <StatBar
+              key={`preview-stat-${stat.key}`}
+              label={stat.label}
+              value={stat.value}
+              max={160}
+              baselineValue={stat.baseline}
+            />
           ))}
         </div>
       </div>

@@ -239,6 +239,7 @@ export function IvCalculatorSection({
                   label="LEVEL"
                   value={numericLevel}
                   max={100}
+                  orientation="horizontal"
                   onChange={(next) => {
                     clearFeedbackOnInputChange();
                     setLevel(String(Math.max(1, next)));

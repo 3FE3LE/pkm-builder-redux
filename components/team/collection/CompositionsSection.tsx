@@ -13,6 +13,9 @@ const compositionSectionHeaderClassName = "flex flex-wrap items-center justify-b
 const compositionCardClassName = "rounded-xl border px-3 py-3 text-left transition";
 const compositionCardIdleClassName = "border-line bg-surface-3 hover:bg-surface-4";
 const compositionCardActiveClassName = "border-primary-line-emphasis bg-primary-fill";
+const compositionSpriteGridClassName = "mt-3 grid grid-cols-6 gap-1.5";
+const compositionSpriteTileClassName =
+  "inline-flex h-10 w-full items-center justify-center rounded-xl border border-line-soft bg-surface-2";
 
 type Composition = {
   id: string;
@@ -128,11 +131,11 @@ export function CompositionsSection({
                       </p>
                       {compositionMembers.length ? (
                         <div className="mt-3 space-y-2">
-                          <div className="flex flex-wrap gap-1.5">
-                            {compositionMembers.slice(0, 4).map((member) => (
+                          <div className={compositionSpriteGridClassName}>
+                            {compositionMembers.slice(0, 6).map((member) => (
                               <div
                                 key={`${composition.id}-${member.id}-sprite`}
-                                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line-soft bg-surface-2"
+                                className={compositionSpriteTileClassName}
                               >
                                 <PokemonSprite
                                   species={member.species}
@@ -142,19 +145,7 @@ export function CompositionsSection({
                                 />
                               </div>
                             ))}
-                            {compositionMembers.length > 4 ? (
-                              <div className="inline-flex h-10 min-w-10 items-center justify-center rounded-xl border border-line-soft bg-surface-2 px-2 text-xs text-muted">
-                                +{compositionMembers.length - 4}
-                              </div>
-                            ) : null}
                           </div>
-                          <p className="text-xs text-muted">
-                            {compositionMembers
-                              .slice(0, 3)
-                              .map((member) => member.nickname?.trim() || member.species)
-                              .join(", ")}
-                            {compositionMembers.length > 3 ? "..." : ""}
-                          </p>
                         </div>
                       ) : null}
                     </>

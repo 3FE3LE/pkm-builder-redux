@@ -10,7 +10,7 @@ import type { IvInferenceByStat, IvObservedState } from "@/components/team/tools
 const ivObservedErrorClassName = "micro-copy text-danger";
 const ivObservedEstimateLabelClassName = "display-face micro-label text-muted";
 const ivObservedEstimateSeedClassName = "mt-1 hidden micro-label text-muted sm:block";
-const ivObservedCardClassName = "app-soft-panel flex min-h-[9.5rem] flex-col justify-between rounded-xl px-2.5 py-2.5";
+const ivObservedCardClassName = "app-soft-panel flex min-h-[8.75rem] flex-col justify-between rounded-xl px-2.5 py-2.5";
 const ivObservedFeedbackClassName = "mt-2 min-h-14";
 
 export function ObservedStatsPanel({
@@ -36,7 +36,7 @@ export function ObservedStatsPanel({
               label={stat.toUpperCase()}
               value={Number(observedStats[stat] || 0)}
               max={999}
-              orientation="responsive"
+              orientation="horizontal"
               onChange={(next) => onChangeStat(stat, next)}
             />
             <div className={ivObservedFeedbackClassName}>

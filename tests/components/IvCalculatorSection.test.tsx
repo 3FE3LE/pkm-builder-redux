@@ -109,6 +109,15 @@ vi.mock("@/components/team/UI", () => ({
       </button>
     </div>
   ),
+  StatBar: ({
+    label,
+    value,
+    baselineValue,
+  }: {
+    label: string;
+    value: number;
+    baselineValue?: number;
+  }) => <div>{`statbar-${label}-${value}-${baselineValue ?? "none"}`}</div>,
 }));
 
 vi.mock("@/components/ui/Input", () => ({
@@ -187,10 +196,10 @@ describe("IvCalculatorSection", () => {
     expect(screen.getByText("Dex #179 · Lv 5 · Serious")).toBeTruthy();
     expect(screen.getAllByText("Electric").length).toBeGreaterThan(0);
     expect(screen.getByText(/sprite-Mareep/)).toBeTruthy();
-    expect(screen.getByText("Base stats")).toBeTruthy();
-    expect(screen.getByText("HP")).toBeTruthy();
-    expect(screen.getAllByText("40").length).toBeGreaterThan(0);
-    expect(screen.getByText("65")).toBeTruthy();
+    expect(screen.getByText("Stats preview")).toBeTruthy();
+    expect(screen.getByText(/no cambia stats/i)).toBeTruthy();
+    expect(screen.getByText(/statbar-HP-/)).toBeTruthy();
+    expect(screen.getByText(/statbar-SpA-/)).toBeTruthy();
     expect(screen.getByText("Tackle")).toBeTruthy();
     expect(screen.getByText("Growl")).toBeTruthy();
     expect(screen.queryByText("Thunder Wave")).toBeNull();
@@ -198,6 +207,7 @@ describe("IvCalculatorSection", () => {
     await user.click(screen.getByRole("button", { name: "pick-jolly" }));
     await user.click(screen.getByRole("button", { name: "set-LEVEL" }));
     expect(screen.getByText("Dex #179 · Lv 12 · Jolly")).toBeTruthy();
+    expect(screen.getByText(/Jolly ajusta SPE \/ SPA/i)).toBeTruthy();
     expect(screen.getByText("Thunder Wave")).toBeTruthy();
     expect(screen.queryByText("Thunder Shock")).toBeNull();
 
