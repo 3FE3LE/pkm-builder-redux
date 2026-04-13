@@ -304,8 +304,10 @@ export function useBuilderDerivedData(
         nextEncounter,
         milestoneId: contextualMilestoneId,
         pokemonByName: pokemonIndex,
+        starter: store.starter,
         filters: {
           preferReduxUpgrades: store.recommendationFilters.preferReduxUpgrades,
+          excludeOtherStarters: store.recommendationFilters.excludeOtherStarters,
           excludeExactTypeDuplicates: store.recommendationFilters.excludeExactTypeDuplicates,
           excludeLegendaries: store.recommendationFilters.excludeLegendaries,
           excludePseudoLegendaries: store.recommendationFilters.excludePseudoLegendaries,

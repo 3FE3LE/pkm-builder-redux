@@ -43,6 +43,11 @@ const preferenceSectionDescriptionClassName = "mt-2 text-sm text-muted";
 const preferenceSwitchRowClassName = "app-soft-panel flex items-start justify-between gap-4 rounded-xl px-3 py-3";
 const preferenceSwitchLabelClassName = "display-face micro-copy text-text";
 const preferenceChipClassName = "rounded-full border px-3 py-1.5 text-xs transition";
+const preferenceCheckboxGridClassName = "mt-3 grid gap-2 sm:grid-cols-2";
+const preferenceCheckboxRowClassName =
+  "app-soft-panel flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-text transition hover:border-line";
+const preferenceCheckboxInputClassName =
+  "h-4 w-4 rounded border-line bg-surface-2 accent-[var(--accent)]";
 
 export function PreferencesSection({
   evolutionConstraints,
@@ -149,22 +154,20 @@ export function PreferencesSection({
             </SegmentedControl>
           </div>
 
-          <PreferenceChipGroup
+          <PreferenceCheckboxGroup
             title="Tipos favoritos"
             description="Suben afinidad y prioridad."
             options={TYPE_ORDER}
             selected={userPreferences.favoriteTypes}
             onToggle={(value) => onToggleFavoriteType(value as TypeName)}
-            tone="favorite"
           />
 
-          <PreferenceChipGroup
+          <PreferenceCheckboxGroup
             title="Tipos evitados"
             description="Aplican castigo al score si aparecen."
             options={TYPE_ORDER}
             selected={userPreferences.avoidedTypes}
             onToggle={(value) => onToggleAvoidedType(value as TypeName)}
-            tone="avoided"
           />
 
           <PreferenceChipGroup
@@ -420,6 +423,44 @@ function PreferenceChipGroup({
             >
               {getLabel?.(value) ?? value}
             </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function PreferenceCheckboxGroup({
+  title,
+  description,
+  options,
+  selected,
+  onToggle,
+}: {
+  title: string;
+  description: string;
+  options: readonly string[];
+  selected: readonly string[];
+  onToggle: (value: string) => void;
+}) {
+  return (
+    <div className="mt-4">
+      <p className={preferenceSectionTitleClassName}>{title}</p>
+      <p className="mt-1 text-xs text-muted">{description}</p>
+      <div className={preferenceCheckboxGridClassName}>
+        {options.map((value) => {
+          const checked = selected.includes(value);
+          return (
+            <label key={value} className={preferenceCheckboxRowClassName}>
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => onToggle(value)}
+                className={preferenceCheckboxInputClassName}
+                aria-label={value}
+              />
+              <span className="display-face micro-copy text-text">{value}</span>
+            </label>
           );
         })}
       </div>

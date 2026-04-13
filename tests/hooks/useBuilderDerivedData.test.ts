@@ -23,6 +23,7 @@ const mocked = vi.hoisted(() => ({
   buildSwapOpportunities: vi.fn(() => []),
   buildEvolutionEligibility: vi.fn(() => []),
   buildAreaSources: vi.fn(() => []),
+  enrichCaptureRecommendations: vi.fn(({ recommendations }: { recommendations: unknown[] }) => recommendations),
   resolveEditableMember: vi.fn(
     (member: { id: string; species: string; moves: string[]; locked?: boolean }) => ({
       key: member.id,
@@ -63,6 +64,10 @@ vi.mock("@/lib/domain/moveRecommendations", () => ({
 
 vi.mock("@/lib/domain/swapOpportunities", () => ({
   buildSwapOpportunities: mocked.buildSwapOpportunities,
+}));
+
+vi.mock("@/lib/domain/scoring/enrichRecommendations", () => ({
+  enrichCaptureRecommendations: mocked.enrichCaptureRecommendations,
 }));
 
 vi.mock("@/lib/domain/evolutionEligibility", () => ({
@@ -152,6 +157,7 @@ describe("useBuilderDerivedData route gating", () => {
     mocked.buildSwapOpportunities.mockClear();
     mocked.buildEvolutionEligibility.mockClear();
     mocked.buildAreaSources.mockClear();
+    mocked.enrichCaptureRecommendations.mockClear();
     mocked.resolveEditableMember.mockClear();
   });
 
@@ -289,5 +295,45 @@ describe("useBuilderDerivedData route gating", () => {
       }),
     );
     expect(result.current.activeMember).toEqual(expect.objectContaining({ key: "a" }));
+  });
+
+  it("passes recommendation filters and user preferences into enriched recommendations", () => {
+    mockPathname = "/team";
+    mockParams = new URLSearchParams("tab=builder");
+
+    const store = createStore();
+    store.recommendationFilters = {
+      ...store.recommendationFilters,
+      excludeLegendaries: true,
+      excludePseudoLegendaries: true,
+      excludeOtherStarters: true,
+      preferReduxUpgrades: true,
+    };
+    store.userPreferences = {
+      playstyle: "technical",
+      favoriteTypes: ["Grass", "Steel"],
+      avoidedTypes: ["Fire"],
+      preferredRoles: ["support"],
+    };
+
+    renderHook(() => useBuilderDerivedData(createData(), store, createUi()));
+
+    expect(mocked.enrichCaptureRecommendations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        starter: "snivy",
+        filters: expect.objectContaining({
+          preferReduxUpgrades: true,
+          excludeOtherStarters: true,
+          excludeExactTypeDuplicates: false,
+          excludeLegendaries: true,
+          excludePseudoLegendaries: true,
+          playstyle: "technical",
+          favoriteTypes: ["Grass", "Steel"],
+          avoidedTypes: ["Fire"],
+          preferredRoles: ["support"],
+          preferredTypes: ["Grass", "Steel"],
+        }),
+      }),
+    );
   });
 });

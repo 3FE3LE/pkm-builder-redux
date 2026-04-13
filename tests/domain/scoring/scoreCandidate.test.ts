@@ -7,6 +7,7 @@ import type { CheckpointProfile, ScoringPreferences } from "@/lib/domain/profile
 
 const PREFS: ScoringPreferences = {
   preferReduxUpgrades: false,
+  excludeOtherStarters: false,
   excludeExactTypeDuplicates: false,
   excludeLegendaries: false,
   excludePseudoLegendaries: false,

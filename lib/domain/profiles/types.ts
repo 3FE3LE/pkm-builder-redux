@@ -170,6 +170,7 @@ export type CandidateScore = {
 
 export type ScoringPreferences = {
   preferReduxUpgrades: boolean;
+  excludeOtherStarters: boolean;
   excludeExactTypeDuplicates: boolean;
   excludeLegendaries: boolean;
   excludePseudoLegendaries: boolean;

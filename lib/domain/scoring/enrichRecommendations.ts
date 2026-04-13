@@ -1,6 +1,8 @@
 import type { CaptureRecommendation } from "../contextualRecommendations";
+import { starters, type StarterKey } from "@/lib/builder";
 import type { ResolvedTeamMember, RemotePokemon } from "@/lib/teamAnalysis";
 import type { RunEncounterDefinition } from "@/lib/runEncounters";
+import { normalizeName } from "@/lib/domain/names";
 import {
   buildPokemonProfile,
   type PokemonProfileInput,
@@ -219,12 +221,33 @@ export type EnrichedCaptureRecommendation = CaptureRecommendation & {
   profile: PokemonProfile;
 };
 
+const OFF_STARTER_SPECIES = new Set(
+  [
+    "Bulbasaur", "Ivysaur", "Venusaur",
+    "Charmander", "Charmeleon", "Charizard",
+    "Squirtle", "Wartortle", "Blastoise",
+    "Chikorita", "Bayleef", "Meganium",
+    "Cyndaquil", "Quilava", "Typhlosion",
+    "Totodile", "Croconaw", "Feraligatr",
+    "Treecko", "Grovyle", "Sceptile",
+    "Torchic", "Combusken", "Blaziken",
+    "Mudkip", "Marshtomp", "Swampert",
+    "Turtwig", "Grotle", "Torterra",
+    "Chimchar", "Monferno", "Infernape",
+    "Piplup", "Prinplup", "Empoleon",
+    "Snivy", "Servine", "Serperior",
+    "Tepig", "Pignite", "Emboar",
+    "Oshawott", "Dewott", "Samurott",
+  ].map((species) => normalizeName(species)),
+);
+
 export function enrichCaptureRecommendations({
   recommendations,
   team,
   nextEncounter,
   milestoneId,
   pokemonByName,
+  starter,
   filters,
 }: {
   recommendations: CaptureRecommendation[];
@@ -232,9 +255,25 @@ export function enrichCaptureRecommendations({
   nextEncounter: RunEncounterDefinition | null;
   milestoneId: string;
   pokemonByName: Record<string, RemotePokemon>;
+  starter?: StarterKey;
   filters: ScoringPreferences;
 }): EnrichedCaptureRecommendation[] {
   if (!recommendations.length) return [];
+  const starterFamily = starter
+    ? new Set(starters[starter].stageSpecies.map((species) => normalizeName(species)))
+    : null;
+  const visibleRecommendations =
+    filters.excludeOtherStarters && starterFamily
+      ? recommendations.filter((recommendation) => {
+          const normalizedSpecies = normalizeName(recommendation.species);
+          return (
+            !OFF_STARTER_SPECIES.has(normalizedSpecies) ||
+            starterFamily.has(normalizedSpecies)
+          );
+        })
+      : recommendations;
+
+  if (!visibleRecommendations.length) return [];
 
   // Build team profiles
   const activeTeam = team.filter((m) => m.species);
@@ -253,7 +292,7 @@ export function enrichCaptureRecommendations({
     CHECKPOINT_PROFILES[milestoneId] ?? CHECKPOINT_PROFILES.opening;
 
   // Score each candidate
-  return recommendations.map((rec) => {
+  return visibleRecommendations.map((rec) => {
     const profile = buildPokemonProfile(candidateToProfileInput(rec));
     const score = scoreCandidate(
       profile,
