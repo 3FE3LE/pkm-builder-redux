@@ -196,7 +196,7 @@ describe("IvCalculatorSection", () => {
     expect(screen.getByText("Dex #179 · Lv 5 · Serious")).toBeTruthy();
     expect(screen.getAllByText("Electric").length).toBeGreaterThan(0);
     expect(screen.getByText(/sprite-Mareep/)).toBeTruthy();
-    expect(screen.getByText("Stats preview")).toBeTruthy();
+    expect(screen.getByText("Base stats")).toBeTruthy();
     expect(screen.getByText(/no cambia stats/i)).toBeTruthy();
     expect(screen.getByText(/statbar-HP-/)).toBeTruthy();
     expect(screen.getByText(/statbar-SpA-/)).toBeTruthy();

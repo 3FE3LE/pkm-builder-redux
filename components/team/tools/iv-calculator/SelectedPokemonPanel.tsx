@@ -12,11 +12,10 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { getDexTransitionName } from "@/components/team/screens/dex/utils";
 import type { EditableMember } from "@/lib/builderStore";
-import { calculateEffectiveStats, getNatureEffect } from "@/lib/domain/battle";
+import { getNatureEffect } from "@/lib/domain/battle";
 import { markNavigationStart } from "@/lib/perf";
 import type { RemotePokemon } from "@/lib/teamAnalysis";
 import { startViewTransition } from "@/lib/viewTransitions";
-import { ZERO_SPREAD } from "@/components/team/tools/iv-calculator/types";
 
 import type { AddFeedback } from "@/components/team/tools/iv-calculator/types";
 
@@ -76,28 +75,69 @@ export function SelectedPokemonPanel({
   }
 
   const dexHref = `/team/dex/pokemon/${speciesMeta.slug}`;
-  const neutralStats = calculateEffectiveStats(
-    resolvedPokemon.stats,
-    numericLevel,
-    "Serious",
-    ZERO_SPREAD,
-    ZERO_SPREAD,
-  );
-  const previewStats = calculateEffectiveStats(
-    resolvedPokemon.stats,
-    numericLevel,
-    nature,
-    ZERO_SPREAD,
-    ZERO_SPREAD,
-  );
   const natureEffect = getNatureEffect(nature);
   const statRows = [
-    { key: "hp", label: "HP", value: previewStats.hp, baseline: neutralStats.hp },
-    { key: "atk", label: "Atk", value: previewStats.atk, baseline: neutralStats.atk },
-    { key: "def", label: "Def", value: previewStats.def, baseline: neutralStats.def },
-    { key: "spa", label: "SpA", value: previewStats.spa, baseline: neutralStats.spa },
-    { key: "spd", label: "SpD", value: previewStats.spd, baseline: neutralStats.spd },
-    { key: "spe", label: "Spe", value: previewStats.spe, baseline: neutralStats.spe },
+    {
+      key: "hp",
+      label: "HP",
+      baseline: resolvedPokemon.stats.hp,
+      value: resolvedPokemon.stats.hp,
+    },
+    {
+      key: "atk",
+      label: "Atk",
+      baseline: resolvedPokemon.stats.atk,
+      value:
+        natureEffect.up === "atk"
+          ? Math.round(resolvedPokemon.stats.atk * 1.1)
+          : natureEffect.down === "atk"
+            ? Math.round(resolvedPokemon.stats.atk * 0.9)
+            : resolvedPokemon.stats.atk,
+    },
+    {
+      key: "def",
+      label: "Def",
+      baseline: resolvedPokemon.stats.def,
+      value:
+        natureEffect.up === "def"
+          ? Math.round(resolvedPokemon.stats.def * 1.1)
+          : natureEffect.down === "def"
+            ? Math.round(resolvedPokemon.stats.def * 0.9)
+            : resolvedPokemon.stats.def,
+    },
+    {
+      key: "spa",
+      label: "SpA",
+      baseline: resolvedPokemon.stats.spa,
+      value:
+        natureEffect.up === "spa"
+          ? Math.round(resolvedPokemon.stats.spa * 1.1)
+          : natureEffect.down === "spa"
+            ? Math.round(resolvedPokemon.stats.spa * 0.9)
+            : resolvedPokemon.stats.spa,
+    },
+    {
+      key: "spd",
+      label: "SpD",
+      baseline: resolvedPokemon.stats.spd,
+      value:
+        natureEffect.up === "spd"
+          ? Math.round(resolvedPokemon.stats.spd * 1.1)
+          : natureEffect.down === "spd"
+            ? Math.round(resolvedPokemon.stats.spd * 0.9)
+            : resolvedPokemon.stats.spd,
+    },
+    {
+      key: "spe",
+      label: "Spe",
+      baseline: resolvedPokemon.stats.spe,
+      value:
+        natureEffect.up === "spe"
+          ? Math.round(resolvedPokemon.stats.spe * 1.1)
+          : natureEffect.down === "spe"
+            ? Math.round(resolvedPokemon.stats.spe * 0.9)
+            : resolvedPokemon.stats.spe,
+    },
   ] as const;
 
   return (
@@ -142,7 +182,7 @@ export function SelectedPokemonPanel({
       </div>
       <div className="mt-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className={ivPanelEyebrowClassName}>Stats preview</p>
+          <p className={ivPanelEyebrowClassName}>Base stats</p>
           <p className="text-xs text-muted">
             {natureEffect.up || natureEffect.down
               ? `${nature} ajusta ${natureEffect.up?.toUpperCase() ?? "-"} / ${natureEffect.down?.toUpperCase() ?? "-"}`
