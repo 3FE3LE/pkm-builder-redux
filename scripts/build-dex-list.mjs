@@ -70,6 +70,60 @@ const LEGENDARY_OR_UNIQUE_SPECIES = new Set(
   ].map(normalize),
 );
 
+const GEN5_PRE_FAIRY_TYPES = {
+  cleffa: ["Normal"],
+  clefairy: ["Normal"],
+  clefable: ["Normal"],
+  igglybuff: ["Normal"],
+  jigglypuff: ["Normal"],
+  wigglytuff: ["Normal"],
+  togepi: ["Normal"],
+  togetic: ["Normal", "Flying"],
+  togekiss: ["Normal", "Flying"],
+  azurill: ["Normal"],
+  marill: ["Water"],
+  azumarill: ["Water"],
+  "mime-jr": ["Psychic"],
+  "mime-jr.": ["Psychic"],
+  "mr-mime": ["Psychic"],
+  "mr-mime.": ["Psychic"],
+  snubbull: ["Normal"],
+  granbull: ["Normal"],
+  ralts: ["Psychic"],
+  kirlia: ["Psychic"],
+  gardevoir: ["Psychic"],
+  mawile: ["Steel"],
+  cottonee: ["Grass"],
+  whimsicott: ["Grass"],
+};
+
+function getHistoricalCanonicalTypes(entry) {
+  const normalizedSlug = normalize(entry?.slug ?? "");
+  const normalizedName = normalize(entry?.name ?? "");
+  return GEN5_PRE_FAIRY_TYPES[normalizedSlug] ?? GEN5_PRE_FAIRY_TYPES[normalizedName] ?? entry?.types ?? [];
+}
+
+function resolveSpeciesEntry(index, species) {
+  const normalizedSlug = normalize(species.slug ?? "");
+  const normalizedName = normalize(species.name ?? "");
+  const candidates = [
+    normalizedSlug,
+    normalizedName,
+    `${normalizedSlug}-standard`,
+    `${normalizedName}-standard`,
+    `${normalizedSlug}-incarnate`,
+    `${normalizedName}-incarnate`,
+  ];
+
+  for (const key of candidates) {
+    if (key && index[key]) {
+      return index[key];
+    }
+  }
+
+  return null;
+}
+
 function mergeMachines(canonical = [], redux = []) {
   return Array.from(
     new Map(
@@ -141,14 +195,8 @@ async function main() {
 
   const dexList = speciesList
     .map((species) => {
-      const canonicalEntry =
-        canonicalPokemonIndex[species.slug] ??
-        canonicalPokemonIndex[normalize(species.name)];
-      const currentEntry =
-        currentPokemonIndex[species.slug] ??
-        currentPokemonIndex[normalize(species.name)] ??
-        canonicalEntry ??
-        null;
+      const canonicalEntry = resolveSpeciesEntry(canonicalPokemonIndex, species);
+      const currentEntry = resolveSpeciesEntry(currentPokemonIndex, species) ?? canonicalEntry ?? null;
       const types = currentEntry?.types ?? species.types ?? [];
       const abilities = currentEntry?.abilities ?? [];
 
@@ -161,7 +209,7 @@ async function main() {
         isLegendaryOrUnique: LEGENDARY_OR_UNIQUE_SPECIES.has(species.slug) || LEGENDARY_OR_UNIQUE_SPECIES.has(normalize(species.name)),
         hasTypeChanges:
           JSON.stringify(types.map(normalize)) !==
-          JSON.stringify((canonicalEntry?.types ?? []).map(normalize)),
+          JSON.stringify(getHistoricalCanonicalTypes(canonicalEntry).map(normalize)),
         hasStatChanges:
           JSON.stringify(currentEntry?.stats ?? null) !== JSON.stringify(canonicalEntry?.stats ?? null),
         hasAbilityChanges:

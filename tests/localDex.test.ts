@@ -627,4 +627,62 @@ describe("localDex", () => {
       rmSync(tempRoot, { recursive: true, force: true });
     }
   });
+
+  it("marks fairy retcons as type changes against gen 5 historical typings", async () => {
+    const originalCwd = process.cwd();
+    const tempRoot = mkdtempSync(path.join(os.tmpdir(), "pkm-local-dex-fairy-retcon-"));
+    const referenceDir = path.join(tempRoot, "data", "reference");
+    const localDexDir = path.join(tempRoot, "data", "local-dex");
+
+    mkdirSync(referenceDir, { recursive: true });
+    mkdirSync(localDexDir, { recursive: true });
+
+    writeFileSync(
+      path.join(referenceDir, "pokemon-canonical-gen5.json"),
+      JSON.stringify({
+        "175": {
+          id: 175,
+          dex: 175,
+          slug: "togepi",
+          name: "Togepi",
+          types: ["Fairy"],
+          abilities: ["Hustle", "Serene Grace", "Super Luck"],
+          stats: { hp: 35, atk: 20, def: 65, spa: 40, spd: 65, spe: 20, bst: 245 },
+        },
+      }),
+    );
+    writeFileSync(
+      path.join(localDexDir, "species-list.json"),
+      JSON.stringify([{ name: "Togepi", slug: "togepi", dex: 175, types: ["Fairy"] }]),
+    );
+    writeFileSync(path.join(localDexDir, "pokemon-index.json"), JSON.stringify({}));
+    try {
+      process.chdir(tempRoot);
+
+      const module = await import("../lib/localDex");
+      const dexList = module.getLocalDexList();
+
+      expect(dexList).toEqual([
+        expect.objectContaining({
+          dex: 175,
+          name: "Togepi",
+          slug: "togepi",
+          types: ["Fairy"],
+          hasTypeChanges: true,
+          hasStatChanges: false,
+          hasAbilityChanges: false,
+        }),
+      ]);
+      expect(
+        module.getHistoricalCanonicalTypes({
+          name: "Togepi",
+          slug: "togepi",
+          types: ["Fairy"],
+        }),
+      ).toEqual(["Normal"]);
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
 });

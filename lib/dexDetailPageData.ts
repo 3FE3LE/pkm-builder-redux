@@ -10,7 +10,12 @@ import {
 } from "@/lib/domain/sourceData";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { getAvailableFormsForSpecies } from "@/lib/forms";
-import { getLocalDexDataVersion, getPokemonAbilitySlots, type PokemonAbilitySlots } from "@/lib/localDex";
+import {
+  getHistoricalCanonicalTypes,
+  getLocalDexDataVersion,
+  getPokemonAbilitySlots,
+  type PokemonAbilitySlots,
+} from "@/lib/localDex";
 
 type SearchParamsInput = Record<string, string | string[] | undefined>;
 
@@ -175,7 +180,10 @@ const getFilteredOrderedSpecies = cache(
         const currentPokemon =
           runtime.pageData.pokemonIndex[entry.slug] ??
           runtime.pageData.pokemonIndex[normalizedName];
-        const hasTypeChanges = !sameStringList(entry.types ?? [], canonicalPokemon?.types ?? []);
+        const hasTypeChanges = !sameStringList(
+          entry.types ?? [],
+          getHistoricalCanonicalTypes(canonicalPokemon),
+        );
         const hasStatChanges = !sameStats(currentPokemon?.stats, canonicalPokemon?.stats);
         const hasAbilityChanges = !sameStringList(currentPokemon?.abilities ?? [], canonicalPokemon?.abilities ?? []);
 

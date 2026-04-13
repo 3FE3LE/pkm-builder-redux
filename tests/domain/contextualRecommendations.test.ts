@@ -309,6 +309,60 @@ test("respects excludeOtherStarters for contextual captures", () => {
   assert.ok(recommendations.some((entry) => entry.species === "Mareep"));
 });
 
+test("uses the starter line present in the team when persisted starter is stale", () => {
+  const recommendations = buildCaptureRecommendations({
+    docs: {
+      ...BASE_DOCS,
+      gifts: [
+        {
+          name: "Snivy",
+          location: "Floccesy Ranch",
+          level: "10",
+          notes: [],
+        },
+        {
+          name: "Charmander",
+          location: "Floccesy Ranch",
+          level: "10",
+          notes: [],
+        },
+        {
+          name: "Mareep",
+          location: "Floccesy Ranch",
+          level: "10",
+          notes: [],
+        },
+      ],
+    },
+    team: [
+      {
+        key: "oshawott-key",
+        species: "Oshawott",
+        supportsGender: true,
+        locked: true,
+        resolvedTypes: ["Water"],
+        resolvedStats: undefined,
+        summaryStats: undefined,
+        effectiveStats: undefined,
+        abilities: [],
+        moves: [],
+      } as ResolvedTeamMember & { locked?: boolean },
+    ],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName: POKEMON_INDEX,
+    moveIndex: MOVE_INDEX,
+    starter: "snivy",
+    filters: {
+      ...BASE_FILTERS,
+      excludeOtherStarters: true,
+    },
+  });
+
+  assert.ok(!recommendations.some((entry) => entry.species === "Snivy"));
+  assert.ok(!recommendations.some((entry) => entry.species === "Charmander"));
+  assert.ok(recommendations.some((entry) => entry.species === "Mareep"));
+});
+
 test("blocks candidates that overlap with the locked starter line final types", () => {
   const recommendations = buildCaptureRecommendations({
     docs: BASE_DOCS,
@@ -447,8 +501,81 @@ test("prioritizes redux-upgraded captures when the preference is enabled", () =>
     },
   });
 
-  assert.equal(neutral.find((entry) => entry.species === "Reduxmon")?.redux.score, 3);
+  assert.equal(neutral.find((entry) => entry.species === "Reduxmon")?.redux.score, 4);
   assert.equal(preferred[0]?.species, "Reduxmon");
+});
+
+test("counts redux changes across the evolution line when sorting captures", () => {
+  const docs: ParsedDocs = {
+    ...BASE_DOCS,
+    gifts: [
+      {
+        name: "Linebase",
+        location: "Floccesy Ranch",
+        level: "10",
+        notes: [],
+      },
+      {
+        name: "Plainmon",
+        location: "Floccesy Ranch",
+        level: "10",
+        notes: [],
+      },
+    ],
+  };
+  const pokemonByName = {
+    ...POKEMON_INDEX,
+    linebase: {
+      id: 9101,
+      name: "Linebase",
+      types: ["Bug"],
+      abilities: ["Swarm"],
+      nextEvolutions: ["Linefinal"],
+      stats: { hp: 40, atk: 45, def: 40, spa: 35, spd: 35, spe: 50, bst: 245 },
+      learnsets: { levelUp: [{ level: 1, move: "Bubble" }], machines: [] },
+    },
+    linefinal: {
+      id: 9102,
+      name: "Linefinal",
+      types: ["Bug", "Water"],
+      abilities: ["Swift Swim"],
+      nextEvolutions: [],
+      stats: { hp: 70, atk: 60, def: 62, spa: 100, spd: 82, spe: 102, bst: 476 },
+      learnsets: { levelUp: [{ level: 1, move: "Hydro Pump" }], machines: [] },
+    },
+    plainmon: {
+      id: 9103,
+      name: "Plainmon",
+      types: ["Water"],
+      abilities: ["Torrent"],
+      nextEvolutions: [],
+      stats: { hp: 60, atk: 60, def: 60, spa: 60, spd: 60, spe: 60, bst: 360 },
+      learnsets: { levelUp: [{ level: 1, move: "Water Gun" }], machines: [] },
+    },
+  } satisfies Record<string, RemotePokemon>;
+
+  const preferred = buildCaptureRecommendations({
+    docs,
+    team: [],
+    nextEncounter: NEXT_ENCOUNTER,
+    pokemonByName,
+    moveIndex: MOVE_INDEX,
+    reduxBySpecies: {
+      linefinal: {
+        hasTypeChanges: true,
+        hasAbilityChanges: true,
+        hasStatChanges: true,
+      },
+    },
+    starter: "snivy",
+    filters: {
+      ...BASE_FILTERS,
+      preferReduxUpgrades: true,
+    },
+  });
+
+  assert.equal(preferred[0]?.species, "Linebase");
+  assert.ok((preferred.find((entry) => entry.species === "Linebase")?.redux.score ?? 0) >= 9);
 });
 
 test("captures expose late-game ceiling from the terminal evolution line", () => {
@@ -553,6 +680,16 @@ test("keeps prior checkpoint sources cumulative through Burgh and reaches Castel
     "Castelia Sewers",
     "Relic Passage - Castelia",
     "Route 4",
+  ]);
+});
+
+test("switches milestone source areas to the active season instead of using a score bonus", () => {
+  assert.deepEqual(getContextualSourceAreas(5, "winter"), [
+    "Aspertia City",
+    "Route 19",
+    "Route 20 - Winter",
+    "Floccesy Ranch",
+    "Floccesy Town",
   ]);
 });
 
@@ -899,7 +1036,7 @@ test("resolves composed species like Mime Jr from the real dex index and keeps t
   const mimeJr = recommendations.find((entry) => entry.species === "Mime Jr");
   assert.ok(mimeJr);
   assert.equal(mimeJr?.area, "Route 20 - Spring");
-  assert.equal(mimeJr?.redux.score, 3);
+  assert.equal(mimeJr?.redux.score, 9);
   assert.ok((mimeJr?.lateGame.score ?? 0) > 0);
 });
 

@@ -46,6 +46,33 @@ let reduxOverridesCache: Record<string, any> | null = null;
 let pokemonAbilitySlotsCache: Map<string, PokemonAbilitySlots> | null = null;
 let localDexDataVersionCache: string | null = null;
 
+const GEN5_PRE_FAIRY_TYPES: Record<string, string[]> = {
+  cleffa: ["Normal"],
+  clefairy: ["Normal"],
+  clefable: ["Normal"],
+  igglybuff: ["Normal"],
+  jigglypuff: ["Normal"],
+  wigglytuff: ["Normal"],
+  togepi: ["Normal"],
+  togetic: ["Normal", "Flying"],
+  togekiss: ["Normal", "Flying"],
+  azurill: ["Normal"],
+  marill: ["Water"],
+  azumarill: ["Water"],
+  "mime-jr": ["Psychic"],
+  "mime-jr.": ["Psychic"],
+  "mr-mime": ["Psychic"],
+  "mr-mime.": ["Psychic"],
+  snubbull: ["Normal"],
+  granbull: ["Normal"],
+  ralts: ["Psychic"],
+  kirlia: ["Psychic"],
+  gardevoir: ["Psychic"],
+  mawile: ["Steel"],
+  cottonee: ["Grass"],
+  whimsicott: ["Grass"],
+};
+
 const LOCAL_DEX_VERSION_FILES = [
   path.join(DATA_DIR, "pokemon-index.json"),
   path.join(DATA_DIR, "species-list.json"),
@@ -585,6 +612,24 @@ export function getCanonicalPokemonIndex(): PokemonIndex {
   return canonicalPokemonIndexCache ?? {};
 }
 
+export function getHistoricalCanonicalTypes(canonicalPokemon: {
+  name?: string;
+  slug?: string;
+  types?: string[];
+} | null | undefined) {
+  const normalizedName = normalize(canonicalPokemon?.name ?? "");
+  const normalizedSlug = normalize(canonicalPokemon?.slug ?? "");
+  const legacyTypes =
+    GEN5_PRE_FAIRY_TYPES[normalizedSlug] ??
+    GEN5_PRE_FAIRY_TYPES[normalizedName];
+
+  if (legacyTypes) {
+    return legacyTypes;
+  }
+
+  return canonicalPokemon?.types ?? [];
+}
+
 export function getLocalMoveIndex(): MoveIndex {
   ensureLocalDexCachesFresh();
   if (!moveIndexCache) {
@@ -799,7 +844,7 @@ export function getLocalDexList(): DexList {
         abilities: currentAbilities,
         hasTypeChanges: !sameStringList(
           currentTypes,
-          canonicalPokemon?.types ?? [],
+          getHistoricalCanonicalTypes(canonicalPokemon),
         ),
         hasStatChanges: !sameStats(
           currentStats,
