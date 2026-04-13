@@ -12,7 +12,11 @@ import { buildCoverageSummary } from "./battle";
 import { buildTeamRoleSnapshot } from "./roleAnalysis";
 import { ROLE_LABELS } from "./roleLabels";
 import { extractEncounterSpecies, extractGiftSpecies, sanitizeSpeciesName } from "./sourceData";
-import { getContextualSourceAreasForMilestone, type RunEncounterDefinition } from "../runEncounters";
+import {
+  getContextualSourceAreasForMilestone,
+  type EncounterSeason,
+  type RunEncounterDefinition,
+} from "../runEncounters";
 import {
   isRecommendationSpeciesAllowed,
   starters,
@@ -85,7 +89,8 @@ export function buildCaptureRecommendations({
   reduxBySpecies = {},
   starter,
   filters,
-  limit = 4,
+  season,
+  limit = 8,
 }: {
   docs: ParsedDocs;
   team: Array<ResolvedTeamMember & { locked?: boolean }>;
@@ -103,6 +108,7 @@ export function buildCaptureRecommendations({
   >;
   starter: StarterKey;
   filters: RecommendationFilters;
+  season?: EncounterSeason;
   limit?: number;
 }): CaptureRecommendation[] {
   const activeTeam = team.filter((member) => member.species.trim());
@@ -113,7 +119,7 @@ export function buildCaptureRecommendations({
   const checkpointId = milestoneId ?? inferCheckpointIdFromOrder(nextEncounter.order);
   const candidatePool = collectCandidateSources({
     docs,
-    areas: getContextualSourceAreasForMilestone(checkpointId),
+    areas: getContextualSourceAreasForMilestone(checkpointId, season),
     existingSpecies: new Set(activeTeam.map((member) => normalizeWords(member.species))),
     pokemonByName,
   });
@@ -127,13 +133,14 @@ export function buildCaptureRecommendations({
     .map((entry) => entry.defenseType);
 
   const projectedByCandidateId = new Map<string, DecisionDeltaTeamMember>();
+  const effectiveStarter = resolveStarterKey(activeTeam, starter);
   const starterFamily = new Set(
-    starters[starter].stageSpecies.map((species) => normalizeWords(species)),
+    starters[effectiveStarter].stageSpecies.map((species) => normalizeWords(species)),
   );
   const lockedStarterLine = activeTeam.find(
     (member) => member.locked && starterFamily.has(normalizeWords(member.species)),
   );
-  const lockedStarterFinalTypes = getStarterFinalTypes(starter, pokemonByName);
+  const lockedStarterFinalTypes = getStarterFinalTypes(effectiveStarter, pokemonByName);
 
   const candidates = candidatePool
     .map((source) => {
@@ -240,6 +247,7 @@ export function buildCaptureRecommendations({
       const reduxScoring = buildReduxScoring({
         species: delta.species,
         reduxBySpecies,
+        pokemonByName,
         preferReduxUpgrades: filters.preferReduxUpgrades,
       });
       const lateGameScoring = buildLateGameScoring({
@@ -279,6 +287,20 @@ export function buildCaptureRecommendations({
     )
     .slice(0, limit)
     .map(({ sortRisk: _sortRisk, sortScore: _sortScore, finalSortScore: _finalSortScore, ...entry }) => entry);
+}
+
+function resolveStarterKey(
+  team: Array<ResolvedTeamMember & { locked?: boolean }>,
+  starter: StarterKey,
+) {
+  for (const key of Object.keys(starters) as StarterKey[]) {
+    const family = new Set(starters[key].stageSpecies.map((species) => normalizeWords(species)));
+    if (team.some((member) => family.has(normalizeWords(member.species)))) {
+      return key;
+    }
+  }
+
+  return starter;
 }
 
 function buildLateGameScoring({
@@ -378,6 +400,7 @@ function buildAbilitySignature(pokemon: RemotePokemon | null | undefined) {
 function buildReduxScoring({
   species,
   reduxBySpecies,
+  pokemonByName,
   preferReduxUpgrades,
 }: {
   species: string;
@@ -389,26 +412,53 @@ function buildReduxScoring({
       hasStatChanges: boolean;
     }
   >;
+  pokemonByName: Record<string, RemotePokemon | null | undefined>;
   preferReduxUpgrades: boolean;
 }) {
-  const reduxEntry =
-    reduxBySpecies[normalizeSpeciesLookupName(species)] ??
-    reduxBySpecies[normalizeWords(species)] ??
+  const lineSpecies = collectEvolutionLineSpecies(species, pokemonByName);
+  const reduxEntry = lineSpecies.reduce(
+    (acc, currentSpecies) => {
+      const currentEntry =
+        reduxBySpecies[normalizeSpeciesLookupName(currentSpecies)] ??
+        reduxBySpecies[normalizeWords(currentSpecies)] ??
+        {
+          hasTypeChanges: false,
+          hasAbilityChanges: false,
+          hasStatChanges: false,
+        };
+
+      return {
+        hasTypeChanges: acc.hasTypeChanges || currentEntry.hasTypeChanges,
+        hasAbilityChanges: acc.hasAbilityChanges || currentEntry.hasAbilityChanges,
+        hasStatChanges: acc.hasStatChanges || currentEntry.hasStatChanges,
+      };
+    },
     {
       hasTypeChanges: false,
       hasAbilityChanges: false,
       hasStatChanges: false,
-    };
+    },
+  );
   const reduxScore =
-    (reduxEntry.hasTypeChanges ? 3 : 0) +
-    (reduxEntry.hasAbilityChanges ? 2 : 0) +
-    (reduxEntry.hasStatChanges ? 1 : 0);
+    (reduxEntry.hasTypeChanges ? 4 : 0) +
+    (reduxEntry.hasAbilityChanges ? 3 : 0) +
+    (reduxEntry.hasStatChanges ? 2 : 0);
+  const combinedChanges =
+    Number(reduxEntry.hasTypeChanges) +
+    Number(reduxEntry.hasAbilityChanges) +
+    Number(reduxEntry.hasStatChanges);
   const labels = [
     reduxEntry.hasTypeChanges ? "Typing Redux" : null,
-    reduxEntry.hasAbilityChanges ? "Habs Redux" : null,
+    reduxEntry.hasAbilityChanges ? "Habilidad Redux" : null,
     reduxEntry.hasStatChanges ? "Stats Redux" : null,
   ].filter((entry): entry is string => Boolean(entry));
-  const sortBonus = round(reduxScore * (preferReduxUpgrades ? 0.9 : 0.35), 1);
+  const combinedBonus =
+    combinedChanges >= 3 ? 6 : combinedChanges === 2 ? 3 : 0;
+  const sortBonus = round(
+    reduxScore * (preferReduxUpgrades ? 2.2 : 0.65) +
+      (preferReduxUpgrades ? combinedBonus : combinedBonus * 0.4),
+    1,
+  );
 
   return {
     recommendationScore: reduxScore,
@@ -421,6 +471,28 @@ function buildReduxScoring({
       labels,
     },
   };
+}
+
+function collectEvolutionLineSpecies(
+  species: string,
+  pokemonByName: Record<string, RemotePokemon | null | undefined>,
+  visited = new Set<string>(),
+): string[] {
+  const normalized = normalizeWords(species);
+  if (!normalized || visited.has(normalized)) {
+    return [];
+  }
+
+  visited.add(normalized);
+  const current = pokemonByName[normalizeSpeciesLookupName(species)] ?? pokemonByName[normalized];
+  const nextSpecies = current?.nextEvolutions ?? [];
+
+  return [
+    species,
+    ...nextSpecies.flatMap((entry) =>
+      collectEvolutionLineSpecies(entry, pokemonByName, new Set(visited)),
+    ),
+  ];
 }
 
 function getExactTypeDuplicatePenalty({

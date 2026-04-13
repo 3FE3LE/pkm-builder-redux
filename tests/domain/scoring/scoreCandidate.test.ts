@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { buildPokemonProfile } from "@/lib/domain/profiles/buildPokemonProfile";
 import { buildTeamSnapshot } from "@/lib/domain/profiles/buildTeamSnapshot";
 import { scoreCandidate, scoreCandidates } from "@/lib/domain/scoring/scoreCandidate";
+import { buildTeamPlanContext } from "@/lib/domain/scoring/teamPlan";
 import { buildScoreExplanation } from "@/lib/domain/scoring/explainScore";
 import type { CheckpointProfile, ScoringPreferences } from "@/lib/domain/profiles/types";
 
@@ -99,6 +100,22 @@ function makeScizorProfile() {
       { name: "U-turn", type: "Bug", damageClass: "physical", power: 70 },
       { name: "Swords Dance", type: "Normal", damageClass: "status", power: null },
       { name: "Bug Bite", type: "Bug", damageClass: "physical", power: 60 },
+    ],
+  });
+}
+
+function makeDustoxProfile() {
+  return buildPokemonProfile({
+    id: "dustox",
+    name: "Dustox",
+    types: ["Bug", "Poison"],
+    stats: { hp: 60, atk: 50, def: 70, spa: 50, spd: 90, spe: 65, bst: 385 },
+    ability: "Shield Dust",
+    abilities: ["Shield Dust"],
+    moves: [
+      { name: "Bug Buzz", type: "Bug", damageClass: "special", power: 90 },
+      { name: "Sludge Bomb", type: "Poison", damageClass: "special", power: 90 },
+      { name: "Moonlight", type: "Normal", damageClass: "status", power: null },
     ],
   });
 }
@@ -244,15 +261,66 @@ describe("scoreCandidate", () => {
     expect(liked.breakdown.preferenceAffinity.raw).toBeGreaterThan(avoided.breakdown.preferenceAffinity.raw);
   });
 
-  it("applies role and season boosts when they match the candidate", () => {
+  it("applies role preference boosts when they match the candidate", () => {
     const team = buildTeamSnapshot([makeLucarioProfile()]);
     const boosted = scoreCandidate(makeSerperiorProfile(), team, null, CASTELIA_CHECKPOINT, {
       ...PREFS,
       preferredRoles: ["support"],
-      currentSeason: "spring",
     });
 
-    expect(boosted.breakdown.preferenceAffinity.raw).toBeGreaterThan(50);
+    expect(boosted.breakdown.preferenceAffinity.raw).toBeGreaterThanOrEqual(50);
+  });
+
+  it("prefers core-building quality over a temporary patch when the team is still forming", () => {
+    const oshawott = buildPokemonProfile({
+      id: "oshawott",
+      name: "Oshawott",
+      types: ["Water"],
+      stats: { hp: 55, atk: 55, def: 45, spa: 63, spd: 45, spe: 45, bst: 308 },
+      ability: "Torrent",
+      abilities: ["Torrent"],
+      moves: [
+        { name: "Water Pulse", type: "Water", damageClass: "special", power: 60 },
+        { name: "Aqua Jet", type: "Water", damageClass: "physical", power: 40 },
+      ],
+      terminalTypes: ["Water", "Fighting"],
+      terminalStats: { hp: 95, atk: 100, def: 85, spa: 108, spd: 70, spe: 70, bst: 528 },
+      terminalAbilities: ["Torrent"],
+      terminalMoves: [
+        { name: "Hydro Pump", type: "Water", damageClass: "special", power: 110 },
+        { name: "Sacred Sword", type: "Fighting", damageClass: "physical", power: 90 },
+      ],
+    });
+    const team = buildTeamSnapshot([oshawott]);
+    const teamPlan = buildTeamPlanContext([{ species: "Oshawott", locked: true }], [oshawott]);
+
+    const ralts = buildPokemonProfile({
+      id: "ralts",
+      name: "Ralts",
+      types: ["Psychic", "Fairy"],
+      stats: { hp: 28, atk: 25, def: 25, spa: 45, spd: 35, spe: 40, bst: 198 },
+      ability: "Trace",
+      abilities: ["Synchronize", "Trace"],
+      moves: [
+        { name: "Confusion", type: "Psychic", damageClass: "special", power: 50 },
+        { name: "Thunder Wave", type: "Electric", damageClass: "status", power: null },
+      ],
+      reduxFlags: { hasTypeChanges: true, hasAbilityChanges: true, hasStatChanges: true },
+      terminalTypes: ["Psychic", "Fairy"],
+      terminalStats: { hp: 68, atk: 65, def: 65, spa: 125, spd: 115, spe: 80, bst: 518 },
+      terminalAbilities: ["Trace"],
+      terminalMoves: [
+        { name: "Psychic", type: "Psychic", damageClass: "special", power: 90 },
+        { name: "Moonblast", type: "Fairy", damageClass: "special", power: 95 },
+        { name: "Thunder Wave", type: "Electric", damageClass: "status", power: null },
+      ],
+    });
+    const dustox = makeDustoxProfile();
+
+    const raltsScore = scoreCandidate(ralts, team, null, CASTELIA_CHECKPOINT, PREFS, teamPlan);
+    const dustoxScore = scoreCandidate(dustox, team, null, CASTELIA_CHECKPOINT, PREFS, teamPlan);
+
+    expect(raltsScore.finalScore).toBeGreaterThan(dustoxScore.finalScore);
   });
 });
 

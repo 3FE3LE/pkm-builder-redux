@@ -21,7 +21,6 @@ import type { TypeName } from "@/lib/domain/effects/types";
 import type { RoleKey } from "@/lib/domain/profiles/types";
 import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 import { TYPE_ORDER } from "@/lib/domain/typeChart";
-import { resolveAppliedTheme } from "@/lib/theme/applyTheme";
 import type {
   BuilderTheme,
   EvolutionConstraintKey,
@@ -32,8 +31,6 @@ import type {
   RecommendationUserPreferences,
 } from "@/lib/runState";
 
-const preferenceManualChipClassName =
-  "rounded-full border px-2.5 py-1 display-face micro-copy transition";
 const preferenceWeatherButtonClassName =
   "inline-flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition";
 const preferenceWeatherLabelClassName = "display-face micro-copy text-inherit";
@@ -43,7 +40,7 @@ const preferenceSectionDescriptionClassName = "mt-2 text-sm text-muted";
 const preferenceSwitchRowClassName = "app-soft-panel flex items-start justify-between gap-4 rounded-xl px-3 py-3";
 const preferenceSwitchLabelClassName = "display-face micro-copy text-text";
 const preferenceChipClassName = "rounded-full border px-3 py-1.5 text-xs transition";
-const preferenceCheckboxGridClassName = "mt-3 grid gap-2 sm:grid-cols-2";
+const preferenceCheckboxGridClassName = "mt-3 grid gap-2";
 const preferenceCheckboxRowClassName =
   "app-soft-panel flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-text transition hover:border-line";
 const preferenceCheckboxInputClassName =
@@ -81,7 +78,6 @@ export function PreferencesSection({
   onResetRun: () => void;
 }) {
   const autoThemeActive = theme === "auto";
-  const currentAppliedTheme = resolveAppliedTheme(theme);
 
   return (
     <section className="space-y-4">
@@ -110,19 +106,6 @@ export function PreferencesSection({
                 );
               })}
             </SegmentedControl>
-
-            <span
-              className={clsx(
-                preferenceManualChipClassName,
-                autoThemeActive
-                  ? "primary-badge"
-                  : "border-line-soft bg-surface-3 text-text-faint",
-              )}
-            >
-              {autoThemeActive
-                ? `Ahora ${currentAppliedTheme === "light" ? "claro" : "oscuro"}`
-                : "Manual"}
-            </span>
           </div>
           <p className={preferenceSectionDescriptionClassName}>
             {autoThemeActive
@@ -140,7 +123,7 @@ export function PreferencesSection({
           </p>
 
           <div className="mt-3">
-            <SegmentedControl className="w-full flex-wrap">
+            <SegmentedControl className="max-w-full w-fit flex-nowrap overflow-x-auto">
               {PLAYSTYLE_OPTIONS.map((option) => (
                 <SegmentedControlItem
                   key={option.key}
@@ -160,6 +143,7 @@ export function PreferencesSection({
             options={TYPE_ORDER}
             selected={userPreferences.favoriteTypes}
             onToggle={(value) => onToggleFavoriteType(value as TypeName)}
+            columnsClassName="grid-cols-3 lg:grid-cols-4"
           />
 
           <PreferenceCheckboxGroup
@@ -168,16 +152,17 @@ export function PreferencesSection({
             options={TYPE_ORDER}
             selected={userPreferences.avoidedTypes}
             onToggle={(value) => onToggleAvoidedType(value as TypeName)}
+            columnsClassName="grid-cols-3 lg:grid-cols-4"
           />
 
-          <PreferenceChipGroup
+          <PreferenceCheckboxGroup
             title="Roles preferidos"
             description="Favorecen perfiles alineados con tu plan."
             options={ROLE_OPTIONS}
             selected={userPreferences.preferredRoles}
             onToggle={(value) => onTogglePreferredRole(value as RoleKey)}
-            tone="role"
             getLabel={(value) => ROLE_LABELS[value as RoleKey]}
+            columnsClassName="grid-cols-2 lg:grid-cols-4"
           />
         </div>
       </div>
@@ -436,18 +421,22 @@ function PreferenceCheckboxGroup({
   options,
   selected,
   onToggle,
+  columnsClassName,
+  getLabel,
 }: {
   title: string;
   description: string;
   options: readonly string[];
   selected: readonly string[];
   onToggle: (value: string) => void;
+  columnsClassName: string;
+  getLabel?: (value: string) => string;
 }) {
   return (
     <div className="mt-4">
       <p className={preferenceSectionTitleClassName}>{title}</p>
       <p className="mt-1 text-xs text-muted">{description}</p>
-      <div className={preferenceCheckboxGridClassName}>
+      <div className={clsx(preferenceCheckboxGridClassName, columnsClassName)}>
         {options.map((value) => {
           const checked = selected.includes(value);
           return (
@@ -459,7 +448,7 @@ function PreferenceCheckboxGroup({
                 className={preferenceCheckboxInputClassName}
                 aria-label={value}
               />
-              <span className="display-face micro-copy text-text">{value}</span>
+              <span className="display-face micro-copy text-text">{getLabel?.(value) ?? value}</span>
             </label>
           );
         })}

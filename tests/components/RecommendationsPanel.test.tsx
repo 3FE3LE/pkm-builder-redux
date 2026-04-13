@@ -90,9 +90,14 @@ describe("RecommendationsPanel", () => {
             candidateMember: {
               resolvedStats: { bst: 365 },
               resolvedTypes: ["Electric"],
+              moves: [
+                { name: "Thunder Wave", type: "Electric", damageClass: "status" },
+                { name: "Thunderbolt", type: "Electric", damageClass: "special", power: 90, hasStab: true },
+              ],
             },
             score: fakeScore(62),
             profile: fakeProfile(5.5, 7.0),
+            redux: { score: 3, labels: ["Typing Redux"] },
           } as never,
           {
             id: "cap-2",
@@ -108,9 +113,11 @@ describe("RecommendationsPanel", () => {
             candidateMember: {
               resolvedStats: { bst: 330 },
               resolvedTypes: ["Dark"],
+              moves: [],
             },
             score: fakeScore(48),
             profile: fakeProfile(4.0, 5.5),
+            redux: { score: 0, labels: [] },
           } as never,
         ]}
         swapOpportunities={[]}
@@ -128,23 +135,25 @@ describe("RecommendationsPanel", () => {
     expect(screen.getByText("Mareep")).toBeTruthy();
     expect(screen.getByText("Gift · Virbank")).toBeTruthy();
     expect(screen.queryByText("Captura sugerida")).toBeNull();
-    expect(screen.queryByText("bulkyPivot")).toBeNull();
     const mareepCard = screen.getByText("Mareep").closest("article");
     expect(mareepCard).toBeTruthy();
     const mareepScope = within(mareepCard as HTMLElement);
     expect(mareepScope.getAllByLabelText("Score").length).toBeGreaterThan(0);
     expect(mareepScope.getAllByText("Veredicto").length).toBeGreaterThan(0);
     expect(mareepScope.getAllByText("62").length).toBeGreaterThan(0);
-    expect(mareepScope.getAllByLabelText("Piso").length).toBeGreaterThan(0);
-    expect(mareepScope.getByText("5.5")).toBeTruthy();
-    expect(mareepScope.getAllByLabelText("Techo").length).toBeGreaterThan(0);
-    expect(mareepScope.getByText("7.0")).toBeTruthy();
+    expect(mareepScope.getAllByLabelText("Rol").length).toBeGreaterThan(0);
+    expect(mareepScope.getByText("bulkyPivot")).toBeTruthy();
+    expect(mareepScope.getAllByLabelText("Redux").length).toBeGreaterThan(0);
+    expect(mareepScope.getByText("Sí")).toBeTruthy();
     expect(screen.getByText("Electric")).toBeTruthy();
     expect(screen.getByText("Dark")).toBeTruthy();
     expect(screen.getByText("sprite-Mareep-https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/179.png")).toBeTruthy();
 
     await user.click(mareepCard as HTMLElement);
     expect(screen.getByText("Motivos de la recomendación")).toBeTruthy();
+    expect(screen.getAllByText("Consistencia").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Potencial").length).toBeGreaterThan(0);
+    expect(screen.getByText("Valor Redux")).toBeTruthy();
     await user.click(screen.getByRole("button", { name: "Mandar al IV Calc" }));
     expect(onSendToIvCalc).toHaveBeenCalledWith("Mareep");
   });
@@ -257,9 +266,11 @@ describe("RecommendationsPanel", () => {
             candidateMember: {
               resolvedStats: { bst: 308 },
               resolvedTypes: ["Grass"],
+              moves: [],
             },
             score: fakeScore(40),
             profile: fakeProfile(4, 5),
+            redux: { score: 0, labels: [] },
           } as never,
         ]}
         swapOpportunities={[

@@ -330,6 +330,7 @@ describe("Team Sections", () => {
     const onToggleEvolutionConstraint = vi.fn();
     const onToggleRecommendationFilter = vi.fn();
     const onToggleFavoriteType = vi.fn();
+    const onTogglePreferredRole = vi.fn();
     const onSetBattleWeather = vi.fn();
     const onResetRun = vi.fn();
 
@@ -357,7 +358,7 @@ describe("Team Sections", () => {
         onSetRecommendationPlaystyle={vi.fn()}
         onToggleFavoriteType={onToggleFavoriteType}
         onToggleAvoidedType={vi.fn()}
-        onTogglePreferredRole={vi.fn()}
+        onTogglePreferredRole={onTogglePreferredRole}
         onSetBattleWeather={onSetBattleWeather}
         onSetTheme={vi.fn()}
         onResetRun={onResetRun}
@@ -375,6 +376,9 @@ describe("Team Sections", () => {
 
     await user.click(screen.getAllByRole("checkbox", { name: "Fire" })[0] as HTMLElement);
     expect(onToggleFavoriteType).toHaveBeenCalledWith("Fire");
+
+    await user.click(screen.getByRole("checkbox", { name: "support" }));
+    expect(onTogglePreferredRole).toHaveBeenCalledWith("support");
 
     await user.click(screen.getByRole("button", { name: "Excluir legendarios" }));
     expect(onToggleRecommendationFilter).toHaveBeenCalledWith("excludeLegendaries", false);

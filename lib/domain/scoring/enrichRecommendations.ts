@@ -10,6 +10,7 @@ import {
 import { buildTeamSnapshot } from "../profiles/buildTeamSnapshot";
 import { buildEncounterProfile } from "../profiles/buildEncounterProfile";
 import { scoreCandidate } from "./scoreCandidate";
+import { buildTeamPlanContext } from "./teamPlan";
 import type {
   CandidateScore,
   CheckpointProfile,
@@ -259,9 +260,7 @@ export function enrichCaptureRecommendations({
   filters: ScoringPreferences;
 }): EnrichedCaptureRecommendation[] {
   if (!recommendations.length) return [];
-  const starterFamily = starter
-    ? new Set(starters[starter].stageSpecies.map((species) => normalizeName(species)))
-    : null;
+  const starterFamily = resolveStarterFamily(team, starter);
   const visibleRecommendations =
     filters.excludeOtherStarters && starterFamily
       ? recommendations.filter((recommendation) => {
@@ -281,6 +280,7 @@ export function enrichCaptureRecommendations({
     buildPokemonProfile(teamMemberToProfileInput(m)),
   );
   const teamSnapshot = buildTeamSnapshot(teamProfiles);
+  const teamPlan = buildTeamPlanContext(activeTeam, teamProfiles);
 
   // Build encounter profile
   const encounterProfile = nextEncounter
@@ -300,7 +300,24 @@ export function enrichCaptureRecommendations({
       encounterProfile,
       checkpoint,
       filters,
+      teamPlan,
     );
     return { ...rec, score, profile };
   });
+}
+
+function resolveStarterFamily(
+  team: Array<ResolvedTeamMember & { locked?: boolean }>,
+  starter?: StarterKey,
+) {
+  for (const key of Object.keys(starters) as StarterKey[]) {
+    const family = new Set(starters[key].stageSpecies.map((species) => normalizeName(species)));
+    if (team.some((member) => family.has(normalizeName(member.species)))) {
+      return family;
+    }
+  }
+
+  return starter
+    ? new Set(starters[starter].stageSpecies.map((species) => normalizeName(species)))
+    : null;
 }

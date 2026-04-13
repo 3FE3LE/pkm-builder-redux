@@ -110,6 +110,18 @@ describe("runEncounters", () => {
     expect(getContextualSourceAreas(42)).toContain("Chargestone Cave");
   });
 
+  it("resolves seasonal source areas from the active season instead of using a score bonus", () => {
+    expect(getContextualSourceAreas(5, "winter")).toEqual([
+      "Aspertia City",
+      "Route 19",
+      "Route 20 - Winter",
+      "Floccesy Ranch",
+      "Floccesy Town",
+    ]);
+    expect(getContextualSourceAreas(17, "winter")).toContain("Route 6 - Winter");
+    expect(getContextualSourceAreas(17, "summer")).toContain("Route 6 - Spring, Summer, Autumn");
+  });
+
   it("prefers the furthest milestone when store progress is ahead of the next unresolved battle", () => {
     expect(getFurthestMilestoneId("castelia", "driftveil")).toBe("driftveil");
     expect(getFurthestMilestoneId("humilau", "castelia")).toBe("humilau");

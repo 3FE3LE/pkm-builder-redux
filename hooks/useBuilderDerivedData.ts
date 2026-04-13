@@ -60,6 +60,7 @@ export function useBuilderDerivedData(
     () => getRunEncounterCatalog(store.run.progress.mode),
     [store.run.progress.mode],
   );
+  const currentSeason = getSeasonFromMonth(new Date().getMonth());
   const nextEncounter = useMemo(
     () => getNextRelevantEncounter(encounterCatalog, store.completedEncounterIds),
     [encounterCatalog, store.completedEncounterIds],
@@ -178,7 +179,7 @@ export function useBuilderDerivedData(
       return [];
     }
 
-    const contextualAreas = getContextualSourceAreasForMilestone(contextualMilestoneId);
+    const contextualAreas = getContextualSourceAreasForMilestone(contextualMilestoneId, currentSeason);
     return buildAreaSources(
       docs,
       contextualAreas,
@@ -197,6 +198,7 @@ export function useBuilderDerivedData(
     );
   }, [
     contextualMilestoneId,
+    currentSeason,
     docs,
     needsCopilotAnalysis,
     pokemonIndex,
@@ -252,11 +254,13 @@ export function useBuilderDerivedData(
             reduxBySpecies: data.reduxBySpecies,
             starter: store.starter,
             filters: store.recommendationFilters,
+            season: currentSeason,
           })
         : [],
     [
       docs,
       data.reduxBySpecies,
+      currentSeason,
       moveIndex,
       needsCopilotAnalysis,
       contextualMilestoneId,
@@ -279,10 +283,12 @@ export function useBuilderDerivedData(
             moveIndex,
             starter: store.starter,
             filters: store.recommendationFilters,
+            season: currentSeason,
           })
         : [],
     [
       docs,
+      currentSeason,
       moveIndex,
       needsCaptureRecommendations,
       contextualMilestoneId,
@@ -296,8 +302,6 @@ export function useBuilderDerivedData(
 
   const enrichedCaptureRecommendations = useMemo(
     () => {
-      const currentSeason = getSeasonFromMonth(new Date().getMonth());
-
       return enrichCaptureRecommendations({
         recommendations: captureRecommendations,
         team: resolvedTeam,
@@ -316,7 +320,6 @@ export function useBuilderDerivedData(
           avoidedTypes: store.userPreferences.avoidedTypes,
           preferredRoles: store.userPreferences.preferredRoles,
           preferredTypes: store.userPreferences.favoriteTypes,
-          currentSeason,
         },
       });
     },

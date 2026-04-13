@@ -1,5 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { getSeasonFromMonth } from "@/lib/domain/scoring/season";
 
 let mockPathname = "/team";
 let mockParams = new URLSearchParams();
@@ -318,6 +319,11 @@ describe("useBuilderDerivedData route gating", () => {
 
     renderHook(() => useBuilderDerivedData(createData(), store, createUi()));
 
+    expect(mocked.buildCaptureRecommendations).toHaveBeenCalledWith(
+      expect.objectContaining({
+        season: getSeasonFromMonth(new Date().getMonth()),
+      }),
+    );
     expect(mocked.enrichCaptureRecommendations).toHaveBeenCalledWith(
       expect.objectContaining({
         starter: "snivy",

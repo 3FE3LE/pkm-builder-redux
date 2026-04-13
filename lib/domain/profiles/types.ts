@@ -11,11 +11,14 @@ import type {
 // ── Speed Tiers ──
 
 /**
- * 0: ≤55   (walls, muy lentos)
- * 1: 56-75  (lentos, necesitan control)
+ * Heuristica interna del proyecto basada en base Speed.
+ * No es una categoria oficial de Pokemon ni un promedio del meta.
+ *
+ * 0: ≤55    (muy lentos)
+ * 1: 56-75  (lentos)
  * 2: 76-95  (medios)
- * 3: 96-115 (rápidos)
- * 4: >115   (ultra rápidos)
+ * 3: 96-115 (rapidos)
+ * 4: >115   (muy rapidos)
  */
 export type SpeedTier = 0 | 1 | 2 | 3 | 4;
 
@@ -113,6 +116,14 @@ export type TeamSnapshot = {
 
   stabTypesOnTeam: Set<TypeName>;
   speedTiersOnTeam: SpeedTier[];
+};
+
+export type TeamPlanContext = {
+  coreSpecies: Set<string>;
+  flexSpecies: Set<string>;
+  lockedSpecies: Set<string>;
+  coreSlots: number;
+  coreSnapshot: TeamSnapshot | null;
 };
 
 // ── Encounter Profile (precomputed per encounter) ──

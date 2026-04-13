@@ -3,9 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import {
-  ArrowDown,
   ArrowRightLeft,
-  ArrowUp,
   CircleSlash2,
   Gauge,
   ShieldCheck,
@@ -19,6 +17,7 @@ import { PokemonSprite, TypeBadge } from "@/components/BuilderShared";
 import { PokeballMark } from "@/components/team/shared/PokeballMark";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/Sheet";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
+import { TYPE_ORDER } from "@/lib/domain/typeChart";
 import type { EnrichedCaptureRecommendation } from "@/lib/domain/scoring/enrichRecommendations";
 import type { SwapOpportunity } from "@/lib/domain/swapOpportunities";
 import type { DimensionScore } from "@/lib/domain/profiles/types";
@@ -143,6 +142,7 @@ export function RecommendationsPanel({
       </div>
     </div>
     <CaptureDetailSheet
+      key={activeCapture?.id ?? "empty"}
       recommendation={activeCapture}
       dexNumber={activeCapture ? dexByName[normalizeName(activeCapture.species)] : undefined}
       open={Boolean(activeCapture)}
@@ -182,8 +182,8 @@ function CaptureCard({
   });
   const score = recommendation.score;
   const scoreLabel = score.finalScore.toFixed(0);
-  const floorLabel = recommendation.profile.floorScore.toFixed(1);
-  const ceilingLabel = recommendation.profile.ceilingScore.toFixed(1);
+  const reduxLabel = getReduxCardLabel(recommendation);
+  const roleLabel = recommendation.role;
   const captureAction = ivCalcHref ? (
     <Link
       href={ivCalcHref}
@@ -265,7 +265,7 @@ function CaptureCard({
 
         <div className={clsx(recommendationCaptureBandClassName, "hidden md:grid")}>
           <div className={recommendationCaptureMetricClassName}>
-            <CaptureMetricIcon kind="score" />
+            <CaptureMetricHeader kind="score" />
             <p
               className={clsx(
                 recommendationCaptureMetricValueClassName,
@@ -276,7 +276,7 @@ function CaptureCard({
             </p>
           </div>
           <div className={recommendationCaptureMetricClassName}>
-            <CaptureMetricIcon kind="verdict" />
+            <CaptureMetricHeader kind="verdict" />
             <p
               className={clsx(
                 recommendationCaptureMetricValueClassName,
@@ -292,15 +292,15 @@ function CaptureCard({
             </p>
           </div>
           <div className={recommendationCaptureMetricClassName}>
-            <CaptureMetricIcon kind="floor" />
+            <CaptureMetricHeader kind="role" />
             <p className={clsx(recommendationCaptureMetricValueClassName, "text-info-soft")}>
-              {floorLabel}
+              {roleLabel}
             </p>
           </div>
           <div className={recommendationCaptureMetricClassName}>
-            <CaptureMetricIcon kind="ceiling" />
+            <CaptureMetricHeader kind="redux" />
             <p className={clsx(recommendationCaptureMetricValueClassName, "text-primary-soft")}>
-              {ceilingLabel}
+              {reduxLabel}
             </p>
           </div>
         </div>
@@ -368,13 +368,22 @@ function CaptureDetailSheet({
   const score = recommendation.score;
   const profile = recommendation.profile;
   const { breakdown } = score;
+  const gains = recommendation.delta.gains ?? [];
+  const reduxLabels = recommendation.redux?.labels ?? [];
+  const reduxScore = recommendation.redux?.score ?? 0;
+  const defensiveTypes = extractMentionedTypes([
+    ...breakdown.teamImpact.signals,
+    ...breakdown.contextAdvantage.signals,
+  ]);
+  const offenseMoves = getOffenseMoves(recommendation);
+  const utilityMoves = getUtilityMoves(recommendation);
 
   const dimensionRows: { key: string; label: string; dim: DimensionScore }[] = [
-    { key: "team", label: "Team Impact", dim: breakdown.teamImpact },
+    { key: "team", label: "Impacto en equipo", dim: breakdown.teamImpact },
     { key: "ctx", label: "Contexto", dim: breakdown.contextAdvantage },
-    { key: "floor", label: "Piso", dim: breakdown.stabilityFloor },
-    { key: "ceil", label: "Techo", dim: breakdown.powerCeiling },
-    { key: "pref", label: "Afinidad", dim: breakdown.preferenceAffinity },
+    { key: "floor", label: "Consistencia", dim: breakdown.stabilityFloor },
+    { key: "ceil", label: "Potencial", dim: breakdown.powerCeiling },
+    { key: "pref", label: "Preferencias", dim: breakdown.preferenceAffinity },
     { key: "redux", label: "Redux", dim: breakdown.reduxValue },
   ];
 
@@ -383,7 +392,7 @@ function CaptureDetailSheet({
       <SheetContent side="bottom" onRequestClose={() => onOpenChange(false)} className="max-h-[85vh] rounded-t-[1.6rem] px-4 pb-5 pt-0">
         <SheetHeader className="px-0 pt-4 pb-0">
           <p className="micro-label text-text-faint">Motivos de la recomendación</p>
-          <SheetTitle className="display-face mt-1 text-lg text-text">{recommendation.species}</SheetTitle>
+          <SheetTitle tabIndex={-1} autoFocus className="display-face mt-1 text-lg text-text">{recommendation.species}</SheetTitle>
           <p className="mt-1 text-sm text-muted">
             {recommendation.source} · {recommendation.area}
           </p>
@@ -413,8 +422,8 @@ function CaptureDetailSheet({
               />
             </div>
             <div className="mt-3 grid grid-cols-3 gap-2">
-              <CompactReasonMetric label="Piso" value={profile.floorScore.toFixed(1)} />
-              <CompactReasonMetric label="Techo" value={profile.ceilingScore.toFixed(1)} />
+              <CompactReasonMetric label="Consistencia" value={profile.floorScore.toFixed(1)} />
+              <CompactReasonMetric label="Potencial" value={profile.ceilingScore.toFixed(1)} />
               <CompactReasonMetric label="Volat." value={profile.volatility.toFixed(1)} />
             </div>
           </div>
@@ -423,14 +432,66 @@ function CaptureDetailSheet({
             <p className="display-face micro-copy text-accent">Desglose</p>
             <div className="mt-3 space-y-2.5">
               {dimensionRows.map(({ key, label, dim }) => (
-                <DimensionBar key={key} label={label} raw={dim.raw} weighted={dim.weighted} recId={recommendation.id} dimKey={key} />
+                <DimensionBar key={key} label={label} raw={dim.raw} recId={recommendation.id} dimKey={key} />
               ))}
             </div>
           </div>
 
+          {defensiveTypes.length ? (
+            <div className={recommendationCaptureSheetCardClassName}>
+              <p className="display-face micro-copy text-accent">Cobertura defensiva</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {defensiveTypes.map((type) => (
+                  <TypeBadge key={`${recommendation.id}-def-${type}`} type={type} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {offenseMoves.length || utilityMoves.length || gains.length ? (
+            <div className={recommendationCaptureSheetCardClassName}>
+              <p className="display-face micro-copy text-accent">Ataque y utilidad</p>
+              {offenseMoves.length ? (
+                <div className="mt-3">
+                  <p className="micro-label text-text-faint">Moves que empujan presión o cobertura</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {offenseMoves.map((move) => (
+                      <span key={`${recommendation.id}-offense-${move.name}`} className="app-soft-chip app-chip-xs text-text-soft">
+                        {move.name}
+                        {move.type ? ` · ${move.type}` : ""}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              {utilityMoves.length ? (
+                <div className="mt-3">
+                  <p className="micro-label text-text-faint">Utility y líneas de rol</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {utilityMoves.map((move) => (
+                      <span key={`${recommendation.id}-utility-${move.name}`} className="app-soft-chip app-chip-xs text-text-soft">
+                        {move.name}
+                        {move.type ? ` · ${move.type}` : ""}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              {gains.length ? (
+                <div className="mt-3 space-y-2">
+                  {gains.map((gain) => (
+                    <p key={`${recommendation.id}-gain-${gain}`} className="text-sm leading-6 text-text-soft">
+                      {gain}
+                    </p>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+
           {score.topSignals.length ? (
             <div className={recommendationCaptureSheetCardClassName}>
-              <p className="display-face micro-copy text-accent">Por qué entra</p>
+              <p className="display-face micro-copy text-accent">Lectura rápida</p>
               <div className="mt-3 space-y-2">
                 {score.topSignals.map((signal, index) => (
                   <p key={`${recommendation.id}-signal-${index}`} className="text-sm leading-6 text-text-soft">
@@ -441,29 +502,23 @@ function CaptureDetailSheet({
             </div>
           ) : null}
 
-          {score.synergyTags.length ? (
+          {reduxLabels.length ? (
             <div className={recommendationCaptureSheetCardClassName}>
-              <p className="display-face micro-copy text-accent">Sinergias</p>
+              <p className="display-face micro-copy text-accent">Valor Redux</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {score.synergyTags.map((tag) => (
+                {reduxLabels.map((tag) => (
                   <span key={`${recommendation.id}-tag-${tag}`} className="app-soft-chip app-chip-xs text-text-soft">
                     {tag}
                   </span>
                 ))}
               </div>
-            </div>
-          ) : null}
-
-          {recommendation.projectedMoves.length ? (
-            <div className={recommendationCaptureSheetCardClassName}>
-              <p className="display-face micro-copy text-accent">Moves proyectados</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {recommendation.projectedMoves.map((move) => (
-                  <span key={`${recommendation.id}-${move}`} className="app-soft-chip app-chip-xs text-text-soft">
-                    {move}
-                  </span>
-                ))}
-              </div>
+              <p className="mt-3 text-sm leading-6 text-text-soft">
+                {reduxScore >= 7
+                  ? "La línea gana muchísimo valor por combinar varios cambios Redux."
+                  : reduxScore >= 4
+                    ? "La línea trae cambios Redux relevantes que justifican priorizarla."
+                    : "Hay ajustes Redux presentes, pero no son el motivo principal."}
+              </p>
             </div>
           ) : null}
 
@@ -509,7 +564,7 @@ function CaptureDetailSheet({
 function CaptureMetricIcon({
   kind,
 }: {
-  kind: "score" | "verdict" | "floor" | "ceiling";
+  kind: "score" | "verdict" | "role" | "redux";
 }) {
   if (kind === "score") {
     return (
@@ -527,18 +582,39 @@ function CaptureMetricIcon({
     );
   }
 
-  if (kind === "floor") {
+  if (kind === "role") {
     return (
-      <span className={recommendationCaptureMetricLabelClassName} aria-label="Piso" title="Piso">
-        <ArrowDown className="h-3.5 w-3.5" />
+      <span className={recommendationCaptureMetricLabelClassName} aria-label="Rol" title="Rol">
+        <ShieldCheck className="h-3.5 w-3.5" />
       </span>
     );
   }
 
   return (
-    <span className={recommendationCaptureMetricLabelClassName} aria-label="Techo" title="Techo">
-      <ArrowUp className="h-3.5 w-3.5" />
+    <span className={recommendationCaptureMetricLabelClassName} aria-label="Redux" title="Redux">
+      <Sparkles className="h-3.5 w-3.5" />
     </span>
+  );
+}
+
+function CaptureMetricHeader({
+  kind,
+}: {
+  kind: "score" | "verdict" | "role" | "redux";
+}) {
+  return (
+    <div className="flex items-center justify-center gap-1.5">
+      <CaptureMetricIcon kind={kind} />
+      <span className="display-face micro-text-8 tracking-ui-wide text-text-faint">
+        {kind === "score"
+          ? "Score"
+          : kind === "verdict"
+            ? "Veredicto"
+            : kind === "role"
+              ? "Rol"
+              : "Redux"}
+      </span>
+    </div>
   );
 }
 
@@ -738,13 +814,11 @@ function CompactStat({ label, value }: { label: string; value?: number }) {
 function DimensionBar({
   label,
   raw,
-  weighted,
   recId,
   dimKey,
 }: {
   label: string;
   raw: number;
-  weighted: number;
   recId: string;
   dimKey: string;
 }) {
@@ -753,7 +827,7 @@ function DimensionBar({
     <div key={`${recId}-dim-${dimKey}`}>
       <div className="flex items-center justify-between gap-2">
         <p className="micro-label text-text-faint">{label}</p>
-        <p className="display-face micro-label text-text-soft">{raw.toFixed(0)}<span className="text-text-faint">/{weighted.toFixed(1)}</span></p>
+        <p className="display-face micro-label text-text-soft">{raw.toFixed(0)}</p>
       </div>
       <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-surface-3">
         <div
@@ -765,5 +839,46 @@ function DimensionBar({
         />
       </div>
     </div>
+  );
+}
+
+function getReduxCardLabel(recommendation: EnrichedCaptureRecommendation) {
+  const reduxLabels = recommendation.redux?.labels ?? [];
+
+  if (!reduxLabels.length) {
+    return "Base";
+  }
+
+  if (reduxLabels.length >= 3) {
+    return "Línea+";
+  }
+
+  return reduxLabels.length === 2 ? "Doble" : "Sí";
+}
+
+function extractMentionedTypes(signals: string[]) {
+  const lowerSignals = signals.join(" ").toLowerCase();
+  return TYPE_ORDER.filter((type) => lowerSignals.includes(type.toLowerCase()));
+}
+
+function getOffenseMoves(recommendation: EnrichedCaptureRecommendation) {
+  return (recommendation.candidateMember.moves ?? []).filter(
+    (move) =>
+      move.damageClass !== "status" &&
+      ((move.power ?? 0) >= 60 || move.hasStab),
+  );
+}
+
+function getUtilityMoves(recommendation: EnrichedCaptureRecommendation) {
+  const projectedSet = new Set(recommendation.projectedMoves.map((move) => move.toLowerCase()));
+  const gains = recommendation.delta.gains ?? [];
+
+  return (recommendation.candidateMember.moves ?? []).filter(
+    (move) =>
+      move.damageClass === "status" ||
+      projectedSet.has(move.name.toLowerCase()) ||
+      gains.some((gain) =>
+        gain.toLowerCase().includes(move.name.toLowerCase()),
+      ),
   );
 }

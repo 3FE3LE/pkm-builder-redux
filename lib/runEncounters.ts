@@ -40,6 +40,8 @@ export type RunEncounterDefinition = {
   documentation: EncounterDocumentation;
 };
 
+export type EncounterSeason = "spring" | "summer" | "autumn" | "winter";
+
 export const challengeRunEncounters: RunEncounterDefinition[] = [
   {
     id: "hugh-1",
@@ -572,7 +574,10 @@ export function getFurthestMilestoneId(...milestoneIds: Array<string | null | un
     }, "opening");
 }
 
-export function getContextualSourceAreasForMilestone(milestoneId: string) {
+export function getContextualSourceAreasForMilestone(
+  milestoneId: string,
+  season?: EncounterSeason,
+) {
   const targetIndex = Math.max(
     0,
     CONTEXTUAL_MILESTONE_ORDER.indexOf(
@@ -583,12 +588,40 @@ export function getContextualSourceAreasForMilestone(milestoneId: string) {
   return Array.from(
     new Set(
       CONTEXTUAL_MILESTONE_ORDER.slice(0, targetIndex + 1).flatMap(
-        (key) => CONTEXTUAL_SOURCE_AREA_CHUNKS[key] ?? [],
+        (key) => (CONTEXTUAL_SOURCE_AREA_CHUNKS[key] ?? []).flatMap((area) => resolveSeasonalArea(area, season)),
       ),
     ),
   );
 }
 
-export function getContextualSourceAreas(order: number) {
-  return getContextualSourceAreasForMilestone(mapEncounterOrderToMilestoneId(order));
+export function getContextualSourceAreas(order: number, season?: EncounterSeason) {
+  return getContextualSourceAreasForMilestone(mapEncounterOrderToMilestoneId(order), season);
+}
+
+function resolveSeasonalArea(area: string, season?: EncounterSeason) {
+  if (!season) {
+    return [area];
+  }
+
+  const titleSeason = season[0].toUpperCase() + season.slice(1);
+  const singleSeasonMatch = area.match(/^(.*)\s-\s(Spring|Summer|Autumn|Winter)$/);
+  if (singleSeasonMatch) {
+    return [`${singleSeasonMatch[1]} - ${titleSeason}`];
+  }
+
+  const groupedSeasonMatch = area.match(/^(.*)\s-\s(Spring,\sSummer,\sAutumn|Spring\/Summer\/Autumn)$/);
+  if (groupedSeasonMatch) {
+    return season === "winter"
+      ? [`${groupedSeasonMatch[1]} - Winter`]
+      : [area];
+  }
+
+  const winterSeasonMatch = area.match(/^(.*)\s-\sWinter$/);
+  if (winterSeasonMatch) {
+    return season === "winter"
+      ? [area]
+      : [`${winterSeasonMatch[1]} - Spring, Summer, Autumn`];
+  }
+
+  return [area];
 }

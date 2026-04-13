@@ -10,18 +10,19 @@ import type {
   CandidateScore,
   DimensionScore,
   SpeedTier,
+  TeamPlanContext,
 } from "../profiles/types";
 import { toSpeedTier } from "../profiles/types";
 
 // ── Weights ──
 
 const WEIGHTS = {
-  teamImpact: 0.28,
-  contextAdvantage: 0.22,
-  stabilityFloor: 0.15,
-  powerCeiling: 0.18,
-  preferenceAffinity: 0.07,
-  reduxValue: 0.10,
+  teamImpact: 0.23,
+  contextAdvantage: 0.16,
+  stabilityFloor: 0.17,
+  powerCeiling: 0.19,
+  preferenceAffinity: 0.09,
+  reduxValue: 0.16,
 } as const;
 
 // ── Main Scorer ──
@@ -32,13 +33,14 @@ export function scoreCandidate(
   encounter: EncounterProfile | null,
   checkpoint: CheckpointProfile,
   preferences: ScoringPreferences,
+  teamPlan?: TeamPlanContext,
 ): CandidateScore {
-  const teamImpact = computeTeamImpact(candidate, team, checkpoint);
+  const teamImpact = computeTeamImpact(candidate, team, checkpoint, teamPlan);
   const contextAdvantage = computeContextAdvantage(candidate, encounter, checkpoint);
   const stabilityFloor = computeStabilityFloor(candidate);
   const powerCeiling = computePowerCeiling(candidate);
   const preferenceAffinity = computePreferenceAffinity(candidate, preferences);
-  const reduxValue = computeReduxValue(candidate);
+  const reduxValue = computeReduxValue(candidate, preferences);
 
   teamImpact.weighted = round(teamImpact.raw * WEIGHTS.teamImpact, 1);
   contextAdvantage.weighted = round(contextAdvantage.raw * WEIGHTS.contextAdvantage, 1);
@@ -85,9 +87,10 @@ export function scoreCandidates(
   encounter: EncounterProfile | null,
   checkpoint: CheckpointProfile,
   preferences: ScoringPreferences,
+  teamPlan?: TeamPlanContext,
 ): CandidateScore[] {
   const scored = candidates.map((c) =>
-    scoreCandidate(c, team, encounter, checkpoint, preferences),
+    scoreCandidate(c, team, encounter, checkpoint, preferences, teamPlan),
   );
   scored.sort((a, b) => b.finalScore - a.finalScore);
   for (let i = 0; i < scored.length; i++) {
@@ -102,6 +105,7 @@ function computeTeamImpact(
   candidate: PokemonProfile,
   team: TeamSnapshot,
   checkpoint: CheckpointProfile,
+  teamPlan?: TeamPlanContext,
 ): DimensionScore {
   const signals: string[] = [];
   let score = 30;
@@ -126,7 +130,7 @@ function computeTeamImpact(
   const preferredHits = candidate.stabTypes.filter((t) =>
     checkpoint.preferredCoverage.includes(t),
   );
-  score += preferredHits.length * 6;
+  score += preferredHits.length * 3;
 
   // Resistance gain: opponent types the candidate resists that the team doesn't
   const resistGains: TypeName[] = [];
@@ -165,6 +169,46 @@ function computeTeamImpact(
     score += 5;
   }
 
+  if (teamPlan?.coreSnapshot) {
+    const coreCoverageGains: TypeName[] = [];
+    for (const stabType of candidate.stabTypes) {
+      for (const defType of teamPlan.coreSnapshot.uncoveredTypes) {
+        const mult = getTypeEffectiveness(stabType, [defType]);
+        if (mult > 1) {
+          coreCoverageGains.push(defType);
+        }
+      }
+    }
+    const uniqueCoreCoverage = [...new Set(coreCoverageGains)];
+    const coreResistGains: TypeName[] = [];
+    for (const threat of teamPlan.coreSnapshot.unresistedTypes) {
+      const mult = getTypeEffectiveness(threat, candidate.types);
+      if (mult < 1) {
+        coreResistGains.push(threat);
+      }
+    }
+    score += uniqueCoreCoverage.length * 7;
+    score += coreResistGains.length * 8;
+
+    if (team.size < teamPlan.coreSlots) {
+      const intrinsicQuality =
+        candidate.floorScore +
+        (candidate.terminalCeiling ?? candidate.ceilingScore) +
+        candidate.evolutionGrowth;
+      score += intrinsicQuality >= 14 ? 10 : intrinsicQuality >= 11 ? 5 : 0;
+      if (intrinsicQuality >= 11) {
+        signals.push("Aporta valor real para construir un core estable.");
+      }
+    } else if (teamPlan.flexSpecies.size > 0) {
+      score += 3;
+      signals.push("Puede ocupar un slot flexible sin tocar el core.");
+    }
+
+    if (uniqueCoreCoverage.length > 0 || coreResistGains.length > 0) {
+      signals.push("Refuerza el core actual del equipo.");
+    }
+  }
+
   return { raw: clamp(score, 0, 100), weighted: 0, signals };
 }
 
@@ -194,6 +238,7 @@ function computeContextAdvantage(
     encounter.valuableOffenseTypes.includes(t),
   );
   score += hitsSuper.length * 15;
+  score -= Math.max(0, hitsSuper.length - 1) * 3;
   if (hitsSuper.length > 0) {
     signals.push(
       `STAB super-efectivo contra encounter (${hitsSuper.join(", ")}).`,
@@ -213,10 +258,10 @@ function computeContextAdvantage(
 
   // Speed check
   if (candidate.speedTier >= encounter.threatSpeedTier) {
-    score += 12;
+    score += 8;
     signals.push("Outspeedea a las amenazas del encounter.");
   } else if (candidate.moveEffects.some((e) => e.kind === "priority")) {
-    score += 8;
+    score += 6;
     signals.push("Tiene prioridad para compensar speed.");
   }
 
@@ -350,20 +395,21 @@ function computePreferenceAffinity(
     score += 3;
   }
 
-  const seasonBoost = computeSeasonBoost(candidate, preferences.currentSeason);
-  if (seasonBoost > 0) {
-    score += seasonBoost;
-    signals.push(`Encaja especialmente bien en ${preferences.currentSeason}.`);
-  }
-
   return { raw: clamp(score, 0, 100), weighted: 0, signals };
 }
 
 // ── 6. Redux Value (0-100) ──
 
-function computeReduxValue(candidate: PokemonProfile): DimensionScore {
+function computeReduxValue(
+  candidate: PokemonProfile,
+  preferences: ScoringPreferences,
+): DimensionScore {
   const signals: string[] = [];
-  const raw = candidate.reduxScore * 16; // 6 * 16 = 96 max
+  let raw = candidate.reduxScore * 14;
+  const combinedChanges =
+    Number(candidate.reduxFlags.hasTypeChanges) +
+    Number(candidate.reduxFlags.hasAbilityChanges) +
+    Number(candidate.reduxFlags.hasStatChanges);
 
   if (candidate.reduxFlags.hasTypeChanges) {
     signals.push("Redux cambió typing.");
@@ -373,6 +419,16 @@ function computeReduxValue(candidate: PokemonProfile): DimensionScore {
   }
   if (candidate.reduxFlags.hasStatChanges) {
     signals.push("Redux ajustó stats.");
+  }
+  if (combinedChanges >= 2) {
+    raw += combinedChanges === 3 ? 18 : 10;
+    signals.push("La línea junta varios cambios Redux relevantes.");
+  }
+  if (preferences.preferReduxUpgrades && combinedChanges > 0) {
+    raw += candidate.reduxFlags.hasTypeChanges ? 16 : 8;
+    raw += candidate.reduxFlags.hasAbilityChanges ? 10 : 0;
+    raw += candidate.reduxFlags.hasStatChanges ? 6 : 0;
+    signals.push("Preferencia por líneas Redux activa.");
   }
 
   return { raw: clamp(raw, 0, 100), weighted: 0, signals };
@@ -408,28 +464,6 @@ function classifyVerdict(
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
-}
-
-function computeSeasonBoost(
-  candidate: PokemonProfile,
-  season: ScoringPreferences["currentSeason"],
-): number {
-  if (!season) {
-    return 0;
-  }
-
-  const seasonalTypes: Record<NonNullable<ScoringPreferences["currentSeason"]>, TypeName[]> = {
-    spring: ["Grass", "Bug", "Fairy"],
-    summer: ["Fire", "Electric", "Flying"],
-    autumn: ["Ground", "Rock", "Dark"],
-    winter: ["Ice", "Water", "Steel"],
-  };
-
-  const matches = seasonalTypes[season].filter((type) =>
-    candidate.types.includes(type),
-  ).length;
-
-  return matches * 8;
 }
 
 function round(value: number, digits: number): number {

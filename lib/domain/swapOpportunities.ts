@@ -13,7 +13,11 @@ import { buildTeamRoleSnapshot } from "@/lib/domain/roleAnalysis";
 import { ROLE_LABELS } from "@/lib/domain/roleLabels";
 import { getTypeEffectiveness } from "@/lib/domain/typeChart";
 import type { RemoteMove, RemotePokemon, ResolvedTeamMember } from "@/lib/teamAnalysis";
-import { getContextualSourceAreasForMilestone, type RunEncounterDefinition } from "@/lib/runEncounters";
+import {
+  getContextualSourceAreasForMilestone,
+  type EncounterSeason,
+  type RunEncounterDefinition,
+} from "@/lib/runEncounters";
 
 import {
   buildDecisionDeltas,
@@ -84,6 +88,7 @@ export function buildSwapOpportunities({
   reduxBySpecies: _reduxBySpecies,
   starter,
   filters,
+  season,
 }: {
   docs: ParsedDocs;
   team: Array<ResolvedTeamMember & { locked?: boolean }>;
@@ -101,6 +106,7 @@ export function buildSwapOpportunities({
   >;
   starter: StarterKey;
   filters: RecommendationFilters;
+  season?: EncounterSeason;
 }): SwapOpportunity[] {
   const activeTeam = team.filter((member) => member.species.trim());
   if (!nextEncounter || !activeTeam.length) {
@@ -110,7 +116,7 @@ export function buildSwapOpportunities({
 
   const candidatePool = collectCandidateSources({
     docs,
-    areas: getContextualSourceAreasForMilestone(checkpointId),
+    areas: getContextualSourceAreasForMilestone(checkpointId, season),
     existingSpecies: new Set(activeTeam.map((member) => normalizeWords(member.species))),
     pokemonByName,
   });

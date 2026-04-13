@@ -38423,7 +38423,7 @@
     "category": "Water Bird Pokémon",
     "height": 1.2,
     "weight": 28,
-    "flavorText": "PELIPPER is a flying transporter that carries small POKéMON and eggs inside its massive bill. This POKéMON builds its nest on steep cliffs facing the sea.",
+    "flavorText": "It is a messenger of the skies, carrying small Pokémon and eggs to safety in its bill.",
     "stats": {
       "hp": 60,
       "atk": 50,
@@ -41042,7 +41042,7 @@
     "category": "Arm Thrust Pokémon",
     "height": 2.3,
     "weight": 253.8,
-    "flavorText": "HARIYAMA practices its straight-arm slaps in any number of locations. One hit of this POKéMON’s powerful, openhanded, straight-arm punches could snap a telephone pole in two.",
+    "flavorText": "It has the habit of challenging others without hesitation to tests of strength. It’s been known to stand on train tracks and stop trains using forearm thrusts.",
     "stats": {
       "hp": 144,
       "atk": 120,
@@ -41168,7 +41168,7 @@
     "category": "Polka Dot Pokémon",
     "height": 0.2,
     "weight": 2,
-    "flavorText": "AZURILL spins its tail as if it were a lasso, then hurls it far. The momentum of the throw sends its body flying, too. Using this unique action, one of these POKéMON managed to hurl itself a record 33 feet.",
+    "flavorText": "A Pokémon that lives by water. It moves quickly on land by bouncing on its big tail.",
     "stats": {
       "hp": 50,
       "atk": 20,
@@ -43341,7 +43341,7 @@
     "category": "Firefly Pokémon",
     "height": 0.6,
     "weight": 17.7,
-    "flavorText": "ILLUMISE attracts a swarm of VOLBEAT using a sweet fragrance. Once the VOLBEAT have gathered, this POKéMON leads the lit-up swarm in drawing geometric designs on the canvas of the night sky.",
+    "flavorText": "With its sweet aroma, it guides Volbeat to draw signs with light in the night sky.",
     "stats": {
       "hp": 70,
       "atk": 33,
@@ -46718,7 +46718,7 @@
     "category": "Meteorite Pokémon",
     "height": 1.2,
     "weight": 154,
-    "flavorText": "SOLROCK is a new species of POKéMON that is said to have fallen from space. It floats in air and moves silently. In battle, this POKéMON releases intensely bright light.",
+    "flavorText": "Solar energy is the source of its power, so it is strong during the daytime. When it spins, its body shines.",
     "stats": {
       "hp": 90,
       "atk": 115,
@@ -48292,7 +48292,7 @@
     "category": "Tender Pokémon",
     "height": 6.2,
     "weight": 162,
-    "flavorText": "MILOTIC is said to be the most beautiful of all the POKéMON. It has the power to becalm such emotions as anger and hostility to quell bitter feuding.",
+    "flavorText": "Its lovely scales are described as rainbow colored. They change color depending on the viewing angle.",
     "stats": {
       "hp": 95,
       "atk": 60,
