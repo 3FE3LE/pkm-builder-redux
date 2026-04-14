@@ -1,0 +1,39 @@
+tests/components/EditorStatsSection.test.tsx:25:  SpreadInput: ({
+tests/components/IvCalculatorSection.test.tsx:88:  SpreadInput: ({
+tests/components/EditorHeader.test.tsx:12:  SpreadInput: ({
+tests/components/UI.test.tsx:20:  SpreadInput,
+tests/components/UI.test.tsx:58:      <SpreadInput
+tests/components/UI.test.tsx:81:      <SpreadInput
+tests/components/UI.test.tsx:108:        <SpreadInput
+components/team/editor/Header.tsx:16:import { MiniPill, SpreadInput } from '@/components/team/UI';
+components/team/editor/Header.tsx:75:        <SpreadInput
+components/team/UI.tsx:21:  SpreadInput,
+components/team/checkpoints/RecommendationsPanel.tsx:35:const recommendationSwapSideTitleClassName = "display-face micro-copy text-muted";
+components/team/editor/StatsSection.tsx:13:  SpreadInput,
+components/team/editor/StatsSection.tsx:165:              <SpreadInput
+components/team/editor/StatsSection.tsx:220:              <SpreadInput
+components/team/tools/iv-calculator/Section.tsx:6:import { SpreadInput } from "@/components/team/UI";
+components/team/tools/iv-calculator/Section.tsx:25:const ivSectionFieldLabelClassName = "display-face micro-copy text-muted";
+components/team/tools/iv-calculator/Section.tsx:238:                <SpreadInput
+components/team/shared/StatWidgets.tsx:206:export function SpreadInput({
+components/team/tools/iv-calculator/ObservedStatsPanel.tsx:5:import { SpreadInput } from "@/components/team/UI";
+components/team/tools/iv-calculator/ObservedStatsPanel.tsx:35:            <SpreadInput
+components/team/tools/grind-pool/Section.tsx:8:import { SpreadInput } from "@/components/team/UI";
+components/team/tools/grind-pool/Section.tsx:253:        <SpreadInput
+components/team/tools/grind-pool/Section.tsx:411:                    <p className="display-face micro-copy text-muted">Species</p>
+components/team/tools/grind-pool/Section.tsx:463:                          <p className="display-face micro-copy text-muted">Stats clave para naturaleza</p>
+components/team/tools/grind-pool/Section.tsx:505:                            <p className="display-face micro-copy text-muted">Género preferido</p>
+components/team/tools/grind-pool/Section.tsx:519:                            <p className="display-face micro-copy text-muted">Habilidad ideal</p>
+components/team/tools/grind-pool/Section.tsx:538:                        <div className="display-face micro-copy text-muted">IVs perfectos fijos</div>
+components/team/tools/grind-pool/Section.tsx:545:                              <div className="display-face micro-copy text-muted">{stat.label}</div>
+components/team/tools/grind-pool/Section.tsx:571:                          <SpreadInput
+components/team/tools/grind-pool/Section.tsx:585:                          <p className="display-face micro-copy text-muted">Género</p>
+components/team/tools/grind-pool/Section.tsx:599:                          <p className="display-face micro-copy text-muted">Naturaleza</p>
+components/team/tools/grind-pool/Section.tsx:619:                          <p className="display-face micro-copy text-muted">Habilidad</p>
+components/team/tools/grind-pool/Section.tsx:638:                      <span className="display-face micro-copy text-muted">Notas</span>
+components/team/tools/grind-pool/Section.tsx:653:                      <p className="display-face micro-copy text-muted">Stats observados</p>
+components/team/tools/grind-pool/Section.tsx:710:                                <div className="display-face micro-copy text-muted">
+components/team/tools/grind-pool/Section.tsx:735:                              <p className="display-face micro-copy text-muted">IV estimado</p>
+components/team/tools/grind-pool/Section.tsx:747:                                      <div className="display-face micro-copy text-muted">{stat.label}</div>
+components/team/tools/grind-pool/Section.tsx:759:                              <p className="display-face micro-copy text-muted">Stats observados</p>
+components/team/tools/grind-pool/Section.tsx:766:                                    <div className="display-face micro-copy text-muted">{stat.label}</div>

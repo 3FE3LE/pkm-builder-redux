@@ -13,9 +13,9 @@ const statWidgetLegendClassName = "mt-1 flex items-center gap-3 micro-label text
 const spreadInputLabelClassName = "display-face micro-text-8 block text-center leading-none tracking-ui-relaxed text-muted";
 const spreadInputLabelResponsiveClassName = "lg:text-center micro-text-8-lg";
 const spreadInputStepButtonClassName =
-  "flex h-6 w-full items-center justify-center border border-line bg-surface-2 px-0 text-xs leading-none text-muted transition hover:bg-surface-6";
+  "app-control-surface app-control-interactive flex h-10 w-full items-center justify-center px-0 text-xs leading-none text-muted";
 const spreadInputHorizontalStepButtonClassName =
-  "flex h-8 w-7 shrink-0 items-center justify-center border border-line bg-surface-2 text-xs text-muted transition hover:bg-surface-6";
+  "app-control-surface app-control-interactive flex h-10 w-9 shrink-0 items-center justify-center text-xs text-muted";
 const spreadInputErrorClassName = "mt-2 block micro-copy text-danger";
 const statWidgetDeltaPositiveClassName = "text-accent-soft";
 const statWidgetDeltaNegativeClassName = "text-danger-soft";
@@ -321,9 +321,9 @@ export function SpreadInput({
               );
             }}
             className={clsx(
-              `${spreadInputStepButtonClassName} rounded-t-md`,
+              `${spreadInputStepButtonClassName} radius-control-lg rounded-b-none`,
               isResponsive &&
-                "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-b-none lg:rounded-l-md lg:rounded-r-none",
+                "lg:h-10 lg:w-9 lg:shrink-0 lg:rounded-b-none lg:rounded-l-[0.9rem] lg:rounded-r-none",
             )}
             aria-label={isResponsive ? `Bajar ${label}` : `Subir ${label}`}
           >
@@ -340,8 +340,8 @@ export function SpreadInput({
               onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
             }}
             className={clsx(
-              "input-joined h-8 min-w-0 w-full border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
-              isResponsive && "lg:h-8 lg:w-13 lg:flex-none lg:border-y lg:border-x-0",
+              "input-joined h-10 min-w-0 w-full border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
+              isResponsive && "lg:h-10 lg:w-14 lg:flex-none lg:border-y lg:border-x-0",
             )}
             aria-invalid={Boolean(error)}
           />
@@ -354,9 +354,9 @@ export function SpreadInput({
               );
             }}
             className={clsx(
-              `${spreadInputStepButtonClassName} rounded-b-md`,
+              `${spreadInputStepButtonClassName} radius-control-lg rounded-t-none`,
               isResponsive &&
-                "lg:h-8 lg:w-7 lg:shrink-0 lg:rounded-t-none lg:rounded-l-none lg:rounded-r-md",
+                "lg:h-10 lg:w-9 lg:shrink-0 lg:rounded-t-none lg:rounded-l-none lg:rounded-r-[0.9rem]",
             )}
             aria-label={isResponsive ? `Subir ${label}` : `Bajar ${label}`}
           >
@@ -371,7 +371,7 @@ export function SpreadInput({
               event.preventDefault();
               startHold(() => Math.max(0, valueRef.current - 1));
             }}
-            className={`${spreadInputHorizontalStepButtonClassName} rounded-l-md`}
+            className={`${spreadInputHorizontalStepButtonClassName} rounded-l-[0.9rem]`}
             aria-label={`Bajar ${label}`}
           >
             -
@@ -386,7 +386,7 @@ export function SpreadInput({
               const parsedValue = parseInt(event.target.value, 10);
               onChange(Number.isNaN(parsedValue) ? 0 : parsedValue);
             }}
-            className="input-joined h-8 min-w-12 w-13 flex-1 border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
+            className="input-joined h-10 min-w-12 w-14 flex-1 border-y border-x-0 border-line bg-surface-6 px-1 text-center text-base font-semibold tabular-nums [appearance:textfield]"
             aria-invalid={Boolean(error)}
           />
           <button
@@ -395,7 +395,7 @@ export function SpreadInput({
               event.preventDefault();
               startHold(() => Math.min(max, valueRef.current + 1));
             }}
-            className={`${spreadInputHorizontalStepButtonClassName} rounded-r-md`}
+            className={`${spreadInputHorizontalStepButtonClassName} rounded-r-[0.9rem]`}
             aria-label={`Subir ${label}`}
           >
             +

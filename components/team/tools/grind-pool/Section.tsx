@@ -1,19 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { Plus, Star, Trophy, X } from "lucide-react";
+import { Mars, Plus, Star, Trophy, Venus } from "lucide-react";
+import clsx from "clsx";
 
 import { FilterCombobox, PokemonSprite, SpeciesCombobox, TypeBadge } from "@/components/BuilderShared";
 import { SpreadInput } from "@/components/team/UI";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { genderOptions, natureOptions } from "@/lib/builderForm";
+import { natureOptions } from "@/lib/builderForm";
 import type { PokemonGender } from "@/lib/builder";
 import { getNatureEffect } from "@/lib/domain/battle";
 import { getRepresentativeIv, inferIvForObservedStat } from "@/lib/domain/ivCalculator";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import type { RemotePokemon } from "@/lib/teamAnalysis";
+import { cn } from "@/lib/utils";
 
 type SpeciesCatalogEntry = {
   name: string;
@@ -54,9 +55,9 @@ const statOrder: Array<{ key: StatKey; label: string }> = [
   { key: "spe", label: "Spe" },
 ];
 const natureStatOptions: NatureStatKey[] = ["atk", "def", "spa", "spd", "spe"];
-
-const modalSurfaceClassName =
-  "panel-strong panel-frame relative w-full max-w-6xl overflow-hidden p-4 sm:p-5";
+const grindPoolFieldStackClassName = "space-y-1.5";
+const grindPoolCompactFieldGridClassName = "grid gap-3 lg:grid-cols-4";
+const grindPoolSectionIntroClassName = "mt-1 text-sm text-muted";
 
 function createEmptySpread(value = 0): StatSpread {
   return {
@@ -266,6 +267,48 @@ function StatInputs({
   );
 }
 
+function GenderIconPicker({
+  value,
+  onChange,
+}: {
+  value: PokemonGender;
+  onChange: (next: PokemonGender) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        type="button"
+        onClick={() => onChange(value === "male" ? "unknown" : "male")}
+        aria-label="Set male"
+        title="Male"
+        className={clsx(
+          "inline-flex h-9 w-9 items-center justify-center rounded-full border transition",
+          value === "male"
+            ? "border-info-line bg-info-fill text-info-soft"
+            : "border-line bg-surface-4 text-muted hover:bg-surface-6",
+        )}
+      >
+        <Mars className="h-4.5 w-4.5" />
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange(value === "female" ? "unknown" : "female")}
+        aria-label="Set female"
+        title="Female"
+        className={clsx(
+          "inline-flex h-9 w-9 items-center justify-center rounded-full border transition",
+          value === "female"
+            ? "border-danger-line bg-danger-fill text-danger-soft"
+            : "border-line bg-surface-4 text-muted hover:bg-surface-6",
+        )}
+      >
+        <Venus className="h-4.5 w-4.5" />
+      </button>
+      <span className="text-xs text-text-faint">{value === "unknown" ? "cualquiera" : value}</span>
+    </div>
+  );
+}
+
 export function GrindPoolSection({
   speciesCatalog,
   pokemonIndex,
@@ -273,7 +316,6 @@ export function GrindPoolSection({
   speciesCatalog: SpeciesCatalogEntry[];
   pokemonIndex: Record<string, RemotePokemon>;
 }) {
-  const [open, setOpen] = useState(false);
   const [species, setSpecies] = useState("");
   const [perfectSpecimen, setPerfectSpecimen] = useState<PerfectSpecimen>(createPerfectSpecimen());
   const [draft, setDraft] = useState(createCandidateDraft());
@@ -359,49 +401,16 @@ export function GrindPoolSection({
   }
 
   return (
-    <>
-      <section className="panel panel-frame px-4 py-4 sm:px-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="display-face text-lg text-text">Grind Pool</p>
-            <p className="mt-1 text-sm text-muted">
-              Junta varios ejemplares del mismo Pokémon y compáralos en frío contra un benchmark perfecto.
-            </p>
-          </div>
-          <Button type="button" size="lg" onClick={() => setOpen(true)}>
-            Abrir pool
-          </Button>
-        </div>
-      </section>
+    <section className="space-y-4">
+      <div>
+        <p className="display-face text-sm text-accent">Grind Pool</p>
+        <p className={grindPoolSectionIntroClassName}>
+          Mismo Pokémon, múltiples capturas, un ejemplar perfecto como benchmark y ranking por cercanía.
+        </p>
+      </div>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            className="modal-scrim z-120 px-3 py-4 sm:items-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className={modalSurfaceClassName}
-              initial={{ opacity: 0, y: 20, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.98 }}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="display-face text-sm text-accent">Grind Pool</p>
-                  <p className="mt-2 text-sm text-muted">
-                    Mismo Pokémon, múltiples capturas, un ejemplar perfecto como benchmark y ranking por cercanía.
-                  </p>
-                </div>
-                <Button type="button" variant="ghost" size="icon-sm" onClick={() => setOpen(false)}>
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-
-              <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)]">
-                <div className="space-y-4">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)]">
+        <div className="space-y-4">
                   <div className="surface-card p-4">
                     <p className="display-face micro-copy text-muted">Species</p>
                     <div className="mt-2">
@@ -446,7 +455,7 @@ export function GrindPoolSection({
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <p className="display-face micro-copy text-accent">Perfect specimen</p>
-                        <p className="mt-1 text-sm text-muted">
+                        <p className={grindPoolSectionIntroClassName}>
                           Este benchmark es el ideal contra el que se medirán todas las capturas.
                         </p>
                       </div>
@@ -454,41 +463,39 @@ export function GrindPoolSection({
                     </div>
                     <div className="mt-4">
                       <div className="grid gap-3 md:grid-cols-2">
-                        <div>
+                        <div className={grindPoolFieldStackClassName}>
                           <p className="display-face micro-copy text-muted">Stats clave para naturaleza</p>
-                          <div className="mt-1.5">
-                            <div className="grid gap-2 sm:grid-cols-2">
-                              <FilterCombobox
-                                value={safePerfectSpecimen.preferredNatureStats[0]}
-                                options={natureStatOptions}
-                                placeholder="Stat 1"
-                                searchable={false}
-                                onChange={(next) =>
-                                  setPerfectSpecimen((current) => ({
-                                    ...current,
-                                    preferredNatureStats: [
-                                      next as NatureStatKey,
-                                      normalizePerfectSpecimen(current).preferredNatureStats[1],
-                                    ],
-                                  }))
-                                }
-                              />
-                              <FilterCombobox
-                                value={safePerfectSpecimen.preferredNatureStats[1]}
-                                options={natureStatOptions}
-                                placeholder="Stat 2"
-                                searchable={false}
-                                onChange={(next) =>
-                                  setPerfectSpecimen((current) => ({
-                                    ...current,
-                                    preferredNatureStats: [
-                                      normalizePerfectSpecimen(current).preferredNatureStats[0],
-                                      next as NatureStatKey,
-                                    ],
-                                  }))
-                                }
-                              />
-                            </div>
+                          <div className="grid gap-2 sm:grid-cols-2">
+                            <FilterCombobox
+                              value={safePerfectSpecimen.preferredNatureStats[0]}
+                              options={natureStatOptions}
+                              placeholder="Stat 1"
+                              searchable={false}
+                              onChange={(next) =>
+                                setPerfectSpecimen((current) => ({
+                                  ...current,
+                                  preferredNatureStats: [
+                                    next as NatureStatKey,
+                                    normalizePerfectSpecimen(current).preferredNatureStats[1],
+                                  ],
+                                }))
+                              }
+                            />
+                            <FilterCombobox
+                              value={safePerfectSpecimen.preferredNatureStats[1]}
+                              options={natureStatOptions}
+                              placeholder="Stat 2"
+                              searchable={false}
+                              onChange={(next) =>
+                                setPerfectSpecimen((current) => ({
+                                  ...current,
+                                  preferredNatureStats: [
+                                    normalizePerfectSpecimen(current).preferredNatureStats[0],
+                                    next as NatureStatKey,
+                                  ],
+                                }))
+                              }
+                            />
                           </div>
                           <p className="mt-1 text-xs text-text-faint">
                             Acepta naturalezas que suban {safePerfectSpecimen.preferredNatureStats[0].toUpperCase()} o{" "}
@@ -496,59 +503,38 @@ export function GrindPoolSection({
                           </p>
                         </div>
                         <div className="grid gap-3">
-                          <div>
+                          <div className={grindPoolFieldStackClassName}>
                             <p className="display-face micro-copy text-muted">Género preferido</p>
-                            <div className="mt-1.5">
-                              <FilterCombobox
-                                value={safePerfectSpecimen.gender}
-                                options={genderOptions}
-                                placeholder="Gender"
-                                searchable={false}
-                                onChange={(next) =>
-                                  setPerfectSpecimen((current) => ({
-                                    ...normalizePerfectSpecimen(current),
-                                    gender: next as PokemonGender,
-                                  }))
-                                }
-                              />
-                            </div>
+                            <GenderIconPicker
+                              value={safePerfectSpecimen.gender}
+                              onChange={(next) =>
+                                setPerfectSpecimen((current) => ({
+                                  ...normalizePerfectSpecimen(current),
+                                  gender: next,
+                                }))
+                              }
+                            />
                           </div>
-                          <div>
+                          <div className={grindPoolFieldStackClassName}>
                             <p className="display-face micro-copy text-muted">Habilidad ideal</p>
-                            <div className="mt-1.5">
-                              <FilterCombobox
-                                value={safePerfectSpecimen.ability}
-                                options={abilityOptions}
-                                placeholder="Ability"
-                                searchable={false}
-                                onChange={(next) =>
-                                  setPerfectSpecimen((current) => ({
-                                    ...normalizePerfectSpecimen(current),
-                                    ability: next,
-                                  }))
-                                }
-                              />
-                            </div>
+                            <FilterCombobox
+                              value={safePerfectSpecimen.ability}
+                              options={abilityOptions}
+                              placeholder="Ability"
+                              searchable={false}
+                              onChange={(next) =>
+                                setPerfectSpecimen((current) => ({
+                                  ...normalizePerfectSpecimen(current),
+                                  ability: next,
+                                }))
+                              }
+                            />
                           </div>
                         </div>
                       </div>
-                      <div className="mt-4 rounded-lg border border-line-soft bg-surface-3 px-3 py-3">
-                        <div className="display-face micro-copy text-muted">IVs perfectos fijos</div>
-                        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
-                          {statOrder.map((stat) => (
-                            <div
-                              key={`perfect-fixed-${stat.key}`}
-                              className="rounded-lg border border-line-soft bg-surface-2 px-2 py-2 text-center"
-                            >
-                              <div className="display-face micro-copy text-muted">{stat.label}</div>
-                              <div className="mt-1 text-sm text-text">31</div>
-                            </div>
-                          ))}
-                        </div>
-                        <p className="mt-2 text-xs text-text-faint">
-                          El benchmark siempre asume IV perfecto. Aquí solo decides género y habilidad ideales, más
-                          los dos stats que quieres ver favorecidos por naturaleza.
-                        </p>
+                      <div className="mt-4 flex items-center gap-2 text-xs text-text-faint">
+                        <span className="chip-surface px-2.5 py-1">IV perfectos fijos</span>
+                        <span>Se asume `31` en todos los stats del benchmark.</span>
                       </div>
                     </div>
                   </div>
@@ -557,87 +543,73 @@ export function GrindPoolSection({
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <p className="display-face micro-copy text-accent">Agregar ejemplar</p>
-                        <p className="mt-1 text-sm text-muted">
+                        <p className={grindPoolSectionIntroClassName}>
                           Mete uno nuevo, guarda la captura y sigue el grindeo sin ir y venir entre hierba y PC.
                         </p>
                       </div>
                       <Plus className="h-4 w-4 text-accent" />
                     </div>
 
-                    <div className="mt-4 grid gap-3 md:grid-cols-2">
-                      <div className="grid gap-3 md:grid-cols-2">
-                        <div>
-                          <p className="display-face micro-copy text-muted">Nivel</p>
-                          <div className="mt-1.5">
-                            <SpreadInput
-                              label="LVL"
-                              value={safeDraft.level}
-                              max={100}
-                              orientation="horizontal"
-                              onChange={(next) =>
-                                setDraft((current) => ({
-                                  ...normalizeDraft(current),
-                                  level: Math.max(1, Math.min(100, next)),
-                                }))
-                              }
-                            />
-                          </div>
+                    <div className={cn("mt-4", grindPoolCompactFieldGridClassName)}>
+                        <div className={grindPoolFieldStackClassName}>
+                          <SpreadInput
+                            label="LVL"
+                            value={safeDraft.level}
+                            max={100}
+                            orientation="horizontal"
+                            onChange={(next) =>
+                              setDraft((current) => ({
+                                ...normalizeDraft(current),
+                                level: Math.max(1, Math.min(100, next)),
+                              }))
+                            }
+                          />
                         </div>
-                        <div>
+                        <div className={grindPoolFieldStackClassName}>
                           <p className="display-face micro-copy text-muted">Género</p>
-                          <div className="mt-1.5">
-                            <FilterCombobox
-                              value={safeDraft.gender}
-                              options={genderOptions}
-                              placeholder="Gender"
-                              searchable={false}
-                              onChange={(next) =>
-                                setDraft((current) => ({
-                                  ...normalizeDraft(current),
-                                  gender: next as PokemonGender,
-                                }))
-                              }
-                            />
-                          </div>
+                          <GenderIconPicker
+                            value={safeDraft.gender}
+                            onChange={(next) =>
+                              setDraft((current) => ({
+                                ...normalizeDraft(current),
+                                gender: next,
+                              }))
+                            }
+                          />
                         </div>
-                        <div>
+                        <div className={grindPoolFieldStackClassName}>
                           <p className="display-face micro-copy text-muted">Naturaleza</p>
-                          <div className="mt-1.5">
-                            <FilterCombobox
-                              value={safeDraft.nature}
-                              options={natureOptions}
-                              placeholder="Nature"
-                              searchable={false}
-                              onChange={(next) =>
-                                setDraft((current) => ({
-                                  ...normalizeDraft(current),
-                                  nature: next,
-                                }))
-                              }
-                            />
-                          </div>
+                          <FilterCombobox
+                            value={safeDraft.nature}
+                            options={natureOptions}
+                            placeholder="Nature"
+                            searchable={false}
+                            onChange={(next) =>
+                              setDraft((current) => ({
+                                ...normalizeDraft(current),
+                                nature: next,
+                              }))
+                            }
+                          />
                           <p className="mt-1 text-xs text-text-faint">
                             Favorece: {getNatureEffect(safeDraft.nature).up?.toUpperCase() ?? "ninguno"}
                           </p>
                         </div>
-                        <div>
+                        <div className={grindPoolFieldStackClassName}>
                           <p className="display-face micro-copy text-muted">Habilidad</p>
-                          <div className="mt-1.5">
-                            <FilterCombobox
-                              value={safeDraft.ability}
-                              options={abilityOptions}
-                              placeholder="Ability"
-                              searchable={false}
-                              onChange={(next) =>
-                                setDraft((current) => ({
-                                  ...normalizeDraft(current),
-                                  ability: next,
-                                }))
-                              }
-                            />
-                          </div>
+                          <FilterCombobox
+                            value={safeDraft.ability}
+                            options={abilityOptions}
+                            placeholder="Ability"
+                            searchable={false}
+                            onChange={(next) =>
+                              setDraft((current) => ({
+                                ...normalizeDraft(current),
+                                ability: next,
+                              }))
+                            }
+                          />
                         </div>
-                      </div>
                     </div>
 
                     <label className="mt-3 block">
@@ -679,9 +651,9 @@ export function GrindPoolSection({
                       </Button>
                     </div>
                   </div>
-                </div>
+        </div>
 
-                <div className="space-y-4">
+        <div className="space-y-4">
                   <div className="surface-card p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div>
@@ -805,12 +777,8 @@ export function GrindPoolSection({
                       )}
                     </div>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </>
+        </div>
+      </div>
+    </section>
   );
 }

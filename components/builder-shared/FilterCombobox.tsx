@@ -174,7 +174,7 @@ export function FilterCombobox({
             });
           }
         }}
-        className="control-surface control-surface-hover flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
+        className="control-surface control-surface-hover radius-control-lg flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
       >
         <span className={clsx("truncate", !safeValue && "text-text-faint")}>{safeValue || placeholder}</span>
         <ChevronsUpDown className="h-4 w-4 text-muted" />

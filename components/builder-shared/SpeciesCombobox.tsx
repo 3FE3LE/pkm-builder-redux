@@ -282,7 +282,7 @@ export function SpeciesCombobox({
             });
           }
         }}
-        className="control-surface control-surface-hover flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
+        className="control-surface control-surface-hover radius-control-lg flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
       >
         <span className={clsx("truncate", !value && "text-text-faint")}>
           {value || "Pokemon"}
@@ -315,7 +315,7 @@ function TypeFilterSelect({
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
-        className="control-surface control-surface-hover flex w-full items-center justify-between px-2.5 py-2 transition-[border-color,background-color]"
+        className="control-surface control-surface-hover radius-control-lg flex w-full items-center justify-between px-2.5 py-2 transition-[border-color,background-color]"
       >
         {value ? (
           <TypeBadge type={value} />
