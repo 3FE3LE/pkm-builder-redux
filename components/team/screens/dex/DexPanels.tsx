@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 
 import { FilterCombobox } from "@/components/builder-shared/FilterCombobox";
@@ -19,7 +20,6 @@ import {
   dexStatChipClassName,
 } from "@/components/team/screens/dex/DexShared";
 import { DexMoveEntryCard, InfoBlock } from "@/components/team/screens/dex/DexInfoBlocks";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { DEX_MODE_LABELS, DEX_MODE_SHORT_LABELS, DEX_POKEMON_MODES } from "@/components/team/screens/dex/utils";
 import { TYPE_ORDER } from "@/lib/domain/typeChart";
 import { normalizeName } from "@/lib/domain/names";
@@ -39,8 +39,11 @@ export function DexPokemonPanel({ model }: { model: any }) {
               <FilterCombobox value={model.secondaryTypeFilter} options={["", ...TYPE_ORDER]} placeholder="Cualquiera" searchable={false} coordinationGroup="dex-type-filters" onChange={model.setSecondaryTypeFilter} renderOption={(option) => option ? <TypeBadge type={option} /> : <span className="text-sm text-text-faint">Cualquiera</span>} />
             </div>
           </div>
-          <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen}>
-            <CollapsibleTrigger className="flex w-full items-center justify-between gap-3 text-left">
+          <button
+            type="button"
+            onClick={() => setFiltersOpen((current) => !current)}
+            className="flex w-full items-center justify-between gap-3 text-left"
+          >
               <div>
                 <p className="micro-label text-text-faint">Filtros Dex</p>
                 {model.activePokemonFilterCount ? (
@@ -50,27 +53,36 @@ export function DexPokemonPanel({ model }: { model: any }) {
               <span className="app-icon-button inline-flex items-center justify-center h-8 w-8 rounded-full text-text-faint">
                 <ChevronDown className={`h-4 w-4 transition-transform ${filtersOpen ? "rotate-180" : ""}`} />
               </span>
-            </CollapsibleTrigger>
-            <CollapsibleContent className="pt-2">
-              <div className="grid gap-2">
-                <div className="flex items-center gap-1.5">
-                  <span className={dexFilterLabelClassName}>Dex:</span>
-                  <DexModeSegmentedControl value={model.resolvedPokemonMode} onChange={model.setPokemonMode} />
+          </button>
+          <AnimatePresence initial={false}>
+            {filtersOpen ? (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className="overflow-hidden"
+              >
+                <div className="grid gap-2 pt-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className={dexFilterLabelClassName}>Dex:</span>
+                    <DexModeSegmentedControl value={model.resolvedPokemonMode} onChange={model.setPokemonMode} />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className={dexFilterLabelClassName}>Cambios:</span>
+                    <DexFilterToggle active={model.typeChangesOnly === "1"} onClick={() => model.setTypeChangesOnly(model.typeChangesOnly === "1" ? "0" : "1")} tone="warning" compact>Tipos</DexFilterToggle>
+                    <DexFilterToggle active={model.statChangesOnly === "1"} onClick={() => model.setStatChangesOnly(model.statChangesOnly === "1" ? "0" : "1")} tone="info" compact>Stats</DexFilterToggle>
+                    <DexFilterToggle active={model.abilityChangesOnly === "1"} onClick={() => model.setAbilityChangesOnly(model.abilityChangesOnly === "1" ? "0" : "1")} tone="accent" compact>Habs</DexFilterToggle>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className={dexFilterLabelClassName}>Sinergia:</span>
+                    <DexFilterToggle active={model.addsNewTeamTypeOnly === "1"} onClick={() => model.setAddsNewTeamTypeOnly(model.addsNewTeamTypeOnly === "1" ? "0" : "1")} tone="primary" compact>+Tipo</DexFilterToggle>
+                    <DexFilterToggle active={model.allTypesNewToTeamOnly === "1"} onClick={() => model.setAllTypesNewToTeamOnly(model.allTypesNewToTeamOnly === "1" ? "0" : "1")} tone="accent" compact>Nuevo</DexFilterToggle>
+                  </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <span className={dexFilterLabelClassName}>Cambios:</span>
-                  <DexFilterToggle active={model.typeChangesOnly === "1"} onClick={() => model.setTypeChangesOnly(model.typeChangesOnly === "1" ? "0" : "1")} tone="warning" compact>Tipos</DexFilterToggle>
-                  <DexFilterToggle active={model.statChangesOnly === "1"} onClick={() => model.setStatChangesOnly(model.statChangesOnly === "1" ? "0" : "1")} tone="info" compact>Stats</DexFilterToggle>
-                  <DexFilterToggle active={model.abilityChangesOnly === "1"} onClick={() => model.setAbilityChangesOnly(model.abilityChangesOnly === "1" ? "0" : "1")} tone="accent" compact>Habs</DexFilterToggle>
-                </div>
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <span className={dexFilterLabelClassName}>Sinergia:</span>
-                  <DexFilterToggle active={model.addsNewTeamTypeOnly === "1"} onClick={() => model.setAddsNewTeamTypeOnly(model.addsNewTeamTypeOnly === "1" ? "0" : "1")} tone="primary" compact>+Tipo</DexFilterToggle>
-                  <DexFilterToggle active={model.allTypesNewToTeamOnly === "1"} onClick={() => model.setAllTypesNewToTeamOnly(model.allTypesNewToTeamOnly === "1" ? "0" : "1")} tone="accent" compact>Nuevo</DexFilterToggle>
-                </div>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </div>
         <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
           <div className="flex items-center gap-2">

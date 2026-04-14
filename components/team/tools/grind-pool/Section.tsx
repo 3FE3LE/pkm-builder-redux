@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Mars, Plus, Star, Trophy, Venus } from "lucide-react";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -12,7 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { natureOptions } from "@/lib/builderForm";
 import type { PokemonGender } from "@/lib/builder";
-import { getNatureEffect } from "@/lib/domain/battle";
+import { calculateEffectiveStats, getNatureEffect } from "@/lib/domain/battle";
 import { getRepresentativeIv, inferIvForObservedStat } from "@/lib/domain/ivCalculator";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import type { RemotePokemon } from "@/lib/teamAnalysis";
@@ -272,6 +273,48 @@ function getEstimatedIvs(candidate: Candidate, baseStats: RemotePokemon["stats"]
   return next;
 }
 
+function getMinimumObservedStats(
+  baseStats: RemotePokemon["stats"] | undefined,
+  level: number,
+  nature: string,
+): StatSpread | null {
+  if (!baseStats) {
+    return null;
+  }
+
+  const minimum = calculateEffectiveStats(baseStats, level, nature, createEmptySpread(0), createEmptySpread(0));
+
+  return {
+    hp: minimum.hp,
+    atk: minimum.atk,
+    def: minimum.def,
+    spa: minimum.spa,
+    spd: minimum.spd,
+    spe: minimum.spe,
+  };
+}
+
+function applyMinimumObservedStats(
+  draft: ReturnType<typeof createCandidateDraft>,
+  minimumObservedStats: StatSpread | null,
+) {
+  if (!minimumObservedStats) {
+    return draft;
+  }
+
+  return {
+    ...draft,
+    stats: {
+      hp: Math.max(draft.stats.hp, minimumObservedStats.hp),
+      atk: Math.max(draft.stats.atk, minimumObservedStats.atk),
+      def: Math.max(draft.stats.def, minimumObservedStats.def),
+      spa: Math.max(draft.stats.spa, minimumObservedStats.spa),
+      spd: Math.max(draft.stats.spd, minimumObservedStats.spd),
+      spe: Math.max(draft.stats.spe, minimumObservedStats.spe),
+    },
+  };
+}
+
 function getObservedStatIssues(
   draft: ReturnType<typeof createCandidateDraft>,
   baseStats: RemotePokemon["stats"] | undefined,
@@ -386,6 +429,8 @@ export function GrindPoolSection({
 }) {
   const [species, setSpecies] = useState("");
   const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [expandedCandidateIds, setExpandedCandidateIds] = useState<string[]>([]);
+  const [isAddCandidateOpen, setIsAddCandidateOpen] = useState(false);
   const perfectSpecimenForm = useForm<PerfectSpecimen>({
     defaultValues: createPerfectSpecimen(),
   });
@@ -394,6 +439,7 @@ export function GrindPoolSection({
   });
   const safePerfectSpecimen = normalizePerfectSpecimen(perfectSpecimenForm.watch());
   const safeDraft = normalizeDraft(draftForm.watch());
+  const previousMinimumObservedStatsRef = useRef<StatSpread | null>(null);
 
   const speciesMeta = speciesCatalog.find((entry) => normalizeName(entry.name) === normalizeName(species));
   const resolvedPokemon = species ? pokemonIndex[normalizeName(species)] : undefined;
@@ -402,13 +448,76 @@ export function GrindPoolSection({
       ? buildSpriteUrls(resolvedPokemon.name, speciesMeta.dex).spriteUrl
       : undefined;
   const abilityOptions = resolvedPokemon?.abilities ?? [];
+  const minimumObservedStats = useMemo(
+    () => getMinimumObservedStats(resolvedPokemon?.stats, safeDraft.level, safeDraft.nature),
+    [resolvedPokemon?.stats, safeDraft.level, safeDraft.nature],
+  );
+  const effectiveDraftForValidation = useMemo(
+    () => applyMinimumObservedStats(safeDraft, minimumObservedStats),
+    [minimumObservedStats, safeDraft],
+  );
   const perfectSpecimenValidation = perfectSpecimenSchema.safeParse(safePerfectSpecimen);
-  const draftValidation = grindCandidateDraftSchema.safeParse(safeDraft);
+  const draftValidation = grindCandidateDraftSchema.safeParse(effectiveDraftForValidation);
   const draftStatIssues = useMemo(
-    () => getObservedStatIssues(safeDraft, resolvedPokemon?.stats),
-    [resolvedPokemon?.stats, safeDraft],
+    () => getObservedStatIssues(effectiveDraftForValidation, resolvedPokemon?.stats),
+    [effectiveDraftForValidation, resolvedPokemon?.stats],
   );
   const hasDraftStatIssues = Object.keys(draftStatIssues).length > 0;
+
+  useEffect(() => {
+    if (!minimumObservedStats) {
+      previousMinimumObservedStatsRef.current = null;
+      return;
+    }
+
+    const previousBaseline = previousMinimumObservedStatsRef.current;
+    const currentStats = draftForm.getValues("stats");
+    const nextStats = { ...currentStats };
+    let hasChanges = false;
+
+    for (const stat of statOrder) {
+      const current = currentStats[stat.key];
+      const nextMinimum = minimumObservedStats[stat.key];
+      const previousMinimum = previousBaseline?.[stat.key] ?? 0;
+
+      if (current <= previousMinimum || current < nextMinimum) {
+        nextStats[stat.key] = nextMinimum;
+        hasChanges = true;
+      }
+    }
+
+    if (hasChanges) {
+      draftForm.setValue("stats", nextStats, {
+        shouldDirty: false,
+        shouldTouch: false,
+        shouldValidate: false,
+      });
+    }
+
+    previousMinimumObservedStatsRef.current = minimumObservedStats;
+  }, [draftForm, minimumObservedStats]);
+
+  useEffect(() => {
+    if (!isAddCandidateOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsAddCandidateOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isAddCandidateOpen]);
 
   const rankedCandidates = useMemo(
     () =>
@@ -451,6 +560,7 @@ export function GrindPoolSection({
     perfectSpecimenForm.reset(createPerfectSpecimen());
     draftForm.reset(createCandidateDraft());
     setCandidates([]);
+    setExpandedCandidateIds([]);
   }
 
   function handleChangeDraftStat(key: StatKey, value: number) {
@@ -475,6 +585,15 @@ export function GrindPoolSection({
 
     setCandidates((current) => [...current, nextCandidate]);
     draftForm.reset(createCandidateDraft());
+    setIsAddCandidateOpen(false);
+  }
+
+  function toggleCandidateDetails(candidateId: string) {
+    setExpandedCandidateIds((current) =>
+      current.includes(candidateId)
+        ? current.filter((id) => id !== candidateId)
+        : [...current, candidateId],
+    );
   }
 
   return (
@@ -619,95 +738,17 @@ export function GrindPoolSection({
                       </div>
                       <Plus className="h-4 w-4 text-accent" />
                     </div>
-
-                    <div className={cn("mt-4", grindPoolCompactFieldGridClassName)}>
-                        <div className={grindPoolFieldStackClassName}>
-                          <SpreadInput
-                            label="LVL"
-                            value={safeDraft.level}
-                            max={100}
-                            orientation="horizontal"
-                            onChange={(next) =>
-                              draftForm.setValue("level", Math.max(1, Math.min(100, next)), { shouldDirty: true })
-                            }
-                          />
-                        </div>
-                        <div className={grindPoolFieldStackClassName}>
-                          <p className="display-face micro-copy text-muted">Género</p>
-                          <GenderIconPicker
-                            value={safeDraft.gender}
-                            onChange={(next) =>
-                              draftForm.setValue("gender", next, { shouldDirty: true })
-                            }
-                          />
-                        </div>
-                        <div className={grindPoolFieldStackClassName}>
-                          <p className="display-face micro-copy text-muted">Naturaleza</p>
-                          <FilterCombobox
-                            value={safeDraft.nature}
-                            options={natureOptions}
-                            placeholder="Nature"
-                            searchable={false}
-                            onChange={(next) =>
-                              draftForm.setValue("nature", next, { shouldDirty: true })
-                            }
-                          />
-                          <p className="mt-1 text-xs text-text-faint">
-                            Favorece: {getNatureEffect(safeDraft.nature).up?.toUpperCase() ?? "ninguno"}
-                          </p>
-                        </div>
-                        <div className={grindPoolFieldStackClassName}>
-                          <p className="display-face micro-copy text-muted">Habilidad</p>
-                          <FilterCombobox
-                            value={safeDraft.ability}
-                            options={abilityOptions}
-                            placeholder="Ability"
-                            searchable={false}
-                            onChange={(next) =>
-                              draftForm.setValue("ability", next, { shouldDirty: true })
-                            }
-                          />
-                        </div>
-                    </div>
-
-                    <label className="mt-3 block">
-                      <span className="display-face micro-copy text-muted">Notas</span>
-                      <Input
-                        className="mt-1.5 h-10"
-                        placeholder="Ruta, encuentro, observaciones, etc."
-                        value={safeDraft.notes}
-                        onChange={(event) =>
-                          draftForm.setValue("notes", event.target.value, { shouldDirty: true })
-                        }
-                      />
-                    </label>
-
-                    <div className="mt-4">
-                      <p className="display-face micro-copy text-muted">Stats observados</p>
-                      <p className="mt-1 text-xs text-text-faint">
-                        Se convierten a IV estimado usando nivel, naturaleza y la especie elegida.
-                      </p>
-                    </div>
-
-                    <div className="mt-3">
-                      <StatInputs values={safeDraft.stats} onChange={handleChangeDraftStat} errors={draftStatIssues} />
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap justify-end gap-2">
-                      <Button type="button" variant="ghost" onClick={() => draftForm.reset(createCandidateDraft())}>
-                        Limpiar draft
-                      </Button>
-                      <Button
-                        type="button"
-                        onClick={handleAddCandidate}
-                        disabled={!speciesMeta || !draftValidation.success || hasDraftStatIssues}
-                      >
-                        Agregar al pool
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex flex-wrap gap-2 text-xs text-muted">
+                        <span className="chip-surface px-3 py-1">{candidates.length} capturas en pool</span>
+                        <span className="chip-surface px-3 py-1">
+                          {speciesMeta ? resolvedPokemon?.name : "Elige especie primero"}
+                        </span>
+                      </div>
+                      <Button type="button" onClick={() => setIsAddCandidateOpen(true)} disabled={!speciesMeta}>
+                        Agregar ejemplar
                       </Button>
                     </div>
-                    {!draftValidation.success ? (
-                      <p className="mt-2 text-xs text-danger">Completa nivel, naturaleza, habilidad y stats válidos.</p>
-                    ) : null}
                   </div>
         </div>
 
@@ -739,97 +780,130 @@ export function GrindPoolSection({
                         rankedCandidates.map((candidate, index) => (
                           <article
                             key={candidate.id}
-                            className="surface-card-muted border border-line-soft p-3"
+                            className="surface-card-muted border border-line-soft"
                           >
-                            <div className="flex items-start justify-between gap-3">
-                              <div>
+                            <button
+                              type="button"
+                              onClick={() => toggleCandidateDetails(candidate.id)}
+                              className="flex w-full items-start justify-between gap-3 p-3 text-left"
+                            >
+                              <div className="min-w-0">
                                 <div className="display-face micro-copy text-muted">
                                   #{index + 1} {index === 0 ? "mejor ahora" : "candidato"}
                                 </div>
                                 <p className="mt-1 display-face text-base text-text">Ejemplar {index + 1}</p>
-                                <div className="mt-1 flex flex-wrap gap-2 text-xs text-muted">
-                                  <span className="chip-surface px-3 py-1">Lvl {candidate.level}</span>
-                                  <span className="chip-surface px-3 py-1">Género: {candidate.gender}</span>
+                                <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted">
+                                  <span className="chip-surface px-3 py-1">{candidate.percent}% cercanía</span>
+                                  <span className="chip-surface px-3 py-1">{candidate.exactMatches}/6 exactos</span>
                                   <span className="chip-surface px-3 py-1">
-                                    Nature: {candidate.nature || "Sin definir"}
+                                    Stat clave: {candidate.favoredStatMatch ? "match" : "fuera"}
                                   </span>
                                   <span className="chip-surface px-3 py-1">
-                                    Favorece: {candidate.candidateNatureEffect.up?.toUpperCase() ?? "ninguno"}
-                                  </span>
-                                  <span className="chip-surface px-3 py-1">
-                                    Ability: {candidate.ability || "Sin definir"}
+                                    Habilidad: {candidate.abilityMatch ? "match" : "fuera"}
                                   </span>
                                 </div>
-                                {candidate.notes ? (
-                                  <p className="mt-1 text-sm text-muted">{candidate.notes}</p>
-                                ) : null}
                               </div>
-                              {index === 0 ? <Trophy className="h-4 w-4 text-warning-strong" /> : null}
-                            </div>
+                              <div className="flex items-center gap-2">
+                                {index === 0 ? <Trophy className="h-4 w-4 text-warning-strong" /> : null}
+                                <span className="text-xs text-text-faint">
+                                  {expandedCandidateIds.includes(candidate.id) ? "Ocultar detalle" : "Ver detalle"}
+                                </span>
+                              </div>
+                            </button>
 
-                            <div className="mt-3">
-                              <p className="display-face micro-copy text-muted">IV estimado</p>
-                              <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
-                                {statOrder.map((stat) => {
-                                  const current = candidate.estimatedIvs[stat.key];
-                                  const target = safePerfectSpecimen.stats[stat.key];
-                                  const delta = current - target;
-
-                                  return (
-                                    <div
-                                      key={`${candidate.id}-estimated-${stat.key}`}
-                                      className="rounded-lg border border-line-soft bg-surface-3 px-2 py-2 text-center"
-                                    >
-                                      <div className="display-face micro-copy text-muted">{stat.label}</div>
-                                      <div className="mt-1 text-sm text-text">{current}</div>
-                                      <div className="mt-1 text-xs text-text-faint">
-                                        {delta === 0 ? "perfecto" : delta > 0 ? `+${delta}` : delta}
+                            <AnimatePresence initial={false}>
+                              {expandedCandidateIds.includes(candidate.id) ? (
+                                <motion.div
+                                  key={`${candidate.id}-details`}
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: "auto", opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.22, ease: "easeOut" }}
+                                  className="overflow-hidden"
+                                >
+                                  <div className="border-t border-line-soft px-3 pb-3 pt-3">
+                                    <div className="flex items-start justify-between gap-3">
+                                      <div>
+                                        <div className="mt-1 flex flex-wrap gap-2 text-xs text-muted">
+                                          <span className="chip-surface px-3 py-1">Lvl {candidate.level}</span>
+                                          <span className="chip-surface px-3 py-1">Género: {candidate.gender}</span>
+                                          <span className="chip-surface px-3 py-1">
+                                            Nature: {candidate.nature || "Sin definir"}
+                                          </span>
+                                          <span className="chip-surface px-3 py-1">
+                                            Favorece: {candidate.candidateNatureEffect.up?.toUpperCase() ?? "ninguno"}
+                                          </span>
+                                          <span className="chip-surface px-3 py-1">
+                                            Ability: {candidate.ability || "Sin definir"}
+                                          </span>
+                                        </div>
+                                        {candidate.notes ? (
+                                          <p className="mt-2 text-sm text-muted">{candidate.notes}</p>
+                                        ) : null}
                                       </div>
                                     </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
 
-                            <div className="mt-3">
-                              <p className="display-face micro-copy text-muted">Stats observados</p>
-                              <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
-                                {statOrder.map((stat) => (
-                                  <div
-                                    key={`${candidate.id}-observed-${stat.key}`}
-                                    className="rounded-lg border border-line-soft bg-surface-3 px-2 py-2 text-center"
-                                  >
-                                    <div className="display-face micro-copy text-muted">{stat.label}</div>
-                                    <div className="mt-1 text-sm text-text">{candidate.stats[stat.key]}</div>
-                                    <div className="mt-1 text-xs text-text-faint">observed</div>
+                                    <div className="mt-3">
+                                      <p className="display-face micro-copy text-muted">IV estimado</p>
+                                      <div className="mt-2 overflow-x-auto">
+                                        <div className="grid min-w-[32rem] grid-cols-6 gap-2">
+                                          {statOrder.map((stat) => {
+                                            const current = candidate.estimatedIvs[stat.key];
+                                            const target = safePerfectSpecimen.stats[stat.key];
+                                            const delta = current - target;
+
+                                            return (
+                                              <div
+                                                key={`${candidate.id}-estimated-${stat.key}`}
+                                                className="rounded-lg border border-line-soft bg-surface-3 px-2 py-2 text-center"
+                                              >
+                                                <div className="display-face micro-copy text-muted">{stat.label}</div>
+                                                <div className="mt-1 text-sm text-text">{current}</div>
+                                                <div className="mt-1 text-xs text-text-faint">
+                                                  {delta === 0 ? "perfecto" : delta > 0 ? `+${delta}` : delta}
+                                                </div>
+                                              </div>
+                                            );
+                                          })}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div className="mt-3">
+                                      <p className="display-face micro-copy text-muted">Stats observados</p>
+                                      <div className="mt-2 overflow-x-auto">
+                                        <div className="grid min-w-[32rem] grid-cols-6 gap-2">
+                                          {statOrder.map((stat) => (
+                                            <div
+                                              key={`${candidate.id}-observed-${stat.key}`}
+                                              className="rounded-lg border border-line-soft bg-surface-3 px-2 py-2 text-center"
+                                            >
+                                              <div className="display-face micro-copy text-muted">{stat.label}</div>
+                                              <div className="mt-1 text-sm text-text">{candidate.stats[stat.key]}</div>
+                                              <div className="mt-1 text-xs text-text-faint">&nbsp;</div>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
+                                      <span className="chip-surface px-3 py-1">Priority score: {candidate.priorityScore}</span>
+                                      <span className="chip-surface px-3 py-1">Score total: {candidate.totalScore}</span>
+                                      <span className="chip-surface px-3 py-1">Distancia IV: {candidate.statDistance}</span>
+                                      <span className="chip-surface px-3 py-1">
+                                        Género: {candidate.genderMatch ? "match" : "fuera"}
+                                      </span>
+                                      {candidate.inferenceIssues.length > 0 ? (
+                                        <span className="chip-surface px-3 py-1">
+                                          IV incierto: {candidate.inferenceIssues.map((stat) => stat.label).join(", ")}
+                                        </span>
+                                      ) : null}
+                                    </div>
                                   </div>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
-                              <span className="chip-surface px-3 py-1">Priority score: {candidate.priorityScore}</span>
-                              <span className="chip-surface px-3 py-1">Score total: {candidate.totalScore}</span>
-                              <span className="chip-surface px-3 py-1">Distancia IV: {candidate.statDistance}</span>
-                              <span className="chip-surface px-3 py-1">
-                                Matches exactos: {candidate.exactMatches}/6
-                              </span>
-                              <span className="chip-surface px-3 py-1">Cercanía: {candidate.percent}%</span>
-                              <span className="chip-surface px-3 py-1">
-                                Stat clave: {candidate.favoredStatMatch ? "match" : "fuera"}
-                              </span>
-                              <span className="chip-surface px-3 py-1">
-                                Habilidad: {candidate.abilityMatch ? "match" : "fuera"}
-                              </span>
-                              <span className="chip-surface px-3 py-1">
-                                Género: {candidate.genderMatch ? "match" : "fuera"}
-                              </span>
-                              {candidate.inferenceIssues.length > 0 ? (
-                                <span className="chip-surface px-3 py-1">
-                                  IV incierto: {candidate.inferenceIssues.map((stat) => stat.label).join(", ")}
-                                </span>
+                                </motion.div>
                               ) : null}
-                            </div>
+                            </AnimatePresence>
                           </article>
                         ))
                       )}
@@ -837,6 +911,120 @@ export function GrindPoolSection({
                   </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isAddCandidateOpen ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="modal-scrim z-120"
+            onClick={() => setIsAddCandidateOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.97 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              onClick={(event) => event.stopPropagation()}
+              className="dialog-surface max-w-3xl p-4 sm:p-5"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="display-face micro-copy text-accent">Agregar ejemplar</p>
+                  <p className={grindPoolSectionIntroClassName}>
+                    Captura uno nuevo, guárdalo en el pool y vuelve al ranking sin perder contexto.
+                  </p>
+                </div>
+                <Button type="button" variant="ghost" size="sm" onClick={() => setIsAddCandidateOpen(false)}>
+                  Cerrar
+                </Button>
+              </div>
+
+              <div className={cn("mt-4", grindPoolCompactFieldGridClassName)}>
+                <div className={grindPoolFieldStackClassName}>
+                  <SpreadInput
+                    label="LVL"
+                    value={safeDraft.level}
+                    max={100}
+                    orientation="horizontal"
+                    onChange={(next) =>
+                      draftForm.setValue("level", Math.max(1, Math.min(100, next)), { shouldDirty: true })
+                    }
+                  />
+                </div>
+                <div className={grindPoolFieldStackClassName}>
+                  <p className="display-face micro-copy text-muted">Género</p>
+                  <GenderIconPicker
+                    value={safeDraft.gender}
+                    onChange={(next) => draftForm.setValue("gender", next, { shouldDirty: true })}
+                  />
+                </div>
+                <div className={grindPoolFieldStackClassName}>
+                  <p className="display-face micro-copy text-muted">Naturaleza</p>
+                  <FilterCombobox
+                    value={safeDraft.nature}
+                    options={natureOptions}
+                    placeholder="Nature"
+                    searchable={false}
+                    onChange={(next) => draftForm.setValue("nature", next, { shouldDirty: true })}
+                  />
+                  <p className="mt-1 text-xs text-text-faint">
+                    Favorece: {getNatureEffect(safeDraft.nature).up?.toUpperCase() ?? "ninguno"}
+                  </p>
+                </div>
+                <div className={grindPoolFieldStackClassName}>
+                  <p className="display-face micro-copy text-muted">Habilidad</p>
+                  <FilterCombobox
+                    value={safeDraft.ability}
+                    options={abilityOptions}
+                    placeholder="Ability"
+                    searchable={false}
+                    onChange={(next) => draftForm.setValue("ability", next, { shouldDirty: true })}
+                  />
+                </div>
+              </div>
+
+              <label className="mt-3 block">
+                <span className="display-face micro-copy text-muted">Notas</span>
+                <Input
+                  className="mt-1.5 h-10"
+                  placeholder="Ruta, encuentro, observaciones, etc."
+                  value={safeDraft.notes}
+                  onChange={(event) => draftForm.setValue("notes", event.target.value, { shouldDirty: true })}
+                />
+              </label>
+
+              <div className="mt-4">
+                <p className="display-face micro-copy text-muted">Stats observados</p>
+                <p className="mt-1 text-xs text-text-faint">
+                  Se convierten a IV estimado usando nivel, naturaleza y la especie elegida.
+                </p>
+              </div>
+
+              <div className="mt-3">
+                <StatInputs values={safeDraft.stats} onChange={handleChangeDraftStat} errors={draftStatIssues} />
+              </div>
+
+              <div className="mt-4 flex flex-wrap justify-end gap-2">
+                <Button type="button" variant="ghost" onClick={() => draftForm.reset(createCandidateDraft())}>
+                  Limpiar draft
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleAddCandidate}
+                  disabled={!speciesMeta || !draftValidation.success || hasDraftStatIssues}
+                >
+                  Agregar al pool
+                </Button>
+              </div>
+              {!draftValidation.success ? (
+                <p className="mt-2 text-xs text-danger">Completa nivel, naturaleza, habilidad y stats válidos.</p>
+              ) : null}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </section>
   );
 }
