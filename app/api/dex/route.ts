@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { normalizeName } from "@/lib/domain/names";
 import {
   getLocalAbilityIndex,
   getLocalItemIndex,
@@ -10,16 +11,6 @@ import {
 } from "@/lib/localDex";
 
 export const runtime = "nodejs";
-
-function normalize(input: string) {
-  return input
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/['’.:]/g, "")
-    .replace(/\s+/g, "-");
-}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -43,7 +34,7 @@ export async function GET(request: Request) {
     const ownersByMove = new Map<string, { levelUp: string[]; machines: string[] }>();
 
     speciesList.forEach((species) => {
-      const pokemon = pokemonIndex[normalize(species.slug)] ?? pokemonIndex[normalize(species.name)];
+      const pokemon = pokemonIndex[normalizeName(species.slug)] ?? pokemonIndex[normalizeName(species.name)];
       if (!pokemon) {
         return;
       }
@@ -51,7 +42,7 @@ export async function GET(request: Request) {
       const seenMachines = new Set<string>();
 
       (pokemon.learnsets?.levelUp ?? []).forEach((entry: any) => {
-        const key = normalize(entry.move);
+        const key = normalizeName(entry.move);
         if (!key || seenLevelUp.has(key)) {
           return;
         }
@@ -64,7 +55,7 @@ export async function GET(request: Request) {
       });
 
       (pokemon.learnsets?.machines ?? []).forEach((entry: any) => {
-        const key = normalize(entry.move);
+        const key = normalizeName(entry.move);
         if (!key || seenMachines.has(key)) {
           return;
         }
@@ -98,14 +89,14 @@ export async function GET(request: Request) {
     const ownersByAbility = new Map<string, { regular: string[]; hidden: string[] }>();
 
     speciesList.forEach((species) => {
-      const pokemon = pokemonIndex[normalize(species.slug)] ?? pokemonIndex[normalize(species.name)];
+      const pokemon = pokemonIndex[normalizeName(species.slug)] ?? pokemonIndex[normalizeName(species.name)];
       if (!pokemon) {
         return;
       }
       const abilitySlots = getPokemonAbilitySlots(pokemon.slug ?? pokemon.name);
 
       abilitySlots.regular.forEach((ability: string) => {
-        const key = normalize(ability);
+        const key = normalizeName(ability);
         if (!key) {
           return;
         }
@@ -117,7 +108,7 @@ export async function GET(request: Request) {
       });
 
       abilitySlots.hidden.forEach((ability: string) => {
-        const key = normalize(ability);
+        const key = normalizeName(ability);
         if (!key) {
           return;
         }
@@ -157,7 +148,7 @@ export async function GET(request: Request) {
   if (pokemon) {
     const pokemonIndex = getLocalPokemonIndex() as Record<string, any>;
     const moveIndex = getLocalMoveIndex() as Record<string, any>;
-    const entry = pokemonIndex[normalize(pokemon)];
+    const entry = pokemonIndex[normalizeName(pokemon)];
     if (!entry) {
       return NextResponse.json({ error: `Pokemon not found: ${pokemon}` }, { status: 404 });
     }
@@ -167,11 +158,11 @@ export async function GET(request: Request) {
       learnsets: {
         levelUp: entry.learnsets.levelUp.map((item: any) => ({
           ...item,
-          details: moveIndex[normalize(item.move)] ?? null,
+          details: moveIndex[normalizeName(item.move)] ?? null,
         })),
         machines: entry.learnsets.machines.map((item: any) => ({
           ...item,
-          details: moveIndex[normalize(item.move)] ?? null,
+          details: moveIndex[normalizeName(item.move)] ?? null,
         })),
       },
     });
@@ -179,7 +170,7 @@ export async function GET(request: Request) {
 
   const moveIndex = getLocalMoveIndex() as Record<string, any>;
   if (move) {
-    const entry = moveIndex[normalize(move)];
+    const entry = moveIndex[normalizeName(move)];
     if (!entry) {
       return NextResponse.json({ error: `Move not found: ${move}` }, { status: 404 });
     }
@@ -191,7 +182,7 @@ export async function GET(request: Request) {
 
   if (item) {
     const itemIndex = getLocalItemIndex() as Record<string, any>;
-    const entry = itemIndex[normalize(item)];
+    const entry = itemIndex[normalizeName(item)];
     if (!entry) {
       return NextResponse.json({ error: `Item not found: ${item}` }, { status: 404 });
     }
@@ -202,7 +193,7 @@ export async function GET(request: Request) {
   }
 
   const abilityIndex = getLocalAbilityIndex() as Record<string, any>;
-  const entry = abilityIndex[normalize(ability!)];
+  const entry = abilityIndex[normalizeName(ability!)];
   if (!entry) {
     return NextResponse.json({ error: `Ability not found: ${ability}` }, { status: 404 });
   }

@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import type { GiftPokemon, ItemLocation, ItemShop, TradePokemon, WildArea } from "@/lib/docsSchema";
+import { normalizeName } from "@/lib/domain/names";
 
 const DATA_DIR = path.join(process.cwd(), "data", "local-dex");
 const REFERENCE_DIR = path.join(process.cwd(), "data", "reference");
@@ -170,13 +171,7 @@ function getCanonicalPokemonReference() {
 }
 
 function normalize(input: string) {
-  return input
-    .trim()
-    .toLowerCase()
-    .replace(/♀/g, "-f")
-    .replace(/♂/g, "-m")
-    .replace(/['’.:]/g, "")
-    .replace(/\s+/g, "-");
+  return normalizeName(input);
 }
 
 function dedupeAbilityNames(values: string[] = []) {
@@ -188,7 +183,7 @@ function dedupeAbilityNames(values: string[] = []) {
     if (!trimmed || trimmed === "-") {
       return;
     }
-    const key = normalize(trimmed);
+    const key = normalizeName(trimmed);
     if (seen.has(key)) {
       return;
     }
@@ -210,10 +205,10 @@ function partitionAbilitySlots(rawAbilities: string[] = [], availableAbilities?:
     availableAbilities && availableAbilities.length
       ? dedupeAbilityNames(availableAbilities)
       : dedupeAbilityNames(rawAbilities);
-  const availableKeys = new Set(available.map((ability) => normalize(ability)));
+  const availableKeys = new Set(available.map((ability) => normalizeName(ability)));
 
   const filterAvailable = (values: string[]) =>
-    dedupeAbilityNames(values).filter((ability) => availableKeys.has(normalize(ability)));
+    dedupeAbilityNames(values).filter((ability) => availableKeys.has(normalizeName(ability)));
 
   if (rawAbilities.length >= 3) {
     return {

@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { ItemSprite } from "@/components/BuilderShared";
 import { buildSpriteUrls, normalizeName } from "@/lib/domain/names";
 import { parseItemLocationDetail } from "@/lib/domain/sourceData";
+import { formatSigned } from "@/lib/ui/formatters";
 
 const sourceCardClassName = "min-w-0 rounded-xl border border-line px-3 py-3";
 const sourceAccentChipClassName = "accent-chip rounded-md px-3 py-1 micro-copy";
@@ -133,10 +134,6 @@ export function RecommendedCard({
       ) : null}
     </motion.article>
   );
-}
-
-function formatSigned(value: number) {
-  return `${value >= 0 ? "+" : ""}${value.toFixed(1)}`;
 }
 
 function deltaChipClass(value: number) {

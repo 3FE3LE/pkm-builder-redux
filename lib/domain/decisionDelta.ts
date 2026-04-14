@@ -1,7 +1,7 @@
 import type { RoleId } from "./roleAnalysis";
 import { calculateEffectiveStats, buildCoverageSummary } from "./battle";
 import { buildCheckpointRiskSnapshot } from "./checkpointScoring";
-import { normalizeName as normalizeSpeciesLookupName } from "./names";
+import { normalizeName, normalizeName as normalizeSpeciesLookupName } from "./names";
 import { getTypeEffectiveness } from "./typeChart";
 
 type CandidateSuggestion = {
@@ -474,7 +474,7 @@ function getCoverageMultiplier(moveType: string, targetType: string) {
 }
 
 function normalize(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return normalizeName(input).replace(/-/g, "");
 }
 
 function round(value: number, digits: number) {

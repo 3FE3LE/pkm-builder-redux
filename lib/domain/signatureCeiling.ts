@@ -1,3 +1,5 @@
+import { normalizeName } from "./names";
+
 type SignatureMoveLike =
   | string
   | {
@@ -5,6 +7,10 @@ type SignatureMoveLike =
       power?: number | null;
       damageClass?: string | null;
     };
+
+function normalizeSignal(input: string) {
+  return normalizeName(input).replace(/-/g, " ");
+}
 
 export function buildSignatureCeiling({
   ability,
@@ -18,12 +24,12 @@ export function buildSignatureCeiling({
   const abilityPool = new Set(
     [ability, ...(abilities ?? [])]
       .filter(Boolean)
-      .map((entry) => normalize(String(entry))),
+      .map((entry) => normalizeSignal(String(entry))),
   );
   const moveNames = (moves ?? [])
     .map((move) => (typeof move === "string" ? move : move.name))
     .filter(Boolean)
-    .map((move) => normalize(move));
+    .map((move) => normalizeSignal(move));
 
   const notes: string[] = [];
   let score = 0;
@@ -123,7 +129,7 @@ function hasAnyMove(moveNames: string[], expected: Iterable<string>) {
 }
 
 function normalize(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  return normalizeSignal(input);
 }
 
 function round(value: number, digits: number) {

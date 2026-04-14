@@ -1,6 +1,6 @@
 "use client";
 
-import { ViewTransition, useMemo, useState } from "react";
+import { ViewTransition } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, GitCompareArrows, RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
@@ -18,29 +18,18 @@ import { ActionDock } from "@/components/team/workspace/roster/ActionDock";
 import { SelectedMemberInsightCard } from "@/components/team/workspace/roster/SelectedMemberInsightCard";
 import { SlotModals, type ResetFields } from "@/components/team/workspace/roster/SlotModals";
 import { EvolutionModal } from "@/components/team/workspace/EvolutionModal";
-import { editableMemberSchema } from "@/lib/builderForm";
 import type { EditableMember } from "@/lib/builderStore";
-import { createEditable } from "@/lib/builderStore";
 import type { BattleWeather } from "@/lib/domain/battle";
-import { getEvolutionLineBaseSpecies } from "@/lib/domain/evolutionLine";
 import {
-  buildEvolutionEligibility,
   type EvolutionConstraintPreferences,
   type EvolutionEligibility,
   type EvolutionTimeContext,
 } from "@/lib/domain/evolutionEligibility";
-import {
-  getLevelUpMovesBetweenLevels,
-  mergeLevelUpMoveQueues,
-  type LevelUpMoveEntry,
-} from "@/lib/domain/levelUpMoves";
-import { getAvailableFormsForSpecies } from "@/lib/forms";
-import { buildMemberLens } from "@/lib/domain/memberLens";
-import { normalizeName } from "@/lib/domain/names";
 import type { MemberRoleRecommendation } from "@/lib/domain/roleAnalysis";
 import { getTeamEditorTransitionName } from "@/lib/teamEditorViewTransition";
 import type { ResolvedTeamMember } from "@/lib/teamAnalysis";
 import { useSafeTransitionTypes } from "@/lib/viewTransitions";
+import { useEditorMemberState } from "@/components/team/editor/useEditorMemberState";
 
 import type {
   AbilityCatalogEntry,
@@ -107,9 +96,7 @@ type EditorPageProps = {
   onConfirmEvolution: (species: string) => void;
 };
 
-type MoveRecommendation = ReturnType<
-  typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations
->[number];
+type MoveRecommendation = ReturnType<typeof import("@/lib/domain/moveRecommendations").getMoveRecommendations>[number];
 
 export function EditorPage({
   member,
@@ -157,215 +144,48 @@ export function EditorPage({
   onCloseEvolution,
   onConfirmEvolution,
 }: EditorPageProps) {
-  const [editorTab, setEditorTab] = useState<"stats" | "moves" | "typing">("stats");
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const [resetOpen, setResetOpen] = useState(false);
-  const [levelUpQueue, setLevelUpQueue] = useState<LevelUpMoveEntry[]>([]);
-  const [pendingEvolutionPrompt, setPendingEvolutionPrompt] = useState<{
-    species: string;
-    level: number;
-  } | null>(null);
-  const [resetFields, setResetFields] = useState<ResetFields>({
-    evolutionLine: false,
-    nickname: true,
-    level: true,
-    gender: true,
-    nature: true,
-    ability: true,
-    item: true,
-    moves: true,
-    ivs: true,
-    evs: true,
-  });
-
-  const currentLevel = Number(member.level ?? 1);
-  const currentSpecies = String(member.species ?? "");
-  const formOptions = getAvailableFormsForSpecies(currentSpecies);
-  const parsedValues = editableMemberSchema.safeParse(member);
-  const issues = parsedValues.success ? [] : parsedValues.error.issues;
-  const getIssue = (path: string) =>
-    issues.find((issue) => issue.path.join(".") === path)?.message;
-  const canRequestEvolution = editorEvolutionEligibility.some((entry) => entry.eligible);
-  const evolutionBlockReason =
-    !canRequestEvolution && editorEvolutionEligibility.length
-      ? editorEvolutionEligibility
-          .flatMap((entry) => entry.reasons.slice(0, 2))
-          .filter(Boolean)
-          .slice(0, 2)
-          .join(" · ")
-      : undefined;
-  const currentNature = String(member.nature ?? "Serious");
-  const currentAbility = String(member.ability ?? "");
-  const currentItem = String(member.item ?? "");
   const backTransition = useSafeTransitionTypes(["editor-back"]);
-  const starterLens = useMemo(
-    () =>
-      resolved && starterSpeciesLine.includes(resolved.species)
-        ? buildMemberLens(resolved)
-        : null,
-    [resolved, starterSpeciesLine],
-  );
-  const evolutionLineBaseSpecies = useMemo(() => {
-    return getEvolutionLineBaseSpecies({
-      species: currentSpecies,
-      speciesCatalog,
-      pokemonIndex,
-    });
-  }, [currentSpecies, pokemonIndex, speciesCatalog]);
-
-  function maybeOpenPendingEvolution(nextQueueLength: number) {
-    if (!pendingEvolutionPrompt) {
-      return;
-    }
-    if (pendingEvolutionPrompt.species !== currentSpecies || currentLevel < pendingEvolutionPrompt.level) {
-      setPendingEvolutionPrompt(null);
-      return;
-    }
-    if (nextQueueLength > 0 || evolutionState || !canRequestEvolution) {
-      return;
-    }
-
-    onRequestEvolution();
-    setPendingEvolutionPrompt(null);
-  }
-
-  function updateEditorMember(
-    updater: (current: EditableMember) => EditableMember,
-  ) {
-    const next = updater(member);
-    const nextLevel = Number(next.level ?? currentLevel);
-    const speciesChanged = next.species !== member.species;
-    const unlockedMoves =
-      !speciesChanged &&
-      nextLevel > currentLevel &&
-      resolved?.learnsets?.levelUp?.length
-        ? getLevelUpMovesBetweenLevels({
-            learnset: resolved.learnsets.levelUp,
-            currentMoves: member.moves,
-            fromLevel: currentLevel,
-            toLevel: nextLevel,
-          })
-        : [];
-    if (speciesChanged) {
-      setLevelUpQueue([]);
-      setPendingEvolutionPrompt(null);
-    }
-    if (unlockedMoves.length) {
-      setLevelUpQueue((currentQueue) => mergeLevelUpMoveQueues(currentQueue, unlockedMoves));
-      setEditorTab("moves");
-    }
-    if (!speciesChanged && nextLevel > currentLevel) {
-      if (unlockedMoves.length) {
-        setPendingEvolutionPrompt({
-          species: member.species,
-          level: nextLevel,
-        });
-      } else {
-        setPendingEvolutionPrompt(null);
-      }
-    }
-    if (!speciesChanged && nextLevel < currentLevel) {
-      setPendingEvolutionPrompt(null);
-    }
-    const parsed = editableMemberSchema.safeParse(next);
-    onChange(parsed.success ? parsed.data : next);
-    if (
-      !speciesChanged &&
-      nextLevel > currentLevel &&
-      unlockedMoves.length === 0 &&
-      shouldAutoPromptEvolution({
-        currentResolved: resolved,
-        nextMember: next,
-        nextLevel,
-        resolvedTeam,
-        localTime,
-        evolutionConstraints,
-        editorEvolutionEligibility,
-      })
-    ) {
-      const projectedResolved = projectResolvedMemberForEvolution({
-        currentResolved: resolved,
-        nextMember: next,
-        nextLevel,
-      });
-      window.setTimeout(() => {
-        if (projectedResolved) {
-          onAutoRequestEvolution(projectedResolved);
-        }
-      }, 0);
-    }
-  }
-
-  function advanceLevelUpQueue() {
-    setLevelUpQueue((currentQueue) => {
-      const nextQueue = currentQueue.slice(1);
-      maybeOpenPendingEvolution(nextQueue.length);
-      return nextQueue;
-    });
-  }
-
-  function handleCloseLevelUpModal() {
-    setLevelUpQueue([]);
-    maybeOpenPendingEvolution(0);
-  }
-
-  function handleSkipLevelUpMove() {
-    advanceLevelUpQueue();
-  }
-
-  function handleLearnLevelUpMove() {
-    const queuedMove = levelUpQueue[0];
-    if (!queuedMove || member.moves.includes(queuedMove.move) || member.moves.length >= 4) {
-      advanceLevelUpQueue();
-      return;
-    }
-
-    onChange({
-      ...member,
-      moves: [...member.moves, queuedMove.move],
-    });
-    advanceLevelUpQueue();
-  }
-
-  function handleReplaceLevelUpMove(slotIndex: number) {
-    const queuedMove = levelUpQueue[0];
-    if (!queuedMove || !member.moves[slotIndex]) {
-      return;
-    }
-
-    const nextMoves = [...member.moves];
-    nextMoves[slotIndex] = queuedMove.move;
-    onChange({
-      ...member,
-      moves: nextMoves,
-    });
-    advanceLevelUpQueue();
-  }
-
-  function resetSelectedMember() {
-    const resetSpecies = resetFields.evolutionLine ? evolutionLineBaseSpecies : member.species;
-    const defaults = createEditable(resetSpecies);
-    defaults.id = member.id;
-    defaults.locked = member.locked;
-    defaults.nickname = resetSpecies;
-    setLevelUpQueue([]);
-    setPendingEvolutionPrompt(null);
-
-    onChange({
-      ...member,
-      species: resetSpecies,
-      nickname: resetFields.nickname ? defaults.nickname : member.nickname,
-      level: resetFields.level ? defaults.level : member.level,
-      gender: resetFields.gender ? defaults.gender : member.gender,
-      nature: resetFields.nature ? defaults.nature : member.nature,
-      ability: resetFields.ability ? defaults.ability : member.ability,
-      item: resetFields.item ? defaults.item : member.item,
-      moves: resetFields.moves ? defaults.moves : member.moves,
-      ivs: resetFields.ivs ? defaults.ivs : member.ivs,
-      evs: resetFields.evs ? defaults.evs : member.evs,
-    });
-    setResetOpen(false);
-  }
+  const {
+    canRequestEvolution,
+    currentAbility,
+    currentItem,
+    currentLevel,
+    currentNature,
+    currentSpecies,
+    detailsOpen,
+    editorTab,
+    evolutionBlockReason,
+    formOptions,
+    getIssue,
+    handleCloseLevelUpModal,
+    handleLearnLevelUpMove,
+    handleReplaceLevelUpMove,
+    handleSkipLevelUpMove,
+    levelUpQueue,
+    resetFields,
+    resetOpen,
+    resetSelectedMember,
+    setDetailsOpen,
+    setEditorTab,
+    setResetFields,
+    setResetOpen,
+    starterLens,
+    updateEditorMember,
+  } = useEditorMemberState({
+    member,
+    resolved,
+    starterSpeciesLine,
+    speciesCatalog,
+    pokemonIndex,
+    resolvedTeam,
+    editorEvolutionEligibility,
+    evolutionState,
+    localTime,
+    evolutionConstraints,
+    onChange,
+    onRequestEvolution,
+    onAutoRequestEvolution,
+  });
 
   return (
     <main className="relative overflow-visible px-4 py-5 sm:px-6 lg:px-8">
@@ -611,112 +431,4 @@ export function EditorPage({
       </section>
     </main>
   );
-}
-
-function shouldAutoPromptEvolution({
-  currentResolved,
-  nextMember,
-  nextLevel,
-  resolvedTeam,
-  localTime,
-  evolutionConstraints,
-  editorEvolutionEligibility,
-}: {
-  currentResolved?: ResolvedTeamMember;
-  nextMember: EditableMember;
-  nextLevel: number;
-  resolvedTeam: ResolvedTeamMember[];
-  localTime: EvolutionTimeContext;
-  evolutionConstraints: EvolutionConstraintPreferences;
-  editorEvolutionEligibility: EvolutionEligibility[];
-}) {
-  if (editorEvolutionEligibility.some((entry) => entry.eligible)) {
-    return true;
-  }
-
-  return editorEvolutionEligibility.some((entry) => {
-    if (!entry.reasons.length) {
-      return false;
-    }
-
-    const levelRequirements = entry.reasons
-      .map((reason) => reason.match(/^Requiere Lv (\d+)$/)?.[1])
-      .filter((value): value is string => Boolean(value))
-      .map((value) => Number(value));
-
-    return (
-      levelRequirements.length > 0 &&
-      levelRequirements.length === entry.reasons.length &&
-      levelRequirements.some((requiredLevel) => nextLevel >= requiredLevel)
-    );
-  }) || buildEvolutionEligibility(
-    projectResolvedMemberForEvolution({
-      currentResolved,
-      nextMember,
-      nextLevel,
-    }),
-    resolvedTeamWithProjectedMember({
-      resolvedTeam,
-      currentResolved,
-      nextMember,
-      nextLevel,
-    }),
-    localTime,
-    evolutionConstraints,
-  ).some((entry) => entry.eligible);
-}
-
-function projectResolvedMemberForEvolution({
-  currentResolved,
-  nextMember,
-  nextLevel,
-}: {
-  currentResolved?: ResolvedTeamMember;
-  nextMember: EditableMember;
-  nextLevel: number;
-}) {
-  if (!currentResolved?.nextEvolutions?.length) {
-    return undefined;
-  }
-
-  return {
-    ...currentResolved,
-    level: nextLevel,
-    gender: nextMember.gender,
-    ability: nextMember.ability,
-    item: nextMember.item,
-    moves: nextMember.moves.map((moveName) => {
-      const existingMove = currentResolved.moves.find(
-        (move) => normalizeName(move.name) === normalizeName(moveName),
-      );
-      return existingMove ?? { name: moveName };
-    }),
-  } satisfies ResolvedTeamMember;
-}
-
-function resolvedTeamWithProjectedMember({
-  resolvedTeam,
-  currentResolved,
-  nextMember,
-  nextLevel,
-}: {
-  resolvedTeam: ResolvedTeamMember[];
-  currentResolved?: ResolvedTeamMember;
-  nextMember: EditableMember;
-  nextLevel: number;
-}) {
-  const projectedMember = projectResolvedMemberForEvolution({
-    currentResolved,
-    nextMember,
-    nextLevel,
-  });
-  if (!projectedMember || !currentResolved) {
-    return resolvedTeam;
-  }
-
-  return resolvedTeam.some((entry) => entry.key === currentResolved.key)
-    ? resolvedTeam.map((entry) =>
-        entry.key === currentResolved.key ? projectedMember : entry,
-      )
-    : [...resolvedTeam, projectedMember];
 }
