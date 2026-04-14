@@ -9,8 +9,10 @@ import { Input } from "@/components/ui/Input";
 import { type MultiplierBucket } from "@/lib/domain/typeChart";
 
 const statWidgetDeltaLabelClassName = "micro-copy";
-const statWidgetLegendClassName = "mt-1 flex items-center gap-3 micro-label text-muted";
-const spreadInputLabelClassName = "display-face micro-text-8 block text-center leading-none tracking-ui-relaxed text-muted";
+const statWidgetLegendClassName =
+  "mt-1 flex items-center gap-3 micro-label text-muted";
+const spreadInputLabelClassName =
+  "display-face micro-text-8 block text-center leading-none tracking-ui-relaxed text-muted";
 const spreadInputLabelResponsiveClassName = "lg:text-center micro-text-8-lg";
 const spreadInputStepButtonClassName =
   "app-control-surface app-control-interactive flex h-10 w-full items-center justify-center px-0 text-xs leading-none text-muted";
@@ -97,7 +99,10 @@ export function StatBar({
             </span>
           ) : null}
           {isOverflow ? (
-            <span title={`Excede la escala visual base de ${max}`} className="text-warning-strong">
+            <span
+              title={`Excede la escala visual base de ${max}`}
+              className="text-warning-strong"
+            >
               *
             </span>
           ) : null}
@@ -136,12 +141,18 @@ export function StatBar({
           aria-hidden="true"
         />
         <span
-          className={clsx("absolute -inset-y-0.75 w-px", statWidgetRegularMarkerClassName)}
+          className={clsx(
+            "absolute -inset-y-0.75 w-px",
+            statWidgetRegularMarkerClassName,
+          )}
           style={{ left: `${regularMarker}%` }}
           aria-hidden="true"
         />
         <span
-          className={clsx("absolute -inset-y-0.75 w-px", statWidgetGoodMarkerClassName)}
+          className={clsx(
+            "absolute -inset-y-0.75 w-px",
+            statWidgetGoodMarkerClassName,
+          )}
           style={{ left: `${goodMarker}%` }}
           aria-hidden="true"
         />
@@ -150,9 +161,7 @@ export function StatBar({
           initial={reduceMotion ? false : { width: 0 }}
           animate={{ width: `${width}%` }}
           transition={
-            reduceMotion
-              ? undefined
-              : { duration: 0.55, ease: "easeInOut" }
+            reduceMotion ? undefined : { duration: 0.55, ease: "easeInOut" }
           }
           style={{ width: `${width}%` }}
         />
@@ -163,11 +172,15 @@ export function StatBar({
           60 malo
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className={clsx("h-2 w-px", statWidgetRegularLegendMarkerClassName)} />
+          <span
+            className={clsx("h-2 w-px", statWidgetRegularLegendMarkerClassName)}
+          />
           80 regular
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className={clsx("h-2 w-px", statWidgetGoodLegendMarkerClassName)} />
+          <span
+            className={clsx("h-2 w-px", statWidgetGoodLegendMarkerClassName)}
+          />
           100 bueno
         </span>
       </div>
@@ -256,7 +269,13 @@ export function SpreadInput({
     const stopHold = () => {
       clearHold();
     };
-    const listeners: Array<[keyof WindowEventMap, EventListenerOrEventListenerObject, boolean | AddEventListenerOptions | undefined]> = [
+    const listeners: Array<
+      [
+        keyof WindowEventMap,
+        EventListenerOrEventListenerObject,
+        boolean | AddEventListenerOptions | undefined,
+      ]
+    > = [
       ["pointerup", stopHold, undefined],
       ["pointercancel", stopHold, undefined],
       ["blur", stopHold, undefined],
@@ -288,15 +307,13 @@ export function SpreadInput({
     <label
       ref={handleRootRef}
       className={clsx(
-        isVertical
-          ? "inline-flex w-auto flex-col items-center"
-          : "block",
+        isVertical ? "inline-flex w-auto flex-col items-center" : "block",
         isResponsive && "lg:inline-flex lg:w-auto lg:flex-col lg:items-center",
       )}
     >
       {hideLabel ? null : (
         <span
-            className={clsx(
+          className={clsx(
             spreadInputLabelClassName,
             isResponsive && spreadInputLabelResponsiveClassName,
           )}
@@ -309,7 +326,8 @@ export function SpreadInput({
           className={clsx(
             "mx-auto flex w-[2.45rem] flex-col items-center",
             !hideLabel && "mt-1.5",
-            isResponsive && "lg:mx-0 lg:mt-0 lg:flex-1 lg:w-auto lg:flex-row lg:items-center",
+            isResponsive &&
+              "lg:mx-0 lg:mt-0 lg:flex-1 lg:w-auto lg:flex-row lg:items-center",
           )}
         >
           <button
@@ -317,7 +335,9 @@ export function SpreadInput({
             onPointerDown={(event) => {
               event.preventDefault();
               startHold(() =>
-                isResponsive ? Math.max(0, valueRef.current - 1) : Math.min(max, valueRef.current + 1),
+                isResponsive
+                  ? Math.max(0, valueRef.current - 1)
+                  : Math.min(max, valueRef.current + 1),
               );
             }}
             className={clsx(
@@ -341,7 +361,8 @@ export function SpreadInput({
             }}
             className={clsx(
               "input-joined h-10 min-w-0 w-full border-x border-y-0 border-line bg-surface-6 px-0.5 text-center text-sm font-semibold tabular-nums [appearance:textfield]",
-              isResponsive && "lg:h-10 lg:w-14 lg:flex-none lg:border-y lg:border-x-0",
+              isResponsive &&
+                "lg:h-10 lg:w-14 lg:flex-none lg:border-y lg:border-x-0",
             )}
             aria-invalid={Boolean(error)}
           />
@@ -350,7 +371,9 @@ export function SpreadInput({
             onPointerDown={(event) => {
               event.preventDefault();
               startHold(() =>
-                isResponsive ? Math.min(max, valueRef.current + 1) : Math.max(0, valueRef.current - 1),
+                isResponsive
+                  ? Math.min(max, valueRef.current + 1)
+                  : Math.max(0, valueRef.current - 1),
               );
             }}
             className={clsx(
