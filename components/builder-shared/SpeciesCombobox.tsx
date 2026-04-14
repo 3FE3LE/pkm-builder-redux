@@ -1,25 +1,24 @@
 "use client";
 
+import clsx from 'clsx';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import {
+  CSSProperties,
   startTransition,
-  type CSSProperties,
   useDeferredValue,
   useId,
   useMemo,
   useRef,
   useState,
-} from "react";
-import { createPortal } from "react-dom";
-import clsx from "clsx";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { useMediaQuery } from "usehooks-ts";
+} from 'react';
+import { createPortal } from 'react-dom';
+import { useMediaQuery } from 'usehooks-ts';
 
-import { Input } from "@/components/ui/Input";
-import { buildSpriteUrls } from "@/lib/domain/names";
-import { TYPE_ORDER } from "@/lib/domain/typeChart";
-import { useCoordinatedPopover } from "@/hooks/useCoordinatedPopover";
-
-import { TypeBadge } from "@/components/builder-shared/TypeBadge";
+import { TypeBadge } from '@/components/builder-shared/TypeBadge';
+import { Input } from '@/components/ui/Input';
+import { useCoordinatedPopover } from '@/hooks/useCoordinatedPopover';
+import { buildSpriteUrls } from '@/lib/domain/names';
+import { TYPE_ORDER } from '@/lib/domain/typeChart';
 
 const SPECIES_ROW_HEIGHT = 66;
 const SPECIES_LIST_MAX_HEIGHT = 288;
@@ -36,7 +35,12 @@ export function SpeciesCombobox({
   onChange,
 }: {
   value: string;
-  speciesCatalog: { name: string; slug: string; dex: number; types: string[] }[];
+  speciesCatalog: {
+    name: string;
+    slug: string;
+    dex: number;
+    types: string[];
+  }[];
   panelClassName?: string;
   panelStyle?: CSSProperties;
   coordinationGroup?: string;
@@ -46,7 +50,9 @@ export function SpeciesCombobox({
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [typeFilters, setTypeFilters] = useState<[string | null, string | null]>([null, null]);
+  const [typeFilters, setTypeFilters] = useState<
+    [string | null, string | null]
+  >([null, null]);
   const [scrollTop, setScrollTop] = useState(0);
   const deferredQuery = useDeferredValue(query);
   const deferredTypeFilters = useDeferredValue(typeFilters);
@@ -59,7 +65,12 @@ export function SpeciesCombobox({
   });
   const spriteBySlug = useMemo(
     () =>
-      Object.fromEntries(speciesCatalog.map((entry) => [entry.slug, buildSpriteUrls(entry.name, entry.dex).spriteUrl])) as Record<string, string | undefined>,
+      Object.fromEntries(
+        speciesCatalog.map((entry) => [
+          entry.slug,
+          buildSpriteUrls(entry.name, entry.dex).spriteUrl,
+        ]),
+      ) as Record<string, string | undefined>,
     [speciesCatalog],
   );
 
@@ -68,16 +79,25 @@ export function SpeciesCombobox({
 
     return speciesCatalog.filter((entry) => {
       const matchesQuery =
-        !normalizedQuery || entry.name.toLowerCase().includes(normalizedQuery) || String(entry.dex).includes(normalizedQuery);
-      const matchesTypes = deferredTypeFilters.every((filterType) => !filterType || entry.types.includes(filterType));
+        !normalizedQuery ||
+        entry.name.toLowerCase().includes(normalizedQuery) ||
+        String(entry.dex).includes(normalizedQuery);
+      const matchesTypes = deferredTypeFilters.every(
+        (filterType) => !filterType || entry.types.includes(filterType),
+      );
       return matchesQuery && matchesTypes;
     });
   }, [deferredQuery, deferredTypeFilters, speciesCatalog]);
   const totalHeight = filtered.length * SPECIES_ROW_HEIGHT;
   const maxScrollTop = Math.max(0, totalHeight - SPECIES_LIST_MAX_HEIGHT);
   const clampedScrollTop = Math.min(scrollTop, maxScrollTop);
-  const startIndex = Math.max(0, Math.floor(clampedScrollTop / SPECIES_ROW_HEIGHT) - SPECIES_OVERSCAN);
-  const visibleCount = Math.ceil(SPECIES_LIST_MAX_HEIGHT / SPECIES_ROW_HEIGHT) + SPECIES_OVERSCAN * 2;
+  const startIndex = Math.max(
+    0,
+    Math.floor(clampedScrollTop / SPECIES_ROW_HEIGHT) - SPECIES_OVERSCAN,
+  );
+  const visibleCount =
+    Math.ceil(SPECIES_LIST_MAX_HEIGHT / SPECIES_ROW_HEIGHT) +
+    SPECIES_OVERSCAN * 2;
   const visibleEntries = filtered.slice(startIndex, startIndex + visibleCount);
 
   useCoordinatedPopover({
@@ -109,7 +129,10 @@ export function SpeciesCombobox({
           onChange={(next) => {
             setScrollTop(0);
             startTransition(() => {
-              setTypeFilters((current) => [next, current[1] === next ? null : current[1]]);
+              setTypeFilters((current) => [
+                next,
+                current[1] === next ? null : current[1],
+              ]);
             });
           }}
         />
@@ -119,12 +142,18 @@ export function SpeciesCombobox({
           onChange={(next) => {
             setScrollTop(0);
             startTransition(() => {
-              setTypeFilters((current) => [current[0] === next ? null : current[0], next]);
+              setTypeFilters((current) => [
+                current[0] === next ? null : current[0],
+                next,
+              ]);
             });
           }}
         />
       </div>
-      <div className="mt-2 max-h-72 overflow-auto" onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)}>
+      <div
+        className="mt-2 max-h-72 overflow-auto"
+        onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)}
+      >
         {filtered.length ? (
           <div className="relative" style={{ height: totalHeight }}>
             {visibleEntries.map((entry, index) => (
@@ -162,17 +191,25 @@ export function SpeciesCombobox({
                     </div>
                     <div className="mt-1 flex flex-wrap gap-1">
                       {entry.types.map((type) => (
-                        <TypeBadge key={`${entry.slug}-${type}`} type={type} />
+                        <TypeBadge
+                          size="md"
+                          key={`${entry.slug}-${type}`}
+                          type={type}
+                        />
                       ))}
                     </div>
                   </div>
                 </div>
-                {entry.name === value ? <Check className="h-4 w-4 text-accent" /> : null}
+                {entry.name === value ? (
+                  <Check className="h-4 w-4 text-accent" />
+                ) : null}
               </button>
             ))}
           </div>
         ) : (
-          <div className="px-3 py-2 text-sm text-muted">No hay resultados para ese filtro.</div>
+          <div className="px-3 py-2 text-sm text-muted">
+            No hay resultados para ese filtro.
+          </div>
         )}
       </div>
     </>
@@ -223,7 +260,10 @@ export function SpeciesCombobox({
   ) : null;
 
   return (
-    <div ref={rootRef} className={clsx("relative w-full", open && !portal && "z-140")}>
+    <div
+      ref={rootRef}
+      className={clsx("relative w-full", open && !portal && "z-140")}
+    >
       <button
         type="button"
         autoFocus={autoFocus}
@@ -244,11 +284,17 @@ export function SpeciesCombobox({
         }}
         className="control-surface control-surface-hover flex h-10 w-full items-center justify-between px-3 text-left text-sm text-text transition-[border-color,background-color]"
       >
-        <span className={clsx("truncate", !value && "text-text-faint")}>{value || "Pokemon"}</span>
+        <span className={clsx("truncate", !value && "text-text-faint")}>
+          {value || "Pokemon"}
+        </span>
         <ChevronsUpDown className="h-4 w-4 text-muted" />
       </button>
 
-      {panelContent ? (isMobile ? createPortal(panelContent, document.body) : panelContent) : null}
+      {panelContent
+        ? isMobile
+          ? createPortal(panelContent, document.body)
+          : panelContent
+        : null}
     </div>
   );
 }
@@ -271,7 +317,11 @@ function TypeFilterSelect({
         onClick={() => setOpen((current) => !current)}
         className="control-surface control-surface-hover flex w-full items-center justify-between px-2.5 py-2 transition-[border-color,background-color]"
       >
-        {value ? <TypeBadge type={value} /> : <span className="pixel-face text-xs text-muted">Any</span>}
+        {value ? (
+          <TypeBadge type={value} />
+        ) : (
+          <span className="pixel-face text-xs text-muted">Any</span>
+        )}
         <ChevronsUpDown className="h-4 w-4 text-muted" />
       </button>
 
@@ -298,7 +348,10 @@ function TypeFilterSelect({
                     onChange(type);
                     setOpen(false);
                   }}
-                  className={clsx("transition", value !== type && "opacity-80 hover:opacity-100")}
+                  className={clsx(
+                    "transition",
+                    value !== type && "opacity-80 hover:opacity-100",
+                  )}
                 >
                   <TypeBadge type={type} />
                 </button>

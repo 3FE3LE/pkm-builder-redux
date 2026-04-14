@@ -8,6 +8,7 @@ import { LoadingState } from "@/components/team/screens/LoadingState";
 import { TeamScreenHeader, TeamScreenShell } from "@/components/team/screens/ScreenShell";
 import { CompositionsSection } from "@/components/team/collection/CompositionsSection";
 import { WorkspaceSection } from "@/components/team/tools/compare/Section";
+import { GrindPoolSection } from "@/components/team/tools/grind-pool/Section";
 import { IvCalculatorSection } from "@/components/team/tools/iv-calculator/Section";
 import { TypeTierListSection } from "@/components/team/tools/type-tiers/Section";
 import {
@@ -19,7 +20,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createEditable } from "@/lib/builderStore";
 
-const TOOL_TABS = ["compare", "ivcalc", "types", "compositions"] as const;
+const TOOL_TABS = ["compare", "ivcalc", "grind", "types", "compositions"] as const;
 type ToolTab = (typeof TOOL_TABS)[number];
 
 export function ToolsScreen() {
@@ -69,6 +70,12 @@ export function ToolsScreen() {
             IV Calc
           </TabsTrigger>
           <TabsTrigger
+            value="grind"
+            className="tab-trigger-soft"
+          >
+            Grind Pool
+          </TabsTrigger>
+          <TabsTrigger
             value="types"
             className="tab-trigger-soft"
           >
@@ -106,6 +113,15 @@ export function ToolsScreen() {
               pokemonIndex={catalogs.pokemonIndex}
               prefillSpecies={speciesPrefill}
               onAddPreparedMember={(member) => team.actions.addPreparedMember(member)}
+            />
+          ) : null}
+        </TabsContent>
+
+        <TabsContent value="grind" className="tab-panel">
+          {toolTab === "grind" ? (
+            <GrindPoolSection
+              speciesCatalog={catalogs.speciesCatalog}
+              pokemonIndex={catalogs.pokemonIndex}
             />
           ) : null}
         </TabsContent>
