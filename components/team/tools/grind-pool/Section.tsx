@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { Mars, Plus, Star, Trophy, Venus } from "lucide-react";
 import clsx from "clsx";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { FilterCombobox, PokemonSprite, SpeciesCombobox, TypeBadge } from "@/components/BuilderShared";
 import { SpreadInput } from "@/components/team/UI";
@@ -56,8 +58,34 @@ const statOrder: Array<{ key: StatKey; label: string }> = [
 ];
 const natureStatOptions: NatureStatKey[] = ["atk", "def", "spa", "spd", "spe"];
 const grindPoolFieldStackClassName = "space-y-1.5";
-const grindPoolCompactFieldGridClassName = "grid gap-3 lg:grid-cols-4";
+const grindPoolCompactFieldGridClassName = "grid grid-cols-2 gap-3 lg:grid-cols-4";
 const grindPoolSectionIntroClassName = "mt-1 text-sm text-muted";
+const pokemonGenderOptions = ["unknown", "male", "female"] as const;
+
+const observedStatSchema = z.object({
+  hp: z.number().int().min(0).max(999),
+  atk: z.number().int().min(0).max(999),
+  def: z.number().int().min(0).max(999),
+  spa: z.number().int().min(0).max(999),
+  spd: z.number().int().min(0).max(999),
+  spe: z.number().int().min(0).max(999),
+});
+
+const perfectSpecimenSchema = z.object({
+  gender: z.enum(pokemonGenderOptions),
+  ability: z.string().trim(),
+  preferredNatureStats: z.tuple([z.enum(natureStatOptions), z.enum(natureStatOptions)]),
+  stats: observedStatSchema,
+});
+
+const grindCandidateDraftSchema = z.object({
+  level: z.number().int().min(1).max(100),
+  gender: z.enum(pokemonGenderOptions),
+  nature: z.string().refine((value) => natureOptions.includes(value as (typeof natureOptions)[number])),
+  ability: z.string().trim().min(1),
+  notes: z.string().max(240),
+  stats: observedStatSchema,
+});
 
 function createEmptySpread(value = 0): StatSpread {
   return {
@@ -244,12 +272,51 @@ function getEstimatedIvs(candidate: Candidate, baseStats: RemotePokemon["stats"]
   return next;
 }
 
+function getObservedStatIssues(
+  draft: ReturnType<typeof createCandidateDraft>,
+  baseStats: RemotePokemon["stats"] | undefined,
+) {
+  const issues: Partial<Record<StatKey, string>> = {};
+
+  if (!baseStats) {
+    return issues;
+  }
+
+  for (const stat of statOrder) {
+    const observed = draft.stats[stat.key];
+    if (observed <= 0) {
+      continue;
+    }
+
+    const inference = inferIvForObservedStat({
+      baseStats,
+      level: draft.level,
+      nature: draft.nature,
+      stat: stat.key,
+      observed,
+    });
+
+    if (inference.issue === "evs") {
+      issues[stat.key] = "No cuadra: sugiere EVs o valor fuera del rango natural.";
+      continue;
+    }
+
+    if (inference.issue === "range" || inference.candidates.length === 0) {
+      issues[stat.key] = "No cuadra con nivel, naturaleza e IV posible.";
+    }
+  }
+
+  return issues;
+}
+
 function StatInputs({
   values,
   onChange,
+  errors,
 }: {
   values: StatSpread;
   onChange: (key: StatKey, value: number) => void;
+  errors?: Partial<Record<StatKey, string>>;
 }) {
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
@@ -260,6 +327,7 @@ function StatInputs({
           value={values[stat.key]}
           max={999}
           orientation="horizontal"
+          error={errors?.[stat.key]}
           onChange={(next) => onChange(stat.key, next)}
         />
       ))}
@@ -317,11 +385,15 @@ export function GrindPoolSection({
   pokemonIndex: Record<string, RemotePokemon>;
 }) {
   const [species, setSpecies] = useState("");
-  const [perfectSpecimen, setPerfectSpecimen] = useState<PerfectSpecimen>(createPerfectSpecimen());
-  const [draft, setDraft] = useState(createCandidateDraft());
   const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const safePerfectSpecimen = normalizePerfectSpecimen(perfectSpecimen);
-  const safeDraft = normalizeDraft(draft);
+  const perfectSpecimenForm = useForm<PerfectSpecimen>({
+    defaultValues: createPerfectSpecimen(),
+  });
+  const draftForm = useForm<ReturnType<typeof createCandidateDraft>>({
+    defaultValues: createCandidateDraft(),
+  });
+  const safePerfectSpecimen = normalizePerfectSpecimen(perfectSpecimenForm.watch());
+  const safeDraft = normalizeDraft(draftForm.watch());
 
   const speciesMeta = speciesCatalog.find((entry) => normalizeName(entry.name) === normalizeName(species));
   const resolvedPokemon = species ? pokemonIndex[normalizeName(species)] : undefined;
@@ -330,6 +402,13 @@ export function GrindPoolSection({
       ? buildSpriteUrls(resolvedPokemon.name, speciesMeta.dex).spriteUrl
       : undefined;
   const abilityOptions = resolvedPokemon?.abilities ?? [];
+  const perfectSpecimenValidation = perfectSpecimenSchema.safeParse(safePerfectSpecimen);
+  const draftValidation = grindCandidateDraftSchema.safeParse(safeDraft);
+  const draftStatIssues = useMemo(
+    () => getObservedStatIssues(safeDraft, resolvedPokemon?.stats),
+    [resolvedPokemon?.stats, safeDraft],
+  );
+  const hasDraftStatIssues = Object.keys(draftStatIssues).length > 0;
 
   const rankedCandidates = useMemo(
     () =>
@@ -369,22 +448,20 @@ export function GrindPoolSection({
   );
 
   function resetPool() {
-    setPerfectSpecimen(createPerfectSpecimen());
-    setDraft(createCandidateDraft());
+    perfectSpecimenForm.reset(createPerfectSpecimen());
+    draftForm.reset(createCandidateDraft());
     setCandidates([]);
   }
 
   function handleChangeDraftStat(key: StatKey, value: number) {
-    setDraft((current) => ({
-      ...normalizeDraft(current),
-      stats: {
-        ...normalizeDraft(current).stats,
-        [key]: value,
-      },
-    }));
+    draftForm.setValue(`stats.${key}`, value, { shouldDirty: true });
   }
 
   function handleAddCandidate() {
+    if (!draftValidation.success || hasDraftStatIssues) {
+      return;
+    }
+
     const nextCandidate: Candidate = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       level: safeDraft.level,
@@ -397,7 +474,7 @@ export function GrindPoolSection({
     };
 
     setCandidates((current) => [...current, nextCandidate]);
-    setDraft(createCandidateDraft());
+    draftForm.reset(createCandidateDraft());
   }
 
   return (
@@ -420,8 +497,8 @@ export function GrindPoolSection({
                         onChange={(next) => {
                           setSpecies(next);
                           setCandidates([]);
-                          setDraft(createCandidateDraft());
-                          setPerfectSpecimen(createPerfectSpecimen());
+                          draftForm.reset(createCandidateDraft());
+                          perfectSpecimenForm.reset(createPerfectSpecimen());
                         }}
                       />
                     </div>
@@ -465,20 +542,18 @@ export function GrindPoolSection({
                       <div className="grid gap-3 md:grid-cols-2">
                         <div className={grindPoolFieldStackClassName}>
                           <p className="display-face micro-copy text-muted">Stats clave para naturaleza</p>
-                          <div className="grid gap-2 sm:grid-cols-2">
+                          <div className="grid grid-cols-2 gap-2">
                             <FilterCombobox
                               value={safePerfectSpecimen.preferredNatureStats[0]}
                               options={natureStatOptions}
                               placeholder="Stat 1"
                               searchable={false}
                               onChange={(next) =>
-                                setPerfectSpecimen((current) => ({
-                                  ...current,
-                                  preferredNatureStats: [
-                                    next as NatureStatKey,
-                                    normalizePerfectSpecimen(current).preferredNatureStats[1],
-                                  ],
-                                }))
+                                perfectSpecimenForm.setValue(
+                                  "preferredNatureStats",
+                                  [next as NatureStatKey, safePerfectSpecimen.preferredNatureStats[1]],
+                                  { shouldDirty: true },
+                                )
                               }
                             />
                             <FilterCombobox
@@ -487,13 +562,11 @@ export function GrindPoolSection({
                               placeholder="Stat 2"
                               searchable={false}
                               onChange={(next) =>
-                                setPerfectSpecimen((current) => ({
-                                  ...current,
-                                  preferredNatureStats: [
-                                    normalizePerfectSpecimen(current).preferredNatureStats[0],
-                                    next as NatureStatKey,
-                                  ],
-                                }))
+                                perfectSpecimenForm.setValue(
+                                  "preferredNatureStats",
+                                  [safePerfectSpecimen.preferredNatureStats[0], next as NatureStatKey],
+                                  { shouldDirty: true },
+                                )
                               }
                             />
                           </div>
@@ -502,16 +575,13 @@ export function GrindPoolSection({
                             {safePerfectSpecimen.preferredNatureStats[1].toUpperCase()}
                           </p>
                         </div>
-                        <div className="grid gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                           <div className={grindPoolFieldStackClassName}>
                             <p className="display-face micro-copy text-muted">Género preferido</p>
                             <GenderIconPicker
                               value={safePerfectSpecimen.gender}
                               onChange={(next) =>
-                                setPerfectSpecimen((current) => ({
-                                  ...normalizePerfectSpecimen(current),
-                                  gender: next,
-                                }))
+                                perfectSpecimenForm.setValue("gender", next, { shouldDirty: true })
                               }
                             />
                           </div>
@@ -523,10 +593,7 @@ export function GrindPoolSection({
                               placeholder="Ability"
                               searchable={false}
                               onChange={(next) =>
-                                setPerfectSpecimen((current) => ({
-                                  ...normalizePerfectSpecimen(current),
-                                  ability: next,
-                                }))
+                                perfectSpecimenForm.setValue("ability", next, { shouldDirty: true })
                               }
                             />
                           </div>
@@ -536,6 +603,9 @@ export function GrindPoolSection({
                         <span className="chip-surface px-2.5 py-1">IV perfectos fijos</span>
                         <span>Se asume `31` en todos los stats del benchmark.</span>
                       </div>
+                      {!perfectSpecimenValidation.success ? (
+                        <p className="mt-2 text-xs text-danger">Benchmark incompleto o inválido.</p>
+                      ) : null}
                     </div>
                   </div>
 
@@ -558,10 +628,7 @@ export function GrindPoolSection({
                             max={100}
                             orientation="horizontal"
                             onChange={(next) =>
-                              setDraft((current) => ({
-                                ...normalizeDraft(current),
-                                level: Math.max(1, Math.min(100, next)),
-                              }))
+                              draftForm.setValue("level", Math.max(1, Math.min(100, next)), { shouldDirty: true })
                             }
                           />
                         </div>
@@ -570,10 +637,7 @@ export function GrindPoolSection({
                           <GenderIconPicker
                             value={safeDraft.gender}
                             onChange={(next) =>
-                              setDraft((current) => ({
-                                ...normalizeDraft(current),
-                                gender: next,
-                              }))
+                              draftForm.setValue("gender", next, { shouldDirty: true })
                             }
                           />
                         </div>
@@ -585,10 +649,7 @@ export function GrindPoolSection({
                             placeholder="Nature"
                             searchable={false}
                             onChange={(next) =>
-                              setDraft((current) => ({
-                                ...normalizeDraft(current),
-                                nature: next,
-                              }))
+                              draftForm.setValue("nature", next, { shouldDirty: true })
                             }
                           />
                           <p className="mt-1 text-xs text-text-faint">
@@ -603,10 +664,7 @@ export function GrindPoolSection({
                             placeholder="Ability"
                             searchable={false}
                             onChange={(next) =>
-                              setDraft((current) => ({
-                                ...normalizeDraft(current),
-                                ability: next,
-                              }))
+                              draftForm.setValue("ability", next, { shouldDirty: true })
                             }
                           />
                         </div>
@@ -619,10 +677,7 @@ export function GrindPoolSection({
                         placeholder="Ruta, encuentro, observaciones, etc."
                         value={safeDraft.notes}
                         onChange={(event) =>
-                          setDraft((current) => ({
-                            ...normalizeDraft(current),
-                            notes: event.target.value,
-                          }))
+                          draftForm.setValue("notes", event.target.value, { shouldDirty: true })
                         }
                       />
                     </label>
@@ -635,21 +690,24 @@ export function GrindPoolSection({
                     </div>
 
                     <div className="mt-3">
-                      <StatInputs values={safeDraft.stats} onChange={handleChangeDraftStat} />
+                      <StatInputs values={safeDraft.stats} onChange={handleChangeDraftStat} errors={draftStatIssues} />
                     </div>
 
                     <div className="mt-4 flex flex-wrap justify-end gap-2">
-                      <Button type="button" variant="ghost" onClick={() => setDraft(createCandidateDraft())}>
+                      <Button type="button" variant="ghost" onClick={() => draftForm.reset(createCandidateDraft())}>
                         Limpiar draft
                       </Button>
                       <Button
                         type="button"
                         onClick={handleAddCandidate}
-                        disabled={!speciesMeta || !safeDraft.ability}
+                        disabled={!speciesMeta || !draftValidation.success || hasDraftStatIssues}
                       >
                         Agregar al pool
                       </Button>
                     </div>
+                    {!draftValidation.success ? (
+                      <p className="mt-2 text-xs text-danger">Completa nivel, naturaleza, habilidad y stats válidos.</p>
+                    ) : null}
                   </div>
         </div>
 
